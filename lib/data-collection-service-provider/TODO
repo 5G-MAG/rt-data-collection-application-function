@@ -1,0 +1,1 @@
+Move openapi-templates to rt-common-shared and update rt-5gms-application-function to use the one in rt-common-shared

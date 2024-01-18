@@ -1,0 +1,75 @@
+# License: 5G-MAG Public License (v1.0)
+# Copyright: (C) 2024 British Broadcasting Corporation
+#
+# For full license terms please see the LICENSE file distributed with this
+# program. If this file is missing then the license can be retrieved from
+# https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+
+libapp_dep = open5gs_project.get_variable('libapp_dep')
+libcore_dep = open5gs_project.get_variable('libcore_dep')
+libcrypt_dep = open5gs_project.get_variable('libcrypt_dep')
+libsbi_dep = open5gs_project.get_variable('libsbi_dep')
+libinc = open5gs_project.get_variable('libinc')
+
+libspdc_version_major = 0
+libspdc_version_minor = 1
+libspdc_version_micro = 0
+
+libspdc_version = '@0@.@1@.@2@'.format(libspdc_version_major,libspdc_version_minor,libspdc_version_micro)
+
+latest_apis = get_option('latest_apis')
+fiveg_api_approval = get_option('fiveg_api_approval')
+fiveg_api_release = get_option('fiveg_api_release')
+
+libspdc_dist_sources = files('''
+    data-collection-service-provider.h
+    data-collection-service-provider.c
+    context.h
+    context.c
+    log.c
+    log.h
+    dc-build.c
+    dc-build.h
+    dc-process.c
+    dc-process.h
+    utils.c
+    utils.h
+    openAPI_Ndcaf_DataReporting.{c,h}
+    openAPI_Ndcaf_DataReportingProvisioning.{c,h}
+    openAPI_Naf_EventExposure.{c,h}
+'''.split())
+
+api_tag = latest_apis?'REL-'+fiveg_api_release:'TSG'+fiveg_api_approval+'-Rel'+fiveg_api_release
+
+gen_5gspdcaf_openapi = find_program('sh')
+message('Generating OpenAPI bindings for version '+api_tag+' of the 5G APIs...')
+openapi_dep_file = meson.current_source_dir() / '.openapi.deps'
+openapi_gen_result = run_command([gen_5gspdcaf_openapi,'-c','"$MESON_SOURCE_ROOT/$MESON_SUBDIR/generator-libspdcaf" -M '+openapi_dep_file+' -b '+api_tag], check: true, capture: true)
+libspdcaf_gen_sources = files(fs.read(openapi_dep_file).split())
+
+libspdcaf_sources = libspdcaf_dist_sources + libdspcaf_gen_sources
+
+
+libspdc_inc = include_directories('.')
+
+libspdc = library('libspdc',
+    sources : libspdc_sources,
+    c_args : '-DBUILD_DATA_COLLECTION_LIB',
+    include_directories : [libspdc_inc, libinc],
+    gnu_symbol_visibility : 'hidden',
+    dependencies : [libapp_dep,
+                    libcore_dep,
+                    libcrypt_dep,
+		    libsbi_dep],
+    version : libspdc_version,
+    install : true)
+
+libspdc_dep = declare_dependency(
+    link_with : libspdc,
+    include_directories : [libspdc_inc, libinc],
+    dependencies : [libapp_dep,
+                    libcore_dep,
+                    libcrypt_dep,
+		    libsbi_dep]
+    )
+
