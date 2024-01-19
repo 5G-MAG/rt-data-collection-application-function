@@ -1,5 +1,5 @@
 # License: 5G-MAG Public License (v1.0)
-# Copyright: (C) 2022-2024 British Broadcasting Corporation
+# Copyright: (C) 2024 British Broadcasting Corporation
 #
 # For full license terms please see the LICENSE file distributed with this
 # program. If this file is missing then the license can be retrieved from
@@ -18,19 +18,32 @@ mkdir_p = open5gs_project.get_variable('mkdir_p')
 install_conf = open5gs_project.get_variable('install_conf')
 sbi_openapi_inc = open5gs_project.get_variable('libsbi_openapi_model_inc')
 
+latest_apis = get_option('latest_apis')
+fiveg_api_approval = get_option('fiveg_api_approval')
+fiveg_api_release = get_option('fiveg_api_release')
+
+
 fs = import('fs')
 
 libdcaf_dist_sources = files('''
-    init.h
-    init.c
+    app.c
+    context.c
+    context.h
     event.c
     event.h
+    init.h
+    init.c
     dcaf-sm.h
     dcaf-sm.c
     sbi-path.h
     sbi-path.c
+    server.h
+    server.c
+
 '''.split())
 
+
+api_tag = latest_apis?'REL-'+fiveg_api_release:'TSG'+fiveg_api_approval+'-Rel'+fiveg_api_release
 
 version_conf = configuration_data()
 version_conf.set_quoted('DCAF_NAME', meson.project_name())
@@ -46,17 +59,16 @@ libdcaf = static_library('dcaf',
     dependencies : [libsbi_dep,
                     libsbi_openapi_dep,
                     libapp_dep,
-                    libspdc_dep,
+		    libspdc_dep,
                     libcrypt_dep],
     install : false)
 
 libdcaf_dep = declare_dependency(
     link_with : libdcaf,
     dependencies : [libsbi_dep,
-                    libcore_dep,
                     libsbi_openapi_dep,
                     libapp_dep,
-                    libspdc_dep,
+		    libspdc_dep,
                     libcrypt_dep])
 
 dcaf_sources = files('''
@@ -72,8 +84,15 @@ dcaf_include = include_directories('.')
 executable('open5gs-dcafd',
     sources : dcaf_sources,
     c_args : '-DDEFAULT_CONFIG_FILENAME="@0@/dcaf.yaml"'.format(open5gs_sysconfdir),
-    include_directories : [srcinc, libspdc_inc],
+    include_directories : [srcinc, libspdc_inc]
     dependencies : [libdcaf_dep],
     install_rpath : libdir,
     install : true)
 
+meson.add_install_script(python3_exe, '-c', mkdir_p.format(open5gs_sysconfdir))
+conf_configuration = configuration_data()
+conf_configuration.set('data-collection-dir', get_option('prefix') / get_option('localstatedir') / 'log' / 'open5gs' / 'reports')
+foreach conf_file : dcaf_config_source
+    gen = configure_file(input : conf_file + '.in', configuration : conf_configuration, output : conf_file)
+    meson.add_install_script(python3_exe, '-c', install_conf.format(gen, open5gs_sysconfdir))
+endforeach
