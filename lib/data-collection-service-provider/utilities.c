@@ -94,7 +94,7 @@ char *get_path(const char *file)
         ogs_error("cannot find file with name[%s]: %s", file, strerror(errno));
         return NULL;
     }
-    file_dir = dcaf_strdup(dirname(path));
+    file_dir = data_collection_strdup(dirname(path));
     return file_dir;
 }
 
@@ -110,7 +110,7 @@ char *rebase_path(const char *base, const char *file)
         return path;
     }
     /* absolute path - return a copy */
-    return dcaf_strdup(file);
+    return data_collection_strdup(file);
 }
 
 long int ascii_to_long(const char *str)

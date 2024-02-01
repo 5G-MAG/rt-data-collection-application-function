@@ -18,15 +18,9 @@ mkdir_p = open5gs_project.get_variable('mkdir_p')
 install_conf = open5gs_project.get_variable('install_conf')
 sbi_openapi_inc = open5gs_project.get_variable('libsbi_openapi_model_inc')
 
-latest_apis = get_option('latest_apis')
-fiveg_api_approval = get_option('fiveg_api_approval')
-fiveg_api_release = get_option('fiveg_api_release')
-
-
 fs = import('fs')
 
 libdcaf_dist_sources = files('''
-    app.c
     context.c
     context.h
     event.c
@@ -37,18 +31,14 @@ libdcaf_dist_sources = files('''
     dcaf-sm.c
     sbi-path.h
     sbi-path.c
-    server.h
-    server.c
+    utilities.h
+    utilities.c
 
 '''.split())
-
-
-api_tag = latest_apis?'REL-'+fiveg_api_release:'TSG'+fiveg_api_approval+'-Rel'+fiveg_api_release
 
 version_conf = configuration_data()
 version_conf.set_quoted('DCAF_NAME', meson.project_name())
 version_conf.set_quoted('DCAF_VERSION', meson.project_version())
-version_conf.set_quoted('FIVEG_API_RELEASE', fiveg_api_release)
 libdcaf_gen_sources = [configure_file(output : 'dcaf-version.h', configuration : version_conf)]
 
 libdcaf_sources = libdcaf_dist_sources + libdcaf_gen_sources
@@ -84,7 +74,7 @@ dcaf_include = include_directories('.')
 executable('open5gs-dcafd',
     sources : dcaf_sources,
     c_args : '-DDEFAULT_CONFIG_FILENAME="@0@/dcaf.yaml"'.format(open5gs_sysconfdir),
-    include_directories : [srcinc, libspdc_inc]
+    include_directories : [srcinc, libspdc_inc],
     dependencies : [libdcaf_dep],
     install_rpath : libdir,
     install : true)

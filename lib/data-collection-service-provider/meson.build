@@ -30,13 +30,20 @@ libspdc_dist_sources = files('''
     context.c
     data-collection-process.h
     data-collection-process.c
+    response-cache-control.h
+    response-cache-control.c
+    utilities.h
+    utilities.c
 '''.split())
 
 version_conf = configuration_data()
 version_conf.set_quoted('DATA_COLLECTION_NAME', meson.project_name())
 version_conf.set_quoted('DATA_COLLECTION_VERSION', meson.project_version())
 version_conf.set_quoted('FIVEG_API_RELEASE', fiveg_api_release)
-libspdc_gen_sources = [configure_file(output : 'data-collection-version.h', configuration : version_conf)]
+version_conf.set('DATA_COLLECTION_MAJOR', libspdc_version_major)
+version_conf.set('DATA_COLLECTION_MINOR', libspdc_version_minor)
+version_conf.set('DATA_COLLECTION_MICRO', libspdc_version_micro)
+libspdc_gen_sources = [configure_file(input:'data-collection-version.h.in',output : 'data-collection-version.h', configuration : version_conf)]
 
 
 #api_tag = latest_apis?'REL-'+fiveg_api_release:'TSG'+fiveg_api_approval+'-Rel'+fiveg_api_release

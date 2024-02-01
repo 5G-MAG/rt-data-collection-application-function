@@ -24,7 +24,6 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #include "ogs-app.h"
 //#include "event.h"
 //#include "data-collection-sm.h"
-#include "data-collection-fsm.h"
 #include "response-cache-control.h"
 #include "data-collection-service-producer.h"
 
@@ -67,7 +66,6 @@ typedef struct data_collection_lib_configuration_s {
 typedef struct data_collection_context_s {
     data_collection_lib_configuration_t config;
     ogs_hash_t  *dataReportingProvisioningSessions;
-    data_collection_fsm_t   data_collection_fsm;
     char server_name[NI_MAXHOST];
 } data_collection_context_t;
 

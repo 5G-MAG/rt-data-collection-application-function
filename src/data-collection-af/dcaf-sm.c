@@ -15,7 +15,6 @@
 #include "sbi-path.h"
 #include "context.h"
 #include "server.h"
-#include "local.h"
 #include "response-cache-control.h"
 #include "dcaf-version.h"
 #include "dcaf-sm.h"
@@ -52,7 +51,7 @@ void dcaf_state_functional(ogs_fsm_t *s, dcaf_event_t *e)
     dcaf_sm_debug(e);
 
     if (data_collection_process_event(&e->h)) return;
-    if (local_process_event(e)) return;
+    //if (local_process_event(e)) return;
 
     message = ogs_calloc(1, sizeof(*message));
     const nf_server_app_metadata_t *app_meta = dcaf_app_metadata();
@@ -61,7 +60,7 @@ void dcaf_state_functional(ogs_fsm_t *s, dcaf_event_t *e)
 
     switch (e->h.id) {
         case OGS_FSM_ENTRY_SIG:
-            ogs_info("[%s] MSAF Running", ogs_sbi_self()->nf_instance->id);
+            ogs_info("[%s] DCAF Running", ogs_sbi_self()->nf_instance->id);
             break;
 
         case OGS_FSM_EXIT_SIG:
@@ -73,22 +72,12 @@ void dcaf_state_functional(ogs_fsm_t *s, dcaf_event_t *e)
             stream = e->h.sbi.data;
             ogs_assert(stream);
 
-            if (!strcmp(request->h.method, OGS_SBI_HTTP_METHOD_OPTIONS) && !strcmp(request->h.uri, "*")){
-                char *methods = NULL;
-                methods = ogs_msprintf("%s, %s, %s, %s, %s",OGS_SBI_HTTP_METHOD_POST, OGS_SBI_HTTP_METHOD_GET, OGS_SBI_HTTP_METHOD_PUT, OGS_SBI_HTTP_METHOD_DELETE, OGS_SBI_HTTP_METHOD_OPTIONS);
-                response = nf_server_new_response(NULL, NULL,  0, NULL, 0, methods, NULL, app_meta);
-                nf_server_populate_response(response, 0, NULL, 204);
-                ogs_assert(response);
-                ogs_assert(true == ogs_sbi_server_send_response(stream, response));
-                ogs_free(methods);
-                response = NULL;
-                break;
-            }
-
             rv = ogs_sbi_parse_header(message, &request->h);
             if (rv != OGS_OK) {
                 ogs_error("ogs_sbi_parse_header() failed");
-                ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_BAD_REQUEST, 1, NULL, "cannot parse HTTP message", NULL, NULL, NULL, app_meta));
+		ogs_assert(true == ogs_sbi_server_send_error(
+                                stream, OGS_SBI_HTTP_STATUS_BAD_REQUEST,
+                                message, "cannot parse HTTP message", NULL));
                 ogs_sbi_message_free(message);
                 break;
             }
@@ -131,7 +120,10 @@ void dcaf_state_functional(ogs_fsm_t *s, dcaf_event_t *e)
 
             DEFAULT
                 ogs_error("Invalid API name [%s]", message->h.service.name);
-                ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_BAD_REQUEST, 0, message, "Invalid API name.",  message->h.service.name, NULL, NULL, app_meta));
+	        ogs_assert(true ==
+                                ogs_sbi_server_send_error(stream,
+                                        OGS_SBI_HTTP_STATUS_BAD_REQUEST, message,
+                                        "Invalid API name.", message->h.method));
 
             END
             if (message) ogs_sbi_message_free(message);
@@ -297,7 +289,7 @@ const nf_server_app_metadata_t *dcaf_app_metadata()
 {
     if (!nf_name) {
         if (!dcaf_self()->server_name[0]) dcaf_context_server_name_set();
-        nf_name = ogs_msprintf("5GMSAF-%s", dcaf_self()->server_name);
+        nf_name = ogs_msprintf("5G-DCAF-%s", dcaf_self()->server_name);
         ogs_assert(nf_name);
         app_metadata.server_name = nf_name;
     }

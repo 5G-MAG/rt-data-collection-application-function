@@ -11,6 +11,8 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #include "sbi-path.h"
 #include "dcaf-sm.h"
 #include "init.h"
+#include "utilities.h"
+#include "data-collection-service-producer.h"
 
 static ogs_thread_t *thread;
 
@@ -22,6 +24,8 @@ static int initialized = 0;
 int dcaf_initialize()
 {
     int rv;
+    const char* const configuration_section = "dataCollection";
+    int data_collection_features_disabled = 0;
 
     rv = dcaf_set_time();
     if (rv != 0) {
@@ -40,12 +44,24 @@ int dcaf_initialize()
     }
 
     if (dcaf_self()->config.open5gsIntegration_flag) {
-        rv = ogs_sbi_context_parse_config("dcaf", "nrf", "scp");
+        rv = ogs_sbi_context_parse_config("dataCollection", "nrf", "scp");
         if (rv != OGS_OK) {
             ogs_debug("ogs_sbi_context_parse_config() failed");
             return rv;
         }
     }
+
+    data_collection_features_disabled = DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_PROVISIONING;
+
+     const data_collection_configuration_t conf = {
+         configuration_section,
+         data_collection_features_disabled
+    };
+
+    const data_collection_configuration_t* const configuration = &conf;
+
+    data_collection_initialise(configuration);
+
 
     rv = ogs_log_config_domain(ogs_app()->logger.domain, ogs_app()->logger.level);
     if (rv != OGS_OK) {
