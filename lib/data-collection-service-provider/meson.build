@@ -21,38 +21,38 @@ latest_apis = get_option('latest_apis')
 fiveg_api_approval = get_option('fiveg_api_approval')
 fiveg_api_release = get_option('fiveg_api_release')
 
+fs = import('fs')
+
 libspdc_dist_sources = files('''
-    data-collection-service-provider.h
-    data-collection-service-provider.c
+    data-collection-service-producer.h
+    data-collection-service-producer.c
     context.h
     context.c
-    log.c
-    log.h
-    dc-build.c
-    dc-build.h
-    dc-process.c
-    dc-process.h
-    utils.c
-    utils.h
-    openAPI_Ndcaf_DataReporting.{c,h}
-    openAPI_Ndcaf_DataReportingProvisioning.{c,h}
-    openAPI_Naf_EventExposure.{c,h}
+    data-collection-process.h
+    data-collection-process.c
 '''.split())
 
-api_tag = latest_apis?'REL-'+fiveg_api_release:'TSG'+fiveg_api_approval+'-Rel'+fiveg_api_release
+version_conf = configuration_data()
+version_conf.set_quoted('DATA_COLLECTION_NAME', meson.project_name())
+version_conf.set_quoted('DATA_COLLECTION_VERSION', meson.project_version())
+version_conf.set_quoted('FIVEG_API_RELEASE', fiveg_api_release)
+libspdc_gen_sources = [configure_file(output : 'data-collection-version.h', configuration : version_conf)]
 
-gen_5gspdcaf_openapi = find_program('sh')
-message('Generating OpenAPI bindings for version '+api_tag+' of the 5G APIs...')
-openapi_dep_file = meson.current_source_dir() / '.openapi.deps'
-openapi_gen_result = run_command([gen_5gspdcaf_openapi,'-c','"$MESON_SOURCE_ROOT/$MESON_SUBDIR/generator-libspdcaf" -M '+openapi_dep_file+' -b '+api_tag], check: true, capture: true)
-libspdcaf_gen_sources = files(fs.read(openapi_dep_file).split())
 
-libspdcaf_sources = libspdcaf_dist_sources + libdspcaf_gen_sources
+#api_tag = latest_apis?'REL-'+fiveg_api_release:'TSG'+fiveg_api_approval+'-Rel'+fiveg_api_release
+
+#gen_5gspdc_openapi = find_program('sh')
+#message('Generating OpenAPI bindings for version '+api_tag+' of the 5G APIs...')
+#openapi_dep_file = meson.current_source_dir() / '.openapi.deps'
+#openapi_gen_result = run_command([gen_5gspdc_openapi,'-c','"$MESON_SOURCE_ROOT/$MESON_SUBDIR/generator-libspdc" -M '+openapi_dep_file+' -b '+api_tag], check: true, capture: true)
+#libspdc_gen_sources += files(fs.read(openapi_dep_file).split())
+
+libspdc_sources = libspdc_dist_sources + libspdc_gen_sources
 
 
 libspdc_inc = include_directories('.')
 
-libspdc = library('libspdc',
+libspdc = library('spdc',
     sources : libspdc_sources,
     c_args : '-DBUILD_DATA_COLLECTION_LIB',
     include_directories : [libspdc_inc, libinc],
