@@ -1,5 +1,5 @@
 freeDiameter
+open5gs
 libtins
 prometheus-client-c
 usrsctp
-rt-5gc-service-consumers

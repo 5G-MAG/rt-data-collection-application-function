@@ -16,14 +16,12 @@ project('rt-5gc-data-collection-application-function', 'c',
     ],
 )
 
-sh_cmd = find_program('sh')
-patch_open5gs_result = run_command([sh_cmd, '-c', '"$MESON_SOURCE_ROOT/subprojects/patch_open5gs.sh" open5gs'], check: true, capture: false)
-open5gs_project=subproject('open5gs',required:true)
+open5gs_project=subproject('open5gs', required: true)
 
 subdir('lib')
 subdir('src')
 
-systemd_path_cmd = find_program('systemd-path', required : false)
+systemd_path_cmd = find_program('systemd-path', required: false)
 if systemd_path_cmd.found()
   subdir('systemd')
 endif
