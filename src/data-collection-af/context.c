@@ -14,77 +14,50 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 
 #include "context.h"
 #include "utilities.h"
+#include "data-collection.h"
 
-static data_collection_context_t *self = NULL;
+static dcaf_context_t *self = NULL;
 
-int __data_collection_log_domain;
+int __dcaf_log_domain;
 
-typedef void (*free_ogs_hash_context_free_value_fn)(void *value);
-typedef struct free_ogs_hash_context_s {
-    free_ogs_hash_context_free_value_fn value_free_fn;
-    ogs_hash_t *hash;
-} free_ogs_hash_context_t;
-
-static int data_collection_context_prepare(void);
-static int data_collection_context_validation(void);
-static int free_ogs_hash_entry(void *free_ogs_hash_context, const void *key, int klen, const void *value);
-static void safe_ogs_free(void *memory);
-
-static void data_collection_context_server_sockaddr_remove(void);
+static int dcaf_context_prepare(void);
+static int dcaf_context_validation(void);
 static int check_for_data_collection_support(void);
+static void dcaf_context_server_sockaddr_remove(void);
 
-int _data_collection_initialise(const data_collection_configuration_t* const configuration)
-{
-    int rv;
-    ogs_assert(!self);
-    if (!__data_collection_log_domain) {
-        ogs_log_install_domain(&__data_collection_log_domain, "data-collection-service-producer", ogs_core()->log.level);
-        ogs_log_config_domain("data-collection-service-producer", ogs_app()->logger.level);
-    }
-    ogs_debug("Initialising Data Collection library context");
-    data_collection_context_init();
-    rv = data_collection_parse_config(configuration);
-    if (rv != OGS_OK) {
-        ogs_error("Failed to configure data collection library");
-        return rv;
-    }
-    return OGS_OK;
-}
-void data_collection_context_init(void)
+void dcaf_context_init(void)
 {
     ogs_assert(self == NULL);
 
-    self = ogs_calloc(1, sizeof(data_collection_context_t));
+    self = ogs_calloc(1, sizeof(dcaf_context_t));
     ogs_assert(self);
 
-    data_collection_server_response_cache_control_set();
+    ogs_log_install_domain(&__dcaf_log_domain, "DCAF", ogs_core()->log.level);
 
 }
 
-void data_collection_context_final(void)
+void dcaf_context_final(void)
 {
     ogs_assert(self);
 
-    if (self->config.server_response_cache_control)
-    {
-        ogs_free(self->config.server_response_cache_control);    
-    }
- 
+    data_collection_finalise();
+
     if (self->config.data_collection_dir)
         ogs_free(self->config.data_collection_dir);
 
-    data_collection_context_server_sockaddr_remove();
+    dcaf_context_server_sockaddr_remove();
+
 
     ogs_free(self);
     self = NULL;
 }
 
-data_collection_context_t *data_collection_self(void)
+dcaf_context_t *dcaf_self(void)
 {
     return self;
 }
 
-int data_collection_parse_config(const data_collection_configuration_t* const configuration)
+int dcaf_context_parse_config(void)
 {
     int rv;
     yaml_document_t *document = NULL;
@@ -93,81 +66,34 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
     document = ogs_app()->document;
     ogs_assert(document);
 
-    rv = data_collection_context_prepare();
+    rv = dcaf_context_prepare();
     if (rv != OGS_OK) {
-        ogs_debug("data_collection_context_prepare() failed");
+        ogs_debug("dcaf_context_prepare() failed");
         return rv;
     }
-
-    self->config.data_collection_configuration = configuration;
 
     ogs_yaml_iter_init(&root_iter, document);
     while (ogs_yaml_iter_next(&root_iter)) {
         const char *root_key = ogs_yaml_iter_key(&root_iter);
         ogs_assert(root_key);
-        if (!strcmp(root_key, configuration->configuration_section)/*"dataCollection" */) {
+        if (!strcmp(root_key, "dataCollection")) {
             ogs_yaml_iter_t dc_iter;
-
-	    bool event_exposure_disable;
-            bool data_reporting_disable;
-            bool data_reporting_provisioning_disable;
-
-            event_exposure_disable = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_EVENT_EXPOSURE);
-            data_reporting_disable = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING);
-            data_reporting_provisioning_disable = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_PROVISIONING);
-
             ogs_yaml_iter_recurse(&root_iter, &dc_iter);
             while (ogs_yaml_iter_next(&dc_iter)) {
                 const char *dc_key = ogs_yaml_iter_key(&dc_iter);
                 ogs_assert(dc_key);
                 if (!strcmp(dc_key, "open5gsIntegration")) {
 		    self->config.open5gsIntegration_flag = ogs_yaml_iter_bool(&dc_iter);
-                } else if (!strcmp(dc_key, "serverResponseCacheControl")) {
-                    ogs_yaml_iter_t cc_iter, cc_array;
-                    ogs_yaml_iter_recurse(&dc_iter, &cc_array);
-                    if (ogs_yaml_iter_type(&cc_array) == YAML_MAPPING_NODE) {
-                        memcpy(&cc_iter, &cc_array, sizeof(ogs_yaml_iter_t));
-                    } else if (ogs_yaml_iter_type(&cc_array) == YAML_SEQUENCE_NODE) {
-                        if (!ogs_yaml_iter_next(&cc_array))
-                            break;
-                        ogs_yaml_iter_recurse(&cc_array, &cc_iter);
-                    } else if (ogs_yaml_iter_type(&cc_array) == YAML_SCALAR_NODE) {
-                        break;
-                    } else
-                        ogs_assert_if_reached();
+                } else if ((!strcmp(dc_key, "sbi") && self->config.open5gsIntegration_flag)) {
 
-                    int data_collection_reporting_provisioning_session_response_max_age = SERVER_RESPONSE_MAX_AGE;
-                    int data_collection_reporting_report_response_max_age = SERVER_RESPONSE_MAX_AGE;
-                    int event_exposure_response_max_age = SERVER_RESPONSE_MAX_AGE;
-                    while (ogs_yaml_iter_next(&cc_iter)) {
-                        const char *cc_key = ogs_yaml_iter_key(&cc_iter);
-                        ogs_assert(cc_key);
-                        if (!strcmp(cc_key, "provisioningSessions")) {
-                            data_collection_reporting_provisioning_session_response_max_age = ascii_to_long(ogs_yaml_iter_value(&cc_iter));
-                        } else if (!strcmp(cc_key, "dataCollectionReports")) {
-                            data_collection_reporting_report_response_max_age = ascii_to_long(ogs_yaml_iter_value(&cc_iter));
-                        } else if (!strcmp(cc_key, "eventExposure")) {
-                            event_exposure_response_max_age = ascii_to_long(ogs_yaml_iter_value(&cc_iter));
-                        } 
-                    }
-                    data_collection_server_response_cache_control_set_from_config(
-                                data_collection_reporting_provisioning_session_response_max_age, data_collection_reporting_report_response_max_age, 
-				event_exposure_response_max_age);
- 
+		 /* handle config in sbi library */
 
-                }  else if (!strcmp(dc_key, "provisioningSessions") || !strcmp(dc_key, "dataCollectionReports") || !strcmp(dc_key, "eventExposure")) {
+                }  else if (!strcmp(dc_key, "sbi")) {
                     
                     ogs_list_t list, list6;
                     ogs_socknode_t *node = NULL, *node6 = NULL;
 
                     ogs_yaml_iter_t sbi_array, sbi_iter;
-
-		    if(data_reporting_disable && !strcmp(dc_key, "dataCollectionReports")) continue;
-
-		    if(data_reporting_provisioning_disable && !strcmp(dc_key, "provisioningSessions")) continue;
-
-		    if(event_exposure_disable && !strcmp(dc_key, "eventExposure")) continue;
-
                     ogs_yaml_iter_recurse(&dc_iter, &sbi_array);
                     do {
                         int i, family = AF_UNSPEC;
@@ -309,7 +235,7 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
                             int i;
                             int matches = 0;
                             ogs_sbi_server_t *server;
-                            for (i=0; i<DATA_COLLECTION_SVR_NUM_IFCS; i++) {
+                            for (i=0; i<DCAF_SVR_NUM_IFCS; i++) {
                                 if (self->config.servers[i].ipv4 && ogs_sockaddr_is_equal(node->addr, self->config.servers[i].ipv4)) {
                                     server = self->config.servers[i].server_v4;
                                     matches = 1;
@@ -330,36 +256,21 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
                                 if (pem) server->tls.pem = pem;
                             */
                             }
-                            if (!strcmp(dc_key, "provisioningSessions")) {
-                                if(self->config.servers[DATA_COLLECTION_SVR_PROVISIONING].ipv4){
-                                    ogs_freeaddrinfo(self->config.servers[DATA_COLLECTION_SVR_PROVISIONING].ipv4);
-                                    self->config.servers[DATA_COLLECTION_SVR_PROVISIONING].ipv4 = NULL;
+                            if (!strcmp(dc_key, "sbi")) {
+                                for (i=0; i<DCAF_SVR_NUM_IFCS; i++) {
+                                    if (i == DCAF_SVR_SBI || !self->config.servers[i].ipv4) {
+                                        ogs_assert(OGS_OK == ogs_copyaddrinfo(&self->config.servers[i].ipv4, server->node.addr));
+                                        self->config.servers[i].server_v4 = server;
+                                    }
                                 }
-                                ogs_assert(OGS_OK == ogs_copyaddrinfo(&self->config.servers[DATA_COLLECTION_SVR_PROVISIONING].ipv4, server->node.addr));
-                                self->config.servers[DATA_COLLECTION_SVR_PROVISIONING].server_v4 = server;
-                            } else if (!strcmp(dc_key, "dataCollectionReports")) {
-                                if(self->config.servers[DATA_COLLECTION_SVR_DATA_REPORTING].ipv4){
-                                    ogs_freeaddrinfo(self->config.servers[DATA_COLLECTION_SVR_DATA_REPORTING].ipv4);
-                                    self->config.servers[DATA_COLLECTION_SVR_DATA_REPORTING].ipv4 = NULL;
-                                }
-                                ogs_assert(OGS_OK == ogs_copyaddrinfo(&self->config.servers[DATA_COLLECTION_SVR_DATA_REPORTING].ipv4, server->node.addr));
-                                self->config.servers[DATA_COLLECTION_SVR_DATA_REPORTING].server_v4 = server;
-                            } else if (!strcmp(dc_key, "eventExposure")) {
-                                if(self->config.servers[DATA_COLLECTION_SVR_EVENT].ipv4){
-                                    ogs_freeaddrinfo(self->config.servers[DATA_COLLECTION_SVR_EVENT].ipv4);
-                                    self->config.servers[DATA_COLLECTION_SVR_EVENT].ipv4 = NULL;
-                                }
-                                ogs_assert(OGS_OK == ogs_copyaddrinfo(&self->config.servers[DATA_COLLECTION_SVR_EVENT].ipv4, server->node.addr));
-                                self->config.servers[DATA_COLLECTION_SVR_EVENT].server_v4 = server;
                             }
-
                         }
                         node6 = ogs_list_first(&list6);
                         if (node6) {
                             int i;
                             int matches = 0;
                             ogs_sbi_server_t *server;
-                            for (i=0; i<DATA_COLLECTION_SVR_NUM_IFCS; i++) {
+                            for (i=0; i<DCAF_SVR_NUM_IFCS; i++) {
                                 if (self->config.servers[i].ipv6 && ogs_sockaddr_is_equal(node->addr, self->config.servers[i].ipv6)) {
                                     server = self->config.servers[i].server_v6;
                                     matches = 1;
@@ -379,31 +290,15 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
                                 if (pem) server->tls.pem = pem;
                             */
                             }
-                            if (!strcmp(dc_key, "provisioningSessions")) {
-                                if(self->config.servers[DATA_COLLECTION_SVR_PROVISIONING].ipv6){
-                                    ogs_freeaddrinfo(self->config.servers[DATA_COLLECTION_SVR_PROVISIONING].ipv6);
-                                    self->config.servers[DATA_COLLECTION_SVR_PROVISIONING].ipv6 = NULL;
+                            if (!strcmp(dc_key, "sbi")) {
+                                for (i=0; i<DCAF_SVR_NUM_IFCS; i++) {
+                                    if (i == DCAF_SVR_SBI || !self->config.servers[i].ipv6) {
+                                        ogs_assert(OGS_OK == ogs_copyaddrinfo(&self->config.servers[i].ipv6, server->node.addr));
+                                        self->config.servers[i].server_v6 = server;
+                                    }
                                 }
-                                ogs_assert(OGS_OK == ogs_copyaddrinfo(&self->config.servers[DATA_COLLECTION_SVR_PROVISIONING].ipv6, server->node.addr));
-                                self->config.servers[DATA_COLLECTION_SVR_PROVISIONING].server_v6 = server;
-                            } else if (!strcmp(dc_key, "dataCollectionReports")) {
-                                if(self->config.servers[DATA_COLLECTION_SVR_DATA_REPORTING].ipv6){
-                                    ogs_freeaddrinfo(self->config.servers[DATA_COLLECTION_SVR_DATA_REPORTING].ipv6);
-                                    self->config.servers[DATA_COLLECTION_SVR_DATA_REPORTING].ipv6 = NULL;
-                                }
-                                ogs_assert(OGS_OK == ogs_copyaddrinfo(&self->config.servers[DATA_COLLECTION_SVR_DATA_REPORTING].ipv6, server->node.addr));
-                                self->config.servers[DATA_COLLECTION_SVR_DATA_REPORTING].server_v6 = server;
-                            } else if (!strcmp(dc_key, "eventExposure")) {
-                                if(self->config.servers[DATA_COLLECTION_SVR_EVENT].ipv6){
-                                    ogs_freeaddrinfo(self->config.servers[DATA_COLLECTION_SVR_EVENT].ipv6);
-                                    self->config.servers[DATA_COLLECTION_SVR_EVENT].ipv6 = NULL;
-                                }
-                                ogs_assert(OGS_OK == ogs_copyaddrinfo(&self->config.servers[DATA_COLLECTION_SVR_EVENT].ipv6, server->node.addr));
-                                self->config.servers[DATA_COLLECTION_SVR_EVENT].server_v6 = server;
                             }
-
                         }
-
 
                         if (addr)
                             ogs_freeaddrinfo(addr);
@@ -419,10 +314,8 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
                 } else if (!strcmp(dc_key, "discovery")) {
                     /* handle config in sbi library */
                 } else if (!strcmp(dc_key, "dataCollectionDir")) {
-                    self->config.data_collection_dir = data_collection_strdup(ogs_yaml_iter_value(&dc_iter));
-                } 
-		
-		else {
+                    self->config.data_collection_dir = dcaf_strdup(ogs_yaml_iter_value(&dc_iter));
+                } else {
                     ogs_warn("unknown key `%s`", dc_key);
                 }
             }
@@ -435,9 +328,10 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
         return rv;
     }
 
-    rv = data_collection_context_validation();
+    rv = dcaf_context_validation();
     if (rv != OGS_OK) {
-        ogs_debug("data_collection_context_validation() failed");
+        ogs_debug("dcaf_context_validation() failed");
+
         return rv;
     }
 
@@ -449,7 +343,7 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
 static int check_for_data_collection_support(void){
 
     if(!self->config.open5gsIntegration_flag) {
-        ogs_info("dataCollection.open5gsIntegration must be true. For data collection \"open5gsIntegration: true\" in the configuration file");
+        ogs_info("dataCollection.open5gsIntegration must be true for data collection AF. Set \"open5gsIntegration: true\" in the configuration file");
 	return OGS_ERROR;
     }
 
@@ -457,43 +351,26 @@ static int check_for_data_collection_support(void){
 
 }
 
-static void data_collection_context_server_sockaddr_remove(void){
+static void dcaf_context_server_sockaddr_remove(void){
     int i;
-    for (i=0; i<DATA_COLLECTION_SVR_NUM_IFCS; i++) {
+    for (i=0; i<DCAF_SVR_NUM_IFCS; i++) {
         if(self->config.servers[i].ipv4) ogs_freeaddrinfo(self->config.servers[i].ipv4);
         if(self->config.servers[i].ipv6) ogs_freeaddrinfo(self->config.servers[i].ipv6);
     }
 }
 
-static int data_collection_context_prepare(void)
+static int dcaf_context_prepare(void)
 {
     return OGS_OK;
 }
 
 static int
-data_collection_context_validation(void)
+dcaf_context_validation(void)
 {
     return OGS_OK;
 }
 
-static int
-free_ogs_hash_entry(void *rec, const void *key, int klen, const void *value)
-{
-    free_ogs_hash_context_t *fohc = (free_ogs_hash_context_t*)rec;
-    fohc->value_free_fn((void*)value);
-    ogs_hash_set(fohc->hash, key, klen, NULL);
-    ogs_free((void*)key);
-    return 1;
-}
-
-static void
-safe_ogs_free(void *memory)
-{
-    if(memory)
-        ogs_free(memory);
-}
-
-int data_collection_context_server_name_set(void) {
+int dcaf_context_server_name_set(void) {
 
     ogs_sbi_server_t *server = NULL;
 

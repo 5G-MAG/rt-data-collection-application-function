@@ -12,8 +12,6 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 
 #include "ogs-proto.h"
 #include "ogs-sbi.h"
-//#include "context.h"
-#include "server.h"
 
 #ifdef __cplusplus
 extern "C" {

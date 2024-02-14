@@ -10,11 +10,10 @@
 
 #include "ogs-sbi.h"
 
-#include "data-collection-service-producer.h"
+#include "data-collection.h"
 
 #include "sbi-path.h"
 #include "context.h"
-#include "server.h"
 #include "response-cache-control.h"
 #include "dcaf-version.h"
 #include "dcaf-sm.h"
@@ -54,7 +53,6 @@ void dcaf_state_functional(ogs_fsm_t *s, dcaf_event_t *e)
     //if (local_process_event(e)) return;
 
     message = ogs_calloc(1, sizeof(*message));
-    const nf_server_app_metadata_t *app_meta = dcaf_app_metadata();
 
     ogs_assert(s);
 
@@ -283,19 +281,6 @@ void dcaf_state_functional(ogs_fsm_t *s, dcaf_event_t *e)
 }
 
 static char *nf_name = NULL;
-static nf_server_app_metadata_t app_metadata = { DCAF_NAME, DCAF_VERSION, NULL };
-
-const nf_server_app_metadata_t *dcaf_app_metadata()
-{
-    if (!nf_name) {
-        if (!dcaf_self()->server_name[0]) dcaf_context_server_name_set();
-        nf_name = ogs_msprintf("5G-DCAF-%s", dcaf_self()->server_name);
-        ogs_assert(nf_name);
-        app_metadata.server_name = nf_name;
-    }
-
-    return &app_metadata;
-}
 
 void dcaf_free_agent_name()
 {

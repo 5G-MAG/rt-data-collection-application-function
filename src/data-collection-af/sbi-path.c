@@ -9,6 +9,7 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 
 #include "ogs-sbi.h"
 #include "sbi-path.h"
+#include "data-collection.h"
 
 static int server_cb(ogs_sbi_request_t *request, void *data)
 {
@@ -45,7 +46,10 @@ int dcaf_sbi_open(void)
 
     ogs_sbi_nf_instance_build_default(nf_instance);
 
-     if (dcaf_self()->config.open5gsIntegration_flag) {
+    if(data_collection_set_nf_services()!= OGS_OK)
+        return OGS_ERROR;
+
+    if (dcaf_self()->config.open5gsIntegration_flag) {
 
         nf_instance = ogs_sbi_self()->nrf_instance;
         if (nf_instance)

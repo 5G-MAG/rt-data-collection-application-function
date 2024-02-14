@@ -24,10 +24,12 @@ fiveg_api_release = get_option('fiveg_api_release')
 fs = import('fs')
 
 libspdc_dist_sources = files('''
-    data-collection-service-producer.h
-    data-collection-service-producer.c
+    data-collection.h
+    data-collection.c
     context.h
     context.c
+    data-collection-nf-service.h
+    data-collection-nf-service.c
     data-collection-process.h
     data-collection-process.c
     response-cache-control.h

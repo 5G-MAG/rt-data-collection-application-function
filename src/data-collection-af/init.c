@@ -12,7 +12,7 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #include "dcaf-sm.h"
 #include "init.h"
 #include "utilities.h"
-#include "data-collection-service-producer.h"
+#include "data-collection.h"
 
 static ogs_thread_t *thread;
 
@@ -26,6 +26,7 @@ int dcaf_initialize()
     int rv;
     const char* const configuration_section = "dataCollection";
     int data_collection_features_disabled = 0;
+    uint64_t event_exposure_supported_features = 0;
 
     rv = dcaf_set_time();
     if (rv != 0) {
@@ -52,10 +53,12 @@ int dcaf_initialize()
     }
 
     data_collection_features_disabled = DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_PROVISIONING;
+    event_exposure_supported_features = DATA_COLLECTION_SUPPORTED_FEATURE_EVENT_UE_COMMUNICATION;
 
      const data_collection_configuration_t conf = {
          configuration_section,
-         data_collection_features_disabled
+         data_collection_features_disabled,
+	 event_exposure_supported_features
     };
 
     const data_collection_configuration_t* const configuration = &conf;

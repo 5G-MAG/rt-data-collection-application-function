@@ -29,7 +29,7 @@ bool _data_collection_process_event(ogs_event_t *e)
 
     ogs_debug("_data_collection_process_event: %s", _event_get_name(e));
 
-    return true;
+    return false;
 }
 
 static const char *_event_get_name(ogs_event_t *e)

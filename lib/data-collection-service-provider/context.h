@@ -25,7 +25,7 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 //#include "event.h"
 //#include "data-collection-sm.h"
 #include "response-cache-control.h"
-#include "data-collection-service-producer.h"
+#include "data-collection.h"
 
 
 #ifdef __cplusplus
@@ -46,16 +46,15 @@ typedef struct data_collection_configuration_server_s {
 
 typedef enum data_collection_configuration_server_ifc_e {
     DATA_COLLECTION_SVR_SBI = 0,
-    DATA_COLLECTION_SVR_R1,
-    DATA_COLLECTION_SVR_R2,
-    DATA_COLLECTION_SVR_R4,
-    DATA_COLLECTION_SVR_R5,
-    DATA_COLLECTION_SVR_R6,
+    DATA_COLLECTION_SVR_PROVISIONING,
+    DATA_COLLECTION_SVR_DATA_REPORTING,
+    DATA_COLLECTION_SVR_EVENT,
     
     DATA_COLLECTION_SVR_NUM_IFCS
 } data_collection_configuration_server_ifc_t;
 
 typedef struct data_collection_lib_configuration_s {
+    data_collection_configuration_t *data_collection_configuration;
     bool open5gsIntegration_flag;
     data_collection_configuration_server_t servers[DATA_COLLECTION_SVR_NUM_IFCS];
     data_collection_server_response_cache_control_t *server_response_cache_control;
@@ -78,7 +77,6 @@ extern int _data_collection_initialise(const data_collection_configuration_t* co
 extern void data_collection_context_init(void);
 extern void data_collection_context_final(void);
 extern data_collection_context_t *data_collection_self(void);
-extern int data_collection_context_parse_config(void);
 extern int data_collection_parse_config(const data_collection_configuration_t* const configuration);
 
 extern int data_collection_context_server_name_set(void);
