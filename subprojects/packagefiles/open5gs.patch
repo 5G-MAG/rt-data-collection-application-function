@@ -24,6 +24,55 @@ index 8964b49dd..d8ea407b1 100644
      ogs_assert(pdr_random_to_index);
      for (i = 0; i < ogs_pfcp_pdr_pool.size; i++)
          pdr_random_to_index[ogs_pfcp_pdr_teid_pool.array[i]] = i;
+diff --git a/lib/sbi/context.h b/lib/sbi/context.h
+index 68dac7b52..646669952 100644
+--- a/lib/sbi/context.h
++++ b/lib/sbi/context.h
+@@ -230,6 +230,7 @@ typedef struct ogs_sbi_nf_service_s {
+ 
+     /* Related Context */
+     ogs_sbi_nf_instance_t *nf_instance;
++    char *supported_features;
+     void *client;
+ } ogs_sbi_nf_service_t;
+ 
+diff --git a/lib/sbi/nnrf-build.c b/lib/sbi/nnrf-build.c
+index 196e9fd46..9ff8ff337 100644
+--- a/lib/sbi/nnrf-build.c
++++ b/lib/sbi/nnrf-build.c
+@@ -625,6 +625,9 @@ static OpenAPI_nf_service_t *build_nf_service(
+     NFService->is_load = true;
+     NFService->load = nf_service->load;
+ 
++    if (nf_service->supported_features)
++        NFService->supported_features = ogs_strdup(nf_service->supported_features);
++
+     return NFService;
+ }
+ 
+@@ -664,6 +667,9 @@ static void free_nf_service(OpenAPI_nf_service_t *NFService)
+     if (NFService->fqdn)
+         ogs_free(NFService->fqdn);
+ 
++    if (NFService->supported_features)
++        ogs_free(NFService->supported_features);
++
+     ogs_free(NFService);
+ }
+ 
+diff --git a/lib/sbi/nnrf-handler.c b/lib/sbi/nnrf-handler.c
+index 000fd0104..7f5afbb62 100644
+--- a/lib/sbi/nnrf-handler.c
++++ b/lib/sbi/nnrf-handler.c
+@@ -317,6 +317,8 @@ static void handle_nf_service(
+         nf_service->capacity = NFService->capacity;
+     if (NFService->is_load == true)
+         nf_service->load = NFService->load;
++    if (NFService->supported_features)
++        nf_service->supported_features = ogs_strdup(NFService->supported_features);
+ }
+ 
+ static void handle_smf_info(
 diff --git a/lib/sbi/openapi/meson.build b/lib/sbi/openapi/meson.build
 index b3a507bd3..5f6388a0f 100644
 --- a/lib/sbi/openapi/meson.build
@@ -77,53 +126,3 @@ index 1bf1a0528..501693a45 100644
      int argc_out;
  
      char conf_file[OGS_MAX_FILEPATH_LEN];
-
-diff --git a/lib/sbi/context.h b/lib/sbi/context.h
-index 68dac7b52..646669952 100644
---- a/lib/sbi/context.h
-+++ b/lib/sbi/context.h
-@@ -230,6 +230,7 @@ typedef struct ogs_sbi_nf_service_s {
- 
-     /* Related Context */
-     ogs_sbi_nf_instance_t *nf_instance;
-+    char *supported_features;
-     void *client;
- } ogs_sbi_nf_service_t;
- 
-diff --git a/lib/sbi/nnrf-build.c b/lib/sbi/nnrf-build.c
-index 196e9fd46..7df27365d 100644
---- a/lib/sbi/nnrf-build.c
-+++ b/lib/sbi/nnrf-build.c
-@@ -625,6 +625,11 @@ static OpenAPI_nf_service_t *build_nf_service(
-     NFService->is_load = true;
-     NFService->load = nf_service->load;
- 
-+    if(nf_service->supported_features)
-+        NFService->supported_features = nf_service->supported_features;
-+
-     return NFService;
- }
- 
-@@ -664,6 +669,9 @@ static void free_nf_service(OpenAPI_nf_service_t *NFService)
-     if (NFService->fqdn)
-         ogs_free(NFService->fqdn);
- 
-+    if(NFService->supported_features)
-+        ogs_free(NFService->supported_features);	    
-+
-     ogs_free(NFService);
- }
- 
-diff --git a/lib/sbi/nnrf-handler.c b/lib/sbi/nnrf-handler.c
-index 000fd0104..36fc18d9f 100644
---- a/lib/sbi/nnrf-handler.c
-+++ b/lib/sbi/nnrf-handler.c
-@@ -317,6 +317,9 @@ static void handle_nf_service(
-         nf_service->capacity = NFService->capacity;
-     if (NFService->is_load == true)
-         nf_service->load = NFService->load;
-+    if(NFService->supported_features)
-+       nf_service->supported_features = ogs_strdup(NFService->supported_features);
-+
- }
-
