@@ -59,6 +59,8 @@ typedef struct data_collection_data_event_s {
     cJSON *event_data;     /** event data as a JSON object/array */
 } data_collection_data_event_t;
 
+typedef struct data_collection_data_report_s data_collection_data_report_t;
+
 typedef data_collection_data_report_t* (*data_collection_data_report_cb)(const char *data_type, cJSON *data_objects, const char **parse_err);
 
 typedef ogs_list_t* (*data_collection_event_generation_cb)(const ogs_list_t *reports  /* filtering parameters from subscriptions - TBD*/);
