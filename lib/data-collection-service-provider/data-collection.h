@@ -52,26 +52,16 @@ typedef enum {
     DATA_COLLECTION_FEATURE_SERVER_ALL=0x00000007, /* All API server features */
 } data_collection_feature_flags_e;
 
-typedef struct data_collection_data_event_s {
-    const char *event_type;     /** See TS 29.517 Table 5.6.3.3-1 for standard event types */
-    struct timespec timestamp;     /** nano-second accurate UTC time when the event was observed */
-    const char *event_attribute_name;     /** Attribute name to report the event data with */
-    cJSON *event_data;     /** event data as a JSON object/array */
-} data_collection_data_event_t;
-
-typedef struct data_collection_data_report_s data_collection_data_report_t;
-
-typedef data_collection_data_report_t* (*data_collection_data_report_cb)(const char *data_type, cJSON *data_objects, const char **parse_err);
-
-typedef ogs_list_t* (*data_collection_event_generation_cb)(const ogs_list_t *reports  /* filtering parameters from subscriptions - TBD*/);
-
-typedef struct data_collection_configuration_s {
-    const char* const configuration_section;
-    int               disable_features;    /* ORed data_collection_feature_flags_e values of features to disable*/
-    uint64_t          event_exposure_supported_features;       /* supported features bitmask for TS 29.517 event subscription */
-    data_collection_data_report_cb  data_report_callback;     /* called when the library needs a data report converting into an object */
-    data_collection_event_generation_cb  event_generation_callback;      /* called to turn reports into events to expose via reference points R5 & R6 */
-} data_collection_configuration_t;
+typedef enum {
+    DATA_COLLECTION_DATA_REPORT_PROPERTY_SERVICE_EXPERIENCE,
+    DATA_COLLECTION_DATA_REPORT_PROPERTY_LOCATION,
+    DATA_COLLECTION_DATA_REPORT_PROPERTY_COMMUNICATION,
+    DATA_COLLECTION_DATA_REPORT_PROPERTY_PERFORMANCE,
+    DATA_COLLECTION_DATA_REPORT_PROPERTY_APP_SPECIFIC,
+    DATA_COLLECTION_DATA_REPORT_PROPERTY_TRIP_PLAN,
+    DATA_COLLECTION_DATA_REPORT_PROPERTY_MEDIA_STREAMING_ACCESS,
+    DATA_COLLECTION_DATA_REPORT_PROPERTY_ANBR_NET_ASSIST_INVOCATION
+} data_collection_data_report_property_e;
 
 #define DATA_COLLECTION_FEATURE_BIT(N) (UINT64_C(1)<<((N)-1))
 
@@ -107,6 +97,37 @@ typedef enum {
     DATA_COLLECTION_SUPPORTED_FEATURE_EVENT_MS_EVENT_EXPOSURE=DATA_COLLECTION_FEATURE_BIT(28)
 } data_collection_supported_features_event_e;
 
+typedef struct data_collection_data_event_s {
+    const char *event_type;     /** See TS 29.517 Table 5.6.3.3-1 for standard event types */
+    struct timespec timestamp;     /** nano-second accurate UTC time when the event was observed */
+    const char *event_attribute_name;     /** Attribute name to report the event data with */
+    cJSON *event_data;     /** event data as a JSON object/array */
+} data_collection_data_event_t;
+
+typedef struct data_collection_data_report_type_s {
+    const char *type_name;
+    data_collection_data_report_property_e data_report_property;
+    const char *data_domain;      /* derived from data_report_property if NULL */
+    void *(* const parse_report_data)(const data_collection_reporting_session_t *session, cJSON *json, const char **error_return);
+    void *(* const clone_report_data)(const void *report_data);
+    void (* const free_report_data)(void *report_data);
+    cJSON *(* const json_for_report_data)(const void *report_data);
+    struct timespec *(* const timestamp_for_report_data)(const void *report_data);
+    char *(* const tag_for_report_data)(const void *report_data);
+    char *(* const serialise_report_data)(const void *report_data);
+} data_collection_data_report_type_t;
+
+typedef struct data_collection_data_report_s data_collection_data_report_t;
+
+typedef ogs_list_t* (*data_collection_event_generation_cb)(const ogs_list_t *reports  /* filtering parameters from subscriptions - TBD*/);
+
+typedef struct data_collection_configuration_s {
+    const char* configuration_section;
+    int         disable_features;    /* ORed data_collection_feature_flags_e values of features to disable*/
+    uint64_t    event_exposure_supported_features;       /* supported features bitmask for TS 29.517 event subscription */
+    const data_collection_data_report_type_t * const *data_report_types; /* NULL terminated array of data report types implemented by the AF */
+    data_collection_event_generation_cb  event_generation_callback;      /* called to turn reports into events to expose via reference points R5 & R6 */
+} data_collection_configuration_t;
 
 DATA_COLLECTION_SVC_PRODUCER_API int data_collection_initialise(const data_collection_configuration_t* const configuration);
 
