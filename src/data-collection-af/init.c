@@ -30,6 +30,7 @@ static const data_collection_configuration_t g_conf = {
 int dcaf_initialize()
 {
     int rv;
+    char *library_version;
 
     rv = dcaf_set_time();
     if (rv != 0) {
@@ -58,6 +59,12 @@ int dcaf_initialize()
         ogs_debug("ogs_sbi_context_parse_config() failed");
         return rv;
     }
+
+    library_version = (const char *)data_collection_version_full_string();
+
+    ogs_info("Initialising library: %s", library_version);
+
+    ogs_free(library_version);
 
     rv = data_collection_initialise(&g_conf);
     if (rv != OGS_OK) {

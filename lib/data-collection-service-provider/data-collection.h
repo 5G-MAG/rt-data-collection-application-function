@@ -130,6 +130,14 @@ typedef struct data_collection_configuration_s {
     data_collection_event_generation_cb  event_generation_callback;      /* called to turn reports into events to expose via reference points R5 & R6 */
 } data_collection_configuration_t;
 
+
+DATA_COLLECTION_SVC_PRODUCER_API const char * const data_collection_version_full_string();
+DATA_COLLECTION_SVC_PRODUCER_API unsigned int data_collection_version_major();
+DATA_COLLECTION_SVC_PRODUCER_API unsigned int data_collection_version_minor();
+DATA_COLLECTION_SVC_PRODUCER_API unsigned int data_collection_version_micro();
+DATA_COLLECTION_SVC_PRODUCER_API const char * const data_collection_version_string();
+
+
 DATA_COLLECTION_SVC_PRODUCER_API int data_collection_initialise(const data_collection_configuration_t* const configuration);
 
 DATA_COLLECTION_SVC_PRODUCER_API int data_collection_set_nf_services(void);

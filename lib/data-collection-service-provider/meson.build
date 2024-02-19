@@ -11,6 +11,7 @@ libcrypt_dep = open5gs_project.get_variable('libcrypt_dep')
 libsbi_dep = open5gs_project.get_variable('libsbi_dep')
 libinc = open5gs_project.get_variable('libinc')
 
+library_name = 'libspdc'
 libspdc_version_major = 0
 libspdc_version_minor = 1
 libspdc_version_micro = 0
@@ -39,7 +40,7 @@ libspdc_dist_sources = files('''
 '''.split())
 
 version_conf = configuration_data()
-version_conf.set_quoted('DATA_COLLECTION_NAME', meson.project_name())
+version_conf.set_quoted('DATA_COLLECTION_NAME', library_name)
 version_conf.set_quoted('DATA_COLLECTION_VERSION', meson.project_version())
 version_conf.set_quoted('FIVEG_API_RELEASE', fiveg_api_release)
 version_conf.set('DATA_COLLECTION_MAJOR', libspdc_version_major)
