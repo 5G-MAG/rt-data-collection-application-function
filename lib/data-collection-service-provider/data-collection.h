@@ -104,6 +104,9 @@ typedef struct data_collection_data_event_s {
     cJSON *event_data;     /** event data as a JSON object/array */
 } data_collection_data_event_t;
 
+typedef struct data_collection_data_report_s data_collection_data_report_t;
+typedef struct data_collection_reporting_session_s data_collection_reporting_session_t;
+
 typedef struct data_collection_data_report_type_s {
     const char *type_name;
     data_collection_data_report_property_e data_report_property;
@@ -116,8 +119,6 @@ typedef struct data_collection_data_report_type_s {
     char *(* const tag_for_report_data)(const void *report_data);
     char *(* const serialise_report_data)(const void *report_data);
 } data_collection_data_report_type_t;
-
-typedef struct data_collection_data_report_s data_collection_data_report_t;
 
 typedef ogs_list_t* (*data_collection_event_generation_cb)(const ogs_list_t *reports  /* filtering parameters from subscriptions - TBD*/);
 
