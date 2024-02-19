@@ -21,12 +21,15 @@ static int dcaf_set_time(void);
 
 static int initialized = 0;
 
+static const data_collection_configuration_t g_conf = {
+    "dataCollection",                                         /* configuration_section */
+    0,                                                        /* data_collection_features_disabled */
+    DATA_COLLECTION_SUPPORTED_FEATURE_EVENT_UE_COMMUNICATION  /* event_exposure_supported_features */
+};
+
 int dcaf_initialize()
 {
     int rv;
-    const char* const configuration_section = "dataCollection";
-    int data_collection_features_disabled = 0;
-    uint64_t event_exposure_supported_features = 0;
 
     rv = dcaf_set_time();
     if (rv != 0) {
@@ -38,37 +41,27 @@ int dcaf_initialize()
 
     dcaf_context_init();
 
+    rv = ogs_log_config_domain(ogs_app()->logger.domain, ogs_app()->logger.level);
+    if (rv != OGS_OK) {
+        ogs_debug("ogs_log_config_domain failed");
+        return rv;
+    }
+
     rv = dcaf_context_parse_config();
     if (rv != OGS_OK) {
         ogs_debug("dcaf_context_parse_config() failed");
         return rv;
     }
 
-    if (dcaf_self()->config.open5gsIntegration_flag) {
-        rv = ogs_sbi_context_parse_config("dataCollection", "nrf", "scp");
-        if (rv != OGS_OK) {
-            ogs_debug("ogs_sbi_context_parse_config() failed");
-            return rv;
-        }
+    rv = ogs_sbi_context_parse_config("dcaf", "nrf", "scp");
+    if (rv != OGS_OK) {
+        ogs_debug("ogs_sbi_context_parse_config() failed");
+        return rv;
     }
 
-    data_collection_features_disabled = DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_PROVISIONING;
-    event_exposure_supported_features = DATA_COLLECTION_SUPPORTED_FEATURE_EVENT_UE_COMMUNICATION;
-
-     const data_collection_configuration_t conf = {
-         configuration_section,
-         data_collection_features_disabled,
-	 event_exposure_supported_features
-    };
-
-    const data_collection_configuration_t* const configuration = &conf;
-
-    data_collection_initialise(configuration);
-
-
-    rv = ogs_log_config_domain(ogs_app()->logger.domain, ogs_app()->logger.level);
+    rv = data_collection_initialise(&g_conf);
     if (rv != OGS_OK) {
-        ogs_debug("ogs_log_config_domain failed");
+        ogs_debug("data_collection_initialise() failed");
         return rv;
     }
 

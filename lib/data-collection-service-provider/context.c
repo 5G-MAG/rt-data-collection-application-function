@@ -31,7 +31,6 @@ static int free_ogs_hash_entry(void *free_ogs_hash_context, const void *key, int
 static void safe_ogs_free(void *memory);
 
 static void data_collection_context_server_sockaddr_remove(void);
-static int check_for_data_collection_support(void);
 
 int _data_collection_initialise(const data_collection_configuration_t* const configuration)
 {
@@ -105,7 +104,7 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
     while (ogs_yaml_iter_next(&root_iter)) {
         const char *root_key = ogs_yaml_iter_key(&root_iter);
         ogs_assert(root_key);
-        if (!strcmp(root_key, configuration->configuration_section)/*"dataCollection" */) {
+        if (!strcmp(root_key, configuration->configuration_section)) {
             ogs_yaml_iter_t dc_iter;
 
 	    bool event_exposure_disable;
@@ -120,9 +119,7 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
             while (ogs_yaml_iter_next(&dc_iter)) {
                 const char *dc_key = ogs_yaml_iter_key(&dc_iter);
                 ogs_assert(dc_key);
-                if (!strcmp(dc_key, "open5gsIntegration")) {
-		    self->config.open5gsIntegration_flag = ogs_yaml_iter_bool(&dc_iter);
-                } else if (!strcmp(dc_key, "serverResponseCacheControl")) {
+                if (!strcmp(dc_key, "serverResponseCacheControl")) {
                     ogs_yaml_iter_t cc_iter, cc_array;
                     ogs_yaml_iter_recurse(&dc_iter, &cc_array);
                     if (ogs_yaml_iter_type(&cc_array) == YAML_MAPPING_NODE) {
@@ -420,19 +417,11 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
                     /* handle config in sbi library */
                 } else if (!strcmp(dc_key, "dataCollectionDir")) {
                     self->config.data_collection_dir = data_collection_strdup(ogs_yaml_iter_value(&dc_iter));
-                } 
-		
-		else {
+                } else {
                     ogs_warn("unknown key `%s`", dc_key);
                 }
             }
         }
-    }
-
-    rv = check_for_data_collection_support();
-    if (rv != OGS_OK) {
-        ogs_debug("check_for_data_collection_support() failed");
-        return rv;
     }
 
     rv = data_collection_context_validation();
@@ -445,17 +434,6 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
 }
 
 /***** Private functions *****/
-
-static int check_for_data_collection_support(void){
-
-    if(!self->config.open5gsIntegration_flag) {
-        ogs_info("dataCollection.open5gsIntegration must be true. For data collection \"open5gsIntegration: true\" in the configuration file");
-	return OGS_ERROR;
-    }
-
-    return OGS_OK;
-
-}
 
 static void data_collection_context_server_sockaddr_remove(void){
     int i;

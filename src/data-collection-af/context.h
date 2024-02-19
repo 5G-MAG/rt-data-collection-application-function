@@ -48,9 +48,7 @@ typedef enum dcaf_configuration_server_ifc_e {
 } dcaf_configuration_server_ifc_t;
 
 typedef struct dcaf_configuration_s {
-    bool open5gsIntegration_flag;
     dcaf_configuration_server_t servers[DCAF_SVR_NUM_IFCS];
-    char *data_collection_dir;
 } dcaf_configuration_t;
 
 typedef struct dcaf_context_s {

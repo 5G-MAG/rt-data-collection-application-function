@@ -46,18 +46,18 @@ int dcaf_sbi_open(void)
 
     ogs_sbi_nf_instance_build_default(nf_instance);
 
-    if(data_collection_set_nf_services()!= OGS_OK)
+    if (data_collection_set_nf_services()!= OGS_OK) {
         return OGS_ERROR;
-
-    if (dcaf_self()->config.open5gsIntegration_flag) {
-
-        nf_instance = ogs_sbi_self()->nrf_instance;
-        if (nf_instance)
-            ogs_sbi_nf_fsm_init(nf_instance);
     }
 
-    if (ogs_sbi_server_start_all(server_cb) != OGS_OK)
+    nf_instance = ogs_sbi_self()->nrf_instance;
+    if (nf_instance) {
+        ogs_sbi_nf_fsm_init(nf_instance);
+    }
+
+    if (ogs_sbi_server_start_all(server_cb) != OGS_OK) {
         return OGS_ERROR;
+    }
 
     return OGS_OK;
 }

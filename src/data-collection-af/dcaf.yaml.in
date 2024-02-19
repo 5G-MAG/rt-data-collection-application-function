@@ -167,35 +167,27 @@ sbi:
 #      'service-names' is always included in the URI query parameter.
 #    * That is, 'no_service_names' has no effect.
 #
-dataCollection:
-    open5gsIntegration: true    
+dcaf:
     sbi:
       - addr: 127.0.0.32
         port: 7777
-    r1ProvisioningSessions:
+
+dataCollection:
+    provisioningSessions:
       - addr: 127.0.0.33
         port: 7777
-    r2DataCollectionReports:
+    dataCollectionReports:
       - addr: 127.0.0.34
         port: 7777
-    r4ApplicationServerReports:
+    eventExposure:
       - addr: 127.0.0.35
-        port: 7777
-    r5NwdafEventExposure:
-      - addr: 127.0.0.36
-        port: 7777
-    r6ConsumerEventExposure:
-      - addr: 127.0.0.37
         port: 7777
     serverResponseCacheControl:
       - maxAge: 60
         provisioningSessions: 60
         dataCollectionReports: 60
-        applicationServerReports: 60
-        consumerEventExposure: 60
-        nwdafEventExposure: 60
+        eventExposure: 60
     dataCollectionDir: @data-collection-dir@
-
 
 # nrf:
 #
@@ -240,12 +232,6 @@ nrf:
           - 127.0.0.10
           - ::1
         port: 7777
-
-bsf:
-  notificationListener:
-    - addr:
-      - 127.0.0.99
-      port: 7779
 
 #
 # parameter:

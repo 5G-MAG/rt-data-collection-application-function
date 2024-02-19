@@ -55,7 +55,6 @@ typedef enum data_collection_configuration_server_ifc_e {
 
 typedef struct data_collection_lib_configuration_s {
     const data_collection_configuration_t *data_collection_configuration;
-    bool open5gsIntegration_flag;
     data_collection_configuration_server_t servers[DATA_COLLECTION_SVR_NUM_IFCS];
     data_collection_server_response_cache_control_t *server_response_cache_control;
 
