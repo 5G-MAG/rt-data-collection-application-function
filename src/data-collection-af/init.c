@@ -31,6 +31,10 @@ int dcaf_initialize()
 {
     int rv;
     char *library_version;
+    const char *library_version_string;
+    unsigned int library_version_major;
+    unsigned int library_version_minor;
+    unsigned int library_version_micro;
 
     rv = dcaf_set_time();
     if (rv != 0) {
@@ -61,8 +65,12 @@ int dcaf_initialize()
     }
 
     library_version = (const char *)data_collection_version_full_string();
+    library_version_string = data_collection_version_string();
+    library_version_major =  data_collection_version_major();
+    library_version_minor =  data_collection_version_minor();
+    library_version_micro = data_collection_version_micro();
 
-    ogs_info("Initialising library: %s", library_version);
+    ogs_info("Initialising library: \n\t Library Version: [%s] \n\t Version [%s] \n\t Major: [%d], \n\t Minor [%d] \n\t Micro: [%d]\n", library_version, library_version_string, library_version_major, library_version_minor, library_version_micro);
 
     ogs_free(library_version);
 
