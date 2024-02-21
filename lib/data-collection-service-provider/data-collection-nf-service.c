@@ -62,6 +62,7 @@ int _data_collection_set_nf_services(void)
 
 static ogs_sbi_nf_service_t *__data_collection_nf_service(const char *name, int server_ifc, const char *api_version, const char *supported_features)
 {
+    int i;
     ogs_sbi_nf_service_t *nf_service = NULL;
     ogs_uuid_t uuid;
     char id[OGS_UUID_FORMATTED_LENGTH + 1];
@@ -75,8 +76,12 @@ static ogs_sbi_nf_service_t *__data_collection_nf_service(const char *name, int 
                                         ogs_app()->sbi.server.no_tls == false ? OpenAPI_uri_scheme_https : OpenAPI_uri_scheme_http);
     ogs_assert(nf_service);
 
-    __add_addresses_to_nf_service(nf_service, data_collection_self()->config.servers[server_ifc].ipv4);
-    __add_addresses_to_nf_service(nf_service, data_collection_self()->config.servers[server_ifc].ipv6);
+    for (i=0; i<data_collection_self()->config.servers[server_ifc].num_v4_server_instances; i++) {
+        __add_addresses_to_nf_service(nf_service, data_collection_self()->config.servers[server_ifc].ogs_server[i].ipv4);
+    }
+    for (i=0; i<data_collection_self()->config.servers[server_ifc].num_v6_server_instances; i++) {
+        __add_addresses_to_nf_service(nf_service, data_collection_self()->config.servers[server_ifc].ogs_server[i].ipv6);
+    }
 
     ogs_sbi_nf_service_add_version(nf_service, OGS_SBI_API_V1, api_version, NULL);
 

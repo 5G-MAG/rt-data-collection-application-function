@@ -303,14 +303,18 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
 
                         node = ogs_list_first(&list);
                         if (node) {
-                            int i;
+                            int i,j;
                             int matches = 0;
                             ogs_sbi_server_t *server;
+                            data_collection_configuration_server_ifc_t ifc_num;
+
                             for (i=0; i<DATA_COLLECTION_SVR_NUM_IFCS; i++) {
-                                if (self->config.servers[i].ipv4 && ogs_sockaddr_is_equal(node->addr, self->config.servers[i].ipv4)) {
-                                    server = self->config.servers[i].server_v4;
-                                    matches = 1;
-                                    break;
+                                for (j=0; j<self->config.servers[i].num_v4_server_instances; j++) {
+                                    if (self->config.servers[i].ogs_server[j].ipv4 && ogs_sockaddr_is_equal(node->addr, self->config.servers[i].ogs_server[j].ipv4)) {
+                                        server = self->config.servers[i].ogs_server[j].server_v4;
+                                        matches = 1;
+                                        break;
+                                    }
                                 }
                             }
                             if(!matches) {
@@ -327,40 +331,45 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
                                 if (pem) server->tls.pem = pem;
                             */
                             }
-                            if (!strcmp(dc_key, "provisioningSessions")) {
-                                if(self->config.servers[DATA_COLLECTION_SVR_PROVISIONING].ipv4){
-                                    ogs_freeaddrinfo(self->config.servers[DATA_COLLECTION_SVR_PROVISIONING].ipv4);
-                                    self->config.servers[DATA_COLLECTION_SVR_PROVISIONING].ipv4 = NULL;
-                                }
-                                ogs_assert(OGS_OK == ogs_copyaddrinfo(&self->config.servers[DATA_COLLECTION_SVR_PROVISIONING].ipv4, server->node.addr));
-                                self->config.servers[DATA_COLLECTION_SVR_PROVISIONING].server_v4 = server;
-                            } else if (!strcmp(dc_key, "dataCollectionReports")) {
-                                if(self->config.servers[DATA_COLLECTION_SVR_DATA_REPORTING].ipv4){
-                                    ogs_freeaddrinfo(self->config.servers[DATA_COLLECTION_SVR_DATA_REPORTING].ipv4);
-                                    self->config.servers[DATA_COLLECTION_SVR_DATA_REPORTING].ipv4 = NULL;
-                                }
-                                ogs_assert(OGS_OK == ogs_copyaddrinfo(&self->config.servers[DATA_COLLECTION_SVR_DATA_REPORTING].ipv4, server->node.addr));
-                                self->config.servers[DATA_COLLECTION_SVR_DATA_REPORTING].server_v4 = server;
-                            } else if (!strcmp(dc_key, "eventExposure")) {
-                                if(self->config.servers[DATA_COLLECTION_SVR_EVENT].ipv4){
-                                    ogs_freeaddrinfo(self->config.servers[DATA_COLLECTION_SVR_EVENT].ipv4);
-                                    self->config.servers[DATA_COLLECTION_SVR_EVENT].ipv4 = NULL;
-                                }
-                                ogs_assert(OGS_OK == ogs_copyaddrinfo(&self->config.servers[DATA_COLLECTION_SVR_EVENT].ipv4, server->node.addr));
-                                self->config.servers[DATA_COLLECTION_SVR_EVENT].server_v4 = server;
+                            
+                            SWITCH(dc_key)
+                            CASE("provisioningSessions")
+                                ifc_num = DATA_COLLECTION_SVR_PROVISIONING;
+                                break;
+                            CASE("dataCollectionReports")
+                                ifc_num = DATA_COLLECTION_SVR_DATA_REPORTING;
+                                break;
+                            CASE("eventExposure")
+                                ifc_num = DATA_COLLECTION_SVR_EVENT;
+                                break;
+                            DEFAULT
+                                ifc_num = DATA_COLLECTION_SVR_SBI;
+                                break;
+                            END
+                            size_t ifc_svr = self->config.servers[ifc_num].num_v4_server_instances;
+                            if (ifc_svr+1 >= DATA_COLLECTION_SVR_MAX_SERVERS_PER_IFC) {
+                                ogs_error("Too many IPv4 servers in %s.%s section of the configuration", configuration->configuration_section, dc_key);
+                                return OGS_ERROR;
                             }
-
+                            ogs_assert(OGS_OK == ogs_copyaddrinfo(&self->config.servers[ifc_num].ogs_server[ifc_svr].ipv4,
+                                                                  server->node.addr));
+                            self->config.servers[ifc_num].ogs_server[ifc_svr].server_v4 = server;
+                            self->config.servers[ifc_num].num_v4_server_instances++;
                         }
                         node6 = ogs_list_first(&list6);
                         if (node6) {
-                            int i;
+                            int i,j;
                             int matches = 0;
                             ogs_sbi_server_t *server;
+                            data_collection_configuration_server_ifc_t ifc_num;
+
                             for (i=0; i<DATA_COLLECTION_SVR_NUM_IFCS; i++) {
-                                if (self->config.servers[i].ipv6 && ogs_sockaddr_is_equal(node->addr, self->config.servers[i].ipv6)) {
-                                    server = self->config.servers[i].server_v6;
-                                    matches = 1;
-                                    break;
+                                for (j=0; j<self->config.servers[i].num_v6_server_instances; j++) {
+                                    if (self->config.servers[i].ogs_server[j].ipv6 && ogs_sockaddr_is_equal(node->addr, self->config.servers[i].ogs_server[j].ipv6)) {
+                                        server = self->config.servers[i].ogs_server[j].server_v6;
+                                        matches = 1;
+                                        break;
+                                    }
                                 }
                             }
                             if(!matches) {
@@ -376,29 +385,29 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
                                 if (pem) server->tls.pem = pem;
                             */
                             }
-                            if (!strcmp(dc_key, "provisioningSessions")) {
-                                if(self->config.servers[DATA_COLLECTION_SVR_PROVISIONING].ipv6){
-                                    ogs_freeaddrinfo(self->config.servers[DATA_COLLECTION_SVR_PROVISIONING].ipv6);
-                                    self->config.servers[DATA_COLLECTION_SVR_PROVISIONING].ipv6 = NULL;
-                                }
-                                ogs_assert(OGS_OK == ogs_copyaddrinfo(&self->config.servers[DATA_COLLECTION_SVR_PROVISIONING].ipv6, server->node.addr));
-                                self->config.servers[DATA_COLLECTION_SVR_PROVISIONING].server_v6 = server;
-                            } else if (!strcmp(dc_key, "dataCollectionReports")) {
-                                if(self->config.servers[DATA_COLLECTION_SVR_DATA_REPORTING].ipv6){
-                                    ogs_freeaddrinfo(self->config.servers[DATA_COLLECTION_SVR_DATA_REPORTING].ipv6);
-                                    self->config.servers[DATA_COLLECTION_SVR_DATA_REPORTING].ipv6 = NULL;
-                                }
-                                ogs_assert(OGS_OK == ogs_copyaddrinfo(&self->config.servers[DATA_COLLECTION_SVR_DATA_REPORTING].ipv6, server->node.addr));
-                                self->config.servers[DATA_COLLECTION_SVR_DATA_REPORTING].server_v6 = server;
-                            } else if (!strcmp(dc_key, "eventExposure")) {
-                                if(self->config.servers[DATA_COLLECTION_SVR_EVENT].ipv6){
-                                    ogs_freeaddrinfo(self->config.servers[DATA_COLLECTION_SVR_EVENT].ipv6);
-                                    self->config.servers[DATA_COLLECTION_SVR_EVENT].ipv6 = NULL;
-                                }
-                                ogs_assert(OGS_OK == ogs_copyaddrinfo(&self->config.servers[DATA_COLLECTION_SVR_EVENT].ipv6, server->node.addr));
-                                self->config.servers[DATA_COLLECTION_SVR_EVENT].server_v6 = server;
+                            SWITCH(dc_key)
+                            CASE("provisioningSessions")
+                                ifc_num = DATA_COLLECTION_SVR_PROVISIONING;
+                                break;
+                            CASE("dataCollectionReports")
+                                ifc_num = DATA_COLLECTION_SVR_DATA_REPORTING;
+                                break;
+                            CASE("eventExposure")
+                                ifc_num = DATA_COLLECTION_SVR_EVENT;
+                                break;
+                            DEFAULT
+                                ifc_num = DATA_COLLECTION_SVR_SBI;
+                                break;
+                            END
+                            size_t ifc_svr = self->config.servers[ifc_num].num_v6_server_instances;
+                            if (ifc_svr+1 >= DATA_COLLECTION_SVR_MAX_SERVERS_PER_IFC) {
+                                ogs_error("Too many IPv6 servers in %s.%s section of the configuration", configuration->configuration_section, dc_key);
+                                return OGS_ERROR;
                             }
-
+                            ogs_assert(OGS_OK == ogs_copyaddrinfo(&self->config.servers[ifc_num].ogs_server[ifc_svr].ipv6,
+                                                                  server->node.addr));
+                            self->config.servers[ifc_num].ogs_server[ifc_svr].server_v6 = server;
+                            self->config.servers[ifc_num].num_v6_server_instances++;
                         }
 
 
@@ -436,10 +445,14 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
 /***** Private functions *****/
 
 static void data_collection_context_server_sockaddr_remove(void){
-    int i;
+    int i,j;
     for (i=0; i<DATA_COLLECTION_SVR_NUM_IFCS; i++) {
-        if(self->config.servers[i].ipv4) ogs_freeaddrinfo(self->config.servers[i].ipv4);
-        if(self->config.servers[i].ipv6) ogs_freeaddrinfo(self->config.servers[i].ipv6);
+        for (j=0; j<self->config.servers[i].num_v4_server_instances; j++) {
+            if(self->config.servers[i].ogs_server[j].ipv4) ogs_freeaddrinfo(self->config.servers[i].ogs_server[j].ipv4);
+        }
+        for (j=0; j<self->config.servers[i].num_v6_server_instances; j++) {
+            if(self->config.servers[i].ogs_server[j].ipv6) ogs_freeaddrinfo(self->config.servers[i].ogs_server[j].ipv6);
+        }
     }
 }
 
