@@ -1,6 +1,4 @@
 [wrap-git]
 directory = open5gs
-url = https://github.com/open5gs/open5gs.git
-revision = v2.6.4
-
-diff_files = open5gs.patch
+url = https://github.com/5G-MAG/open5gs.git
+revision = bbc-patches
