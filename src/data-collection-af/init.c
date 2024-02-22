@@ -30,7 +30,7 @@ static const data_collection_configuration_t g_conf = {
 int dcaf_initialize()
 {
     int rv;
-    char *library_version;
+    const char *library_version;
     const char *library_version_string;
     unsigned int library_version_major;
     unsigned int library_version_minor;
@@ -64,15 +64,13 @@ int dcaf_initialize()
         return rv;
     }
 
-    library_version = (const char *)data_collection_version_full_string();
+    library_version = data_collection_version_full_string();
     library_version_string = data_collection_version_string();
-    library_version_major =  data_collection_version_major();
-    library_version_minor =  data_collection_version_minor();
+    library_version_major = data_collection_version_major();
+    library_version_minor = data_collection_version_minor();
     library_version_micro = data_collection_version_micro();
 
     ogs_info("Initialising library: \n\t Library Version: [%s] \n\t Version [%s] \n\t Major: [%d], \n\t Minor [%d] \n\t Micro: [%d]\n", library_version, library_version_string, library_version_major, library_version_minor, library_version_micro);
-
-    ogs_free(library_version);
 
     rv = data_collection_initialise(&g_conf);
     if (rv != OGS_OK) {

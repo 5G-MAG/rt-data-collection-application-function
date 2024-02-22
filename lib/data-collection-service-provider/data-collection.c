@@ -14,56 +14,51 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #include "data-collection-nf-service.h"
 #include "utils.h"
 
-const char * const data_collection_version_full_string()
+DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_version_full_string()
 {
-    const char *version_full_string = ogs_msprintf("%s-%s", DATA_COLLECTION_NAME, DATA_COLLECTION_VERSION);
+    static const char version_full_string[] = DATA_COLLECTION_NAME "-" DATA_COLLECTION_VERSION;
     return version_full_string;
 }
 
-const char * const data_collection_version_string()
+DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_version_string()
 {
- return (const char *)DATA_COLLECTION_VERSION;
+    return DATA_COLLECTION_VERSION;
 }
 
-unsigned int data_collection_version_major()
+DATA_COLLECTION_SVC_PRODUCER_API unsigned int data_collection_version_major()
 {
     return DATA_COLLECTION_MAJOR;
 }
 
-unsigned int data_collection_version_minor()
+DATA_COLLECTION_SVC_PRODUCER_API unsigned int data_collection_version_minor()
 {
     return DATA_COLLECTION_MINOR;	
 }
 
 
-unsigned int data_collection_version_micro()
+DATA_COLLECTION_SVC_PRODUCER_API unsigned int data_collection_version_micro()
 {
     return DATA_COLLECTION_MICRO;	
 }
 
-
-
-int data_collection_initialise(const data_collection_configuration_t* const configuration)
+DATA_COLLECTION_SVC_PRODUCER_API int data_collection_initialise(const data_collection_configuration_t* const configuration)
 {
     return _data_collection_initialise(configuration);
 
 }
 
-int data_collection_set_nf_services(){
+DATA_COLLECTION_SVC_PRODUCER_API int data_collection_set_nf_services(){
     return _data_collection_set_nf_services();
 }
 
-bool data_collection_process_event(ogs_event_t *e)
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_process_event(ogs_event_t *e)
 {
     return _data_collection_process_event(e);
 }
 
-void data_collection_finalise(){
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_finalise(){
     data_collection_context_final();
 }
-
-/******************* Private functions ********************/
-
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */
