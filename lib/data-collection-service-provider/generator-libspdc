@@ -115,17 +115,30 @@ fi
 
 # Get the absolute path to the destination directory
 destdir=`realpath -m "$scriptdir/openapi"`
-openapi_gen_dir=`realpath "$scriptdir/../../subprojects/open5gs/lib/sbi/support/r17-20230301-openapitools-6.4.0/openapi-generator"`
+if [[ -n "$MESON_SOURCE_ROOT" ]]; then
+  # Use source root directory if available
+  open5gs_dir=`realpath "$MESON_SOURCE_ROOT/subprojects/open5gs"`
+  rt_common_shared_dir=`realpath "$MESON_SOURCE_ROOT/subprojects/rt-common-shared"`
+else
+  # try relative to the script directory
+  open5gs_dir=`realpath "$scriptdir/../../subprojects/open5gs"`
+  rt_common_shared_dir=`realpath "$scriptdir/../../subprojects/rt-common-shared"`
+fi
+openapi_gen_dir="$open5gs_dir/lib/sbi/support/r17-20230301-openapitools-6.4.0/openapi-generator"
 
 sed "s@^templateDir:.*@templateDir: \"${openapi_gen_dir}/templates\"@" $openapi_gen_dir/config.yaml > $scriptdir/config.yaml
-cp "${scriptdir}/../../subprojects/rt-common-shared/5gms/openapi-generator-templates/c/"*.mustache "${openapi_gen_dir}/templates/"
+cp "${rt_common_shared_dir}/open5gs-tools/openapi-generator-templates/c/"*.mustache "${openapi_gen_dir}/templates/"
 cat >> $scriptdir/config.yaml << EOF
 importMappings:
   set: set
+  any_type: any_type
   dcaf_api_set: set
+  dcaf_api_any_type: any_type
 typeMappings:
   set: set
+  any_type: any_type
   dcaf_api_set: set
+  dcaf_api_any_type: any_type
 files:
   api-info-head.mustache:
     templateType: API
@@ -134,6 +147,14 @@ files:
     templateType: SupportingFiles
     folder: include
     destinationFilename: set.h
+  any_type.c.mustache:
+    templateType: SupportingFiles
+    folder: src
+    destinationFilename: any_type.c
+  any_type.h.mustache:
+    templateType: SupportingFiles
+    folder: include
+    destinationFilename: any_type.h
 EOF
 
 # call the common generate_openapi script
@@ -141,35 +162,24 @@ if [ ! -d "$scriptdir/openapi" ]; then
     mkdir "$scriptdir/openapi"
 fi
 
-if ! "$scriptdir/../../subprojects/rt-common-shared/5gms/scripts/generate_openapi" -a "${APIS}" -b "${BRANCH}" -c "$scriptdir/config.yaml" -l c -d "$scriptdir/openapi" -g 6.4.0 -y "$scriptdir/fix_openapi_yaml.py" -p "DCAF_API"; then
+if ! "$rt_common_shared_dir/open5gs-tools/scripts/generate_openapi" -a "${APIS}" -b "${BRANCH}" -c "$scriptdir/config.yaml" -l c -d "$scriptdir/openapi" -g 6.4.0 -y "$scriptdir/fix_openapi_yaml.py" -p "DCAF_API"; then
     echo "Error: Failed to generate OpenAPI model" 1>&2
     exit 1
 fi
  
 ln -s ../include/set.h "$scriptdir/openapi/model/dcaf_api_set.h"
+ln -s ../include/any_type.h "$scriptdir/openapi/model/dcaf_api_any_type.h"
 
 # Delete any model file already in the Open5GS SBI library to avoid clashes
 for f in "$scriptdir/openapi/model"/*.[ch]; do
     b=`basename "$f"`
-    if [ -e "$scriptdir/../../subprojects/open5gs/lib/sbi/openapi/model/$b" ]; then
+    if [ -e "$open5gs_dir/lib/sbi/openapi/model/$b" ]; then
 	rm "$f"
     fi
 done
 
 if [ -n "$MODEL_DEPS" ]; then
-    (cd "$scriptdir"; echo openapi/model/*.[ch] > "$MODEL_DEPS")
-fi
-
-# Delete any model file already in the Open5GS SBI library to avoid clashes
-for f in "$scriptdir/openapi/model"/*.[ch]; do
-    b=`basename "$f"`
-    if [ -e "$scriptdir/../../subprojects/open5gs/lib/sbi/openapi/model/$b" ]; then
-	rm "$f"
-    fi
-done
-
-if [ -n "$MODEL_DEPS" ]; then
-    (cd "$scriptdir"; echo openapi/model/*.[ch] > "$MODEL_DEPS")
+    (cd "$scriptdir"; echo openapi/model/*.[ch] openapi/src/any_type.c openapi/include/{set,any_type}.h > "$MODEL_DEPS")
 fi
 
 exit 0

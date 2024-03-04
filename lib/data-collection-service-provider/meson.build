@@ -39,6 +39,13 @@ libspdc_dist_sources = files('''
     utilities.c
 '''.split())
 
+api_tag = latest_apis?'REL-'+fiveg_api_release:'TSG'+fiveg_api_approval+'-Rel'+fiveg_api_release
+
+gen_5gspdc_sh = find_program('sh')
+openapi_dep_file = meson.current_source_dir() / '.openapi.srcs'
+openapi_gen_result = run_command([gen_5gspdc_sh,'-c','"$MESON_SOURCE_ROOT/$MESON_SUBDIR/generator-libspdc" -M "'+openapi_dep_file+'" -b '+api_tag], capture: true, check: true)
+libspdc_gen_sources = files(fs.read(openapi_dep_file).split())
+
 version_conf = configuration_data()
 version_conf.set_quoted('DATA_COLLECTION_NAME', library_name)
 version_conf.set_quoted('DATA_COLLECTION_VERSION', meson.project_version())
@@ -46,19 +53,9 @@ version_conf.set_quoted('FIVEG_API_RELEASE', fiveg_api_release)
 version_conf.set('DATA_COLLECTION_MAJOR', libspdc_version_major)
 version_conf.set('DATA_COLLECTION_MINOR', libspdc_version_minor)
 version_conf.set('DATA_COLLECTION_MICRO', libspdc_version_micro)
-libspdc_gen_sources = [configure_file(input:'data-collection-version.h.in',output : 'data-collection-version.h', configuration : version_conf)]
-
-
-#api_tag = latest_apis?'REL-'+fiveg_api_release:'TSG'+fiveg_api_approval+'-Rel'+fiveg_api_release
-
-#gen_5gspdc_openapi = find_program('sh')
-#message('Generating OpenAPI bindings for version '+api_tag+' of the 5G APIs...')
-#openapi_dep_file = meson.current_source_dir() / '.openapi.deps'
-#openapi_gen_result = run_command([gen_5gspdc_openapi,'-c','"$MESON_SOURCE_ROOT/$MESON_SUBDIR/generator-libspdc" -M '+openapi_dep_file+' -b '+api_tag], check: true, capture: true)
-#libspdc_gen_sources += files(fs.read(openapi_dep_file).split())
+libspdc_gen_sources += [configure_file(input:'data-collection-version.h.in',output : 'data-collection-version.h', configuration : version_conf)]
 
 libspdc_sources = libspdc_dist_sources + libspdc_gen_sources
-
 
 libspdc_inc = include_directories('.')
 
