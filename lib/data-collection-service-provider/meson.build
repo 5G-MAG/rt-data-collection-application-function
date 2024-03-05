@@ -43,6 +43,7 @@ api_tag = latest_apis?'REL-'+fiveg_api_release:'TSG'+fiveg_api_approval+'-Rel'+f
 
 gen_5gspdc_sh = find_program('sh')
 openapi_dep_file = meson.current_source_dir() / '.openapi.srcs'
+message('Generating OpenAPI bindings for version '+api_tag+' of the 5G APIs...')
 openapi_gen_result = run_command([gen_5gspdc_sh,'-c','"$MESON_SOURCE_ROOT/$MESON_SUBDIR/generator-libspdc" -M "'+openapi_dep_file+'" -b '+api_tag], capture: true, check: true)
 libspdc_gen_sources = files(fs.read(openapi_dep_file).split())
 
