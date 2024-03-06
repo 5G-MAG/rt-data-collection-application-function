@@ -33,10 +33,21 @@ libspdc_dist_sources = files('''
     data-collection-nf-service.c
     data-collection-process.h
     data-collection-process.c
+    hash.h
+    hash.c
+    server.h
+    server.c
+    data-reporting.h
+    data-reporting.c
+    lib-metadata.h
+    lib-metadata.c
+    data-reporting-process.h
+    data-reporting-process.c
     response-cache-control.h
     response-cache-control.c
     utilities.h
     utilities.c
+
 '''.split())
 
 api_tag = latest_apis?'REL-'+fiveg_api_release:'TSG'+fiveg_api_approval+'-Rel'+fiveg_api_release

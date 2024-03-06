@@ -123,6 +123,7 @@ typedef struct data_collection_data_report_s data_collection_data_report_t;
  * Use data_collection_reporting_session_*() functions to access this type.
  */
 typedef struct data_collection_reporting_session_s data_collection_reporting_session_t;
+typedef struct data_collection_event_subscription_s data_collection_event_subscription_t;
 
 /** Event Subscription
  *

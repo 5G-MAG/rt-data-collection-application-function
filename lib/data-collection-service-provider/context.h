@@ -69,7 +69,8 @@ typedef struct data_collection_lib_configuration_s {
 
 typedef struct data_collection_context_s {
     data_collection_lib_configuration_t config;
-    ogs_hash_t  *dataReportingProvisioningSessions;
+    ogs_hash_t  *data_reporting_provisioning_sessions;
+    ogs_list_t   data_reporting_sessions; // Nodes of this list are of type data_collection_reporting_session_t *
     char server_name[NI_MAXHOST];
 } data_collection_context_t;
 

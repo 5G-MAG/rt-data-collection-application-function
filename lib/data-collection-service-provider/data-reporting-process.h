@@ -7,8 +7,8 @@ program. If this file is missing then the license can be retrieved from
 https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 */
 
-#ifndef DATA_COLLECTION_H
-#define DATA_COLLECTION_H
+#ifndef DATA_REPORTING_PROCESS_H
+#define DATA_REPORTING_PROCESS_H
 
 #include "ogs-proto.h"
 
@@ -17,7 +17,7 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 extern "C" {
 #endif
 
-bool _data_collection_process_event(ogs_event_t *e);
+bool _data_reporting_process_event(ogs_event_t *e);
 
 #ifdef __cplusplus
 }
@@ -26,4 +26,4 @@ bool _data_collection_process_event(ogs_event_t *e);
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */
 
-#endif /* DATA_COLLECTION_H */
+#endif /* DATA_REPORTING_PROCESS_H */

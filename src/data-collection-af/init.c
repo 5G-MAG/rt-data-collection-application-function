@@ -19,13 +19,91 @@ static ogs_thread_t *thread;
 static void dcaf_main(void *data);
 static int dcaf_set_time(void);
 
+typedef struct foo_bar_report_s {
+    void *report;	
+	
+}foo_bar_report_t;
+
+ogs_list_t *event_exposure_generate_cb(data_collection_event_subscription_t *data_collection_event_subscription);
+static foo_bar_report_t *foo_bar_parse(const data_collection_reporting_session_t *session, cJSON *json, const char **error_return);
+static foo_bar_report_t *foo_bar_clone(const foo_bar_report_t *to_copy);
+static void foo_bar_free(foo_bar_report_t *report);
+static cJSON *foo_bar_json(const foo_bar_report_t *report);
+static char *foo_bar_make_tag(const foo_bar_report_t *report);
+static char *foo_bar_serialise(const foo_bar_report_t *report);
+
+static const data_collection_data_report_type_t foo_bar_data_report_type = {
+    "FooBar",
+    DATA_COLLECTION_DATA_REPORT_PROPERTY_APP_SPECIFIC,
+    "FOO_BAR",
+    foo_bar_parse,
+    foo_bar_clone,
+    foo_bar_free,
+    foo_bar_json,
+    foo_bar_make_tag,
+    foo_bar_serialise
+};
+
+static const data_collection_data_report_type_t * const dc_config_report_types[] = {
+    &foo_bar_data_report_type,
+    NULL
+};
+
 static int initialized = 0;
 
+static const data_collection_configuration_t dc_config = {
+    "dataCollection",  /* configuration section */
+    0,                /* library feature disable flags */
+    0x100000000,     /*  event supported feature flags */
+    dc_config_report_types, /* data types to register */
+    event_exposure_generate_cb /* callback to generate events for event exposure */
+};
+
+#if 0
 static const data_collection_configuration_t g_conf = {
     "dataCollection",                                         /* configuration_section */
     0,                                                        /* data_collection_features_disabled */
-    DATA_COLLECTION_SUPPORTED_FEATURE_EVENT_UE_COMMUNICATION  /* event_exposure_supported_features */
+    0x100000000, /*DATA_COLLECTION_SUPPORTED_FEATURE_EVENT_UE_COMMUNICATION*/  /* event_exposure_supported_features */
+    dc_config_report_types,
+    event_exposure_generate_cb
 };
+#endif
+
+
+
+static foo_bar_report_t *foo_bar_parse(const data_collection_reporting_session_t *session, cJSON *json, const char **error_return)
+{
+    return NULL;
+}
+
+static foo_bar_report_t *foo_bar_clone(const foo_bar_report_t *to_copy)
+{
+    return NULL;	
+}
+static void foo_bar_free(foo_bar_report_t *report)
+{
+    ogs_assert(report);	
+}
+
+static cJSON *foo_bar_json(const foo_bar_report_t *report)
+{
+    return NULL;	
+}
+static char *foo_bar_make_tag(const foo_bar_report_t *report)
+{
+    return NULL;	
+}
+static char *foo_bar_serialise(const foo_bar_report_t *report)
+{
+    return NULL;	
+}
+
+
+ogs_list_t *event_exposure_generate_cb(data_collection_event_subscription_t *data_collection_event_subscription)
+{
+  return NULL;	
+
+}
 
 int dcaf_initialize()
 {
@@ -72,7 +150,7 @@ int dcaf_initialize()
 
     ogs_info("Initialising library: \n\t Library Version: [%s] \n\t Version [%s] \n\t Major: [%d], \n\t Minor [%d] \n\t Micro: [%d]\n", library_version, library_version_string, library_version_major, library_version_minor, library_version_micro);
 
-    rv = data_collection_initialise(&g_conf);
+    rv = data_collection_initialise(&dc_config);
     if (rv != OGS_OK) {
         ogs_debug("data_collection_initialise() failed");
         return rv;

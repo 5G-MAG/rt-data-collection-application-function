@@ -14,6 +14,8 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 
 #include "context.h"
 #include "utilities.h"
+#include "lib-metadata.h"
+#include "data-reporting.h"
 
 static data_collection_context_t *self = NULL;
 
@@ -29,6 +31,7 @@ static int data_collection_context_prepare(void);
 static int data_collection_context_validation(void);
 static int free_ogs_hash_entry(void *free_ogs_hash_context, const void *key, int klen, const void *value);
 static void safe_ogs_free(void *memory);
+static void data_collection_context_data_reporting_sessions_remove(void);
 
 static void data_collection_context_server_sockaddr_remove(void);
 
@@ -56,6 +59,8 @@ void data_collection_context_init(void)
     self = ogs_calloc(1, sizeof(data_collection_context_t));
     ogs_assert(self);
 
+    ogs_list_init(&self->data_reporting_sessions);
+
     data_collection_server_response_cache_control_set();
 
 }
@@ -71,6 +76,9 @@ void data_collection_context_final(void)
  
     if (self->config.data_collection_dir)
         ogs_free(self->config.data_collection_dir);
+
+    data_collection_context_data_reporting_sessions_remove(); 
+    data_collection_free_agent_name();
 
     data_collection_context_server_sockaddr_remove();
 
@@ -443,6 +451,19 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
 }
 
 /***** Private functions *****/
+
+static void data_collection_context_data_reporting_sessions_remove(void) {
+    ogs_info("Removing all Data Reporting Sessions");
+    data_collection_reporting_session_t *data_reporting_session;
+    data_collection_reporting_session_t *data_reporting_session_node;
+
+    ogs_list_for_each_safe(&data_collection_self()->data_reporting_sessions, data_reporting_session_node, data_reporting_session) {
+        ogs_list_remove(&data_collection_self()->data_reporting_sessions, data_reporting_session);
+        data_collection_reporting_session_destroy(data_reporting_session);
+        //ogs_free (data_reporting_session);
+    }
+}
+
 
 static void data_collection_context_server_sockaddr_remove(void){
     int i,j;

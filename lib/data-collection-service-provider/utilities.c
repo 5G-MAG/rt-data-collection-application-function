@@ -68,6 +68,20 @@ char *read_file(const char *filename)
 
 }
 
+char *epoch_to_datetime(char *epoch) {
+    struct tm tm;
+    static char buf[255];
+    char *epoch_to_convert;
+
+    memset(&tm, 0, sizeof(struct tm));
+    epoch_to_convert = ogs_msprintf("%.10s", epoch);
+
+    strptime(epoch_to_convert, "%s", &tm);
+    strftime(buf, sizeof(buf), "%a, %d %b %Y %H:%M:%S %Z", &tm);
+    ogs_free(epoch_to_convert);
+    return buf;
+}
+
 int str_match(const char *line, const char *word_to_find) {
  
     char* p = strstr(line,word_to_find);
@@ -174,6 +188,36 @@ char *traceable_strdup(const char *str, const char *location)
 
     return ptr;
 }
+
+ogs_lnode_t *list_node_create(void)
+{
+    ogs_lnode_t *node = NULL;
+
+    node = ogs_calloc(1, sizeof(ogs_lnode_t));
+    ogs_assert(node);
+
+    if (node == NULL) {
+        ogs_assert_if_reached();
+        return NULL;
+    }
+    return node;
+}
+
+ogs_list_t *list_create(void)
+{
+    ogs_list_t *list;
+
+    list = ogs_calloc(1, sizeof(ogs_list_t));
+    ogs_assert(list);
+
+    if (list == NULL) {
+        ogs_assert_if_reached();
+        return NULL;
+    }
+    ogs_list_init(list);
+    return list;
+}
+
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

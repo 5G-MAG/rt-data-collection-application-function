@@ -38,10 +38,14 @@ extern uint16_t ascii_to_uint16(const char *str);
 extern int str_match(const char *line, const char *word_to_find);
 extern const char *get_time(time_t time_epoch);
 extern time_t str_to_time(const char *str_time);
+extern char *epoch_to_datetime(char *epoch);
 
 extern char *check_http_content_type(ogs_sbi_http_message_t http, char *content_type);
 
 extern char *traceable_strdup(const char *str, const char *location);
+
+extern ogs_lnode_t *list_node_create(void);
+extern ogs_list_t *list_create(void);
 
 #define data_collection_strdup(s) traceable_strdup((s), __location__)
 
