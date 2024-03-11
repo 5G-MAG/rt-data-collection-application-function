@@ -16,6 +16,7 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #include "utilities.h"
 #include "lib-metadata.h"
 #include "data-reporting.h"
+#include "data-reporting-provisioning.h"
 
 static data_collection_context_t *self = NULL;
 
@@ -31,6 +32,7 @@ static int data_collection_context_prepare(void);
 static int data_collection_context_validation(void);
 static int free_ogs_hash_entry(void *free_ogs_hash_context, const void *key, int klen, const void *value);
 static void safe_ogs_free(void *memory);
+static void data_collection_context_data_reporting_provisioning_sessions_remove(void);
 static void data_collection_context_data_reporting_sessions_remove(void);
 
 static void data_collection_context_server_sockaddr_remove(void);
@@ -59,10 +61,10 @@ void data_collection_context_init(void)
     self = ogs_calloc(1, sizeof(data_collection_context_t));
     ogs_assert(self);
 
-    ogs_list_init(&self->data_reporting_sessions);
+    self->data_reporting_provisioning_sessions = ogs_hash_make();
+    self->data_reporting_sessions = ogs_hash_make();
 
     data_collection_server_response_cache_control_set();
-
 }
 
 void data_collection_context_final(void)
@@ -71,13 +73,14 @@ void data_collection_context_final(void)
 
     if (self->config.server_response_cache_control)
     {
-        ogs_free(self->config.server_response_cache_control);    
+        ogs_free(self->config.server_response_cache_control);
     }
- 
+
     if (self->config.data_collection_dir)
         ogs_free(self->config.data_collection_dir);
 
-    data_collection_context_data_reporting_sessions_remove(); 
+    data_collection_context_data_reporting_provisioning_sessions_remove();
+    data_collection_context_data_reporting_sessions_remove();
     data_collection_free_agent_name();
 
     data_collection_context_server_sockaddr_remove();
@@ -153,15 +156,15 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
                             data_collection_reporting_report_response_max_age = ascii_to_long(ogs_yaml_iter_value(&cc_iter));
                         } else if (!strcmp(cc_key, "eventExposure")) {
                             event_exposure_response_max_age = ascii_to_long(ogs_yaml_iter_value(&cc_iter));
-                        } 
+                        }
                     }
                     data_collection_server_response_cache_control_set_from_config(
-                                data_collection_reporting_provisioning_session_response_max_age, data_collection_reporting_report_response_max_age, 
+                                data_collection_reporting_provisioning_session_response_max_age, data_collection_reporting_report_response_max_age,
 				event_exposure_response_max_age);
- 
+
 
                 }  else if (!strcmp(dc_key, "provisioningSessions") || !strcmp(dc_key, "dataCollectionReports") || !strcmp(dc_key, "eventExposure")) {
-                    
+
                     ogs_list_t list, list6;
                     ogs_socknode_t *node = NULL, *node6 = NULL;
 
@@ -180,7 +183,7 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
                         const char *hostname[OGS_MAX_NUM_OF_HOSTNAME];
                         int num_of_advertise = 0;
                         const char *advertise[OGS_MAX_NUM_OF_HOSTNAME];
-                      
+
                         uint16_t port = 0;
                         const char *dev = NULL;
                         ogs_sockaddr_t *addr = NULL;
@@ -272,10 +275,10 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
                             } else
                                 ogs_warn("unknown key `%s`", sbi_key);
                         }
-                        
+
                         if (port == 0){
                             ogs_warn("Specify the [%s] port, otherwise a random port will be used", dc_key);
-                        } 
+                        }
 
                         addr = NULL;
                         for (i = 0; i < num; i++) {
@@ -329,8 +332,8 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
                                 server = ogs_sbi_server_add(
                                         node->addr, is_option ? &option : NULL);
                                 ogs_assert(server);
-                            
-                            
+
+
                                 if (addr && ogs_app()->parameter.no_ipv4 == 0)
                                     ogs_sbi_server_set_advertise(
                                             server, AF_INET, addr);
@@ -339,7 +342,7 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
                                 if (pem) server->tls.pem = pem;
                             */
                             }
-                            
+
                             SWITCH(dc_key)
                             CASE("provisioningSessions")
                                 ifc_num = DATA_COLLECTION_SVR_PROVISIONING;
@@ -384,7 +387,7 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
                                 server = ogs_sbi_server_add(
                                         node->addr, is_option ? &option : NULL);
                                 ogs_assert(server);
-                            
+
                                 if (addr && ogs_app()->parameter.no_ipv6 == 0)
                                     ogs_sbi_server_set_advertise(
                                             server, AF_INET6, addr);
@@ -426,7 +429,7 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
                         ogs_socknode_remove_all(&list6);
 
                     } while (ogs_yaml_iter_type(&sbi_array) == YAML_SEQUENCE_NODE);
-                    
+
                     /* handle config in sbi library */
                 } else if (!strcmp(dc_key, "service_name")) {
                     /* handle config in sbi library */
@@ -452,18 +455,31 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
 
 /***** Private functions *****/
 
-static void data_collection_context_data_reporting_sessions_remove(void) {
-    ogs_info("Removing all Data Reporting Sessions");
-    data_collection_reporting_session_t *data_reporting_session;
-    data_collection_reporting_session_t *data_reporting_session_node;
+static void data_collection_context_data_reporting_provisioning_sessions_remove(void) {
+    free_ogs_hash_context_t hc = {
+        data_collection_reporting_provisioning_session_destroy,
+        self->data_reporting_provisioning_sessions
+    };
 
-    ogs_list_for_each_safe(&data_collection_self()->data_reporting_sessions, data_reporting_session_node, data_reporting_session) {
-        ogs_list_remove(&data_collection_self()->data_reporting_sessions, data_reporting_session);
-        data_collection_reporting_session_destroy(data_reporting_session);
-        //ogs_free (data_reporting_session);
-    }
+    ogs_info("Removing all Data Reporting Provisioning Sessions");
+
+    ogs_hash_do(free_ogs_hash_entry, &hc, self->data_reporting_provisioning_sessions);
+    ogs_hash_destroy(self->data_reporting_provisioning_sessions);
+    self->data_reporting_provisioning_sessions = NULL;
 }
 
+static void data_collection_context_data_reporting_sessions_remove(void) {
+    free_ogs_hash_context_t hc = {
+        data_collection_reporting_session_destroy,
+        self->data_reporting_sessions
+    };
+
+    ogs_info("Removing all Data Reporting Sessions");
+
+    ogs_hash_do(free_ogs_hash_entry, &hc, self->data_reporting_sessions);
+    ogs_hash_destroy(self->data_reporting_sessions);
+    self->data_reporting_sessions = NULL;
+}
 
 static void data_collection_context_server_sockaddr_remove(void){
     int i,j;
@@ -510,7 +526,7 @@ int data_collection_context_server_name_set(void) {
     ogs_sbi_server_t *server = NULL;
 
     ogs_list_for_each(&ogs_sbi_self()->server_list, server) {
-    
+
 	ogs_sockaddr_t *advertise = NULL;
         int res = 0;
 

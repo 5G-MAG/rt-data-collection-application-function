@@ -10,11 +10,11 @@
 
 #include "ogs-sbi.h"
 
-#include "data-collection.h"
+#include "data-collection-sp/data-collection.h"
 
 #include "sbi-path.h"
 #include "context.h"
-#include "response-cache-control.h"
+/*#include "response-cache-control.h"*/
 #include "dcaf-version.h"
 #include "dcaf-sm.h"
 
@@ -141,7 +141,7 @@ void dcaf_state_functional(ogs_fsm_t *s, dcaf_event_t *e)
             message->res_status = response->status;
 
             SWITCH(message->h.service.name)
-            
+
             CASE(OGS_SBI_SERVICE_NAME_NNRF_NFM)
 
                 SWITCH(message->h.resource.component[0])

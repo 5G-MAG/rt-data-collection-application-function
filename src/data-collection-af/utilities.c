@@ -27,7 +27,7 @@ time_t str_to_time(const char *str_time)
     static time_t time;
     struct tm tm = {0};
     strptime(str_time, "%a, %d %b %Y %H:%M:%S %Z", &tm);
-    time = mktime(&tm);      
+    time = mktime(&tm);
     return time;
 }
 
@@ -37,7 +37,7 @@ const char *get_time(time_t time_epoch)
     static char buf[80];
 
     /* Format and print the time, "ddd yyyy-mm-dd hh:mm:ss zzz" */
-    ts = localtime(&time_epoch);   
+    ts = localtime(&time_epoch);
     strftime(buf, sizeof(buf), "%a, %d %b %Y %H:%M:%S %Z", ts);
 
     return buf;
@@ -69,13 +69,13 @@ char *read_file(const char *filename)
 }
 
 int str_match(const char *line, const char *word_to_find) {
- 
+
     char* p = strstr(line,word_to_find);
     if ((p==line) || (p!=NULL && !isalnum((unsigned char)p[-1])))
     {
         p += strlen(word_to_find);
         if (!isalnum((unsigned char)*p))
-        {      
+        {
             return 1;
         } else {
             return 0;
@@ -126,7 +126,7 @@ long int ascii_to_long(const char *str)
     return ret;
 }
 
-uint16_t ascii_to_uint16(const char *str) 
+uint16_t ascii_to_uint16(const char *str)
 {
     long int ret;
     ret = ascii_to_long(str);

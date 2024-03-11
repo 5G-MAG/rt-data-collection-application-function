@@ -25,7 +25,7 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 //#include "event.h"
 //#include "data-collection-sm.h"
 #include "response-cache-control.h"
-#include "data-collection.h"
+#include "data-collection-sp/data-collection.h"
 
 
 #ifdef __cplusplus
@@ -49,7 +49,7 @@ typedef enum data_collection_configuration_server_ifc_e {
     DATA_COLLECTION_SVR_PROVISIONING,
     DATA_COLLECTION_SVR_DATA_REPORTING,
     DATA_COLLECTION_SVR_EVENT,
-    
+
     DATA_COLLECTION_SVR_NUM_IFCS
 } data_collection_configuration_server_ifc_t;
 
@@ -69,8 +69,8 @@ typedef struct data_collection_lib_configuration_s {
 
 typedef struct data_collection_context_s {
     data_collection_lib_configuration_t config;
-    ogs_hash_t  *data_reporting_provisioning_sessions;
-    ogs_list_t   data_reporting_sessions; // Nodes of this list are of type data_collection_reporting_session_t *
+    ogs_hash_t  *data_reporting_provisioning_sessions; // id => data_reporting_provisioning_session_t*
+    ogs_hash_t  *data_reporting_sessions; // id => data_collection_reporting_session_t*
     char server_name[NI_MAXHOST];
 } data_collection_context_t;
 

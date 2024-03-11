@@ -8,8 +8,9 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 */
 
 #include "ogs-sbi.h"
+#include "data-collection-sp/data-collection.h"
+
 #include "sbi-path.h"
-#include "data-collection.h"
 
 static int server_cb(ogs_sbi_request_t *request, void *data)
 {

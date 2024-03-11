@@ -33,7 +33,6 @@ libdcaf_dist_sources = files('''
     sbi-path.c
     utilities.h
     utilities.c
-
 '''.split())
 
 version_conf = configuration_data()

@@ -1,109 +1,83 @@
 /*
-License: 5G-MAG Public License (v1.0)
-Copyright: (C) 2022-2024 British Broadcasting Corporation
-
-For full license terms please see the LICENSE file distributed with this
-program. If this file is missing then the license can be retrieved from
-https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
-*/
+ * License: 5G-MAG Public License (v1.0)
+ * Authors: Dev Audsin <dev.audsin@bbc.co.uk>
+ *          David Waring <david.waring2@bbc.co.uk>
+ * Copyright: (C) 2022-2024 British Broadcasting Corporation
+ *
+ * For full license terms please see the LICENSE file distributed with this
+ * program. If this file is missing then the license can be retrieved from
+ * https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+ */
 
 #include "context.h"
 #include "sbi-path.h"
 #include "dcaf-sm.h"
 #include "init.h"
 #include "utilities.h"
-#include "data-collection.h"
+#include "data-collection-sp/data-collection.h"
 
-static ogs_thread_t *thread;
+/* Local constants */
+#define TERMINATION_HOLDING_TIME ogs_time_from_msec(300)
 
+/* Local functions */
 static void dcaf_main(void *data);
 static int dcaf_set_time(void);
+static void event_termination(void);
 
-typedef struct foo_bar_report_s {
-    void *report;	
-	
-}foo_bar_report_t;
+/* Event Exposure prototypes - should appear in event-exposure.h file when event exposure is added */
+static ogs_list_t *event_exposure_generate_cb(data_collection_event_subscription_t *data_collection_event_subscription);
 
-ogs_list_t *event_exposure_generate_cb(data_collection_event_subscription_t *data_collection_event_subscription);
-static foo_bar_report_t *foo_bar_parse(const data_collection_reporting_session_t *session, cJSON *json, const char **error_return);
-static foo_bar_report_t *foo_bar_clone(const foo_bar_report_t *to_copy);
-static void foo_bar_free(foo_bar_report_t *report);
-static cJSON *foo_bar_json(const foo_bar_report_t *report);
-static char *foo_bar_make_tag(const foo_bar_report_t *report);
-static char *foo_bar_serialise(const foo_bar_report_t *report);
+/* Example Data report type declaration - remove when proper report(s) implemented */
+typedef struct foo_bar_report_s foo_bar_report_t;
+
+static void *foo_bar_parse(const data_collection_reporting_session_t *session, cJSON *json, const char **error_return);
+static void *foo_bar_clone(const void *to_copy);
+static void foo_bar_free(void *report);
+static cJSON *foo_bar_json(const void *report);
+static struct timespec *foo_bar_timestamp(const void *report);
+static char *foo_bar_make_tag(const void *report);
+static char *foo_bar_serialise(const void *report);
 
 static const data_collection_data_report_type_t foo_bar_data_report_type = {
-    "FooBar",
-    DATA_COLLECTION_DATA_REPORT_PROPERTY_APP_SPECIFIC,
-    "FOO_BAR",
-    foo_bar_parse,
-    foo_bar_clone,
-    foo_bar_free,
-    foo_bar_json,
-    foo_bar_make_tag,
-    foo_bar_serialise
+    .type_name = "FooBar",
+    .data_report_property = DATA_COLLECTION_DATA_REPORT_PROPERTY_APP_SPECIFIC,
+    .data_domain = "FOO_BAR",
+    .event_type = "FooBarEvent",
+    .parse_report_data = foo_bar_parse,
+    .clone_report_data = foo_bar_clone,
+    .free_report_data = foo_bar_free,
+    .json_for_report_data = foo_bar_json,
+    .timestamp_for_report_data = foo_bar_timestamp,
+    .tag_for_report_data = foo_bar_make_tag,
+    .serialise_report_data = foo_bar_serialise
 };
 
+
+/* File scope variables */
+static ogs_thread_t *thread;
+static int initialized = 0;
+static ogs_timer_t *t_termination_holding = NULL;
+
+/* Data Report Types defined by this AF */
 static const data_collection_data_report_type_t * const dc_config_report_types[] = {
     &foo_bar_data_report_type,
     NULL
 };
 
-static int initialized = 0;
-
+/* AF specific Data Collection library configuration */
 static const data_collection_configuration_t dc_config = {
-    "dataCollection",  /* configuration section */
-    0,                /* library feature disable flags */
-    0x100000000,     /*  event supported feature flags */
-    dc_config_report_types, /* data types to register */
-    event_exposure_generate_cb /* callback to generate events for event exposure */
-};
-
-#if 0
-static const data_collection_configuration_t g_conf = {
-    "dataCollection",                                         /* configuration_section */
-    0,                                                        /* data_collection_features_disabled */
-    0x100000000, /*DATA_COLLECTION_SUPPORTED_FEATURE_EVENT_UE_COMMUNICATION*/  /* event_exposure_supported_features */
-    dc_config_report_types,
-    event_exposure_generate_cb
-};
+    "dataCollection",                /* configuration section */
+    0,                               /* library feature disable flags */
+#if 1
+    DATA_COLLECTION_FEATURE_BIT(29), /* event supported feature flags - 29 = lowest undefined for foobar event */
+#else
+    DATA_COLLECTION_SUPPORTED_FEATURE_EVENT_UE_COMMUNICATION, /* event supported feature flags - when UE_comm implemented */
 #endif
+    dc_config_report_types,          /* data types to register */
+    event_exposure_generate_cb       /* callback to generate events for event exposure */
+};
 
-
-
-static foo_bar_report_t *foo_bar_parse(const data_collection_reporting_session_t *session, cJSON *json, const char **error_return)
-{
-    return NULL;
-}
-
-static foo_bar_report_t *foo_bar_clone(const foo_bar_report_t *to_copy)
-{
-    return NULL;	
-}
-static void foo_bar_free(foo_bar_report_t *report)
-{
-    ogs_assert(report);	
-}
-
-static cJSON *foo_bar_json(const foo_bar_report_t *report)
-{
-    return NULL;	
-}
-static char *foo_bar_make_tag(const foo_bar_report_t *report)
-{
-    return NULL;	
-}
-static char *foo_bar_serialise(const foo_bar_report_t *report)
-{
-    return NULL;	
-}
-
-
-ogs_list_t *event_exposure_generate_cb(data_collection_event_subscription_t *data_collection_event_subscription)
-{
-  return NULL;	
-
-}
+/* Public functions */
 
 int dcaf_initialize()
 {
@@ -173,24 +147,6 @@ int dcaf_initialize()
     return OGS_OK;
 }
 
-static ogs_timer_t *t_termination_holding = NULL;
-
-static void event_termination(void)
-{
-    ogs_sbi_nf_instance_t *nf_instance = NULL;
-
-    ogs_list_for_each(&ogs_sbi_self()->nf_instance_list, nf_instance)
-        ogs_sbi_nf_fsm_fini(nf_instance);
-
-    t_termination_holding = ogs_timer_add(ogs_app()->timer_mgr, NULL, NULL);
-    ogs_assert(t_termination_holding);
-#define TERMINATION_HOLDING_TIME ogs_time_from_msec(300)
-    ogs_timer_start(t_termination_holding, TERMINATION_HOLDING_TIME);
-
-    ogs_queue_term(ogs_app()->queue);
-    ogs_pollset_notify(ogs_app()->pollset);
-}
-
 void dcaf_terminate(void)
 {
     if (!initialized) return;
@@ -207,13 +163,15 @@ void dcaf_terminate(void)
     dcaf_free_agent_name();
 }
 
+/* Private functions */
+
 static void dcaf_main(void *data)
 {
     ogs_fsm_t dcaf_sm;
     int rv;
 
     ogs_fsm_init(&dcaf_sm, dcaf_state_initial, dcaf_state_final, 0);
-    
+
     for ( ;; ) {
         ogs_pollset_poll(ogs_app()->pollset,
                 ogs_timer_mgr_next(ogs_app()->timer_mgr));
@@ -240,9 +198,9 @@ static void dcaf_main(void *data)
         }
     }
 done:
-    
+
     ogs_fsm_fini(&dcaf_sm, 0);
-  
+
 }
 
 static int dcaf_set_time(void)
@@ -260,6 +218,68 @@ static int dcaf_set_time(void)
     }
     return OGS_OK;
 
+}
+
+static void event_termination(void)
+{
+    ogs_sbi_nf_instance_t *nf_instance = NULL;
+
+    ogs_list_for_each(&ogs_sbi_self()->nf_instance_list, nf_instance)
+        ogs_sbi_nf_fsm_fini(nf_instance);
+
+    t_termination_holding = ogs_timer_add(ogs_app()->timer_mgr, NULL, NULL);
+    ogs_assert(t_termination_holding);
+    ogs_timer_start(t_termination_holding, TERMINATION_HOLDING_TIME);
+
+    ogs_queue_term(ogs_app()->queue);
+    ogs_pollset_notify(ogs_app()->pollset);
+}
+
+/* Temporary event exposure callback until event-exposure.c is written */
+static ogs_list_t *event_exposure_generate_cb(data_collection_event_subscription_t *data_collection_event_subscription)
+{
+  return NULL;
+}
+
+/* Example FooBar report handling */
+static void *foo_bar_parse(const data_collection_reporting_session_t *session, cJSON *json, const char **error_return)
+{
+    return NULL;
+}
+
+static void *foo_bar_clone(const void *to_copy)
+{
+    const foo_bar_report_t *existing_report = (const foo_bar_report_t*)to_copy;
+    return existing_report;
+}
+static void foo_bar_free(void *report)
+{
+    if (report)
+        ogs_free(report);
+}
+
+static cJSON *foo_bar_json(const void *report)
+{
+    const foo_bar_report_t *existing_report = (const foo_bar_report_t*)report;
+    return NULL;
+}
+
+static struct timespec *foo_bar_timestamp(const void *report)
+{
+    const foo_bar_report_t *existing_report = (const foo_bar_report_t*)report;
+    return NULL;
+}
+
+static char *foo_bar_make_tag(const void *report)
+{
+    const foo_bar_report_t *existing_report = (const foo_bar_report_t*)report;
+    return NULL;
+}
+
+static char *foo_bar_serialise(const void *report)
+{
+    const foo_bar_report_t *existing_report = (const foo_bar_report_t*)report;
+    return NULL;
 }
 
 /* vim:ts=8:sts=4:sw=4:expandtab:

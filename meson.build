@@ -10,7 +10,7 @@
 project('rt-5gc-data-collection-application-function', 'c',
     version : '0.1.0',
     license : '5G-MAG Public',
-    meson_version : '>= 0.59.0',
+    meson_version : '>= 0.63.0',
     default_options : [
         'c_std=gnu89',
     ],

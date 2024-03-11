@@ -1,7 +1,7 @@
 /*
  * License: 5G-MAG Public License (v1.0)
  * Copyright: (C) 2024 British Broadcasting Corporation
- * 
+ *
  * For full license terms please see the LICENSE file distributed with this
  * program. If this file is missing then the license can be retrieved from
  * https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
@@ -46,6 +46,7 @@ extern char *traceable_strdup(const char *str, const char *location);
 
 extern ogs_lnode_t *list_node_create(void);
 extern ogs_list_t *list_create(void);
+extern ogs_list_t *list_clone(const ogs_list_t *to_copy, ogs_lnode_t *(*node_copy_fn)(const ogs_lnode_t *to_copy));
 
 #define data_collection_strdup(s) traceable_strdup((s), __location__)
 

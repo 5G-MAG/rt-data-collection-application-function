@@ -14,7 +14,7 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 
 #include "context.h"
 #include "utilities.h"
-#include "data-collection.h"
+#include "data-collection-sp/data-collection.h"
 
 static dcaf_context_t *self = NULL;
 
@@ -126,7 +126,7 @@ int dcaf_context_server_name_set(void) {
     ogs_sbi_server_t *server = NULL;
 
     ogs_list_for_each(&ogs_sbi_self()->server_list, server) {
-    
+
 	ogs_sockaddr_t *advertise = NULL;
         int res = 0;
 

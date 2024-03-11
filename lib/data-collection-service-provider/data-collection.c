@@ -7,12 +7,13 @@ program. If this file is missing then the license can be retrieved from
 https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 */
 
-#include "data-collection-version.h"
-#include "data-collection.h"
+#include "data-collection-sp/data-collection-version.h"
 #include "context.h"
 #include "data-collection-process.h"
 #include "data-collection-nf-service.h"
 #include "utils.h"
+
+#include "data-collection-sp/data-collection.h"
 
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_version_full_string()
 {
@@ -32,13 +33,13 @@ DATA_COLLECTION_SVC_PRODUCER_API unsigned int data_collection_version_major()
 
 DATA_COLLECTION_SVC_PRODUCER_API unsigned int data_collection_version_minor()
 {
-    return DATA_COLLECTION_MINOR;	
+    return DATA_COLLECTION_MINOR;
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API unsigned int data_collection_version_micro()
 {
-    return DATA_COLLECTION_MICRO;	
+    return DATA_COLLECTION_MICRO;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API int data_collection_initialise(const data_collection_configuration_t* const configuration)
