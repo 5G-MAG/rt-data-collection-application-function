@@ -42,10 +42,14 @@
 
 #define INCLUDED_FROM_DATA_COLLECTION_H 1
 
-#include "data-collection-event-exposure.h"
-#include "data-collection-data-reporting.h"
-#include "data-collection-data-reporting-provisioning.h"
-#include "data-collection-lifecycle.h"
+#include "event-exposure.h"
+#include "data-reporting.h"
+#include "data-reporting-provisioning.h"
+#include "data-sampling-rule.h"
+#include "data-reporting-rule.h"
+#include "data-reporting-condition.h"
+#include "data-access-profile.h"
+#include "lifecycle.h"
 
 #undef INCLUDED_FROM_DATA_COLLECTION_H
 

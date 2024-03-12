@@ -20,15 +20,22 @@ subdir('include')
 fs = import('fs')
 
 libspdc_dist_sources = files('''
+    data-collection.c
+    data-access-profile.c
+    data-reporting-condition.c
+    data-reporting-rule.c
+    data-sampling-rule.c
+
     context.h
     context.c
-    data-collection.c
     data-collection-nf-service.h
     data-collection-nf-service.c
     data-collection-process.h
     data-collection-process.c
     data-reporting.h
     data-reporting.c
+    data-reporting-configuration.h
+    data-reporting-configuration.c
     data-reporting-process.h
     data-reporting-process.c
     data-reporting-provisioning.h

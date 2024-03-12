@@ -11,6 +11,7 @@
 #include "ogs-core.h"
 
 #include "context.h"
+#include "data-reporting-configuration.h"
 
 #include "data-reporting-provisioning.h"
 
@@ -21,7 +22,6 @@ extern "C" {
 /******* Local prototypes ********/
 
 static int _add_session_to_list(void *data, const void *key, int klen, const void *value);
-static int _add_config_to_list(void *data, const void *key, int klen, const void *value);
 static int _free_ogs_hash_entry(void *free_fn, const void *key, int klen, const void *value);
 
 /******* Private structures ********/
@@ -99,132 +99,69 @@ DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_reporting_provision
     return ret;
 }
 
-/**** Data Reporting Provisioning Configurations ****/
+/******* Library internal functions ********/
 
-/** Create a Data Collection Reporting Provisioning Configuration */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_configuration_t *
-data_collection_reporting_configuration_create(data_collection_reporting_provisioning_session_t *session,
-                                               dc_api_data_reporting_provisioning_configuration_t *configuration)
+/** Add a reporting configuration to the session */
+int data_collection_reporting_provisioning_session_add_configuration(data_collection_reporting_provisioning_session_t *session,
+                                                                     data_collection_reporting_configuration_t *configuration)
 {
-    /* TODO: implement this */
-    return NULL;
+    if (!session) {
+        ogs_error("data_collection_reporting_provisioning_session_add_configuration: passed NULL session");
+        return OGS_ERROR;
+    }
+
+    if (!session->configurations) {
+        ogs_error("data_collection_reporting_provisioning_session_add_configuration: session not initialised or being deleted");
+        return OGS_ERROR;
+    }
+
+    if (!configuration) {
+        ogs_error("data_collection_reporting_provisioning_session_add_configuration: passed NULL configuration");
+        return OGS_ERROR;
+    }
+
+    const char *config_id = data_collection_reporting_configuration_id(configuration);
+    if (ogs_hash_get(session->configurations, config_id, OGS_HASH_KEY_STRING)) {
+        ogs_error("data_collection_reporting_provisioning_session_add_configuration: configuration %s already added", config_id);
+        return OGS_ERROR;
+    }
+
+    ogs_hash_set(session->configurations, config_id, OGS_HASH_KEY_STRING, configuration);
+
+    return OGS_OK;
 }
 
-/** Destroy a Data Collection Reporting Provisioning Configuration */
-DATA_COLLECTION_SVC_PRODUCER_API void data_collection_reporting_configuration_destroy(
-        data_collection_reporting_configuration_t *configuration)
+/** Remove a reporting configuration to the session */
+int data_collection_reporting_provisioning_session_remove_configuration(data_collection_reporting_provisioning_session_t *session,
+                                                                        data_collection_reporting_configuration_t *configuration)
 {
-    if (!configuration) return;
+    if (!session || !session->configurations) return OGS_OK; // nothing to delete the configuration from
+    if (!configuration) return OGS_ERROR; // Configuration cannot be NULL
 
-    if (configuration->parent) {
-        data_collection_reporting_provisioning_session_t *session = configuration->parent;
-        ogs_hash_set(session->configurations, configuration->id, OGS_HASH_KEY_STRING, NULL);
+    const char *config_id = data_collection_reporting_configuration_id(configuration);
+    data_collection_reporting_configuration_t *existing = ogs_hash_get(session->configurations, config_id, OGS_HASH_KEY_STRING);
+
+    if (!existing) return OGS_OK; // no configuration with that ID so no need to delete
+
+    if (existing != configuration) {
+        ogs_error("data_collection_reporting_provisioning_session_remove_configuration: attempt to remove wrong configuration object");
+        return OGS_ERROR;
     }
 
-    if (configuration->id) {
-        ogs_free(configuration->id);
-        configuration->id = NULL;
-    }
+    ogs_hash_set(session->configurations, config_id, OGS_HASH_KEY_STRING, NULL);
 
-    if (configuration->auth_url) {
-        ogs_free(configuration->auth_url);
-        configuration->auth_url = NULL;
-    }
-
-    if (configuration->sampling_rules) {
-        ogs_lnode_t *node, *next;
-        ogs_list_for_each_safe(configuration->sampling_rules, next, node) {
-            data_sampling_rule_lnode_t *dsr_node = (data_sampling_rule_lnode_t*)node;
-            dc_api_data_sampling_rule_free(dsr_node->rule);
-            ogs_list_remove(configuration->sampling_rules, node);
-            ogs_free(dsr_node);
-        }
-        configuration->sampling_rules = NULL;
-    }
-
-    if (configuration->reporting_rules) {
-        ogs_lnode_t *node, *next;
-        ogs_list_for_each_safe(configuration->reporting_rules, next, node) {
-            data_reporting_rule_lnode_t *drr_node = (data_reporting_rule_lnode_t*)node;
-            dc_api_data_reporting_rule_free(drr_node->rule);
-            ogs_list_remove(configuration->reporting_rules, node);
-            ogs_free(drr_node);
-        }
-        configuration->reporting_rules = NULL;
-    }
-
-    if (configuration->reporting_conditions) {
-        ogs_lnode_t *node, *next;
-        ogs_list_for_each_safe(configuration->reporting_conditions, next, node) {
-            data_reporting_condition_lnode_t *drc_node = (data_reporting_condition_lnode_t*)node;
-            dc_api_data_reporting_condition_free(drc_node->condition);
-            ogs_list_remove(configuration->reporting_conditions, node);
-            ogs_free(drc_node);
-        }
-        configuration->reporting_conditions = NULL;
-    }
-
-    if (configuration->access_profiles) {
-        ogs_lnode_t *node, *next;
-        ogs_list_for_each_safe(configuration->access_profiles, next, node) {
-            data_access_profile_lnode_t *dap_node = (data_access_profile_lnode_t*)node;
-            dc_api_data_access_profile_free(dap_node->access_profile);
-            ogs_list_remove(configuration->access_profiles, node);
-            ogs_free(dap_node);
-        }
-        configuration->access_profiles = NULL;
-    }
-
-    ogs_free(configuration);
+    return OGS_OK;
 }
 
-/** Find a Data Collection Reporting Provisioning Configuration by id */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_configuration_t *
-data_collection_reporting_configuration_find(data_collection_reporting_provisioning_session_t *session,
-                                             const char *configuration_id)
+/** Get a reporting configuration by its id from the session */
+data_collection_reporting_configuration_t *
+data_collection_reporting_provisioning_session_get_configuration_by_id(data_collection_reporting_provisioning_session_t *session,
+                                                                       const char *configuration_id)
 {
-    if (!session) return NULL;
-    return (data_collection_reporting_configuration_t*)ogs_hash_get(session->configurations, configuration_id, OGS_HASH_KEY_STRING);
-}
+    if (!session || !session->configurations) return NULL; // no session or session being deleted
+    if (!configuration_id) return NULL; // must have an id to look up
 
-/** List the Configurations for a Data Collection Reporting Provisioning Session */
-DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_reporting_configuration_list(
-        data_collection_reporting_provisioning_session_t *session)
-{
-    ogs_list_t *ret;
-
-    ret = ogs_calloc(1, sizeof(*ret));
-    ogs_assert(ret);
-
-    if (session) {
-        ogs_hash_do(_add_config_to_list, ret, session->configurations);
-    }
-
-    return ret;
-}
-
-/** Get a Data Collection Reporting Provisioning Configuration as JSON */
-DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_reporting_configuration_json(
-        const data_collection_reporting_configuration_t *configuration)
-{
-    /* TODO: implement this */
-    return NULL;
-}
-
-/** Get the Configuration Id for a Data Collection Reporting Provisioning Configuration */
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_configuration_id(
-        const data_collection_reporting_configuration_t *configuration)
-{
-    if (!configuration) return NULL;
-    return configuration->id;
-}
-
-/** Serialise a Data Collection Reporting Provisioning Configuration for debugging purposes */
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_configuration_serialise(
-        const data_collection_reporting_configuration_t *configuration)
-{
-    /* TODO: implement this */
-    return NULL;
+    return ogs_hash_get(session->configurations, configuration_id, OGS_HASH_KEY_STRING);
 }
 
 /******* Local private functions ********/
@@ -238,20 +175,6 @@ static int _add_session_to_list(void *data, const void *key, int klen, const voi
     ogs_assert(node);
 
     node->provisioning_session = (data_collection_reporting_provisioning_session_t*)value;
-    ogs_list_add(list, node);
-
-    return 1;
-}
-
-static int _add_config_to_list(void *data, const void *key, int klen, const void *value)
-{
-    ogs_list_t *list = (ogs_list_t*)data;
-    data_collection_reporting_configuration_lnode_t *node;
-
-    node = ogs_calloc(1, sizeof(*node));
-    ogs_assert(node);
-
-    node->configuration = (data_collection_reporting_configuration_t*)value;
     ogs_list_add(list, node);
 
     return 1;

@@ -14,10 +14,14 @@ libspdc_version = '@0@.@1@.@2@'.format(libspdc_version_major,libspdc_version_min
 
 libspdc_inst_includes = files('''
     data-collection-sp/data-collection.h
-    data-collection-sp/data-collection-lifecycle.h
-    data-collection-sp/data-collection-data-reporting.h
-    data-collection-sp/data-collection-data-reporting-provisioning.h
-    data-collection-sp/data-collection-event-exposure.h
+    data-collection-sp/lifecycle.h
+    data-collection-sp/data-reporting.h
+    data-collection-sp/data-reporting-provisioning.h
+    data-collection-sp/event-exposure.h
+    data-collection-sp/data-sampling-rule.h
+    data-collection-sp/data-reporting-rule.h
+    data-collection-sp/data-reporting-condition.h
+    data-collection-sp/data-access-profile.h
 '''.split())
 
 subdir('data-collection-sp')
