@@ -25,4 +25,7 @@ extern char *calculate_hash(const char *buf);
 }
 #endif
 
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */
+
 #endif /* MSAF_HASH_H */

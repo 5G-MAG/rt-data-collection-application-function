@@ -54,4 +54,7 @@ extern ogs_list_t *list_clone(const ogs_list_t *to_copy, ogs_lnode_t *(*node_cop
 }
 #endif
 
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */
+
 #endif /* DCAF_UTILITIES_H */

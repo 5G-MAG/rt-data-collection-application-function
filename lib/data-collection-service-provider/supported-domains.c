@@ -42,3 +42,5 @@ ogs_list_t *list_create(void)
     return list;
 }
 
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */

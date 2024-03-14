@@ -42,4 +42,7 @@ extern ogs_sbi_response_t *nf_server_populate_response(ogs_sbi_response_t *respo
 }
 #endif
 
-#endif
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */
+
+#endif /* NF_SERVER_H */

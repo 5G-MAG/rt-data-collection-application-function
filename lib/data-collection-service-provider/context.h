@@ -91,4 +91,7 @@ extern int data_collection_context_server_name_set(void);
 }
 #endif
 
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */
+
 #endif /* DATA_COLLECTION_CONTEXT_H */

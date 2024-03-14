@@ -31,3 +31,6 @@ char *calculate_hash(const char *buf) {
     ogs_free(result);
     return hash;
 }
+
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */

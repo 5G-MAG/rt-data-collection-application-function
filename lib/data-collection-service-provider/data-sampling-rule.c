@@ -1,7 +1,6 @@
 /*
  * License: 5G-MAG Public License (v1.0)
- * Authors: Dev Audsin <dev.audsin@bbc.co.uk>
- *          David Waring <david.waring2@bbc.co.uk>
+ * Author: David Waring <david.waring2@bbc.co.uk>
  * Copyright: (C) 2024 British Broadcasting Corporation
  *
  * For full license terms please see the LICENSE file distributed with this
@@ -11,30 +10,34 @@
 
 #include "openapi/model/dc_api_data_sampling_rule.h"
 
+#include "location-area-5g-internal.h"
+
 #include "data-collection-sp/data-collection.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
+/******** Private type definitions ********/
+
 typedef struct data_collection_data_sampling_rule_s {
     dc_api_data_sampling_rule_t *profile;
 } data_collection_data_sampling_rule_t;
 
-/***** Interface callbacks *****/
-
-/***** Interface structures *****/
-
 /***** Library function API *****/
 
 /** Create a new DataSamplingRule */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_sampling_rule_t* data_collection_data_sampling_rule_create()
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_sampling_rule_t* data_collection_data_sampling_rule_create(data_collection_location_area_5g_t *location_filter /*transfer*/, double sampling_period)
 {
     data_collection_data_sampling_rule_t *ret = ogs_calloc(1, sizeof(*ret));
-
-    /* ret->profile = dc_api_data_sampling_rule_create(); */
-
     ogs_assert(ret);
+
+    dc_api_location_area5_g_t *openapi_location_filter = location_area_5g_move_openapi(location_filter);
+    data_collection_location_area_5g_free(location_filter);
+
+    ret->profile = dc_api_data_sampling_rule_create(openapi_location_filter, sampling_period!=DATA_COLLECTION_SAMPLING_PERIOD_NONE,
+                                                    sampling_period);
+    ogs_assert(ret->profile);
 
     return ret;
 }
@@ -51,6 +54,13 @@ DATA_COLLECTION_SVC_PRODUCER_API void data_collection_data_sampling_rule_free(da
 
     ogs_free(profile);    
 }
+
+/********* Library internal functions ********/
+
+
+/******** Private functions ********/
+
+
 
 #ifdef __cplusplus
 }

@@ -250,7 +250,7 @@ static void *foo_bar_parse(const data_collection_reporting_session_t *session, c
 static void *foo_bar_clone(const void *to_copy)
 {
     const foo_bar_report_t *existing_report = (const foo_bar_report_t*)to_copy;
-    return existing_report;
+    return (void*)existing_report;
 }
 static void foo_bar_free(void *report)
 {

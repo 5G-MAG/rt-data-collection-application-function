@@ -31,4 +31,7 @@ extern void data_collection_server_response_cache_control_set_from_config(int da
 }
 #endif
 
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */
+
 #endif /* DATA_COLLECTION_RESPONSE_CACHE_CONTROL_H */

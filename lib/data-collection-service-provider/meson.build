@@ -21,11 +21,16 @@ fs = import('fs')
 
 libspdc_dist_sources = files('''
     data-collection.c
+    civic-address.c
     data-access-profile.c
     data-reporting-condition.c
     data-reporting-rule.c
     data-sampling-rule.c
+    geographic-area.c
+    location-area-5g.c
+    network-area-info.c
 
+    civic-address-internal.h
     context.h
     context.c
     data-collection-nf-service.h
@@ -40,10 +45,13 @@ libspdc_dist_sources = files('''
     data-reporting-process.c
     data-reporting-provisioning.h
     data-reporting-provisioning.c
+    geographic-area-internal.h
     hash.h
     hash.c
     lib-metadata.h
     lib-metadata.c
+    location-area-5g-internal.h
+    network-area-info-internal.h
     response-cache-control.h
     response-cache-control.c
     server.h

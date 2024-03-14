@@ -24,5 +24,8 @@ extern int _data_collection_set_nf_services(void);
 }
 #endif
 
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */
+
 #endif /* DATA_COLLECTION_NF_SERVICE_H */
 

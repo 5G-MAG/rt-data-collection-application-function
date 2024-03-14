@@ -32,7 +32,7 @@ default_branch='REL-18'
 default_apis="TS26532_Ndcaf_DataReportingProvisioning TS26532_Ndcaf_DataReporting TS29517_Naf_EventExposure"
 
 # Parse command line arguments
-ARGS=`getopt -n "$scriptname" -o 'a:b:hM:' -l 'api:,branch:,help,model-deps:' -s sh -- "$@"`
+ARGS=`getopt -n "$scriptname" -o 'a:b:DhM:' -l 'api:,branch:,debug,help,model-deps:' -s sh -- "$@"`
 
 if [ $? -ne 0 ]; then
     print_syntax >&2
@@ -72,6 +72,7 @@ unset ARGS
 
 APIS="$default_apis"
 BRANCH="$default_branch"
+DEBUG_FLAG=""
 MODEL_DEPS=""
 
 while true; do
@@ -84,6 +85,11 @@ while true; do
     -b|--branch)
 	BRANCH="$2"
 	shift 2
+	continue
+	;;
+    -D|--debug)
+	DEBUG_FLAG="-D"
+	shift
 	continue
 	;;
     -h|--help)
@@ -162,7 +168,7 @@ if [ ! -d "$scriptdir/openapi" ]; then
     mkdir "$scriptdir/openapi"
 fi
 
-if ! "$rt_common_shared_dir/open5gs-tools/scripts/generate_openapi" -a "${APIS}" -o "$rt_common_shared_dir/data-reporting/5G_APIs-overrides" -b "${BRANCH}" -c "$scriptdir/config.yaml" -l c -d "$scriptdir/openapi" -g 6.4.0 -y "$scriptdir/fix_openapi_yaml.py" -p "DC_API"; then
+if ! "$rt_common_shared_dir/open5gs-tools/scripts/generate_openapi" -a "${APIS}" -o "$rt_common_shared_dir/data-reporting/5G_APIs-overrides" -b "${BRANCH}" -c "$scriptdir/config.yaml" -l c -d "$scriptdir/openapi" -g 6.4.0 -y "$scriptdir/fix_openapi_yaml.py" -p "DC_API" $DEBUG_FLAG; then
     echo "Error: Failed to generate OpenAPI model" 1>&2
     exit 1
 fi

@@ -16,9 +16,14 @@
 #error "This file can only be included from data-collection.h"
 #endif
 
+#include "location-area-5g.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
+
+/***** Constants *****/
+#define DATA_COLLECTION_SAMPLING_PERIOD_NONE (-1)
 
 /***** Enumerations *****/
 
@@ -33,7 +38,8 @@ typedef struct data_collection_data_sampling_rule_s data_collection_data_samplin
 /***** Library function API *****/
 
 /** Create a new DataSamplingRule */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_sampling_rule_t* data_collection_data_sampling_rule_create();
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_sampling_rule_t*
+data_collection_data_sampling_rule_create(data_collection_location_area_5g_t *location_filter /*transfer*/, double sampling_period);
 
 /** Destroy a DataSamplingRule */
 DATA_COLLECTION_SVC_PRODUCER_API void data_collection_data_sampling_rule_free(data_collection_data_sampling_rule_t*);

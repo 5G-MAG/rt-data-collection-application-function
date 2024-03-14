@@ -159,3 +159,6 @@ static ogs_lnode_t *copy_data_domain_node(const ogs_lnode_t *to_copy)
 
     return &new_dd_node->node;
 }
+
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */

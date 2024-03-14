@@ -457,7 +457,7 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
 
 static void data_collection_context_data_reporting_provisioning_sessions_remove(void) {
     free_ogs_hash_context_t hc = {
-        data_collection_reporting_provisioning_session_destroy,
+        (void(*)(void*))data_collection_reporting_provisioning_session_destroy,
         self->data_reporting_provisioning_sessions
     };
 
@@ -470,7 +470,7 @@ static void data_collection_context_data_reporting_provisioning_sessions_remove(
 
 static void data_collection_context_data_reporting_sessions_remove(void) {
     free_ogs_hash_context_t hc = {
-        data_collection_reporting_session_destroy,
+        (void(*)(void*))data_collection_reporting_session_destroy,
         self->data_reporting_sessions
     };
 

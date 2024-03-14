@@ -22,8 +22,6 @@ extern "C" {
 
 /******* Local prototypes ********/
 
-static int _add_config_to_list(void *data, const void *key, int klen, const void *value);
-
 /******* Private structures ********/
 
 /******* Library API ********/
@@ -194,20 +192,6 @@ data_collection_reporting_configuration_serialise(const data_collection_reportin
 }
 
 /******* Local private functions ********/
-
-static int _add_config_to_list(void *data, const void *key, int klen, const void *value)
-{
-    ogs_list_t *list = (ogs_list_t*)data;
-    data_collection_reporting_configuration_lnode_t *node;
-
-    node = ogs_calloc(1, sizeof(*node));
-    ogs_assert(node);
-
-    node->configuration = (data_collection_reporting_configuration_t*)value;
-    ogs_list_add(list, node);
-
-    return 1;
-}
 
 #ifdef __cplusplus
 }
