@@ -52,9 +52,15 @@ typedef struct data_collection_geographic_coord_s {
 typedef struct data_collection_uncertainty_ellipse_s {
     double semi_major_meters;
     double semi_minor_meters;
-    double vertical_meters;
     int orientation_major_degrees;
 } data_collection_uncertainty_ellipse_t;
+
+typedef struct data_collection_uncertainty_ellipsoid_s {
+    double semi_major_meters;
+    double semi_minor_meters;
+    double vertical_meters;
+    int orientation_major_degrees;
+} data_collection_uncertainty_ellipsoid_t;
 
 /***** Library function API *****/
 

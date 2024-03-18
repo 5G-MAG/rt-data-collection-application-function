@@ -13,6 +13,6 @@ libspdc_version_conf.set('DATA_COLLECTION_MAJOR', libspdc_version_major)
 libspdc_version_conf.set('DATA_COLLECTION_MINOR', libspdc_version_minor)
 libspdc_version_conf.set('DATA_COLLECTION_MICRO', libspdc_version_micro)
 libspdc_version_conf_source = configure_file(input: 'data-collection-version.h.in',
-                                     output: 'data-collection-version.h', macro_name: 'DATA_COLLECTION_VERSION_H',
+                                     output: 'data-collection-version.h',
                                      install: true, install_dir: get_option('prefix') / 'include' / 'data-collection-sp',
                                      configuration: libspdc_version_conf)
