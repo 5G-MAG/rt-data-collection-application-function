@@ -12,7 +12,7 @@
 
 #include "context.h"
 #include "server.h"
-#include "data-collection-version.h"
+#include "data-collection-sp/data-collection-version.h"
 #include "utils.h"
 
 #ifdef __cplusplus

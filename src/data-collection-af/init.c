@@ -14,7 +14,10 @@
 #include "dcaf-sm.h"
 #include "init.h"
 #include "utilities.h"
+#include "communication-record.h"
+#include "hash.h"
 #include "data-collection-sp/data-collection.h"
+#include "openapi/model/dcaf_api_data_report.h"
 
 /* Local constants */
 #define TERMINATION_HOLDING_TIME ogs_time_from_msec(300)
@@ -38,7 +41,8 @@ static struct timespec *foo_bar_timestamp(const void *report);
 static char *foo_bar_make_tag(const void *report);
 static char *foo_bar_serialise(const void *report);
 
-static const data_collection_data_report_type_t foo_bar_data_report_type = {
+/*
+static const data_collection_data_report_handler_t foo_bar_data_report_type = {
     .type_name = "FooBar",
     .data_report_property = DATA_COLLECTION_DATA_REPORT_PROPERTY_APP_SPECIFIC,
     .data_domain = "FOO_BAR",
@@ -51,6 +55,7 @@ static const data_collection_data_report_type_t foo_bar_data_report_type = {
     .tag_for_report_data = foo_bar_make_tag,
     .serialise_report_data = foo_bar_serialise
 };
+*/
 
 
 /* File scope variables */
@@ -58,8 +63,9 @@ static ogs_thread_t *thread;
 static int initialized = 0;
 static ogs_timer_t *t_termination_holding = NULL;
 
+#if 0
 /* Data Report Types defined by this AF */
-static const data_collection_data_report_type_t * const dc_config_report_types[] = {
+static const data_collection_data_report_handler_t * const dc_config_report_types[] = {
     &foo_bar_data_report_type,
     NULL
 };
@@ -76,6 +82,7 @@ static const data_collection_configuration_t dc_config = {
     dc_config_report_types,          /* data types to register */
     event_exposure_generate_cb       /* callback to generate events for event exposure */
 };
+#endif
 
 /* Public functions */
 
@@ -272,8 +279,10 @@ static struct timespec *foo_bar_timestamp(const void *report)
 
 static char *foo_bar_make_tag(const void *report)
 {
+
     const foo_bar_report_t *existing_report = (const foo_bar_report_t*)report;
     return NULL;
+	
 }
 
 static char *foo_bar_serialise(const void *report)

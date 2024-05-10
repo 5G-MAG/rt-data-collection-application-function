@@ -11,7 +11,7 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #include "ogs-sbi.h"
 #include "server.h"
 #include "utilities.h"
-#include "data-collection-version.h"
+#include "data-collection-sp/data-collection-version.h"
 
 static bool nf_server_send_problem(ogs_sbi_stream_t *stream, OpenAPI_problem_details_t *problem,
         const nf_server_interface_metadata_t *interface, const nf_server_app_metadata_t *app);
@@ -23,7 +23,7 @@ static bool nf_build_content(ogs_sbi_http_message_t *http, ogs_sbi_message_t *me
 
 static char *nf_build_json(ogs_sbi_message_t *message);
 
-ogs_sbi_response_t *nf_server_new_response(char *location, char *content_type, time_t last_modified, char *etag,
+ogs_sbi_response_t *nf_server_new_response(char *location, char *content_type, ogs_time_t last_modified, char *etag,
         int cache_control, char *allow_methods, const nf_server_interface_metadata_t *interface,
         const nf_server_app_metadata_t *app)
 {
@@ -46,8 +46,9 @@ ogs_sbi_response_t *nf_server_new_response(char *location, char *content_type, t
 
     if(last_modified)
     {
-
-        ogs_sbi_header_set(response->http.headers, "Last-Modified", get_time(last_modified));
+        char *modified = ogs_time_to_string(last_modified);
+        ogs_sbi_header_set(response->http.headers, "Last-Modified", modified);
+	ogs_free(modified);
     }
 
     if(etag)
@@ -94,6 +95,18 @@ ogs_sbi_response_t *nf_server_populate_response(ogs_sbi_response_t *response, in
 
 }
 
+OpenAPI_list_t *nf_server_make_invalid_params(const char *param, const char *reason) {
+
+    OpenAPI_invalid_param_t *invalid_param;
+    OpenAPI_list_t *invalid_params;
+
+    invalid_params = OpenAPI_list_create();
+    invalid_param = OpenAPI_invalid_param_create(data_collection_strdup(param), data_collection_strdup(reason));
+    OpenAPI_list_add(invalid_params, invalid_param);
+    return invalid_params;
+}
+
+
 static bool nf_server_send_problem(
         ogs_sbi_stream_t *stream, OpenAPI_problem_details_t *problem, const nf_server_interface_metadata_t *interface, const nf_server_app_metadata_t *app)
 {
@@ -119,7 +132,7 @@ static bool nf_server_send_problem(
 
 bool nf_server_send_error(ogs_sbi_stream_t *stream,
         int status, int number_of_components, ogs_sbi_message_t *message,
-        const char *title, const char *detail, cJSON * problem_detail, const nf_server_interface_metadata_t *interface, const nf_server_app_metadata_t *app)
+        const char *title, const char *detail, cJSON * problem_detail, OpenAPI_list_t *invalid_params, const char *problem_type, const nf_server_interface_metadata_t *interface, const nf_server_app_metadata_t *app)
 {
     OpenAPI_problem_details_t problem;
     OpenAPI_problem_details_t *problem_details = NULL;
@@ -131,25 +144,35 @@ bool nf_server_send_error(ogs_sbi_stream_t *stream,
     if(problem_detail) {
         problem_details = OpenAPI_problem_details_parseFromJSON(problem_detail);
         problem.invalid_params = problem_details->invalid_params;
+	problem_details->invalid_params = NULL;
+	OpenAPI_problem_details_free(problem_details);
 
     }
 
     if (message) {
         int i;
+	/*
         problem.type = ogs_msprintf("/%s/%s",
                 message->h.service.name, message->h.api.version);
         ogs_expect(problem.type);
 
         problem.instance = ogs_msprintf("/%s", message->h.resource.component[0]);
+	*/
+
+	if (problem_type) {
+            problem.type = data_collection_strdup(problem_type);
+            ogs_expect(problem.type);
+        }
+
+        if(invalid_params) problem.invalid_params = invalid_params;
+
+        problem.instance = ogs_msprintf("/%s/%s/%s", message->h.service.name, message->h.api.version, message->h.resource.component[0]);
 
         for (i = 1; i <= number_of_components; i++)
         {
-            char *instance;
-            instance = ogs_msprintf("%s/%s", problem.instance, message->h.resource.component[i]);
-            ogs_free(problem.instance);
-            problem.instance = instance;
+            problem.instance = ogs_mstrcatf(problem.instance, "/%s", message->h.resource.component[i]);
+            ogs_expect(problem.instance);
         }
-        ogs_expect(problem.instance);
     }
     if (status) {
         problem.is_status = true;
@@ -168,8 +191,14 @@ bool nf_server_send_error(ogs_sbi_stream_t *stream,
         ogs_free(problem.title);
     if (problem.detail)
         ogs_free(problem.detail);
-    if (problem_details)
-        OpenAPI_problem_details_free(problem_details);
+    if (problem.invalid_params) {
+	OpenAPI_lnode_t *node = NULL;    
+        OpenAPI_list_for_each(problem.invalid_params, node) {
+            OpenAPI_invalid_param_free(node->data);
+        }
+        OpenAPI_list_free(problem.invalid_params);
+        problem.invalid_params = NULL;
+    }
 
     return true;
 }

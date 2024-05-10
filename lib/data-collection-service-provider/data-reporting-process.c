@@ -16,7 +16,9 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #include "server.h"
 #include "data-reporting.h"
 #include "data-reporting-process.h"
+#include "data-reporting-session-cache.h"
 #include "lib-metadata.h"
+#include "timer.h"
 #include "openapi/model/dc_api_data_reporting_session.h"
 #include "openapi/api/TS26532_Ndcaf_DataReportingAPI-info.h"
 
@@ -43,6 +45,21 @@ bool _data_reporting_process_event(ogs_event_t *e)
     const nf_server_app_metadata_t *app_meta = data_collection_lib_metadata();
 
     switch (e->id) {
+    case DC_EVENT_REPORTING_SESSION_CACHE:
+        ogs_assert(e);
+        switch(e->timer_id) {
+            case DC_TIMER_REPORTING_SESSION_CACHE:
+                {
+		    data_reporting_session_cache_prune(data_collection_self()->data_reporting_sessions_cache);
+                }
+                break;
+            default:
+                ogs_error("Invalid timer for event %s", __event_get_name(e));
+                break;
+
+        }
+        break;
+	    
     case OGS_EVENT_SBI_SERVER:
         {
             int rv = 0;
@@ -93,8 +110,73 @@ bool _data_reporting_process_event(ogs_event_t *e)
 			    SWITCH(message.h.method)
                             CASE(OGS_SBI_HTTP_METHOD_POST)
 			        ogs_debug("POST response: status = %i", message.res_status);
+			        
+				if (message.h.resource.component[2] && !strcmp(message.h.resource.component[2], "report")) {
+					int rv;
+                                        data_collection_reporting_session_t *data_collection_reporting_session;
+					cJSON *data_report;
+					const char *error_return = NULL;
+					const char *mime_type = NULL;
+					const char *error_code = NULL;
+					ogs_sbi_response_t *response;
+
+                                        ogs_debug("Request body: %s", request->http.content);
+
+                                        if(check_http_content_type(request->http,"application/json")){
+					    mime_type = "application/json";	
+					}
+
+                                        data_collection_reporting_session = data_collection_reporting_session_find(message.h.resource.component[1]);
+
+                                        if (!data_collection_reporting_session) {
+                                            char *err = NULL;
+
+				            OpenAPI_list_t *invalid_params;
+				            static const char *param = "{sessionId}";
+				            char *reason = NULL;
+
+                                            err = ogs_msprintf("Data reporting Session [%s] is not found.", message.h.resource.component[1]);
+                                            ogs_error("%s", err);
+
+					    reason = ogs_msprintf("Invalid Data Reporting Session identifier [%s]",message.h.resource.component[1]);
+
+					    invalid_params = nf_server_make_invalid_params(param, reason);
+
+                                            ogs_assert(true == nf_server_send_error(stream, 404, 1, &message, "Data Reporting Session not found.", err, NULL, invalid_params, NULL, ndcaf_datareporting_api, app_meta));
+                                            ogs_free(err);
+                                            ogs_free(reason);
+                                            break;
+                                        }
+
+					rv = data_collection_reporting_report(data_collection_reporting_session,mime_type?(const char *)data_collection_strdup(mime_type): NULL, (const void *)data_collection_strdup(request->http.content), strlen(request->http.content), &error_return, &error_code);
+					
+					if(rv == OGS_ERROR) {
+					    
+                                            if (!strcmp(error_code, "400")) {
+                                                char *err = NULL;
+                                                err = ogs_msprintf("Unable to parse Data Report as JSON.");
+                                                ogs_error("%s", err);
+                                                ogs_assert(true == nf_server_send_error(stream, 400, 1, &message, "Bad Data Report.", err, NULL, NULL, NULL, ndcaf_datareporting_api, app_meta));
+                                                ogs_free(err);
+                                                break;
+                                            }
+
+					    if (!strcmp(error_code, "415")) {
+					        ogs_assert(true == nf_server_send_error(stream, 415, 1, &message, "Unsupported Media Type.", "Expected content type: application/json", NULL, NULL, NULL, ndcaf_datareporting_api, app_meta));
+                                                break;
+ 	    
+					    } 
+
+					}
+					response = nf_server_new_response(NULL, NULL, 0, NULL, 0, NULL, ndcaf_datareporting_api, app_meta);
+                                        nf_server_populate_response(response, 0, NULL, 204);
+                                        ogs_assert(response);
+                                        ogs_assert(true == ogs_sbi_server_send_response(stream, response));
+
+				} else
+			        
 		                {
-		                    ogs_info("In Data reporting session");
+		                    ogs_debug("In Data reporting session");
 				    cJSON *data_reporting_sess;
 				    dc_api_data_reporting_session_t *data_reporting_session;
 				    data_collection_reporting_session_t *data_collection_reporting_session;
@@ -104,7 +186,7 @@ bool _data_reporting_process_event(ogs_event_t *e)
 				    ogs_debug("Request body: %s", request->http.content);
 
 				    if(!check_http_content_type(request->http,"application/json")){
-                                        ogs_assert(true == nf_server_send_error(stream, 415, 3, &message, "Unsupported Media Type.", "Expected content type: application/json", NULL, ndcaf_datareporting_api, app_meta));
+                                        ogs_assert(true == nf_server_send_error(stream, 415, 3, &message, "Unsupported Media Type.", "Expected content type: application/json", NULL, NULL, NULL, ndcaf_datareporting_api, app_meta));
                                         break;
                                     }
 
@@ -118,7 +200,7 @@ bool _data_reporting_process_event(ogs_event_t *e)
                                         char *err = NULL;
                                         err = ogs_msprintf("Unable to parse Data Reporting Session as JSON.");
                                         ogs_error("%s", err);
-                                        ogs_assert(true == nf_server_send_error(stream, 400, 1, &message, "Bad Data Reporting Session.", err, NULL, ndcaf_datareporting_api, app_meta));
+                                        ogs_assert(true == nf_server_send_error(stream, 400, 1, &message, "Bad Data Reporting Session.", err, NULL, NULL, NULL, ndcaf_datareporting_api, app_meta));
                                         ogs_free(err);
 					break;
                                     }
@@ -129,7 +211,7 @@ bool _data_reporting_process_event(ogs_event_t *e)
                                         char *err;
                                         err = ogs_msprintf("Bad DataReportingSession: %s", reason);
                                         ogs_error("%s", err);
-                                        ogs_assert(true == nf_server_send_error(stream, 400, 1, &message, "Bad request.", err, NULL, ndcaf_datareporting_api, app_meta));
+                                        ogs_assert(true == nf_server_send_error(stream, 400, 1, &message, "Bad request.", err, NULL, NULL, NULL, ndcaf_datareporting_api, app_meta));
                                         ogs_free(err);
                                         if (data_reporting_sess) cJSON_Delete(data_reporting_sess);
                                         data_reporting_sess = NULL;
@@ -141,7 +223,7 @@ bool _data_reporting_process_event(ogs_event_t *e)
 				    supported_domains = __populate_supported_domains(data_reporting_session->supported_domains);
 				    data_collection_reporting_session = data_collection_reporting_session_create(data_reporting_session->external_application_id, supported_domains);
 				    if (!data_collection_reporting_session) {
-                                        ogs_assert(true == nf_server_send_error(stream, 500, 1, &message, "Internal Server Error.", NULL, NULL, ndcaf_datareporting_api, app_meta));
+                                        ogs_assert(true == nf_server_send_error(stream, 500, 1, &message, "Internal Server Error.", NULL, NULL, NULL, NULL, ndcaf_datareporting_api, app_meta));
 					if (data_reporting_sess) cJSON_Delete(data_reporting_sess);
                                         data_reporting_sess = NULL;
 
@@ -159,7 +241,7 @@ bool _data_reporting_process_event(ogs_event_t *e)
 
 					if(!data_collection_reporting_sess) {
 
-					    ogs_assert(true == nf_server_send_error(stream, 500, 1, &message, "Internal Server Error.", "Unable to convert data reporting session to JSON", NULL, ndcaf_datareporting_api, app_meta));
+					    ogs_assert(true == nf_server_send_error(stream, 500, 1, &message, "Internal Server Error.", "Unable to convert data reporting session to JSON", NULL, NULL, NULL, ndcaf_datareporting_api, app_meta));
                                             if (data_reporting_sess) cJSON_Delete(data_reporting_sess);
                                             data_reporting_sess = NULL;
                                             break;
@@ -187,56 +269,71 @@ bool _data_reporting_process_event(ogs_event_t *e)
 
 		                }
 			        break;
-			    CASE(OGS_SBI_HTTP_METHOD_GET)
+		            CASE(OGS_SBI_HTTP_METHOD_GET)
 			        {
-				    if (message.h.resource.component[1] && !message.h.resource.component[2]) {
+				   const data_reporting_session_cache_entry_t *data_reporting_session_cache_entry;
+                                   data_reporting_session_cache_entry = data_collection_context_retrieve_reporting_session(message.h.resource.component[1]);
 
-					data_collection_reporting_session_t *data_collection_reporting_session;
-                                        cJSON *data_collection_reporting_sess;
-                                        ogs_sbi_response_t *response;
-                                        char *body;
+                                   if (!data_reporting_session_cache_entry) {
+                                       char *err = NULL;
+				       //OpenAPI_invalid_param_t *invalid_param;
+				       OpenAPI_list_t *invalid_params;
+				       static const char *param = "{sessionId}";
+				       char *reason = NULL;
 
-					data_collection_reporting_session = data_collection_reporting_session_find(message.h.resource.component[1]);
+				       err = ogs_msprintf("Data Reporting Session [%s] does not exist.", message.h.resource.component[1]);
+                                       ogs_error("%s", err);
 
-				        if (!data_collection_reporting_session) {
-                                            char *err = NULL;
-                                            err = ogs_msprintf("Data reporting Session [%s] is not available.", message.h.resource.component[1]);
-                                            ogs_error("%s", err);
+				       reason = ogs_msprintf("Invalid Data Reporting Session identifier [%s]",message.h.resource.component[1]);
+                                       /*
+				       invalid_params = OpenAPI_list_create();
+				       invalid_param = OpenAPI_invalid_param_create(data_collection_strdup(param), reason);
+				       OpenAPI_list_add(invalid_params, invalid_param);
+                                       */
+				       invalid_params = nf_server_make_invalid_params(param, reason);
+                                           
+                                       ogs_assert(true == nf_server_send_error(stream, 404, 1, &message, "Data Reporting Session not found.", err, NULL, invalid_params, NULL, ndcaf_datareporting_api, app_meta));
+                                       ogs_free(err);
+				       ogs_free(reason);
+                                   } else {
+                                       const char *if_none_match;
+                                       const char *if_modified_since;
+                                       ogs_sbi_response_t *response;
+                                       int response_code = 200;
+                                       const char *response_body = data_reporting_session_cache_entry->reporting_session;
 
-                                            ogs_assert(true == nf_server_send_error(stream, 404, 1, &message, "Data reporting session does not exists.", err, NULL, ndcaf_datareporting_api, app_meta));
-                                            ogs_free(err);
-					    break;
-                                        }
+                                       if_none_match = ogs_hash_get(request->http.headers, "If-None-Match", OGS_HASH_KEY_STRING);
+                                       if (if_none_match) {
+                                           if (strcmp(data_reporting_session_cache_entry->hash, if_none_match)==0) {
+                                              /* ETag hasn't changed */
+                                              response_code = 304;
+                                              response_body = NULL;
+                                           }
+                                       }
 
-				        data_collection_reporting_sess = data_collection_reporting_session_json(data_collection_reporting_session);
+                                       if_modified_since = ogs_hash_get(request->http.headers, "If-Modified-Since", OGS_HASH_KEY_STRING);
+                                       if (if_modified_since) {
+                                           struct tm tm = {0};
+                                           ogs_time_t modified_since;
+                                           ogs_strptime(if_modified_since, "%a, %d %b %Y %H:%M:%S GMT", &tm);
+                                           ogs_debug("If-Modified-Since: sec=%i, min=%i, hour=%i, mday=%i, mon=%i, year=%i, gmtoff=%li", tm.tm_sec, tm.tm_min, tm.tm_hour, tm.tm_mday, tm.tm_mon, tm.tm_year, tm.tm_gmtoff);
+                                           ogs_time_from_gmt(&modified_since, &tm, 0);
+                                           ogs_debug("If-Modified-Since: %li < %li?", modified_since, data_reporting_session_cache_entry->generated);
+                                           if (modified_since >= data_reporting_session_cache_entry->generated) {
+                                               /* Not modified since the time given */
+                                               response_code = 304;
+                                               response_body = NULL;
+                                           }
+                                       }
 
-                                        if(!data_collection_reporting_sess) {
-
-                                            ogs_assert(true == nf_server_send_error(stream, 500, 1, &message, "Internal Server Error.", "Unable to convert data reporting session to JSON", NULL, ndcaf_datareporting_api, app_meta));
-                                            break;
-                                        }
-					body = cJSON_Print(data_collection_reporting_sess);
-
-					response = nf_server_new_response(NULL, "application/json",  data_collection_reporting_session->received, data_collection_reporting_session->hash, data_collection_self()->config.server_response_cache_control->data_collection_reporting_report_response_max_age, NULL, ndcaf_datareporting_api, app_meta);
-
-                                         nf_server_populate_response(response, strlen(body), body, 200);
-                                         ogs_assert(response);
-                                         ogs_assert(true == ogs_sbi_server_send_response(stream, response));
-					 if(data_collection_reporting_sess) cJSON_Delete(data_collection_reporting_sess);
-                                         break;
-
-				    } else {
-                                        char *err = NULL;
-                                        err = ogs_msprintf("Unknown sub-resource [%s] for data reporting Session [%s].", message.h.resource.component[2], message.h.resource.component[1]);
-                                        ogs_error("%s", err);
-
-                                        ogs_assert(true == nf_server_send_error(stream, 404, 2, &message, "Unknown data reporting session sub-resource.", err, NULL, ndcaf_datareporting_api, app_meta));
-                                        ogs_free(err);
-					break;
-                                    }
-
+                                       response = nf_server_new_response(NULL, response_body?"application/json":NULL, data_reporting_session_cache_entry->reporting_session_received, data_reporting_session_cache_entry->hash, data_collection_self()->config.server_response_cache_control->data_collection_reporting_report_response_max_age, NULL, ndcaf_datareporting_api, app_meta);
+                                       ogs_assert(response);
+                                       nf_server_populate_response(response, response_body?strlen(response_body):0, ogs_strdup(response_body), response_code);
+                                        ogs_assert(true == ogs_sbi_server_send_response(stream, response));
+                                   }
 				}
-		                break;
+                                break;	
+		
 		            CASE(OGS_SBI_HTTP_METHOD_DELETE)
                                 {
 				    if (message.h.resource.component[1] && !message.h.resource.component[2]) {
@@ -251,7 +348,7 @@ bool _data_reporting_process_event(ogs_event_t *e)
                                             err = ogs_msprintf("Data reporting Session [%s] is not found.", message.h.resource.component[1]);
                                             ogs_error("%s", err);
 
-                                            ogs_assert(true == nf_server_send_error(stream, 404, 1, &message, "Data reporting session does not exists.", err, NULL, ndcaf_datareporting_api, app_meta));
+                                            ogs_assert(true == nf_server_send_error(stream, 404, 1, &message, "Data reporting session does not exist.", err, NULL, NULL, NULL, ndcaf_datareporting_api, app_meta));
                                             ogs_free(err);
                                             break;
                                         }

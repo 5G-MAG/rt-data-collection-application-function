@@ -11,7 +11,9 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 
 #include "utilities.h"
 #include "hash.h"
+#include "timer.h"
 #include "data-reporting.h"
+#include "data-reporting-session-cache.h"
 
 static char *calculate_data_reporting_session_hash(dc_api_data_reporting_session_t *data_reporting_session);
 static void supported_domains_remove_all(data_domain_list_t *supported_domains);
@@ -40,10 +42,10 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_session_t *data_colle
     data_collection_reporting_session->supported_domains =
                  (data_domain_list_t*)list_clone(supported_domains, copy_data_domain_node);
 
-    data_collection_reporting_session->received = ogs_time_now();
+    supported_domains_remove_all(supported_domains);
+    ogs_free(supported_domains);
 
-    data_collection_reporting_session->valid_until = data_collection_reporting_session->received + ogs_time_from_sec(
-                  data_collection_self()->config.server_response_cache_control->data_collection_reporting_report_response_max_age);
+    data_collection_reporting_session->received = ogs_time_now();
 
     ogs_hash_set(data_collection_self()->data_reporting_sessions, data_collection_reporting_session->data_reporting_session_id, OGS_HASH_KEY_STRING, data_collection_reporting_session);
 
@@ -55,6 +57,7 @@ DATA_COLLECTION_SVC_PRODUCER_API void data_collection_reporting_session_destroy(
     ogs_assert(session);
 
     ogs_hash_set(data_collection_self()->data_reporting_sessions, session->data_reporting_session_id, OGS_HASH_KEY_STRING, NULL);
+    data_reporting_session_cache_del(data_collection_self()->data_reporting_sessions_cache, session->data_reporting_session_id);
 
     if (session->external_application_id) ogs_free(session->external_application_id);
     if (session->data_reporting_session_id) ogs_free(session->data_reporting_session_id);
@@ -84,12 +87,20 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_session_g
     return session->data_reporting_session_id;
 }
 
+
+DATA_COLLECTION_SVC_PRODUCER_API const struct timespec* data_collection_reporting_session_refresh(data_collection_reporting_session_t *session){
+
+    static struct timespec ts;
+    return &ts;
+}
+
 /********** Library internal functions ***********/
 
 data_collection_reporting_session_t *data_reporting_session_populate(data_collection_reporting_session_t *data_collection_reporting_session, dc_api_data_reporting_session_t *data_reporting_session)
 {
     OpenAPI_list_t* reporting_conditions;
-    char *valid_until;
+    OpenAPI_list_t* reporting_rules;
+    OpenAPI_list_t* sampling_rules;
 
     data_collection_reporting_session->data_reporting_session = data_reporting_session;
     data_collection_reporting_session->data_reporting_session->session_id = data_collection_strdup(data_collection_reporting_session->data_reporting_session_id);
@@ -101,15 +112,72 @@ data_collection_reporting_session_t *data_reporting_session_populate(data_collec
     reporting_conditions = OpenAPI_list_create();
     ogs_assert(reporting_conditions);
 
+    reporting_rules = OpenAPI_list_create();
+    ogs_assert(reporting_rules);
+
+    sampling_rules = OpenAPI_list_create();
+    ogs_assert(sampling_rules);
+
     data_reporting_session->reporting_conditions = reporting_conditions;
 
-    valid_until = ogs_sbi_gmtime_string(data_collection_reporting_session->valid_until);
+    data_reporting_session->reporting_rules = reporting_rules;
 
-    data_collection_reporting_session->data_reporting_session->valid_until = valid_until;
+    data_reporting_session->sampling_rules = sampling_rules;
+
+    if(data_collection_reporting_session->data_reporting_session->valid_until) ogs_free(data_collection_reporting_session->data_reporting_session->valid_until);
+    data_collection_reporting_session->data_reporting_session->valid_until = ogs_time_to_string(ogs_time_now() + ogs_time_from_sec(data_collection_self()->config.server_response_cache_control->data_collection_reporting_report_response_max_age));
 
     data_collection_reporting_session->hash = calculate_data_reporting_session_hash(data_collection_reporting_session->data_reporting_session);
 
     return data_collection_reporting_session;
+}
+
+
+
+const data_reporting_session_cache_entry_t *data_collection_context_retrieve_reporting_session(const char *reporting_session_id)
+{
+
+    data_reporting_session_cache_entry_t *data_reporting_session_cache_entry = NULL;
+
+    if (!data_collection_self()->data_reporting_sessions_cache) {
+        data_collection_self()->data_reporting_sessions_cache = data_reporting_session_cache_new();
+	if (!data_collection_self()->reporting_sessions_cache_timer) data_collection_self()->reporting_sessions_cache_timer = ogs_timer_add(ogs_app()->timer_mgr, dc_timer_reporting_session_cache, NULL);
+        if (data_collection_self()->reporting_sessions_cache_timer) {
+            ogs_timer_start(data_collection_self()->reporting_sessions_cache_timer, ogs_time_from_sec(data_collection_self()->config.server_response_cache_control->data_collection_reporting_report_response_max_age));
+	}
+    } else {
+        data_reporting_session_cache_entry = data_reporting_session_cache_find(data_collection_self()->data_reporting_sessions_cache, reporting_session_id);
+    }
+
+    if (!data_reporting_session_cache_entry) {
+        data_collection_reporting_session_t *data_collection_reporting_session = NULL;
+        int rv =0;
+
+        data_collection_reporting_session = data_collection_reporting_session_find(reporting_session_id);
+
+        if (data_collection_reporting_session == NULL){
+            ogs_error("Couldn't find the Data Reporting Session [%s]", reporting_session_id);
+            return NULL;
+        }
+
+        rv = data_reporting_session_cache_add(data_collection_self()->data_reporting_sessions_cache, data_collection_reporting_session);
+        if(!rv) {
+            ogs_error("Failed to add the Data Reporting Session to the cache [%s]", reporting_session_id);
+            return NULL;
+        }
+
+        data_reporting_session_cache_entry = data_reporting_session_cache_find(data_collection_self()->data_reporting_sessions_cache, reporting_session_id);
+    } else {
+        ogs_debug("Found existing data reporting session cache entry");
+    }
+
+    if (data_reporting_session_cache_entry == NULL){
+       ogs_error("The Data Collection library does not have the reporting session [%s]", reporting_session_id);
+    }
+
+    if (data_reporting_session_cache_entry) data_reporting_session_cache_entry->access_time = ogs_time_now();
+
+    return data_reporting_session_cache_entry;
 }
 
 /*********** Local private functions ***************/

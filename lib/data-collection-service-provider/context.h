@@ -71,6 +71,9 @@ typedef struct data_collection_context_s {
     data_collection_lib_configuration_t config;
     ogs_hash_t  *data_reporting_provisioning_sessions; // id => data_reporting_provisioning_session_t*
     ogs_hash_t  *data_reporting_sessions; // id => data_collection_reporting_session_t*
+    ogs_hash_t *data_reporting_sessions_cache; // id => data_reporting_session_cache_entry_t*
+    ogs_hash_t *data_reports; // id => data_collection_report_t*
+    ogs_timer_t *reporting_sessions_cache_timer;
     char server_name[NI_MAXHOST];
 } data_collection_context_t;
 

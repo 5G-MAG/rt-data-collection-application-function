@@ -17,10 +17,76 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #include <stdlib.h>
 #include <string.h>
 #include <ctype.h>
-#include <ctype.h>
 #include <time.h>
+#include <regex.h>
 
 #include "utilities.h"
+#include "regexpr.h"
+
+#ifndef max
+    #define max(a,b) ((a) > (b) ? (a) : (b))
+#endif
+
+static regex_t *time_nsec_re = NULL;
+
+//static int time_nsec_check(const char *time);
+static void tidy_time_nsec_re(void);
+
+int time_nsec_check(const char *time)
+{
+    int result;
+
+    if (time_nsec_re == NULL) {
+        time_nsec_re = (regex_t*) ogs_calloc(1,sizeof(*time_nsec_re));
+        ogs_assert(time_nsec_re != NULL);
+        result = regcomp(time_nsec_re, "^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})(?:.(\d+))?(Z|[-+]\d{2}:\d{2})$", REG_EXTENDED);
+        if (result) {
+            if (result == REG_ESPACE) {
+                ogs_error("Regex error: Out of memory");
+            } else {
+                ogs_error("Syntax error in the regular expression");
+            }
+            ogs_free(time_nsec_re);
+            time_nsec_re = NULL;
+            return 0;
+        }
+        atexit(tidy_time_nsec_re);
+    }
+
+    result = regexec(time_nsec_re, time, 0, NULL, 0);
+
+    if (!result) {
+        ogs_debug("%s matches the regular expression\n", time);
+        return 1;
+    } else if (result == REG_NOMATCH) {
+        ogs_debug("%s does not match the regular expression\n", time);
+        return 0;
+    } else {
+        char *buffer;
+        int length;
+
+        length = regerror(result, time_nsec_re, NULL, 0);
+        buffer = (char*) ogs_calloc(1, length);
+        (void) regerror (result, time_nsec_re, buffer, length);
+        ogs_error("Regex match failed: %s\n", buffer);
+        ogs_free(buffer);
+        return 0;
+    }
+}
+
+static void
+tidy_time_nsec_re(void)
+{
+    if (time_nsec_re != NULL) {
+        regfree(time_nsec_re);
+        ogs_free(time_nsec_re);
+        time_nsec_re = NULL;
+    }
+}
+
+
+
+#if 0
 
 time_t str_to_time(const char *str_time)
 {
@@ -30,6 +96,18 @@ time_t str_to_time(const char *str_time)
     time = mktime(&tm);
     return time;
 }
+
+
+time_t str_to_rfc3339_time(const char *str_time)
+{
+    static time_t time;
+    struct tm tm = {0};
+    //strptime(str_time, "%FT%T%z", &tm);
+    strptime(str_time, "%Y-%m-%dT%H:%M:%S.%f%z", &tm);
+    time = mktime(&tm);
+    return time;
+}
+
 
 const char *get_time(time_t time_epoch)
 {
@@ -174,6 +252,6 @@ char *traceable_strdup(const char *str, const char *location)
 
     return ptr;
 }
-
+#endif
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

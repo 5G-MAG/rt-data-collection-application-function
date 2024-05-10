@@ -31,8 +31,12 @@ libdcaf_dist_sources = files('''
     dcaf-sm.c
     sbi-path.h
     sbi-path.c
-    utilities.h
-    utilities.c
+    hash.h
+    hash.c
+    communication-record.h
+    communication-record.c
+    regexpr.h
+    regexpr.c
 '''.split())
 
 version_conf = configuration_data()
@@ -40,7 +44,16 @@ version_conf.set_quoted('DCAF_NAME', meson.project_name())
 version_conf.set_quoted('DCAF_VERSION', meson.project_version())
 libdcaf_gen_sources = [configure_file(output : 'dcaf-version.h', configuration : version_conf)]
 
-libdcaf_sources = libdcaf_dist_sources + libdcaf_gen_sources
+api_tag = latest_apis?'REL-'+fiveg_api_release:'TSG'+fiveg_api_approval+'-Rel'+fiveg_api_release
+
+gen_dcaf_sh = find_program('sh')
+openapi_dep_file = meson.current_source_dir() / '.openapi.srcs'
+message('Generating OpenAPI bindings for version '+api_tag+' of the 5G APIs...')
+openapi_gen_result = run_command([gen_dcaf_sh,'-c','"$MESON_SOURCE_ROOT/$MESON_SUBDIR/generator-dcaf" -M "'+openapi_dep_file+'" -b '+api_tag], capture: true, check: true)
+libdacf_api_sources = files(fs.read(openapi_dep_file).split())
+
+
+libdcaf_sources = libdcaf_dist_sources + libdcaf_gen_sources + libdacf_api_sources
 
 libdcaf = static_library('dcaf',
     sources : libdcaf_sources,
@@ -49,6 +62,7 @@ libdcaf = static_library('dcaf',
                     libsbi_openapi_dep,
                     libapp_dep,
 		    libspdc_dep,
+                    libdccommon_dep,
                     libcrypt_dep],
     install : false)
 
@@ -58,6 +72,7 @@ libdcaf_dep = declare_dependency(
                     libsbi_openapi_dep,
                     libapp_dep,
 		    libspdc_dep,
+                    libdccommon_dep,
                     libcrypt_dep])
 
 dcaf_sources = files('''

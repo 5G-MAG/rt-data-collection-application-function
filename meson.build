@@ -18,6 +18,7 @@ project('rt-5gc-data-collection-application-function', 'c',
 
 open5gs_project=subproject('open5gs', required: true)
 
+subdir('common')
 subdir('lib')
 subdir('src')
 

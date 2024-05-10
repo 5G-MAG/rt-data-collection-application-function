@@ -19,6 +19,8 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 extern "C" {
 #endif
 
+typedef struct data_reporting_session_cache_entry_s data_reporting_session_cache_entry_t;
+
 typedef struct data_collection_http_metadata_s {
     time_t received;
     char *hash;
@@ -30,11 +32,13 @@ typedef struct data_collection_reporting_session_s {
     data_domain_list_t *supported_domains;
     ogs_time_t received;
     char *hash;
-    ogs_time_t valid_until;
     dc_api_data_reporting_session_t *data_reporting_session;
 } data_collection_reporting_session_t;
 
 extern data_collection_reporting_session_t *data_reporting_session_populate(data_collection_reporting_session_t *data_collection_reporting_session, dc_api_data_reporting_session_t *data_reporting_session);
+
+extern const data_reporting_session_cache_entry_t *data_collection_context_retrieve_reporting_session(const char *reporting_session_id);
+
 
 #ifdef __cplusplus
 }

@@ -48,7 +48,7 @@ typedef struct data_collection_configuration_s {
     const char* configuration_section;
     int         disable_features;    /* ORed data_collection_feature_flags_e values of features to disable*/
     uint64_t    event_exposure_supported_features;       /* supported features bitmask for TS 29.517 event subscription */
-    const data_collection_data_report_type_t* const *data_report_types; /* NULL terminated array of data report types implemented by the AF */
+    const data_collection_data_report_handler_t* const *data_report_handlers; /* NULL terminated array of data report types implemented by the AF */
     data_collection_event_generation_cb event_generation_callback;      /* called to turn reports into events to expose via reference points R5 & R6 */
 } data_collection_configuration_t;
 

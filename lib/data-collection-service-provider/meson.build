@@ -39,13 +39,21 @@ libspdc_dist_sources = files('''
     data-collection-process.c
     data-reporting.h
     data-reporting.c
+    data-report.h
+    data-report.c
+    data-report-store.h
+    data-report-store.c
     data-reporting-configuration.h
     data-reporting-configuration.c
     data-reporting-process.h
     data-reporting-process.c
     data-reporting-provisioning.h
     data-reporting-provisioning.c
+    data-reporting-session-cache.h
+    data-reporting-session-cache.c
     geographic-area-internal.h
+    timer.h
+    timer.c
     hash.h
     hash.c
     lib-metadata.h
@@ -56,8 +64,6 @@ libspdc_dist_sources = files('''
     response-cache-control.c
     server.h
     server.c
-    utilities.h
-    utilities.c
 '''.split())
 
 api_tag = latest_apis?'REL-'+fiveg_api_release:'TSG'+fiveg_api_approval+'-Rel'+fiveg_api_release
@@ -80,6 +86,7 @@ libspdc = library(libspdc_name,
     dependencies : [libapp_dep,
                     libcore_dep,
                     libcrypt_dep,
+                    libdccommon_dep,
 		    libsbi_dep],
     version : libspdc_version,
     install : true)
@@ -90,6 +97,7 @@ libspdc_dep = declare_dependency(
     dependencies : [libapp_dep,
                     libcore_dep,
                     libcrypt_dep,
+                    libdccommon_dep,
 		    libsbi_dep]
     )
 

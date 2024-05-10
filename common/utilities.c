@@ -43,6 +43,44 @@ const char *get_time(time_t time_epoch)
     return buf;
 }
 
+time_t str_to_rfc3339_time(const char *str_time)
+{
+    static time_t time;
+    struct tm tm = {0};
+    //strptime(str_time, "%FT%T%z", &tm);
+    strptime(str_time, "%Y-%m-%dT%H:%M:%S.%f%z", &tm);
+    time = mktime(&tm);
+    return time;
+}
+
+
+const char *get_current_time(const char *format) {
+
+    time_t rawtime;
+    struct tm * ts;
+    static char buf[80];
+    
+    time (&rawtime);
+    ts = localtime (&rawtime);
+
+   // strftime(buf, sizeof(buf), "%a, %d %b %Y %H:%M:%S %Z", ts);
+
+    strftime(buf, sizeof(buf), format, ts);
+    return buf;
+}
+
+char *ogs_time_to_string(ogs_time_t timestamp)
+{
+    struct tm tm;
+    char datetime[128];
+
+    ogs_localtime(ogs_time_sec(timestamp), &tm);
+    ogs_strftime(datetime, sizeof datetime, "%a, %d %b %Y %H:%M:%S %Z", &tm);
+
+    return ogs_msprintf("%s", datetime);
+}
+
+
 char *read_file(const char *filename)
 {
     FILE *f = NULL;
@@ -81,6 +119,12 @@ char *epoch_to_datetime(char *epoch) {
     ogs_free(epoch_to_convert);
     return buf;
 }
+
+ogs_time_t get_time_from_timespec(struct timespec *ts)
+{
+    return ogs_time_from_sec(ts->tv_sec) + ts->tv_nsec / 1000UL;
+}
+
 
 int str_match(const char *line, const char *word_to_find) {
 

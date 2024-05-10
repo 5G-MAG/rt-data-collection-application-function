@@ -28,6 +28,9 @@ extern "C" {
  *
  * This indicates which property is used to convey the report data in a DataReport (see TS 26.532 Clause 7.3.2.3)
  */
+
+#define DATA_COLLECTION_DATA_REPORT_PROPERTIES 7
+
 typedef enum {
     DATA_COLLECTION_DATA_REPORT_PROPERTY_SERVICE_EXPERIENCE,
     DATA_COLLECTION_DATA_REPORT_PROPERTY_LOCATION,
@@ -59,7 +62,7 @@ typedef struct data_collection_reporting_session_s data_collection_reporting_ses
  *
  * Used by an AF implementation to describe the types of DataReport it can handle
  */
-typedef struct data_collection_data_report_type_s {
+typedef struct data_collection_data_report_handler_s {
     const char *type_name;
     data_collection_data_report_property_e data_report_property;
     const char *data_domain;      /* derived from data_report_property if NULL */
@@ -71,7 +74,7 @@ typedef struct data_collection_data_report_type_s {
     struct timespec *(* const timestamp_for_report_data)(const void *report_data);
     char *(* const tag_for_report_data)(const void *report_data);
     char *(* const serialise_report_data)(const void *report_data);
-} data_collection_data_report_type_t;
+} data_collection_data_report_handler_t;
 
 typedef struct data_domain_node_s {
     ogs_lnode_t node;
@@ -98,13 +101,13 @@ DATA_COLLECTION_SVC_PRODUCER_API const struct timespec* data_collection_reportin
 DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_reporting_session_json(const data_collection_reporting_session_t *session);
 
 /** Find the cached data reports matching the filters */
-DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_reporting_report_find(const data_collection_data_report_type_t* const *report_types, data_collection_event_subscription_t *omit_used);
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_reporting_report_find(const data_collection_data_report_handler_t* const *report_types, data_collection_event_subscription_t *omit_used);
 
 /** Get the data reporting session id */
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_session_get_id(const data_collection_reporting_session_t *session);
 
 /** Process a data report from HTTP */
-DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report(data_collection_reporting_session_t *session, const char *mime_type, const void *data, size_t data_length, const char **error_return);
+DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report(data_collection_reporting_session_t *session, const char *mime_type, const void *data, size_t data_length, const char **error_return, const char **error_code);
 
 /** Mark a data report as having been used */
 DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report_used(data_collection_data_report_t *, data_collection_event_subscription_t *);

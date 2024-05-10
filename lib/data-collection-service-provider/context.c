@@ -16,6 +16,8 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #include "utilities.h"
 #include "lib-metadata.h"
 #include "data-reporting.h"
+#include "data-report.h"
+#include "data-reporting-session-cache.h"
 #include "data-reporting-provisioning.h"
 
 static data_collection_context_t *self = NULL;
@@ -34,8 +36,12 @@ static int free_ogs_hash_entry(void *free_ogs_hash_context, const void *key, int
 static void safe_ogs_free(void *memory);
 static void data_collection_context_data_reporting_provisioning_sessions_remove(void);
 static void data_collection_context_data_reporting_sessions_remove(void);
-
+static void data_collection_context_data_reports_remove(void);
+static void data_collection_context_data_reporting_sessions_cache_remove(void);
+static void data_collection_context_data_reporting_sessions_cache_remove_all(void);
 static void data_collection_context_server_sockaddr_remove(void);
+static dc_api_data_domain_e set_data_domain_from_property(data_collection_data_report_property_e data_report_property);
+static data_collection_data_report_property_e set_data_property_from_domain(const char *data_domain);
 
 int _data_collection_initialise(const data_collection_configuration_t* const configuration)
 {
@@ -63,6 +69,7 @@ void data_collection_context_init(void)
 
     self->data_reporting_provisioning_sessions = ogs_hash_make();
     self->data_reporting_sessions = ogs_hash_make();
+    self->data_reports = ogs_hash_make();
 
     data_collection_server_response_cache_control_set();
 }
@@ -81,6 +88,8 @@ void data_collection_context_final(void)
 
     data_collection_context_data_reporting_provisioning_sessions_remove();
     data_collection_context_data_reporting_sessions_remove();
+    data_collection_context_data_reporting_sessions_cache_remove();
+    data_collection_context_data_reports_remove();
     data_collection_free_agent_name();
 
     data_collection_context_server_sockaddr_remove();
@@ -121,10 +130,27 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
 	    bool event_exposure_disable;
             bool data_reporting_disable;
             bool data_reporting_provisioning_disable;
-
+	    int i = 0 ;
             event_exposure_disable = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_EVENT_EXPOSURE);
             data_reporting_disable = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING);
             data_reporting_provisioning_disable = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_PROVISIONING);
+
+            data_collection_data_report_handler_t **handlers = configuration->data_report_handlers;
+            if(!handlers[i]) {
+                ogs_error("Configuration from the AF has no data report handlers");
+                return OGS_ERROR;
+            }
+
+            for (i = 0; handlers[i]; i++) {
+                if(handlers[i]->data_report_property && handlers[i]->data_domain)
+                    continue;
+                if(handlers[i]->data_report_property && !handlers[i]->data_domain)
+                    handlers[i]->data_domain = dc_api_data_domain_ToString(set_data_domain_from_property(handlers[i]->data_report_property));
+                else 
+                if(handlers[i]->data_domain && !handlers[i]->data_report_property)
+	            handlers[i]->data_report_property = set_data_property_from_domain(handlers[i]->data_domain);
+	
+            }
 
             ogs_yaml_iter_recurse(&root_iter, &dc_iter);
             while (ogs_yaml_iter_next(&dc_iter)) {
@@ -468,6 +494,29 @@ static void data_collection_context_data_reporting_provisioning_sessions_remove(
     self->data_reporting_provisioning_sessions = NULL;
 }
 
+static void data_collection_context_data_reporting_sessions_cache_remove_all(void) {
+    free_ogs_hash_context_t hc = {
+        (void(*)(void*))data_collection_reporting_session_cache_destroy,
+        self->data_reporting_sessions_cache
+    };
+
+    ogs_info("Removing all cached Data Reporting Sessions");
+
+    ogs_hash_do(free_ogs_hash_entry, &hc, self->data_reporting_sessions_cache);
+    ogs_hash_destroy(self->data_reporting_sessions_cache);
+    self->data_reporting_sessions_cache = NULL;
+
+    if(self->reporting_sessions_cache_timer)
+        ogs_timer_delete(self->reporting_sessions_cache_timer);
+}
+
+static void data_collection_context_data_reporting_sessions_cache_remove(void) {
+    data_reporting_session_cache_free(self->data_reporting_sessions_cache);
+    if(self->reporting_sessions_cache_timer)
+        ogs_timer_delete(self->reporting_sessions_cache_timer);
+}
+
+
 static void data_collection_context_data_reporting_sessions_remove(void) {
     free_ogs_hash_context_t hc = {
         (void(*)(void*))data_collection_reporting_session_destroy,
@@ -480,6 +529,61 @@ static void data_collection_context_data_reporting_sessions_remove(void) {
     ogs_hash_destroy(self->data_reporting_sessions);
     self->data_reporting_sessions = NULL;
 }
+
+static void data_collection_context_data_reports_remove(void) {
+    free_ogs_hash_context_t hc = {
+        (void(*)(void*))data_collection_report_destroy,
+        self->data_reports
+    };
+
+    ogs_info("Removing all Data Reports");
+    
+    ogs_hash_do(free_ogs_hash_entry, &hc, self->data_reports);
+    ogs_hash_destroy(self->data_reports);
+    self->data_reports = NULL;
+	
+}
+
+static dc_api_data_domain_e set_data_domain_from_property(data_collection_data_report_property_e data_report_property)
+{
+    if (data_report_property == DATA_COLLECTION_DATA_REPORT_PROPERTY_APP_SPECIFIC)
+        return dc_api_data_domain_VAL_APPLICATION_SPECIFIC;
+    if (data_report_property == DATA_COLLECTION_DATA_REPORT_PROPERTY_COMMUNICATION)
+        return  dc_api_data_domain_VAL_COMMUNICATION;
+    if (data_report_property == DATA_COLLECTION_DATA_REPORT_PROPERTY_LOCATION)
+        return dc_api_data_domain_VAL_LOCATION;
+    if (data_report_property == DATA_COLLECTION_DATA_REPORT_PROPERTY_MEDIA_STREAMING_ACCESS)
+        return dc_api_data_domain_VAL_MS_ACCESS_ACTIVITY;
+    if (data_report_property == DATA_COLLECTION_DATA_REPORT_PROPERTY_PERFORMANCE)
+        return dc_api_data_domain_VAL_PERFORMANCE;
+    if (data_report_property == DATA_COLLECTION_DATA_REPORT_PROPERTY_SERVICE_EXPERIENCE)
+        return dc_api_data_domain_VAL_SERVICE_EXPERIENCE;
+    if (data_report_property == DATA_COLLECTION_DATA_REPORT_PROPERTY_TRIP_PLAN)
+        return dc_api_data_domain_VAL_PLANNED_TRIPS;
+
+    return dc_api_data_domain_NULL;
+}
+
+static data_collection_data_report_property_e set_data_property_from_domain(const char *data_domain)
+{
+    if (!strcmp(data_domain, "APPLICATION_SPECIFIC"))
+        return DATA_COLLECTION_DATA_REPORT_PROPERTY_APP_SPECIFIC;
+    if (!strcmp(data_domain, "COMMUNICATION"))
+        return DATA_COLLECTION_DATA_REPORT_PROPERTY_COMMUNICATION;
+    if (!strcmp(data_domain, "LOCATION"))
+        return DATA_COLLECTION_DATA_REPORT_PROPERTY_LOCATION;
+    if (!strcmp(data_domain, "MS_ACCESS_ACTIVITY"))
+        return DATA_COLLECTION_DATA_REPORT_PROPERTY_MEDIA_STREAMING_ACCESS;
+    if (!strcmp(data_domain, "PERFORMANCE"))
+        return DATA_COLLECTION_DATA_REPORT_PROPERTY_PERFORMANCE;
+    if (!strcmp(data_domain, "SERVICE_EXPERIENCE"))
+        return DATA_COLLECTION_DATA_REPORT_PROPERTY_SERVICE_EXPERIENCE;
+    if (!strcmp(data_domain, "PLANNED_TRIPS"))
+        return DATA_COLLECTION_DATA_REPORT_PROPERTY_TRIP_PLAN;
+    return 0;
+}
+
+
 
 static void data_collection_context_server_sockaddr_remove(void){
     int i,j;
