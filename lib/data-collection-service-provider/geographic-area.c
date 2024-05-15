@@ -21,17 +21,15 @@
 extern "C" {
 #endif
 
-typedef struct data_collection_geographic_area_s {
-    dc_api_geographic_area_t *area;
-} data_collection_geographic_area_t;
+_DC_WRAPPED_OPENAPI_NODE_TYPE_START(geographic_area, geographic_area)
+_DC_WRAPPED_OPENAPI_NODE_TYPE_END(geographic_area);
 
 /***** Library function API *****/
 
 /** Create a new Point GeographicArea */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_geographic_area_t* data_collection_geographic_area_create_point(data_collection_geographic_coord_t *point)
 {
-    data_collection_geographic_area_t *ret = ogs_calloc(1, sizeof(*ret));
-    ogs_assert(ret);
+    data_collection_geographic_area_t *ret = _DC_WRAPPED_OPENAPI_NODE_METHODNAME(geographic_area, create)();
 
     dc_api_geographical_coordinates_t *gc_point = dc_api_geographical_coordinates_create(point->longitude_degrees, point->latitude_degrees);
     ogs_assert(gc_point);
@@ -40,8 +38,10 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_geographic_area_t* data_collect
     dc_api_point_t *api_point = dc_api_point_create(dc_api_supported_gad_shapes_VAL_POINT, gc_point);
     ogs_assert(api_point);
 
-    ret->area = dc_api_geographic_area_point_create(api_point);
-    ogs_assert(ret->area);
+    dc_api_geographic_area_t *openapi = dc_api_geographic_area_point_create(api_point);
+    ogs_assert(openapi);
+
+    _DC_WRAPPED_OPENAPI_NODE_METHODNAME(geographic_area, set_ref)(ret, _DC_OPENAPI_REF_METHODNAME(geographic_area, create_zero)(openapi));
 
     return ret;
 }
@@ -49,8 +49,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_geographic_area_t* data_collect
 /** Create a new Point with Uncertainty Circle GeographicArea */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_geographic_area_t* data_collection_geographic_area_create_point_uncertainty_circle(data_collection_geographic_coord_t *point, double radius_in_meters)
 {
-    data_collection_geographic_area_t *ret = ogs_calloc(1, sizeof(*ret));
-    ogs_assert(ret);
+    data_collection_geographic_area_t *ret = _DC_WRAPPED_OPENAPI_NODE_METHODNAME(geographic_area, create)();
 
     dc_api_geographical_coordinates_t *gc_point = dc_api_geographical_coordinates_create(point->longitude_degrees, point->latitude_degrees);
     ogs_assert(gc_point);
@@ -59,8 +58,10 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_geographic_area_t* data_collect
     dc_api_point_uncertainty_circle_t *api_point = dc_api_point_uncertainty_circle_create(dc_api_supported_gad_shapes_VAL_POINT_UNCERTAINTY_CIRCLE, gc_point, radius_in_meters);
     ogs_assert(api_point);
 
-    ret->area = dc_api_geographic_area_point_uncertainty_circle_create(api_point);
-    ogs_assert(ret->area);
+    dc_api_geographic_area_t *openapi = dc_api_geographic_area_point_uncertainty_circle_create(api_point);
+    ogs_assert(openapi);
+
+    _DC_WRAPPED_OPENAPI_NODE_METHODNAME(geographic_area, set_ref)(ret, _DC_OPENAPI_REF_METHODNAME(geographic_area, create_zero)(openapi));
 
     return ret;
 }
@@ -68,8 +69,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_geographic_area_t* data_collect
 /** Create a new Point with Uncertainty Ellipse GeographicArea */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_geographic_area_t* data_collection_geographic_area_create_point_uncertainty_ellipse(data_collection_geographic_coord_t *point, data_collection_uncertainty_ellipse_t *uncertainty_ellipse, int confidence_percent)
 {
-    data_collection_geographic_area_t *ret = ogs_calloc(1, sizeof(*ret));
-    ogs_assert(ret);
+    data_collection_geographic_area_t *ret = _DC_WRAPPED_OPENAPI_NODE_METHODNAME(geographic_area, create)();
 
     dc_api_geographical_coordinates_t *gc_point = dc_api_geographical_coordinates_create(point->longitude_degrees, point->latitude_degrees);
     ogs_assert(gc_point);
@@ -82,8 +82,10 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_geographic_area_t* data_collect
     dc_api_point_uncertainty_ellipse_t *pue = dc_api_point_uncertainty_ellipse_create(dc_api_supported_gad_shapes_VAL_POINT_UNCERTAINTY_ELLIPSE, confidence_percent, gc_point, ue);
     ogs_assert(pue);
 
-    ret->area = dc_api_geographic_area_point_uncertainty_ellipse_create(pue);
-    ogs_assert(ret->area);
+    dc_api_geographic_area_t *openapi = dc_api_geographic_area_point_uncertainty_ellipse_create(pue);
+    ogs_assert(openapi);
+  
+    _DC_WRAPPED_OPENAPI_NODE_METHODNAME(geographic_area, set_ref)(ret, _DC_OPENAPI_REF_METHODNAME(geographic_area, create_zero)(openapi));
 
     return ret;
 }
@@ -91,8 +93,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_geographic_area_t* data_collect
 /** Create a new Polygon GeographicArea */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_geographic_area_t* data_collection_geographic_area_create_polygon(ogs_list_t *geographic_coords)
 {
-    data_collection_geographic_area_t *ret = ogs_calloc(1, sizeof(*ret));
-    ogs_assert(ret);
+    data_collection_geographic_area_t *ret = _DC_WRAPPED_OPENAPI_NODE_METHODNAME(geographic_area, create)();
 
     OpenAPI_list_t *list = OpenAPI_list_create();
     ogs_assert(list);
@@ -110,8 +111,10 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_geographic_area_t* data_collect
     dc_api_polygon_t *poly = dc_api_polygon_create(dc_api_supported_gad_shapes_VAL_POLYGON, list);
     ogs_assert(poly);
 
-    ret->area = dc_api_geographic_area_polygon_create(poly);
-    ogs_assert(ret->area);
+    dc_api_geographic_area_t *openapi = dc_api_geographic_area_polygon_create(poly);
+    ogs_assert(openapi);
+
+    _DC_WRAPPED_OPENAPI_NODE_METHODNAME(geographic_area, set_ref)(ret, _DC_OPENAPI_REF_METHODNAME(geographic_area, create_zero)(openapi));
   
     return ret;
 }
@@ -119,8 +122,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_geographic_area_t* data_collect
 /** Create a new Point Altitude GeographicArea */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_geographic_area_t* data_collection_geographic_area_create_point_altitude(data_collection_geographic_coord_t *point, double altitude_meters_above_sea)
 {
-    data_collection_geographic_area_t *ret = ogs_calloc(1, sizeof(*ret));
-    ogs_assert(ret);
+    data_collection_geographic_area_t *ret = _DC_WRAPPED_OPENAPI_NODE_METHODNAME(geographic_area, create)();
 
     dc_api_geographical_coordinates_t *gc_point = dc_api_geographical_coordinates_create(point->longitude_degrees, point->latitude_degrees);
     ogs_assert(gc_point);
@@ -129,8 +131,10 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_geographic_area_t* data_collect
     dc_api_point_altitude_t *pa = dc_api_point_altitude_create(dc_api_supported_gad_shapes_VAL_POINT_ALTITUDE, altitude_meters_above_sea, gc_point);
     ogs_assert(pa);
 
-    ret->area = dc_api_geographic_area_point_altitude_create(pa);
-    ogs_assert(ret->area);
+    dc_api_geographic_area_t *openapi = dc_api_geographic_area_point_altitude_create(pa);
+    ogs_assert(openapi);
+
+    _DC_WRAPPED_OPENAPI_NODE_METHODNAME(geographic_area, set_ref)(ret, _DC_OPENAPI_REF_METHODNAME(geographic_area, create_zero)(openapi));
 
     return ret;
 }
@@ -138,8 +142,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_geographic_area_t* data_collect
 /** Create a new Point Altitude with Uncertainty GeographicArea */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_geographic_area_t* data_collection_geographic_area_create_point_altitude_uncertainty(data_collection_geographic_coord_t *point, double altitude_meters_above_sea, data_collection_uncertainty_ellipse_t *uncertainty_ellipse, double uncertainty_altitude_meters, int confidence_percent)
 {
-    data_collection_geographic_area_t *ret = ogs_calloc(1, sizeof(*ret));
-    ogs_assert(ret);
+    data_collection_geographic_area_t *ret = _DC_WRAPPED_OPENAPI_NODE_METHODNAME(geographic_area, create)();
 
     dc_api_geographical_coordinates_t *gc_point = dc_api_geographical_coordinates_create(point->longitude_degrees, point->latitude_degrees);
     ogs_assert(gc_point);
@@ -152,8 +155,10 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_geographic_area_t* data_collect
     dc_api_point_altitude_uncertainty_t *pau = dc_api_point_altitude_uncertainty_create(dc_api_supported_gad_shapes_VAL_POINT_ALTITUDE_UNCERTAINTY, altitude_meters_above_sea, confidence_percent, gc_point, uncertainty_altitude_meters, ue);
     ogs_assert(pau);
 
-    ret->area = dc_api_geographic_area_point_altitude_uncertainty_create(pau);
-    ogs_assert(ret->area);
+    dc_api_geographic_area_t *openapi = dc_api_geographic_area_point_altitude_uncertainty_create(pau);
+    ogs_assert(openapi);
+
+    _DC_WRAPPED_OPENAPI_NODE_METHODNAME(geographic_area, set_ref)(ret, _DC_OPENAPI_REF_METHODNAME(geographic_area, create_zero)(openapi));
 
     return ret;
 }
@@ -161,8 +166,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_geographic_area_t* data_collect
 /** Create a new Ellipsoid Arc GeographicArea */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_geographic_area_t* data_collection_geographic_area_create_ellipsoid_arc(data_collection_geographic_coord_t *point, int inner_radius_meters, double uncertainty_radius_meters, int offset_angle_degrees, int included_angle_degrees, int confidence_percent)
 {
-    data_collection_geographic_area_t *ret = ogs_calloc(1, sizeof(*ret));
-    ogs_assert(ret);
+    data_collection_geographic_area_t *ret = _DC_WRAPPED_OPENAPI_NODE_METHODNAME(geographic_area, create)();
 
     dc_api_geographical_coordinates_t *gc_point = dc_api_geographical_coordinates_create(point->longitude_degrees, point->latitude_degrees);
     ogs_assert(gc_point);
@@ -171,8 +175,10 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_geographic_area_t* data_collect
     dc_api_ellipsoid_arc_t *ea = dc_api_ellipsoid_arc_create(dc_api_supported_gad_shapes_VAL_ELLIPSOID_ARC, confidence_percent, included_angle_degrees, inner_radius_meters, offset_angle_degrees, gc_point, uncertainty_radius_meters);
     ogs_assert(ea);
 
-    ret->area = dc_api_geographic_area_ellipsoid_arc_create(ea);
-    ogs_assert(ret->area);
+    dc_api_geographic_area_t *openapi = dc_api_geographic_area_ellipsoid_arc_create(ea);
+    ogs_assert(openapi);
+
+    _DC_WRAPPED_OPENAPI_NODE_METHODNAME(geographic_area, set_ref)(ret, _DC_OPENAPI_REF_METHODNAME(geographic_area, create_zero)(openapi));
 
     return ret;
 }
@@ -182,19 +188,17 @@ DATA_COLLECTION_SVC_PRODUCER_API void data_collection_geographic_area_free(data_
 {
     if (!area) return;
 
-    if (area->area) {
-        dc_api_geographic_area_free(area->area);
-        area->area = NULL;
-    }
-
-    ogs_free(area);
+    _DC_WRAPPED_OPENAPI_NODE_METHODNAME(geographic_area, free)(area);
 }
 
 /** Get the type of the GeographicArea */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_shape_type_e data_collection_geographic_area_shape_type(const data_collection_geographic_area_t *area)
 {
-    if (area && area->area) {
-        return (data_collection_shape_type_e)*(area->area->shape_ptr);
+    if (area) {
+        const dc_api_geographic_area_t *obj = _DC_WRAPPED_OPENAPI_NODE_METHODNAME(geographic_area, const_openapi)(area);
+        if (obj) {
+            return (data_collection_shape_type_e)*(obj->shape_ptr);
+        }
     }
 
     return 0;
@@ -203,35 +207,15 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_shape_type_e data_collection_ge
 /** Get the type name of the GeographicArea */
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_geographic_area_shape_name(const data_collection_geographic_area_t *area)
 {
-    if (!area || !area->area) return NULL;
-    return dc_api_supported_gad_shapes_ToString(*(area->area->shape_ptr));
+    if (!area) return NULL;
+    const dc_api_geographic_area_t *obj = _DC_WRAPPED_OPENAPI_NODE_METHODNAME(geographic_area, const_openapi)(area);
+    if (!obj) return NULL;
+    return dc_api_supported_gad_shapes_ToString(*(obj->shape_ptr));
 }
 
 /***** Library internal functions  *****/
 
-/** Create GeographicArea from openapi data type */
-data_collection_geographic_area_t* geographic_area_from_openapi(dc_api_geographic_area_t *area)
-{
-    data_collection_geographic_area_t *ret = ogs_calloc(1, sizeof(*ret));
-    ogs_assert(ret);
-
-    ret->area = area;
-
-    return ret;
-}
-
-/** Remove the openapi data type from GeographicArea */
-dc_api_geographic_area_t *geographic_area_move_openapi(data_collection_geographic_area_t *area)
-{
-    dc_api_geographic_area_t *ret = NULL;
-
-    if (area) {
-        ret = area->area;
-        area->area = NULL;
-    }
-
-    return ret;
-}
+_DC_WRAPPED_OPENAPI_NODE_BODY(geographic_area, geographic_area)
 
 #ifdef __cplusplus
 }

@@ -10,6 +10,8 @@
 
 #include "ogs-core.h"
 
+#include "openapi/model/dc_api_data_reporting_provisioning_session.h"
+
 #include "context.h"
 #include "data-reporting-configuration.h"
 
@@ -22,12 +24,17 @@ extern "C" {
 /******* Local prototypes ********/
 
 static int _add_session_to_list(void *data, const void *key, int klen, const void *value);
+static int _add_config_id_to_openapi_list(void *data, const void *key, int klen, const void *value);
 static int _free_ogs_hash_entry(void *free_fn, const void *key, int klen, const void *value);
 
 /******* Private structures ********/
 
 typedef struct data_collection_reporting_provisioning_session_s {
     char *session_id;
+    char *asp_id;
+    char *external_application_id;
+    char *internal_application_id;
+    char *af_event_type;
     ogs_hash_t *configurations;
 } data_collection_reporting_provisioning_session_t;
 
@@ -35,10 +42,27 @@ typedef struct data_collection_reporting_provisioning_session_s {
 
 /** Create a new data reporting provisioning session */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_provisioning_session_t*
-data_collection_reporting_provisioning_session_create(/* TBD */)
+data_collection_reporting_provisioning_session_create(const char *asp_id, const char *external_application_id, const char *internal_application_id, const char *event_type)
 {
-    /* TODO: implement this */
-    return NULL;
+    data_collection_reporting_provisioning_session_t *session = ogs_calloc(1, sizeof(*session));
+    ogs_uuid_t uuid;
+    char id[OGS_UUID_FORMATTED_LENGTH + 1];
+
+    ogs_assert(session);
+
+    ogs_uuid_get(&uuid);
+    ogs_uuid_format(id, &uuid);
+
+    session->session_id = ogs_strdup(id);
+    if (asp_id) session->asp_id = ogs_strdup(asp_id);
+    if (external_application_id) session->external_application_id = ogs_strdup(external_application_id);
+    if (internal_application_id) session->internal_application_id = ogs_strdup(internal_application_id);
+    if (event_type) session->af_event_type = ogs_strdup(event_type);
+    session->configurations = ogs_hash_make();
+
+    ogs_hash_set(data_collection_self()->data_reporting_provisioning_sessions, session->session_id, OGS_HASH_KEY_STRING, session);
+
+    return session;
 }
 
 /** Destroy a data reporting provisioning session */
@@ -52,6 +76,26 @@ DATA_COLLECTION_SVC_PRODUCER_API void data_collection_reporting_provisioning_ses
     if (session->session_id) {
         ogs_free(session->session_id);
         session->session_id = NULL;
+    }
+
+    if (session->asp_id) {
+        ogs_free(session->asp_id);
+        session->asp_id = NULL;
+    }
+
+    if (session->external_application_id) {
+        ogs_free(session->external_application_id);
+        session->external_application_id = NULL;
+    }
+
+    if (session->internal_application_id) {
+        ogs_free(session->internal_application_id);
+        session->internal_application_id = NULL;
+    }
+
+    if (session->af_event_type) {
+        ogs_free(session->af_event_type);
+        session->af_event_type = NULL;
     }
 
     if (session->configurations) {
@@ -82,8 +126,24 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_provision
 DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_reporting_provisioning_session_json(
         const data_collection_reporting_provisioning_session_t *session)
 {
-    /* TODO: implement this */
-    return NULL;
+    cJSON *json = NULL;
+    OpenAPI_list_t *config_ids = NULL;
+
+    if (session->configurations && ogs_hash_first(session->configurations) != NULL) {
+        config_ids = OpenAPI_list_create();
+        ogs_hash_do(_add_config_id_to_openapi_list, config_ids, session->configurations);
+    }
+
+    dc_api_data_reporting_provisioning_session_t *drps = dc_api_data_reporting_provisioning_session_create(
+                session->asp_id, config_ids, dc_api_af_event_FromString(session->af_event_type), session->external_application_id,
+                session->internal_application_id, session->session_id);
+
+    json = dc_api_data_reporting_provisioning_session_convertResponseToJSON(drps);
+
+    OpenAPI_clear_and_free_string_list(config_ids);
+    ogs_free(drps);
+
+    return json;
 }
 
 /** List the active Data Reporting Provisioning Sessions */
@@ -153,6 +213,28 @@ int data_collection_reporting_provisioning_session_remove_configuration(data_col
     return OGS_OK;
 }
 
+/** Replace a reporting configuration to the session */
+int data_collection_reporting_provisioning_session_replace_configuration(data_collection_reporting_provisioning_session_t *session,
+                                                                         data_collection_reporting_configuration_t *configuration)
+{
+    if (!session || !session->configurations) return OGS_ERROR; // no configuration to replace
+    if (!configuration) return OGS_ERROR; // Configuration cannot be NULL
+
+    const char *config_id = data_collection_reporting_configuration_id(configuration);
+    data_collection_reporting_configuration_t *existing = ogs_hash_get(session->configurations, config_id, OGS_HASH_KEY_STRING);
+    if (existing != configuration) {
+        // only replace if different
+        ogs_hash_set(session->configurations, config_id, OGS_HASH_KEY_STRING, configuration);
+        if (existing) {
+            // Destroy old config
+            reporting_configuration_detach_session(existing);
+            data_collection_reporting_configuration_destroy(existing);
+        }
+    }
+
+    return OGS_OK;
+}
+
 /** Get a reporting configuration by its id from the session */
 data_collection_reporting_configuration_t *
 data_collection_reporting_provisioning_session_get_configuration_by_id(data_collection_reporting_provisioning_session_t *session,
@@ -169,13 +251,22 @@ data_collection_reporting_provisioning_session_get_configuration_by_id(data_coll
 static int _add_session_to_list(void *data, const void *key, int klen, const void *value)
 {
     ogs_list_t *list = (ogs_list_t*)data;
-    data_collection_reporting_session_lnode_t *node;
+    data_collection_reporting_provisioning_session_t *node;
 
-    node = ogs_calloc(1, sizeof(*node));
+    node = ogs_malloc(sizeof(*node));
     ogs_assert(node);
 
-    node->provisioning_session = (data_collection_reporting_provisioning_session_t*)value;
+    memcpy(node, value, sizeof(*node));
     ogs_list_add(list, node);
+
+    return 1;
+}
+
+static int _add_config_id_to_openapi_list(void *data, const void *key, int klen, const void *value)
+{
+    OpenAPI_list_t *list = (OpenAPI_list_t*)data;
+
+    OpenAPI_list_add(list, ogs_strdup(key));
 
     return 1;
 }

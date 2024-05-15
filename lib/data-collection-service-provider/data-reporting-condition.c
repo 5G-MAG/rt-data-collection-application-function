@@ -12,14 +12,13 @@
 #include "openapi/model/dc_api_data_reporting_condition.h"
 
 #include "data-collection-sp/data-collection.h"
+#include "data-reporting-condition-internal.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef struct data_collection_data_reporting_condition_s {
-    dc_api_data_reporting_condition_t *profile;
-} data_collection_data_reporting_condition_t;
+_DC_WRAPPED_OPENAPI_NODE_SIMPLE_TYPE(data_reporting_condition, data_reporting_condition);
 
 /***** Interface callbacks *****/
 
@@ -30,27 +29,21 @@ typedef struct data_collection_data_reporting_condition_s {
 /** Create a new DataReportingCondition */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_reporting_condition_t* data_collection_data_reporting_condition_create()
 {
-    data_collection_data_reporting_condition_t *ret = ogs_calloc(1, sizeof(*ret));
-
-    /* ret->profile = dc_api_data_reporting_condition_create(); */
-
-    ogs_assert(ret);
+    data_collection_data_reporting_condition_t *ret = _DC_WRAPPED_OPENAPI_NODE_METHODNAME(data_reporting_condition, create)();
 
     return ret;
 }
 
 /** Destroy a DataReportingCondition */
-DATA_COLLECTION_SVC_PRODUCER_API void data_collection_data_reporting_condition_free(data_collection_data_reporting_condition_t* profile)
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_data_reporting_condition_free(data_collection_data_reporting_condition_t* condition)
 {
-    if (!profile) return;
-
-    if (profile->profile) {
-        dc_api_data_reporting_condition_free(profile->profile);
-        profile->profile = NULL;
-    }
-
-    ogs_free(profile);    
+    if (!condition) return;
+    _DC_WRAPPED_OPENAPI_NODE_METHODNAME(data_reporting_condition, free)(condition);
 }
+
+/***** Library internal functions *****/
+
+_DC_WRAPPED_OPENAPI_NODE_BODY(data_reporting_condition, data_reporting_condition)
 
 #ifdef __cplusplus
 }

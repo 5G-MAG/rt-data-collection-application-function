@@ -91,13 +91,12 @@ bool data_reporting_session_cache_del(ogs_hash_t *cache, const char *session_id)
     return false;
 }
 
-const data_reporting_session_cache_entry_t *data_reporting_session_cache_find(ogs_hash_t *cache, const char *session_id)
+data_reporting_session_cache_entry_t *data_reporting_session_cache_find(ogs_hash_t *cache, const char *session_id)
 {
-    const data_reporting_session_cache_entry_t *entry;
-
     ogs_debug("data_reporting_session_cache_find(cache=%p, Session=%s)", cache, session_id);
-    entry = (const data_reporting_session_cache_entry_t*)_data_reporting_session_cache_find(cache, session_id);
-    return entry;
+    if (!cache) return NULL;
+    if (!session_id) return NULL;
+    return _data_reporting_session_cache_find(cache, session_id);
 }
 
 bool data_reporting_session_cache_clear(ogs_hash_t *cache)
@@ -211,6 +210,12 @@ void data_collection_reporting_session_cache_destroy(data_reporting_session_cach
     data_reporting_session_cache_entry_free(entry);
 }
 
+void data_reporting_session_cache_accessed(data_reporting_session_cache_entry_t *entry)
+{
+    if (entry) {
+        entry->access_time = ogs_time_now();
+    }
+}
 
 /**** Static functions ****/
 

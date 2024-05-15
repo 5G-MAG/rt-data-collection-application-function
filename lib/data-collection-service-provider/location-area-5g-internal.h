@@ -11,19 +11,15 @@
 #ifndef DATA_COLLECTION_LOCATION_AREA_5G_INTERNAL_H
 #define DATA_COLLECTION_LOCATION_AREA_5G_INTERNAL_H
 
+#include "wrap-openapi-macros.h"
+
 #include "data-collection-sp/data-collection.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef struct dc_api_location_area5_g_s dc_api_location_area5_g_t;
-
-/** Create LocationArea5G from openapi data type */
-data_collection_location_area_5g_t* location_area_5g_from_openapi(dc_api_location_area5_g_t *location /*transfer*/);
-
-/** Create openapi data type from LocationArea5G */
-dc_api_location_area5_g_t *location_area_5g_move_openapi(data_collection_location_area_5g_t*);
+_DC_WRAPPED_OPENAPI_NODE_PROTO(location_area_5g, location_area5_g);
 
 #ifdef __cplusplus
 }

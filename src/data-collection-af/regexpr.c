@@ -39,7 +39,7 @@ int time_nsec_check(const char *time)
     if (time_nsec_re == NULL) {
         time_nsec_re = (regex_t*) ogs_calloc(1,sizeof(*time_nsec_re));
         ogs_assert(time_nsec_re != NULL);
-        result = regcomp(time_nsec_re, "^(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2})(?:.(\d+))?(Z|[-+]\d{2}:\d{2})$", REG_EXTENDED);
+        result = regcomp(time_nsec_re, "^(\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2})(?:.(\\d+))?(Z|[-+]\\d{2}:\\d{2})$", REG_EXTENDED);
         if (result) {
             if (result == REG_ESPACE) {
                 ogs_error("Regex error: Out of memory");

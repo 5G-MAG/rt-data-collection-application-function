@@ -42,9 +42,6 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_session_t *data_colle
     data_collection_reporting_session->supported_domains =
                  (data_domain_list_t*)list_clone(supported_domains, copy_data_domain_node);
 
-    supported_domains_remove_all(supported_domains);
-    ogs_free(supported_domains);
-
     data_collection_reporting_session->received = ogs_time_now();
 
     ogs_hash_set(data_collection_self()->data_reporting_sessions, data_collection_reporting_session->data_reporting_session_id, OGS_HASH_KEY_STRING, data_collection_reporting_session);
@@ -173,9 +170,9 @@ const data_reporting_session_cache_entry_t *data_collection_context_retrieve_rep
 
     if (data_reporting_session_cache_entry == NULL){
        ogs_error("The Data Collection library does not have the reporting session [%s]", reporting_session_id);
+    } else {
+       data_reporting_session_cache_accessed(data_reporting_session_cache_entry);
     }
-
-    if (data_reporting_session_cache_entry) data_reporting_session_cache_entry->access_time = ogs_time_now();
 
     return data_reporting_session_cache_entry;
 }

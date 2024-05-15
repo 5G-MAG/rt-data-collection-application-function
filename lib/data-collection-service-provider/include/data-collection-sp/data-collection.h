@@ -42,8 +42,11 @@
 
 #define INCLUDED_FROM_DATA_COLLECTION_H 1
 
+#include "macros.h"
+#include "civic-address.h"
 #include "event-exposure.h"
 #include "data-reporting.h"
+#include "data-reporting-configuration.h"
 #include "data-reporting-provisioning.h"
 #include "data-sampling-rule.h"
 #include "data-reporting-rule.h"

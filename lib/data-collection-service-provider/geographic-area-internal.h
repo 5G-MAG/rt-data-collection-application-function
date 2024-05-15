@@ -11,19 +11,15 @@
 #ifndef DATA_COLLECTION_GEOGRAPHIC_AREA_INTERNAL_H
 #define DATA_COLLECTION_GEOGRAPHIC_AREA_INTERNAL_H
 
+#include "wrap-openapi-macros.h"
+
 #include "data-collection-sp/data-collection.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef struct dc_api_geographic_area_s dc_api_geographic_area_t;
-
-/** Create GeographicArea from openapi data type */
-data_collection_geographic_area_t* geographic_area_from_openapi(dc_api_geographic_area_t *location);
-
-/** Remove the openapi data type from GeographicArea */
-dc_api_geographic_area_t *geographic_area_move_openapi(data_collection_geographic_area_t*);
+_DC_WRAPPED_OPENAPI_NODE_PROTO(geographic_area, geographic_area);
 
 #ifdef __cplusplus
 }

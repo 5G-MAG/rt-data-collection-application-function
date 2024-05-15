@@ -33,15 +33,14 @@ typedef struct free_ogs_hash_context_s {
 static int data_collection_context_prepare(void);
 static int data_collection_context_validation(void);
 static int free_ogs_hash_entry(void *free_ogs_hash_context, const void *key, int klen, const void *value);
-static void safe_ogs_free(void *memory);
 static void data_collection_context_data_reporting_provisioning_sessions_remove(void);
 static void data_collection_context_data_reporting_sessions_remove(void);
 static void data_collection_context_data_reports_remove(void);
 static void data_collection_context_data_reporting_sessions_cache_remove(void);
-static void data_collection_context_data_reporting_sessions_cache_remove_all(void);
+//static void data_collection_context_data_reporting_sessions_cache_remove_all(void);
 static void data_collection_context_server_sockaddr_remove(void);
-static dc_api_data_domain_e set_data_domain_from_property(data_collection_data_report_property_e data_report_property);
-static data_collection_data_report_property_e set_data_property_from_domain(const char *data_domain);
+//static dc_api_data_domain_e set_data_domain_from_property(data_collection_data_report_property_e data_report_property);
+//static data_collection_data_report_property_e set_data_property_from_domain(const char *data_domain);
 
 int _data_collection_initialise(const data_collection_configuration_t* const configuration)
 {
@@ -135,12 +134,13 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
             data_reporting_disable = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING);
             data_reporting_provisioning_disable = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_PROVISIONING);
 
-            data_collection_data_report_handler_t **handlers = configuration->data_report_handlers;
+            const data_collection_data_report_handler_t * const *handlers = configuration->data_report_handlers;
             if(!handlers[i]) {
                 ogs_error("Configuration from the AF has no data report handlers");
                 return OGS_ERROR;
             }
 
+#if 0
             for (i = 0; handlers[i]; i++) {
                 if(handlers[i]->data_report_property && handlers[i]->data_domain)
                     continue;
@@ -151,6 +151,7 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
 	            handlers[i]->data_report_property = set_data_property_from_domain(handlers[i]->data_domain);
 	
             }
+#endif
 
             ogs_yaml_iter_recurse(&root_iter, &dc_iter);
             while (ogs_yaml_iter_next(&dc_iter)) {
@@ -493,7 +494,7 @@ static void data_collection_context_data_reporting_provisioning_sessions_remove(
     ogs_hash_destroy(self->data_reporting_provisioning_sessions);
     self->data_reporting_provisioning_sessions = NULL;
 }
-
+#if 0
 static void data_collection_context_data_reporting_sessions_cache_remove_all(void) {
     free_ogs_hash_context_t hc = {
         (void(*)(void*))data_collection_reporting_session_cache_destroy,
@@ -509,7 +510,7 @@ static void data_collection_context_data_reporting_sessions_cache_remove_all(voi
     if(self->reporting_sessions_cache_timer)
         ogs_timer_delete(self->reporting_sessions_cache_timer);
 }
-
+#endif
 static void data_collection_context_data_reporting_sessions_cache_remove(void) {
     data_reporting_session_cache_free(self->data_reporting_sessions_cache);
     if(self->reporting_sessions_cache_timer)
@@ -546,40 +547,48 @@ static void data_collection_context_data_reports_remove(void) {
 
 static dc_api_data_domain_e set_data_domain_from_property(data_collection_data_report_property_e data_report_property)
 {
-    if (data_report_property == DATA_COLLECTION_DATA_REPORT_PROPERTY_APP_SPECIFIC)
+    switch (data_report_property) {
+    case DATA_COLLECTION_DATA_REPORT_PROPERTY_APP_SPECIFIC:
         return dc_api_data_domain_VAL_APPLICATION_SPECIFIC;
-    if (data_report_property == DATA_COLLECTION_DATA_REPORT_PROPERTY_COMMUNICATION)
+    case DATA_COLLECTION_DATA_REPORT_PROPERTY_COMMUNICATION:
         return  dc_api_data_domain_VAL_COMMUNICATION;
-    if (data_report_property == DATA_COLLECTION_DATA_REPORT_PROPERTY_LOCATION)
+    case DATA_COLLECTION_DATA_REPORT_PROPERTY_LOCATION:
         return dc_api_data_domain_VAL_LOCATION;
-    if (data_report_property == DATA_COLLECTION_DATA_REPORT_PROPERTY_MEDIA_STREAMING_ACCESS)
+    case DATA_COLLECTION_DATA_REPORT_PROPERTY_MEDIA_STREAMING_ACCESS:
         return dc_api_data_domain_VAL_MS_ACCESS_ACTIVITY;
-    if (data_report_property == DATA_COLLECTION_DATA_REPORT_PROPERTY_PERFORMANCE)
+    case DATA_COLLECTION_DATA_REPORT_PROPERTY_PERFORMANCE:
         return dc_api_data_domain_VAL_PERFORMANCE;
-    if (data_report_property == DATA_COLLECTION_DATA_REPORT_PROPERTY_SERVICE_EXPERIENCE)
+    case DATA_COLLECTION_DATA_REPORT_PROPERTY_SERVICE_EXPERIENCE:
         return dc_api_data_domain_VAL_SERVICE_EXPERIENCE;
-    if (data_report_property == DATA_COLLECTION_DATA_REPORT_PROPERTY_TRIP_PLAN)
+    case DATA_COLLECTION_DATA_REPORT_PROPERTY_TRIP_PLAN:
         return dc_api_data_domain_VAL_PLANNED_TRIPS;
+    case DATA_COLLECTION_DATA_REPORT_PROPERTY_ANBR_NET_ASSIST_INVOCATION:
+        return dc_api_data_domain_VAL_MS_ANBR_NETWORK_ASSISTANCE;
+    }
 
     return dc_api_data_domain_NULL;
 }
 
 static data_collection_data_report_property_e set_data_property_from_domain(const char *data_domain)
 {
-    if (!strcmp(data_domain, "APPLICATION_SPECIFIC"))
+    SWITCH(data_domain)
+    CASE("APPLICATION_SPECIFIC")
         return DATA_COLLECTION_DATA_REPORT_PROPERTY_APP_SPECIFIC;
-    if (!strcmp(data_domain, "COMMUNICATION"))
+    CASE("COMMUNICATION")
         return DATA_COLLECTION_DATA_REPORT_PROPERTY_COMMUNICATION;
-    if (!strcmp(data_domain, "LOCATION"))
+    CASE("LOCATION")
         return DATA_COLLECTION_DATA_REPORT_PROPERTY_LOCATION;
-    if (!strcmp(data_domain, "MS_ACCESS_ACTIVITY"))
+    CASE("MS_ACCESS_ACTIVITY")
         return DATA_COLLECTION_DATA_REPORT_PROPERTY_MEDIA_STREAMING_ACCESS;
-    if (!strcmp(data_domain, "PERFORMANCE"))
+    CASE("PERFORMANCE")
         return DATA_COLLECTION_DATA_REPORT_PROPERTY_PERFORMANCE;
-    if (!strcmp(data_domain, "SERVICE_EXPERIENCE"))
+    CASE("SERVICE_EXPERIENCE")
         return DATA_COLLECTION_DATA_REPORT_PROPERTY_SERVICE_EXPERIENCE;
-    if (!strcmp(data_domain, "PLANNED_TRIPS"))
+    CASE("PLANNED_TRIPS")
         return DATA_COLLECTION_DATA_REPORT_PROPERTY_TRIP_PLAN;
+    CASE("MS_ANBR_NETWORK_ASSISTANCE")
+        return DATA_COLLECTION_DATA_REPORT_PROPERTY_ANBR_NET_ASSIST_INVOCATION;
+    END
     return 0;
 }
 
@@ -616,13 +625,6 @@ free_ogs_hash_entry(void *rec, const void *key, int klen, const void *value)
     ogs_hash_set(fohc->hash, key, klen, NULL);
     ogs_free((void*)key);
     return 1;
-}
-
-static void
-safe_ogs_free(void *memory)
-{
-    if(memory)
-        ogs_free(memory);
 }
 
 int data_collection_context_server_name_set(void) {

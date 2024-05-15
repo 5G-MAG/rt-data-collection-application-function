@@ -12,27 +12,25 @@
 #include "openapi/model/dc_api_data_reporting_rule.h"
 
 #include "data-collection-sp/data-collection.h"
+#include "data-reporting-rule-internal.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef struct data_collection_data_reporting_rule_s {
-    dc_api_data_reporting_rule_t *profile;
-} data_collection_data_reporting_rule_t;
-
 /***** Interface callbacks *****/
 
 /***** Interface structures *****/
 
+_DC_WRAPPED_OPENAPI_NODE_TYPE_START(data_reporting_rule, data_reporting_rule)
+_DC_WRAPPED_OPENAPI_NODE_TYPE_END(data_reporting_rule);
+
 /***** Library function API *****/
 
 /** Create a new DataReportingRule */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_reporting_rule_t* data_collection_data_reporting_rule_create()
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_reporting_rule_t* data_collection_data_reporting_rule_create(/* TODO: */)
 {
-    data_collection_data_reporting_rule_t *ret = ogs_calloc(1, sizeof(*ret));
-
-    /* ret->profile = dc_api_data_reporting_rule_create(); */
+    data_collection_data_reporting_rule_t *ret = _DC_WRAPPED_OPENAPI_NODE_METHODNAME(data_reporting_rule,create)();
 
     ogs_assert(ret);
 
@@ -40,17 +38,14 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_reporting_rule_t* data_col
 }
 
 /** Destroy a DataReportingRule */
-DATA_COLLECTION_SVC_PRODUCER_API void data_collection_data_reporting_rule_free(data_collection_data_reporting_rule_t* profile)
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_data_reporting_rule_free(data_collection_data_reporting_rule_t* rule)
 {
-    if (!profile) return;
-
-    if (profile->profile) {
-        dc_api_data_reporting_rule_free(profile->profile);
-        profile->profile = NULL;
-    }
-
-    ogs_free(profile);    
+    _DC_WRAPPED_OPENAPI_NODE_METHODNAME(data_reporting_rule,free)(rule);
 }
+
+/***** Library internal functions *****/
+
+_DC_WRAPPED_OPENAPI_NODE_BODY(data_reporting_rule, data_reporting_rule)
 
 #ifdef __cplusplus
 }

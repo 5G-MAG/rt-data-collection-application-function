@@ -11,19 +11,15 @@
 #ifndef DATA_COLLECTION_NETWORK_AREA_INFO_INTERNAL_H
 #define DATA_COLLECTION_NETWORK_AREA_INFO_INTERNAL_H
 
+#include "wrap-openapi-macros.h"
+
 #include "data-collection-sp/data-collection.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef struct dc_api_network_area_info_s dc_api_network_area_info_t;
-
-/** Create NetworkAreaInfo from openapi data type */
-data_collection_network_area_info_t* network_area_info_from_openapi(dc_api_network_area_info_t *location);
-
-/** Remove the openapi data type from NetworkAreaInfo */
-dc_api_network_area_info_t *network_area_info_move_openapi(data_collection_network_area_info_t*);
+_DC_WRAPPED_OPENAPI_NODE_PROTO(network_area_info, network_area_info);
 
 #ifdef __cplusplus
 }

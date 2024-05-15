@@ -8,24 +8,14 @@
  * https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
  */
 
-#ifndef DATA_COLLECTION_CIVIC_ADDRESS_INTERNAL_H
-#define DATA_COLLECTION_CIVIC_ADDRESS_INTERNAL_H
+#ifndef DATA_COLLECTION_DATA_REPORTING_RULE_INTERNAL_H
+#define DATA_COLLECTION_DATA_REPORTING_RULE_INTERNAL_H
 
 #include "wrap-openapi-macros.h"
 
-#include "data-collection-sp/data-collection.h"
-
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-_DC_WRAPPED_OPENAPI_NODE_PROTO(civic_address, civic_address);
-
-#ifdef __cplusplus
-}
-#endif
+_DC_WRAPPED_OPENAPI_NODE_PROTO(data_reporting_rule,data_reporting_rule);
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */
 
-#endif /* DATA_COLLECTION_CIVIC_ADDRESS_INTERNAL_H */
+#endif /* DATA_COLLECTION_DATA_REPORTING_RULE_INTERNAL_H */

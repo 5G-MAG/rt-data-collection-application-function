@@ -27,11 +27,13 @@ typedef struct data_report_s {
 } data_report_t;
 	
 static data_collection_report_t *data_collection_report_create(data_collection_reporting_session_t *session, const data_collection_data_report_handler_t *handler, void *data_report);	
-static bool data_report_del(ogs_hash_t *data_reports, const char *data_report_type);
-static int free_ogs_hash_data_report(void *rec, const void *key, int klen, const void *value);
+//static bool data_report_del(ogs_hash_t *data_reports, const char *data_report_type);
+//static int free_ogs_hash_data_report(void *rec, const void *key, int klen, const void *value);
 static data_collection_data_report_property_e get_report_properties(dc_api_data_report_t *report, ogs_list_t *data_reports);
 static void populate_communication_records (dc_api_data_report_t *report, ogs_list_t *data_reports);
-static cJSON *data_collection_report_json(data_collection_report_t *report, cJSON *data_report_json);
+//static cJSON *data_collection_report_json(data_collection_report_t *report, cJSON *data_report_json);
+static data_collection_data_report_property_e __data_report_handler_report_property(const data_collection_data_report_handler_t *handler);
+static data_collection_data_report_property_e __data_domain_to_data_report_property(const char *data_domain);
 
 /*
 
@@ -81,7 +83,7 @@ int data_collection_reporting_report(data_collection_reporting_session_t *sessio
     ogs_list_init(&data_reports);
     found_property = get_report_properties(report, &data_reports);
 
-    data_collection_data_report_handler_t **handlers = (data_collection_data_report_handler_t *)data_collection_self()->config.data_collection_configuration->data_report_handlers;
+    const data_collection_data_report_handler_t * const *handlers = data_collection_self()->config.data_collection_configuration->data_report_handlers;
    
     if(!handlers[i]) {
         ogs_error("Report not understood");
@@ -90,7 +92,7 @@ int data_collection_reporting_report(data_collection_reporting_session_t *sessio
     }
 
     for (i = 0; handlers[i]; i++) {
-        if(handlers[i]->data_report_property  == found_property) {
+        if(__data_report_handler_report_property(handlers[i])  == found_property) {
             data_report_t *rep = NULL;
             ogs_list_for_each(&data_reports, rep) {
                 void *parsed_data = handlers[i]->parse_report_data(session, rep->data_report /* cJSON * to the actual report */, error_return);
@@ -139,7 +141,7 @@ void data_collection_report_destroy(data_collection_report_t *report)
 static data_collection_report_t *data_collection_report_create(data_collection_reporting_session_t *session, const data_collection_data_report_handler_t *handler, void *data_report) {
 
     data_collection_report_t *report;
-    cJSON *report_json;
+    //cJSON *report_json;
     cJSON *data_report_json;
 
 
@@ -160,15 +162,16 @@ static data_collection_report_t *data_collection_report_create(data_collection_r
     
     //dump to disk report data_collection_report_t stored to disk
 
-    const char *report_time = get_current_time("%Y-%m-%dT%H:%M:%SZ");
-    const char *body = cJSON_Print(data_report_json);
+    char *report_time = dc_strdup(get_current_time("%Y-%m-%dT%H:%M:%SZ"));
+    char *body = cJSON_Print(data_report_json);
 
     data_collection_report_store(data_collection_strdup(session->data_reporting_session_id), data_collection_strdup(handler->data_domain), report_time, "json", body);
     cJSON_free(body);
+    ogs_free(report_time);
 
     return report;
 }
-
+#if 0
 static bool data_report_del(ogs_hash_t *data_reports, const char *data_report_handler)
 {
     data_collection_report_t *report;
@@ -186,7 +189,8 @@ static bool data_report_del(ogs_hash_t *data_reports, const char *data_report_ha
 
     return false;
 }
-
+#endif
+#if 0
 static int
 free_ogs_hash_data_report(void *rec, const void *key, int klen, const void *value)
 {
@@ -201,7 +205,7 @@ free_ogs_hash_data_report(void *rec, const void *key, int klen, const void *valu
 
     return 1;
 }
-
+#endif
 static data_collection_data_report_property_e get_report_properties(dc_api_data_report_t *report, ogs_list_t *data_reports)
 {
     if (report->application_specific_records) {
@@ -229,11 +233,9 @@ static data_collection_data_report_property_e get_report_properties(dc_api_data_
 static void populate_communication_records (dc_api_data_report_t *report, ogs_list_t *data_reports) {
 
     OpenAPI_lnode_t *node = NULL;
-    cJSON *item = NULL;
     data_report_t *data_report;
 
     if (report->communication_records) {
-        item = cJSON_CreateObject();
         OpenAPI_list_for_each(report->communication_records, node) {
             cJSON *itemLocal = dc_api_communication_record_convertToJSON(node->data, true);
 	    if (itemLocal == NULL) {
@@ -249,6 +251,32 @@ static void populate_communication_records (dc_api_data_report_t *report, ogs_li
     }
 }
 
+static data_collection_data_report_property_e __data_report_handler_report_property(const data_collection_data_report_handler_t *handler)
+{
+    if (handler->data_report_property) return handler->data_report_property;
+    return __data_domain_to_data_report_property(handler->data_domain);
+}
+
+static data_collection_data_report_property_e __data_domain_to_data_report_property(const char *data_domain)
+{
+    SWITCH(data_domain)
+    CASE("APPLICATION_SPECIFIC")
+        return DATA_COLLECTION_DATA_REPORT_PROPERTY_APP_SPECIFIC;
+    CASE("COMMUNICATION")
+        return DATA_COLLECTION_DATA_REPORT_PROPERTY_COMMUNICATION;
+    CASE("LOCATION")
+        return DATA_COLLECTION_DATA_REPORT_PROPERTY_LOCATION;
+    CASE("MS_ACCESS_ACTIVITY")
+        return DATA_COLLECTION_DATA_REPORT_PROPERTY_MEDIA_STREAMING_ACCESS;
+    CASE("PERFORMANCE")
+        return DATA_COLLECTION_DATA_REPORT_PROPERTY_PERFORMANCE;
+    CASE("SERVICE_EXPERIENCE")
+        return DATA_COLLECTION_DATA_REPORT_PROPERTY_SERVICE_EXPERIENCE;
+    CASE("PLANNED_TRIPS")
+        return DATA_COLLECTION_DATA_REPORT_PROPERTY_TRIP_PLAN;
+    END
+    return 0;
+}
 
 #ifdef __cplusplus
 }

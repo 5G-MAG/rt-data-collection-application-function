@@ -27,14 +27,14 @@ libdc_common_sources = libdc_common_dist_sources
 
 libdc_common_libinc = include_directories('.')
 
-libdccommon = library('common',
+libdccommon = static_library('common',
     sources : libdc_common_sources,
     include_directories : [libdc_common_libinc, libinc],
     dependencies : [libapp_dep,
                     libcore_dep,
                     libcrypt_dep,
 		    libsbi_dep],
-    install : true)
+    install : false)
 
 libdccommon_dep = declare_dependency(
     link_with : libdccommon,

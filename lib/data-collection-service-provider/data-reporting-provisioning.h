@@ -26,6 +26,10 @@ int data_collection_reporting_provisioning_session_add_configuration(data_collec
 int data_collection_reporting_provisioning_session_remove_configuration(data_collection_reporting_provisioning_session_t *session,
                                                                         data_collection_reporting_configuration_t *configuration);
 
+/** Replace a reporting configuration in a session */
+int data_collection_reporting_provisioning_session_replace_configuration(data_collection_reporting_provisioning_session_t *session,
+                                                                         data_collection_reporting_configuration_t *configuration);
+
 /** Get a reporting configuration by its id from the session */
 data_collection_reporting_configuration_t *
 data_collection_reporting_provisioning_session_get_configuration_by_id(data_collection_reporting_provisioning_session_t *session,

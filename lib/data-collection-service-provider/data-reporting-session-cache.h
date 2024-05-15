@@ -36,13 +36,14 @@ extern ogs_hash_t *data_reporting_session_cache_new(void);
 extern void data_reporting_session_cache_free(ogs_hash_t*);
 extern bool data_reporting_session_cache_add(ogs_hash_t*, const data_collection_reporting_session_t *data_collection_reporting_session);
 extern bool data_reporting_session_cache_del(ogs_hash_t*, const char *session_id);
-extern const data_reporting_session_cache_entry_t *data_reporting_session_cache_find(ogs_hash_t*, const char *session_id);
+extern data_reporting_session_cache_entry_t *data_reporting_session_cache_find(ogs_hash_t*, const char *session_id);
 extern bool data_reporting_session_cache_clear(ogs_hash_t*);
 
 extern data_reporting_session_cache_entry_t *data_reporting_session_cache_entry_new(const dc_api_data_reporting_session_t *);
 extern void data_reporting_session_cache_entry_free(data_reporting_session_cache_entry_t*);
 extern bool data_reporting_session_cache_prune(ogs_hash_t *cache);
 extern void data_collection_reporting_session_cache_destroy(data_reporting_session_cache_entry_t *entry);
+extern void data_reporting_session_cache_accessed(data_reporting_session_cache_entry_t *entry);
 
 
 

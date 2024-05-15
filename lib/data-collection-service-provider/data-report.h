@@ -21,7 +21,7 @@ typedef struct data_collection_reporting_session_s data_collection_reporting_ses
 typedef struct dc_api_data_report_s dc_api_data_report_t;
 
 typedef struct data_collection_report_s {
-    data_collection_data_report_handler_t *data_report_handler;
+    const data_collection_data_report_handler_t *data_report_handler;
     ogs_time_t generated;
     ogs_time_t last_used;
     ogs_list_t usage;

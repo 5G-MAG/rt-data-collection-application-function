@@ -1,5 +1,6 @@
 /*
  * License: 5G-MAG Public License (v1.0)
+ * Authors: David Waring <david.waring2@bbc.co.uk>
  * Copyright: (C) 2024 British Broadcasting Corporation
  *
  * For full license terms please see the LICENSE file distributed with this
@@ -7,24 +8,14 @@
  * https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
  */
 
-#ifndef DATA_COLLECTION_UTILS_H
-#define DATA_COLLECTION_UTILS_H
+#ifndef DATA_COLLECTION_DATA_ACCESS_PROFILE_INTERNAL_H
+#define DATA_COLLECTION_DATA_ACCESS_PROFILE_INTERNAL_H
 
-#include "ogs-core.h"
-#include "ogs-sbi.h"
+#include "wrap-openapi-macros.h"
 
-#ifdef __cplusplus
-extern "C" {
-#endif
-
-/* Library Internals */
-char *_sockaddr_to_string(const ogs_sockaddr_t *addr);
-
-#ifdef __cplusplus
-}
-#endif
+_DC_WRAPPED_OPENAPI_NODE_PROTO(data_access_profile, data_access_profile);
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */
 
-#endif /* DATA_COLLECTION_UTILS_H */
+#endif /* DATA_COLLECTION_DATA_ACCESS_PROFILE_INTERNAL_H */

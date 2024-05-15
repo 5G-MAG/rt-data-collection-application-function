@@ -1,5 +1,6 @@
 /*
  * License: 5G-MAG Public License (v1.0)
+ * Authors: David Waring <david.waring2@bbc.co.uk>
  * Copyright: (C) 2024 British Broadcasting Corporation
  *
  * For full license terms please see the LICENSE file distributed with this
@@ -7,23 +8,18 @@
  * https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
  */
 
-#include "ogs-core.h"
-#include "ogs-sbi.h"
+#ifndef DATA_COLLECTION_TRACKING_AREA_ID_INTERNAL_H
+#define DATA_COLLECTION_TRACKING_AREA_ID_INTERNAL_H
 
-#include "data-collection-service-producer.h"
+#include "wrap-openapi-macros.h"
 
-#include "utils.h"
+#include "data-collection-sp/data-collection.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-/* Library Internals */
-char *_sockaddr_to_string(const ogs_sockaddr_t *addr)
-{
-    return ogs_ipstrdup((ogs_sockaddr_t*)addr); /* safe to remove const as OGS routines just use it read-only */
-}
-
+_DC_WRAPPED_OPENAPI_NODE_PROTO(tracking_area_id, tai);
 
 #ifdef __cplusplus
 }
@@ -31,3 +27,5 @@ char *_sockaddr_to_string(const ogs_sockaddr_t *addr)
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */
+
+#endif /* DATA_COLLECTION_TRACKING_AREA_ID_INTERNAL_H */

@@ -21,36 +21,7 @@ typedef struct data_collection_data_reporting_rule_s data_collection_data_report
 typedef struct data_collection_data_reporting_condition_s data_collection_data_reporting_condition_t;
 typedef struct data_collection_data_access_profile_s data_collection_data_access_profile_t;
 
-typedef struct data_sampling_rule_lnode_s {
-    ogs_lnode_t node;
-    data_collection_data_sampling_rule_t *rule;
-} data_sampling_rule_lnode_t;
-
-typedef struct data_reporting_rule_lnode_s {
-    ogs_lnode_t node;
-    data_collection_data_reporting_rule_t *rule;
-} data_reporting_rule_lnode_t;
-
-typedef struct data_reporting_condition_lnode_s {
-    ogs_lnode_t node;
-    data_collection_data_reporting_condition_t *condition;
-} data_reporting_condition_lnode_t;
-
-typedef struct data_access_profile_lnode_s {
-    ogs_lnode_t node;
-    data_collection_data_access_profile_t *access_profile;
-} data_access_profile_lnode_t;
-
-typedef struct data_collection_reporting_configuration_s {
-    char *id;
-    data_collection_client_type_e client_type;
-    char *auth_url;
-    ogs_list_t *sampling_rules; /* data_sampling_rule_lnode_t */
-    ogs_list_t *reporting_rules; /* data_reporting_rule_lnode_t */
-    ogs_list_t *reporting_conditions; /* data_reporting_condition_lnode_t */
-    ogs_list_t *access_profiles; /* data_access_profile_lnode_t */
-    data_collection_reporting_provisioning_session_t *parent;
-} data_collection_reporting_configuration_t;
+void reporting_configuration_detach_session(data_collection_reporting_configuration_t *configuration);
 
 #ifdef __cplusplus
 }

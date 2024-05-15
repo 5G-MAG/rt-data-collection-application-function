@@ -15,6 +15,13 @@
 #error "This file can only be included from data-collection.h"
 #endif
 
+#include "ogs-core.h"
+
+#include "e-utra-cell-id.h"
+#include "nr-cell-id.h"
+#include "global-ran-node-id.h"
+#include "tracking-area-id.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -34,7 +41,11 @@ typedef struct data_collection_network_area_info_s data_collection_network_area_
 /***** Library function API *****/
 
 /** Create a new NetworkAreaInfo */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_network_area_info_t* data_collection_network_area_info_create();
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_network_area_info_t* data_collection_network_area_info_create(
+                    ogs_list_t *e_utra_cell_ids,
+                    ogs_list_t *nr_cell_ids,
+                    ogs_list_t *global_ran_node_ids,
+                    ogs_list_t *tracking_area_ids);
 
 /** Destroy a NetworkAreaInfo */
 DATA_COLLECTION_SVC_PRODUCER_API void data_collection_network_area_info_free(data_collection_network_area_info_t*);

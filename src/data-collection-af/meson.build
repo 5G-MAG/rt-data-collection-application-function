@@ -52,17 +52,18 @@ message('Generating OpenAPI bindings for version '+api_tag+' of the 5G APIs...')
 openapi_gen_result = run_command([gen_dcaf_sh,'-c','"$MESON_SOURCE_ROOT/$MESON_SUBDIR/generator-dcaf" -M "'+openapi_dep_file+'" -b '+api_tag], capture: true, check: true)
 libdacf_api_sources = files(fs.read(openapi_dep_file).split())
 
+libdcaf_gen_include = include_directories('openapi/include')
 
 libdcaf_sources = libdcaf_dist_sources + libdcaf_gen_sources + libdacf_api_sources
 
 libdcaf = static_library('dcaf',
     sources : libdcaf_sources,
-    include_directories : sbi_openapi_inc,
+    include_directories : [libdcaf_gen_include, sbi_openapi_inc, libdc_common_libinc],
+    link_whole : [libdccommon],
     dependencies : [libsbi_dep,
                     libsbi_openapi_dep,
                     libapp_dep,
 		    libspdc_dep,
-                    libdccommon_dep,
                     libcrypt_dep],
     install : false)
 
@@ -72,7 +73,6 @@ libdcaf_dep = declare_dependency(
                     libsbi_openapi_dep,
                     libapp_dep,
 		    libspdc_dep,
-                    libdccommon_dep,
                     libcrypt_dep])
 
 dcaf_sources = files('''

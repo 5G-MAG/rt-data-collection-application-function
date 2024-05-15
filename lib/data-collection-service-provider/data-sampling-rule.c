@@ -13,6 +13,7 @@
 #include "location-area-5g-internal.h"
 
 #include "data-collection-sp/data-collection.h"
+#include "data-sampling-rule-internal.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -20,43 +21,39 @@ extern "C" {
 
 /******** Private type definitions ********/
 
-typedef struct data_collection_data_sampling_rule_s {
-    dc_api_data_sampling_rule_t *profile;
-} data_collection_data_sampling_rule_t;
+_DC_WRAPPED_OPENAPI_NODE_TYPE_START(data_sampling_rule, data_sampling_rule)
+_DC_WRAPPED_OPENAPI_NODE_TYPE_OBJECT(location_area_5g);
+_DC_WRAPPED_OPENAPI_NODE_TYPE_END(data_sampling_rule);
 
 /***** Library function API *****/
 
 /** Create a new DataSamplingRule */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_sampling_rule_t* data_collection_data_sampling_rule_create(data_collection_location_area_5g_t *location_filter /*transfer*/, double sampling_period)
 {
-    data_collection_data_sampling_rule_t *ret = ogs_calloc(1, sizeof(*ret));
-    ogs_assert(ret);
+    data_collection_data_sampling_rule_t *ret = _DC_WRAPPED_OPENAPI_NODE_METHODNAME(data_sampling_rule, create)();
+    dc_api_location_area5_g_t *location_filter_obj = NULL;
 
-    dc_api_location_area5_g_t *openapi_location_filter = location_area_5g_move_openapi(location_filter);
-    data_collection_location_area_5g_free(location_filter);
-
-    ret->profile = dc_api_data_sampling_rule_create(openapi_location_filter, sampling_period!=DATA_COLLECTION_SAMPLING_PERIOD_NONE,
-                                                    sampling_period);
-    ogs_assert(ret->profile);
+    _DC_WRAPPED_OPENAPI_NODE_INIT_OBJECT(ret, location_area_5g, location_filter, location_filter_obj);
+    dc_api_data_sampling_rule_t *openapi = dc_api_data_sampling_rule_create(location_filter_obj,
+                                                    sampling_period!=DATA_COLLECTION_SAMPLING_PERIOD_NONE, sampling_period);
+    _DC_WRAPPED_OPENAPI_NODE_METHODNAME(data_sampling_rule, set_ref)(ret, _DC_OPENAPI_REF_METHODNAME(data_sampling_rule, create_zero)(openapi));
 
     return ret;
 }
 
 /** Destroy a DataSamplingRule */
-DATA_COLLECTION_SVC_PRODUCER_API void data_collection_data_sampling_rule_free(data_collection_data_sampling_rule_t* profile)
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_data_sampling_rule_free(data_collection_data_sampling_rule_t* rule)
 {
-    if (!profile) return;
+    if (!rule) return;
 
-    if (profile->profile) {
-        dc_api_data_sampling_rule_free(profile->profile);
-        profile->profile = NULL;
-    }
+    _DC_WRAPPED_OPENAPI_NODE_PREFREE_OBJECT(data_sampling_rule, rule, location_area_5g, location_filter);
 
-    ogs_free(profile);    
+    _DC_WRAPPED_OPENAPI_NODE_METHODNAME(data_sampling_rule, free)(rule);
 }
 
 /********* Library internal functions ********/
 
+_DC_WRAPPED_OPENAPI_NODE_BODY(data_sampling_rule, data_sampling_rule)
 
 /******** Private functions ********/
 

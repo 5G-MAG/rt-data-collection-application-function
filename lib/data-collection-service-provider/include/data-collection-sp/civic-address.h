@@ -15,6 +15,8 @@
 #error "This file can only be included from data-collection.h"
 #endif
 
+#include "macros.h"
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -34,21 +36,19 @@ typedef struct data_collection_civic_address_s data_collection_civic_address_t;
 /***** Library function API *****/
 
 /** Create a new CivicAddress */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_civic_address_t* data_collection_civic_address_create();
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_civic_address_t* data_collection_civic_address_create(const char *country_code);
 
 /** Destroy a CivicAddress */
 DATA_COLLECTION_SVC_PRODUCER_API void data_collection_civic_address_free(data_collection_civic_address_t*);
 
-#define _DC_CONCAT(a,b) a##b
 #define _DC_CIVIC_ADDRESS_PARAM(name, field, description) \
-DATA_COLLECTION_SVC_PRODUCER_API const char *_DC_CONCAT(data_collection_civic_address_get_,name)(data_collection_civic_address_t *address); \
+DATA_COLLECTION_SVC_PRODUCER_API const char *_DC_CONCAT(data_collection_civic_address_get_,name)(const data_collection_civic_address_t *address); \
 DATA_COLLECTION_SVC_PRODUCER_API int _DC_CONCAT(data_collection_civic_address_set_,name)(data_collection_civic_address_t *address, const char *name); \
 
 _DC_CIVIC_ADDRESS_PARAM(country_code,country,2 letter country code)
 #include "data-collection-sp/civic_address_optional_params.inc"
 
 #undef _DC_CIVIC_ADDRESS_PARAM
-#undef _DC_CONCAT
 
 #ifdef __cplusplus
 }

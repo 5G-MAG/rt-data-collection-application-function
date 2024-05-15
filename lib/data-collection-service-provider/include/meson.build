@@ -19,14 +19,19 @@ libspdc_inst_includes = files('''
     data-collection-sp/data-access-profile.h
     data-collection-sp/data-reporting.h
     data-collection-sp/data-reporting-condition.h
+    data-collection-sp/data-reporting-configuration.h
     data-collection-sp/data-reporting-provisioning.h
     data-collection-sp/data-reporting-rule.h
     data-collection-sp/data-sampling-rule.h
+    data-collection-sp/e-utra-cell-id.h
     data-collection-sp/event-exposure.h
     data-collection-sp/geographic-area.h
+    data-collection-sp/global-ran-node-id.h
     data-collection-sp/lifecycle.h
     data-collection-sp/location-area-5g.h
     data-collection-sp/network-area-info.h
+    data-collection-sp/nr-cell-id.h
+    data-collection-sp/tracking-area-id.h
 '''.split())
 
 subdir('data-collection-sp')

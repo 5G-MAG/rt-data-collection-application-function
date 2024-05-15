@@ -12,29 +12,25 @@
 #include "openapi/model/dc_api_data_access_profile.h"
 
 #include "data-collection-sp/data-collection.h"
+#include "data-access-profile-internal.h"
 
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef struct data_collection_data_access_profile_s {
-    dc_api_data_access_profile_t *profile;
-} data_collection_data_access_profile_t;
 
 /***** Interface callbacks *****/
 
 /***** Interface structures *****/
 
+_DC_WRAPPED_OPENAPI_NODE_SIMPLE_TYPE(data_access_profile, data_access_profile);
+
 /***** Library function API *****/
 
 /** Create a new DataAccessProfile */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_access_profile_t* data_collection_data_access_profile_create()
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_access_profile_t* data_collection_data_access_profile_create(/* TODO: params */)
 {
-    data_collection_data_access_profile_t *ret = ogs_calloc(1, sizeof(*ret));
-
-    /* ret->profile = dc_api_data_access_profile_create(); */
-
-    ogs_assert(ret);
+    data_collection_data_access_profile_t *ret = _DC_WRAPPED_OPENAPI_NODE_METHODNAME(data_access_profile, create)();
 
     return ret;
 }
@@ -42,15 +38,12 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_access_profile_t* data_col
 /** Destroy a DataAccessProfile */
 DATA_COLLECTION_SVC_PRODUCER_API void data_collection_data_access_profile_free(data_collection_data_access_profile_t* profile)
 {
-    if (!profile) return;
-
-    if (profile->profile) {
-        dc_api_data_access_profile_free(profile->profile);
-        profile->profile = NULL;
-    }
-
-    ogs_free(profile);    
+    _DC_WRAPPED_OPENAPI_NODE_METHODNAME(data_access_profile, free)(profile);
 }
+
+/***** Library internal functions *****/
+
+_DC_WRAPPED_OPENAPI_NODE_BODY(data_access_profile, data_access_profile)
 
 #ifdef __cplusplus
 }

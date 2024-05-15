@@ -13,7 +13,7 @@
 #include "context.h"
 #include "server.h"
 #include "data-collection-sp/data-collection-version.h"
-#include "utils.h"
+#include "utilities.h"
 
 #ifdef __cplusplus
 extern "C" {

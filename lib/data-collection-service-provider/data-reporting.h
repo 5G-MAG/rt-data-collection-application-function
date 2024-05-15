@@ -10,7 +10,9 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #ifndef DATA_REPORTING_H
 #define DATA_REPORTING_H
 
+#include "ogs-core.h"
 #include "ogs-proto.h"
+
 #include "openapi/model/dc_api_data_reporting_session.h"
 
 #include "data-collection-sp/data-collection.h"
@@ -27,6 +29,7 @@ typedef struct data_collection_http_metadata_s {
 } data_collection_http_metadata_t;
 
 typedef struct data_collection_reporting_session_s {
+    ogs_lnode_t node;
     char *data_reporting_session_id;
     char *external_application_id;
     data_domain_list_t *supported_domains;

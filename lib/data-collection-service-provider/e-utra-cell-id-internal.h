@@ -8,8 +8,8 @@
  * https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
  */
 
-#ifndef DATA_COLLECTION_CIVIC_ADDRESS_INTERNAL_H
-#define DATA_COLLECTION_CIVIC_ADDRESS_INTERNAL_H
+#ifndef DATA_COLLECTION_E_UTRA_CELL_ID_INTERNAL_H
+#define DATA_COLLECTION_E_UTRA_CELL_ID_INTERNAL_H
 
 #include "wrap-openapi-macros.h"
 
@@ -19,7 +19,7 @@
 extern "C" {
 #endif
 
-_DC_WRAPPED_OPENAPI_NODE_PROTO(civic_address, civic_address);
+_DC_WRAPPED_OPENAPI_NODE_PROTO(e_utra_cell_id, ecgi);
 
 #ifdef __cplusplus
 }
@@ -28,4 +28,4 @@ _DC_WRAPPED_OPENAPI_NODE_PROTO(civic_address, civic_address);
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */
 
-#endif /* DATA_COLLECTION_CIVIC_ADDRESS_INTERNAL_H */
+#endif /* DATA_COLLECTION_E_UTRA_CELL_ID_INTERNAL_H */
