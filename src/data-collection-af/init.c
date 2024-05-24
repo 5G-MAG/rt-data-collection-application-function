@@ -33,40 +33,14 @@ static ogs_list_t *event_exposure_generate_cb(data_collection_event_subscription
 /* Example Data report type declaration - remove when proper report(s) implemented */
 typedef struct foo_bar_report_s foo_bar_report_t;
 
-static void *foo_bar_parse(const data_collection_reporting_session_t *session, cJSON *json, const char **error_return);
-static void *foo_bar_clone(const void *to_copy);
-static void foo_bar_free(void *report);
-static cJSON *foo_bar_json(const void *report);
-static struct timespec *foo_bar_timestamp(const void *report);
-static char *foo_bar_make_tag(const void *report);
-static char *foo_bar_serialise(const void *report);
-
-/*
-static const data_collection_data_report_handler_t foo_bar_data_report_type = {
-    .type_name = "FooBar",
-    .data_report_property = DATA_COLLECTION_DATA_REPORT_PROPERTY_APP_SPECIFIC,
-    .data_domain = "FOO_BAR",
-    .event_type = "FooBarEvent",
-    .parse_report_data = foo_bar_parse,
-    .clone_report_data = foo_bar_clone,
-    .free_report_data = foo_bar_free,
-    .json_for_report_data = foo_bar_json,
-    .timestamp_for_report_data = foo_bar_timestamp,
-    .tag_for_report_data = foo_bar_make_tag,
-    .serialise_report_data = foo_bar_serialise
-};
-*/
-
-
 /* File scope variables */
 static ogs_thread_t *thread;
 static int initialized = 0;
 static ogs_timer_t *t_termination_holding = NULL;
 
-#if 0
 /* Data Report Types defined by this AF */
 static const data_collection_data_report_handler_t * const dc_config_report_types[] = {
-    &foo_bar_data_report_type,
+    &communication_record_data_report_type,
     NULL
 };
 
@@ -74,15 +48,10 @@ static const data_collection_data_report_handler_t * const dc_config_report_type
 static const data_collection_configuration_t dc_config = {
     "dataCollection",                /* configuration section */
     0,                               /* library feature disable flags */
-#if 1
-    DATA_COLLECTION_FEATURE_BIT(29), /* event supported feature flags - 29 = lowest undefined for foobar event */
-#else
     DATA_COLLECTION_SUPPORTED_FEATURE_EVENT_UE_COMMUNICATION, /* event supported feature flags - when UE_comm implemented */
-#endif
     dc_config_report_types,          /* data types to register */
     event_exposure_generate_cb       /* callback to generate events for event exposure */
 };
-#endif
 
 /* Public functions */
 
@@ -246,49 +215,6 @@ static void event_termination(void)
 static ogs_list_t *event_exposure_generate_cb(data_collection_event_subscription_t *data_collection_event_subscription)
 {
   return NULL;
-}
-
-/* Example FooBar report handling */
-static void *foo_bar_parse(const data_collection_reporting_session_t *session, cJSON *json, const char **error_return)
-{
-    return NULL;
-}
-
-static void *foo_bar_clone(const void *to_copy)
-{
-    const foo_bar_report_t *existing_report = (const foo_bar_report_t*)to_copy;
-    return (void*)existing_report;
-}
-static void foo_bar_free(void *report)
-{
-    if (report)
-        ogs_free(report);
-}
-
-static cJSON *foo_bar_json(const void *report)
-{
-    const foo_bar_report_t *existing_report = (const foo_bar_report_t*)report;
-    return NULL;
-}
-
-static struct timespec *foo_bar_timestamp(const void *report)
-{
-    const foo_bar_report_t *existing_report = (const foo_bar_report_t*)report;
-    return NULL;
-}
-
-static char *foo_bar_make_tag(const void *report)
-{
-
-    const foo_bar_report_t *existing_report = (const foo_bar_report_t*)report;
-    return NULL;
-	
-}
-
-static char *foo_bar_serialise(const void *report)
-{
-    const foo_bar_report_t *existing_report = (const foo_bar_report_t*)report;
-    return NULL;
 }
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
