@@ -23,67 +23,61 @@ static bool nf_build_content(ogs_sbi_http_message_t *http, ogs_sbi_message_t *me
 
 static char *nf_build_json(ogs_sbi_message_t *message);
 
-ogs_sbi_response_t *nf_server_new_response(char *location, char *content_type, ogs_time_t last_modified, char *etag,
-        int cache_control, char *allow_methods, const nf_server_interface_metadata_t *interface,
-        const nf_server_app_metadata_t *app)
+ogs_sbi_response_t *nf_server_new_response(const char *location, const char *content_type, ogs_time_t last_modified,
+                                           const char *etag, int cache_control, const char *allow_methods,
+                                           const nf_server_interface_metadata_t *interface,
+                                           const nf_server_app_metadata_t *app)
 {
     ogs_sbi_response_t *response = NULL;
-    char *server_api_info = ((char*)"");
-    char *server = NULL;
 
     response = ogs_sbi_response_new();
     ogs_expect(response);
 
-    if(content_type)
-    {
+    if (content_type) {
         ogs_sbi_header_set(response->http.headers, "Content-Type", content_type);
     }
 
-    if(location)
-    {
+    if (location) {
         ogs_sbi_header_set(response->http.headers, "Location", location);
     }
 
-    if(last_modified)
-    {
+    if (last_modified) {
         char *modified = ogs_time_to_string(last_modified);
         ogs_sbi_header_set(response->http.headers, "Last-Modified", modified);
 	ogs_free(modified);
     }
 
-    if(etag)
-    {
-
+    if (etag) {
         ogs_sbi_header_set(response->http.headers, "ETag", etag);
     }
 
-    if(cache_control)
-    {
+    if (cache_control) {
         char *response_cache_control;
         response_cache_control = ogs_msprintf("max-age=%d", cache_control);
         ogs_sbi_header_set(response->http.headers, "Cache-Control", response_cache_control);
         ogs_free(response_cache_control);
     }
 
-    if(allow_methods)
-    {
-
+    if (allow_methods) {
         ogs_sbi_header_set(response->http.headers, "Allow", allow_methods);
     }
 
+    {
+        char *server;
+        const char *server_api_info = "";
+        char *server_api_gen = NULL;
+        if (interface) {
+            server_api_gen = ogs_msprintf(" (info.title=%s; info.version=%s)", interface->api_title, interface->api_version);
+            server_api_info = server_api_gen;
+        }
+        server = ogs_msprintf("%s/%s%s %s/%s",app->server_name, FIVEG_API_RELEASE, server_api_info, app->app_name,
+                              app->app_version);
+        if (server_api_gen) ogs_free(server_api_gen);
+        ogs_sbi_header_set(response->http.headers, "Server", server);
+        ogs_free(server);
+    }
 
-    if (interface) {
-        server_api_info = ogs_msprintf(" (info.title=%s; info.version=%s)", interface->api_title, interface->api_version);
-    }
-    server = ogs_msprintf("%s/%s%s %s/%s",app->server_name, FIVEG_API_RELEASE, server_api_info, app->app_name, app->app_version);
-    if (interface) {
-        ogs_free(server_api_info);
-    }
-    ogs_sbi_header_set(response->http.headers, "Server", server);
-    ogs_free(server);
     return response;
-
-
 }
 
 ogs_sbi_response_t *nf_server_populate_response(ogs_sbi_response_t *response, int content_length, char *content, int status)

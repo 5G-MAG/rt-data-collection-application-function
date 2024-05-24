@@ -13,6 +13,8 @@
 #include "openapi/model/dc_api_data_reporting_provisioning_session.h"
 
 #include "context.h"
+#include "hash.h"
+#include "utilities.h"
 #include "data-reporting-configuration.h"
 
 #include "data-reporting-provisioning.h"
@@ -26,6 +28,7 @@ extern "C" {
 static int _add_session_to_list(void *data, const void *key, int klen, const void *value);
 static int _add_config_id_to_openapi_list(void *data, const void *key, int klen, const void *value);
 static int _free_ogs_hash_entry(void *free_fn, const void *key, int klen, const void *value);
+static void _restamp_session(data_collection_reporting_provisioning_session_t *session);
 
 /******* Private structures ********/
 
@@ -36,6 +39,8 @@ typedef struct data_collection_reporting_provisioning_session_s {
     char *internal_application_id;
     char *af_event_type;
     ogs_hash_t *configurations;
+    ogs_time_t last_modified;
+    char *etag;
 } data_collection_reporting_provisioning_session_t;
 
 /******* Library API ********/
@@ -53,16 +58,81 @@ data_collection_reporting_provisioning_session_create(const char *asp_id, const 
     ogs_uuid_get(&uuid);
     ogs_uuid_format(id, &uuid);
 
-    session->session_id = ogs_strdup(id);
-    if (asp_id) session->asp_id = ogs_strdup(asp_id);
-    if (external_application_id) session->external_application_id = ogs_strdup(external_application_id);
-    if (internal_application_id) session->internal_application_id = ogs_strdup(internal_application_id);
-    if (event_type) session->af_event_type = ogs_strdup(event_type);
+    session->session_id = data_collection_strdup(id);
+    if (asp_id) session->asp_id = data_collection_strdup(asp_id);
+    if (external_application_id) session->external_application_id = data_collection_strdup(external_application_id);
+    if (internal_application_id) session->internal_application_id = data_collection_strdup(internal_application_id);
+    if (event_type) session->af_event_type = data_collection_strdup(event_type);
     session->configurations = ogs_hash_make();
+
+    _restamp_session(session);
 
     ogs_hash_set(data_collection_self()->data_reporting_provisioning_sessions, session->session_id, OGS_HASH_KEY_STRING, session);
 
     return session;
+}
+
+/** Create a new data reporting provisioning session from JSON tree */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_provisioning_session_t*
+data_collection_reporting_provisioning_session_parse_from_json(cJSON *json, const char **error_reason, const char **error_parameter)
+{
+    data_collection_reporting_provisioning_session_t *session;
+    ogs_uuid_t uuid;
+    char id[OGS_UUID_FORMATTED_LENGTH + 1];
+
+    /* Try to interpret JSON */
+    dc_api_data_reporting_provisioning_session_t *oa_session = dc_api_data_reporting_provisioning_session_parseRequestFromJSON(
+                                                                            json, error_reason);
+    if (!oa_session) {
+        if (error_parameter) *error_parameter = NULL; /* Until templates get "error_parameter" just NULL this */
+        return NULL;
+    }
+
+    session = ogs_calloc(1, sizeof(*session));
+    ogs_assert(session);
+
+    session->asp_id = data_collection_strdup(oa_session->asp_id);
+    session->external_application_id = data_collection_strdup(oa_session->external_application_id);
+    session->internal_application_id = data_collection_strdup(oa_session->internal_application_id);
+
+    /* Until templates can take general enum strings */
+    cJSON *event_id_node = cJSON_GetObjectItemCaseSensitive(json, "eventId");
+    if (event_id_node) {
+        if (!cJSON_IsString(event_id_node)) {
+            if (error_reason) *error_reason = "Field \"eventId\" is not an enumeration string";
+            if (error_parameter) *error_parameter = "eventId";
+            goto err;
+        }
+        session->af_event_type = data_collection_strdup(event_id_node->valuestring);
+    }
+
+    dc_api_data_reporting_provisioning_session_free(oa_session);
+
+    /* Initialise read-only parts */
+    session->configurations = ogs_hash_make();
+
+    ogs_uuid_get(&uuid);
+    ogs_uuid_format(id, &uuid);
+
+    session->session_id = ogs_strdup(id);
+
+    _restamp_session(session);
+
+    ogs_hash_set(data_collection_self()->data_reporting_provisioning_sessions, session->session_id, OGS_HASH_KEY_STRING, session);
+
+    return session;
+
+err:
+    if (oa_session) dc_api_data_reporting_provisioning_session_free(oa_session);
+    if (session) {
+        if (session->asp_id) ogs_free(session->asp_id);
+        if (session->external_application_id) ogs_free(session->external_application_id);
+        if (session->internal_application_id) ogs_free(session->internal_application_id);
+        if (session->af_event_type) ogs_free(session->af_event_type);
+        if (session->configurations) ogs_hash_destroy(session->configurations);
+        ogs_free(session);
+    }
+    return NULL;
 }
 
 /** Destroy a data reporting provisioning session */
@@ -104,6 +174,11 @@ DATA_COLLECTION_SVC_PRODUCER_API void data_collection_reporting_provisioning_ses
         session->configurations = NULL;
     }
 
+    if (session->etag) {
+        ogs_free(session->etag);
+        session->etag = NULL;
+    }
+
     ogs_free(session);
 }
 
@@ -120,6 +195,22 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_provision
 {
     if (!session) return NULL;
     return session->session_id;
+}
+
+/** Get the Data Reporting Provisioning Session last modified date-time */
+DATA_COLLECTION_SVC_PRODUCER_API ogs_time_t
+data_collection_reporting_provisioning_session_last_modified(const data_collection_reporting_provisioning_session_t *session)
+{
+    if (!session) return 0;
+    return session->last_modified;
+}
+
+/** Get the Data Reporting Provisioning Session entity instance tag */
+DATA_COLLECTION_SVC_PRODUCER_API const char *
+data_collection_reporting_provisioning_session_etag(const data_collection_reporting_provisioning_session_t *session)
+{
+    if (!session) return NULL;
+    return session->etag;
 }
 
 /** Get the TS 26.532 DataReportingProvisioningSession JSON */
@@ -188,6 +279,8 @@ int data_collection_reporting_provisioning_session_add_configuration(data_collec
 
     ogs_hash_set(session->configurations, config_id, OGS_HASH_KEY_STRING, configuration);
 
+    _restamp_session(session);
+
     return OGS_OK;
 }
 
@@ -209,6 +302,8 @@ int data_collection_reporting_provisioning_session_remove_configuration(data_col
     }
 
     ogs_hash_set(session->configurations, config_id, OGS_HASH_KEY_STRING, NULL);
+
+    _restamp_session(session);
 
     return OGS_OK;
 }
@@ -277,6 +372,27 @@ static int _free_ogs_hash_entry(void *free_fn, const void *key, int klen, const 
     value_free_fn((void*)value);
 
     return 1;
+}
+
+static void _restamp_session(data_collection_reporting_provisioning_session_t *session)
+{
+    if (!session) return;
+
+    session->last_modified = ogs_time_now();
+
+    if (session->etag) ogs_free(session->etag);
+    cJSON *json = data_collection_reporting_provisioning_session_json(session);
+    if (json) {
+        char *objstr = cJSON_Print(json);
+        if (objstr) {
+            session->etag = calculate_hash(objstr);
+            cJSON_free(objstr);
+        } else {
+            session->etag = NULL;
+        }
+    } else {
+        session->etag = NULL;
+    }
 }
 
 #ifdef __cplusplus
