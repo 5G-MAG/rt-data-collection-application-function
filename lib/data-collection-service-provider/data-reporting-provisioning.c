@@ -341,6 +341,77 @@ data_collection_reporting_provisioning_session_get_configuration_by_id(data_coll
     return ogs_hash_get(session->configurations, configuration_id, OGS_HASH_KEY_STRING);
 }
 
+char *data_collection_reporting_provisioning_session_get_af_event_type(data_collection_reporting_provisioning_session_t *session) {
+
+    if(!session) return NULL;
+    return session->af_event_type; 
+}
+
+char *data_collection_reporting_provisioning_session_get_external_application_id(data_collection_reporting_provisioning_session_t *session) {
+
+    if(!session) return NULL;
+    return session->external_application_id; 
+}
+
+ogs_hash_t *data_collection_reporting_provisioning_session_get_configurations(data_collection_reporting_provisioning_session_t *session) {
+
+    if(!session || !session->configurations) return NULL;
+    return session->configurations; 
+}
+
+
+
+#if 0
+OpenAPI_list_t *data_collection_get_user_ids_from_reporting_provisioning_session(char *event_type, char *external_application_id, OpenAPI_list_t *user_identifiers) {
+
+    ogs_hash_index_t *it;
+    ogs_hash_t *data_reporting_provisioning_session = data_collection_self()->data_reporting_provisioning_sessions; 
+    data_collection_reporting_provisioning_session_t *session;
+    for (it = ogs_hash_first(data_reporting_provisioning_session); it; it = ogs_hash_next(it)) {
+        const char *key;
+        int key_len;
+
+	ogs_hash_this(it, (const void **)&key, &key_len, (void**)(&session));
+
+        if(!strcmp(session->af_event_type, event_type) && !strcmp(session->external_application_id, external_application_id)) {
+	    
+            ogs_hash_index_t *hit;
+	    ogs_hash_t *configurations = session->configurations;
+	    data_collection_reporting_configuration_t *configuration;
+
+            for (hit = ogs_hash_first(configurations); hit; hit = ogs_hash_next(hit)) {
+                const char *ckey;
+                int ckey_len;
+
+	        ogs_hash_this(it, (const void **)&ckey, &ckey_len, (void**)(&configuration));
+		if (configuration->configuration && configuration->configuration->data_access_profiles) {
+		    OpenAPI_list_t *data_access_profiles = configuration->configuration->data_access_profiles;
+		    OpenAPI_lnode_t *data_access_profile_node = NULL;
+		    dc_api_data_access_profile_t *data_access_profile;
+		    dc_api_data_access_profile_user_access_restrictions_t *user_access_restrictions;
+		    OpenAPI_list_for_each(data_access_profiles, data_access_profile_node) {
+			dc_api_data_access_profile_user_access_restrictions_t *user_access_restrictions;
+		        OpenAPI_list_t *user_ids;
+		        OpenAPI_lnode_t *user_id_node = NULL;
+	
+	                data_access_profile = (dc_api_data_access_profile_t *) data_access_profile_node->data;
+			if(data_access_profile->user_access_restrictions && data_access_profile->user_access_restrictions->user_ids) {
+                            OpenAPI_list_for_each(user_ids, user_id_node) {
+			        OpenAPI_list_add(user_identifiers, user_id_node);
+			    }			    
+			}
+    			//user_access_restrictions = data_access_profile->user_access_restrictions;			
+		    }
+
+		}
+	    }
+
+	}
+    }
+    return user_identifiers;
+}
+#endif
+
 /******* Local private functions ********/
 
 static int _add_session_to_list(void *data, const void *key, int klen, const void *value)

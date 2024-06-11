@@ -35,6 +35,11 @@ data_collection_reporting_configuration_t *
 data_collection_reporting_provisioning_session_get_configuration_by_id(data_collection_reporting_provisioning_session_t *session,
                                                                        const char *configuration_id);
 
+char *data_collection_reporting_provisioning_session_get_af_event_type(data_collection_reporting_provisioning_session_t *session);
+char *data_collection_reporting_provisioning_session_get_external_application_id(data_collection_reporting_provisioning_session_t *session);
+ogs_hash_t *data_collection_reporting_provisioning_session_get_configurations(data_collection_reporting_provisioning_session_t *session);
+//OpenAPI_list_t *data_collection_get_user_ids_from_reporting_provisioning_session(char *event_type, char *external_application_id, OpenAPI_list_t *user_identifiers);
+
 #ifdef __cplusplus
 }
 #endif

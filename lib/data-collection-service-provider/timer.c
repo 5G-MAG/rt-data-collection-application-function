@@ -44,6 +44,10 @@ const char *data_collection_timer_get_name(int timer_id)
         return OGS_TIMER_NAME_SBI_CLIENT_WAIT;
     case DC_TIMER_REPORTING_SESSION_CACHE:
         return "DC_TIMER_REPORTING_SESSION_CACHE";
+    case DC_TIMER_DATA_REPORTS_EXPIRY:
+        return "DC_TIMER_DATA_REPORTS_EXPIRY";
+    case DC_TIMER_DATA_REPORTS_CLEAR:
+        return "DC_TIMER_DATA_REPORTS_CLEAR";
     default: 
        break;
     }
@@ -63,6 +67,16 @@ static void timer_send_event(int timer_id, void *data)
         ogs_assert(e);
         e->timer_id = timer_id;
         break;
+    case DC_TIMER_DATA_REPORTS_EXPIRY:
+        e = (ogs_event_t *)ogs_event_new(DC_EVENT_DATA_REPORTS_EXPIRY);
+        ogs_assert(e);
+        e->timer_id = timer_id;
+        break;
+    case DC_TIMER_DATA_REPORTS_CLEAR:
+        e = (ogs_event_t *)ogs_event_new(DC_EVENT_DATA_REPORTS_CLEAR);
+        ogs_assert(e);
+        e->timer_id = timer_id;
+        break;
     default:
         ogs_fatal("Unknown timer id[%d]", timer_id);
         ogs_assert_if_reached();
@@ -77,8 +91,23 @@ static void timer_send_event(int timer_id, void *data)
     }
 }
 
+
+
 void dc_timer_reporting_session_cache(void *data)
 {
     timer_send_event(DC_TIMER_REPORTING_SESSION_CACHE, data);
     ogs_timer_start(data_collection_self()->reporting_sessions_cache_timer, ogs_time_from_sec(data_collection_self()->config.server_response_cache_control->data_collection_reporting_report_response_max_age));
+}
+
+void dc_timer_data_reports_expire(void *data) {
+    timer_send_event(DC_TIMER_DATA_REPORTS_EXPIRY, data);
+    ogs_timer_start(data_collection_self()->data_reports_timer, ogs_time_from_sec(data_collection_self()->config.server_response_cache_control->data_collection_reporting_report_response_max_age));
+
+}
+
+
+void dc_timer_data_reports_clear(void *data) {
+    timer_send_event(DC_TIMER_DATA_REPORTS_CLEAR, data);
+    ogs_timer_start(data_collection_self()->data_reports_clear_timer, ogs_time_from_sec(data_collection_self()->config.server_response_cache_control->data_collection_reporting_report_response_max_age));
+
 }

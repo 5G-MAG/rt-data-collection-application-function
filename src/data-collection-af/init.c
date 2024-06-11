@@ -214,7 +214,12 @@ static void event_termination(void)
 /* Temporary event exposure callback until event-exposure.c is written */
 static ogs_list_t *event_exposure_generate_cb(data_collection_event_subscription_t *data_collection_event_subscription)
 {
-  return NULL;
+    ogs_info("EVEX CB");
+    ogs_list_t *data_reports;
+
+    data_reports = data_collection_reporting_report_find(NULL, data_collection_event_subscription, true);
+
+    return NULL;
 }
 
 /* vim:ts=8:sts=4:sw=4:expandtab:

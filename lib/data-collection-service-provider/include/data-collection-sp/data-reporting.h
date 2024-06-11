@@ -101,7 +101,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const struct timespec* data_collection_reportin
 DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_reporting_session_json(const data_collection_reporting_session_t *session);
 
 /** Find the cached data reports matching the filters */
-DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_reporting_report_find(const data_collection_data_report_handler_t* const *report_types, data_collection_event_subscription_t *omit_used);
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_reporting_report_find(const data_collection_data_report_handler_t* const *report_handlers, data_collection_event_subscription_t *event_subscription, bool omit_used);
 
 /** Get the data reporting session id */
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_session_get_id(const data_collection_reporting_session_t *session);

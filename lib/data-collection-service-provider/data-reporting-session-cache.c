@@ -242,20 +242,6 @@ static void _debug_key(const char *key, const char *prefix)
 
 static data_reporting_session_cache_entry_t *_data_reporting_session_cache_find(ogs_hash_t *cache, const char *key)
 {
-  /*	
-    {
-        ogs_hash_index_t *it;
-        _debug_key(key,"*");
-        for (it = ogs_hash_first(cache); it; it = ogs_hash_next(it)) {
-            const char *hkey;
-            int key_len;
-            data_reporting_session_cache_entry_t *entry;
-
-            ogs_hash_this(it, (const void**)&hkey, &key_len, (void **)&entry);
-            _debug_key(hkey,">");
-        }
-    }
-    */
     return (data_reporting_session_cache_entry_t *)ogs_hash_get(cache, key, OGS_HASH_KEY_STRING);
 }
 

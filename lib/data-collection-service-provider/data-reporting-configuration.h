@@ -22,6 +22,7 @@ typedef struct data_collection_data_reporting_condition_s data_collection_data_r
 typedef struct data_collection_data_access_profile_s data_collection_data_access_profile_t;
 
 void reporting_configuration_detach_session(data_collection_reporting_configuration_t *configuration);
+OpenAPI_list_t *data_collection_get_user_ids_from_reporting_provisioning_session_configurations(char *event_type, char *external_application_id, OpenAPI_list_t *user_identifiers);
 
 #ifdef __cplusplus
 }

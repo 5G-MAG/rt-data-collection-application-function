@@ -23,6 +23,10 @@ typedef enum {
 
     DC_TIMER_REPORTING_SESSION_CACHE,
 
+    DC_TIMER_DATA_REPORTS_EXPIRY,
+    
+    DC_TIMER_DATA_REPORTS_CLEAR,
+
     MAX_NUM_OF_DC_TIMER,
 
 } dc_timer_e;
@@ -34,13 +38,21 @@ typedef enum {
 
     DC_EVENT_REPORTING_SESSION_CACHE,
 
+    DC_EVENT_DATA_REPORTS_EXPIRY,
+
+    DC_EVENT_DATA_REPORTS_CLEAR,
+
     MAX_NUM_OF_DC_EVENT,
 
 } dc_event_e;
 
 
 const char *data_collection_timer_get_name(int timer_id);
+
 void dc_timer_reporting_session_cache(void *data);
+void dc_timer_data_reports_expire(void *data); 
+void dc_timer_data_reports_clear(void *data); 
+
 
 #ifdef __cplusplus
 }

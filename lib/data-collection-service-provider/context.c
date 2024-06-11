@@ -19,6 +19,7 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #include "data-report.h"
 #include "data-reporting-session-cache.h"
 #include "data-reporting-provisioning.h"
+#include "event-exposure.h"
 
 static data_collection_context_t *self = NULL;
 
@@ -41,6 +42,7 @@ static void data_collection_context_data_reporting_sessions_cache_remove(void);
 static void data_collection_context_server_sockaddr_remove(void);
 //static dc_api_data_domain_e set_data_domain_from_property(data_collection_data_report_property_e data_report_property);
 //static data_collection_data_report_property_e set_data_property_from_domain(const char *data_domain);
+static void data_collection_context_event_exposure_subscriptions_unsubscribe(void);
 
 int _data_collection_initialise(const data_collection_configuration_t* const configuration)
 {
@@ -69,6 +71,7 @@ void data_collection_context_init(void)
     self->data_reporting_provisioning_sessions = ogs_hash_make();
     self->data_reporting_sessions = ogs_hash_make();
     self->data_reports = ogs_hash_make();
+    self->event_subscriptions = ogs_hash_make();
 
     data_collection_server_response_cache_control_set();
 }
@@ -89,6 +92,7 @@ void data_collection_context_final(void)
     data_collection_context_data_reporting_sessions_remove();
     data_collection_context_data_reporting_sessions_cache_remove();
     data_collection_context_data_reports_remove();
+    data_collection_context_event_exposure_subscriptions_unsubscribe();
     data_collection_free_agent_name();
 
     data_collection_context_server_sockaddr_remove();
@@ -544,6 +548,20 @@ static void data_collection_context_data_reports_remove(void) {
     self->data_reports = NULL;
 	
 }
+
+static void data_collection_context_event_exposure_subscriptions_unsubscribe(void) {
+    free_ogs_hash_context_t hc = {
+        (void(*)(void*))data_collection_event_subscription_clear,
+        self->event_subscriptions
+    };
+
+    ogs_info("Unsubscribing all Event Subscriptions ");
+
+    ogs_hash_do(free_ogs_hash_entry, &hc, self->event_subscriptions);
+    ogs_hash_destroy(self->event_subscriptions);
+    self->event_subscriptions = NULL;
+}
+
 
 static dc_api_data_domain_e set_data_domain_from_property(data_collection_data_report_property_e data_report_property)
 {

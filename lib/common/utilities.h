@@ -44,7 +44,6 @@ extern ogs_time_t get_time_from_timespec(struct timespec *ts);
 const char *get_current_time(const char *format);
 extern char *check_http_content_type(ogs_sbi_http_message_t http, char *content_type);
 extern time_t str_to_rfc3339_time(const char *str_time);
-
 extern char *traceable_strdup(const char *str, const char *location);
 
 extern ogs_lnode_t *list_node_create(void);

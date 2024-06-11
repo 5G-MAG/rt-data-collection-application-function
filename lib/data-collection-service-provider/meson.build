@@ -60,6 +60,8 @@ libspdc_dist_sources = files('''
     data-reporting-session-cache.c
     data-reporting-session-cache.h
     e-utra-cell-id-internal.h
+    event-subscription.h
+    event-subscription.c
     geographic-area-internal.h
     global-ran-node-id-internal.h
     timer.h

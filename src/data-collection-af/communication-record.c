@@ -72,8 +72,8 @@ static void *communication_record_clone(const void *to_copy)
 
 static void communication_record_free(void *report)
 {
-    if (report)
-        ogs_free(report);
+    if (report) dcaf_api_communication_record_free((dcaf_api_communication_record_t *)report);
+        //ogs_free(report);
 }
 
 static cJSON *communication_record_json(const void *report)

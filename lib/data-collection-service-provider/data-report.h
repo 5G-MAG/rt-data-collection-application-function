@@ -20,19 +20,22 @@ extern "C" {
 typedef struct data_collection_reporting_session_s data_collection_reporting_session_t;
 typedef struct dc_api_data_report_s dc_api_data_report_t;
 
-typedef struct data_collection_report_s {
-    const data_collection_data_report_handler_t *data_report_handler;
+typedef struct data_collection_data_report_s {
+    ogs_lnode_t node;
+    data_collection_data_report_handler_t *data_report_handler;
     ogs_time_t generated;
     ogs_time_t last_used;
-    ogs_list_t usage;
+    ogs_list_t usage; //Type: data_collection_event_subscription_t*
     char *hash;
     data_collection_reporting_session_t *session;
     void *data_report;
     char *file_path;
-} data_collection_report_t;
+    bool expired;
+} data_collection_data_report_t;
 
-extern void data_collection_report_destroy(data_collection_report_t *report);
-//int data_collection_reporting_report(data_collection_reporting_session_t *session, const char *mime_type, const void *data, size_t data_length, const char **error_return);
+extern bool remove_expired_data_reports(ogs_hash_t *data_reports);
+extern bool data_reports_clear(ogs_hash_t *data_reports);
+extern void data_collection_report_destroy(data_collection_data_report_t *report);
 
 #ifdef __cplusplus
 }
