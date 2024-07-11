@@ -48,7 +48,7 @@ typedef enum {
  *
  * Use data_collection_data_report_*() functions to access this type.
  */
-typedef struct data_collection_data_report_s data_collection_data_report_t;
+typedef struct data_collection_data_report_record_s data_collection_data_report_record_t;
 
 /** Reporting Session
  *
@@ -103,17 +103,23 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_reporting_session_json(c
 /** Find the cached data reports matching the filters */
 DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_reporting_report_find(const data_collection_data_report_handler_t* const *report_handlers, data_collection_event_subscription_t *event_subscription, bool omit_used);
 
+/** Get the Opaque Data Report from the Library */
+DATA_COLLECTION_SVC_PRODUCER_API void *data_collection_reporting_data_report_get(data_collection_data_report_record_t *data_report);
+
+/** Get the Application ID of the Data Report */
+DATA_COLLECTION_SVC_PRODUCER_API char *data_collection_data_report_get_application_id(data_collection_data_report_record_t *data_report);
+
 /** Get the data reporting session id */
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_session_get_id(const data_collection_reporting_session_t *session);
 
 /** Process a data report from HTTP */
-DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report(data_collection_reporting_session_t *session, const char *mime_type, const void *data, size_t data_length, const char **error_return, const char **error_code);
+DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report(data_collection_reporting_session_t *session, const char *mime_type, const void *data, size_t data_length, const char **error_return, const char **error_code, const char **error_parameter);
 
 /** Mark a data report as having been used */
-DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report_used(data_collection_data_report_t *, data_collection_event_subscription_t *);
+DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report_used(data_collection_data_report_record_t *, data_collection_event_subscription_t *);
 
 /** Expire a data report */
-DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report_expire(data_collection_data_report_t *);
+DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report_expire(data_collection_data_report_record_t *);
 
 #ifdef __cplusplus
 }

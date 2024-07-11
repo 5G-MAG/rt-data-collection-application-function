@@ -29,7 +29,7 @@ scriptdir=`cd "$scriptdir"; pwd`
 
 # Command line option defaults
 default_branch='REL-18'
-default_apis="TS26532_Ndcaf_DataReporting"
+default_apis="TS26532_Ndcaf_DataReporting TS29517_Naf_EventExposure"
 default_cache_dir="${MESON_BUILD_ROOT:+$MESON_BUILD_ROOT/$MESON_SUBDIR/openapi-generator-cache}"
 
 # Parse command line arguments

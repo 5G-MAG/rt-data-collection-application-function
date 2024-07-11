@@ -24,8 +24,15 @@ extern char *data_collection_af_events_subscription_get_event_type(data_collecti
 extern void data_collection_event_subscription_unsubscribe(data_collection_event_subscription_t *event_subscription);
 extern void data_collection_event_subscription_clear(data_collection_event_subscription_t *event_subscription);
 extern bool data_collection_remove_expired_event_subscriptions(ogs_hash_t *event_subscriptions);
-extern bool data_collection_event_subscriptions_clear(ogs_hash_t *event_subscription);
+extern bool data_collection_event_exposure_notification_send_local_event(void *data);
+extern bool data_collection_event_subscriptions_process(void *data);
+extern void event_notification_timer_activate(data_collection_event_subscription_t *data_collection_event_subscription);
+extern bool is_notif_method_periodic(data_collection_event_subscription_t *data_collection_event_subscription);
+//extern bool data_collection_event_subscriptions_clear(ogs_hash_t *event_subscription);
 extern void data_collection_event_subscription_destroy(data_collection_event_subscription_t *event_subscription);
+extern OpenAPI_list_t *application_ids_from_event_filter_get(dc_api_events_subs_t *events_subsc);
+extern bool data_collection_set_event_subscription_send_notif(data_collection_event_subscription_t *event_subscription);
+//extern cJSON *af_event_exposure_subscription_generate_response(const data_collection_af_event_exposure_subscription_t *subscription /* not-null */, const ogs_list_t *af_event_notification_list);
 
 #ifdef __cplusplus
 }

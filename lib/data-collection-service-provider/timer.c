@@ -21,7 +21,11 @@
  */
 
 #include "context.h"
+#include "event-subscription.h"
 #include "timer.h"
+
+
+typedef struct data_collection_event_subscription_s data_collection_event_subscription_t;
 
 static void timer_send_event(int timer_id, void *data);
 
@@ -48,6 +52,8 @@ const char *data_collection_timer_get_name(int timer_id)
         return "DC_TIMER_DATA_REPORTS_EXPIRY";
     case DC_TIMER_DATA_REPORTS_CLEAR:
         return "DC_TIMER_DATA_REPORTS_CLEAR";
+    case DC_TIMER_EVENT_EXPOSURE_NOTIF:
+        return "DC_TIMER_EVENT_EXPOSURE_NOTIF";
     default: 
        break;
     }
@@ -74,6 +80,11 @@ static void timer_send_event(int timer_id, void *data)
         break;
     case DC_TIMER_DATA_REPORTS_CLEAR:
         e = (ogs_event_t *)ogs_event_new(DC_EVENT_DATA_REPORTS_CLEAR);
+        ogs_assert(e);
+        e->timer_id = timer_id;
+        break;
+    case DC_TIMER_EVENT_EXPOSURE_NOTIF:
+        e = (ogs_event_t *)ogs_event_new(DC_LOCAL_EVENT_EXPOSURE_NOTIFICATION);
         ogs_assert(e);
         e->timer_id = timer_id;
         break;
@@ -110,4 +121,15 @@ void dc_timer_data_reports_clear(void *data) {
     timer_send_event(DC_TIMER_DATA_REPORTS_CLEAR, data);
     ogs_timer_start(data_collection_self()->data_reports_clear_timer, ogs_time_from_sec(data_collection_self()->config.server_response_cache_control->data_collection_reporting_report_response_max_age));
 
+}
+
+
+void dc_timer_event_exposure_notif(void *data) {
+    data_collection_event_subscription_t *event_subscription;
+   
+    ogs_assert(data); 
+    event_subscription = (data_collection_event_subscription_t *)data;
+    data_collection_set_event_subscription_send_notif(event_subscription);    
+    timer_send_event(DC_TIMER_EVENT_EXPOSURE_NOTIF, data);
+    event_notification_timer_activate(event_subscription);
 }

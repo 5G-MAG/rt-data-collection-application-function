@@ -11,6 +11,7 @@
 #include "ogs-core.h"
 
 #include "openapi/model/dc_api_data_reporting_provisioning_session.h"
+#include "openapi/model/dc_api_data_reporting_configuration.h"
 
 #include "context.h"
 #include "hash.h"
@@ -196,6 +197,16 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_provision
     if (!session) return NULL;
     return session->session_id;
 }
+
+
+/** Get the external application id associated with the provisioning session */
+DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_provisioning_session_external_application_id(
+        const data_collection_reporting_provisioning_session_t *session)
+{
+    if (!session) return NULL;
+    return session->external_application_id;
+}
+
 
 /** Get the Data Reporting Provisioning Session last modified date-time */
 DATA_COLLECTION_SVC_PRODUCER_API ogs_time_t

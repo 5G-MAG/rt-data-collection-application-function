@@ -15,6 +15,7 @@
 #include "init.h"
 #include "utilities.h"
 #include "communication-record.h"
+#include "event-notification.h"
 #include "hash.h"
 #include "data-collection-sp/data-collection.h"
 #include "openapi/model/dcaf_api_data_report.h"
@@ -216,10 +217,29 @@ static ogs_list_t *event_exposure_generate_cb(data_collection_event_subscription
 {
     ogs_info("EVEX CB");
     ogs_list_t *data_reports;
+    ogs_list_t *af_event_notifications = NULL;
+    //data_collection_data_report_record_t *data_report;
+    //void *report = NULL;
 
     data_reports = data_collection_reporting_report_find(NULL, data_collection_event_subscription, true);
+    
+    if(data_reports) {
+        af_event_notifications = generate_af_event_notifications(data_reports, data_collection_event_subscription);
+    }
 
-    return NULL;
+    /*
+
+    ogs_list_for_each(data_reports, data_report) {
+        report = data_collection_reporting_data_report_get(data_report);
+        if(report) {
+	    generate_communication_collection_from_data_report(report);	
+
+	}	
+    	
+    }
+    */
+
+    return af_event_notifications;
 }
 
 /* vim:ts=8:sts=4:sw=4:expandtab:

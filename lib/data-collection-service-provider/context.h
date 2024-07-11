@@ -70,7 +70,7 @@ typedef struct data_collection_context_s {
     ogs_hash_t  *data_reporting_provisioning_sessions; // id => data_reporting_provisioning_session_t*
     ogs_hash_t  *data_reporting_sessions; // id => data_collection_reporting_session_t*
     ogs_hash_t *data_reporting_sessions_cache; // id => data_reporting_session_cache_entry_t*
-    ogs_hash_t *data_reports; // id => data_collection_data_report_t*
+    ogs_hash_t *data_reports; // id => data_collection_data_report_record_t*
     ogs_hash_t *event_subscriptions; // id =>  data_collection_event_subscription_t*
     ogs_timer_t *reporting_sessions_cache_timer;
     ogs_timer_t *data_reports_timer;

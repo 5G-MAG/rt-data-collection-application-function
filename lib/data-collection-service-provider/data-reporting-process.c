@@ -24,6 +24,7 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #include "data-reporting-session-cache.h"
 #include "event-subscription.h"
 #include "lib-metadata.h"
+#include "event.h"
 #include "timer.h"
 #include "openapi/model/dc_api_data_reporting_session.h"
 #include "openapi/api/TS26532_Ndcaf_DataReportingAPI-info.h"
@@ -68,7 +69,7 @@ static void __send_data_reporting_provisioning_session(ogs_sbi_stream_t *stream,
                                                 const nf_server_app_metadata_t *app_meta);
 static bool __resource_updated(ogs_sbi_request_t *request, const char *etag, ogs_time_t last_modified);
 static void __send_af_event_exposure_subscription(ogs_sbi_stream_t *stream, ogs_sbi_message_t *message,
-                                                data_collection_event_subscription_t *data_collection_event_subscription, int path_length,
+                                                data_collection_event_subscription_t *data_collection_event_subscription, cJSON *response_body, int path_length,
                                                 const nf_server_interface_metadata_t *api, const nf_server_app_metadata_t *app_meta);
 
 
@@ -128,7 +129,14 @@ bool _data_reporting_process_event(ogs_event_t *e)
 
         }
         break;
-	    
+    
+    case DC_LOCAL_EVENT_EXPOSURE_NOTIFICATION:	
+        ogs_assert(e);
+	{
+	    data_collection_event_subscriptions_process(e->sbi.data);
+	}
+	break;
+
     case OGS_EVENT_SBI_SERVER:
         {
             int rv = 0;
@@ -199,6 +207,7 @@ bool _data_reporting_process_event(ogs_event_t *e)
 					const char *error_return = NULL;
 					const char *mime_type = NULL;
 					const char *error_code = NULL;
+					const char *error_parameter = NULL;
 					ogs_sbi_response_t *response;
 
                                         ogs_debug("Request body: %s", request->http.content);
@@ -229,9 +238,24 @@ bool _data_reporting_process_event(ogs_event_t *e)
                                             break;
                                         }
 
-					rv = data_collection_reporting_report(data_collection_reporting_session,mime_type?(const char *)data_collection_strdup(mime_type): NULL, (const void *)data_collection_strdup(request->http.content), strlen(request->http.content), &error_return, &error_code);
+					rv = data_collection_reporting_report(data_collection_reporting_session,mime_type?(const char *)data_collection_strdup(mime_type): NULL, (const void *)data_collection_strdup(request->http.content), strlen(request->http.content), &error_return, &error_code, &error_parameter);
 					
 					if(rv == OGS_ERROR) {
+
+				            if (error_parameter) {
+						OpenAPI_list_t *invalid_params;
+					        char *err = NULL;
+                                                err = ogs_msprintf("Unable to parse Data Report as JSON.");
+                                                ogs_error("%s", err);
+	
+                                                invalid_params = nf_server_make_invalid_params(error_parameter, error_return);
+                                                  
+                                                ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_BAD_REQUEST, 0,
+                                                                        &message, "Bad Request", err, NULL, invalid_params, NULL,
+                                                                        api, app_meta));
+                                                ogs_free(err);                  
+                                                break;
+                                            }
 					    
                                             if (!strcmp(error_code, "400")) {
                                                 char *err = NULL;
@@ -253,6 +277,7 @@ bool _data_reporting_process_event(ogs_event_t *e)
                                         nf_server_populate_response(response, 0, NULL, 204);
                                         ogs_assert(response);
                                         ogs_assert(true == ogs_sbi_server_send_response(stream, response));
+					data_collection_event_exposure_notification_send_local_event(NULL);
 
 				} else
 			        
@@ -838,6 +863,10 @@ bool _data_reporting_process_event(ogs_event_t *e)
                                     const char *mime_type = NULL;
                                     const char *error_code = NULL;
                                     ogs_sbi_response_t *response;
+				    cJSON *response_body_json;
+				    cJSON *af_event_notif_json;
+                                    int rc;
+
 
                                     ogs_debug("Request body: %s", request->http.content);
 
@@ -908,10 +937,16 @@ bool _data_reporting_process_event(ogs_event_t *e)
 					break;
 				    }
 
-				    data_collection_generate_af_event_notification_for_subscription(data_collection_event_subscription);
+				    response_body_json = data_collection_generate_af_event_notification_for_subscription(data_collection_event_subscription);
 
-				    __send_af_event_exposure_subscription(stream, &message, data_collection_event_subscription, 0, api, app_meta);
-          
+				    __send_af_event_exposure_subscription(stream, &message, data_collection_event_subscription, response_body_json, 0, api, app_meta);
+
+				    af_event_notif_json = data_collection_generate_af_event_notification(data_collection_event_subscription);
+                                    if(af_event_notif_json){
+                                        rc = data_collection_send_af_event_exposure_notif(data_collection_event_subscription, af_event_notif_json);
+                                        ogs_info("RC: %d", rc);
+                                    }
+
 				    cJSON_Delete(af_event_exposure_subscription);
      		    
 				}
@@ -973,7 +1008,7 @@ bool _data_reporting_process_event(ogs_event_t *e)
 
                                             invalid_params = nf_server_make_invalid_params(param, reason);
 
-                                            ogs_assert(true == nf_server_send_error(stream, 404, 1, &message, "Event Subscription not found.", err, NULL, invalid_params, NULL, ndcaf_datareporting_api, app_meta));
+                                            ogs_assert(true == nf_server_send_error(stream, 404, 1, &message, "Event Subscription not found.", err, NULL, invalid_params, NULL, api, app_meta));
                                             ogs_free(err);
                                             ogs_free(reason);
                                             break;
@@ -982,19 +1017,19 @@ bool _data_reporting_process_event(ogs_event_t *e)
 
                                         response = nf_server_new_response(
 						    NULL, NULL, 0, NULL, 0,
-                                                    OGS_SBI_HTTP_METHOD_DELETE ","
+                                                    OGS_SBI_HTTP_METHOD_DELETE ", "
                                                     OGS_SBI_HTTP_METHOD_OPTIONS, api, app_meta);
                                         ogs_assert(response);
-                                        nf_server_populate_response(response, 0, NULL, OGS_SBI_HTTP_STATUS_OK);
+                                        nf_server_populate_response(response, 0, NULL, OGS_SBI_HTTP_STATUS_NO_CONTENT);
                                         ogs_assert(true == ogs_sbi_server_send_response(stream, response));
 				    }
 
                                     ogs_sbi_response_t *response = nf_server_new_response(
 						    NULL, NULL, 0, NULL, 0,
-                                                    OGS_SBI_HTTP_METHOD_POST ","
+                                                    OGS_SBI_HTTP_METHOD_POST ", "
                                                     OGS_SBI_HTTP_METHOD_OPTIONS, api, app_meta);
                                     ogs_assert(response);
-                                    nf_server_populate_response(response, 0, NULL, OGS_SBI_HTTP_STATUS_OK);
+                                    nf_server_populate_response(response, 0, NULL, OGS_SBI_HTTP_STATUS_NO_CONTENT);
                                     ogs_assert(true == ogs_sbi_server_send_response(stream, response));
                                 }
                                 break;
@@ -1131,13 +1166,19 @@ static void __send_data_reporting_configuration(ogs_sbi_stream_t *stream, ogs_sb
 }
 
 static void __send_af_event_exposure_subscription(ogs_sbi_stream_t *stream, ogs_sbi_message_t *message,
-                                                data_collection_event_subscription_t *data_collection_event_subscription, int path_length,
+                                                data_collection_event_subscription_t *data_collection_event_subscription, 
+						cJSON *response_body, int path_length,
                                                 const nf_server_interface_metadata_t *api, const nf_server_app_metadata_t *app_meta)
 {
     char *location;
+    cJSON *json = NULL;
     ogs_sbi_response_t *response;
     data_collection_af_event_exposure_subscription_t *af_event_exposure_subscription = data_collection_event_subscription_get_af_event_exposure_subscription(data_collection_event_subscription);
-    cJSON *json = data_collection_af_event_exposure_subscription_json(af_event_exposure_subscription);
+    if(response_body) {
+        json = response_body;
+    } else {
+        json = data_collection_af_event_exposure_subscription_json(af_event_exposure_subscription);
+    }
     if (!json) {
         static const char *err = "Unable to convert AfEventExposureSubsc to JSON";
         ogs_error("%s", err);
@@ -1155,7 +1196,7 @@ static void __send_af_event_exposure_subscription(ogs_sbi_stream_t *stream, ogs_
 		    data_collection_self()->config.server_response_cache_control->data_collection_reporting_provisioning_session_response_max_age, NULL, api, app_meta);
  
     ogs_assert(response);
-    nf_server_populate_response(response, strlen(body), body, OGS_SBI_HTTP_STATUS_OK);
+    nf_server_populate_response(response, strlen(body), data_collection_strdup(body), OGS_SBI_HTTP_STATUS_OK);
     ogs_assert(true == ogs_sbi_server_send_response(stream, response));
     //cJSON_free(body);
 
@@ -1167,6 +1208,7 @@ static void __send_data_reporting_provisioning_session(ogs_sbi_stream_t *stream,
                                                 const nf_server_interface_metadata_t *api, const nf_server_app_metadata_t *app_meta)
 {
     cJSON *json = data_collection_reporting_provisioning_session_json(session);
+    
     if (!json) {
         static const char *err = "Unable to convert DataReportingProvisioningSession to JSON";
         ogs_error("%s", err);

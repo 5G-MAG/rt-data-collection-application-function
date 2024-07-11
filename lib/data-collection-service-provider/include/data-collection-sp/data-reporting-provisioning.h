@@ -77,6 +77,10 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_reporting_provisioning_s
 /** List the active Data Reporting Provisioning Sessions */
 DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_reporting_provisioning_session_list();
 
+/** Get the external application id associated with the provisioning session */
+DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_provisioning_session_external_application_id(
+        const data_collection_reporting_provisioning_session_t *session);
+
 #ifdef __cplusplus
 }
 #endif

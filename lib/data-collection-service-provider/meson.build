@@ -39,7 +39,7 @@ libspdc_dist_sources = files('''
     network-area-info.c
     nr-cell-id.c
     tracking-area-id.c
-
+    event.h
     civic-address-internal.h
     context.c
     context.h

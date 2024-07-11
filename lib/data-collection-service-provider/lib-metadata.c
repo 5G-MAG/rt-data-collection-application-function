@@ -26,7 +26,7 @@ const nf_server_app_metadata_t *data_collection_lib_metadata()
 {
     if (!nf_name) {
         if (!data_collection_self()->server_name[0]) data_collection_context_server_name_set();
-        nf_name = ogs_msprintf("5G Data Collection Library - %s", data_collection_self()->server_name);
+        nf_name = ogs_msprintf("DCAF-%s", data_collection_self()->server_name);
         ogs_assert(nf_name);
         app_metadata.server_name = nf_name;
     }

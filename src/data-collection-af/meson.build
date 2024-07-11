@@ -35,6 +35,8 @@ libdcaf_dist_sources = files('''
     hash.c
     communication-record.h
     communication-record.c
+    event-notification.h
+    event-notification.c
     regexpr.h
     regexpr.c
 '''.split())

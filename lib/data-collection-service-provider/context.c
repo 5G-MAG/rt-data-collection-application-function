@@ -19,7 +19,7 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #include "data-report.h"
 #include "data-reporting-session-cache.h"
 #include "data-reporting-provisioning.h"
-#include "event-exposure.h"
+#include "event-subscription.h"
 
 static data_collection_context_t *self = NULL;
 

@@ -11,7 +11,6 @@
 #include "openapi/model/dc_api_events_subs.h"
 #include "openapi/model/dc_api_af_event.h"
 #include "data-collection-sp/data-collection.h"
-#include "data-collection-sp/data-reporting.h"
 #include "context.h"
 #include "hash.h"
 #include "event-subscription.h"
@@ -30,37 +29,48 @@ typedef struct data_report_s {
     ogs_lnode_t node;
     cJSON *data_report;
 } data_report_t;
+
+typedef struct ue_user_id_s {
+    ogs_lnode_t node;
+    char *user_id;
+} ue_user_id_t;
+	
 	
 static data_collection_data_report_property_e get_report_properties(dc_api_data_report_t *report, ogs_list_t *data_reports);
 static void populate_communication_records (dc_api_data_report_t *report, ogs_list_t *data_reports);
 static data_collection_data_report_property_e __data_report_handler_report_property(const data_collection_data_report_handler_t *handler);
 static data_collection_data_report_property_e __data_domain_to_data_report_property(const char *data_domain);
 
-static data_collection_data_report_t *data_collection_report_create(data_collection_reporting_session_t *session, const data_collection_data_report_handler_t *handler, void *data_report);	
+static data_collection_data_report_record_t *data_collection_report_create(data_collection_reporting_session_t *session, const data_collection_data_report_handler_t *handler, void *data_report, char *external_application_id);	
 static bool data_report_del(ogs_hash_t *data_reports, const char *data_report_type);
 static int free_ogs_hash_data_report(void *rec, const void *key, int klen, const void *value);
 static data_collection_data_report_property_e get_report_properties(dc_api_data_report_t *report, ogs_list_t *data_reports);
 static void populate_communication_records (dc_api_data_report_t *report, ogs_list_t *data_reports);
-static cJSON *data_collection_report_json(data_collection_data_report_t *report, cJSON *data_report_json);
+static cJSON *data_collection_report_json(data_collection_data_report_record_t *report, cJSON *data_report_json);
 static void data_reports_timer_activate(void);
 static  ogs_list_t *get_data_reports_allowed_for_event_subscription(const data_collection_data_report_handler_t* const *handlers, data_collection_event_subscription_t *event_subscription, bool omit_used);
-static bool is_event_subscription_used(data_collection_data_report_t *data_report, data_collection_event_subscription_t *event_subscription);
+static bool is_event_subscription_used(data_collection_data_report_record_t *data_report_record, data_collection_event_subscription_t *event_subscription);
 static void data_collection_report_destroy_all(ogs_list_t *data_reports);
 static int data_collection_report_destroy_expired(ogs_list_t *data_reports);
-static char *check_for_user_ids(data_collection_af_events_subscription_t *events_subscription, data_collection_data_report_t *data_report, char *event_type);
-static char *check_for_user_ids_from_reporting_provisioning_session_in_event_filter(OpenAPI_list_t *user_identifiers, data_collection_af_events_subscription_t *events_subscription);
+static ogs_list_t *user_ids_provisioned(data_collection_af_events_subscription_t *events_subscription, data_collection_data_report_record_t *data_report_record, char *event_type);
+static bool is_application_provisioned(char *external_application_id);
+static ogs_list_t *provisioning_sessions_event_filter_match(OpenAPI_list_t *user_identifiers, data_collection_af_events_subscription_t *events_subscription);
+static ue_user_id_t *ue_user_id_node(char *user_id);
+static bool does_data_report_app_id_match_event_filter(char *application_id, OpenAPI_list_t *app_ids);
 
 int data_collection_reporting_report(data_collection_reporting_session_t *session, const char *mime_type, const void *data, 
-		size_t data_length, const char **error_return, const char **error_code) {
+		size_t data_length, const char **error_return, const char **error_code, const char **error_parameter) {
     
     cJSON *data_report;
     dc_api_data_report_t *report;
     int i = 0;
     data_collection_data_report_property_e found_property;
     ogs_list_t data_reports;
+    char *external_application_id;
 
     if (error_return) *error_return = NULL;
     if (error_code) *error_code = NULL;
+    if (error_parameter) *error_parameter = NULL;
 
     if(strcmp(mime_type,"application/json")){
         if (error_return) *error_return = "MIME type is not JSON";
@@ -82,6 +92,17 @@ int data_collection_reporting_report(data_collection_reporting_session_t *sessio
         ogs_debug("Parsed JSON: %s", txt);
         cJSON_free(txt);
     }
+
+    cJSON *external_application_id_node = cJSON_GetObjectItemCaseSensitive(data_report, "externalApplicationId");
+    if (external_application_id_node) {
+        if (!cJSON_IsString(external_application_id_node)) {
+            if (error_return) *error_return = "Field \"externalApplicationId\" is not an enumeration string";
+            if (error_parameter) *error_parameter = "externalApplicationId";
+            return OGS_ERROR;
+        }
+        external_application_id = data_collection_strdup(external_application_id_node->valuestring);
+    }
+
     
     report = dc_api_data_report_parseRequestFromJSON(data_report, error_return);
     
@@ -102,8 +123,8 @@ int data_collection_reporting_report(data_collection_reporting_session_t *sessio
             ogs_list_for_each(&data_reports, rep) {
                 void *parsed_data = handlers[i]->parse_report_data(session, rep->data_report /* cJSON * to the actual report */, error_return);
                 if(parsed_data) {
-		    data_collection_data_report_t *data_collection_data_report;	
-                    data_collection_data_report = data_collection_report_create(session, handlers[i], parsed_data);
+		    data_collection_data_report_record_t *data_collection_data_report_record;	
+                    data_collection_data_report_record = data_collection_report_create(session, handlers[i], parsed_data, external_application_id);
                 } else {
                     ogs_error("Report not understood");
                     if (error_return) *error_return = "Report not understood";
@@ -120,11 +141,11 @@ int data_collection_reporting_report(data_collection_reporting_session_t *sessio
     return OGS_OK;
 }
 
-int data_collection_reporting_report_used(data_collection_data_report_t *data_collection_report, data_collection_event_subscription_t *data_collection_event_subscription) {
+int data_collection_reporting_report_used(data_collection_data_report_record_t *data_collection_report_record, data_collection_event_subscription_t *data_collection_event_subscription) {
  
-    if(!ogs_list_first(&data_collection_report->usage)) ogs_list_init(&data_collection_report->usage);
+    if(!ogs_list_first(&data_collection_report_record->usage)) ogs_list_init(&data_collection_report_record->usage);
 
-    ogs_list_add(&data_collection_report->usage, data_collection_event_subscription);
+    ogs_list_add(&data_collection_report_record->usage, data_collection_event_subscription);
     return 1;
 
 }
@@ -137,6 +158,18 @@ ogs_list_t *data_collection_reporting_report_find(const data_collection_data_rep
 
     data_reports_allowed =  get_data_reports_allowed_for_event_subscription(report_handlers, event_subscription, omit_used);
     return data_reports_allowed;
+}
+
+void *data_collection_reporting_data_report_get(data_collection_data_report_record_t *data_report_record) {
+    
+    if(!data_report_record) return NULL;
+    return data_report_record->data_report_record;
+}
+
+char *data_collection_data_report_get_application_id(data_collection_data_report_record_t *data_report_record) {
+
+    if(!data_report_record || !data_report_record->external_application_id) return NULL;
+    return data_report_record->external_application_id;
 }
 
 void data_report_event_subscriptions_remove_all(ogs_list_t *event_subscriptions)
@@ -153,10 +186,10 @@ void data_report_event_subscriptions_remove_all(ogs_list_t *event_subscriptions)
 }
 
 
-int data_collection_reporting_report_expire(data_collection_data_report_t *data_collection_report) {
+int data_collection_reporting_report_expire(data_collection_data_report_record_t *data_collection_report_record) {
 
-    if(!data_collection_report) return 0;
-    data_collection_report->expired = true;
+    if(!data_collection_report_record) return 0;
+    data_collection_report_record->expired = true;
     return 1;
 }
 
@@ -208,19 +241,19 @@ bool data_reports_clear(ogs_hash_t *data_reports)
 
 static void data_collection_report_destroy_all(ogs_list_t *data_reports)
 {
-    data_collection_data_report_t *data_report = NULL;
-    data_collection_data_report_t *data_report_node = NULL;
+    data_collection_data_report_record_t *data_report_record = NULL;
+    data_collection_data_report_record_t *data_report_record_node = NULL;
 
     if (!data_reports) return;
 
-    ogs_list_for_each_safe(data_reports, data_report_node, data_report) {
-        ogs_list_remove(data_reports, data_report);
-	data_collection_report_destroy(data_report);
+    ogs_list_for_each_safe(data_reports, data_report_record_node, data_report_record) {
+        ogs_list_remove(data_reports, data_report_record);
+	data_collection_report_destroy(data_report_record);
     }
     ogs_free(data_reports);
 }
 
-void data_collection_report_destroy(data_collection_data_report_t *report)
+void data_collection_report_destroy(data_collection_data_report_record_t *report)
 {
     ogs_assert(report);
 
@@ -228,9 +261,9 @@ void data_collection_report_destroy(data_collection_data_report_t *report)
         ogs_free(report->hash);
 	report->hash = NULL;
     }
-    if (report->data_report) {
-	report->data_report_handler->free_report_data(report->data_report);    
-	report->data_report = NULL;
+    if (report->data_report_record) {
+	report->data_report_handler->free_report_data(report->data_report_record);    
+	report->data_report_record = NULL;
     }
     if (ogs_list_first(&report->usage)) data_report_event_subscriptions_remove_all(&report->usage);
     ogs_free(report);
@@ -238,8 +271,8 @@ void data_collection_report_destroy(data_collection_data_report_t *report)
 
 static int data_collection_report_destroy_expired(ogs_list_t *data_reports)
 {
-    data_collection_data_report_t *data_report = NULL;
-    data_collection_data_report_t *data_report_node = NULL;
+    data_collection_data_report_record_t *data_report = NULL;
+    data_collection_data_report_record_t *data_report_node = NULL;
     const ogs_time_t current_time = ogs_time_now();
 
     if (!data_reports) return 0;
@@ -260,26 +293,28 @@ static int data_collection_report_destroy_expired(ogs_list_t *data_reports)
 }
 
 
-static data_collection_data_report_t *data_collection_report_create(data_collection_reporting_session_t *session, const data_collection_data_report_handler_t *handler, void *data_report) {
+static data_collection_data_report_record_t *data_collection_report_create(data_collection_reporting_session_t *session, const data_collection_data_report_handler_t *handler, void *data_report_record, char *external_application_id) {
 
-    data_collection_data_report_t *report;
+
+    data_collection_data_report_record_t *report;
     cJSON *report_json;
     cJSON *data_report_json;
     
     ogs_list_t *data_reports = NULL;
 
-    report = ogs_calloc(1, sizeof(data_collection_data_report_t));
+    report = ogs_calloc(1, sizeof(data_collection_data_report_record_t));
     ogs_assert(report);
 
     report->data_report_handler = handler; //pointer to handler;
-    report->generated = get_time_from_timespec(handler->timestamp_for_report_data(data_report)); // this function returns timespec so change to ogs_time_t;
+    report->generated = get_time_from_timespec(handler->timestamp_for_report_data(data_report_record)); // this function returns timespec so change to ogs_time_t;
     report->last_used = ogs_time_now();
     report->session = session;
-    report->hash = handler->tag_for_report_data(data_report);
-    report->data_report = data_report;
+    report->hash = handler->tag_for_report_data(data_report_record);
+    report->data_report_record = data_report_record;
+    report->external_application_id = external_application_id;
     report->file_path = data_collection_strdup(data_collection_self()->config.data_collection_dir);
     
-    data_reports = (ogs_list_t *)ogs_hash_get(data_collection_self()->data_reports, &report->data_report_handler, sizeof(report->data_report_handler));
+    data_reports = (ogs_list_t *)ogs_hash_get(data_collection_self()->data_reports, &report->data_report_handler, sizeof(data_collection_data_report_handler_t*));
     if(!data_reports) {
         data_reports = (ogs_list_t*) ogs_calloc(1,sizeof(*data_reports));
         ogs_assert(data_reports);
@@ -288,10 +323,10 @@ static data_collection_data_report_t *data_collection_report_create(data_collect
 
     ogs_list_add(data_reports, report);
 
-    ogs_hash_set(data_collection_self()->data_reports, &report->data_report_handler, sizeof(report->data_report_handler), data_reports);
+    ogs_hash_set(data_collection_self()->data_reports, &report->data_report_handler, sizeof(data_collection_data_report_handler_t*), data_reports);
     data_reports_timer_activate();
 
-    data_report_json = handler->json_for_report_data(data_report);
+    data_report_json = handler->json_for_report_data(data_report_record);
     
     //dump to disk report data_collection_data_report_t stored to disk
 
@@ -308,7 +343,7 @@ static data_collection_data_report_t *data_collection_report_create(data_collect
 static ogs_list_t *get_data_reports_allowed_for_event_subscription(const data_collection_data_report_handler_t* const *handlers, data_collection_event_subscription_t *event_subscription, bool omit_used)
 {
      size_t i;
-     data_collection_data_report_t *data_report;
+     data_collection_data_report_record_t *data_report;
      const data_collection_data_report_handler_t **allowed_handlers = NULL;
      ogs_list_t *data_reports_allowed = NULL;
 
@@ -323,13 +358,15 @@ static ogs_list_t *get_data_reports_allowed_for_event_subscription(const data_co
         data_collection_af_event_exposure_subscription_t *af_event_subsc = data_collection_event_subscription_get_af_event_exposure_subscription(event_subscription);
 
         for (i = 0; registered_handlers[i]; i++) {
-            size_t j = data_collection_af_event_exposure_subscription_num_events_subs(af_event_subsc);
+            int j = data_collection_af_event_exposure_subscription_num_events_subs(af_event_subsc);
             const char *reg_event_type = registered_handlers[i]->event_type;
 
             for (j--; j >= 0; j--) {
 		data_collection_af_event_exposure_subscription_t *af_event_exposure_subscription = data_collection_event_subscription_get_af_event_exposure_subscription(event_subscription);    
-                data_collection_af_events_subscription_t *events_subs = data_collection_af_event_exposure_subscription_get_events_subs(af_event_exposure_subscription, j);
-                if (!strcmp(data_collection_af_events_subscription_get_event_type(events_subs), reg_event_type)) {
+                //data_collection_af_events_subscription_t *events_subs = data_collection_af_event_exposure_subscription_get_events_subs(af_event_exposure_subscription, j);
+                dc_api_events_subs_t *events_subs = data_collection_af_event_exposure_subscription_get_events_subsc(af_event_exposure_subscription, j);
+		
+		if (!strcmp(data_collection_af_events_exposure_subscription_get_event_type(events_subs), reg_event_type)) {
                     /* found appropriate data handler */
                     allowed_handlers = ogs_realloc(allowed_handlers, sizeof(*allowed_handlers) * (handlers_found + 1));
                     allowed_handlers[handlers_found] = registered_handlers[i];
@@ -343,68 +380,109 @@ static ogs_list_t *get_data_reports_allowed_for_event_subscription(const data_co
 
     data_collection_af_event_exposure_subscription_t *af_event_subsc = data_collection_event_subscription_get_af_event_exposure_subscription(event_subscription);
     for (i = 0; handlers[i]; i++) {
-	size_t j = data_collection_af_event_exposure_subscription_num_events_subs(af_event_subsc);
-        const char *event_type = handlers[i]->event_type;
+	int j = data_collection_af_event_exposure_subscription_num_events_subs(af_event_subsc);
+        const char *event_type = (*handlers+ (i * (sizeof(*handlers))))->event_type;
 	ogs_list_t *data_reports;
+	OpenAPI_list_t *app_ids;
 
-	data_reports = (ogs_list_t *)ogs_hash_get(data_collection_self()->data_reports, handlers[i], sizeof(handlers[i]));
+	data_reports = (ogs_list_t *)ogs_hash_get(data_collection_self()->data_reports, handlers+i, sizeof(data_collection_data_report_handler_t*));
+	 
+	if(data_reports) {
 
-	ogs_list_for_each(data_reports, data_report) {
-            if(omit_used) {
-                if(is_event_subscription_used(data_report, event_subscription))
-                    continue;
-            }
-	    for (j--; j >= 0; j--) {
-		data_collection_af_event_exposure_subscription_t *af_event_exposure_subscription = data_collection_event_subscription_get_af_event_exposure_subscription(event_subscription);
-    
-                data_collection_af_events_subscription_t *events_subs = data_collection_af_event_exposure_subscription_get_events_subs(af_event_exposure_subscription, j);
-                //TODO: Add extra filters
-		if (!strcmp(data_collection_af_events_subscription_get_event_type(events_subs), event_type) /* && check_for_user_ids(events_subs, data_report, event_type)*/) {
-                    ogs_list_add(data_reports_allowed, data_report);
-                    break;
+	    ogs_list_for_each(data_reports, data_report) {
+                if(omit_used) {
+                    if(is_event_subscription_used(data_report, event_subscription))
+                        continue;
                 }
-
+	        for (j--; j >= 0; j--) {
+		    dc_api_events_subs_t *events_subsc = NULL;	
+		    data_collection_af_event_exposure_subscription_t *af_event_exposure_subscription = data_collection_event_subscription_get_af_event_exposure_subscription(event_subscription);
+    
+                    //data_collection_af_events_subscription_t *events_subs = data_collection_af_event_exposure_subscription_get_events_subs(af_event_exposure_subscription, j);
+                    events_subsc = data_collection_af_event_exposure_subscription_get_events_subsc(af_event_exposure_subscription, j);
+		    //TODO: Add extra filters
+		    
+		    if (!strcmp(data_collection_af_events_exposure_subscription_get_event_type(events_subsc), event_type) /* && user_ids_provisioned(events_subs, data_report, event_type)*/) {
+			//Add this filter once the provisioning interface is available
+			/*
+			app_ids = application_ids_from_event_filter_get(events_subsc); 
+			if(app_ids){
+			    if(!does_data_report_app_id_match_event_filter(data_report->external_application_id, app_ids))
+			        continue;
+			}	
+			if(data_report->external_application_id || data_report->session->external_application_id) {
+			    char *ext_app_id = data_report->external_application_id?data_report->external_application_id : data_report->session->external_application_id; 	
+			    if(!is_application_provisioned(ext_app_id)) continue;    	
+			}
+			*/
+                        ogs_list_add(data_reports_allowed, data_report);
+                        //break;
+                    }
+                }
             }
-
-        }
+	}
     }
     if(allowed_handlers) ogs_free(allowed_handlers);
     return data_reports_allowed;
 }
 
-static char *check_for_user_ids(data_collection_af_events_subscription_t *events_subscription, data_collection_data_report_t *data_report, char *event_type) {
+static ogs_list_t *user_ids_provisioned(data_collection_af_events_subscription_t *events_subscription, data_collection_data_report_record_t *data_report_record, char *event_type) {
 
     OpenAPI_list_t *user_identifiers;
     char *external_application_id;
-    char *user_ident;
+    ogs_list_t *user_ident;
     user_identifiers = OpenAPI_list_create();
-    dc_api_data_report_t *report = (dc_api_data_report_t *)data_report->data_report;
+    dc_api_data_report_t *report = (dc_api_data_report_t *)data_report_record->data_report_record;
     external_application_id = report->external_application_id;
 
     data_collection_get_user_ids_from_reporting_provisioning_session_configurations(event_type, external_application_id, user_identifiers);
-    user_ident = check_for_user_ids_from_reporting_provisioning_session_in_event_filter(user_identifiers, events_subscription);
+    user_ident = provisioning_sessions_event_filter_match(user_identifiers, events_subscription);
     return user_ident;
 }
 
-static char *check_for_user_ids_from_reporting_provisioning_session_in_event_filter(OpenAPI_list_t *user_identifiers, data_collection_af_events_subscription_t *events_subscription) {
+static bool is_application_provisioned(char *external_application_id) {
+
+    ogs_hash_index_t *it;
+    ogs_hash_t *data_reporting_provisioning_session = data_collection_self()->data_reporting_provisioning_sessions;
+    data_collection_reporting_provisioning_session_t *session;
+    for (it = ogs_hash_first(data_reporting_provisioning_session); it; it = ogs_hash_next(it)) {
+        const char *key;
+        int key_len;
+        ogs_hash_this(it, (const void **)&key, &key_len, (void**)(&session));
+	if(!strcmp(data_collection_reporting_provisioning_session_external_application_id(session), external_application_id)){
+	    return true;
+        }
+    }
+    return false;
+}
+
+static ogs_list_t *provisioning_sessions_event_filter_match(OpenAPI_list_t *user_identifiers, data_collection_af_events_subscription_t *events_subscription) {
     
     dc_api_event_filter_t *event_filter;
     char *user_id;
     char *gpsi;
     char *supi;
+    ogs_list_t *user_ids = NULL;
     event_filter = data_collection_event_exposure_subscription_get_filter(events_subscription);
     ogs_assert(event_filter);
 
     OpenAPI_lnode_t *user_id_node = NULL;
     OpenAPI_lnode_t *gpsi_node = NULL;
     OpenAPI_lnode_t *supi_node = NULL;
+   
+    ogs_list_init(user_ids);
 
     OpenAPI_list_for_each(user_identifiers, user_id_node) {
         user_id = (char *)user_id_node->data;
 	if(event_filter->gpsis) {
             OpenAPI_list_for_each(event_filter->gpsis, gpsi_node) {
 	        gpsi = (char *)gpsi_node->data;
-		if(!strcmp(user_id, gpsi)) return user_id;	
+		if(!strcmp(user_id, gpsi)) {
+	            ue_user_id_t *ue_user_id = ue_user_id_node(user_id);
+                    ogs_assert(ue_user_id);
+		    ogs_list_add(user_ids, ue_user_id);
+		}	
+					
             }		
 
 	}
@@ -412,16 +490,43 @@ static char *check_for_user_ids_from_reporting_provisioning_session_in_event_fil
 	if(event_filter->supis) {
             OpenAPI_list_for_each(event_filter->supis, supi_node) {
 	        supi = (char *)supi_node->data;
-		if(!strcmp(user_id, supi)) return user_id;	
+		if(!strcmp(user_id, supi)) {
+		    ue_user_id_t *ue_user_id = ue_user_id_node(user_id);
+                    ogs_assert(ue_user_id);
+                    ogs_list_add(user_ids, ue_user_id);
+	
+		}	
             }		
 
 	}
 	    
     }
-    return NULL;
+    return user_ids;
 }
 
-static bool is_event_subscription_used(data_collection_data_report_t *data_report, data_collection_event_subscription_t *event_subscription)
+static ue_user_id_t *ue_user_id_node(char *user_id) {
+
+    if(!user_id) return NULL;
+    ue_user_id_t *ue_user_id =  ogs_calloc(1, sizeof(ue_user_id_t));
+    ogs_assert(ue_user_id);
+    ue_user_id->user_id = data_collection_strdup(user_id);
+    return ue_user_id;
+}
+
+
+static bool does_data_report_app_id_match_event_filter(char *application_id, OpenAPI_list_t *app_ids) {
+
+    OpenAPI_lnode_t *app_id_node = NULL;
+    char *app_id;
+
+    OpenAPI_list_for_each(app_ids, app_id_node) {
+         app_id = (char *)app_id_node->data;
+	 if(!strcmp(app_id, application_id)) return true;
+    }
+    return false;
+}
+
+static bool is_event_subscription_used(data_collection_data_report_record_t *data_report, data_collection_event_subscription_t *event_subscription)
 {
 
     if(ogs_list_first(&data_report->usage)) {
@@ -433,7 +538,7 @@ static bool is_event_subscription_used(data_collection_data_report_t *data_repor
 	 return 0;
     
     }
-    return 1;
+    return 0;
 }
 
 static data_collection_data_report_property_e get_report_properties(dc_api_data_report_t *report, ogs_list_t *data_reports)
