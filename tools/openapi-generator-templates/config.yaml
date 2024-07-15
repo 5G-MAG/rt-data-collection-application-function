@@ -1,0 +1,31 @@
+enablePostProcessFile: true
+templateDir: "."
+reservedWordsMappings:
+  3GPP_ACCESS: "3GPP_ACCESS"
+  5G_EIR: "5G_EIR"
+  5G_AKA: "5G_AKA"
+  5G_HE_AKA: "5G_HE_AKA"
+  5GMM: "5GMM"
+generateApis: false
+generateApiDocs: false
+generateApiTests: false
+generateModels: true
+generateModelDocs: false
+generateModelTests: false
+files:
+  ogs-memory-helper.c:
+    folder: model
+  ogs-memory-helper.h:
+    folder: model
+  model-header.mustache:
+    templateType: Model
+    destinationFilename: .h
+  model-source.mustache:
+    templateType: Model
+    destinationFilename: .cpp
+  model-internal.mustache:
+    templateType: Model
+    destinationFilename: -internal.h
+  model.mustache:
+    templateType: Model 
+    destinationFilename: .model

@@ -16,24 +16,18 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #include "utilities.h"
 #include "lib-metadata.h"
 #include "data-reporting.h"
-#include "data-report.h"
 #include "data-reporting-session-cache.h"
 #include "data-reporting-provisioning.h"
 #include "event-subscription.h"
+
+#include "data-collection-sp/data-collection.h"
 
 static data_collection_context_t *self = NULL;
 
 int __data_collection_log_domain;
 
-typedef void (*free_ogs_hash_context_free_value_fn)(void *value);
-typedef struct free_ogs_hash_context_s {
-    free_ogs_hash_context_free_value_fn value_free_fn;
-    ogs_hash_t *hash;
-} free_ogs_hash_context_t;
-
 static int data_collection_context_prepare(void);
 static int data_collection_context_validation(void);
-static int free_ogs_hash_entry(void *free_ogs_hash_context, const void *key, int klen, const void *value);
 static void data_collection_context_data_reporting_provisioning_sessions_remove(void);
 static void data_collection_context_data_reporting_sessions_remove(void);
 static void data_collection_context_data_reports_remove(void);
@@ -74,6 +68,7 @@ void data_collection_context_init(void)
     self->data_reporting_sessions = ogs_hash_make();
     self->data_reports = ogs_hash_make();
     self->event_subscriptions = ogs_hash_make();
+    self->data_reporting_configuration_contexts = ogs_hash_make();
 
     data_collection_server_response_cache_control_set();
 }
@@ -96,6 +91,8 @@ void data_collection_context_final(void)
     data_collection_context_data_reports_remove();
     data_collection_context_event_exposure_subscriptions_unsubscribe();
     data_collection_free_agent_name();
+
+    ogs_hash_destroy(self->data_reporting_configuration_contexts); // just an index map, no need to free values
 
     data_collection_context_server_sockaddr_remove();
 
@@ -630,34 +627,12 @@ int data_collection_context_get_server_interface(ogs_sbi_server_t *server) {
 /***** Private functions *****/
 
 static void data_collection_context_data_reporting_provisioning_sessions_remove(void) {
-    free_ogs_hash_context_t hc = {
-        (void(*)(void*))data_collection_reporting_provisioning_session_destroy,
-        self->data_reporting_provisioning_sessions
-    };
-
     ogs_info("Removing all Data Reporting Provisioning Sessions");
 
-    ogs_hash_do(free_ogs_hash_entry, &hc, self->data_reporting_provisioning_sessions);
-    ogs_hash_destroy(self->data_reporting_provisioning_sessions);
+    data_collection_hash_free(self->data_reporting_provisioning_sessions, (void(*)(void*))data_collection_reporting_provisioning_session_destroy);
     self->data_reporting_provisioning_sessions = NULL;
 }
-#if 0
-static void data_collection_context_data_reporting_sessions_cache_remove_all(void) {
-    free_ogs_hash_context_t hc = {
-        (void(*)(void*))data_collection_reporting_session_cache_destroy,
-        self->data_reporting_sessions_cache
-    };
 
-    ogs_info("Removing all cached Data Reporting Sessions");
-
-    ogs_hash_do(free_ogs_hash_entry, &hc, self->data_reporting_sessions_cache);
-    ogs_hash_destroy(self->data_reporting_sessions_cache);
-    self->data_reporting_sessions_cache = NULL;
-
-    if(self->reporting_sessions_cache_timer)
-        ogs_timer_delete(self->reporting_sessions_cache_timer);
-}
-#endif
 static void data_collection_context_data_reporting_sessions_cache_remove(void) {
     data_reporting_session_cache_free(self->data_reporting_sessions_cache);
     if(self->reporting_sessions_cache_timer)
@@ -666,68 +641,50 @@ static void data_collection_context_data_reporting_sessions_cache_remove(void) {
 
 
 static void data_collection_context_data_reporting_sessions_remove(void) {
-    free_ogs_hash_context_t hc = {
-        (void(*)(void*))data_collection_reporting_session_destroy,
-        self->data_reporting_sessions
-    };
-
     ogs_info("Removing all Data Reporting Sessions");
 
-    ogs_hash_do(free_ogs_hash_entry, &hc, self->data_reporting_sessions);
-    ogs_hash_destroy(self->data_reporting_sessions);
+    data_collection_hash_free(self->data_reporting_sessions, (void(*)(void*))data_collection_reporting_session_destroy);
     self->data_reporting_sessions = NULL;
 }
 
 static void data_collection_context_data_reports_remove(void) {
-    free_ogs_hash_context_t hc = {
-        (void(*)(void*))data_collection_report_destroy,
-        self->data_reports
-    };
-
     ogs_info("Removing all Data Reports");
     
-    ogs_hash_do(free_ogs_hash_entry, &hc, self->data_reports);
-    ogs_hash_destroy(self->data_reports);
+    data_collection_hash_free(self->data_reports, (void(*)(void*))data_collection_model_data_report_free);
     self->data_reports = NULL;
 	
 }
 
 static void data_collection_context_event_exposure_subscriptions_unsubscribe(void) {
-    free_ogs_hash_context_t hc = {
-        (void(*)(void*))data_collection_event_subscription_clear,
-        self->event_subscriptions
-    };
-
     ogs_info("Unsubscribing all Event Subscriptions ");
 
-    ogs_hash_do(free_ogs_hash_entry, &hc, self->event_subscriptions);
-    ogs_hash_destroy(self->event_subscriptions);
+    data_collection_hash_free(self->event_subscriptions, (void(*)(void*))data_collection_event_subscription_unsubscribe);
     self->event_subscriptions = NULL;
 }
 
-
-static dc_api_data_domain_e set_data_domain_from_property(data_collection_data_report_property_e data_report_property)
+#if 0
+static data_collection_model_data_domain_e set_data_domain_from_property(data_collection_data_report_property_e data_report_property)
 {
     switch (data_report_property) {
     case DATA_COLLECTION_DATA_REPORT_PROPERTY_APP_SPECIFIC:
-        return dc_api_data_domain_VAL_APPLICATION_SPECIFIC;
+        return DCM_DATA_DOMAIN_VAL_APPLICATION_SPECIFIC;
     case DATA_COLLECTION_DATA_REPORT_PROPERTY_COMMUNICATION:
-        return  dc_api_data_domain_VAL_COMMUNICATION;
+        return  DCM_DATA_DOMAIN_VAL_COMMUNICATION;
     case DATA_COLLECTION_DATA_REPORT_PROPERTY_LOCATION:
-        return dc_api_data_domain_VAL_LOCATION;
+        return DCM_DATA_DOMAIN_VAL_LOCATION;
     case DATA_COLLECTION_DATA_REPORT_PROPERTY_MEDIA_STREAMING_ACCESS:
-        return dc_api_data_domain_VAL_MS_ACCESS_ACTIVITY;
+        return DCM_DATA_DOMAIN_VAL_MS_ACCESS_ACTIVITY;
     case DATA_COLLECTION_DATA_REPORT_PROPERTY_PERFORMANCE:
-        return dc_api_data_domain_VAL_PERFORMANCE;
+        return DCM_DATA_DOMAIN_VAL_PERFORMANCE;
     case DATA_COLLECTION_DATA_REPORT_PROPERTY_SERVICE_EXPERIENCE:
-        return dc_api_data_domain_VAL_SERVICE_EXPERIENCE;
+        return DCM_DATA_DOMAIN_VAL_SERVICE_EXPERIENCE;
     case DATA_COLLECTION_DATA_REPORT_PROPERTY_TRIP_PLAN:
-        return dc_api_data_domain_VAL_PLANNED_TRIPS;
+        return DCM_DATA_DOMAIN_VAL_PLANNED_TRIPS;
     case DATA_COLLECTION_DATA_REPORT_PROPERTY_ANBR_NET_ASSIST_INVOCATION:
-        return dc_api_data_domain_VAL_MS_ANBR_NETWORK_ASSISTANCE;
+        return DCM_DATA_DOMAIN_VAL_MS_ANBR_NETWORK_ASSISTANCE;
     }
 
-    return dc_api_data_domain_NULL;
+    return DCM_DATA_DOMAIN_NO_VAL;
 }
 
 static data_collection_data_report_property_e set_data_property_from_domain(const char *data_domain)
@@ -752,8 +709,7 @@ static data_collection_data_report_property_e set_data_property_from_domain(cons
     END
     return 0;
 }
-
-
+#endif
 
 static void data_collection_context_server_sockaddr_remove(void){
     int i,j;
@@ -772,20 +728,9 @@ static int data_collection_context_prepare(void)
     return OGS_OK;
 }
 
-static int
-data_collection_context_validation(void)
+static int data_collection_context_validation(void)
 {
     return OGS_OK;
-}
-
-static int
-free_ogs_hash_entry(void *rec, const void *key, int klen, const void *value)
-{
-    free_ogs_hash_context_t *fohc = (free_ogs_hash_context_t*)rec;
-    fohc->value_free_fn((void*)value);
-    ogs_hash_set(fohc->hash, key, klen, NULL);
-    ogs_free((void*)key);
-    return 1;
 }
 
 static ogs_sockaddr_t *does_sockaddr_v4_match(data_collection_configuration_server_ifc_t ifc_num, data_collection_configuration_server_ifc_t ifc_num_conf)        
@@ -819,8 +764,6 @@ static ogs_sockaddr_t *does_sockaddr_v6_match(data_collection_configuration_serv
     }
     return NULL;
 }
-
-
 
 int data_collection_context_server_name_set(void) {
 

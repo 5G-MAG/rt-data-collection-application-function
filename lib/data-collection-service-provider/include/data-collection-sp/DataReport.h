@@ -1,0 +1,174 @@
+#ifndef _DATA_COLLECTION_DATA_REPORT_H_
+#define _DATA_COLLECTION_DATA_REPORT_H_
+
+/**********************************************************************************************************************************
+ * DataReport - Public C interface to the DataReport object
+ **********************************************************************************************************************************
+ * License: 5G-MAG Public License (v1.0)
+ * Authors: David Waring <david.waring2@bbc.co.uk>
+ * Copyright: (C) 2024 British Broadcasting Corporation
+ *
+ * For full license terms please see the LICENSE file distributed with this
+ * program. If this file is missing then the license can be retrieved from
+ * https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+ **********************************************************************************************************************************/
+
+#ifndef INCLUDED_FROM_DATA_COLLECTION_H
+#error "This file can only be included from data-collection.h"
+#endif
+
+#include "MediaStreamingAccessRecord.h"
+#include "TripPlanRecord.h"
+#include "ApplicationSpecificRecord.h"
+#include "ServiceExperienceRecord.h"
+#include "LocationRecord.h"
+#include "ANBRNetworkAssistanceInvocationRecord.h"
+#include "PerformanceDataRecord.h"
+#include "CommunicationRecord.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef struct data_collection_model_data_report_s data_collection_model_data_report_t;
+
+    
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_create();
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_create_copy(const data_collection_model_data_report_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_create_move(data_collection_model_data_report_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_copy(data_collection_model_data_report_t *data_report, const data_collection_model_data_report_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_move(data_collection_model_data_report_t *data_report, data_collection_model_data_report_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_data_report_free(data_collection_model_data_report_t *data_report);
+
+DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_data_report_toJSON(const data_collection_model_data_report_t *data_report, bool as_request);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
+
+
+DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_data_report_get_external_application_id(const data_collection_model_data_report_t *data_report);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_set_external_application_id(data_collection_model_data_report_t *data_report, const char* p_external_application_id);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_set_external_application_id_move(data_collection_model_data_report_t *data_report, char* p_external_application_id);
+
+DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_data_report_is_expedite(const data_collection_model_data_report_t *data_report);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_set_expedite(data_collection_model_data_report_t *data_report, const bool p_expedite);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_set_expedite_move(data_collection_model_data_report_t *data_report, bool p_expedite);
+
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_report_get_service_experience_records(const data_collection_model_data_report_t *data_report);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_set_service_experience_records(data_collection_model_data_report_t *data_report, const ogs_list_t* p_service_experience_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_set_service_experience_records_move(data_collection_model_data_report_t *data_report, ogs_list_t* p_service_experience_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_add_service_experience_records(data_collection_model_data_report_t *data_report, data_collection_model_service_experience_record_t* service_experience_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_remove_service_experience_records(data_collection_model_data_report_t *data_report, const data_collection_model_service_experience_record_t* service_experience_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_clear_service_experience_records(data_collection_model_data_report_t *data_report);
+
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_report_get_location_records(const data_collection_model_data_report_t *data_report);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_set_location_records(data_collection_model_data_report_t *data_report, const ogs_list_t* p_location_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_set_location_records_move(data_collection_model_data_report_t *data_report, ogs_list_t* p_location_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_add_location_records(data_collection_model_data_report_t *data_report, data_collection_model_location_record_t* location_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_remove_location_records(data_collection_model_data_report_t *data_report, const data_collection_model_location_record_t* location_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_clear_location_records(data_collection_model_data_report_t *data_report);
+
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_report_get_communication_records(const data_collection_model_data_report_t *data_report);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_set_communication_records(data_collection_model_data_report_t *data_report, const ogs_list_t* p_communication_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_set_communication_records_move(data_collection_model_data_report_t *data_report, ogs_list_t* p_communication_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_add_communication_records(data_collection_model_data_report_t *data_report, data_collection_model_communication_record_t* communication_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_remove_communication_records(data_collection_model_data_report_t *data_report, const data_collection_model_communication_record_t* communication_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_clear_communication_records(data_collection_model_data_report_t *data_report);
+
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_report_get_performance_data_records(const data_collection_model_data_report_t *data_report);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_set_performance_data_records(data_collection_model_data_report_t *data_report, const ogs_list_t* p_performance_data_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_set_performance_data_records_move(data_collection_model_data_report_t *data_report, ogs_list_t* p_performance_data_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_add_performance_data_records(data_collection_model_data_report_t *data_report, data_collection_model_performance_data_record_t* performance_data_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_remove_performance_data_records(data_collection_model_data_report_t *data_report, const data_collection_model_performance_data_record_t* performance_data_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_clear_performance_data_records(data_collection_model_data_report_t *data_report);
+
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_report_get_application_specific_records(const data_collection_model_data_report_t *data_report);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_set_application_specific_records(data_collection_model_data_report_t *data_report, const ogs_list_t* p_application_specific_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_set_application_specific_records_move(data_collection_model_data_report_t *data_report, ogs_list_t* p_application_specific_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_add_application_specific_records(data_collection_model_data_report_t *data_report, data_collection_model_application_specific_record_t* application_specific_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_remove_application_specific_records(data_collection_model_data_report_t *data_report, const data_collection_model_application_specific_record_t* application_specific_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_clear_application_specific_records(data_collection_model_data_report_t *data_report);
+
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_report_get_trip_plan_records(const data_collection_model_data_report_t *data_report);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_set_trip_plan_records(data_collection_model_data_report_t *data_report, const ogs_list_t* p_trip_plan_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_set_trip_plan_records_move(data_collection_model_data_report_t *data_report, ogs_list_t* p_trip_plan_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_add_trip_plan_records(data_collection_model_data_report_t *data_report, data_collection_model_trip_plan_record_t* trip_plan_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_remove_trip_plan_records(data_collection_model_data_report_t *data_report, const data_collection_model_trip_plan_record_t* trip_plan_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_clear_trip_plan_records(data_collection_model_data_report_t *data_report);
+
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_report_get_anbr_network_assistance_invocation_records(const data_collection_model_data_report_t *data_report);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_set_anbr_network_assistance_invocation_records(data_collection_model_data_report_t *data_report, const ogs_list_t* p_anbr_network_assistance_invocation_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_set_anbr_network_assistance_invocation_records_move(data_collection_model_data_report_t *data_report, ogs_list_t* p_anbr_network_assistance_invocation_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_add_anbr_network_assistance_invocation_records(data_collection_model_data_report_t *data_report, data_collection_model_anbr_network_assistance_invocation_record_t* anbr_network_assistance_invocation_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_remove_anbr_network_assistance_invocation_records(data_collection_model_data_report_t *data_report, const data_collection_model_anbr_network_assistance_invocation_record_t* anbr_network_assistance_invocation_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_clear_anbr_network_assistance_invocation_records(data_collection_model_data_report_t *data_report);
+
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_report_get_media_streaming_access_records(const data_collection_model_data_report_t *data_report);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_set_media_streaming_access_records(data_collection_model_data_report_t *data_report, const ogs_list_t* p_media_streaming_access_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_set_media_streaming_access_records_move(data_collection_model_data_report_t *data_report, ogs_list_t* p_media_streaming_access_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_add_media_streaming_access_records(data_collection_model_data_report_t *data_report, data_collection_model_media_streaming_access_record_t* media_streaming_access_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_remove_media_streaming_access_records(data_collection_model_data_report_t *data_report, const data_collection_model_media_streaming_access_record_t* media_streaming_access_records);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_clear_media_streaming_access_records(data_collection_model_data_report_t *data_report);
+
+/* lnode helper for generating ogs_list_t nodes's of type DataReport */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_data_report_make_lnode(data_collection_model_data_report_t *data_report);
+
+/***** Internal library protected functions *****/
+
+#ifdef __cplusplus
+}
+#endif
+
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */
+
+#endif /* ifndef _DATA_COLLECTION_DATA_REPORT_H_ */
+

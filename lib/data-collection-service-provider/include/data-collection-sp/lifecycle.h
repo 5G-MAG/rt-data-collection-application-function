@@ -16,10 +16,6 @@
 #error "This file can only be included from data-collection.h"
 #endif
 
-#include "ogs-core.h"
-#include "ogs-proto.h"
-#include "ogs-sbi.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -45,6 +41,8 @@ typedef enum {
 } data_collection_feature_flags_e;
 
 /***** Interface structures *****/
+
+typedef struct ogs_event_s ogs_event_t;
 
 /** Library configuration
  *

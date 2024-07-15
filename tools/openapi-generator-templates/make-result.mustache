@@ -1,0 +1,32 @@
+{{#composedSchemas}}{{^oneOf}}{{^not}}{{^anyOf}}{{^allOf.2}}{{#allOf}}{{>make-result}}{{/allOf}}{{/allOf.2}}{{#allOf.2.name}}void *result = reinterpret_cast<void*>(&result_from);{{/allOf.2.name}}{{/anyOf}}{{^allOf}}{{^anyOf.2}}{{#anyOf}}{{>make-result}}{{/anyOf}}{{/anyOf.2}}{{^anyOf.3}}{{#anyOf.2.isString}}{{#anyOf.1.isEnum}}const char *result = result_from.getString().c_str();{{/anyOf.1.isEnum}}{{/anyOf.2.isString}}{{^anyOf.1.isEnum}}void *result = reinterpret_cast<void*>(&result_from);{{/anyOf.1.isEnum}}{{^anyOf.2.isString}}{{#anyOf.1.isEnum}}void *result = reinterpret_cast<void*>(&result_from);{{/anyOf.1.isEnum}}{{/anyOf.2.isString}}{{/anyOf.3}}{{#anyOf.3.name}}void *result = reinterpret_cast<void*>(&result_from);{{/anyOf.3.name}}{{/allOf}}{{/not}}{{/oneOf}}{{/composedSchemas}}{{^composedSchemas}}{{#isContainer}}{{#isArray}}ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+typedef typename ResultFromType::value_type ItemType;
+for (const ItemType &item : result_from) {
+    data_collection_lnode_t *node;
+    {{#items}}{{#isString}}node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+    {{/isString}}{{^isString}}{{#isAnyType}}void *item_obj = reinterpret_cast<void*>(new std::shared_ptr<AnyType>(item));
+    node = data_collection_lnode_create(item_obj, reinterpret_cast<void(*)(void*)>(data_collection_model_any_type_free));{{/isAnyType}}{{^isAnyType}}{{#isContainer}}{
+    const ItemType &result_from = item;
+    typedef ItemType ResultFromType;
+    {{>make-result}}
+    node = data_collection_lnode_create(result, reinterpret_cast<void(*)(void*)>({{#isMap}}data_collection_hash_free{{/isMap}}{{#isArray}}data_collection_list_free{{/isArray}}));
+}{{/isContainer}}{{^isContainer}}{{#isPrimitiveType}}{{dataType}} *item_obj = reinterpret_cast<{{dataType}}*>(ogs_malloc(sizeof(*item_obj)));
+    *item_obj = item;
+    node = data_collection_lnode_create(item_obj, reinterpret_cast<void(*)(void*)>(_ogs_free));{{/isPrimitiveType}}{{^isPrimitiveType}}data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{{complexType}}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *item_obj = reinterpret_cast<data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{{complexType}}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t*>(new std::shared_ptr<{{{complexType}}} >(item));
+    node = data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{{complexType}}}{{/lambda.snakecase}}{{/lambda.lowercase}}_make_lnode(item_obj);{{/isPrimitiveType}}{{/isContainer}}{{/isAnyType}}
+    {{/isString}}{{/items}}
+    ogs_list_add(result, node);
+}{{/isArray}}{{#isMap}}ogs_hash_t *result = ogs_hash_make();
+for (const auto &item : result_from) {
+{{#items}}{{#isString}}    char *item_obj = data_collection_strdup(item.second.c_str());
+{{/isString}}{{^isString}}{{#isAnyType}}    void *item_obj = reinterpret_cast<void*>(new std::shared_ptr<AnyType>(item.second));{{/isAnyType}}{{^isAnyType}}    {{#isContainer}}{{#isMap}}ogs_hash_t{{/isMap}}{{#isArray}}ogs_list_t{{/isArray}}{{/isContainer}}{{^isContainer}}data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{{complexType}}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t{{/isContainer}} *item_obj{{#isContainer}};
+    typedef typename ResultFromType::mapped_type ItemType;
+    {
+	const auto &result_from = item.second;
+        typedef ItemType ResultFromType;
+	{{>make-result}}
+	item_obj = result;
+    }
+{{/isContainer}}{{^isContainer}} = reinterpret_cast<data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{{complexType}}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t*>(new std::shared_ptr<{{{complexType}}} >(item.second));{{/isContainer}}{{/isAnyType}}
+{{/isString}}{{/items}}
+    ogs_hash_set(result, item.first.c_str(), OGS_HASH_KEY_STRING, item_obj);
+}{{/isMap}}{{/isContainer}}{{^isContainer}}{{#isPrimitiveType}}const ResultFromType result = result_from;{{/isPrimitiveType}}{{^isPrimitiveType}}{{#isString}}const char *result = result_from.c_str();{{/isString}}{{#isDate}}const char *result = result_from.c_str();{{/isDate}}{{#isDateTime}}const char *result = result_from.c_str();{{/isDateTime}}{{#isByteArray}}const unsigned char *result = result_from.c_str();{{/isByteArray}}{{^isString}}{{^isDate}}{{^isDateTime}}{{^isByteArray}}const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{{datatype}}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *result = reinterpret_cast<const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{{datatype}}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t*>(&result_from);{{/isByteArray}}{{/isDateTime}}{{/isDate}}{{/isString}}{{/isPrimitiveType}}{{/isContainer}}{{/composedSchemas}}

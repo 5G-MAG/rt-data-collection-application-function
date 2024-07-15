@@ -17,7 +17,7 @@
 #endif
 
 #include "ogs-core.h"
-#include "ogs-sbi.h"
+#include "sbi/openapi/external/cJSON.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -27,7 +27,6 @@ extern "C" {
 
 /***** Opaque Types *****/
 
-typedef struct dc_api_data_reporting_provisioning_configuration_s dc_api_data_reporting_provisioning_configuration_t;
 typedef struct data_collection_reporting_provisioning_session_s data_collection_reporting_provisioning_session_t;
 
 /***** Forward declarations *****/
@@ -80,6 +79,39 @@ DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_reporting_provision
 /** Get the external application id associated with the provisioning session */
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_provisioning_session_external_application_id(
         const data_collection_reporting_provisioning_session_t *session);
+
+/** Add a reporting configuration to the session */
+DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_provisioning_session_add_configuration(
+                                                            data_collection_reporting_provisioning_session_t *session,
+                                                            data_collection_reporting_configuration_t *configuration);
+
+/** Remove a reporting configuration to the session */
+DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_provisioning_session_remove_configuration(
+                                                            data_collection_reporting_provisioning_session_t *session,
+                                                            data_collection_reporting_configuration_t *configuration);
+
+/** Replace a reporting configuration in a session */
+DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_provisioning_session_replace_configuration(
+                                                            data_collection_reporting_provisioning_session_t *session,
+                                                            data_collection_reporting_configuration_t *configuration);
+
+/** Find a reporting configuration in the session by its id */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_configuration_t *
+data_collection_reporting_provisioning_session_get_configuration_by_id(data_collection_reporting_provisioning_session_t *session,
+                                                                       const char *configuration_id);
+
+
+/** Get the AfEvent type for a provisioning session */
+DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_provisioning_session_get_af_event_type(
+                const data_collection_reporting_provisioning_session_t *session);
+
+/** Get the external app id for a provisioning session */
+DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_provisioning_session_get_external_application_id(
+                const data_collection_reporting_provisioning_session_t *session);
+
+/** Get the configurations map for a provisioning session */
+DATA_COLLECTION_SVC_PRODUCER_API const ogs_hash_t *data_collection_reporting_provisioning_session_get_configurations(
+                const data_collection_reporting_provisioning_session_t *session);
 
 #ifdef __cplusplus
 }

@@ -131,5 +131,5 @@ void dc_timer_event_exposure_notif(void *data) {
     event_subscription = (data_collection_event_subscription_t *)data;
     data_collection_set_event_subscription_send_notif(event_subscription);    
     timer_send_event(DC_TIMER_EVENT_EXPOSURE_NOTIF, data);
-    event_notification_timer_activate(event_subscription);
+    event_subscription_notification_timer_activate(event_subscription);
 }

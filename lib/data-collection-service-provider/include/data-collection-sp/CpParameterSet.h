@@ -1,0 +1,186 @@
+#ifndef _DATA_COLLECTION_CP_PARAMETER_SET_H_
+#define _DATA_COLLECTION_CP_PARAMETER_SET_H_
+
+/**********************************************************************************************************************************
+ * CpParameterSet - Public C interface to the CpParameterSet object
+ **********************************************************************************************************************************
+ * License: 5G-MAG Public License (v1.0)
+ * Authors: David Waring <david.waring2@bbc.co.uk>
+ * Copyright: (C) 2024 British Broadcasting Corporation
+ *
+ * For full license terms please see the LICENSE file distributed with this
+ * program. If this file is missing then the license can be retrieved from
+ * https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+ **********************************************************************************************************************************/
+
+#ifndef INCLUDED_FROM_DATA_COLLECTION_H
+#error "This file can only be included from data-collection.h"
+#endif
+
+#include "BatteryIndication.h"
+#include "CommunicationIndicator.h"
+#include "ScheduledCommunicationType.h"
+#include "TrafficProfile.h"
+#include "AppExpUeBehaviour.h"
+#include "ScheduledCommunicationTime.h"
+#include "UmtLocationArea5G.h"
+#include "StationaryIndication.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef struct data_collection_model_cp_parameter_set_s data_collection_model_cp_parameter_set_t;
+
+    
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_create();
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_create_copy(const data_collection_model_cp_parameter_set_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_create_move(data_collection_model_cp_parameter_set_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_copy(data_collection_model_cp_parameter_set_t *cp_parameter_set, const data_collection_model_cp_parameter_set_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_move(data_collection_model_cp_parameter_set_t *cp_parameter_set, data_collection_model_cp_parameter_set_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_cp_parameter_set_free(data_collection_model_cp_parameter_set_t *cp_parameter_set);
+
+DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_cp_parameter_set_toJSON(const data_collection_model_cp_parameter_set_t *cp_parameter_set, bool as_request);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
+
+
+DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_cp_parameter_set_get_set_id(const data_collection_model_cp_parameter_set_t *cp_parameter_set);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_set_id(data_collection_model_cp_parameter_set_t *cp_parameter_set, const char* p_set_id);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_set_id_move(data_collection_model_cp_parameter_set_t *cp_parameter_set, char* p_set_id);
+
+DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_cp_parameter_set_get_self(const data_collection_model_cp_parameter_set_t *cp_parameter_set);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_self(data_collection_model_cp_parameter_set_t *cp_parameter_set, const char* p_self);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_self_move(data_collection_model_cp_parameter_set_t *cp_parameter_set, char* p_self);
+
+DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_cp_parameter_set_get_validity_time(const data_collection_model_cp_parameter_set_t *cp_parameter_set);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_validity_time(data_collection_model_cp_parameter_set_t *cp_parameter_set, const char* p_validity_time);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_validity_time_move(data_collection_model_cp_parameter_set_t *cp_parameter_set, char* p_validity_time);
+
+DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_communication_indicator_t* data_collection_model_cp_parameter_set_get_periodic_communication_indicator(const data_collection_model_cp_parameter_set_t *cp_parameter_set);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_periodic_communication_indicator(data_collection_model_cp_parameter_set_t *cp_parameter_set, const data_collection_model_communication_indicator_t* p_periodic_communication_indicator);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_periodic_communication_indicator_move(data_collection_model_cp_parameter_set_t *cp_parameter_set, data_collection_model_communication_indicator_t* p_periodic_communication_indicator);
+
+DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_cp_parameter_set_get_communication_duration_time(const data_collection_model_cp_parameter_set_t *cp_parameter_set);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_communication_duration_time(data_collection_model_cp_parameter_set_t *cp_parameter_set, const int32_t p_communication_duration_time);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_communication_duration_time_move(data_collection_model_cp_parameter_set_t *cp_parameter_set, int32_t p_communication_duration_time);
+
+DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_cp_parameter_set_get_periodic_time(const data_collection_model_cp_parameter_set_t *cp_parameter_set);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_periodic_time(data_collection_model_cp_parameter_set_t *cp_parameter_set, const int32_t p_periodic_time);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_periodic_time_move(data_collection_model_cp_parameter_set_t *cp_parameter_set, int32_t p_periodic_time);
+
+DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_scheduled_communication_time_t* data_collection_model_cp_parameter_set_get_scheduled_communication_time(const data_collection_model_cp_parameter_set_t *cp_parameter_set);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_scheduled_communication_time(data_collection_model_cp_parameter_set_t *cp_parameter_set, const data_collection_model_scheduled_communication_time_t* p_scheduled_communication_time);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_scheduled_communication_time_move(data_collection_model_cp_parameter_set_t *cp_parameter_set, data_collection_model_scheduled_communication_time_t* p_scheduled_communication_time);
+
+DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_scheduled_communication_type_t* data_collection_model_cp_parameter_set_get_scheduled_communication_type(const data_collection_model_cp_parameter_set_t *cp_parameter_set);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_scheduled_communication_type(data_collection_model_cp_parameter_set_t *cp_parameter_set, const data_collection_model_scheduled_communication_type_t* p_scheduled_communication_type);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_scheduled_communication_type_move(data_collection_model_cp_parameter_set_t *cp_parameter_set, data_collection_model_scheduled_communication_type_t* p_scheduled_communication_type);
+
+DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_stationary_indication_t* data_collection_model_cp_parameter_set_get_stationary_indication(const data_collection_model_cp_parameter_set_t *cp_parameter_set);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_stationary_indication(data_collection_model_cp_parameter_set_t *cp_parameter_set, const data_collection_model_stationary_indication_t* p_stationary_indication);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_stationary_indication_move(data_collection_model_cp_parameter_set_t *cp_parameter_set, data_collection_model_stationary_indication_t* p_stationary_indication);
+
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_cp_parameter_set_get_battery_inds(const data_collection_model_cp_parameter_set_t *cp_parameter_set);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_battery_inds(data_collection_model_cp_parameter_set_t *cp_parameter_set, const ogs_list_t* p_battery_inds);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_battery_inds_move(data_collection_model_cp_parameter_set_t *cp_parameter_set, ogs_list_t* p_battery_inds);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_add_battery_inds(data_collection_model_cp_parameter_set_t *cp_parameter_set, data_collection_model_battery_indication_t* battery_inds);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_remove_battery_inds(data_collection_model_cp_parameter_set_t *cp_parameter_set, const data_collection_model_battery_indication_t* battery_inds);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_clear_battery_inds(data_collection_model_cp_parameter_set_t *cp_parameter_set);
+
+DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_traffic_profile_t* data_collection_model_cp_parameter_set_get_traffic_profile(const data_collection_model_cp_parameter_set_t *cp_parameter_set);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_traffic_profile(data_collection_model_cp_parameter_set_t *cp_parameter_set, const data_collection_model_traffic_profile_t* p_traffic_profile);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_traffic_profile_move(data_collection_model_cp_parameter_set_t *cp_parameter_set, data_collection_model_traffic_profile_t* p_traffic_profile);
+
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_cp_parameter_set_get_expected_umts(const data_collection_model_cp_parameter_set_t *cp_parameter_set);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_expected_umts(data_collection_model_cp_parameter_set_t *cp_parameter_set, const ogs_list_t* p_expected_umts);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_expected_umts_move(data_collection_model_cp_parameter_set_t *cp_parameter_set, ogs_list_t* p_expected_umts);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_add_expected_umts(data_collection_model_cp_parameter_set_t *cp_parameter_set, data_collection_model_umt_location_area5_g_t* expected_umts);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_remove_expected_umts(data_collection_model_cp_parameter_set_t *cp_parameter_set, const data_collection_model_umt_location_area5_g_t* expected_umts);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_clear_expected_umts(data_collection_model_cp_parameter_set_t *cp_parameter_set);
+
+DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_cp_parameter_set_get_expected_umt_days(const data_collection_model_cp_parameter_set_t *cp_parameter_set);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_expected_umt_days(data_collection_model_cp_parameter_set_t *cp_parameter_set, const int32_t p_expected_umt_days);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_expected_umt_days_move(data_collection_model_cp_parameter_set_t *cp_parameter_set, int32_t p_expected_umt_days);
+
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_cp_parameter_set_get_expected_umt_days_add(const data_collection_model_cp_parameter_set_t *cp_parameter_set);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_expected_umt_days_add(data_collection_model_cp_parameter_set_t *cp_parameter_set, const ogs_list_t* p_expected_umt_days_add);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_expected_umt_days_add_move(data_collection_model_cp_parameter_set_t *cp_parameter_set, ogs_list_t* p_expected_umt_days_add);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_add_expected_umt_days_add(data_collection_model_cp_parameter_set_t *cp_parameter_set, int32_t expected_umt_days_add);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_remove_expected_umt_days_add(data_collection_model_cp_parameter_set_t *cp_parameter_set, const int32_t expected_umt_days_add);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_clear_expected_umt_days_add(data_collection_model_cp_parameter_set_t *cp_parameter_set);
+
+DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_app_exp_ue_behaviour_t* data_collection_model_cp_parameter_set_get_app_exp_ue_behv(const data_collection_model_cp_parameter_set_t *cp_parameter_set);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_app_exp_ue_behv(data_collection_model_cp_parameter_set_t *cp_parameter_set, const data_collection_model_app_exp_ue_behaviour_t* p_app_exp_ue_behv);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_app_exp_ue_behv_move(data_collection_model_cp_parameter_set_t *cp_parameter_set, data_collection_model_app_exp_ue_behaviour_t* p_app_exp_ue_behv);
+
+DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_cp_parameter_set_get_confidence_level(const data_collection_model_cp_parameter_set_t *cp_parameter_set);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_confidence_level(data_collection_model_cp_parameter_set_t *cp_parameter_set, const char* p_confidence_level);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_confidence_level_move(data_collection_model_cp_parameter_set_t *cp_parameter_set, char* p_confidence_level);
+
+DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_cp_parameter_set_get_accuracy_level(const data_collection_model_cp_parameter_set_t *cp_parameter_set);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_accuracy_level(data_collection_model_cp_parameter_set_t *cp_parameter_set, const char* p_accuracy_level);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_set_accuracy_level_move(data_collection_model_cp_parameter_set_t *cp_parameter_set, char* p_accuracy_level);
+
+/* lnode helper for generating ogs_list_t nodes's of type CpParameterSet */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_cp_parameter_set_make_lnode(data_collection_model_cp_parameter_set_t *cp_parameter_set);
+
+/***** Internal library protected functions *****/
+
+#ifdef __cplusplus
+}
+#endif
+
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */
+
+#endif /* ifndef _DATA_COLLECTION_CP_PARAMETER_SET_H_ */
+

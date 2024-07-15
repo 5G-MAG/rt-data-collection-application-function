@@ -1,0 +1,166 @@
+/**********************************************************************************************************************************
+ * NotificationMethod - C interface to the NotificationMethod object
+ **********************************************************************************************************************************
+ * License: 5G-MAG Public License (v1.0)
+ * Authors: David Waring <david.waring2@bbc.co.uk>
+ * Copyright: (C) 2024 British Broadcasting Corporation
+ *
+ * For full license terms please see the LICENSE file distributed with this
+ * program. If this file is missing then the license can be retrieved from
+ * https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+ **********************************************************************************************************************************/
+
+
+#include "ogs-memory-helper.h"
+#include "utilities.h"
+#include "openapi/model/ModelException.hh"
+#include "data-collection-sp/data-collection.h"
+
+/*#include "NotificationMethod.h" already included by data-collection-sp/data-collection.h */
+#include "NotificationMethod-internal.h"
+#include "openapi/model/NotificationMethod.h"
+
+using namespace reftools::data_collection_sp;
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_method_t *data_collection_model_notification_method_create()
+{
+    return reinterpret_cast<data_collection_model_notification_method_t*>(new std::shared_ptr<NotificationMethod>(new NotificationMethod()));
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_method_t *data_collection_model_notification_method_create_copy(const data_collection_model_notification_method_t *other)
+{
+    return reinterpret_cast<data_collection_model_notification_method_t*>(new std::shared_ptr<NotificationMethod >(new NotificationMethod(**reinterpret_cast<const std::shared_ptr<NotificationMethod >*>(other))));
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_method_t *data_collection_model_notification_method_create_move(data_collection_model_notification_method_t *other)
+{
+    return reinterpret_cast<data_collection_model_notification_method_t*>(new std::shared_ptr<NotificationMethod >(std::move(*reinterpret_cast<std::shared_ptr<NotificationMethod >*>(other))));
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_method_t *data_collection_model_notification_method_copy(data_collection_model_notification_method_t *notification_method, const data_collection_model_notification_method_t *other)
+{
+    std::shared_ptr<NotificationMethod > &obj = *reinterpret_cast<std::shared_ptr<NotificationMethod >*>(notification_method);
+    *obj = **reinterpret_cast<const std::shared_ptr<NotificationMethod >*>(other);
+    return notification_method;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_method_t *data_collection_model_notification_method_move(data_collection_model_notification_method_t *notification_method, data_collection_model_notification_method_t *other)
+{
+    std::shared_ptr<NotificationMethod > &obj = *reinterpret_cast<std::shared_ptr<NotificationMethod >*>(notification_method);
+    obj = std::move(*reinterpret_cast<std::shared_ptr<NotificationMethod >*>(other));
+    return notification_method;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_notification_method_free(data_collection_model_notification_method_t *notification_method)
+{
+    delete reinterpret_cast<std::shared_ptr<NotificationMethod >*>(notification_method);
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_notification_method_toJSON(const data_collection_model_notification_method_t *notification_method, bool as_request)
+{
+    const std::shared_ptr<NotificationMethod > &obj = *reinterpret_cast<const std::shared_ptr<NotificationMethod >*>(notification_method);
+    fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
+    return json.exportCJSON();
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_method_t *data_collection_model_notification_method_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+{
+    fiveg_mag_reftools::CJson objjson(json, false);
+    try {
+        return reinterpret_cast<data_collection_model_notification_method_t*>(new std::shared_ptr<NotificationMethod >(new NotificationMethod(objjson, as_request)));
+    } catch (const fiveg_mag_reftools::ModelException &ex) {
+        if (error_reason) *error_reason = data_collection_strdup(ex.what());
+        if (error_class) *error_class = data_collection_strdup(ex.classname.c_str());
+        if (error_parameter) *error_parameter = data_collection_strdup(ex.parameter.c_str());
+    }
+    return NULL;
+}
+
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_method_is_not_set(const data_collection_model_notification_method_t *obj_notification_method)
+{
+    const std::shared_ptr<NotificationMethod > &obj = *reinterpret_cast<const std::shared_ptr<NotificationMethod >*>(obj_notification_method);
+    return obj->getValue() == NotificationMethod::Enum::NO_VAL;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_method_is_non_standard(const data_collection_model_notification_method_t *obj_notification_method)
+{
+    const std::shared_ptr<NotificationMethod > &obj = *reinterpret_cast<const std::shared_ptr<NotificationMethod >*>(obj_notification_method);
+    return obj->getValue() == NotificationMethod::Enum::OTHER;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_method_e data_collection_model_notification_method_get_enum(const data_collection_model_notification_method_t *obj_notification_method)
+{
+    const std::shared_ptr<NotificationMethod > &obj = *reinterpret_cast<const std::shared_ptr<NotificationMethod >*>(obj_notification_method);
+    switch (obj->getValue()) {
+    case NotificationMethod::Enum::NO_VAL:
+        return DCM_NOTIFICATION_METHOD_NO_VAL;
+    case NotificationMethod::Enum::VAL_PERIODIC:
+        return DCM_NOTIFICATION_METHOD_VAL_PERIODIC;
+    case NotificationMethod::Enum::VAL_ONE_TIME:
+        return DCM_NOTIFICATION_METHOD_VAL_ONE_TIME;
+    case NotificationMethod::Enum::VAL_ON_EVENT_DETECTION:
+        return DCM_NOTIFICATION_METHOD_VAL_ON_EVENT_DETECTION;
+    default:
+        break;
+    }
+    return DCM_NOTIFICATION_METHOD_OTHER;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_notification_method_get_string(const data_collection_model_notification_method_t *obj_notification_method)
+{
+    const std::shared_ptr<NotificationMethod > &obj = *reinterpret_cast<const std::shared_ptr<NotificationMethod >*>(obj_notification_method);
+    return obj->getString().c_str();
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_method_set_enum(data_collection_model_notification_method_t *obj_notification_method, data_collection_model_notification_method_e p_value)
+{
+    std::shared_ptr<NotificationMethod > &obj = *reinterpret_cast<std::shared_ptr<NotificationMethod >*>(obj_notification_method);
+    switch (p_value) {
+    case DCM_NOTIFICATION_METHOD_NO_VAL:
+        *obj = NotificationMethod::Enum::NO_VAL;
+        return true;
+    case DCM_NOTIFICATION_METHOD_VAL_PERIODIC:
+        *obj = NotificationMethod::Enum::VAL_PERIODIC;
+        return true;
+    case DCM_NOTIFICATION_METHOD_VAL_ONE_TIME:
+        *obj = NotificationMethod::Enum::VAL_ONE_TIME;
+        return true;
+    case DCM_NOTIFICATION_METHOD_VAL_ON_EVENT_DETECTION:
+        *obj = NotificationMethod::Enum::VAL_ON_EVENT_DETECTION;
+        return true;
+    default:
+        break;
+    }
+    return false;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_method_set_string(data_collection_model_notification_method_t *obj_notification_method, const char *p_value)
+{
+    std::shared_ptr<NotificationMethod > &obj = *reinterpret_cast<std::shared_ptr<NotificationMethod >*>(obj_notification_method);
+    if (p_value) {
+        *obj = std::string(p_value);
+    } else {
+        *obj = NotificationMethod::Enum::NO_VAL;
+    }
+    return true;
+}
+
+
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_notification_method_make_lnode(data_collection_model_notification_method_t *p_notification_method)
+{
+    return data_collection_lnode_create(p_notification_method, reinterpret_cast<void(*)(void*)>(data_collection_model_notification_method_free));
+}
+
+/***** Internal library protected functions *****/
+
+extern "C" long _model_notification_method_refcount(data_collection_model_notification_method_t *obj_notification_method)
+{
+    std::shared_ptr<NotificationMethod > &obj = *reinterpret_cast<std::shared_ptr<NotificationMethod >*>(obj_notification_method);
+    return obj.use_count();
+}
+
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */
+

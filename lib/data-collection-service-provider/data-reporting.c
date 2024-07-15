@@ -15,7 +15,7 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #include "data-reporting.h"
 #include "data-reporting-session-cache.h"
 
-static char *calculate_data_reporting_session_hash(dc_api_data_reporting_session_t *data_reporting_session);
+static char *calculate_data_reporting_session_hash(data_collection_model_data_reporting_session_t *data_reporting_session);
 static void supported_domains_remove_all(data_domain_list_t *supported_domains);
 static ogs_lnode_t *copy_data_domain_node(const ogs_lnode_t *to_copy);
 
@@ -65,7 +65,7 @@ DATA_COLLECTION_SVC_PRODUCER_API void data_collection_reporting_session_destroy(
 	session->supported_domains = NULL;
     }
     if (session->hash) ogs_free(session->hash);
-    if (session->data_reporting_session) dc_api_data_reporting_session_free(session->data_reporting_session);
+    if (session->data_reporting_session) data_collection_model_data_reporting_session_free(session->data_reporting_session);
     ogs_free(session);
 }
 
@@ -77,7 +77,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_session_t *data_colle
 DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_reporting_session_json(const data_collection_reporting_session_t *session)
 {
     if (!session || !session->data_reporting_session) return NULL;
-    return dc_api_data_reporting_session_convertResponseToJSON(session->data_reporting_session);
+    return data_collection_model_data_reporting_session_toJSON(session->data_reporting_session, false);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_session_get_id(const data_collection_reporting_session_t *session)
@@ -94,37 +94,18 @@ DATA_COLLECTION_SVC_PRODUCER_API const struct timespec* data_collection_reportin
 
 /********** Library internal functions ***********/
 
-data_collection_reporting_session_t *data_reporting_session_populate(data_collection_reporting_session_t *data_collection_reporting_session, dc_api_data_reporting_session_t *data_reporting_session)
+data_collection_reporting_session_t *data_reporting_session_populate(data_collection_reporting_session_t *data_collection_reporting_session, data_collection_model_data_reporting_session_t *data_reporting_session)
 {
-    OpenAPI_list_t* reporting_conditions;
-    OpenAPI_list_t* reporting_rules;
-    OpenAPI_list_t* sampling_rules;
-
     data_collection_reporting_session->data_reporting_session = data_reporting_session;
-    data_collection_reporting_session->data_reporting_session->session_id = data_collection_strdup(data_collection_reporting_session->data_reporting_session_id);
+    data_collection_model_data_reporting_session_set_session_id(data_collection_reporting_session->data_reporting_session, data_collection_reporting_session->data_reporting_session_id);
 
-    //Reporting conditions are provided through the provisioning session
-    //For now create an empty list for reporting_conditions
     //TODO: Use Reporting conditions from provisioning session once it is implemented
 
-    reporting_conditions = OpenAPI_list_create();
-    ogs_assert(reporting_conditions);
+    // data_collection_model_data_reporting_session_add_reporting_condition(data_reporting_session, reporting_condition);
+    // data_collection_model_data_reporting_session_add_reporting_rule(data_reporting_session, reporting_rule);
+    // data_collection_model_data_reporting_session_add_sampling_rule(data_reporting_session, sampling_rule);
 
-    reporting_rules = OpenAPI_list_create();
-    ogs_assert(reporting_rules);
-
-    sampling_rules = OpenAPI_list_create();
-    ogs_assert(sampling_rules);
-
-    data_reporting_session->reporting_conditions = reporting_conditions;
-
-    data_reporting_session->reporting_rules = reporting_rules;
-
-    data_reporting_session->sampling_rules = sampling_rules;
-
-    if(data_collection_reporting_session->data_reporting_session->valid_until) ogs_free(data_collection_reporting_session->data_reporting_session->valid_until);
-    data_collection_reporting_session->data_reporting_session->valid_until = ogs_time_to_string(ogs_time_now() + ogs_time_from_sec(data_collection_self()->config.server_response_cache_control->data_collection_reporting_report_response_max_age));
-
+    //data_collection_model_data_reporting_session_set_valid_until(ogs_time_now() + ogs_time_from_sec(data_collection_self()->config.server_response_cache_control->data_collection_reporting_report_response_max_age)); // Do not set valid_until, it messes with HTTP caching
     data_collection_reporting_session->hash = calculate_data_reporting_session_hash(data_collection_reporting_session->data_reporting_session);
 
     return data_collection_reporting_session;
@@ -194,13 +175,13 @@ static void supported_domains_remove_all(data_domain_list_t *supported_domains)
     }
 }
 
-static char *calculate_data_reporting_session_hash(dc_api_data_reporting_session_t *data_reporting_session)
+static char *calculate_data_reporting_session_hash(data_collection_model_data_reporting_session_t *data_reporting_session)
 {
     cJSON *data_reporting_sess;
     char *data_reporting_session_to_hash;
     char *data_reporting_session_hashed = NULL;
 
-    data_reporting_sess = dc_api_data_reporting_session_convertResponseToJSON(data_reporting_session);
+    data_reporting_sess = data_collection_model_data_reporting_session_toJSON(data_reporting_session, false);
     if (!data_reporting_sess) return NULL;
 
     data_reporting_session_to_hash = cJSON_Print(data_reporting_sess);

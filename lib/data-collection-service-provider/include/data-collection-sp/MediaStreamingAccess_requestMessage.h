@@ -1,0 +1,118 @@
+#ifndef _DATA_COLLECTION_MEDIA_STREAMING_ACCESS_REQUEST_MESSAGE_H_
+#define _DATA_COLLECTION_MEDIA_STREAMING_ACCESS_REQUEST_MESSAGE_H_
+
+/**********************************************************************************************************************************
+ * MediaStreamingAccess_requestMessage - Public C interface to the MediaStreamingAccess_requestMessage object
+ **********************************************************************************************************************************
+ * License: 5G-MAG Public License (v1.0)
+ * Authors: David Waring <david.waring2@bbc.co.uk>
+ * Copyright: (C) 2024 British Broadcasting Corporation
+ *
+ * For full license terms please see the LICENSE file distributed with this
+ * program. If this file is missing then the license can be retrieved from
+ * https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+ **********************************************************************************************************************************/
+
+#ifndef INCLUDED_FROM_DATA_COLLECTION_H
+#error "This file can only be included from data-collection.h"
+#endif
+
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef struct data_collection_model_media_streaming_access_request_message_s data_collection_model_media_streaming_access_request_message_t;
+
+    
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_create();
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_create_copy(const data_collection_model_media_streaming_access_request_message_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_create_move(data_collection_model_media_streaming_access_request_message_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_copy(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, const data_collection_model_media_streaming_access_request_message_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_move(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, data_collection_model_media_streaming_access_request_message_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_media_streaming_access_request_message_free(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message);
+
+DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_media_streaming_access_request_message_toJSON(const data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, bool as_request);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
+
+
+DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_media_streaming_access_request_message_get_method(const data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_method(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, const char* p_method);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_method_move(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, char* p_method);
+
+DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_media_streaming_access_request_message_get_url(const data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_url(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, const char* p_url);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_url_move(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, char* p_url);
+
+DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_media_streaming_access_request_message_get_protocol_version(const data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_protocol_version(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, const char* p_protocol_version);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_protocol_version_move(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, char* p_protocol_version);
+
+DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_media_streaming_access_request_message_get_range(const data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_range(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, const char* p_range);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_range_move(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, char* p_range);
+
+DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_media_streaming_access_request_message_get_size(const data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_size(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, const int32_t p_size);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_size_move(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, int32_t p_size);
+
+DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_media_streaming_access_request_message_get_body_size(const data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_body_size(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, const int32_t p_body_size);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_body_size_move(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, int32_t p_body_size);
+
+DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_media_streaming_access_request_message_get_content_type(const data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_content_type(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, const char* p_content_type);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_content_type_move(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, char* p_content_type);
+
+DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_media_streaming_access_request_message_get_user_agent(const data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_user_agent(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, const char* p_user_agent);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_user_agent_move(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, char* p_user_agent);
+
+DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_media_streaming_access_request_message_get_user_identity(const data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_user_identity(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, const char* p_user_identity);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_user_identity_move(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, char* p_user_identity);
+
+DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_media_streaming_access_request_message_get_referer(const data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_referer(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, const char* p_referer);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_referer_move(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, char* p_referer);
+
+/* lnode helper for generating ogs_list_t nodes's of type MediaStreamingAccess_requestMessage */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_media_streaming_access_request_message_make_lnode(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message);
+
+/***** Internal library protected functions *****/
+
+#ifdef __cplusplus
+}
+#endif
+
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */
+
+#endif /* ifndef _DATA_COLLECTION_MEDIA_STREAMING_ACCESS_REQUEST_MESSAGE_H_ */
+

@@ -552,14 +552,13 @@ static void __send_af_event_exposure_subscription(ogs_sbi_stream_t *stream, ogs_
 						char *location, cJSON *response_body, int path_length,
                                                 const nf_server_interface_metadata_t *api, const nf_server_app_metadata_t *app_meta)
 {
-    //char *location;
     cJSON *json = NULL;
     ogs_sbi_response_t *response;
-    data_collection_af_event_exposure_subscription_t *af_event_exposure_subscription = data_collection_event_subscription_get_af_event_exposure_subscription(data_collection_event_subscription);
-    if(response_body) {
+    const data_collection_model_af_event_exposure_subsc_t *af_event_exposure_subscription = data_collection_event_subscription_get_af_event_exposure_subsc(data_collection_event_subscription);
+    if (response_body) {
         json = response_body;
     } else {
-        json = data_collection_af_event_exposure_subscription_json(af_event_exposure_subscription);
+        json = data_collection_model_af_event_exposure_subsc_toJSON(af_event_exposure_subscription, false);
     }
     if (!json) {
         static const char *err = "Unable to convert AfEventExposureSubsc to JSON";
@@ -569,23 +568,21 @@ static void __send_af_event_exposure_subscription(ogs_sbi_stream_t *stream, ogs_
         return;
     }
     char *body = cJSON_Print(json);
-    if(json) {
-        cJSON_Delete(json);
-        json = NULL;	
-    }
+    cJSON_Delete(json);
 
-    //location = ogs_msprintf("%s/%s", message->h.uri, data_collection_event_subscription_get_id(data_collection_event_subscription));
     ogs_info("LOC: %s", location);    
-    response = nf_server_new_response(location, "application/json", data_collection_event_exposure_subscription_last_used(data_collection_event_subscription), 
+    response = nf_server_new_response(location, "application/json",
+                    data_collection_event_subscription_get_last_modified(data_collection_event_subscription),
 		    data_collection_event_exposure_subscription_etag(data_collection_event_subscription),
-		    data_collection_self()->config.server_response_cache_control->data_collection_reporting_provisioning_session_response_max_age, NULL, api, app_meta);
+		    data_collection_self()->config.server_response_cache_control->
+                                data_collection_reporting_provisioning_session_response_max_age, NULL, api, app_meta);
  
     ogs_assert(response);
-    nf_server_populate_response(response, strlen(body), data_collection_strdup(body), OGS_SBI_HTTP_STATUS_OK);
+    nf_server_populate_response(response, strlen(body), body, OGS_SBI_HTTP_STATUS_OK);
     ogs_assert(true == ogs_sbi_server_send_response(stream, response));
     cJSON_free(body);
 
-    if(location) ogs_free(location);
+    if (location) ogs_free(location);
 }
 
 #ifdef __cplusplus

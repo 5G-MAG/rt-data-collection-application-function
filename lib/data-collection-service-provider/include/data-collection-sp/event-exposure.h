@@ -16,11 +16,27 @@
 #error "This file can only be included from data-collection.h"
 #endif
 
-#include "ogs-core.h"
-#include "ogs-sbi.h"
+#include "sbi/openapi/external/cJSON.h"
 
 #ifdef __cplusplus
+
+typedef struct ogs_list_s ogs_list_t;
+
+#ifndef OGS_CORE_INSIDE
+#define OGS_CORE_INSIDE
+#endif
+#ifndef OGS_USE_TALLOC
+#define OGS_USE_TALLOC 1
+#endif
+#include "ogs-macros.h"
+#include "ogs-list.h"
+#include "ogs-time.h"
+
+#undef OGS_CORE_INSIDE
+
 extern "C" {
+#else
+#include "ogs-core.h"
 #endif
 
 /***** Enumerations *****/
@@ -67,12 +83,10 @@ typedef enum {
  * Use data_collection_event_subscription_*() functions to access this type.
  */
 
-typedef struct dc_api_events_subs_s dc_api_events_subs_t;
-typedef struct dc_api_af_event_exposure_subsc_s dc_api_af_event_exposure_subsc_t;
-typedef struct dc_api_event_filter_s dc_api_event_filter_t;
+typedef struct data_collection_model_events_subs_s data_collection_model_events_subs_t;
+typedef struct data_collection_model_af_event_exposure_subsc_s data_collection_model_af_event_exposure_subsc_t;
+typedef struct data_collection_model_event_filter_s data_collection_model_event_filter_t;
 typedef struct data_collection_event_subscription_s data_collection_event_subscription_t;
-typedef struct data_collection_af_event_exposure_subscription_s data_collection_af_event_exposure_subscription_t;
-typedef struct data_collection_af_events_subscription_s data_collection_af_events_subscription_t;
 
 /***** Interface callbacks *****/
 
@@ -94,54 +108,38 @@ typedef struct data_collection_data_event_s {
 
 /***** Library function API *****/
 
-/* DATA_COLLECTION_SVC_PRODUCER_API {fn-prototype} */
-data_collection_event_subscription_t *data_collection_event_subscription_subscribe(data_collection_af_event_exposure_subscription_t *subscription, const char **error_return, const char **error_parameter /* output */);
+/** Subscribe to event exposure session */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_event_subscription_t *data_collection_event_subscription_subscribe(data_collection_model_af_event_exposure_subsc_t *subscription, char **error_return /* output */, char **error_parameter /* output */);
 
-void data_collection_event_subscription_unsubscribe(data_collection_event_subscription_t *event_subscription);
+/** Unsubscribe an event exposure session */
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_event_subscription_unsubscribe(data_collection_event_subscription_t *event_subscription);
 
-extern data_collection_af_event_exposure_subscription_t *data_collection_af_event_exposure_subscription_from_json_request(cJSON *json /* not-null */, const char **error_return /* output */, const char **error_parameter /* output */);
-
-int data_collection_af_event_exposure_subscription_num_events_subs(const data_collection_af_event_exposure_subscription_t *subscription /* not-null */);
-
-extern data_collection_af_event_exposure_subscription_t *data_collection_event_subscription_get_af_event_exposure_subscription(data_collection_event_subscription_t *event_subscription /* not-null */);
-extern data_collection_af_events_subscription_t *data_collection_af_event_exposure_subscription_get_events_subs(data_collection_af_event_exposure_subscription_t *subscription /* not-null */, size_t index);
-
-extern dc_api_events_subs_t *data_collection_af_event_exposure_subscription_get_events_subsc(data_collection_af_event_exposure_subscription_t *subscription /* not-null */, size_t index);
-
-char *data_collection_af_events_exposure_subscription_get_event_type(dc_api_events_subs_t *events_subsc);
-
-/**Find an event subscription by the {subscriptionId} */
-data_collection_event_subscription_t *data_collection_event_subscription_find_by_id(const char *subscription_id /* not-null */);
-
+/** Find an event subscription by the {subscriptionId} */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_event_subscription_t *data_collection_event_subscription_find_by_id(const char *subscription_id /* not-null */);
 
 /** Get the AF Event Exposure Subscription for the event subscription context*/
-data_collection_af_event_exposure_subscription_t *data_collection_event_subscription_get_af_event_exposure_subscription(data_collection_event_subscription_t *event_subscription /* not-null */);
-
-/** Get the AF Event Exposure Subscription for the event subscription context (const version) */
-const data_collection_af_event_exposure_subscription_t *data_collection_event_subscription_get_af_event_exposure_subscription_const(const data_collection_event_subscription_t *event_subscription /* not-null */);
+DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_af_event_exposure_subsc_t *data_collection_event_subscription_get_af_event_exposure_subsc(const data_collection_event_subscription_t *event_subscription /* not-null */);
 
 /** Set the AF Event Exposure Subscription for the event subscription context */
-bool data_collection_event_subscription_set_af_event_exposure_subscription_const(data_collection_event_subscription_t *event_subscription /* not-null */, data_collection_af_event_exposure_subscription_t *af_event_exposure_subscription /* not-null, transfer */);
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_event_subscription_set_af_event_exposure_subsc(data_collection_event_subscription_t *event_subscription /* not-null */, data_collection_model_af_event_exposure_subsc_t *af_event_exposure_subscription /* not-null, transfer */);
 
 /** Get the event subscription id */
-char *data_collection_event_subscription_get_id(data_collection_event_subscription_t *event_subscription);
-
+DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_event_subscription_get_id(const data_collection_event_subscription_t *event_subscription);
 
 /** Get the Event Exposure Subscription last used date-time */
-ogs_time_t data_collection_event_exposure_subscription_last_used(data_collection_event_subscription_t *event_subscription);
+DATA_COLLECTION_SVC_PRODUCER_API ogs_time_t data_collection_event_subscription_get_last_modified(const data_collection_event_subscription_t *event_subscription);
 
 /** Get the Event Exposure Subscription entity instance tag */
-char *data_collection_event_exposure_subscription_etag(data_collection_event_subscription_t *event_subscription);
+DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_event_subscription_get_etag(const data_collection_event_subscription_t *event_subscription);
 
-/** Get the Event Filter */
-dc_api_event_filter_t *data_collection_event_exposure_subscription_get_filter(data_collection_af_events_subscription_t *events_subscription);
+/** Get the immediate reports flag */
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_event_subscription_get_imm_rep_flag(const data_collection_event_subscription_t *event_subscription);
 
-/** Generate AfEventNotification for AfEventExposureSubsc response */
-cJSON *data_collection_generate_af_event_notification_for_subscription(data_collection_event_subscription_t *data_collection_event_subscription);
+/** Generate AfEventExposureSubsc response for the event subscription */
+DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_event_subscription_generate_af_event_exposure_subsc(data_collection_event_subscription_t *data_collection_event_subscription);
 
-cJSON *data_collection_generate_af_event_notification(data_collection_event_subscription_t *data_collection_event_subscription);
-
-int data_collection_send_af_event_exposure_notif(data_collection_event_subscription_t *data_collection_event_subscription, cJSON *af_event_notification);
+/** Generate AfEventExposureNotif request for the event subscription */
+DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_event_subscription_generate_af_event_exposure_notif(data_collection_event_subscription_t *data_collection_event_subscription);
 
 #ifdef __cplusplus
 }

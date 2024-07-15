@@ -1,0 +1,96 @@
+#ifndef _DATA_COLLECTION_DATA_ACCESS_PROFILE_USER_ACCESS_RESTRICTIONS_H_
+#define _DATA_COLLECTION_DATA_ACCESS_PROFILE_USER_ACCESS_RESTRICTIONS_H_
+
+/**********************************************************************************************************************************
+ * DataAccessProfile_userAccessRestrictions - Public C interface to the DataAccessProfile_userAccessRestrictions object
+ **********************************************************************************************************************************
+ * License: 5G-MAG Public License (v1.0)
+ * Authors: David Waring <david.waring2@bbc.co.uk>
+ * Copyright: (C) 2024 British Broadcasting Corporation
+ *
+ * For full license terms please see the LICENSE file distributed with this
+ * program. If this file is missing then the license can be retrieved from
+ * https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+ **********************************************************************************************************************************/
+
+#ifndef INCLUDED_FROM_DATA_COLLECTION_H
+#error "This file can only be included from data-collection.h"
+#endif
+
+#include "DataAccessProfile_userAccessRestrictions_userIds_inner.h"
+#include "DataAggregationFunctionType.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef struct data_collection_model_data_access_profile_user_access_restrictions_s data_collection_model_data_access_profile_user_access_restrictions_t;
+
+    
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_create();
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_create_copy(const data_collection_model_data_access_profile_user_access_restrictions_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_create_move(data_collection_model_data_access_profile_user_access_restrictions_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_copy(data_collection_model_data_access_profile_user_access_restrictions_t *data_access_profile_user_access_restrictions, const data_collection_model_data_access_profile_user_access_restrictions_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_move(data_collection_model_data_access_profile_user_access_restrictions_t *data_access_profile_user_access_restrictions, data_collection_model_data_access_profile_user_access_restrictions_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_data_access_profile_user_access_restrictions_free(data_collection_model_data_access_profile_user_access_restrictions_t *data_access_profile_user_access_restrictions);
+
+DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_data_access_profile_user_access_restrictions_toJSON(const data_collection_model_data_access_profile_user_access_restrictions_t *data_access_profile_user_access_restrictions, bool as_request);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
+
+
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_access_profile_user_access_restrictions_get_group_ids(const data_collection_model_data_access_profile_user_access_restrictions_t *data_access_profile_user_access_restrictions);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_set_group_ids(data_collection_model_data_access_profile_user_access_restrictions_t *data_access_profile_user_access_restrictions, const ogs_list_t* p_group_ids);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_set_group_ids_move(data_collection_model_data_access_profile_user_access_restrictions_t *data_access_profile_user_access_restrictions, ogs_list_t* p_group_ids);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_add_group_ids(data_collection_model_data_access_profile_user_access_restrictions_t *data_access_profile_user_access_restrictions, char* group_ids);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_remove_group_ids(data_collection_model_data_access_profile_user_access_restrictions_t *data_access_profile_user_access_restrictions, const char* group_ids);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_clear_group_ids(data_collection_model_data_access_profile_user_access_restrictions_t *data_access_profile_user_access_restrictions);
+
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_access_profile_user_access_restrictions_get_user_ids(const data_collection_model_data_access_profile_user_access_restrictions_t *data_access_profile_user_access_restrictions);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_set_user_ids(data_collection_model_data_access_profile_user_access_restrictions_t *data_access_profile_user_access_restrictions, const ogs_list_t* p_user_ids);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_set_user_ids_move(data_collection_model_data_access_profile_user_access_restrictions_t *data_access_profile_user_access_restrictions, ogs_list_t* p_user_ids);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_add_user_ids(data_collection_model_data_access_profile_user_access_restrictions_t *data_access_profile_user_access_restrictions, data_collection_model_data_access_profile_user_access_restrictions_user_ids_inner_t* user_ids);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_remove_user_ids(data_collection_model_data_access_profile_user_access_restrictions_t *data_access_profile_user_access_restrictions, const data_collection_model_data_access_profile_user_access_restrictions_user_ids_inner_t* user_ids);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_clear_user_ids(data_collection_model_data_access_profile_user_access_restrictions_t *data_access_profile_user_access_restrictions);
+
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_access_profile_user_access_restrictions_get_aggregation_functions(const data_collection_model_data_access_profile_user_access_restrictions_t *data_access_profile_user_access_restrictions);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_set_aggregation_functions(data_collection_model_data_access_profile_user_access_restrictions_t *data_access_profile_user_access_restrictions, const ogs_list_t* p_aggregation_functions);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_set_aggregation_functions_move(data_collection_model_data_access_profile_user_access_restrictions_t *data_access_profile_user_access_restrictions, ogs_list_t* p_aggregation_functions);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_add_aggregation_functions(data_collection_model_data_access_profile_user_access_restrictions_t *data_access_profile_user_access_restrictions, data_collection_model_data_aggregation_function_type_t* aggregation_functions);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_remove_aggregation_functions(data_collection_model_data_access_profile_user_access_restrictions_t *data_access_profile_user_access_restrictions, const data_collection_model_data_aggregation_function_type_t* aggregation_functions);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_clear_aggregation_functions(data_collection_model_data_access_profile_user_access_restrictions_t *data_access_profile_user_access_restrictions);
+
+/* lnode helper for generating ogs_list_t nodes's of type DataAccessProfile_userAccessRestrictions */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_data_access_profile_user_access_restrictions_make_lnode(data_collection_model_data_access_profile_user_access_restrictions_t *data_access_profile_user_access_restrictions);
+
+/***** Internal library protected functions *****/
+
+#ifdef __cplusplus
+}
+#endif
+
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */
+
+#endif /* ifndef _DATA_COLLECTION_DATA_ACCESS_PROFILE_USER_ACCESS_RESTRICTIONS_H_ */
+

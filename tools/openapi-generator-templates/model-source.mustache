@@ -1,0 +1,292 @@
+/**********************************************************************************************************************************
+{{#models}}{{#model}} * {{classname}} - C interface to the {{classname}} object
+ **********************************************************************************************************************************
+ * License: 5G-MAG Public License (v1.0)
+ * Authors: David Waring <david.waring2@bbc.co.uk>
+ * Copyright: (C) 2024 British Broadcasting Corporation
+ *
+ * For full license terms please see the LICENSE file distributed with this
+ * program. If this file is missing then the license can be retrieved from
+ * https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+ **********************************************************************************************************************************/
+
+#include <memory>
+#include <type_traits>
+
+#include "ogs-memory-helper.h"
+#include "utilities.h"
+#include "openapi/model/ModelException.hh"
+#include "data-collection-sp/data-collection.h"
+
+/*{{{importPath}}} already included by data-collection-sp/data-collection.h */
+#include "{{classname}}-internal.h"
+#include "openapi/model/{{classname}}.h"
+
+{{#modelNamespace}}using namespace {{modelNamespace}};{{/modelNamespace}}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_create({{#vars}}{{#isRequired}}{{^readOnly}}{{^writeOnly}}{{datatype}} p_{{name}}{{^-last}},{{/-last}}{{/writeOnly}}{{/readOnly}}{{/isRequired}}
+{{/vars}})
+{
+    return reinterpret_cast<data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t*>(new std::shared_ptr<{{classname}}>(new {{classname}}({{#vars}}{{#isRequired}}{{^readOnly}}{{^writeOnly}}p_{{name}}{{^-last}},{{/-last}}{{/writeOnly}}{{/readOnly}}{{/isRequired}}
+{{/vars}})));
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_create_copy(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *other)
+{
+    return reinterpret_cast<data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t*>(new std::shared_ptr<{{classname}} >(new {{classname}}(**reinterpret_cast<const std::shared_ptr<{{classname}} >*>(other))));
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_create_move(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *other)
+{
+    return reinterpret_cast<data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t*>(new std::shared_ptr<{{classname}} >(std::move(*reinterpret_cast<std::shared_ptr<{{classname}} >*>(other))));
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_copy(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}, const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *other)
+{
+    std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>({{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}});
+    *obj = **reinterpret_cast<const std::shared_ptr<{{classname}} >*>(other);
+    return {{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}};
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_move(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}, data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *other)
+{
+    std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>({{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}){{/lambda.snakecase}}{{/lambda.lowercase}};
+    obj = std::move(*reinterpret_cast<std::shared_ptr<{{classname}} >*>(other));
+    return {{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}};
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_free(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}})
+{
+    delete reinterpret_cast<std::shared_ptr<{{classname}} >*>({{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}});
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_toJSON(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}, bool as_request)
+{
+    const std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>({{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}});
+    fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
+    return json.exportCJSON();
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+{
+    fiveg_mag_reftools::CJson objjson(json, false);
+    try {
+        return reinterpret_cast<data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t*>(new std::shared_ptr<{{classname}} >(new {{classname}}(objjson, as_request)));
+    } catch (const fiveg_mag_reftools::ModelException &ex) {
+        if (error_reason) *error_reason = data_collection_strdup(ex.what());
+        if (error_class) *error_class = data_collection_strdup(ex.classname.c_str());
+        if (error_parameter) *error_parameter = data_collection_strdup(ex.parameter.c_str());
+    }
+    return NULL;
+}
+
+{{^hasVars}}{{#isEnum}}{{#allowableValues}}
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_is_not_set(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
+{
+    const std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>({{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    return obj->getValue() == {{classname}}::Enum::NO_VAL;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_e data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_get_enum(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
+{
+    const std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    switch (obj->getValue()) {
+    case {{classname}}::Enum::NO_VAL:
+        return DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_NO_VAL;
+{{#values}}    case {{classname}}::Enum::VAL_{{#lambda.uppercase}}{{#lambda.snakecase}}{{.}}{{/lambda.snakecase}}{{/lambda.uppercase}}:
+        return DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_VAL_{{#lambda.uppercase}}{{#lambda.snakecase}}{{.}}{{/lambda.snakecase}}{{/lambda.uppercase}};
+{{/values}}
+    default:
+        break;
+    }
+    return (data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_e)-1;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_get_string(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
+{
+    const std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    return obj->getString().c_str();
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_set_enum(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_e p_value)
+{
+    std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    switch (p_value) {
+    case DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_NO_VAL:
+        *obj = {{classname}}::Enum::NO_VAL;
+        return true;
+{{#values}}    case DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_VAL_{{#lambda.uppercase}}{{#lambda.snakecase}}{{.}}{{/lambda.snakecase}}{{/lambda.uppercase}}:
+        *obj = {{classname}}::Enum::VAL_{{#lambda.uppercase}}{{#lambda.snakecase}}{{.}}{{/lambda.snakecase}}{{/lambda.uppercase}};
+        return true;
+{{/values}}
+    default:
+        break;
+    }
+    return false;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_set_string(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, const char *p_value)
+{
+    std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    if (p_value) {
+        *obj = std::string(p_value);
+    } else {
+        *obj = {{classname}}::Enum::NO_VAL;
+    }
+    return true;
+}
+
+{{/allowableValues}}{{/isEnum}}{{^isEnum}}{{#composedSchemas}}{{^oneOf}}{{^allOf}}{{^anyOf.2.name}}{{#anyOf.1.isString}}{{#anyOf.0.isEnumRef}}
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_is_not_set(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
+{
+    const std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    return obj->getValue() == {{classname}}::Enum::NO_VAL;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_is_non_standard(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
+{
+    const std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    return obj->getValue() == {{classname}}::Enum::OTHER;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_e data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_get_enum(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
+{
+    const std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    switch (obj->getValue()) {
+    case {{classname}}::Enum::NO_VAL:
+        return DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_NO_VAL;
+{{#anyOf.0.allowableValues.values}}    case {{classname}}::Enum::VAL_{{#lambda.uppercase}}{{#lambda.snakecase}}{{.}}{{/lambda.snakecase}}{{/lambda.uppercase}}:
+        return DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_VAL_{{#lambda.uppercase}}{{#lambda.snakecase}}{{.}}{{/lambda.snakecase}}{{/lambda.uppercase}};
+{{/anyOf.0.allowableValues.values}}
+    default:
+        break;
+    }
+    return DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_OTHER;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_get_string(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
+{
+    const std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    return obj->getString().c_str();
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_set_enum(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_e p_value)
+{
+    std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    switch (p_value) {
+    case DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_NO_VAL:
+        *obj = {{classname}}::Enum::NO_VAL;
+        return true;
+{{#anyOf.0.allowableValues.values}}    case DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_VAL_{{#lambda.uppercase}}{{#lambda.snakecase}}{{.}}{{/lambda.snakecase}}{{/lambda.uppercase}}:
+        *obj = {{classname}}::Enum::VAL_{{#lambda.uppercase}}{{#lambda.snakecase}}{{.}}{{/lambda.snakecase}}{{/lambda.uppercase}};
+        return true;
+{{/anyOf.0.allowableValues.values}}
+    default:
+        break;
+    }
+    return false;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_set_string(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, const char *p_value)
+{
+    std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    if (p_value) {
+        *obj = std::string(p_value);
+    } else {
+        *obj = {{classname}}::Enum::NO_VAL;
+    }
+    return true;
+}
+
+{{/anyOf.0.isEnumRef}}{{/anyOf.1.isString}}{{/anyOf.2.name}}{{/allOf}}{{/oneOf}}{{/composedSchemas}}{{/isEnum}}{{/hasVars}}
+{{#vars}}
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" {{#isContainer}}{{^isArray}}const {{/isArray}}{{/isContainer}}{{^isContainer}}const {{/isContainer}}{{>data-type}} data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_{{#lambda.lowercase}}{{#lambda.snakecase}}{{getter}}{{/lambda.snakecase}}{{/lambda.lowercase}}(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
+{
+    const std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    typedef typename {{{classname}}}::{{name}}Type ResultFromType;
+    const ResultFromType result_from = obj->{{{getter}}}();
+    {{>make-result}}
+
+    return result;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_{{#lambda.lowercase}}{{#lambda.snakecase}}{{setter}}{{/lambda.snakecase}}{{/lambda.lowercase}}(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, const {{>data-type}} p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}})
+{
+    if (obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} == NULL) return NULL;
+
+    std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    const auto &value_from = p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}};
+    typedef typename {{{classname}}}::{{name}}Type ValueType;
+
+    {{>make-value}}
+
+    if (!obj->{{setter}}(value)) return NULL;
+    return obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}};
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_{{#lambda.lowercase}}{{#lambda.snakecase}}{{setter}}{{/lambda.snakecase}}{{/lambda.lowercase}}_move(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, {{>data-type}} p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}})
+{
+    if (obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} == NULL) return NULL;
+
+    std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    const auto &value_from = p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}};
+    typedef typename {{{classname}}}::{{name}}Type ValueType;
+
+    {{>make-value}}
+
+    {{#isContainer}}{{#isArray}}data_collection_list_free(p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}});{{/isArray}}{{#isMap}}data_collection_hash_free(p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}, reinterpret_cast<void(*)(void*)>({{#items}}{{#isString}}_ogs_free{{/isString}}{{^isString}}data_collection_model_{{#lambda.snakecase}}{{{complexType}}}{{/lambda.snakecase}}_free{{/isString}}{{/items}}));{{/isMap}}{{/isContainer}}
+    if (!obj->{{setter}}(std::move(value))) return NULL;
+    return obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}};
+}
+
+{{#isContainer}}
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_add_{{#lambda.lowercase}}{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}{{/lambda.lowercase}}(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, {{#isMap}}const char *p_key, const {{/isMap}}{{#items}}{{>data-type}}{{/items}} p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}})
+{
+    std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    typedef typename {{{classname}}}::{{name}}Type ContainerType;
+    typedef typename ContainerType::{{#isMap}}mapped_type{{/isMap}}{{#isArray}}value_type{{/isArray}} ValueType;
+    const auto &value_from = p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}};
+
+    {{#items}}{{>make-value}}{{/items}}
+
+    obj->add{{name}}({{#isMap}}std::string(p_key), {{/isMap}}value);
+    return obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}};
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_remove_{{#lambda.lowercase}}{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}{{/lambda.lowercase}}(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, const {{#isMap}}char *p_key{{/isMap}}{{^isMap}}{{#items}}{{>data-type}}{{/items}} p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}{{/isMap}})
+{
+    std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    {{^isMap}}typedef typename {{{classname}}}::{{name}}Type ContainerType;
+    typedef typename ContainerType::{{#isMap}}mapped_type{{/isMap}}{{#isArray}}value_type{{/isArray}} ValueType;
+    auto &value_from = p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}};
+    {{#items}}{{>make-value}}{{/items}}{{/isMap}}
+    obj->remove{{name}}({{#isMap}}std::string(p_key){{/isMap}}{{^isMap}}value{{/isMap}});
+    return obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}};
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_clear_{{#lambda.lowercase}}{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}{{/lambda.lowercase}}(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
+{   
+    std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    obj->clear{{name}}();
+    return obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}};
+}
+
+{{/isContainer}}
+{{/vars}}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_make_lnode(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *p_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}})
+{
+    return data_collection_lnode_create(p_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}, reinterpret_cast<void(*)(void*)>(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_free));
+}
+
+/***** Internal library protected functions *****/
+
+extern "C" long _model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_refcount(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
+{
+    std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    return obj.use_count();
+}
+
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */
+{{/model}}{{/models}}

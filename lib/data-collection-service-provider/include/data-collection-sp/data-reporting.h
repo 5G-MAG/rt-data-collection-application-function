@@ -16,10 +16,22 @@
 #error "This file can only be included from data-collection.h"
 #endif
 
-#include "ogs-sbi.h"
+#include "sbi/openapi/external/cJSON.h"
+
+#include "ogs-core.h"
 
 #ifdef __cplusplus
+#ifndef OGS_CORE_INSIDE
+#define OGS_CORE_INSIDE
+#endif
+#ifndef OGS_USE_TALLOC
+#define OGS_USE_TALLOC 1
+#endif
+#include "ogs-list.h"
+
 extern "C" {
+#else
+#include "ogs-core.h"
 #endif
 
 /***** Enumerations *****/
@@ -113,7 +125,7 @@ DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_reporting_report_fi
 DATA_COLLECTION_SVC_PRODUCER_API void *data_collection_reporting_data_report_get(data_collection_data_report_record_t *data_report);
 
 /** Get the Application ID of the Data Report */
-DATA_COLLECTION_SVC_PRODUCER_API char *data_collection_data_report_get_application_id(data_collection_data_report_record_t *data_report);
+DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_data_report_get_application_id(const data_collection_data_report_record_t *data_report);
 
 /** Get the data reporting session id */
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_session_get_id(const data_collection_reporting_session_t *session);
@@ -122,10 +134,13 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_session_g
 DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report(data_collection_reporting_session_t *session, const char *mime_type, const void *data, size_t data_length, const char **error_return, const char **error_code, const char **error_parameter);
 
 /** Mark a data report as having been used */
-DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report_used(data_collection_data_report_record_t *, data_collection_event_subscription_t *);
+DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report_used(data_collection_data_report_record_t *, const data_collection_event_subscription_t *);
 
 /** Expire a data report */
 DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report_expire(data_collection_data_report_record_t *);
+
+/** Get the AF managed data block for this report */
+DATA_COLLECTION_SVC_PRODUCER_API void *data_collection_reporting_data_report_get(data_collection_data_report_record_t *data_report_record);
 
 #ifdef __cplusplus
 }

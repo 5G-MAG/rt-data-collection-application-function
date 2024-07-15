@@ -1,0 +1,120 @@
+#ifndef _DATA_COLLECTION_SERVICE_EXPERIENCE_INFO_PER_APP_H_
+#define _DATA_COLLECTION_SERVICE_EXPERIENCE_INFO_PER_APP_H_
+
+/**********************************************************************************************************************************
+ * ServiceExperienceInfoPerApp - Public C interface to the ServiceExperienceInfoPerApp object
+ **********************************************************************************************************************************
+ * License: 5G-MAG Public License (v1.0)
+ * Authors: David Waring <david.waring2@bbc.co.uk>
+ * Copyright: (C) 2024 British Broadcasting Corporation
+ *
+ * For full license terms please see the LICENSE file distributed with this
+ * program. If this file is missing then the license can be retrieved from
+ * https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+ **********************************************************************************************************************************/
+
+#ifndef INCLUDED_FROM_DATA_COLLECTION_H
+#error "This file can only be included from data-collection.h"
+#endif
+
+#include "ServiceExperienceInfoPerFlow.h"
+#include "AddrFqdn.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef struct data_collection_model_service_experience_info_per_app_s data_collection_model_service_experience_info_per_app_t;
+
+    
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_create();
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_create_copy(const data_collection_model_service_experience_info_per_app_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_create_move(data_collection_model_service_experience_info_per_app_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_copy(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, const data_collection_model_service_experience_info_per_app_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_move(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, data_collection_model_service_experience_info_per_app_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_service_experience_info_per_app_free(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app);
+
+DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_service_experience_info_per_app_toJSON(const data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, bool as_request);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
+
+
+DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_service_experience_info_per_app_get_app_id(const data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_app_id(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, const char* p_app_id);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_app_id_move(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, char* p_app_id);
+
+DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_addr_fqdn_t* data_collection_model_service_experience_info_per_app_get_app_server_ins(const data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_app_server_ins(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, const data_collection_model_addr_fqdn_t* p_app_server_ins);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_app_server_ins_move(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, data_collection_model_addr_fqdn_t* p_app_server_ins);
+
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_service_experience_info_per_app_get_svc_exp_per_flows(const data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_svc_exp_per_flows(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, const ogs_list_t* p_svc_exp_per_flows);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_svc_exp_per_flows_move(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, ogs_list_t* p_svc_exp_per_flows);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_add_svc_exp_per_flows(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, data_collection_model_service_experience_info_per_flow_t* svc_exp_per_flows);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_remove_svc_exp_per_flows(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, const data_collection_model_service_experience_info_per_flow_t* svc_exp_per_flows);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_clear_svc_exp_per_flows(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app);
+
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_service_experience_info_per_app_get_gpsis(const data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_gpsis(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, const ogs_list_t* p_gpsis);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_gpsis_move(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, ogs_list_t* p_gpsis);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_add_gpsis(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, char* gpsis);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_remove_gpsis(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, const char* gpsis);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_clear_gpsis(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app);
+
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_service_experience_info_per_app_get_supis(const data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_supis(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, const ogs_list_t* p_supis);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_supis_move(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, ogs_list_t* p_supis);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_add_supis(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, char* supis);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_remove_supis(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, const char* supis);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_clear_supis(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app);
+
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_service_experience_info_per_app_get_contr_weights(const data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_contr_weights(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, const ogs_list_t* p_contr_weights);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_contr_weights_move(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, ogs_list_t* p_contr_weights);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_add_contr_weights(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, int32_t contr_weights);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_remove_contr_weights(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, const int32_t contr_weights);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_clear_contr_weights(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app);
+
+/* lnode helper for generating ogs_list_t nodes's of type ServiceExperienceInfoPerApp */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_service_experience_info_per_app_make_lnode(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app);
+
+/***** Internal library protected functions *****/
+
+#ifdef __cplusplus
+}
+#endif
+
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */
+
+#endif /* ifndef _DATA_COLLECTION_SERVICE_EXPERIENCE_INFO_PER_APP_H_ */
+

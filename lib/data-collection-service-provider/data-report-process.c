@@ -22,17 +22,18 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #include "data-reporting.h"
 #include "data-report-process.h"
 #include "data-reporting-session-cache.h"
-#include "event-subscription.h"
 #include "lib-metadata.h"
 #include "event.h"
 #include "timer.h"
-#include "openapi/model/dc_api_data_reporting_session.h"
-#include "openapi/model/dc_api_af_event_exposure_subsc.h"
-#include "openapi/api/TS26532_Ndcaf_DataReportingAPI-info.h"
-#include "openapi/api/TS26532_Ndcaf_DataReportingProvisioningAPI-info.h"
-#include "openapi/api/ApplicationEventSubscriptionCollectionAPI-info.h"
+#include "event-subscription.h"
+
+#include "openapi/api/TS26532_Ndcaf_DataReportingApi-info.h"
+#include "openapi/api/TS26532_Ndcaf_DataReportingProvisioningApi-info.h"
+#include "openapi/api/ApplicationEventSubscriptionCollectionApi-info.h"
 
 #include "data-collection-sp/data-collection.h"
+
+#include "data-reporting-process.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -52,9 +53,7 @@ ndcaf_datareportingprovisioning_api_metadata = {
 
 static const char *__event_get_name(ogs_event_t *e);
 static bool __does_stream_server_match_server(ogs_sbi_server_t *server, data_collection_configuration_server_ifc_t ifc);
-static data_domain_list_t *__populate_supported_domains(OpenAPI_list_t *supported_domains);
-static void __free_supported_domains(data_domain_list_t *supported_domains);
-static void __send_data_reporting_configuration(ogs_sbi_stream_t *stream, ogs_sbi_message_t *message, 
+static void __send_data_reporting_configuration(ogs_sbi_stream_t *stream, ogs_sbi_message_t *message,
                                                 data_collection_reporting_configuration_t *configuration, int path_length,
                                                 const nf_server_interface_metadata_t *api,
                                                 const nf_server_app_metadata_t *app_meta);
@@ -88,7 +87,7 @@ bool _data_report_process_event(ogs_event_t *e)
 
         }
         break;
-	    
+
     case DC_EVENT_DATA_REPORTS_EXPIRY:
         ogs_assert(e);
         switch(e->timer_id) {
@@ -103,13 +102,13 @@ bool _data_report_process_event(ogs_event_t *e)
 
         }
         break;
-	    
+
     case DC_EVENT_DATA_REPORTS_CLEAR:
         ogs_assert(e);
         switch(e->timer_id) {
             case DC_TIMER_DATA_REPORTS_CLEAR:
                 {
-		    data_reports_clear(data_collection_self()->data_reports);
+		    remove_expired_data_reports(data_collection_self()->data_reports);
                 }
                 break;
             default:
@@ -209,7 +208,7 @@ bool _data_report_process_event(ogs_event_t *e)
 			    SWITCH(message.h.method)
                             CASE(OGS_SBI_HTTP_METHOD_POST)
 			        ogs_debug("POST response: status = %i", message.res_status);
-			        
+
 				if (message.h.resource.component[2] && !strcmp(message.h.resource.component[2], "report")) {
 					int rv;
                                         data_collection_reporting_session_t *data_collection_reporting_session;
@@ -223,7 +222,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                         ogs_debug("Request body: %s", request->http.content);
 
                                         if(check_http_content_type(request->http,"application/json")){
-					    mime_type = "application/json";	
+					    mime_type = "application/json";
 					}
 
                                         data_collection_reporting_session = data_collection_reporting_session_find(message.h.resource.component[1]);
@@ -249,7 +248,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                         }
 
 					rv = data_collection_reporting_report(data_collection_reporting_session,mime_type?(const char *)data_collection_strdup(mime_type): NULL, (const void *)data_collection_strdup(request->http.content), strlen(request->http.content), &error_return, &error_code, &error_parameter);
-					
+
 					if(rv == OGS_ERROR) {
 
 				            if (error_parameter) {
@@ -257,16 +256,16 @@ bool _data_report_process_event(ogs_event_t *e)
 					        char *err = NULL;
                                                 err = ogs_msprintf("Unable to parse Data Report as JSON.");
                                                 ogs_error("%s", err);
-	
+
                                                 invalid_params = nf_server_make_invalid_params(error_parameter, error_return);
-                                                  
+
                                                 ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_BAD_REQUEST, 0,
                                                                         &message, "Bad Request", err, NULL, invalid_params, NULL,
                                                                         api, app_meta));
-                                                ogs_free(err);                  
+                                                ogs_free(err);
                                                 break;
                                             }
-					    
+
                                             if (!strcmp(error_code, "400")) {
                                                 char *err = NULL;
                                                 err = ogs_msprintf("Unable to parse Data Report as JSON.");
@@ -279,30 +278,28 @@ bool _data_report_process_event(ogs_event_t *e)
 					    if (!strcmp(error_code, "415")) {
 					        ogs_assert(true == nf_server_send_error(stream, 415, 1, &message, "Unsupported Media Type.", "Expected content type: application/json", NULL, NULL, NULL, ndcaf_datareporting_api, app_meta));
                                                 break;
- 	    
-					    } 
+
+					    }
 
 					}
 					response = nf_server_new_response(NULL, NULL, 0, NULL, 0, NULL, ndcaf_datareporting_api, app_meta);
                                         nf_server_populate_response(response, 0, NULL, 204);
                                         ogs_assert(response);
                                         ogs_assert(true == ogs_sbi_server_send_response(stream, response));
-					data_collection_event_exposure_notification_send_local_event(NULL);
+					event_exposure_notification_send_local_event(NULL);
 
-				} else
-			        
-		                {
+				} else {
 		                    ogs_debug("In Data reporting session");
 				    cJSON *data_reporting_sess;
-				    dc_api_data_reporting_session_t *data_reporting_session;
+				    data_collection_model_data_reporting_session_t *data_reporting_session;
 				    data_collection_reporting_session_t *data_collection_reporting_session;
-                                    const char *reason;
+                                    char *reason = NULL, *err_classname = NULL, *err_parameter = NULL;
 				    data_domain_list_t *supported_domains;
 				    data_collection_reporting_client_type_e client_type;
 
 				    ogs_debug("Request body: %s", request->http.content);
 
-				    if (!check_http_content_type(request->http,"application/json")){
+				    if (!check_http_content_type(request->http,"application/json")) {
                                         ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_UNSUPPORTED_MEDIA_TYPE,
                                                                     3, &message, "Unsupported Media Type",
                                                                     "Expected content type: application/json", NULL, NULL, NULL,
@@ -311,11 +308,13 @@ bool _data_report_process_event(ogs_event_t *e)
                                     }
 
                                     data_reporting_sess = cJSON_Parse(request->http.content);
+
                                     {
                                         char *txt = cJSON_Print(data_reporting_sess);
                                         ogs_debug("Parsed JSON: %s", txt);
                                         cJSON_free(txt);
                                     }
+
 				    if (!data_reporting_sess) {
                                         char *err = NULL;
                                         err = ogs_msprintf("Unable to parse Data Reporting Session as JSON.");
@@ -327,35 +326,46 @@ bool _data_report_process_event(ogs_event_t *e)
 					break;
                                     }
 
-                                    data_reporting_session = dc_api_data_reporting_session_parseRequestFromJSON(
-                                                                        data_reporting_sess, &reason);
+                                    data_reporting_session = data_collection_model_data_reporting_session_fromJSON(
+                                                                        data_reporting_sess, true,
+                                                                        &reason, &err_classname, &err_parameter);
+                                    cJSON_Delete(data_reporting_sess);
+                                    data_reporting_sess = NULL;
                                     if (!data_reporting_session) {
                                         ogs_error("%s", reason);
                                         char *err;
-                                        err = ogs_msprintf("Bad DataReportingSession: %s", reason);
+                                        err = ogs_msprintf("Bad DataReportingSession [%s.%s]: %s", err_classname, err_parameter, reason);
                                         ogs_error("%s", err);
                                         ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_BAD_REQUEST, 1,
                                                                     &message, "Bad request.", err, NULL, NULL, NULL, api, app_meta)
                                                   );
                                         ogs_free(err);
-                                        if (data_reporting_sess) cJSON_Delete(data_reporting_sess);
-                                        data_reporting_sess = NULL;
+                                        if (reason) {
+                                            ogs_free(reason);
+                                            reason = NULL;
+                                        }
+                                        if (err_classname) {
+                                            ogs_free(err_classname);
+                                            err_classname = NULL;
+                                        }
+                                        if (err_parameter) {
+                                            ogs_free(err_parameter);
+                                            err_parameter = NULL;
+                                        }
                                         break;
-
-                                    } /*else {
-                                        dc_api_data_reporting_session_free(data_reporting_session);
-                                    } */
-				    supported_domains = __populate_supported_domains(data_reporting_session->supported_domains);
-				    client_type = (data_collection_reporting_client_type_e) data_collection_report_client_type(server);
-				    data_collection_reporting_session = data_collection_reporting_session_create(data_reporting_session->external_application_id, supported_domains, client_type);
-                                    __free_supported_domains(supported_domains);
+                                    }
+				    client_type = _report_client_type_from_ogs_server(server);
+				    data_collection_reporting_session = data_collection_reporting_session_create(
+                                                data_collection_model_data_reporting_session_get_external_application_id(
+                                                            data_reporting_session),
+                                                data_collection_model_data_reporting_session_get_supported_domains(
+                                                            data_reporting_session),
+                                                client_type);
 				    if (!data_collection_reporting_session) {
                                         ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_INTERNAL_SERVER_ERROR,
                                                                     1, &message, "Internal Server Error", NULL, NULL, NULL, NULL,
                                                                     api, app_meta));
-					if (data_reporting_sess) cJSON_Delete(data_reporting_sess);
-                                        data_reporting_sess = NULL;
-
+                                        data_collection_model_data_reporting_session_free(data_reporting_session);
                                         break;
                                     } else {
 					cJSON *data_collection_reporting_sess;
@@ -364,8 +374,8 @@ bool _data_report_process_event(ogs_event_t *e)
 					char *body;
 
 					data_reporting_session_populate(data_collection_reporting_session, data_reporting_session);
+                                        data_collection_model_data_reporting_session_free(data_reporting_session);
 
-					//data_collection_reporting_sess = dc_api_data_reporting_session_convertResponseToJSON(data_collection_reporting_session->data_reporting_session);
 					data_collection_reporting_sess = data_collection_reporting_session_json(data_collection_reporting_session);
 
 					if (!data_collection_reporting_sess) {
@@ -374,27 +384,22 @@ bool _data_report_process_event(ogs_event_t *e)
                                                                         "Internal Server Error",
                                                                         "Unable to convert data reporting session to JSON", NULL,
                                                                         NULL, NULL, api, app_meta));
-                                            if (data_reporting_sess) cJSON_Delete(data_reporting_sess);
-                                            data_reporting_sess = NULL;
                                             break;
 					}
 
 					body = cJSON_Print(data_collection_reporting_sess);
+                                        cJSON_Delete(data_collection_reporting_sess);
 
                                         location = ogs_msprintf("%s/%s", request->h.uri, data_collection_reporting_session->data_reporting_session_id);
 
 
 					response = nf_server_new_response(location, "application/json",  data_collection_reporting_session->received, data_collection_reporting_session->hash, data_collection_self()->config.server_response_cache_control-> data_collection_reporting_report_response_max_age, NULL, api, app_meta);
 
-                                         nf_server_populate_response(response, strlen(body), body, OGS_SBI_HTTP_STATUS_CREATED);
-                                         ogs_assert(response);
-                                         ogs_assert(true == ogs_sbi_server_send_response(stream, response));
+                                        nf_server_populate_response(response, strlen(body), body, OGS_SBI_HTTP_STATUS_CREATED);
+                                        ogs_assert(response);
+                                        ogs_assert(true == ogs_sbi_server_send_response(stream, response));
 
 					ogs_free(location);
-					if (data_reporting_sess) cJSON_Delete(data_reporting_sess);
-                                        data_reporting_sess = NULL;
-
-					if (data_collection_reporting_sess) cJSON_Delete(data_collection_reporting_sess);
 					break;
 
 				    }
@@ -431,7 +436,7 @@ bool _data_report_process_event(ogs_event_t *e)
 				        reason = ogs_msprintf("Invalid Data Reporting Session identifier [%s]",
                                                             data_reporting_session_id);
 				        invalid_params = nf_server_make_invalid_params(param, reason);
-                                           
+
                                         ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_NOT_FOUND, 2, &message,
                                                                     "Data Reporting Session not found", err, NULL, invalid_params,
                                                                     NULL, api, app_meta));
@@ -508,7 +513,7 @@ bool _data_report_process_event(ogs_event_t *e)
                             char *err = ogs_msprintf("Unknown object type \"%s\" in Data Reporting request",
                                                         message.h.resource.component[0]);
                             ogs_error("%s", err);
-                            ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_BAD_REQUEST, 1, &message, 
+                            ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_BAD_REQUEST, 1, &message,
                                                         "Bad request", err, NULL, NULL, NULL, api, app_meta));
                             ogs_free(err);
 			END
@@ -556,7 +561,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                             if (message.h.resource.component[3]) {
                                                 /* /sessions/{sessionId}/configurations/{configurationId}... request */
                                                 const char *configurationId = message.h.resource.component[3];
-                                                data_collection_reporting_configuration_t *configuration = data_collection_reporting_configuration_find(session, configurationId);
+                                                data_collection_reporting_configuration_t *configuration = data_collection_reporting_provisioning_session_get_configuration_by_id(session, configurationId);
                                                 if (!configuration) {
                                                     OpenAPI_list_t *invalid_params;
                                                     char *err = ogs_msprintf("DataReportingConfiguration id [%s] not known in DataReportingProvisioningSession [%s]", configurationId, sessionId);
@@ -592,18 +597,23 @@ bool _data_report_process_event(ogs_event_t *e)
                                                         CASE(OGS_SBI_HTTP_METHOD_PUT)
                                                             /* UpdateConfiguration */
                                                             {
-                                                                const char *error_return = NULL;
+                                                                char *error_return = NULL;
+                                                                char *error_classname = NULL;
+                                                                char *error_param = NULL;
                                                                 cJSON *json = cJSON_Parse(request->http.content);
                                                                 data_collection_reporting_configuration_t *new_config =
-                                                                    data_collection_reporting_configuration_parse_from_json(json, configuration, &error_return);
+                                                                    data_collection_reporting_configuration_parse_from_json(json, configuration, &error_return, &error_classname, &error_param);
                                                                 if (!new_config) {
                                                                     /* Report parse error */
-                                                                    char *err = ogs_msprintf("DataReportingConfiguration parse failed: %s", error_return);
+                                                                    char *err = ogs_msprintf("DataReportingConfiguration parse failed at %s.%s: %s", error_classname, error_param, error_return);
                                                                     ogs_error("%s", err);
                                                                     ogs_assert(true == nf_server_send_error(stream,
-                                                                                OGS_SBI_HTTP_STATUS_BAD_REQUEST, 4, 
+                                                                                OGS_SBI_HTTP_STATUS_BAD_REQUEST, 4,
                                                                                 &message, "Bad Request", err, NULL, NULL, NULL,
                                                                                 api, app_meta));
+                                                                    if (error_return) ogs_free(error_return);
+                                                                    if (error_classname) ogs_free(error_classname);
+                                                                    if (error_param) ogs_free(error_param);
                                                                 } else {
                                                                     data_collection_reporting_configuration_update(configuration, new_config);
                                                                     __send_data_reporting_configuration(stream, &message,
@@ -671,22 +681,27 @@ bool _data_report_process_event(ogs_event_t *e)
                                                 CASE(OGS_SBI_HTTP_METHOD_POST)
                                                     /* CreateConfiguration */
                                                     {
-                                                        const char *error_return = NULL;
+                                                        char *error_return = NULL;
+                                                        char *error_classname = NULL;
+                                                        char *error_param = NULL;
                                                         cJSON *json = cJSON_Parse(request->http.content);
                                                         data_collection_reporting_configuration_t *new_config =
                                                                     data_collection_reporting_configuration_parse_from_json(json,
-                                                                                NULL, &error_return);
+                                                                                NULL, &error_return, &error_classname, &error_param);
                                                         if (!new_config) {
                                                             /* report parse error */
                                                             char *err = ogs_msprintf(
-                                                                            "Unable to parse DataReportingConfiguration JSON: %s",
-                                                                            error_return);
+                                                                            "Unable to parse DataReportingConfiguration JSON at %s.%s: %s",
+                                                                            error_classname, error_param, error_return);
                                                             ogs_error("%s", err);
                                                             ogs_assert(true == nf_server_send_error(stream,
                                                                                         OGS_SBI_HTTP_STATUS_BAD_REQUEST, 4,
                                                                                         &message, "Bad Request", err, NULL,
                                                                                         NULL, NULL, api, app_meta));
                                                             ogs_free(err);
+                                                            if (error_return) ogs_free(error_return);
+                                                            if (error_classname) ogs_free(error_classname);
+                                                            if (error_param) ogs_free(error_param);
                                                             break;
                                                         }
                                                         data_collection_reporting_configuration_set_session(new_config, session);
@@ -856,38 +871,6 @@ bool _data_report_process_event(ogs_event_t *e)
     return false;
 }
 
-static data_domain_list_t *__populate_supported_domains(OpenAPI_list_t *supported_domains) {
-    OpenAPI_lnode_t *node = NULL;
-    const char *data_domain;
-    data_domain_node_t *data_domain_node;
-    data_domain_list_t *data_domains;
-
-    data_domains = (data_domain_list_t *)list_create();
-    ogs_assert(data_domains);
-
-    OpenAPI_list_for_each(supported_domains, node) {
-	data_domain = dc_api_data_domain_ToString((intptr_t)node->data);
-
-        data_domain_node = ogs_calloc(1,sizeof(data_domain_node_t));
-        data_domain_node->data_domain = data_collection_strdup(data_domain);
-
-	ogs_list_add(data_domains, data_domain_node);
-    }
-    return data_domains;
-}
-
-static void __free_supported_domains(data_domain_list_t *supported_domains)
-{
-    data_domain_node_t *next, *node;
-
-    ogs_list_for_each_safe(supported_domains, next, node) {
-        ogs_list_remove(supported_domains, node);
-        if (node->data_domain) ogs_free(node->data_domain);
-        ogs_free(node);
-    }
-    ogs_free(supported_domains);
-}
-
 static const char *__event_get_name(ogs_event_t *e)
 {
     if (e->id < OGS_MAX_NUM_OF_PROTO_EVENT)
@@ -952,7 +935,7 @@ static void __send_data_reporting_provisioning_session(ogs_sbi_stream_t *stream,
                                                 const nf_server_interface_metadata_t *api, const nf_server_app_metadata_t *app_meta)
 {
     cJSON *json = data_collection_reporting_provisioning_session_json(session);
-    
+
     if (!json) {
         static const char *err = "Unable to convert DataReportingProvisioningSession to JSON";
         ogs_error("%s", err);

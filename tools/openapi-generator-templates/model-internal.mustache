@@ -1,0 +1,38 @@
+{{#models}}{{#model}}#ifndef _{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_INTERNAL_H_
+#define _{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_INTERNAL_H_
+
+/**********************************************************************************************************************************
+ * {{classname}} - C internal library interface to the {{classname}} object
+ **********************************************************************************************************************************
+ * License: 5G-MAG Public License (v1.0)
+ * Authors: David Waring <david.waring2@bbc.co.uk>
+ * Copyright: (C) 2024 British Broadcasting Corporation
+ *
+ * For full license terms please see the LICENSE file distributed with this
+ * program. If this file is missing then the license can be retrieved from
+ * https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+ **********************************************************************************************************************************/
+
+{{#imports}}
+// {{{this}}}
+{{/imports}}
+
+#include "data-collection-sp/data-collection.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/***** Internal library protected functions *****/
+
+extern long _model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_refcount(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{classname}});
+
+#ifdef __cplusplus
+}
+#endif
+
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */
+
+#endif /* ifndef _{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_INTERNAL_H_ */
+{{/model}}{{/models}}

@@ -1,0 +1,142 @@
+#!/bin/sh
+#
+# 5G-MAG Reference Tools: Generate OpenAPI bindings tool
+# ======================================================
+#
+# Author(s): David Waring <david.warin2@bbc.co.uk>
+#            Dev Audsin <dev.audsin@bbc.co.uk>
+# Copyright: ©2022-2023 British Broadcasting Corporation
+#   License: 5G-MAG Public License v1.0
+#
+# Prerequisites:
+#   - git
+#   - java
+#   - wget
+#
+# For full license terms please see the LICENSE file distributed with this
+# program. If this file is missing then the license can be retrieved from
+# https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+#
+# This script will use wget and git to download the openapi-generator-cli tool
+# and a specified branch of the 5G APIs. It will then create a set of bindings
+# in a specified output language.
+#
+
+# Save location of this script and the name it was called by
+scriptname=`basename "$0"`
+scriptdir=`dirname "$0"`
+scriptdir=`cd "$scriptdir"; pwd`
+
+lib_source_dir=`realpath "$scriptdir/../lib/data-collection-service-provider"`
+lib_public_inc_dir="$lib_source_dir/include/data-collection-sp"
+
+# Command line option defaults
+default_branch='REL-18'
+default_apis="TS26532_Ndcaf_DataReportingProvisioning TS26532_Ndcaf_DataReporting TS29517_Naf_EventExposure"
+default_cache_dir="${MESON_BUILD_ROOT:+$MESON_BUILD_ROOT/$MESON_SUBDIR/openapi-generator-cache}"
+
+# Parse command line arguments
+ARGS=`getopt -n "$scriptname" -o 'b:C:h' -l 'branch:,cache-dir:,help' -s sh -- "$@"`
+
+if [ $? -ne 0 ]; then
+    print_syntax >&2
+    exit 1
+fi
+
+print_syntax() {
+    echo "Syntax: $scriptname [-h] [-b <release-branch>] [-C <cache-dir>]"
+}
+
+print_help() {
+    cat <<EOF
+5G-MAG Reference Tools - Generate OpenAPI C bindings
+
+This script will download the 5G APIs and openapi-generator-cli tool and uses
+them to create the public C interface bindings.
+
+EOF
+    print_syntax
+    cat <<EOF
+
+Options:
+  -h         --help                Show this help message and exit.
+  -b BRANCH  --branch BRANCH       Use the given branch of the 5G_APIs
+                                   repository. [default: $default_branch]
+  -C DIR     --cache-dir DIR       Use the directory to cache working files.
+                                   [default: ${default_cache_dir:-use temporary dir}]
+EOF
+}
+
+eval set -- "$ARGS"
+unset ARGS
+
+APIS="$default_apis"
+BRANCH="$default_branch"
+DEBUG_FLAG=""
+MODEL_DEPS=""
+CACHE_DIR="$default_cache_dir"
+
+while true; do
+    case "$1" in
+    -b|--branch)
+	BRANCH="$2"
+	shift 2
+	continue
+	;;
+    -C|--cache-dir)
+        CACHE_DIR="$2"
+        shift 2
+        continue
+        ;;
+    -h|--help)
+	print_help
+	exit 0
+	;;
+    --)
+	shift
+	break
+	;;
+    *)
+	echo "Error: Command line argument \"$1\" unexpected" >&2
+	print_syntax >&2
+	exit 1
+	;;
+    esac
+done
+
+if [ $# -gt 0 ]; then
+    echo "Error: Command line argument \"$1\" unexpected" >&2
+    print_syntax >&2
+    exit 1
+fi
+
+# Get the absolute path to the destination directory
+destdir=`realpath -m "$scriptdir/openapi"`
+if [[ -n "$MESON_SOURCE_ROOT" ]]; then
+  # Use source root directory if available
+  open5gs_dir=`realpath "$MESON_SOURCE_ROOT/subprojects/open5gs"`
+  rt_common_shared_dir=`realpath "$MESON_SOURCE_ROOT/subprojects/rt-common-shared"`
+else
+  # try relative to the script directory
+  open5gs_dir=`realpath "$scriptdir/../subprojects/open5gs"`
+  rt_common_shared_dir=`realpath "$scriptdir/../subprojects/rt-common-shared"`
+fi
+openapi_gen_dir="$open5gs_dir/lib/sbi/support/r17-20230301-openapitools-6.4.0/openapi-generator"
+
+templates_dir="$scriptdir/openapi-generator-templates"
+
+# call the common generate_openapi script
+if [ ! -d "$scriptdir/openapi" ]; then
+    mkdir "$scriptdir/openapi"
+fi
+
+CPP_POST_PROCESS_FILE="$scriptdir/post-process.sh" export CPP_POST_PROCESS_FILE
+if ! "$rt_common_shared_dir/open5gs-tools/scripts/generate_openapi" -a "${APIS}" -o "$rt_common_shared_dir/data-reporting/5G_APIs-overrides" -b "${BRANCH}" -c "$templates_dir/config.yaml" -l cpp-restbed-server -d "$scriptdir/openapi" -g 6.4.0 $DEBUG_FLAG ${CACHE_DIR:+-C "$CACHE_DIR"} -P "reftools.data_collection_sp"; then
+    echo "Error: Failed to generate OpenAPI model" 1>&2
+    exit 1
+fi
+
+rm -f "$scriptdir/openapi/model/helpers.h"
+
+exit 0
+

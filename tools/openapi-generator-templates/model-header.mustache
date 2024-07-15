@@ -1,0 +1,114 @@
+{{#models}}{{#model}}#ifndef _DATA_COLLECTION_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_H_
+#define _DATA_COLLECTION_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_H_
+
+/**********************************************************************************************************************************
+ * {{classname}} - Public C interface to the {{classname}} object
+ **********************************************************************************************************************************
+ * License: 5G-MAG Public License (v1.0)
+ * Authors: David Waring <david.waring2@bbc.co.uk>
+ * Copyright: (C) 2024 British Broadcasting Corporation
+ *
+ * For full license terms please see the LICENSE file distributed with this
+ * program. If this file is missing then the license can be retrieved from
+ * https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+ **********************************************************************************************************************************/
+
+#ifndef INCLUDED_FROM_DATA_COLLECTION_H
+#error "This file can only be included from data-collection.h"
+#endif
+
+{{#imports}}
+{{{this}}}
+{{/imports}}
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef struct data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_s data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t;
+{{^hasVars}}{{#isEnum}}{{#allowableValues}}
+typedef enum {
+    DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_NO_VAL,
+{{#values}}    DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_VAL_{{#lambda.uppercase}}{{#lambda.snakecase}}{{.}}{{/lambda.snakecase}}{{/lambda.uppercase}}{{^-last}},{{/-last}}
+{{/values}}
+} data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_e;
+{{/allowableValues}}{{/isEnum}}{{^isEnum}}{{#composedSchemas}}{{^oneOf}}{{^allOf}}{{^anyOf.2.name}}{{#anyOf.1.isString}}{{#anyOf.0.isEnumRef}}{{#anyOf.0}}
+typedef enum {
+    DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_NO_VAL,
+{{#allowableValues.values}}    DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_VAL_{{#lambda.uppercase}}{{#lambda.snakecase}}{{.}}{{/lambda.snakecase}}{{/lambda.uppercase}},
+{{/allowableValues.values}}
+    DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_OTHER
+} data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_e;
+{{/anyOf.0}}{{/anyOf.0.isEnumRef}}{{/anyOf.1.isString}}{{/anyOf.2.name}}{{/allOf}}{{/oneOf}}{{/composedSchemas}}{{/isEnum}}{{/hasVars}}
+    
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_create({{#vars}}{{#isRequired}}{{^readOnly}}{{^writeOnly}}{{datatype}} {{name}}{{^-last}},{{/-last}}{{/writeOnly}}{{/readOnly}}{{/isRequired}}{{/vars}});
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_create_copy(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_create_move(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_copy(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_move(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_free(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+
+DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_toJSON(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, bool as_request);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
+
+{{^hasVars}}{{#isEnum}}{{#allowableValues}}
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_is_not_set(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_e data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_get_enum(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+
+DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_get_string(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_set_enum(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_e value);
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_set_string(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, const char *value);
+
+{{/allowableValues}}{{/isEnum}}{{^isEnum}}{{#composedSchemas}}{{^oneOf}}{{^allOf}}{{^anyOf.2.name}}{{#anyOf.1.isString}}{{#anyOf.0.isEnumRef}}
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_is_not_set(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_is_non_standard(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_e data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_get_enum(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+
+DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_get_string(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_set_enum(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_e value);
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_set_string(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, const char *value);
+
+{{/anyOf.0.isEnumRef}}{{/anyOf.1.isString}}{{/anyOf.2.name}}{{/allOf}}{{/oneOf}}{{/composedSchemas}}{{/isEnum}}{{/hasVars}}
+{{#vars}}
+DATA_COLLECTION_SVC_PRODUCER_API {{#isContainer}}{{^isArray}}const {{/isArray}}{{/isContainer}}{{^isContainer}}const {{/isContainer}}{{>data-type}} data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_{{#lambda.lowercase}}{{#lambda.snakecase}}{{getter}}{{/lambda.snakecase}}{{/lambda.lowercase}}(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_{{#lambda.lowercase}}{{#lambda.snakecase}}{{setter}}{{/lambda.snakecase}}{{/lambda.lowercase}}(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, const {{>data-type}} p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}});
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_{{#lambda.lowercase}}{{#lambda.snakecase}}{{setter}}{{/lambda.snakecase}}{{/lambda.lowercase}}_move(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, {{>data-type}} p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}});
+
+{{#isContainer}}
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_add_{{#lambda.lowercase}}{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}{{/lambda.lowercase}}(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, {{#isMap}} const char *key, const {{/isMap}}{{#items}}{{>data-type}}{{/items}} {{#lambda.snakecase}}{{name}}{{/lambda.snakecase}});
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_remove_{{#lambda.lowercase}}{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}{{/lambda.lowercase}}(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, const {{#isMap}}char *key{{/isMap}}{{^isMap}}{{#items}}{{>data-type}}{{/items}} {{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}{{/isMap}});
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_clear_{{#lambda.lowercase}}{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}{{/lambda.lowercase}}(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+
+{{/isContainer}}
+{{/vars}}
+/* lnode helper for generating ogs_list_t nodes's of type {{classname}} */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_make_lnode(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}});
+
+/***** Internal library protected functions *****/
+
+#ifdef __cplusplus
+}
+#endif
+
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */
+
+#endif /* ifndef _DATA_COLLECTION_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_H_ */
+{{/model}}{{/models}}

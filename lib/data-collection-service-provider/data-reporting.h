@@ -13,8 +13,6 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #include "ogs-core.h"
 #include "ogs-proto.h"
 
-#include "openapi/model/dc_api_data_reporting_session.h"
-
 #include "data-collection-sp/data-collection.h"
 
 #ifdef __cplusplus
@@ -35,11 +33,11 @@ typedef struct data_collection_reporting_session_s {
     data_domain_list_t *supported_domains;
     ogs_time_t received;
     char *hash;
-    dc_api_data_reporting_session_t *data_reporting_session;
+    data_collection_model_data_reporting_session_t *data_reporting_session;
     data_collection_reporting_client_type_e client_type;
 } data_collection_reporting_session_t;
 
-extern data_collection_reporting_session_t *data_reporting_session_populate(data_collection_reporting_session_t *data_collection_reporting_session, dc_api_data_reporting_session_t *data_reporting_session);
+extern data_collection_reporting_session_t *data_reporting_session_populate(data_collection_reporting_session_t *data_collection_reporting_session, data_collection_model_data_reporting_session_t *data_reporting_session);
 
 extern const data_reporting_session_cache_entry_t *data_collection_context_retrieve_reporting_session(const char *reporting_session_id);
 

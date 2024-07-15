@@ -11,10 +11,10 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #include "context.h"
 #include "utilities.h"
 #include "data-collection-nf-service.h"
-#include "openapi/api/TS26532_Ndcaf_DataReportingProvisioningAPI-info.h"
-#include "openapi/api/TS26532_Ndcaf_DataReportingAPI-info.h"
-#include "openapi/api/ApplicationEventSubscriptionCollectionAPI-info.h"
-#include "openapi/api/IndividualApplicationEventSubscriptionDocumentAPI-info.h"
+#include "openapi/api/TS26532_Ndcaf_DataReportingProvisioningApi-info.h"
+#include "openapi/api/TS26532_Ndcaf_DataReportingApi-info.h"
+#include "openapi/api/ApplicationEventSubscriptionCollectionApi-info.h"
+#include "openapi/api/IndividualApplicationEventSubscriptionDocumentApi-info.h"
 
 static ogs_sbi_nf_service_t *__data_collection_nf_service(const char *name, int server_ifc, const char *api_version, const char *supported_features);
 static void __add_addresses_to_nf_service(ogs_sbi_nf_service_t *nf_service, ogs_sockaddr_t *addrs);

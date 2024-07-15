@@ -1,0 +1,116 @@
+#ifndef _DATA_COLLECTION_DATA_REPORTING_CONFIGURATION_PATCH_H_
+#define _DATA_COLLECTION_DATA_REPORTING_CONFIGURATION_PATCH_H_
+
+/**********************************************************************************************************************************
+ * DataReportingConfigurationPatch - Public C interface to the DataReportingConfigurationPatch object
+ **********************************************************************************************************************************
+ * License: 5G-MAG Public License (v1.0)
+ * Authors: David Waring <david.waring2@bbc.co.uk>
+ * Copyright: (C) 2024 British Broadcasting Corporation
+ *
+ * For full license terms please see the LICENSE file distributed with this
+ * program. If this file is missing then the license can be retrieved from
+ * https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+ **********************************************************************************************************************************/
+
+#ifndef INCLUDED_FROM_DATA_COLLECTION_H
+#error "This file can only be included from data-collection.h"
+#endif
+
+#include "DataSamplingRule.h"
+#include "DataReportingRule.h"
+#include "DataAccessProfile.h"
+#include "DataReportingCondition.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+typedef struct data_collection_model_data_reporting_configuration_patch_s data_collection_model_data_reporting_configuration_patch_t;
+
+    
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_create();
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_create_copy(const data_collection_model_data_reporting_configuration_patch_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_create_move(data_collection_model_data_reporting_configuration_patch_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_copy(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch, const data_collection_model_data_reporting_configuration_patch_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_move(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch, data_collection_model_data_reporting_configuration_patch_t *other);
+
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_data_reporting_configuration_patch_free(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch);
+
+DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_data_reporting_configuration_patch_toJSON(const data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch, bool as_request);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
+
+
+DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_data_reporting_configuration_patch_get_authorization_url(const data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_set_authorization_url(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch, const char* p_authorization_url);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_set_authorization_url_move(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch, char* p_authorization_url);
+
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_reporting_configuration_patch_get_data_sampling_rules(const data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_set_data_sampling_rules(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch, const ogs_list_t* p_data_sampling_rules);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_set_data_sampling_rules_move(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch, ogs_list_t* p_data_sampling_rules);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_add_data_sampling_rules(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch, data_collection_model_data_sampling_rule_t* data_sampling_rules);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_remove_data_sampling_rules(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch, const data_collection_model_data_sampling_rule_t* data_sampling_rules);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_clear_data_sampling_rules(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch);
+
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_reporting_configuration_patch_get_data_reporting_conditions(const data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_set_data_reporting_conditions(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch, const ogs_list_t* p_data_reporting_conditions);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_set_data_reporting_conditions_move(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch, ogs_list_t* p_data_reporting_conditions);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_add_data_reporting_conditions(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch, data_collection_model_data_reporting_condition_t* data_reporting_conditions);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_remove_data_reporting_conditions(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch, const data_collection_model_data_reporting_condition_t* data_reporting_conditions);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_clear_data_reporting_conditions(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch);
+
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_reporting_configuration_patch_get_data_reporting_rules(const data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_set_data_reporting_rules(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch, const ogs_list_t* p_data_reporting_rules);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_set_data_reporting_rules_move(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch, ogs_list_t* p_data_reporting_rules);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_add_data_reporting_rules(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch, data_collection_model_data_reporting_rule_t* data_reporting_rules);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_remove_data_reporting_rules(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch, const data_collection_model_data_reporting_rule_t* data_reporting_rules);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_clear_data_reporting_rules(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch);
+
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_reporting_configuration_patch_get_data_access_profiles(const data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_set_data_access_profiles(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch, const ogs_list_t* p_data_access_profiles);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_set_data_access_profiles_move(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch, ogs_list_t* p_data_access_profiles);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_add_data_access_profiles(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch, data_collection_model_data_access_profile_t* data_access_profiles);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_remove_data_access_profiles(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch, const data_collection_model_data_access_profile_t* data_access_profiles);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_clear_data_access_profiles(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch);
+
+/* lnode helper for generating ogs_list_t nodes's of type DataReportingConfigurationPatch */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_data_reporting_configuration_patch_make_lnode(data_collection_model_data_reporting_configuration_patch_t *data_reporting_configuration_patch);
+
+/***** Internal library protected functions *****/
+
+#ifdef __cplusplus
+}
+#endif
+
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */
+
+#endif /* ifndef _DATA_COLLECTION_DATA_REPORTING_CONFIGURATION_PATCH_H_ */
+

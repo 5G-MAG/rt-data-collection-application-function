@@ -10,10 +10,6 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #ifndef DATA_REPORTING_SESSION_CACHE_H
 #define DATA_REPORTING_SESSION_CACHE_H
 
-#ifndef _GNU_SOURCE
-#define _GNU_SOURCE
-#endif
-
 #include "ogs-core.h"
 
 #ifdef __cplusplus
@@ -21,7 +17,7 @@ extern "C" {
 #endif
 
 typedef struct data_collection_reporting_session_s data_collection_reporting_session_t;
-typedef struct  dc_api_data_reporting_session_s  dc_api_data_reporting_session_t;
+typedef struct data_collection_model_data_reporting_session_s data_collection_model_data_reporting_session_t;
 
 typedef struct data_reporting_session_cache_entry_s {
     char *session_id;
@@ -39,7 +35,7 @@ extern bool data_reporting_session_cache_del(ogs_hash_t*, const char *session_id
 extern data_reporting_session_cache_entry_t *data_reporting_session_cache_find(ogs_hash_t*, const char *session_id);
 extern bool data_reporting_session_cache_clear(ogs_hash_t*);
 
-extern data_reporting_session_cache_entry_t *data_reporting_session_cache_entry_new(const dc_api_data_reporting_session_t *);
+extern data_reporting_session_cache_entry_t *data_reporting_session_cache_entry_new(const data_collection_model_data_reporting_session_t *);
 extern void data_reporting_session_cache_entry_free(data_reporting_session_cache_entry_t*);
 extern bool data_reporting_session_cache_prune(ogs_hash_t *cache);
 extern void data_collection_reporting_session_cache_destroy(data_reporting_session_cache_entry_t *entry);

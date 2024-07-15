@@ -17,24 +17,21 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 extern "C" {
 #endif
 
-
-extern data_collection_af_event_exposure_subscription_t *data_collection_af_event_exposure_subscription_new_from_json_request(char *request_body, const char *mime_type, const char **error_reason, const char **error_parameter, const char **error_code);
-extern cJSON *data_collection_af_event_exposure_subscription_json(data_collection_af_event_exposure_subscription_t *data_collection_af_event_exposure_subscription);
-extern char *data_collection_af_events_subscription_get_event_type(data_collection_af_events_subscription_t *events_subs);
-extern void data_collection_event_subscription_unsubscribe(data_collection_event_subscription_t *event_subscription);
-extern void data_collection_event_subscription_clear(data_collection_event_subscription_t *event_subscription);
-extern bool data_collection_remove_expired_event_subscriptions(ogs_hash_t *event_subscriptions);
-extern bool data_collection_event_exposure_notification_send_local_event(void *data);
-extern bool data_collection_event_subscriptions_process(void *data);
-extern void event_notification_timer_activate(data_collection_event_subscription_t *data_collection_event_subscription);
-extern bool is_notif_method_periodic(data_collection_event_subscription_t *data_collection_event_subscription);
-//extern bool data_collection_event_subscriptions_clear(ogs_hash_t *event_subscription);
-extern void data_collection_event_subscription_destroy(data_collection_event_subscription_t *event_subscription);
-extern OpenAPI_list_t *application_ids_from_event_filter_get(dc_api_events_subs_t *events_subsc);
 extern bool data_collection_set_event_subscription_send_notif(data_collection_event_subscription_t *event_subscription);
-extern data_collection_event_subscription_t *data_collection_event_subscription_update(data_collection_event_subscription_t *event_subscription, dc_api_af_event_exposure_subsc_t *af_event_exposure_subsc);
-extern void data_collection_remove_af_event_exposure_subscription_notifs(data_collection_event_subscription_t *data_collection_event_subscription);
-//extern cJSON *af_event_exposure_subscription_generate_response(const data_collection_af_event_exposure_subscription_t *subscription /* not-null */, const ogs_list_t *af_event_notification_list);
+
+extern void _event_subscription_free(data_collection_event_subscription_t *event_subscription);
+extern bool event_exposure_notification_send_local_event(void *data);
+extern bool event_subscriptions_process(void *data);
+extern void event_subscription_notification_timer_activate(data_collection_event_subscription_t *event_subscription);
+extern void event_subscription_destroy(data_collection_event_subscription_t *event_subscription);
+extern bool event_subscriptions_remove_expired(ogs_hash_t *event_subscriptions);
+extern bool event_subscriptions_clear(ogs_hash_t *event_subscription);
+
+extern ogs_list_t *application_ids_from_event_filter_get(data_collection_model_events_subs_t *events_subsc);
+extern bool event_subscription_is_notif_method_periodic(const data_collection_event_subscription_t *event_subscription);
+extern cJSON *event_subscription_generate_af_event_notification(data_collection_event_subscription_t *event_subscription);
+extern int event_subscription_send_af_event_exposure_notif(data_collection_event_subscription_t *event_subscription,
+                                                            cJSON *af_event_notification);
 
 #ifdef __cplusplus
 }

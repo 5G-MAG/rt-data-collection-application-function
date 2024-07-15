@@ -7,13 +7,9 @@ program. If this file is missing then the license can be retrieved from
 https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 */
 
-#ifndef _GNU_SOURCE
-#define _GNU_SOURCE
-#endif
-
 #include "ogs-core.h"
 
-#include "openapi/model/dc_api_data_reporting_session.h"
+#include "data-collection-sp/data-collection.h"
 #include "hash.h"
 #include "utilities.h"
 
@@ -26,7 +22,6 @@ extern "C" {
 
 static void _debug_key(const char *key, const char *prefix);
 static data_reporting_session_cache_entry_t *_data_reporting_session_cache_find(ogs_hash_t *cache, const char *key);
-static int free_ogs_hash_reporting_session_cache_entry(void *rec, const void *key, int klen, const void *value);
 
 ogs_hash_t *data_reporting_session_cache_new(void)
 {
@@ -56,7 +51,8 @@ bool data_reporting_session_cache_add(ogs_hash_t *cache, const data_collection_r
 
     ogs_debug("data_reporting_session_cache_add(%p, %p, %p)", cache, data_collection_reporting_session, data_collection_reporting_session->data_reporting_session);
 
-    entry = _data_reporting_session_cache_find(cache, data_collection_reporting_session->data_reporting_session->session_id);
+    const char *data_reporting_session_id = data_collection_model_data_reporting_session_get_session_id(data_collection_reporting_session->data_reporting_session);
+    entry = _data_reporting_session_cache_find(cache, data_reporting_session_id);
     if (entry) {
         /* replacing existing entry, free old one */
         data_reporting_session_cache_entry_free(entry);
@@ -69,7 +65,7 @@ bool data_reporting_session_cache_add(ogs_hash_t *cache, const data_collection_r
 
     entry->reporting_session_received = data_collection_reporting_session->received;
 
-    ogs_hash_set(cache, data_collection_strdup(data_collection_reporting_session->data_reporting_session->session_id), OGS_HASH_KEY_STRING, entry);
+    ogs_hash_set(cache, data_reporting_session_id, OGS_HASH_KEY_STRING, entry);
     return true;
 }
 
@@ -84,7 +80,8 @@ bool data_reporting_session_cache_del(ogs_hash_t *cache, const char *session_id)
     entry = _data_reporting_session_cache_find(cache, session_id);
 
     if (entry) {
-	ogs_hash_do(free_ogs_hash_reporting_session_cache_entry, entry, data_collection_self()->data_reporting_sessions_cache);    
+        ogs_hash_set(cache, session_id, OGS_HASH_KEY_STRING, NULL);
+        data_reporting_session_cache_entry_free(entry);
         return true;
     }
 
@@ -115,7 +112,6 @@ bool data_reporting_session_cache_clear(ogs_hash_t *cache)
         _debug_key(key, "=");
         ogs_debug("clear %p[%i]: %p", key, key_len, entry);
         ogs_hash_set(cache, key, key_len, NULL);
-        ogs_free((char *)key);
         data_reporting_session_cache_entry_free(entry);
     }
     ogs_debug("Entries after clear = %i", ogs_hash_count(cache));
@@ -139,12 +135,11 @@ bool data_reporting_session_cache_prune(ogs_hash_t *cache)
 
         ogs_hash_this(it, (const void **)&key, &key_len, (void**)(&entry));
         _debug_key(key, "=");
-        ogs_debug("clear %p[%i]: %p", key, key_len, entry);
 	if (current_time >= entry->generated +  ( 3 * ogs_time_from_sec(data_collection_self()->config.server_response_cache_control->data_collection_reporting_report_response_max_age))) {
-            ogs_hash_set(cache, key, key_len, NULL);
+            ogs_debug("clear %p[%i]: %p", key, key_len, entry);
 	    data_reporting_session = data_collection_reporting_session_find(key);
+            ogs_hash_set(cache, key, key_len, NULL);
             if(data_reporting_session) data_collection_reporting_session_destroy(data_reporting_session);
-            ogs_free((char *)key);
             data_reporting_session_cache_entry_free(entry);
 	}
     }
@@ -154,7 +149,7 @@ bool data_reporting_session_cache_prune(ogs_hash_t *cache)
 }
 
 
-data_reporting_session_cache_entry_t *data_reporting_session_cache_entry_new(const dc_api_data_reporting_session_t *data_reporting_session)
+data_reporting_session_cache_entry_t *data_reporting_session_cache_entry_new(const data_collection_model_data_reporting_session_t *data_reporting_session)
 {
     data_reporting_session_cache_entry_t *entry;
     cJSON *reporting_session;
@@ -164,10 +159,9 @@ data_reporting_session_cache_entry_t *data_reporting_session_cache_entry_new(con
 
     if(entry->session_id) ogs_free(entry->session_id);
 
-    entry->session_id = data_collection_strdup(data_reporting_session->session_id);
+    entry->session_id = data_collection_strdup(data_collection_model_data_reporting_session_get_session_id(data_reporting_session));
 
-
-    reporting_session = dc_api_data_reporting_session_convertResponseToJSON((dc_api_data_reporting_session_t *)data_reporting_session);
+    reporting_session = data_collection_model_data_reporting_session_toJSON(data_reporting_session, false);
     ogs_assert(reporting_session);
 
     entry->reporting_session = cJSON_Print(reporting_session);
@@ -189,11 +183,11 @@ void data_reporting_session_cache_entry_free(data_reporting_session_cache_entry_
         entry->session_id = NULL;
     }
 
-
     if (entry->reporting_session) {
 	cJSON_free(entry->reporting_session);
 	entry->reporting_session = NULL;
     }
+
     if (entry->hash) {
 	ogs_free(entry->hash);
 	entry->hash = NULL;
@@ -218,22 +212,6 @@ void data_reporting_session_cache_accessed(data_reporting_session_cache_entry_t 
 }
 
 /**** Static functions ****/
-
-static int
-free_ogs_hash_reporting_session_cache_entry(void *rec, const void *key, int klen, const void *value)
-{
-    data_reporting_session_cache_entry_t *entry = (data_reporting_session_cache_entry_t *)rec;
-
-    if (value == entry) {
-        data_reporting_session_cache_entry_free(entry);
-        ogs_hash_set(data_collection_self()->data_reporting_sessions_cache, key, klen, NULL);
-        ogs_free((void*)key);
-        return 0; /* finish search when the first key matches */
-    }
-
-    return 1;
-}
-
 
 static void _debug_key(const char *key, const char *prefix)
 {

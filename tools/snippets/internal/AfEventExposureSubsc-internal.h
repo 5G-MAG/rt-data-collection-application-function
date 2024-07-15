@@ -1,0 +1,2 @@
+extern cJSON *_model_af_event_exposure_subsc_generate_response(const data_collection_model_af_event_exposure_subsc_t *af_event_exposure_subsc, ogs_list_t *af_events_notifications);
+extern cJSON *_model_af_event_exposure_subsc_generate_notification(const data_collection_model_af_event_exposure_subsc_t *af_event_exposure_subsc, ogs_list_t *af_events_notifications);

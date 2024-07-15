@@ -1,0 +1,36 @@
+#ifndef _QUERY_PARAM_COMBINATION_INTERNAL_H_
+#define _QUERY_PARAM_COMBINATION_INTERNAL_H_
+
+/**********************************************************************************************************************************
+ * QueryParamCombination - C internal library interface to the QueryParamCombination object
+ **********************************************************************************************************************************
+ * License: 5G-MAG Public License (v1.0)
+ * Authors: David Waring <david.waring2@bbc.co.uk>
+ * Copyright: (C) 2024 British Broadcasting Corporation
+ *
+ * For full license terms please see the LICENSE file distributed with this
+ * program. If this file is missing then the license can be retrieved from
+ * https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+ **********************************************************************************************************************************/
+
+// #include "QueryParameter.h"
+
+#include "data-collection-sp/data-collection.h"
+
+#ifdef __cplusplus
+extern "C" {
+#endif
+
+/***** Internal library protected functions *****/
+
+extern long _model_query_param_combination_refcount(data_collection_model_query_param_combination_t *QueryParamCombination);
+
+#ifdef __cplusplus
+}
+#endif
+
+/* vim:ts=8:sts=4:sw=4:expandtab:
+ */
+
+#endif /* ifndef _QUERY_PARAM_COMBINATION_INTERNAL_H_ */
+
