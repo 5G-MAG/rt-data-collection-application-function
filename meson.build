@@ -7,7 +7,7 @@
 
 # Meson module fs and its functions like fs.hash_file require atleast meson 0.59.0 
 
-project('rt-5gc-data-collection-application-function', 'c',
+project('rt-data-collection-application-function', 'c',
     version : '0.1.0',
     license : '5G-MAG Public',
     meson_version : '>= 0.63.0',

@@ -17,6 +17,8 @@ python3_exe = open5gs_project.get_variable('python3_exe')
 mkdir_p = open5gs_project.get_variable('mkdir_p')
 install_conf = open5gs_project.get_variable('install_conf')
 sbi_openapi_inc = open5gs_project.get_variable('libsbi_openapi_model_inc')
+app_type = 'DCAF'
+
 
 fs = import('fs')
 
@@ -44,6 +46,7 @@ libdcaf_dist_sources = files('''
 version_conf = configuration_data()
 version_conf.set_quoted('DCAF_NAME', meson.project_name())
 version_conf.set_quoted('DCAF_VERSION', meson.project_version())
+version_conf.set_quoted('DCAF_TYPE', app_type)
 libdcaf_gen_sources = [configure_file(output : 'dcaf-version.h', configuration : version_conf)]
 
 api_tag = latest_apis?'REL-'+fiveg_api_release:'TSG'+fiveg_api_approval+'-Rel'+fiveg_api_release

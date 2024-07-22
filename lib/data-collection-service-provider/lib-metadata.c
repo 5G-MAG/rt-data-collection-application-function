@@ -20,15 +20,23 @@ extern "C" {
 #endif
 
 static char *nf_name = NULL;
-static nf_server_app_metadata_t app_metadata = { DATA_COLLECTION_NAME, DATA_COLLECTION_VERSION, NULL };
+static char *nf_info = NULL;
+static nf_server_app_metadata_t app_metadata = { DATA_COLLECTION_NAME, DATA_COLLECTION_VERSION, NULL, NULL };
+static char *af_info_set(void);
 
 const nf_server_app_metadata_t *data_collection_lib_metadata()
 {
     if (!nf_name) {
         if (!data_collection_self()->server_name[0]) data_collection_context_server_name_set();
-        nf_name = ogs_msprintf("DCAF-%s", data_collection_self()->server_name);
+        nf_name = ogs_msprintf("%s-%s", data_collection_self()->config.data_collection_configuration->af_type, data_collection_self()->server_name);
         ogs_assert(nf_name);
         app_metadata.server_name = nf_name;
+    }
+
+    if(!nf_info) {
+        nf_info = af_info_set();
+        ogs_assert(nf_info);
+        app_metadata.nf_info = nf_info;
     }
 
     return &app_metadata;
@@ -37,7 +45,22 @@ const nf_server_app_metadata_t *data_collection_lib_metadata()
 void data_collection_free_agent_name()
 {
     if (nf_name) ogs_free(nf_name);
+    if (nf_info) ogs_free(nf_info);
 }
+
+static char *af_info_set(void) {
+    char *af_info = "";
+    if(data_collection_self()->config.data_collection_configuration->af_name) {
+        char *af_version = NULL;
+        if(data_collection_self()->config.data_collection_configuration->af_version) {
+            af_version = ogs_msprintf("/%s", data_collection_self()->config.data_collection_configuration->af_version);
+        }
+        af_info = ogs_msprintf("%s%s", data_collection_self()->config.data_collection_configuration->af_name, af_version?af_version: "");
+        if(af_version) ogs_free(af_version);
+    }
+    return af_info;
+}
+
 
 
 #ifdef __cplusplus

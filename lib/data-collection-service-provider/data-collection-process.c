@@ -13,8 +13,9 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #include "context.h"
 #include "utilities.h"
 #include "data-collection-process.h"
-#include "data-reporting-process.h"
-
+//#include "data-reporting-process.h"
+#include "data-report-process.h"
+#include "event-subscription-process.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -30,8 +31,8 @@ bool _data_collection_process_event(ogs_event_t *e)
 
     ogs_debug("_data_collection_process_event: %s", _event_get_name(e));
 
-    if (_data_reporting_process_event(e)) return true;
-
+    if (_data_report_process_event(e)) return true;
+    if (_evex_subscription_process_event(e)) return true;
     return false;
 }
 

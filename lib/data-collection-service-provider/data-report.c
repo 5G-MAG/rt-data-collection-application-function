@@ -423,6 +423,10 @@ static ogs_list_t *get_data_reports_allowed_for_event_subscription(const data_co
 	}
     }
     if(allowed_handlers) ogs_free(allowed_handlers);
+    if(data_reports_allowed && !ogs_list_first(data_reports_allowed)) {
+        ogs_free(data_reports_allowed);
+        data_reports_allowed = NULL;
+    }
     return data_reports_allowed;
 }
 

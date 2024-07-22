@@ -53,8 +53,10 @@ libspdc_dist_sources = files('''
     data-report-store.h
     data-reporting-configuration.h
     data-reporting.h
-    data-reporting-process.c
-    data-reporting-process.h
+    data-report-process.c
+    data-report-process.h
+    event-subscription-process.h
+    event-subscription-process.c
     data-reporting-provisioning.c
     data-reporting-provisioning.h
     data-reporting-session-cache.c

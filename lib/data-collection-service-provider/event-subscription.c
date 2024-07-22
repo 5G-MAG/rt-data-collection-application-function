@@ -13,6 +13,7 @@
 #include "openapi/model/dc_api_af_event_exposure_notif.h"
 #include "openapi/model/dc_api_reporting_information.h"
 #include "openapi/model/dc_api_notification_method.h"
+#include "openapi/model/dc_api_af_event_notification.h"
 #include "data-collection-sp/data-collection.h"
 #include "data-collection-sp/event-exposure.h"
 #include "context.h"
@@ -182,8 +183,11 @@ data_collection_event_subscription_t *data_collection_event_subscription_subscri
 
     data_collection_event_subscription->hash = calculate_event_exposure_subscription_hash(subscription->af_event_exposure_subsc);
 
-    data_collection_event_subscription->client = data_collection_event_consumer_client_init(subscription->af_event_exposure_subsc->notif_uri); 
-    ogs_assert(data_collection_event_subscription->client);
+    if(!data_collection_event_subscription->client && subscription->af_event_exposure_subsc->notif_uri) {
+
+        data_collection_event_subscription->client = data_collection_event_consumer_client_init(subscription->af_event_exposure_subsc->notif_uri); 
+        ogs_assert(data_collection_event_subscription->client);
+    }
 
     if(subscription->af_event_exposure_subsc->events_rep_info->notif_method || data_collection_event_subscription->af_event_exposure_subscription->af_event_exposure_subsc->events_rep_info->rep_period)
         data_collection_event_subscription_process_notif_method(data_collection_event_subscription);
@@ -194,6 +198,37 @@ data_collection_event_subscription_t *data_collection_event_subscription_subscri
 
     return data_collection_event_subscription;
 
+}
+
+data_collection_event_subscription_t *data_collection_event_subscription_update(data_collection_event_subscription_t *event_subscription, dc_api_af_event_exposure_subsc_t *af_event_exposure_subsc) {
+    /*	
+    if(event_subscription->af_event_exposure_subscription->af_event_exposure_subsc)
+        dc_api_af_event_exposure_subsc_free(event_subscription->af_event_exposure_subscription->af_event_exposure_subsc);
+    */
+    event_subscription->received = ogs_time_now();
+    event_subscription->last_used = event_subscription->received;
+
+    if(event_subscription->hash) ogs_free(event_subscription->hash);
+    event_subscription->hash = calculate_event_exposure_subscription_hash(af_event_exposure_subsc);
+
+    if(event_subscription->client) ogs_sbi_client_remove(event_subscription->client);
+    if(af_event_exposure_subsc->notif_uri) {
+        event_subscription->client = data_collection_event_consumer_client_init(af_event_exposure_subsc->notif_uri);
+        ogs_assert(event_subscription->client);
+    }
+
+
+    if(event_subscription->af_event_exposure_subscription->af_event_exposure_subsc)
+        dc_api_af_event_exposure_subsc_free(event_subscription->af_event_exposure_subscription->af_event_exposure_subsc);
+
+    event_subscription->send_notif = false;
+    
+    event_subscription->af_event_exposure_subscription->af_event_exposure_subsc = af_event_exposure_subsc;
+
+    if(af_event_exposure_subsc->events_rep_info->notif_method || af_event_exposure_subsc->events_rep_info->rep_period)
+        data_collection_event_subscription_process_notif_method(event_subscription);
+
+    return event_subscription;	
 }
 
 void data_collection_event_subscription_unsubscribe(data_collection_event_subscription_t *event_subscription)
@@ -319,8 +354,6 @@ char *data_collection_af_events_exposure_subscription_get_event_type(dc_api_even
     return dc_api_af_event_ToString(events_subsc->event);
 }
 
-
-
 data_collection_event_subscription_t *data_collection_event_subscription_find_by_id(const char *subscription_id /* not-null */) {
  
    data_collection_event_subscription_t *event_subscription = NULL; 
@@ -371,6 +404,7 @@ cJSON *data_collection_generate_af_event_notification_for_subscription(data_coll
     if(data_collection_event_subscription->af_event_exposure_subscription) {	
         response = af_event_exposure_subscription_generate_response((const data_collection_af_event_exposure_subscription_t *)data_collection_event_subscription->af_event_exposure_subscription /* not-null */, (const ogs_list_t *)af_events_notifications);
     }
+    if(af_events_notifications) ogs_free(af_events_notifications);
     return response;
 }
 
@@ -421,7 +455,7 @@ cJSON *data_collection_generate_af_event_notification(data_collection_event_subs
 
     af_events_notifications = data_collection_self()->config.data_collection_configuration->event_generation_callback(data_collection_event_subscription);
     
-    if(!ogs_list_first(af_events_notifications)) {
+    if(!af_events_notifications) {
             return NULL;
     }
     
@@ -493,6 +527,19 @@ int data_collection_send_af_event_exposure_notif(data_collection_event_subscript
 
     return 1;
 
+}
+
+void data_collection_remove_af_event_exposure_subscription_notifs(data_collection_event_subscription_t *data_collection_event_subscription) {
+
+    if(data_collection_event_subscription->af_event_exposure_subscription->af_event_exposure_subsc->event_notifs) {
+        OpenAPI_lnode_t *node = NULL;
+
+        OpenAPI_list_for_each(data_collection_event_subscription->af_event_exposure_subscription->af_event_exposure_subsc->event_notifs, node) {
+            dc_api_af_event_notification_free(node->data);
+        }
+        OpenAPI_list_free(data_collection_event_subscription->af_event_exposure_subscription->af_event_exposure_subsc->event_notifs);
+        data_collection_event_subscription->af_event_exposure_subscription->af_event_exposure_subsc->event_notifs = NULL;
+    }
 }
 
 void event_notification_timer_activate(data_collection_event_subscription_t *data_collection_event_subscription) {

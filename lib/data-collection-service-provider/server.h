@@ -26,6 +26,7 @@ typedef struct nf_server_app_metadata_s {
     const char *app_name;
     const char *app_version;
     const char *server_name;
+    const char *nf_info;
 } nf_server_app_metadata_t;
 
 extern bool nf_server_send_error(ogs_sbi_stream_t *stream,

@@ -17,6 +17,7 @@
 #include "communication-record.h"
 #include "event-notification.h"
 #include "hash.h"
+#include "dcaf-version.h"
 #include "data-collection-sp/data-collection.h"
 #include "openapi/model/dcaf_api_data_report.h"
 
@@ -50,6 +51,9 @@ static const data_collection_configuration_t dc_config = {
     "dataCollection",                /* configuration section */
     0,                               /* library feature disable flags */
     DATA_COLLECTION_SUPPORTED_FEATURE_EVENT_UE_COMMUNICATION, /* event supported feature flags - when UE_comm implemented */
+    DCAF_NAME,
+    DCAF_VERSION,
+    DCAF_TYPE,
     dc_config_report_types,          /* data types to register */
     event_exposure_generate_cb       /* callback to generate events for event exposure */
 };
@@ -223,21 +227,11 @@ static ogs_list_t *event_exposure_generate_cb(data_collection_event_subscription
 
     data_reports = data_collection_reporting_report_find(NULL, data_collection_event_subscription, true);
     
-    if(data_reports) {
+    if(data_reports && ogs_list_first(data_reports)) {
         af_event_notifications = generate_af_event_notifications(data_reports, data_collection_event_subscription);
     }
 
-    /*
-
-    ogs_list_for_each(data_reports, data_report) {
-        report = data_collection_reporting_data_report_get(data_report);
-        if(report) {
-	    generate_communication_collection_from_data_report(report);	
-
-	}	
-    	
-    }
-    */
+    if(data_reports) ogs_free(data_reports);
 
     return af_event_notifications;
 }

@@ -70,11 +70,11 @@ ogs_sbi_response_t *nf_server_new_response(const char *location, const char *con
             server_api_gen = ogs_msprintf(" (info.title=%s; info.version=%s)", interface->api_title, interface->api_version);
             server_api_info = server_api_gen;
         }
-        server = ogs_msprintf("%s/%s%s %s/%s",app->server_name, FIVEG_API_RELEASE, server_api_info, app->app_name,
+        server = ogs_msprintf("%s/%s%s %s %s/%s",app->server_name, FIVEG_API_RELEASE, server_api_info, app->nf_info, app->app_name,
                               app->app_version);
         if (server_api_gen) ogs_free(server_api_gen);
         ogs_sbi_header_set(response->http.headers, "Server", server);
-        ogs_free(server);
+	ogs_free(server);
     }
 
     return response;
