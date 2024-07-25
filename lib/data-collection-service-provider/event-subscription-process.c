@@ -79,7 +79,7 @@ bool _evex_subscription_process_event(ogs_event_t *e)
             ogs_sbi_stream_t *stream = e->sbi.data;
             ogs_sbi_server_t *server;
             const nf_server_interface_metadata_t *api = NULL;
-	    static const data_collection_configuration_server_ifc_t server_types[] = {DATA_COLLECTION_SVR_EVENT};
+	    static const data_collection_configuration_server_ifc_t server_types[] = {DATA_COLLECTION_SVR_AF_EVENT_EXPOSURE, DATA_COLLECTION_SVR_NWDAF_EVENT_EXPOSURE};
             data_collection_configuration_server_ifc_t server_found = -1;
             int i;
 
@@ -129,7 +129,8 @@ bool _evex_subscription_process_event(ogs_event_t *e)
                 if (api == naf_eventexposure_api) {
 			
                     /******** naf-eventexposure ********/
-                    if (!__does_stream_server_match_server(server, DATA_COLLECTION_SVR_EVENT)) {
+                    //if (!__does_stream_server_match_server(server, DATA_COLLECTION_SVR_EVENT)) {
+		    if (server_found == -1) { 	    
                         ogs_error("naf-eventexposure request on wrong interface");
                         ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_NOT_FOUND, 0, &message,
                                                 "Not found", NULL, NULL, NULL, NULL, api, app_meta));

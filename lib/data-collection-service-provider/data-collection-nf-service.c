@@ -31,12 +31,20 @@ int _data_collection_set_nf_services(void)
         const char *full_version;
         bool event_feature_flags;
     } services[] = {
+      {DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_PROVISIONING_R1, "3gpp-ndcaf_data-reporting-provisioning",
+       DATA_COLLECTION_SVR_PROVISIONING, NDCAF_DATAREPORTINGPROVISIONING_API_VERSION, false},
       {DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_PROVISIONING, "3gpp-ndcaf_data-reporting-provisioning",
        DATA_COLLECTION_SVR_PROVISIONING, NDCAF_DATAREPORTINGPROVISIONING_API_VERSION, false},
-      {DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING, "3gpp-ndcaf_data-reporting",
-       DATA_COLLECTION_SVR_DATA_REPORTING, NDCAF_DATAREPORTING_API_VERSION, false},
-      {DATA_COLLECTION_FEATURE_SERVER_EVENT_EXPOSURE, "naf-eventexposure",
-       DATA_COLLECTION_SVR_EVENT, NAF_EVENTEXPOSURE_API_VERSION, true}
+      {DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_R2, "3gpp-ndcaf_data-reporting",
+       DATA_COLLECTION_SVR_DIRECT_DATA_REPORTING, NDCAF_DATAREPORTING_API_VERSION, false},
+      {DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_R3, "3gpp-ndcaf_data-reporting",
+       DATA_COLLECTION_SVR_INDIRECT_DATA_REPORTING, NDCAF_DATAREPORTING_API_VERSION, false},
+      {DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_R4, "3gpp-ndcaf_data-reporting",
+       DATA_COLLECTION_SVR_AS_DATA_REPORTING, NDCAF_DATAREPORTING_API_VERSION, false},
+      {DATA_COLLECTION_FEATURE_SERVER_EVENT_EXPOSURE_R5, "naf-eventexposure",
+        DATA_COLLECTION_SVR_AF_EVENT_EXPOSURE, NAF_EVENTEXPOSURE_API_VERSION, true},
+      {DATA_COLLECTION_FEATURE_SERVER_EVENT_EXPOSURE_R6, "naf-eventexposure",
+        DATA_COLLECTION_SVR_NWDAF_EVENT_EXPOSURE, NAF_EVENTEXPOSURE_API_VERSION, true}
     };
 
     for (i=0; i<sizeof(services)/sizeof(services[0]); i++) {
@@ -85,7 +93,7 @@ static ogs_sbi_nf_service_t *__data_collection_nf_service(const char *name, int 
 
     ogs_sbi_nf_service_add_version(nf_service, OGS_SBI_API_V1, api_version, NULL);
 
-    nf_service->supported_features = data_collection_strdup(supported_features);
+    nf_service->supported_features = supported_features;
 
     ogs_debug("Data Collection Service [%s]", nf_service->name);
 

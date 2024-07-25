@@ -130,32 +130,33 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
         if (!strcmp(root_key, configuration->configuration_section)) {
             ogs_yaml_iter_t dc_iter;
 
-	    bool event_exposure_disable;
-            bool data_reporting_disable;
+            bool data_reporting_provisioning_disable_r1;
             bool data_reporting_provisioning_disable;
-	    int i = 0 ;
-            event_exposure_disable = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_EVENT_EXPOSURE);
-            data_reporting_disable = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING);
+            bool data_reporting_disable_r2;
+            bool data_reporting_disable_r3;
+            bool data_reporting_disable_r4;
+            bool data_reporting_disable;
+	    bool event_exposure_disable_r5;
+	    bool event_exposure_disable_r6;
+	    bool event_exposure_disable;
+	    
+	    int i = 0;
+
+            data_reporting_provisioning_disable_r1 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_PROVISIONING_R1);
             data_reporting_provisioning_disable = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_PROVISIONING);
+            data_reporting_disable_r2 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_R2);
+            data_reporting_disable_r3 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_R3);
+            data_reporting_disable_r4 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_R4);
+            data_reporting_disable = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING);
+	    event_exposure_disable_r5 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_EVENT_EXPOSURE_R5);
+	    event_exposure_disable_r6 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_EVENT_EXPOSURE_R6);
+	    event_exposure_disable = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_EVENT_EXPOSURE);
 
             const data_collection_data_report_handler_t * const *handlers = configuration->data_report_handlers;
             if(!handlers[i]) {
                 ogs_error("Configuration from the AF has no data report handlers");
                 return OGS_ERROR;
             }
-
-#if 0
-            for (i = 0; handlers[i]; i++) {
-                if(handlers[i]->data_report_property && handlers[i]->data_domain)
-                    continue;
-                if(handlers[i]->data_report_property && !handlers[i]->data_domain)
-                    handlers[i]->data_domain = dc_api_data_domain_ToString(set_data_domain_from_property(handlers[i]->data_report_property));
-                else 
-                if(handlers[i]->data_domain && !handlers[i]->data_report_property)
-	            handlers[i]->data_report_property = set_data_property_from_domain(handlers[i]->data_domain);
-	
-            }
-#endif
 
             ogs_yaml_iter_recurse(&root_iter, &dc_iter);
             while (ogs_yaml_iter_next(&dc_iter)) {
@@ -181,7 +182,7 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
                     while (ogs_yaml_iter_next(&cc_iter)) {
                         const char *cc_key = ogs_yaml_iter_key(&cc_iter);
                         ogs_assert(cc_key);
-                        if (!strcmp(cc_key, "provisioningSessions")) {
+                        if (!strcmp(cc_key, "provisioning")) {
                             data_collection_reporting_provisioning_session_response_max_age = ascii_to_long(ogs_yaml_iter_value(&cc_iter));
                         } else if (!strcmp(cc_key, "dataCollectionReports")) {
                             data_collection_reporting_report_response_max_age = ascii_to_long(ogs_yaml_iter_value(&cc_iter));
@@ -194,18 +195,27 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
 				event_exposure_response_max_age);
 
 
-                }  else if (!strcmp(dc_key, "provisioningSessions") || !strcmp(dc_key, "dataCollectionReports") || !strcmp(dc_key, "eventExposure")) {
+                }  else if (!strcmp(dc_key, "provisioning") || !strcmp(dc_key, "applicationServerDataReporting") 
+				|| !strcmp(dc_key, "eventConsumerApplicationFunctionEventExposure")
+				|| !strcmp(dc_key, "directDataReporting") || !strcmp(dc_key, "indirectDataReporting")
+				|| !strcmp(dc_key,"networkDataAnalyticsFunctionEventExposure")) {
 
                     ogs_list_t list, list6;
                     ogs_socknode_t *node = NULL, *node6 = NULL;
 
                     ogs_yaml_iter_t sbi_array, sbi_iter;
 
-		    if(data_reporting_disable && !strcmp(dc_key, "dataCollectionReports")) continue;
+		    if(data_reporting_provisioning_disable_r1 && !strcmp(dc_key, "provisioning")) continue;
+		    if(data_reporting_provisioning_disable && !strcmp(dc_key, "provisioning")) continue;
 
-		    if(data_reporting_provisioning_disable && !strcmp(dc_key, "provisioningSessions")) continue;
-
-		    if(event_exposure_disable && !strcmp(dc_key, "eventExposure")) continue;
+		    if(data_reporting_disable_r2 && !strcmp(dc_key, "directDataReporting")) continue;
+		    if(data_reporting_disable_r3 && !strcmp(dc_key, "indirectDataReporting")) continue;
+		    
+		    if(data_reporting_disable_r4 && !strcmp(dc_key, "applicationServerDataReporting")) continue;
+		    
+		    if(event_exposure_disable_r5 && !strcmp(dc_key, "eventConsumerApplicationFunctionEventExposure")) continue;
+		    
+		    if(event_exposure_disable_r6 && !strcmp(dc_key, "networkDataAnalyticsFunctionEventExposure")) continue;
 
                     ogs_yaml_iter_recurse(&dc_iter, &sbi_array);
                     do {
@@ -375,14 +385,23 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
                             }
 
                             SWITCH(dc_key)
-                            CASE("provisioningSessions")
+                            CASE("provisioning")
                                 ifc_num = DATA_COLLECTION_SVR_PROVISIONING;
                                 break;
-                            CASE("dataCollectionReports")
-                                ifc_num = DATA_COLLECTION_SVR_DATA_REPORTING;
+                            CASE("directDataReporting")
+                                ifc_num = DATA_COLLECTION_SVR_DIRECT_DATA_REPORTING;
                                 break;
-                            CASE("eventExposure")
-                                ifc_num = DATA_COLLECTION_SVR_EVENT;
+                            CASE("indirectDataReporting")
+                                ifc_num = DATA_COLLECTION_SVR_INDIRECT_DATA_REPORTING;
+                                break;
+                            CASE("applicationServerDataReporting")
+                                ifc_num = DATA_COLLECTION_SVR_AS_DATA_REPORTING;
+                                break;
+                            CASE("eventConsumerApplicationFunctionEventExposure")
+                                ifc_num = DATA_COLLECTION_SVR_AF_EVENT_EXPOSURE;
+                                break;
+                            CASE("networkDataAnalyticsFunctionEventExposure")
+                                ifc_num = DATA_COLLECTION_SVR_NWDAF_EVENT_EXPOSURE;
                                 break;
                             DEFAULT
                                 ifc_num = DATA_COLLECTION_SVR_SBI;
@@ -427,15 +446,25 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
                                 if (pem) server->tls.pem = pem;
                             */
                             }
+
                             SWITCH(dc_key)
-                            CASE("provisioningSessions")
+                            CASE("provisioning")
                                 ifc_num = DATA_COLLECTION_SVR_PROVISIONING;
                                 break;
-                            CASE("dataCollectionReports")
-                                ifc_num = DATA_COLLECTION_SVR_DATA_REPORTING;
+                            CASE("directDataReporting")
+                                ifc_num = DATA_COLLECTION_SVR_DIRECT_DATA_REPORTING;
                                 break;
-                            CASE("eventExposure")
-                                ifc_num = DATA_COLLECTION_SVR_EVENT;
+                            CASE("indirectDataReporting")
+                                ifc_num = DATA_COLLECTION_SVR_INDIRECT_DATA_REPORTING;
+                                break;
+                            CASE("applicationServerDataReporting")
+                                ifc_num = DATA_COLLECTION_SVR_AS_DATA_REPORTING;
+                                break;
+                            CASE("eventConsumerApplicationFunctionEventExposure")
+                                ifc_num = DATA_COLLECTION_SVR_AF_EVENT_EXPOSURE;
+                                break;
+                            CASE("networkDataAnalyticsFunctionEventExposure")
+                                ifc_num = DATA_COLLECTION_SVR_NWDAF_EVENT_EXPOSURE;
                                 break;
                             DEFAULT
                                 ifc_num = DATA_COLLECTION_SVR_SBI;

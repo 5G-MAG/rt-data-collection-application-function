@@ -127,7 +127,7 @@ bool _data_report_process_event(ogs_event_t *e)
             ogs_sbi_stream_t *stream = e->sbi.data;
             ogs_sbi_server_t *server;
             const nf_server_interface_metadata_t *api = NULL;
-            static const data_collection_configuration_server_ifc_t server_types[] = {DATA_COLLECTION_SVR_DATA_REPORTING, DATA_COLLECTION_SVR_PROVISIONING};
+            static const data_collection_configuration_server_ifc_t server_types[] = {DATA_COLLECTION_SVR_DIRECT_DATA_REPORTING, DATA_COLLECTION_SVR_INDIRECT_DATA_REPORTING, DATA_COLLECTION_SVR_AS_DATA_REPORTING, DATA_COLLECTION_SVR_PROVISIONING};
             data_collection_configuration_server_ifc_t server_found = -1;
             int i;
  
@@ -179,7 +179,18 @@ bool _data_report_process_event(ogs_event_t *e)
                 END
                 if (api == ndcaf_datareporting_api) {
                     /******** 3gpp-ndcaf_data-reporting ********/
-                    if (!__does_stream_server_match_server(server, DATA_COLLECTION_SVR_DATA_REPORTING)) {
+		    static const data_collection_configuration_server_ifc_t data_reporting_server_types[] = {DATA_COLLECTION_SVR_DIRECT_DATA_REPORTING, DATA_COLLECTION_SVR_INDIRECT_DATA_REPORTING, DATA_COLLECTION_SVR_AS_DATA_REPORTING};
+                    data_collection_configuration_server_ifc_t data_reporting_server_found = -1;
+		    int j;
+
+		    for (j=0; j<(sizeof(data_reporting_server_types)/sizeof(data_reporting_server_types[0])); i++) {
+                        if (__does_stream_server_match_server(server, data_reporting_server_types[i])) {
+                            data_reporting_server_found = data_reporting_server_types[i];
+                            break;
+                        }
+                    } 
+
+                    if (data_reporting_server_found == -1) {
                         ogs_error("3gpp-ndcaf_data-reporting request on wrong interface");
                         ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_NOT_FOUND, 0, &message,
                                                 "Not found", NULL, NULL, NULL, NULL, api, app_meta));
