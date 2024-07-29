@@ -21,7 +21,7 @@ static ogs_lnode_t *copy_data_domain_node(const ogs_lnode_t *to_copy);
 
 /********* Library API functions *********/
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_session_t *data_collection_reporting_session_create(const char *external_app_id, const data_domain_list_t *supported_domains)
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_session_t *data_collection_reporting_session_create(const char *external_app_id, const data_domain_list_t *supported_domains, data_collection_reporting_client_type_e client_type)
 {
     ogs_uuid_t uuid;
     char id[OGS_UUID_FORMATTED_LENGTH + 1];
@@ -43,6 +43,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_session_t *data_colle
                  (data_domain_list_t*)list_clone(supported_domains, copy_data_domain_node);
 
     data_collection_reporting_session->received = ogs_time_now();
+    data_collection_reporting_session->client_type =  client_type;
 
     ogs_hash_set(data_collection_self()->data_reporting_sessions, data_collection_reporting_session->data_reporting_session_id, OGS_HASH_KEY_STRING, data_collection_reporting_session);
 

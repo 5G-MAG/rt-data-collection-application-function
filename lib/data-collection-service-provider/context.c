@@ -38,6 +38,8 @@ static void data_collection_context_data_reporting_provisioning_sessions_remove(
 static void data_collection_context_data_reporting_sessions_remove(void);
 static void data_collection_context_data_reports_remove(void);
 static void data_collection_context_data_reporting_sessions_cache_remove(void);
+static ogs_sockaddr_t *does_sockaddr_v4_match(data_collection_configuration_server_ifc_t ifc_num, data_collection_configuration_server_ifc_t ifc_num_conf);
+static ogs_sockaddr_t *does_sockaddr_v6_match(data_collection_configuration_server_ifc_t ifc_num, data_collection_configuration_server_ifc_t ifc_num_conf);
 //static void data_collection_context_data_reporting_sessions_cache_remove_all(void);
 static void data_collection_context_server_sockaddr_remove(void);
 //static dc_api_data_domain_e set_data_domain_from_property(data_collection_data_report_property_e data_report_property);
@@ -359,8 +361,11 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
                             int matches = 0;
                             ogs_sbi_server_t *server;
                             data_collection_configuration_server_ifc_t ifc_num;
+			    ogs_sockaddr_t *data_report_sockaddr = NULL;
+                            char data_report_server_addr[OGS_ADDRSTRLEN];
+                            int  data_report_server_port;
 
-                            for (i=0; i<DATA_COLLECTION_SVR_NUM_IFCS; i++) {
+			    for (i=0; i<DATA_COLLECTION_SVR_NUM_IFCS; i++) {
                                 for (j=0; j<self->config.servers[i].num_v4_server_instances; j++) {
                                     if (self->config.servers[i].ogs_server[j].ipv4 && ogs_sockaddr_is_equal(node->addr, self->config.servers[i].ogs_server[j].ipv4)) {
                                         server = self->config.servers[i].ogs_server[j].server_v4;
@@ -416,13 +421,63 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
                                                                   server->node.addr));
                             self->config.servers[ifc_num].ogs_server[ifc_svr].server_v4 = server;
                             self->config.servers[ifc_num].num_v4_server_instances++;
+
+
+			    if(!data_reporting_disable_r2 && !data_reporting_disable_r3){
+			        data_report_sockaddr = does_sockaddr_v4_match(DATA_COLLECTION_SVR_DIRECT_DATA_REPORTING, DATA_COLLECTION_SVR_INDIRECT_DATA_REPORTING);
+				if(data_report_sockaddr){
+				    OGS_ADDR(data_report_sockaddr, data_report_server_addr);
+				    data_report_server_port = OGS_PORT(data_report_sockaddr);
+				    ogs_error("Configuration Error: Direct and Indirect Data Reporting configurations have same network address [%s] and port [%d]",
+					    data_report_server_addr, data_report_server_port);
+				    return OGS_ERROR;
+				}
+			    }
+
+			    if(!data_reporting_disable_r2 && !data_reporting_disable_r4){
+                                data_report_sockaddr = does_sockaddr_v4_match(DATA_COLLECTION_SVR_DIRECT_DATA_REPORTING, DATA_COLLECTION_SVR_AS_DATA_REPORTING);
+                                if(data_report_sockaddr){
+                                    OGS_ADDR(data_report_sockaddr, data_report_server_addr);
+                                    data_report_server_port = OGS_PORT(data_report_sockaddr);
+                                    ogs_error("Configuration Error: Direct and Application Server Data Reporting configurations have same network address [%s] and port [%d]",
+                                            data_report_server_addr, data_report_server_port);
+                                    return OGS_ERROR;
+                                }
+                            }
+
+			    if(!data_reporting_disable_r3 && !data_reporting_disable_r4){
+                                data_report_sockaddr = does_sockaddr_v4_match(DATA_COLLECTION_SVR_INDIRECT_DATA_REPORTING, DATA_COLLECTION_SVR_AS_DATA_REPORTING);
+                                if(data_report_sockaddr){
+                                    OGS_ADDR(data_report_sockaddr, data_report_server_addr);
+                                    data_report_server_port = OGS_PORT(data_report_sockaddr);
+                                    ogs_error("Configuration Error: Indirect and Application Server Data Reporting configurations have same network address [%s] and port [%d]",
+                                            data_report_server_addr, data_report_server_port);
+                                    return OGS_ERROR;
+                                }
+                            }
+
+			    if(!event_exposure_disable_r5 && !event_exposure_disable_r6){
+                                data_report_sockaddr = does_sockaddr_v4_match(DATA_COLLECTION_SVR_AF_EVENT_EXPOSURE, DATA_COLLECTION_SVR_NWDAF_EVENT_EXPOSURE);
+                                if(data_report_sockaddr){
+                                    OGS_ADDR(data_report_sockaddr, data_report_server_addr);
+                                    data_report_server_port = OGS_PORT(data_report_sockaddr);
+                                    ogs_error("Configuration Error: Event Consumer AF and NWDAF Event Exposure configurations have same network address [%s] and port [%d]",
+                                            data_report_server_addr, data_report_server_port);
+                                    return OGS_ERROR;
+                                }
+                            }
                         }
+
                         node6 = ogs_list_first(&list6);
                         if (node6) {
                             int i,j;
                             int matches = 0;
                             ogs_sbi_server_t *server;
                             data_collection_configuration_server_ifc_t ifc_num;
+
+			    ogs_sockaddr_t *data_report_sockaddr = NULL;
+		            char data_report_server_addr[OGS_ADDRSTRLEN];
+		            int  data_report_server_port;
 
                             for (i=0; i<DATA_COLLECTION_SVR_NUM_IFCS; i++) {
                                 for (j=0; j<self->config.servers[i].num_v6_server_instances; j++) {
@@ -479,6 +534,50 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
                                                                   server->node.addr));
                             self->config.servers[ifc_num].ogs_server[ifc_svr].server_v6 = server;
                             self->config.servers[ifc_num].num_v6_server_instances++;
+
+			    if(!data_reporting_disable_r2 && !data_reporting_disable_r3){
+			        data_report_sockaddr = does_sockaddr_v6_match(DATA_COLLECTION_SVR_DIRECT_DATA_REPORTING, DATA_COLLECTION_SVR_INDIRECT_DATA_REPORTING);
+				if(data_report_sockaddr){
+				    OGS_ADDR(data_report_sockaddr, data_report_server_addr);
+				    data_report_server_port = OGS_PORT(data_report_sockaddr);
+				    ogs_error("Configuration Error: Direct and Indirect Data Reporting configurations have same network address [%s] and port [%d]",
+					    data_report_server_addr, data_report_server_port);
+				    return OGS_ERROR;
+				}
+			    }
+
+			    if(!data_reporting_disable_r2 && !data_reporting_disable_r4){
+                                data_report_sockaddr = does_sockaddr_v6_match(DATA_COLLECTION_SVR_DIRECT_DATA_REPORTING, DATA_COLLECTION_SVR_AS_DATA_REPORTING);
+                                if(data_report_sockaddr){
+                                    OGS_ADDR(data_report_sockaddr, data_report_server_addr);
+                                    data_report_server_port = OGS_PORT(data_report_sockaddr);
+                                    ogs_error("Configuration Error: Direct and Application Server Data Reporting configurations have same network address [%s] and port [%d]",
+                                            data_report_server_addr, data_report_server_port);
+                                    return OGS_ERROR;
+                                }
+                            }
+
+			    if(!data_reporting_disable_r3 && !data_reporting_disable_r4){
+                                data_report_sockaddr = does_sockaddr_v6_match(DATA_COLLECTION_SVR_INDIRECT_DATA_REPORTING, DATA_COLLECTION_SVR_AS_DATA_REPORTING);
+                                if(data_report_sockaddr){
+                                    OGS_ADDR(data_report_sockaddr, data_report_server_addr);
+                                    data_report_server_port = OGS_PORT(data_report_sockaddr);
+                                    ogs_error("Configuration Error: Indirect and Application Server Data Reporting configurations have same network address [%s] and port [%d]",
+                                            data_report_server_addr, data_report_server_port);
+                                    return OGS_ERROR;
+                                }
+                            }
+
+			    if(!event_exposure_disable_r5 && !event_exposure_disable_r6){
+                                data_report_sockaddr = does_sockaddr_v6_match(DATA_COLLECTION_SVR_AF_EVENT_EXPOSURE, DATA_COLLECTION_SVR_NWDAF_EVENT_EXPOSURE);
+                                if(data_report_sockaddr){
+                                    OGS_ADDR(data_report_sockaddr, data_report_server_addr);
+                                    data_report_server_port = OGS_PORT(data_report_sockaddr);
+                                    ogs_error("Configuration Error: Event Consumer AF and NWDAF Event Exposure configurations have same network address [%s] and port [%d]",
+                                            data_report_server_addr, data_report_server_port);
+                                    return OGS_ERROR;
+                                }
+                            }
                         }
 
 
@@ -673,6 +772,40 @@ free_ogs_hash_entry(void *rec, const void *key, int klen, const void *value)
     ogs_free((void*)key);
     return 1;
 }
+
+static ogs_sockaddr_t *does_sockaddr_v4_match(data_collection_configuration_server_ifc_t ifc_num, data_collection_configuration_server_ifc_t ifc_num_conf)        
+{
+    int i, j; 	
+    for(i=0; i < self->config.servers[ifc_num].num_v4_server_instances; i++) {
+        for(j=0; j < self->config.servers[ifc_num_conf].num_v4_server_instances; j++) {
+            if(self->config.servers[ifc_num].ogs_server[i].ipv4
+                && self->config.servers[ifc_num_conf].ogs_server[j].ipv4
+                && ogs_sockaddr_is_equal(self->config.servers[ifc_num].ogs_server[i].ipv4,
+                    self->config.servers[ifc_num_conf].ogs_server[j].ipv4)) {
+                return self->config.servers[ifc_num].ogs_server[i].ipv4;
+	    }
+	}
+    }
+    return NULL;
+}
+
+static ogs_sockaddr_t *does_sockaddr_v6_match(data_collection_configuration_server_ifc_t ifc_num, data_collection_configuration_server_ifc_t ifc_num_conf)
+{
+    int i, j;
+    for(i=0; i < self->config.servers[ifc_num].num_v6_server_instances; i++) {
+        for(j=0; j < self->config.servers[ifc_num_conf].num_v6_server_instances; j++) {
+            if(self->config.servers[ifc_num].ogs_server[i].ipv6
+                && self->config.servers[ifc_num_conf].ogs_server[j].ipv6
+                && ogs_sockaddr_is_equal(self->config.servers[ifc_num].ogs_server[i].ipv6,
+                    self->config.servers[ifc_num_conf].ogs_server[j].ipv6)) {
+                return self->config.servers[ifc_num].ogs_server[i].ipv6;
+            }
+        }
+    }
+    return NULL;
+}
+
+
 
 int data_collection_context_server_name_set(void) {
 

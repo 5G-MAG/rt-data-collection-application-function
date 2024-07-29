@@ -298,6 +298,7 @@ bool _data_report_process_event(ogs_event_t *e)
 				    data_collection_reporting_session_t *data_collection_reporting_session;
                                     const char *reason;
 				    data_domain_list_t *supported_domains;
+				    data_collection_reporting_client_type_e client_type;
 
 				    ogs_debug("Request body: %s", request->http.content);
 
@@ -345,7 +346,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                         dc_api_data_reporting_session_free(data_reporting_session);
                                     } */
 				    supported_domains = __populate_supported_domains(data_reporting_session->supported_domains);
-				    data_collection_reporting_session = data_collection_reporting_session_create(data_reporting_session->external_application_id, supported_domains);
+				    data_collection_reporting_session = data_collection_reporting_session_create(data_reporting_session->external_application_id, supported_domains, client_type);
                                     __free_supported_domains(supported_domains);
 				    if (!data_collection_reporting_session) {
                                         ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_INTERNAL_SERVER_ERROR,

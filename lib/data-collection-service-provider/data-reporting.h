@@ -36,6 +36,7 @@ typedef struct data_collection_reporting_session_s {
     ogs_time_t received;
     char *hash;
     dc_api_data_reporting_session_t *data_reporting_session;
+    data_collection_reporting_client_type_e client_type;
 } data_collection_reporting_session_t;
 
 extern data_collection_reporting_session_t *data_reporting_session_populate(data_collection_reporting_session_t *data_collection_reporting_session, dc_api_data_reporting_session_t *data_reporting_session);

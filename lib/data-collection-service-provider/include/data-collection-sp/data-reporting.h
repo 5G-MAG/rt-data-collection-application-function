@@ -42,6 +42,12 @@ typedef enum {
     DATA_COLLECTION_DATA_REPORT_PROPERTY_ANBR_NET_ASSIST_INVOCATION
 } data_collection_data_report_property_e;
 
+typedef enum {
+    DATA_COLLECTION_REPORTING_CLIENT_TYPE_DIRECT,
+    DATA_COLLECTION_REPORTING_CLIENT_TYPE_INDIRECT,
+    DATA_COLLECTION_REPORTING_CLIENT_TYPE_APPLICATION_SERVER
+} data_collection_reporting_client_type_e;
+
 /***** Opaque Types *****/
 
 /** Data Report
@@ -86,7 +92,7 @@ typedef ogs_list_t data_domain_list_t; /* list of data_domain_node_t */
 /***** Library function API *****/
 
 /** Create a new data reporting session */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_session_t *data_collection_reporting_session_create(const char *external_app_id, const data_domain_list_t *supported_domains);
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_session_t *data_collection_reporting_session_create(const char *external_app_id, const data_domain_list_t *supported_domains, data_collection_reporting_client_type_e client_type);
 
 /** Destroy a data reporting session */
 DATA_COLLECTION_SVC_PRODUCER_API void data_collection_reporting_session_destroy(data_collection_reporting_session_t *session);
