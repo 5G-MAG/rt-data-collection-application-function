@@ -73,6 +73,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_nwdaf_event_toJSON
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_nwdaf_event_t *data_collection_model_nwdaf_event_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_nwdaf_event_is_equal_to(const data_collection_model_nwdaf_event_t *nwdaf_event, const data_collection_model_nwdaf_event_t *other_nwdaf_event);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_nwdaf_event_is_not_set(const data_collection_model_nwdaf_event_t *nwdaf_event);
 

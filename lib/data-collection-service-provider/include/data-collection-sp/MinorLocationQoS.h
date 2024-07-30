@@ -41,6 +41,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_minor_location_qo_
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_minor_location_qo_s_t *data_collection_model_minor_location_qo_s_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_minor_location_qo_s_is_equal_to(const data_collection_model_minor_location_qo_s_t *minor_location_qo_s, const data_collection_model_minor_location_qo_s_t *other_minor_location_qo_s);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_minor_location_qo_s_get_h_accuracy(const data_collection_model_minor_location_qo_s_t *minor_location_qo_s);
 

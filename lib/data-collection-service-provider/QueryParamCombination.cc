@@ -80,6 +80,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_param_co
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_query_param_combination_is_equal_to(const data_collection_model_query_param_combination_t *first, const data_collection_model_query_param_combination_t *second)
+{
+    const std::shared_ptr<QueryParamCombination > &obj1 = *reinterpret_cast<const std::shared_ptr<QueryParamCombination >*>(first);
+    const std::shared_ptr<QueryParamCombination > &obj2 = *reinterpret_cast<const std::shared_ptr<QueryParamCombination >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_query_param_combination_get_query_params(const data_collection_model_query_param_combination_t *obj_query_param_combination)
 {

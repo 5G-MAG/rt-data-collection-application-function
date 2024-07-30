@@ -117,7 +117,7 @@ bool _data_report_process_event(ogs_event_t *e)
 
         }
         break;
-    
+
     case OGS_EVENT_SBI_SERVER:
         {
             int rv = 0;
@@ -286,7 +286,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                         nf_server_populate_response(response, 0, NULL, 204);
                                         ogs_assert(response);
                                         ogs_assert(true == ogs_sbi_server_send_response(stream, response));
-					event_exposure_notification_send_local_event(NULL);
+					_event_exposure_notification_send_local_event(NULL);
 
 				} else {
 		                    ogs_debug("In Data reporting session");

@@ -146,6 +146,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_civic_address_is_equal_to(const data_collection_model_civic_address_t *first, const data_collection_model_civic_address_t *second)
+{
+    const std::shared_ptr<CivicAddress > &obj1 = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(first);
+    const std::shared_ptr<CivicAddress > &obj2 = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_country(const data_collection_model_civic_address_t *obj_civic_address)
 {

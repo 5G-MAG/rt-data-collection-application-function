@@ -49,6 +49,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_rtp_payload_format
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_format_t *data_collection_model_rtp_payload_format_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_payload_format_is_equal_to(const data_collection_model_rtp_payload_format_t *rtp_payload_format, const data_collection_model_rtp_payload_format_t *other_rtp_payload_format);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_payload_format_is_not_set(const data_collection_model_rtp_payload_format_t *rtp_payload_format);
 

@@ -90,6 +90,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_consumption_reporting_units_collection_is_equal_to(const data_collection_model_consumption_reporting_units_collection_t *first, const data_collection_model_consumption_reporting_units_collection_t *second)
+{
+    const std::shared_ptr<ConsumptionReportingUnitsCollection > &obj1 = *reinterpret_cast<const std::shared_ptr<ConsumptionReportingUnitsCollection >*>(first);
+    const std::shared_ptr<ConsumptionReportingUnitsCollection > &obj2 = *reinterpret_cast<const std::shared_ptr<ConsumptionReportingUnitsCollection >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_consumption_reporting_units_collection_get_collection_timestamp(const data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection)
 {

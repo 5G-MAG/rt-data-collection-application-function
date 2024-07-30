@@ -98,6 +98,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_info
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_reporting_information_is_equal_to(const data_collection_model_reporting_information_t *first, const data_collection_model_reporting_information_t *second)
+{
+    const std::shared_ptr<ReportingInformation > &obj1 = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(first);
+    const std::shared_ptr<ReportingInformation > &obj2 = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const bool data_collection_model_reporting_information_is_imm_rep(const data_collection_model_reporting_information_t *obj_reporting_information)
 {

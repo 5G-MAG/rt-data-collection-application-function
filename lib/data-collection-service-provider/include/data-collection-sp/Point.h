@@ -43,6 +43,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_point_toJSON(const
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_t *data_collection_model_point_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_point_is_equal_to(const data_collection_model_point_t *point, const data_collection_model_point_t *other_point);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supported_gad_shapes_t* data_collection_model_point_get_shape(const data_collection_model_point_t *point);
 

@@ -86,6 +86,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_collective_beh
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_collective_behaviour_filter_is_equal_to(const data_collection_model_collective_behaviour_filter_t *first, const data_collection_model_collective_behaviour_filter_t *second)
+{
+    const std::shared_ptr<CollectiveBehaviourFilter > &obj1 = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourFilter >*>(first);
+    const std::shared_ptr<CollectiveBehaviourFilter > &obj2 = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourFilter >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_collective_behaviour_filter_type_t* data_collection_model_collective_behaviour_filter_get_type(const data_collection_model_collective_behaviour_filter_t *obj_collective_behaviour_filter)
 {

@@ -80,6 +80,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_minor_location
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_minor_location_qo_s_is_equal_to(const data_collection_model_minor_location_qo_s_t *first, const data_collection_model_minor_location_qo_s_t *second)
+{
+    const std::shared_ptr<MinorLocationQoS > &obj1 = *reinterpret_cast<const std::shared_ptr<MinorLocationQoS >*>(first);
+    const std::shared_ptr<MinorLocationQoS > &obj2 = *reinterpret_cast<const std::shared_ptr<MinorLocationQoS >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_minor_location_qo_s_get_h_accuracy(const data_collection_model_minor_location_qo_s_t *obj_minor_location_qo_s)
 {

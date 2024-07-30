@@ -52,6 +52,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_battery_indication
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_battery_indication_t *data_collection_model_battery_indication_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_battery_indication_is_equal_to(const data_collection_model_battery_indication_t *battery_indication, const data_collection_model_battery_indication_t *other_battery_indication);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_battery_indication_is_not_set(const data_collection_model_battery_indication_t *battery_indication);
 

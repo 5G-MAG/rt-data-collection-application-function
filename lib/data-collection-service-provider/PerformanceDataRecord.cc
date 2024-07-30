@@ -30,9 +30,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
 
 
 
+
 )
 {
     return reinterpret_cast<data_collection_model_performance_data_record_t*>(new std::shared_ptr<PerformanceDataRecord>(new PerformanceDataRecord(
+
 
 
 
@@ -92,6 +94,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_performance_data_record_is_equal_to(const data_collection_model_performance_data_record_t *first, const data_collection_model_performance_data_record_t *second)
+{
+    const std::shared_ptr<PerformanceDataRecord > &obj1 = *reinterpret_cast<const std::shared_ptr<PerformanceDataRecord >*>(first);
+    const std::shared_ptr<PerformanceDataRecord > &obj2 = *reinterpret_cast<const std::shared_ptr<PerformanceDataRecord >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_performance_data_record_get_timestamp(const data_collection_model_performance_data_record_t *obj_performance_data_record)
 {
@@ -126,6 +135,96 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
     ValueType value(value_from);
     
     if (!obj->setTimestamp(std::move(value))) return NULL;
+    return obj_performance_data_record;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_performance_data_record_get_context_ids(const data_collection_model_performance_data_record_t *obj_performance_data_record)
+{
+    const std::shared_ptr<PerformanceDataRecord > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceDataRecord >*>(obj_performance_data_record);
+    typedef typename PerformanceDataRecord::ContextIdsType ResultFromType;
+    const ResultFromType result_from = obj->getContextIds();
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+    typedef typename ResultFromType::value_type ItemType;
+    for (const ItemType &item : result_from) {
+        data_collection_lnode_t *node;
+        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+        
+        ogs_list_add(result, node);
+    }
+    return result;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_t *data_collection_model_performance_data_record_set_context_ids(data_collection_model_performance_data_record_t *obj_performance_data_record, const ogs_list_t* p_context_ids)
+{
+    if (obj_performance_data_record == NULL) return NULL;
+
+    std::shared_ptr<PerformanceDataRecord > &obj = *reinterpret_cast<std::shared_ptr<PerformanceDataRecord >*>(obj_performance_data_record);
+    const auto &value_from = p_context_ids;
+    typedef typename PerformanceDataRecord::ContextIdsType ValueType;
+
+    ValueType value;
+    {
+        data_collection_lnode_t *lnode;
+        typedef typename ValueType::value_type ItemType;
+        ogs_list_for_each(value_from, lnode) {
+    	value.push_back(ItemType((const char *)lnode->object));
+            
+        }
+    }
+    if (!obj->setContextIds(value)) return NULL;
+    return obj_performance_data_record;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_t *data_collection_model_performance_data_record_set_context_ids_move(data_collection_model_performance_data_record_t *obj_performance_data_record, ogs_list_t* p_context_ids)
+{
+    if (obj_performance_data_record == NULL) return NULL;
+
+    std::shared_ptr<PerformanceDataRecord > &obj = *reinterpret_cast<std::shared_ptr<PerformanceDataRecord >*>(obj_performance_data_record);
+    const auto &value_from = p_context_ids;
+    typedef typename PerformanceDataRecord::ContextIdsType ValueType;
+
+    ValueType value;
+    {
+        data_collection_lnode_t *lnode;
+        typedef typename ValueType::value_type ItemType;
+        ogs_list_for_each(value_from, lnode) {
+    	value.push_back(ItemType((const char *)lnode->object));
+            
+        }
+    }
+    data_collection_list_free(p_context_ids);
+    if (!obj->setContextIds(std::move(value))) return NULL;
+    return obj_performance_data_record;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_t *data_collection_model_performance_data_record_add_context_ids(data_collection_model_performance_data_record_t *obj_performance_data_record, char* p_context_ids)
+{
+    std::shared_ptr<PerformanceDataRecord > &obj = *reinterpret_cast<std::shared_ptr<PerformanceDataRecord >*>(obj_performance_data_record);
+    typedef typename PerformanceDataRecord::ContextIdsType ContainerType;
+    typedef typename ContainerType::value_type ValueType;
+    const auto &value_from = p_context_ids;
+
+    ValueType value(value_from);
+
+    obj->addContextIds(value);
+    return obj_performance_data_record;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_t *data_collection_model_performance_data_record_remove_context_ids(data_collection_model_performance_data_record_t *obj_performance_data_record, const char* p_context_ids)
+{
+    std::shared_ptr<PerformanceDataRecord > &obj = *reinterpret_cast<std::shared_ptr<PerformanceDataRecord >*>(obj_performance_data_record);
+    typedef typename PerformanceDataRecord::ContextIdsType ContainerType;
+    typedef typename ContainerType::value_type ValueType;
+    auto &value_from = p_context_ids;
+    ValueType value(value_from);
+    obj->removeContextIds(value);
+    return obj_performance_data_record;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_t *data_collection_model_performance_data_record_clear_context_ids(data_collection_model_performance_data_record_t *obj_performance_data_record)
+{   
+    std::shared_ptr<PerformanceDataRecord > &obj = *reinterpret_cast<std::shared_ptr<PerformanceDataRecord >*>(obj_performance_data_record);
+    obj->clearContextIds();
     return obj_performance_data_record;
 }
 

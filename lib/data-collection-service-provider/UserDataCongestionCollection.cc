@@ -90,6 +90,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_user_data_cong
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_user_data_congestion_collection_is_equal_to(const data_collection_model_user_data_congestion_collection_t *first, const data_collection_model_user_data_congestion_collection_t *second)
+{
+    const std::shared_ptr<UserDataCongestionCollection > &obj1 = *reinterpret_cast<const std::shared_ptr<UserDataCongestionCollection >*>(first);
+    const std::shared_ptr<UserDataCongestionCollection > &obj2 = *reinterpret_cast<const std::shared_ptr<UserDataCongestionCollection >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_user_data_congestion_collection_get_app_id(const data_collection_model_user_data_congestion_collection_t *obj_user_data_congestion_collection)
 {

@@ -82,6 +82,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_info
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_exception_info_is_equal_to(const data_collection_model_exception_info_t *first, const data_collection_model_exception_info_t *second)
+{
+    const std::shared_ptr<ExceptionInfo > &obj1 = *reinterpret_cast<const std::shared_ptr<ExceptionInfo >*>(first);
+    const std::shared_ptr<ExceptionInfo > &obj2 = *reinterpret_cast<const std::shared_ptr<ExceptionInfo >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_flow_info_t* data_collection_model_exception_info_get_ip_traffic_filter(const data_collection_model_exception_info_t *obj_exception_info)
 {

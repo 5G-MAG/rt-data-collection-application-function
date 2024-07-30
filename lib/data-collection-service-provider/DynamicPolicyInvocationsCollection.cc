@@ -90,6 +90,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_dynamic_policy_invocations_collection_is_equal_to(const data_collection_model_dynamic_policy_invocations_collection_t *first, const data_collection_model_dynamic_policy_invocations_collection_t *second)
+{
+    const std::shared_ptr<DynamicPolicyInvocationsCollection > &obj1 = *reinterpret_cast<const std::shared_ptr<DynamicPolicyInvocationsCollection >*>(first);
+    const std::shared_ptr<DynamicPolicyInvocationsCollection > &obj2 = *reinterpret_cast<const std::shared_ptr<DynamicPolicyInvocationsCollection >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_dynamic_policy_invocations_collection_get_collection_timestamp(const data_collection_model_dynamic_policy_invocations_collection_t *obj_dynamic_policy_invocations_collection)
 {

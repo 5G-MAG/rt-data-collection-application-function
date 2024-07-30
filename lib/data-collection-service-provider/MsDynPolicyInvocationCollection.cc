@@ -78,6 +78,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_dyn_policy_
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ms_dyn_policy_invocation_collection_is_equal_to(const data_collection_model_ms_dyn_policy_invocation_collection_t *first, const data_collection_model_ms_dyn_policy_invocation_collection_t *second)
+{
+    const std::shared_ptr<MsDynPolicyInvocationCollection > &obj1 = *reinterpret_cast<const std::shared_ptr<MsDynPolicyInvocationCollection >*>(first);
+    const std::shared_ptr<MsDynPolicyInvocationCollection > &obj2 = *reinterpret_cast<const std::shared_ptr<MsDynPolicyInvocationCollection >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ms_dyn_policy_invocation_collection_get_ms_dyn_ply_invocs(const data_collection_model_ms_dyn_policy_invocation_collection_t *obj_ms_dyn_policy_invocation_collection)
 {

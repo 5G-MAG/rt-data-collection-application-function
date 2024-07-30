@@ -82,6 +82,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_typed_location
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_typed_location_is_equal_to(const data_collection_model_typed_location_t *first, const data_collection_model_typed_location_t *second)
+{
+    const std::shared_ptr<TypedLocation > &obj1 = *reinterpret_cast<const std::shared_ptr<TypedLocation >*>(first);
+    const std::shared_ptr<TypedLocation > &obj2 = *reinterpret_cast<const std::shared_ptr<TypedLocation >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_cell_identifier_type_t* data_collection_model_typed_location_get_location_identifier_type(const data_collection_model_typed_location_t *obj_typed_location)
 {

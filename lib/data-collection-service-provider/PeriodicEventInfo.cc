@@ -84,6 +84,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_periodic_event_info_is_equal_to(const data_collection_model_periodic_event_info_t *first, const data_collection_model_periodic_event_info_t *second)
+{
+    const std::shared_ptr<PeriodicEventInfo > &obj1 = *reinterpret_cast<const std::shared_ptr<PeriodicEventInfo >*>(first);
+    const std::shared_ptr<PeriodicEventInfo > &obj2 = *reinterpret_cast<const std::shared_ptr<PeriodicEventInfo >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_periodic_event_info_get_reporting_amount(const data_collection_model_periodic_event_info_t *obj_periodic_event_info)
 {

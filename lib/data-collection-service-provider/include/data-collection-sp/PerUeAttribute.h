@@ -42,6 +42,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_per_ue_attribute_t
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_per_ue_attribute_is_equal_to(const data_collection_model_per_ue_attribute_t *per_ue_attribute, const data_collection_model_per_ue_attribute_t *other_per_ue_attribute);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location_area5_g_t* data_collection_model_per_ue_attribute_get_ue_dest(const data_collection_model_per_ue_attribute_t *per_ue_attribute);
 

@@ -41,6 +41,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_periodic_event_inf
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_periodic_event_info_is_equal_to(const data_collection_model_periodic_event_info_t *periodic_event_info, const data_collection_model_periodic_event_info_t *other_periodic_event_info);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_periodic_event_info_get_reporting_amount(const data_collection_model_periodic_event_info_t *periodic_event_info);
 

@@ -96,6 +96,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_collective_beh
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_collective_behaviour_info_is_equal_to(const data_collection_model_collective_behaviour_info_t *first, const data_collection_model_collective_behaviour_info_t *second)
+{
+    const std::shared_ptr<CollectiveBehaviourInfo > &obj1 = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourInfo >*>(first);
+    const std::shared_ptr<CollectiveBehaviourInfo > &obj2 = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourInfo >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_collective_behaviour_info_get_col_attrib(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
 {

@@ -76,6 +76,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_traffic_profil
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_traffic_profile_is_equal_to(const data_collection_model_traffic_profile_t *first, const data_collection_model_traffic_profile_t *second)
+{
+    const std::shared_ptr<TrafficProfile > &obj1 = *reinterpret_cast<const std::shared_ptr<TrafficProfile >*>(first);
+    const std::shared_ptr<TrafficProfile > &obj2 = *reinterpret_cast<const std::shared_ptr<TrafficProfile >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_traffic_profile_is_not_set(const data_collection_model_traffic_profile_t *obj_traffic_profile)
 {

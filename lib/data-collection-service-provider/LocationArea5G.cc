@@ -84,6 +84,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_location_area5_g_is_equal_to(const data_collection_model_location_area5_g_t *first, const data_collection_model_location_area5_g_t *second)
+{
+    const std::shared_ptr<LocationArea5G > &obj1 = *reinterpret_cast<const std::shared_ptr<LocationArea5G >*>(first);
+    const std::shared_ptr<LocationArea5G > &obj2 = *reinterpret_cast<const std::shared_ptr<LocationArea5G >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_location_area5_g_get_geographic_areas(const data_collection_model_location_area5_g_t *obj_location_area5_g)
 {

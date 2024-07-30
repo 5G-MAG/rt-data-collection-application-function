@@ -78,6 +78,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_cell_identifie
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_cell_identifier_type_any_of_is_equal_to(const data_collection_model_cell_identifier_type_any_of_t *first, const data_collection_model_cell_identifier_type_any_of_t *second)
+{
+    const std::shared_ptr<CellIdentifierType_anyOf > &obj1 = *reinterpret_cast<const std::shared_ptr<CellIdentifierType_anyOf >*>(first);
+    const std::shared_ptr<CellIdentifierType_anyOf > &obj2 = *reinterpret_cast<const std::shared_ptr<CellIdentifierType_anyOf >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cell_identifier_type_any_of_is_not_set(const data_collection_model_cell_identifier_type_any_of_t *cell_identifier_type_any_of)
 {

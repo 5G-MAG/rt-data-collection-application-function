@@ -110,26 +110,28 @@ void dc_timer_reporting_session_cache(void *data)
     ogs_timer_start(data_collection_self()->reporting_sessions_cache_timer, ogs_time_from_sec(data_collection_self()->config.server_response_cache_control->data_collection_reporting_report_response_max_age));
 }
 
-void dc_timer_data_reports_expire(void *data) {
+void dc_timer_data_reports_expire(void *data)
+{
     timer_send_event(DC_TIMER_DATA_REPORTS_EXPIRY, data);
     ogs_timer_start(data_collection_self()->data_reports_timer, ogs_time_from_sec(data_collection_self()->config.server_response_cache_control->data_collection_reporting_report_response_max_age));
 
 }
 
 
-void dc_timer_data_reports_clear(void *data) {
+void dc_timer_data_reports_clear(void *data)
+{
     timer_send_event(DC_TIMER_DATA_REPORTS_CLEAR, data);
     ogs_timer_start(data_collection_self()->data_reports_clear_timer, ogs_time_from_sec(data_collection_self()->config.server_response_cache_control->data_collection_reporting_report_response_max_age));
 
 }
 
-
-void dc_timer_event_exposure_notif(void *data) {
+void dc_timer_event_exposure_notif(void *data)
+{
     data_collection_event_subscription_t *event_subscription;
    
-    ogs_assert(data); 
+    ogs_assert(data);
     event_subscription = (data_collection_event_subscription_t *)data;
-    data_collection_set_event_subscription_send_notif(event_subscription);    
+    _event_subscription_set_send_notif(event_subscription);
     timer_send_event(DC_TIMER_EVENT_EXPOSURE_NOTIF, data);
-    event_subscription_notification_timer_activate(event_subscription);
+    _event_subscription_notification_timer_activate(event_subscription);
 }

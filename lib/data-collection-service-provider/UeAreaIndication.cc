@@ -80,6 +80,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_area_indica
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ue_area_indication_is_equal_to(const data_collection_model_ue_area_indication_t *first, const data_collection_model_ue_area_indication_t *second)
+{
+    const std::shared_ptr<UeAreaIndication > &obj1 = *reinterpret_cast<const std::shared_ptr<UeAreaIndication >*>(first);
+    const std::shared_ptr<UeAreaIndication > &obj2 = *reinterpret_cast<const std::shared_ptr<UeAreaIndication >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ue_area_indication_get_country(const data_collection_model_ue_area_indication_t *obj_ue_area_indication)
 {

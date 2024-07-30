@@ -126,8 +126,11 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_event_subscription_set_af_
 /** Get the event subscription id */
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_event_subscription_get_id(const data_collection_event_subscription_t *event_subscription);
 
-/** Get the Event Exposure Subscription last used date-time */
+/** Get the Event Exposure Subscription last modified date-time (for HTTP) */
 DATA_COLLECTION_SVC_PRODUCER_API ogs_time_t data_collection_event_subscription_get_last_modified(const data_collection_event_subscription_t *event_subscription);
+
+/** Get the Event Exposure Subscription last used date-time (for session expiry) */
+DATA_COLLECTION_SVC_PRODUCER_API ogs_time_t data_collection_event_subscription_get_last_used(const data_collection_event_subscription_t *event_subscription);
 
 /** Get the Event Exposure Subscription entity instance tag */
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_event_subscription_get_etag(const data_collection_event_subscription_t *event_subscription);

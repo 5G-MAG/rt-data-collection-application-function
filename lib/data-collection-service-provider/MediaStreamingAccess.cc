@@ -92,6 +92,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_media_streaming_access_is_equal_to(const data_collection_model_media_streaming_access_t *first, const data_collection_model_media_streaming_access_t *second)
+{
+    const std::shared_ptr<MediaStreamingAccess > &obj1 = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccess >*>(first);
+    const std::shared_ptr<MediaStreamingAccess > &obj2 = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccess >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_endpoint_address_t* data_collection_model_media_streaming_access_get_media_stream_handler_endpoint_address(const data_collection_model_media_streaming_access_t *obj_media_streaming_access)
 {

@@ -45,6 +45,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_data_reporting_ses
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_session_is_equal_to(const data_collection_model_data_reporting_session_t *data_reporting_session, const data_collection_model_data_reporting_session_t *other_data_reporting_session);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_data_reporting_session_get_session_id(const data_collection_model_data_reporting_session_t *data_reporting_session);
 

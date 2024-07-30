@@ -90,6 +90,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_performance_data_record_all_of_is_equal_to(const data_collection_model_performance_data_record_all_of_t *first, const data_collection_model_performance_data_record_all_of_t *second)
+{
+    const std::shared_ptr<PerformanceDataRecord_allOf > &obj1 = *reinterpret_cast<const std::shared_ptr<PerformanceDataRecord_allOf >*>(first);
+    const std::shared_ptr<PerformanceDataRecord_allOf > &obj2 = *reinterpret_cast<const std::shared_ptr<PerformanceDataRecord_allOf >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_time_window_t* data_collection_model_performance_data_record_all_of_get_time_interval(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
 {

@@ -80,6 +80,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_excepti
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_muting_exception_instructions_is_equal_to(const data_collection_model_muting_exception_instructions_t *first, const data_collection_model_muting_exception_instructions_t *second)
+{
+    const std::shared_ptr<MutingExceptionInstructions > &obj1 = *reinterpret_cast<const std::shared_ptr<MutingExceptionInstructions >*>(first);
+    const std::shared_ptr<MutingExceptionInstructions > &obj2 = *reinterpret_cast<const std::shared_ptr<MutingExceptionInstructions >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_buffered_notifications_action_t* data_collection_model_muting_exception_instructions_get_buffered_notifs(const data_collection_model_muting_exception_instructions_t *obj_muting_exception_instructions)
 {

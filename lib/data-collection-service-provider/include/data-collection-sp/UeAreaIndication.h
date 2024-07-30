@@ -41,6 +41,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_ue_area_indication
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_area_indication_t *data_collection_model_ue_area_indication_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ue_area_indication_is_equal_to(const data_collection_model_ue_area_indication_t *ue_area_indication, const data_collection_model_ue_area_indication_t *other_ue_area_indication);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue_area_indication_get_country(const data_collection_model_ue_area_indication_t *ue_area_indication);
 

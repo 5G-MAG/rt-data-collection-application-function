@@ -62,6 +62,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_af_event_notificat
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_notification_is_equal_to(const data_collection_model_af_event_notification_t *af_event_notification, const data_collection_model_af_event_notification_t *other_af_event_notification);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_af_event_t* data_collection_model_af_event_notification_get_event(const data_collection_model_af_event_notification_t *af_event_notification);
 

@@ -86,6 +86,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertai
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_point_uncertainty_ellipse_is_equal_to(const data_collection_model_point_uncertainty_ellipse_t *first, const data_collection_model_point_uncertainty_ellipse_t *second)
+{
+    const std::shared_ptr<PointUncertaintyEllipse > &obj1 = *reinterpret_cast<const std::shared_ptr<PointUncertaintyEllipse >*>(first);
+    const std::shared_ptr<PointUncertaintyEllipse > &obj2 = *reinterpret_cast<const std::shared_ptr<PointUncertaintyEllipse >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_supported_gad_shapes_t* data_collection_model_point_uncertainty_ellipse_get_shape(const data_collection_model_point_uncertainty_ellipse_t *obj_point_uncertainty_ellipse)
 {

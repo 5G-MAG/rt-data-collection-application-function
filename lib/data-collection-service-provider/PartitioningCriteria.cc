@@ -76,6 +76,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_partitioning_c
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_partitioning_criteria_is_equal_to(const data_collection_model_partitioning_criteria_t *first, const data_collection_model_partitioning_criteria_t *second)
+{
+    const std::shared_ptr<PartitioningCriteria > &obj1 = *reinterpret_cast<const std::shared_ptr<PartitioningCriteria >*>(first);
+    const std::shared_ptr<PartitioningCriteria > &obj2 = *reinterpret_cast<const std::shared_ptr<PartitioningCriteria >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_partitioning_criteria_is_not_set(const data_collection_model_partitioning_criteria_t *obj_partitioning_criteria)
 {

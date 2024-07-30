@@ -90,6 +90,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_qo_e_metrics_c
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_qo_e_metrics_collection_is_equal_to(const data_collection_model_qo_e_metrics_collection_t *first, const data_collection_model_qo_e_metrics_collection_t *second)
+{
+    const std::shared_ptr<QoEMetricsCollection > &obj1 = *reinterpret_cast<const std::shared_ptr<QoEMetricsCollection >*>(first);
+    const std::shared_ptr<QoEMetricsCollection > &obj2 = *reinterpret_cast<const std::shared_ptr<QoEMetricsCollection >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_qo_e_metrics_collection_get_collection_timestamp(const data_collection_model_qo_e_metrics_collection_t *obj_qo_e_metrics_collection)
 {

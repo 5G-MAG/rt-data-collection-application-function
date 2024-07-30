@@ -42,6 +42,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_query_param_combin
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_query_param_combination_is_equal_to(const data_collection_model_query_param_combination_t *query_param_combination, const data_collection_model_query_param_combination_t *other_query_param_combination);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_query_param_combination_get_query_params(const data_collection_model_query_param_combination_t *query_param_combination);
 

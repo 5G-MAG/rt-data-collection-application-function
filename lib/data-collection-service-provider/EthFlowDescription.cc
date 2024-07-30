@@ -92,6 +92,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_eth_flow_description_is_equal_to(const data_collection_model_eth_flow_description_t *first, const data_collection_model_eth_flow_description_t *second)
+{
+    const std::shared_ptr<EthFlowDescription > &obj1 = *reinterpret_cast<const std::shared_ptr<EthFlowDescription >*>(first);
+    const std::shared_ptr<EthFlowDescription > &obj2 = *reinterpret_cast<const std::shared_ptr<EthFlowDescription >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_eth_flow_description_get_dest_mac_addr(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
 {

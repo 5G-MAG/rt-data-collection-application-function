@@ -44,6 +44,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_dynamic_policy_toJ
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_dynamic_policy_is_equal_to(const data_collection_model_dynamic_policy_t *dynamic_policy, const data_collection_model_dynamic_policy_t *other_dynamic_policy);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_dynamic_policy_get_dynamic_policy_id(const data_collection_model_dynamic_policy_t *dynamic_policy);
 

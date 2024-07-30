@@ -41,6 +41,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_svc_experience_toJ
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience_t *data_collection_model_svc_experience_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_svc_experience_is_equal_to(const data_collection_model_svc_experience_t *svc_experience, const data_collection_model_svc_experience_t *other_svc_experience);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_svc_experience_get_mos(const data_collection_model_svc_experience_t *svc_experience);
 

@@ -84,6 +84,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_c
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ecgi_is_equal_to(const data_collection_model_ecgi_t *first, const data_collection_model_ecgi_t *second)
+{
+    const std::shared_ptr<Ecgi > &obj1 = *reinterpret_cast<const std::shared_ptr<Ecgi >*>(first);
+    const std::shared_ptr<Ecgi > &obj2 = *reinterpret_cast<const std::shared_ptr<Ecgi >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_plmn_id_t* data_collection_model_ecgi_get_plmn_id(const data_collection_model_ecgi_t *obj_ecgi)
 {

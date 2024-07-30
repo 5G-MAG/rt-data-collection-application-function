@@ -76,6 +76,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_direction_t *d
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_direction_is_equal_to(const data_collection_model_direction_t *first, const data_collection_model_direction_t *second)
+{
+    const std::shared_ptr<Direction > &obj1 = *reinterpret_cast<const std::shared_ptr<Direction >*>(first);
+    const std::shared_ptr<Direction > &obj2 = *reinterpret_cast<const std::shared_ptr<Direction >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_direction_is_not_set(const data_collection_model_direction_t *obj_direction)
 {

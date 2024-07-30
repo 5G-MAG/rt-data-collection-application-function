@@ -88,6 +88,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_service_experience_info_per_app_is_equal_to(const data_collection_model_service_experience_info_per_app_t *first, const data_collection_model_service_experience_info_per_app_t *second)
+{
+    const std::shared_ptr<ServiceExperienceInfoPerApp > &obj1 = *reinterpret_cast<const std::shared_ptr<ServiceExperienceInfoPerApp >*>(first);
+    const std::shared_ptr<ServiceExperienceInfoPerApp > &obj2 = *reinterpret_cast<const std::shared_ptr<ServiceExperienceInfoPerApp >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_service_experience_info_per_app_get_app_id(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
 {

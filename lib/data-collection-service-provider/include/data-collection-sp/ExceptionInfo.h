@@ -44,6 +44,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_exception_info_toJ
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info_t *data_collection_model_exception_info_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_info_is_equal_to(const data_collection_model_exception_info_t *exception_info, const data_collection_model_exception_info_t *other_exception_info);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_flow_info_t* data_collection_model_exception_info_get_ip_traffic_filter(const data_collection_model_exception_info_t *exception_info);
 

@@ -80,6 +80,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_notific
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_muting_notifications_settings_is_equal_to(const data_collection_model_muting_notifications_settings_t *first, const data_collection_model_muting_notifications_settings_t *second)
+{
+    const std::shared_ptr<MutingNotificationsSettings > &obj1 = *reinterpret_cast<const std::shared_ptr<MutingNotificationsSettings >*>(first);
+    const std::shared_ptr<MutingNotificationsSettings > &obj2 = *reinterpret_cast<const std::shared_ptr<MutingNotificationsSettings >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_muting_notifications_settings_get_max_no_of_notif(const data_collection_model_muting_notifications_settings_t *obj_muting_notifications_settings)
 {

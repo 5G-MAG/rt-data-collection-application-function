@@ -82,6 +82,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_pa
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_pdu_set_qos_para_is_equal_to(const data_collection_model_pdu_set_qos_para_t *first, const data_collection_model_pdu_set_qos_para_t *second)
+{
+    const std::shared_ptr<PduSetQosPara > &obj1 = *reinterpret_cast<const std::shared_ptr<PduSetQosPara >*>(first);
+    const std::shared_ptr<PduSetQosPara > &obj2 = *reinterpret_cast<const std::shared_ptr<PduSetQosPara >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_pdu_set_qos_para_get_pdu_set_delay_budget(const data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para)
 {

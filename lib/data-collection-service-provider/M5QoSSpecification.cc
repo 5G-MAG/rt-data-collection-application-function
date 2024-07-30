@@ -88,6 +88,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specif
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_m5_qo_s_specification_is_equal_to(const data_collection_model_m5_qo_s_specification_t *first, const data_collection_model_m5_qo_s_specification_t *second)
+{
+    const std::shared_ptr<M5QoSSpecification > &obj1 = *reinterpret_cast<const std::shared_ptr<M5QoSSpecification >*>(first);
+    const std::shared_ptr<M5QoSSpecification > &obj2 = *reinterpret_cast<const std::shared_ptr<M5QoSSpecification >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_m5_bit_rate_specification_t* data_collection_model_m5_qo_s_specification_get_downlink_bit_rates(const data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification)
 {

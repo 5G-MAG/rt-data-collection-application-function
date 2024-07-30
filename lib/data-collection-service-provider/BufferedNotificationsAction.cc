@@ -76,6 +76,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_buffered_notif
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_buffered_notifications_action_is_equal_to(const data_collection_model_buffered_notifications_action_t *first, const data_collection_model_buffered_notifications_action_t *second)
+{
+    const std::shared_ptr<BufferedNotificationsAction > &obj1 = *reinterpret_cast<const std::shared_ptr<BufferedNotificationsAction >*>(first);
+    const std::shared_ptr<BufferedNotificationsAction > &obj2 = *reinterpret_cast<const std::shared_ptr<BufferedNotificationsAction >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_buffered_notifications_action_is_not_set(const data_collection_model_buffered_notifications_action_t *obj_buffered_notifications_action)
 {

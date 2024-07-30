@@ -82,6 +82,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_access_pr
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_data_access_profile_user_access_restrictions_is_equal_to(const data_collection_model_data_access_profile_user_access_restrictions_t *first, const data_collection_model_data_access_profile_user_access_restrictions_t *second)
+{
+    const std::shared_ptr<DataAccessProfile_userAccessRestrictions > &obj1 = *reinterpret_cast<const std::shared_ptr<DataAccessProfile_userAccessRestrictions >*>(first);
+    const std::shared_ptr<DataAccessProfile_userAccessRestrictions > &obj2 = *reinterpret_cast<const std::shared_ptr<DataAccessProfile_userAccessRestrictions >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_data_access_profile_user_access_restrictions_get_group_ids(const data_collection_model_data_access_profile_user_access_restrictions_t *obj_data_access_profile_user_access_restrictions)
 {

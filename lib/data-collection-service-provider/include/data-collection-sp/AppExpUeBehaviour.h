@@ -43,6 +43,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_app_exp_ue_behavio
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_app_exp_ue_behaviour_is_equal_to(const data_collection_model_app_exp_ue_behaviour_t *app_exp_ue_behaviour, const data_collection_model_app_exp_ue_behaviour_t *other_app_exp_ue_behaviour);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_app_exp_ue_behaviour_get_app_id(const data_collection_model_app_exp_ue_behaviour_t *app_exp_ue_behaviour);
 

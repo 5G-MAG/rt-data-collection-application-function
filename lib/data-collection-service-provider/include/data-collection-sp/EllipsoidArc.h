@@ -43,6 +43,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_ellipsoid_arc_toJS
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_t *data_collection_model_ellipsoid_arc_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ellipsoid_arc_is_equal_to(const data_collection_model_ellipsoid_arc_t *ellipsoid_arc, const data_collection_model_ellipsoid_arc_t *other_ellipsoid_arc);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supported_gad_shapes_t* data_collection_model_ellipsoid_arc_get_shape(const data_collection_model_ellipsoid_arc_t *ellipsoid_arc);
 

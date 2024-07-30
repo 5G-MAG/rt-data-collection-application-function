@@ -143,6 +143,9 @@ openapi_gen_dir="$open5gs_dir/lib/sbi/support/r17-20230301-openapitools-6.4.0/op
 
 sed "s@^templateDir:.*@templateDir: \"${openapi_gen_dir}/templates\"@" $openapi_gen_dir/config.yaml > $scriptdir/config.yaml
 cp "${rt_common_shared_dir}/open5gs-tools/openapi-generator-templates/c/"*.mustache "${openapi_gen_dir}/templates/"
+cat > "${openapi_gen_dir}/templates/model-debug.mustache" << EOF
+{{{.}}}
+EOF
 cat >> $scriptdir/config.yaml << EOF
 importMappings:
   dcaf_api_set: ../include/set
@@ -151,6 +154,9 @@ typeMappings:
   set: dcaf_api_set
   any_type: dcaf_api_any_type
 files:
+  model-debug.mustache:
+    templateType: Model
+    destinationFilename: .model
   api-info-head.mustache:
     templateType: API
     destinationFilename: -info.h

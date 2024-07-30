@@ -45,6 +45,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_data_access_profil
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_t *data_collection_model_data_access_profile_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_access_profile_is_equal_to(const data_collection_model_data_access_profile_t *data_access_profile, const data_collection_model_data_access_profile_t *other_data_access_profile);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_data_access_profile_get_data_access_profile_id(const data_collection_model_data_access_profile_t *data_access_profile);
 

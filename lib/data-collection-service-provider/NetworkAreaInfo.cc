@@ -86,6 +86,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_network_area_info_is_equal_to(const data_collection_model_network_area_info_t *first, const data_collection_model_network_area_info_t *second)
+{
+    const std::shared_ptr<NetworkAreaInfo > &obj1 = *reinterpret_cast<const std::shared_ptr<NetworkAreaInfo >*>(first);
+    const std::shared_ptr<NetworkAreaInfo > &obj2 = *reinterpret_cast<const std::shared_ptr<NetworkAreaInfo >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_network_area_info_get_ecgis(const data_collection_model_network_area_info_t *obj_network_area_info)
 {

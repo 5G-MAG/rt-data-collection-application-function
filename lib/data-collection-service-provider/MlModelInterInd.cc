@@ -82,6 +82,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ml_model_inter
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ml_model_inter_ind_is_equal_to(const data_collection_model_ml_model_inter_ind_t *first, const data_collection_model_ml_model_inter_ind_t *second)
+{
+    const std::shared_ptr<MlModelInterInd > &obj1 = *reinterpret_cast<const std::shared_ptr<MlModelInterInd >*>(first);
+    const std::shared_ptr<MlModelInterInd > &obj2 = *reinterpret_cast<const std::shared_ptr<MlModelInterInd >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_nwdaf_event_t* data_collection_model_ml_model_inter_ind_get_analytics_id(const data_collection_model_ml_model_inter_ind_t *obj_ml_model_inter_ind)
 {

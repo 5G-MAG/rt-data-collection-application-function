@@ -80,6 +80,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_serv_area
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_gnss_serv_area_is_equal_to(const data_collection_model_gnss_serv_area_t *first, const data_collection_model_gnss_serv_area_t *second)
+{
+    const std::shared_ptr<GNSSServArea > &obj1 = *reinterpret_cast<const std::shared_ptr<GNSSServArea >*>(first);
+    const std::shared_ptr<GNSSServArea > &obj2 = *reinterpret_cast<const std::shared_ptr<GNSSServArea >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geographic_area_t* data_collection_model_gnss_serv_area_get_geographical_area(const data_collection_model_gnss_serv_area_t *obj_gnss_serv_area)
 {

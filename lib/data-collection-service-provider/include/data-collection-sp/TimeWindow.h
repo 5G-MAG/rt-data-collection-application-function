@@ -41,6 +41,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_time_window_toJSON
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_time_window_t *data_collection_model_time_window_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_time_window_is_equal_to(const data_collection_model_time_window_t *time_window, const data_collection_model_time_window_t *other_time_window);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_time_window_get_start_time(const data_collection_model_time_window_t *time_window);
 

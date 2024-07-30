@@ -94,6 +94,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_global_ran_nod
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_global_ran_node_id_is_equal_to(const data_collection_model_global_ran_node_id_t *first, const data_collection_model_global_ran_node_id_t *second)
+{
+    const std::shared_ptr<GlobalRanNodeId > &obj1 = *reinterpret_cast<const std::shared_ptr<GlobalRanNodeId >*>(first);
+    const std::shared_ptr<GlobalRanNodeId > &obj2 = *reinterpret_cast<const std::shared_ptr<GlobalRanNodeId >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_plmn_id_t* data_collection_model_global_ran_node_id_get_plmn_id(const data_collection_model_global_ran_node_id_t *obj_global_ran_node_id)
 {

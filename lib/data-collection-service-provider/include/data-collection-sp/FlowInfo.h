@@ -41,6 +41,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_flow_info_toJSON(c
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *data_collection_model_flow_info_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_flow_info_is_equal_to(const data_collection_model_flow_info_t *flow_info, const data_collection_model_flow_info_t *other_flow_info);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_flow_info_get_flow_id(const data_collection_model_flow_info_t *flow_info);
 

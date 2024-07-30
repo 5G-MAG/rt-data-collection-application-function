@@ -88,6 +88,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_access_pr
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_data_access_profile_is_equal_to(const data_collection_model_data_access_profile_t *first, const data_collection_model_data_access_profile_t *second)
+{
+    const std::shared_ptr<DataAccessProfile > &obj1 = *reinterpret_cast<const std::shared_ptr<DataAccessProfile >*>(first);
+    const std::shared_ptr<DataAccessProfile > &obj2 = *reinterpret_cast<const std::shared_ptr<DataAccessProfile >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_data_access_profile_get_data_access_profile_id(const data_collection_model_data_access_profile_t *obj_data_access_profile)
 {

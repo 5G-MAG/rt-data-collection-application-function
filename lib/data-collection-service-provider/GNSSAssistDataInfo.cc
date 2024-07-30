@@ -82,6 +82,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_da
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_gnss_assist_data_info_is_equal_to(const data_collection_model_gnss_assist_data_info_t *first, const data_collection_model_gnss_assist_data_info_t *second)
+{
+    const std::shared_ptr<GNSSAssistDataInfo > &obj1 = *reinterpret_cast<const std::shared_ptr<GNSSAssistDataInfo >*>(first);
+    const std::shared_ptr<GNSSAssistDataInfo > &obj2 = *reinterpret_cast<const std::shared_ptr<GNSSAssistDataInfo >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_gnss_assist_data_info_get_gnss_assist_data(const data_collection_model_gnss_assist_data_info_t *obj_gnss_assist_data_info)
 {

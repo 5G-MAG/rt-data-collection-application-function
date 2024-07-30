@@ -44,6 +44,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_base_event_record_
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_event_record_t *data_collection_model_base_event_record_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_base_event_record_is_equal_to(const data_collection_model_base_event_record_t *base_event_record, const data_collection_model_base_event_record_t *other_base_event_record);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_event_record_type_t* data_collection_model_base_event_record_get_record_type(const data_collection_model_base_event_record_t *base_event_record);
 

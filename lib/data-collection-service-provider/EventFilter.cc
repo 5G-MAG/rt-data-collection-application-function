@@ -96,6 +96,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_event_filter_t
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_event_filter_is_equal_to(const data_collection_model_event_filter_t *first, const data_collection_model_event_filter_t *second)
+{
+    const std::shared_ptr<EventFilter > &obj1 = *reinterpret_cast<const std::shared_ptr<EventFilter >*>(first);
+    const std::shared_ptr<EventFilter > &obj2 = *reinterpret_cast<const std::shared_ptr<EventFilter >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_event_filter_get_gpsis(const data_collection_model_event_filter_t *obj_event_filter)
 {

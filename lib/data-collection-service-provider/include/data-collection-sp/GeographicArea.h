@@ -51,6 +51,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_geographic_area_to
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_geographic_area_is_equal_to(const data_collection_model_geographic_area_t *geographic_area, const data_collection_model_geographic_area_t *other_geographic_area);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supported_gad_shapes_t* data_collection_model_geographic_area_get_shape(const data_collection_model_geographic_area_t *geographic_area);
 

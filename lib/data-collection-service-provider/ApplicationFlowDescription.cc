@@ -88,6 +88,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_fl
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_application_flow_description_is_equal_to(const data_collection_model_application_flow_description_t *first, const data_collection_model_application_flow_description_t *second)
+{
+    const std::shared_ptr<ApplicationFlowDescription > &obj1 = *reinterpret_cast<const std::shared_ptr<ApplicationFlowDescription >*>(first);
+    const std::shared_ptr<ApplicationFlowDescription > &obj2 = *reinterpret_cast<const std::shared_ptr<ApplicationFlowDescription >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_sdf_method_t* data_collection_model_application_flow_description_get_filter_method(const data_collection_model_application_flow_description_t *obj_application_flow_description)
 {

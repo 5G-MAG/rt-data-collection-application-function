@@ -82,6 +82,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *d
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_flow_info_is_equal_to(const data_collection_model_flow_info_t *first, const data_collection_model_flow_info_t *second)
+{
+    const std::shared_ptr<FlowInfo > &obj1 = *reinterpret_cast<const std::shared_ptr<FlowInfo >*>(first);
+    const std::shared_ptr<FlowInfo > &obj2 = *reinterpret_cast<const std::shared_ptr<FlowInfo >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_flow_info_get_flow_id(const data_collection_model_flow_info_t *obj_flow_info)
 {

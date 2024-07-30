@@ -50,6 +50,7 @@ libspdc_dist_sources = files('''
     event-subscription.c
     ogs-memory-helper.h
     ogs-memory-helper.c
+    ogs-list-support.c
     timer.h
     timer.c
     hash.c
@@ -83,6 +84,7 @@ AfEventNotification.cc
 AfEventNotification-internal.h
 ANBRNetworkAssistanceInvocationRecord.cc
 ANBRNetworkAssistanceInvocationRecord-internal.h
+AnyType.cc
 AppExpUeBehaviour.cc
 AppExpUeBehaviour-internal.h
 ApplicationFlowDescription.cc

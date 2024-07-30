@@ -76,6 +76,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_scheduled_communication_type_is_equal_to(const data_collection_model_scheduled_communication_type_t *first, const data_collection_model_scheduled_communication_type_t *second)
+{
+    const std::shared_ptr<ScheduledCommunicationType > &obj1 = *reinterpret_cast<const std::shared_ptr<ScheduledCommunicationType >*>(first);
+    const std::shared_ptr<ScheduledCommunicationType > &obj2 = *reinterpret_cast<const std::shared_ptr<ScheduledCommunicationType >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_scheduled_communication_type_is_not_set(const data_collection_model_scheduled_communication_type_t *obj_scheduled_communication_type)
 {

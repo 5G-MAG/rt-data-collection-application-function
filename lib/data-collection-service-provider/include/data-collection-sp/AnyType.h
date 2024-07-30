@@ -2,7 +2,7 @@
 #define _DATA_COLLECTION_ANY_TYPE_H_
 
 /**********************************************************************************************************************************
- * IpAddr - Public C interface to the IpAddr object
+ * AnyType - Public C interface to the AnyType object
  **********************************************************************************************************************************
  * License: 5G-MAG Public License (v1.0)
  * Authors: David Waring <david.waring2@bbc.co.uk>
@@ -17,9 +17,6 @@
 #error "This file can only be included from data-collection.h"
 #endif
 
-#include "Ipv6Prefix.h"
-#include "Ipv6Addr.h"
-
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -30,17 +27,19 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_any_type_t *data_collecti
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_any_type_t *data_collection_model_any_type_create_copy(const data_collection_model_any_type_t *other);
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_any_type_t *data_collection_model_any_type_create_move(const data_collection_model_any_type_t *other);
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_any_type_t *data_collection_model_any_type_create_move(data_collection_model_any_type_t *other);
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_any_type_t *data_collection_model_any_type_copy(data_collection_model_any_type_t *any_type, const data_collection_model_any_type_t *other);
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_any_type_t *data_collection_model_any_type_move(data_collection_model_any_type_t *any_type, const data_collection_model_any_type_t *other);
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_any_type_t *data_collection_model_any_type_move(data_collection_model_any_type_t *any_type, data_collection_model_any_type_t *other);
 
 DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_any_type_free(data_collection_model_any_type_t *any_type);
 
 DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_any_type_toJSON(const data_collection_model_any_type_t *any_type, bool as_request);
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_any_type_t *data_collection_model_any_type_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_any_type_is_equal_to(const data_collection_model_any_type_t *any_type, const data_collection_model_any_type_t *other);
 
 #ifdef __cplusplus
 }

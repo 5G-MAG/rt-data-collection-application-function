@@ -43,6 +43,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_ip_addr_toJSON(con
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_addr_t *data_collection_model_ip_addr_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ip_addr_is_equal_to(const data_collection_model_ip_addr_t *ip_addr, const data_collection_model_ip_addr_t *other_ip_addr);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ip_addr_get_ipv4_addr(const data_collection_model_ip_addr_t *ip_addr);
 

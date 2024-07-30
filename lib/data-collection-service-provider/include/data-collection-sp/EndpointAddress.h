@@ -41,6 +41,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_endpoint_address_t
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_endpoint_address_is_equal_to(const data_collection_model_endpoint_address_t *endpoint_address, const data_collection_model_endpoint_address_t *other_endpoint_address);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_endpoint_address_get_domain_name(const data_collection_model_endpoint_address_t *endpoint_address);
 

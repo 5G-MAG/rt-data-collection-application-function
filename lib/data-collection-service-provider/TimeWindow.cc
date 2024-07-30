@@ -82,6 +82,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t 
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_time_window_is_equal_to(const data_collection_model_time_window_t *first, const data_collection_model_time_window_t *second)
+{
+    const std::shared_ptr<TimeWindow > &obj1 = *reinterpret_cast<const std::shared_ptr<TimeWindow >*>(first);
+    const std::shared_ptr<TimeWindow > &obj2 = *reinterpret_cast<const std::shared_ptr<TimeWindow >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_time_window_get_start_time(const data_collection_model_time_window_t *obj_time_window)
 {

@@ -84,6 +84,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_descr
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_protocol_description_is_equal_to(const data_collection_model_protocol_description_t *first, const data_collection_model_protocol_description_t *second)
+{
+    const std::shared_ptr<ProtocolDescription > &obj1 = *reinterpret_cast<const std::shared_ptr<ProtocolDescription >*>(first);
+    const std::shared_ptr<ProtocolDescription > &obj2 = *reinterpret_cast<const std::shared_ptr<ProtocolDescription >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_media_transport_proto_t* data_collection_model_protocol_description_get_transport_proto(const data_collection_model_protocol_description_t *obj_protocol_description)
 {

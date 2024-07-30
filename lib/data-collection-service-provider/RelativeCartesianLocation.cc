@@ -84,6 +84,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_carte
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_relative_cartesian_location_is_equal_to(const data_collection_model_relative_cartesian_location_t *first, const data_collection_model_relative_cartesian_location_t *second)
+{
+    const std::shared_ptr<RelativeCartesianLocation > &obj1 = *reinterpret_cast<const std::shared_ptr<RelativeCartesianLocation >*>(first);
+    const std::shared_ptr<RelativeCartesianLocation > &obj2 = *reinterpret_cast<const std::shared_ptr<RelativeCartesianLocation >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_relative_cartesian_location_get_x(const data_collection_model_relative_cartesian_location_t *obj_relative_cartesian_location)
 {

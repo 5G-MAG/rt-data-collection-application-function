@@ -86,6 +86,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_rtp_header_ext_info_is_equal_to(const data_collection_model_rtp_header_ext_info_t *first, const data_collection_model_rtp_header_ext_info_t *second)
+{
+    const std::shared_ptr<RtpHeaderExtInfo > &obj1 = *reinterpret_cast<const std::shared_ptr<RtpHeaderExtInfo >*>(first);
+    const std::shared_ptr<RtpHeaderExtInfo > &obj2 = *reinterpret_cast<const std::shared_ptr<RtpHeaderExtInfo >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_rtp_header_ext_type_t* data_collection_model_rtp_header_ext_info_get_rtp_header_ext_type(const data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info)
 {

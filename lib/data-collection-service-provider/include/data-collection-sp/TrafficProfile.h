@@ -52,6 +52,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_traffic_profile_to
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_traffic_profile_t *data_collection_model_traffic_profile_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_traffic_profile_is_equal_to(const data_collection_model_traffic_profile_t *traffic_profile, const data_collection_model_traffic_profile_t *other_traffic_profile);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_traffic_profile_is_not_set(const data_collection_model_traffic_profile_t *traffic_profile);
 

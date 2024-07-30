@@ -44,6 +44,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_qo_e_metrics_colle
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_collection_t *data_collection_model_qo_e_metrics_collection_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_qo_e_metrics_collection_is_equal_to(const data_collection_model_qo_e_metrics_collection_t *qo_e_metrics_collection, const data_collection_model_qo_e_metrics_collection_t *other_qo_e_metrics_collection);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_qo_e_metrics_collection_get_collection_timestamp(const data_collection_model_qo_e_metrics_collection_t *qo_e_metrics_collection);
 

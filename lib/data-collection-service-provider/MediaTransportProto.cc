@@ -78,6 +78,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_transpor
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_media_transport_proto_is_equal_to(const data_collection_model_media_transport_proto_t *first, const data_collection_model_media_transport_proto_t *second)
+{
+    const std::shared_ptr<MediaTransportProto > &obj1 = *reinterpret_cast<const std::shared_ptr<MediaTransportProto >*>(first);
+    const std::shared_ptr<MediaTransportProto > &obj2 = *reinterpret_cast<const std::shared_ptr<MediaTransportProto >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_transport_proto_is_not_set(const data_collection_model_media_transport_proto_t *obj_media_transport_proto)
 {

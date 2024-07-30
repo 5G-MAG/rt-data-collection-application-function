@@ -80,6 +80,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_af_event_exposure_notif_is_equal_to(const data_collection_model_af_event_exposure_notif_t *first, const data_collection_model_af_event_exposure_notif_t *second)
+{
+    const std::shared_ptr<AfEventExposureNotif > &obj1 = *reinterpret_cast<const std::shared_ptr<AfEventExposureNotif >*>(first);
+    const std::shared_ptr<AfEventExposureNotif > &obj2 = *reinterpret_cast<const std::shared_ptr<AfEventExposureNotif >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_af_event_exposure_notif_get_notif_id(const data_collection_model_af_event_exposure_notif_t *obj_af_event_exposure_notif)
 {

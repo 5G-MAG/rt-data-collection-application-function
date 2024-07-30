@@ -49,6 +49,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_media_transport_pr
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_transport_proto_t *data_collection_model_media_transport_proto_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_transport_proto_is_equal_to(const data_collection_model_media_transport_proto_t *media_transport_proto, const data_collection_model_media_transport_proto_t *other_media_transport_proto);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_transport_proto_is_not_set(const data_collection_model_media_transport_proto_t *media_transport_proto);
 

@@ -82,6 +82,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioni
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_gnss_positioning_method_and_usage_is_equal_to(const data_collection_model_gnss_positioning_method_and_usage_t *first, const data_collection_model_gnss_positioning_method_and_usage_t *second)
+{
+    const std::shared_ptr<GnssPositioningMethodAndUsage > &obj1 = *reinterpret_cast<const std::shared_ptr<GnssPositioningMethodAndUsage >*>(first);
+    const std::shared_ptr<GnssPositioningMethodAndUsage > &obj2 = *reinterpret_cast<const std::shared_ptr<GnssPositioningMethodAndUsage >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_positioning_mode_t* data_collection_model_gnss_positioning_method_and_usage_get_mode(const data_collection_model_gnss_positioning_method_and_usage_t *obj_gnss_positioning_method_and_usage)
 {

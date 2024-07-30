@@ -82,6 +82,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *d
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_addr_fqdn_is_equal_to(const data_collection_model_addr_fqdn_t *first, const data_collection_model_addr_fqdn_t *second)
+{
+    const std::shared_ptr<AddrFqdn > &obj1 = *reinterpret_cast<const std::shared_ptr<AddrFqdn >*>(first);
+    const std::shared_ptr<AddrFqdn > &obj2 = *reinterpret_cast<const std::shared_ptr<AddrFqdn >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ip_addr_t* data_collection_model_addr_fqdn_get_ip_addr(const data_collection_model_addr_fqdn_t *obj_addr_fqdn)
 {

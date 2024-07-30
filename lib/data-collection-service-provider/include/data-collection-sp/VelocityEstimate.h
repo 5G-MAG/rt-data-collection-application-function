@@ -46,6 +46,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_velocity_estimate_
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_velocity_estimate_is_equal_to(const data_collection_model_velocity_estimate_t *velocity_estimate, const data_collection_model_velocity_estimate_t *other_velocity_estimate);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_velocity_estimate_get_h_speed(const data_collection_model_velocity_estimate_t *velocity_estimate);
 

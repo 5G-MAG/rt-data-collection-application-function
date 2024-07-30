@@ -82,6 +82,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_scheduled_communication_time_is_equal_to(const data_collection_model_scheduled_communication_time_t *first, const data_collection_model_scheduled_communication_time_t *second)
+{
+    const std::shared_ptr<ScheduledCommunicationTime > &obj1 = *reinterpret_cast<const std::shared_ptr<ScheduledCommunicationTime >*>(first);
+    const std::shared_ptr<ScheduledCommunicationTime > &obj2 = *reinterpret_cast<const std::shared_ptr<ScheduledCommunicationTime >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_scheduled_communication_time_get_days_of_week(const data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time)
 {

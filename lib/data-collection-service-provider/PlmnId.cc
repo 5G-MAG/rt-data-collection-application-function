@@ -82,6 +82,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_plmn_id_t *dat
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_plmn_id_is_equal_to(const data_collection_model_plmn_id_t *first, const data_collection_model_plmn_id_t *second)
+{
+    const std::shared_ptr<PlmnId > &obj1 = *reinterpret_cast<const std::shared_ptr<PlmnId >*>(first);
+    const std::shared_ptr<PlmnId > &obj2 = *reinterpret_cast<const std::shared_ptr<PlmnId >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_plmn_id_get_mcc(const data_collection_model_plmn_id_t *obj_plmn_id)
 {

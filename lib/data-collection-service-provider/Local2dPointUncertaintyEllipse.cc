@@ -88,6 +88,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_local2d_point_uncertainty_ellipse_is_equal_to(const data_collection_model_local2d_point_uncertainty_ellipse_t *first, const data_collection_model_local2d_point_uncertainty_ellipse_t *second)
+{
+    const std::shared_ptr<Local2dPointUncertaintyEllipse > &obj1 = *reinterpret_cast<const std::shared_ptr<Local2dPointUncertaintyEllipse >*>(first);
+    const std::shared_ptr<Local2dPointUncertaintyEllipse > &obj2 = *reinterpret_cast<const std::shared_ptr<Local2dPointUncertaintyEllipse >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_supported_gad_shapes_t* data_collection_model_local2d_point_uncertainty_ellipse_get_shape(const data_collection_model_local2d_point_uncertainty_ellipse_t *obj_local2d_point_uncertainty_ellipse)
 {

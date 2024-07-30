@@ -76,6 +76,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_t *data_
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_usage_is_equal_to(const data_collection_model_usage_t *first, const data_collection_model_usage_t *second)
+{
+    const std::shared_ptr<Usage > &obj1 = *reinterpret_cast<const std::shared_ptr<Usage >*>(first);
+    const std::shared_ptr<Usage > &obj2 = *reinterpret_cast<const std::shared_ptr<Usage >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_usage_is_not_set(const data_collection_model_usage_t *obj_usage)
 {

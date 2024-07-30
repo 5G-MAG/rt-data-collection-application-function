@@ -84,6 +84,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_tai_t *data_co
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_tai_is_equal_to(const data_collection_model_tai_t *first, const data_collection_model_tai_t *second)
+{
+    const std::shared_ptr<Tai > &obj1 = *reinterpret_cast<const std::shared_ptr<Tai >*>(first);
+    const std::shared_ptr<Tai > &obj2 = *reinterpret_cast<const std::shared_ptr<Tai >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_plmn_id_t* data_collection_model_tai_get_plmn_id(const data_collection_model_tai_t *obj_tai)
 {

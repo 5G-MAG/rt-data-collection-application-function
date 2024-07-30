@@ -104,6 +104,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_problem_details_is_equal_to(const data_collection_model_problem_details_t *first, const data_collection_model_problem_details_t *second)
+{
+    const std::shared_ptr<ProblemDetails > &obj1 = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(first);
+    const std::shared_ptr<ProblemDetails > &obj2 = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_problem_details_get_type(const data_collection_model_problem_details_t *obj_problem_details)
 {

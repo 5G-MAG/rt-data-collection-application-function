@@ -55,6 +55,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_gnss_id_toJSON(con
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_id_t *data_collection_model_gnss_id_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_gnss_id_is_equal_to(const data_collection_model_gnss_id_t *gnss_id, const data_collection_model_gnss_id_t *other_gnss_id);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_gnss_id_is_not_set(const data_collection_model_gnss_id_t *gnss_id);
 

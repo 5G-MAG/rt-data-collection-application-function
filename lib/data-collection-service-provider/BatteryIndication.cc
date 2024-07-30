@@ -76,6 +76,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_battery_indica
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_battery_indication_is_equal_to(const data_collection_model_battery_indication_t *first, const data_collection_model_battery_indication_t *second)
+{
+    const std::shared_ptr<BatteryIndication > &obj1 = *reinterpret_cast<const std::shared_ptr<BatteryIndication >*>(first);
+    const std::shared_ptr<BatteryIndication > &obj2 = *reinterpret_cast<const std::shared_ptr<BatteryIndication >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_battery_indication_is_not_set(const data_collection_model_battery_indication_t *obj_battery_indication)
 {

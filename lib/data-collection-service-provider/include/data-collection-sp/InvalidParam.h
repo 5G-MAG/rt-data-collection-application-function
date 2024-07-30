@@ -41,6 +41,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_invalid_param_toJS
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_invalid_param_t *data_collection_model_invalid_param_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_invalid_param_is_equal_to(const data_collection_model_invalid_param_t *invalid_param, const data_collection_model_invalid_param_t *other_invalid_param);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_invalid_param_get_param(const data_collection_model_invalid_param_t *invalid_param);
 

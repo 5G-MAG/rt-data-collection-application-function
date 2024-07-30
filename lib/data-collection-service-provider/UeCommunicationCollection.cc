@@ -90,6 +90,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_communicati
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ue_communication_collection_is_equal_to(const data_collection_model_ue_communication_collection_t *first, const data_collection_model_ue_communication_collection_t *second)
+{
+    const std::shared_ptr<UeCommunicationCollection > &obj1 = *reinterpret_cast<const std::shared_ptr<UeCommunicationCollection >*>(first);
+    const std::shared_ptr<UeCommunicationCollection > &obj2 = *reinterpret_cast<const std::shared_ptr<UeCommunicationCollection >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ue_communication_collection_get_gpsi(const data_collection_model_ue_communication_collection_t *obj_ue_communication_collection)
 {

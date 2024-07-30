@@ -42,6 +42,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_ip_packet_filter_s
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ip_packet_filter_set_is_equal_to(const data_collection_model_ip_packet_filter_set_t *ip_packet_filter_set, const data_collection_model_ip_packet_filter_set_t *other_ip_packet_filter_set);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ip_packet_filter_set_get_direction(const data_collection_model_ip_packet_filter_set_t *ip_packet_filter_set);
 

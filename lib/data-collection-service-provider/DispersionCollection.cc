@@ -94,6 +94,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dispersion_col
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_dispersion_collection_is_equal_to(const data_collection_model_dispersion_collection_t *first, const data_collection_model_dispersion_collection_t *second)
+{
+    const std::shared_ptr<DispersionCollection > &obj1 = *reinterpret_cast<const std::shared_ptr<DispersionCollection >*>(first);
+    const std::shared_ptr<DispersionCollection > &obj2 = *reinterpret_cast<const std::shared_ptr<DispersionCollection >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_dispersion_collection_get_gpsi(const data_collection_model_dispersion_collection_t *obj_dispersion_collection)
 {

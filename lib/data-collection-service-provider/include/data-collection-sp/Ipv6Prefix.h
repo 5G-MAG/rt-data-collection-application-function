@@ -41,6 +41,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_ipv6_prefix_toJSON
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ipv6_prefix_t *data_collection_model_ipv6_prefix_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ipv6_prefix_is_equal_to(const data_collection_model_ipv6_prefix_t *ipv6_prefix, const data_collection_model_ipv6_prefix_t *other_ipv6_prefix);
+
 
 /* lnode helper for generating ogs_list_t nodes's of type Ipv6Prefix */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_ipv6_prefix_make_lnode(data_collection_model_ipv6_prefix_t *ipv6_prefix);

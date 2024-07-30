@@ -46,6 +46,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_reporting_informat
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_information_t *data_collection_model_reporting_information_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_reporting_information_is_equal_to(const data_collection_model_reporting_information_t *reporting_information, const data_collection_model_reporting_information_t *other_reporting_information);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_reporting_information_is_imm_rep(const data_collection_model_reporting_information_t *reporting_information);
 

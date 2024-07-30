@@ -82,6 +82,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_bit_rate_sp
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_m5_bit_rate_specification_is_equal_to(const data_collection_model_m5_bit_rate_specification_t *first, const data_collection_model_m5_bit_rate_specification_t *second)
+{
+    const std::shared_ptr<M5BitRateSpecification > &obj1 = *reinterpret_cast<const std::shared_ptr<M5BitRateSpecification >*>(first);
+    const std::shared_ptr<M5BitRateSpecification > &obj2 = *reinterpret_cast<const std::shared_ptr<M5BitRateSpecification >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_m5_bit_rate_specification_get_maximum_requested_bit_rate(const data_collection_model_m5_bit_rate_specification_t *obj_m5_bit_rate_specification)
 {

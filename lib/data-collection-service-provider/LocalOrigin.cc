@@ -82,6 +82,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_origin_t
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_local_origin_is_equal_to(const data_collection_model_local_origin_t *first, const data_collection_model_local_origin_t *second)
+{
+    const std::shared_ptr<LocalOrigin > &obj1 = *reinterpret_cast<const std::shared_ptr<LocalOrigin >*>(first);
+    const std::shared_ptr<LocalOrigin > &obj2 = *reinterpret_cast<const std::shared_ptr<LocalOrigin >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_local_origin_get_coordinate_id(const data_collection_model_local_origin_t *obj_local_origin)
 {

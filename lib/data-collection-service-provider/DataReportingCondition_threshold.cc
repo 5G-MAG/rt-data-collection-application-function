@@ -78,6 +78,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_data_reporting_condition_threshold_is_equal_to(const data_collection_model_data_reporting_condition_threshold_t *first, const data_collection_model_data_reporting_condition_threshold_t *second)
+{
+    const std::shared_ptr<DataReportingCondition_threshold > &obj1 = *reinterpret_cast<const std::shared_ptr<DataReportingCondition_threshold >*>(first);
+    const std::shared_ptr<DataReportingCondition_threshold > &obj2 = *reinterpret_cast<const std::shared_ptr<DataReportingCondition_threshold >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_data_reporting_condition_threshold_make_lnode(data_collection_model_data_reporting_condition_threshold_t *p_data_reporting_condition_threshold)

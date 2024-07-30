@@ -41,6 +41,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_snssai_toJSON(cons
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_snssai_t *data_collection_model_snssai_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_snssai_is_equal_to(const data_collection_model_snssai_t *snssai, const data_collection_model_snssai_t *other_snssai);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_snssai_get_sst(const data_collection_model_snssai_t *snssai);
 

@@ -86,6 +86,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_uncertainty_ellipsoid_is_equal_to(const data_collection_model_uncertainty_ellipsoid_t *first, const data_collection_model_uncertainty_ellipsoid_t *second)
+{
+    const std::shared_ptr<UncertaintyEllipsoid > &obj1 = *reinterpret_cast<const std::shared_ptr<UncertaintyEllipsoid >*>(first);
+    const std::shared_ptr<UncertaintyEllipsoid > &obj2 = *reinterpret_cast<const std::shared_ptr<UncertaintyEllipsoid >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_uncertainty_ellipsoid_get_semi_major(const data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid)
 {

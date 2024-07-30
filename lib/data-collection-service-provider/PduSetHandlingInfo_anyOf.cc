@@ -76,6 +76,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_handli
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_pdu_set_handling_info_any_of_is_equal_to(const data_collection_model_pdu_set_handling_info_any_of_t *first, const data_collection_model_pdu_set_handling_info_any_of_t *second)
+{
+    const std::shared_ptr<PduSetHandlingInfo_anyOf > &obj1 = *reinterpret_cast<const std::shared_ptr<PduSetHandlingInfo_anyOf >*>(first);
+    const std::shared_ptr<PduSetHandlingInfo_anyOf > &obj2 = *reinterpret_cast<const std::shared_ptr<PduSetHandlingInfo_anyOf >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_handling_info_any_of_is_not_set(const data_collection_model_pdu_set_handling_info_any_of_t *pdu_set_handling_info_any_of)
 {

@@ -86,6 +86,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_high_accuracy_gnss_metrics_is_equal_to(const data_collection_model_high_accuracy_gnss_metrics_t *first, const data_collection_model_high_accuracy_gnss_metrics_t *second)
+{
+    const std::shared_ptr<HighAccuracyGnssMetrics > &obj1 = *reinterpret_cast<const std::shared_ptr<HighAccuracyGnssMetrics >*>(first);
+    const std::shared_ptr<HighAccuracyGnssMetrics > &obj2 = *reinterpret_cast<const std::shared_ptr<HighAccuracyGnssMetrics >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_high_accuracy_gnss_metrics_get_nr_of_used_satellites(const data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics)
 {

@@ -82,6 +82,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_paramete
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_query_parameter_is_equal_to(const data_collection_model_query_parameter_t *first, const data_collection_model_query_parameter_t *second)
+{
+    const std::shared_ptr<QueryParameter > &obj1 = *reinterpret_cast<const std::shared_ptr<QueryParameter >*>(first);
+    const std::shared_ptr<QueryParameter > &obj2 = *reinterpret_cast<const std::shared_ptr<QueryParameter >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_query_parameter_get_name(const data_collection_model_query_parameter_t *obj_query_parameter)
 {

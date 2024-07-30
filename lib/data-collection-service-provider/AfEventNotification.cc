@@ -120,6 +120,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_af_event_notification_is_equal_to(const data_collection_model_af_event_notification_t *first, const data_collection_model_af_event_notification_t *second)
+{
+    const std::shared_ptr<AfEventNotification > &obj1 = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(first);
+    const std::shared_ptr<AfEventNotification > &obj2 = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_af_event_t* data_collection_model_af_event_notification_get_event(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {

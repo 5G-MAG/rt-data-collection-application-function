@@ -43,6 +43,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_gnss_assist_data_i
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_gnss_assist_data_info_is_equal_to(const data_collection_model_gnss_assist_data_info_t *gnss_assist_data_info, const data_collection_model_gnss_assist_data_info_t *other_gnss_assist_data_info);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_gnss_assist_data_info_get_gnss_assist_data(const data_collection_model_gnss_assist_data_info_t *gnss_assist_data_info);
 

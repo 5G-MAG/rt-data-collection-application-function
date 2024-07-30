@@ -92,6 +92,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_performance_data_collection_is_equal_to(const data_collection_model_performance_data_collection_t *first, const data_collection_model_performance_data_collection_t *second)
+{
+    const std::shared_ptr<PerformanceDataCollection > &obj1 = *reinterpret_cast<const std::shared_ptr<PerformanceDataCollection >*>(first);
+    const std::shared_ptr<PerformanceDataCollection > &obj2 = *reinterpret_cast<const std::shared_ptr<PerformanceDataCollection >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_performance_data_collection_get_app_id(const data_collection_model_performance_data_collection_t *obj_performance_data_collection)
 {

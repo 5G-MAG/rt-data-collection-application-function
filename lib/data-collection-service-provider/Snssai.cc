@@ -82,6 +82,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_snssai_t *data
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_snssai_is_equal_to(const data_collection_model_snssai_t *first, const data_collection_model_snssai_t *second)
+{
+    const std::shared_ptr<Snssai > &obj1 = *reinterpret_cast<const std::shared_ptr<Snssai >*>(first);
+    const std::shared_ptr<Snssai > &obj2 = *reinterpret_cast<const std::shared_ptr<Snssai >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_snssai_get_sst(const data_collection_model_snssai_t *obj_snssai)
 {

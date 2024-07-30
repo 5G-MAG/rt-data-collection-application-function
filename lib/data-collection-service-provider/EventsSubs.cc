@@ -82,6 +82,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_events_subs_t 
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_events_subs_is_equal_to(const data_collection_model_events_subs_t *first, const data_collection_model_events_subs_t *second)
+{
+    const std::shared_ptr<EventsSubs > &obj1 = *reinterpret_cast<const std::shared_ptr<EventsSubs >*>(first);
+    const std::shared_ptr<EventsSubs > &obj2 = *reinterpret_cast<const std::shared_ptr<EventsSubs >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_af_event_t* data_collection_model_events_subs_get_event(const data_collection_model_events_subs_t *obj_events_subs)
 {

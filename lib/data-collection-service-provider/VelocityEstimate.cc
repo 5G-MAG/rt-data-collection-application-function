@@ -88,6 +88,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estim
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_velocity_estimate_is_equal_to(const data_collection_model_velocity_estimate_t *first, const data_collection_model_velocity_estimate_t *second)
+{
+    const std::shared_ptr<VelocityEstimate > &obj1 = *reinterpret_cast<const std::shared_ptr<VelocityEstimate >*>(first);
+    const std::shared_ptr<VelocityEstimate > &obj2 = *reinterpret_cast<const std::shared_ptr<VelocityEstimate >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_velocity_estimate_get_h_speed(const data_collection_model_velocity_estimate_t *obj_velocity_estimate)
 {

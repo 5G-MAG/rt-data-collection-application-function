@@ -78,6 +78,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_qoe_metrics
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ms_qoe_metrics_collection_is_equal_to(const data_collection_model_ms_qoe_metrics_collection_t *first, const data_collection_model_ms_qoe_metrics_collection_t *second)
+{
+    const std::shared_ptr<MsQoeMetricsCollection > &obj1 = *reinterpret_cast<const std::shared_ptr<MsQoeMetricsCollection >*>(first);
+    const std::shared_ptr<MsQoeMetricsCollection > &obj2 = *reinterpret_cast<const std::shared_ptr<MsQoeMetricsCollection >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ms_qoe_metrics_collection_get_ms_qoe_metrics(const data_collection_model_ms_qoe_metrics_collection_t *obj_ms_qoe_metrics_collection)
 {

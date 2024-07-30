@@ -82,6 +82,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_c
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_geographical_coordinates_is_equal_to(const data_collection_model_geographical_coordinates_t *first, const data_collection_model_geographical_coordinates_t *second)
+{
+    const std::shared_ptr<GeographicalCoordinates > &obj1 = *reinterpret_cast<const std::shared_ptr<GeographicalCoordinates >*>(first);
+    const std::shared_ptr<GeographicalCoordinates > &obj2 = *reinterpret_cast<const std::shared_ptr<GeographicalCoordinates >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_geographical_coordinates_get_lon(const data_collection_model_geographical_coordinates_t *obj_geographical_coordinates)
 {

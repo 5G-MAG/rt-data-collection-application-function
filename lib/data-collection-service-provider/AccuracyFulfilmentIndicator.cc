@@ -76,6 +76,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_accuracy_fulfi
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_accuracy_fulfilment_indicator_is_equal_to(const data_collection_model_accuracy_fulfilment_indicator_t *first, const data_collection_model_accuracy_fulfilment_indicator_t *second)
+{
+    const std::shared_ptr<AccuracyFulfilmentIndicator > &obj1 = *reinterpret_cast<const std::shared_ptr<AccuracyFulfilmentIndicator >*>(first);
+    const std::shared_ptr<AccuracyFulfilmentIndicator > &obj2 = *reinterpret_cast<const std::shared_ptr<AccuracyFulfilmentIndicator >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_accuracy_fulfilment_indicator_is_not_set(const data_collection_model_accuracy_fulfilment_indicator_t *obj_accuracy_fulfilment_indicator)
 {

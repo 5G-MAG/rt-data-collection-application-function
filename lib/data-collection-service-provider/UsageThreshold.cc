@@ -84,6 +84,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshol
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_usage_threshold_is_equal_to(const data_collection_model_usage_threshold_t *first, const data_collection_model_usage_threshold_t *second)
+{
+    const std::shared_ptr<UsageThreshold > &obj1 = *reinterpret_cast<const std::shared_ptr<UsageThreshold >*>(first);
+    const std::shared_ptr<UsageThreshold > &obj2 = *reinterpret_cast<const std::shared_ptr<UsageThreshold >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_usage_threshold_get_duration(const data_collection_model_usage_threshold_t *obj_usage_threshold)
 {

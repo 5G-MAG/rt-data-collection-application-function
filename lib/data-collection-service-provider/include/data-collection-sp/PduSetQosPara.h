@@ -42,6 +42,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_pdu_set_qos_para_t
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_qos_para_is_equal_to(const data_collection_model_pdu_set_qos_para_t *pdu_set_qos_para, const data_collection_model_pdu_set_qos_para_t *other_pdu_set_qos_para);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_pdu_set_qos_para_get_pdu_set_delay_budget(const data_collection_model_pdu_set_qos_para_t *pdu_set_qos_para);
 

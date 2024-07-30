@@ -76,6 +76,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_me
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_positioning_method_is_equal_to(const data_collection_model_positioning_method_t *first, const data_collection_model_positioning_method_t *second)
+{
+    const std::shared_ptr<PositioningMethod > &obj1 = *reinterpret_cast<const std::shared_ptr<PositioningMethod >*>(first);
+    const std::shared_ptr<PositioningMethod > &obj2 = *reinterpret_cast<const std::shared_ptr<PositioningMethod >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_method_is_not_set(const data_collection_model_positioning_method_t *obj_positioning_method)
 {

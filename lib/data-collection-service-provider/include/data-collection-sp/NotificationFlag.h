@@ -50,6 +50,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_notification_flag_
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_flag_t *data_collection_model_notification_flag_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_flag_is_equal_to(const data_collection_model_notification_flag_t *notification_flag, const data_collection_model_notification_flag_t *other_notification_flag);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_flag_is_not_set(const data_collection_model_notification_flag_t *notification_flag);
 

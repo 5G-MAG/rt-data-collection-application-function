@@ -82,6 +82,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_in
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_rtp_payload_info_is_equal_to(const data_collection_model_rtp_payload_info_t *first, const data_collection_model_rtp_payload_info_t *second)
+{
+    const std::shared_ptr<RtpPayloadInfo > &obj1 = *reinterpret_cast<const std::shared_ptr<RtpPayloadInfo >*>(first);
+    const std::shared_ptr<RtpPayloadInfo > &obj2 = *reinterpret_cast<const std::shared_ptr<RtpPayloadInfo >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_rtp_payload_info_get_rtp_payload_type_list(const data_collection_model_rtp_payload_info_t *obj_rtp_payload_info)
 {

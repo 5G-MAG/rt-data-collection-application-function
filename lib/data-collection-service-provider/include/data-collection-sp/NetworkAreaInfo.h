@@ -45,6 +45,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_network_area_info_
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_area_info_is_equal_to(const data_collection_model_network_area_info_t *network_area_info, const data_collection_model_network_area_info_t *other_network_area_info);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_network_area_info_get_ecgis(const data_collection_model_network_area_info_t *network_area_info);
 

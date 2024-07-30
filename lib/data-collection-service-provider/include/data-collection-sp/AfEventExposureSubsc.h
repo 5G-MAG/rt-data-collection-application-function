@@ -44,6 +44,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_af_event_exposure_
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_exposure_subsc_is_equal_to(const data_collection_model_af_event_exposure_subsc_t *af_event_exposure_subsc, const data_collection_model_af_event_exposure_subsc_t *other_af_event_exposure_subsc);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_af_event_exposure_subsc_get_data_acc_prof_id(const data_collection_model_af_event_exposure_subsc_t *af_event_exposure_subsc);
 

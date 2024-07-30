@@ -42,6 +42,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_gad_shape_toJSON(c
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gad_shape_t *data_collection_model_gad_shape_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_gad_shape_is_equal_to(const data_collection_model_gad_shape_t *gad_shape, const data_collection_model_gad_shape_t *other_gad_shape);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supported_gad_shapes_t* data_collection_model_gad_shape_get_shape(const data_collection_model_gad_shape_t *gad_shape);
 

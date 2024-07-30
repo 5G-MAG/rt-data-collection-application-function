@@ -82,6 +82,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_flow_servi
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_per_flow_service_experience_info_is_equal_to(const data_collection_model_per_flow_service_experience_info_t *first, const data_collection_model_per_flow_service_experience_info_t *second)
+{
+    const std::shared_ptr<PerFlowServiceExperienceInfo > &obj1 = *reinterpret_cast<const std::shared_ptr<PerFlowServiceExperienceInfo >*>(first);
+    const std::shared_ptr<PerFlowServiceExperienceInfo > &obj2 = *reinterpret_cast<const std::shared_ptr<PerFlowServiceExperienceInfo >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_svc_experience_t* data_collection_model_per_flow_service_experience_info_get_service_experience(const data_collection_model_per_flow_service_experience_info_t *obj_per_flow_service_experience_info)
 {

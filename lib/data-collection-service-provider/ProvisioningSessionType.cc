@@ -76,6 +76,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_provisioning_s
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_provisioning_session_type_is_equal_to(const data_collection_model_provisioning_session_type_t *first, const data_collection_model_provisioning_session_type_t *second)
+{
+    const std::shared_ptr<ProvisioningSessionType > &obj1 = *reinterpret_cast<const std::shared_ptr<ProvisioningSessionType >*>(first);
+    const std::shared_ptr<ProvisioningSessionType > &obj2 = *reinterpret_cast<const std::shared_ptr<ProvisioningSessionType >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_provisioning_session_type_is_not_set(const data_collection_model_provisioning_session_type_t *obj_provisioning_session_type)
 {

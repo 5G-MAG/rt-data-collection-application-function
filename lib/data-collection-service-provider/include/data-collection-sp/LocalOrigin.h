@@ -42,6 +42,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_local_origin_toJSO
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_origin_t *data_collection_model_local_origin_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_local_origin_is_equal_to(const data_collection_model_local_origin_t *local_origin, const data_collection_model_local_origin_t *other_local_origin);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_local_origin_get_coordinate_id(const data_collection_model_local_origin_t *local_origin);
 

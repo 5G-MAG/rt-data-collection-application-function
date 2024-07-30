@@ -45,7 +45,6 @@ ogs_list_t *generate_af_event_notifications(ogs_list_t *data_reports, data_colle
     data_collection_data_report_record_t *data_report;
     void *report = NULL;
     communication_collection_record_t *communication_collection_record;
-    dcaf_api_communication_collection_t *communication_collection = NULL;
     dcaf_api_ue_communication_collection_t *ue_communication_collection = NULL;
     ogs_list_t application_ids;
     application_id_node_t *application_id_node;
@@ -110,7 +109,7 @@ communication_collection_record_t *generate_communication_collection_from_data_r
     char *end_time = NULL;
     char *start_time = NULL;
     long ul_vol = 0;
-    char *application_id;
+    const char *application_id;
     communication_collection_record_t *communication_collection_record;
 
     dcaf_api_communication_record_t *communication_record = (dcaf_api_communication_record_t *)report;

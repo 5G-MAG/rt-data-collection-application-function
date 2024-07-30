@@ -49,6 +49,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_pdu_set_handling_i
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_handling_info_t *data_collection_model_pdu_set_handling_info_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_handling_info_is_equal_to(const data_collection_model_pdu_set_handling_info_t *pdu_set_handling_info, const data_collection_model_pdu_set_handling_info_t *other_pdu_set_handling_info);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_handling_info_is_not_set(const data_collection_model_pdu_set_handling_info_t *pdu_set_handling_info);
 

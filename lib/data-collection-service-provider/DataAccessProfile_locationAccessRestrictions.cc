@@ -80,6 +80,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_access_pr
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_data_access_profile_location_access_restrictions_is_equal_to(const data_collection_model_data_access_profile_location_access_restrictions_t *first, const data_collection_model_data_access_profile_location_access_restrictions_t *second)
+{
+    const std::shared_ptr<DataAccessProfile_locationAccessRestrictions > &obj1 = *reinterpret_cast<const std::shared_ptr<DataAccessProfile_locationAccessRestrictions >*>(first);
+    const std::shared_ptr<DataAccessProfile_locationAccessRestrictions > &obj2 = *reinterpret_cast<const std::shared_ptr<DataAccessProfile_locationAccessRestrictions >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_data_access_profile_location_access_restrictions_get_location_areas(const data_collection_model_data_access_profile_location_access_restrictions_t *obj_data_access_profile_location_access_restrictions)
 {

@@ -78,6 +78,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ipv6_addr_t *d
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ipv6_addr_is_equal_to(const data_collection_model_ipv6_addr_t *first, const data_collection_model_ipv6_addr_t *second)
+{
+    const std::shared_ptr<Ipv6Addr > &obj1 = *reinterpret_cast<const std::shared_ptr<Ipv6Addr >*>(first);
+    const std::shared_ptr<Ipv6Addr > &obj2 = *reinterpret_cast<const std::shared_ptr<Ipv6Addr >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_ipv6_addr_make_lnode(data_collection_model_ipv6_addr_t *p_ipv6_addr)

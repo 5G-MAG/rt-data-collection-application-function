@@ -78,6 +78,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_cache_status_t
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_cache_status_is_equal_to(const data_collection_model_cache_status_t *first, const data_collection_model_cache_status_t *second)
+{
+    const std::shared_ptr<CacheStatus > &obj1 = *reinterpret_cast<const std::shared_ptr<CacheStatus >*>(first);
+    const std::shared_ptr<CacheStatus > &obj2 = *reinterpret_cast<const std::shared_ptr<CacheStatus >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cache_status_is_not_set(const data_collection_model_cache_status_t *obj_cache_status)
 {

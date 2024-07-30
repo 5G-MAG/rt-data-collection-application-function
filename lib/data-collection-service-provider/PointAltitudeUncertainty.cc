@@ -90,6 +90,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_point_altitude_uncertainty_is_equal_to(const data_collection_model_point_altitude_uncertainty_t *first, const data_collection_model_point_altitude_uncertainty_t *second)
+{
+    const std::shared_ptr<PointAltitudeUncertainty > &obj1 = *reinterpret_cast<const std::shared_ptr<PointAltitudeUncertainty >*>(first);
+    const std::shared_ptr<PointAltitudeUncertainty > &obj2 = *reinterpret_cast<const std::shared_ptr<PointAltitudeUncertainty >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_supported_gad_shapes_t* data_collection_model_point_altitude_uncertainty_get_shape(const data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty)
 {

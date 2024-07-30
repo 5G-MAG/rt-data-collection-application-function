@@ -84,6 +84,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribu
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_per_ue_attribute_is_equal_to(const data_collection_model_per_ue_attribute_t *first, const data_collection_model_per_ue_attribute_t *second)
+{
+    const std::shared_ptr<PerUeAttribute > &obj1 = *reinterpret_cast<const std::shared_ptr<PerUeAttribute >*>(first);
+    const std::shared_ptr<PerUeAttribute > &obj2 = *reinterpret_cast<const std::shared_ptr<PerUeAttribute >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_location_area5_g_t* data_collection_model_per_ue_attribute_get_ue_dest(const data_collection_model_per_ue_attribute_t *obj_per_ue_attribute)
 {

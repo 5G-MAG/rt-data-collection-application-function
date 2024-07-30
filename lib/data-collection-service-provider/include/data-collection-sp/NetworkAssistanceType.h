@@ -51,6 +51,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_network_assistance
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_type_t *data_collection_model_network_assistance_type_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_assistance_type_is_equal_to(const data_collection_model_network_assistance_type_t *network_assistance_type, const data_collection_model_network_assistance_type_t *other_network_assistance_type);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_assistance_type_is_not_set(const data_collection_model_network_assistance_type_t *network_assistance_type);
 

@@ -53,6 +53,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_no_profile_match_r
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_reason_t *data_collection_model_no_profile_match_reason_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profile_match_reason_is_equal_to(const data_collection_model_no_profile_match_reason_t *no_profile_match_reason, const data_collection_model_no_profile_match_reason_t *other_no_profile_match_reason);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profile_match_reason_is_not_set(const data_collection_model_no_profile_match_reason_t *no_profile_match_reason);
 

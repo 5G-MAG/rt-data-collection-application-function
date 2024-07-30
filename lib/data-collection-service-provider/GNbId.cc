@@ -82,6 +82,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnb_id_t *data
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_gnb_id_is_equal_to(const data_collection_model_gnb_id_t *first, const data_collection_model_gnb_id_t *second)
+{
+    const std::shared_ptr<GNbId > &obj1 = *reinterpret_cast<const std::shared_ptr<GNbId >*>(first);
+    const std::shared_ptr<GNbId > &obj2 = *reinterpret_cast<const std::shared_ptr<GNbId >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_gnb_id_get_bit_length(const data_collection_model_gnb_id_t *obj_gnb_id)
 {

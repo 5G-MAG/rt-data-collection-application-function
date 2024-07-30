@@ -84,6 +84,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_media_streaming_access_connection_metrics_is_equal_to(const data_collection_model_media_streaming_access_connection_metrics_t *first, const data_collection_model_media_streaming_access_connection_metrics_t *second)
+{
+    const std::shared_ptr<MediaStreamingAccess_connectionMetrics > &obj1 = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccess_connectionMetrics >*>(first);
+    const std::shared_ptr<MediaStreamingAccess_connectionMetrics > &obj2 = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccess_connectionMetrics >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_media_streaming_access_connection_metrics_get_mean_network_round_trip_time(const data_collection_model_media_streaming_access_connection_metrics_t *obj_media_streaming_access_connection_metrics)
 {

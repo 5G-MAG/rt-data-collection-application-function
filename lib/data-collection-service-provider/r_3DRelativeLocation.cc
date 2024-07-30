@@ -84,6 +84,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_3_d_relative
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_r_3_d_relative_location_is_equal_to(const data_collection_model_r_3_d_relative_location_t *first, const data_collection_model_r_3_d_relative_location_t *second)
+{
+    const std::shared_ptr<r_3DRelativeLocation > &obj1 = *reinterpret_cast<const std::shared_ptr<r_3DRelativeLocation >*>(first);
+    const std::shared_ptr<r_3DRelativeLocation > &obj2 = *reinterpret_cast<const std::shared_ptr<r_3DRelativeLocation >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_r_3_d_relative_location_get_semi_minor(const data_collection_model_r_3_d_relative_location_t *obj_r_3_d_relative_location)
 {

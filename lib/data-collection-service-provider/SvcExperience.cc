@@ -84,6 +84,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_svc_experience_is_equal_to(const data_collection_model_svc_experience_t *first, const data_collection_model_svc_experience_t *second)
+{
+    const std::shared_ptr<SvcExperience > &obj1 = *reinterpret_cast<const std::shared_ptr<SvcExperience >*>(first);
+    const std::shared_ptr<SvcExperience > &obj2 = *reinterpret_cast<const std::shared_ptr<SvcExperience >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_svc_experience_get_mos(const data_collection_model_svc_experience_t *obj_svc_experience)
 {

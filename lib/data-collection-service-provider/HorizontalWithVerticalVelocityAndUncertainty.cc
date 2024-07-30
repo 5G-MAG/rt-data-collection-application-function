@@ -88,6 +88,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_horizontal_wit
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_horizontal_with_vertical_velocity_and_uncertainty_is_equal_to(const data_collection_model_horizontal_with_vertical_velocity_and_uncertainty_t *first, const data_collection_model_horizontal_with_vertical_velocity_and_uncertainty_t *second)
+{
+    const std::shared_ptr<HorizontalWithVerticalVelocityAndUncertainty > &obj1 = *reinterpret_cast<const std::shared_ptr<HorizontalWithVerticalVelocityAndUncertainty >*>(first);
+    const std::shared_ptr<HorizontalWithVerticalVelocityAndUncertainty > &obj2 = *reinterpret_cast<const std::shared_ptr<HorizontalWithVerticalVelocityAndUncertainty >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_horizontal_with_vertical_velocity_and_uncertainty_get_h_speed(const data_collection_model_horizontal_with_vertical_velocity_and_uncertainty_t *obj_horizontal_with_vertical_velocity_and_uncertainty)
 {

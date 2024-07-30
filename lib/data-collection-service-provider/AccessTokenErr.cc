@@ -84,6 +84,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_e
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_access_token_err_is_equal_to(const data_collection_model_access_token_err_t *first, const data_collection_model_access_token_err_t *second)
+{
+    const std::shared_ptr<AccessTokenErr > &obj1 = *reinterpret_cast<const std::shared_ptr<AccessTokenErr >*>(first);
+    const std::shared_ptr<AccessTokenErr > &obj2 = *reinterpret_cast<const std::shared_ptr<AccessTokenErr >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_access_token_err_get_error(const data_collection_model_access_token_err_t *obj_access_token_err)
 {

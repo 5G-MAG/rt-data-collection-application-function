@@ -88,6 +88,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_unidirectional
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_unidirectional_qo_s_specification_is_equal_to(const data_collection_model_unidirectional_qo_s_specification_t *first, const data_collection_model_unidirectional_qo_s_specification_t *second)
+{
+    const std::shared_ptr<UnidirectionalQoSSpecification > &obj1 = *reinterpret_cast<const std::shared_ptr<UnidirectionalQoSSpecification >*>(first);
+    const std::shared_ptr<UnidirectionalQoSSpecification > &obj2 = *reinterpret_cast<const std::shared_ptr<UnidirectionalQoSSpecification >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_unidirectional_qo_s_specification_get_maximum_requested_bit_rate(const data_collection_model_unidirectional_qo_s_specification_t *obj_unidirectional_qo_s_specification)
 {

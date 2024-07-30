@@ -78,6 +78,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_mat
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_no_profile_match_reason_is_equal_to(const data_collection_model_no_profile_match_reason_t *first, const data_collection_model_no_profile_match_reason_t *second)
+{
+    const std::shared_ptr<NoProfileMatchReason > &obj1 = *reinterpret_cast<const std::shared_ptr<NoProfileMatchReason >*>(first);
+    const std::shared_ptr<NoProfileMatchReason > &obj2 = *reinterpret_cast<const std::shared_ptr<NoProfileMatchReason >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profile_match_reason_is_not_set(const data_collection_model_no_profile_match_reason_t *obj_no_profile_match_reason)
 {

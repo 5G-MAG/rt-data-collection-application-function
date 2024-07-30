@@ -92,6 +92,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ellipsoid_arc_
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ellipsoid_arc_is_equal_to(const data_collection_model_ellipsoid_arc_t *first, const data_collection_model_ellipsoid_arc_t *second)
+{
+    const std::shared_ptr<EllipsoidArc > &obj1 = *reinterpret_cast<const std::shared_ptr<EllipsoidArc >*>(first);
+    const std::shared_ptr<EllipsoidArc > &obj2 = *reinterpret_cast<const std::shared_ptr<EllipsoidArc >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_supported_gad_shapes_t* data_collection_model_ellipsoid_arc_get_shape(const data_collection_model_ellipsoid_arc_t *obj_ellipsoid_arc)
 {

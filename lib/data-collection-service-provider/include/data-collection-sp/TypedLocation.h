@@ -42,6 +42,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_typed_location_toJ
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_typed_location_t *data_collection_model_typed_location_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_typed_location_is_equal_to(const data_collection_model_typed_location_t *typed_location, const data_collection_model_typed_location_t *other_typed_location);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_cell_identifier_type_t* data_collection_model_typed_location_get_location_identifier_type(const data_collection_model_typed_location_t *typed_location);
 

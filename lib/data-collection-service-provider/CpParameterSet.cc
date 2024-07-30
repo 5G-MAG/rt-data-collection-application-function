@@ -110,6 +110,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_cp_parameter_s
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_cp_parameter_set_is_equal_to(const data_collection_model_cp_parameter_set_t *first, const data_collection_model_cp_parameter_set_t *second)
+{
+    const std::shared_ptr<CpParameterSet > &obj1 = *reinterpret_cast<const std::shared_ptr<CpParameterSet >*>(first);
+    const std::shared_ptr<CpParameterSet > &obj2 = *reinterpret_cast<const std::shared_ptr<CpParameterSet >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_cp_parameter_set_get_set_id(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
 {

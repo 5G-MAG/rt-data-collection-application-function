@@ -41,6 +41,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_plmn_id_toJSON(con
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_plmn_id_t *data_collection_model_plmn_id_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_plmn_id_is_equal_to(const data_collection_model_plmn_id_t *plmn_id, const data_collection_model_plmn_id_t *other_plmn_id);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_plmn_id_get_mcc(const data_collection_model_plmn_id_t *plmn_id);
 

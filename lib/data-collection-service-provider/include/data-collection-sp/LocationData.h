@@ -59,6 +59,8 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_location_data_toJS
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_location_data_is_equal_to(const data_collection_model_location_data_t *location_data, const data_collection_model_location_data_t *other_location_data);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geographic_area_t* data_collection_model_location_data_get_location_estimate(const data_collection_model_location_data_t *location_data);
 

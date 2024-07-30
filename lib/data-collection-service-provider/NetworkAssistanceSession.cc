@@ -92,6 +92,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_network_assistance_session_is_equal_to(const data_collection_model_network_assistance_session_t *first, const data_collection_model_network_assistance_session_t *second)
+{
+    const std::shared_ptr<NetworkAssistanceSession > &obj1 = *reinterpret_cast<const std::shared_ptr<NetworkAssistanceSession >*>(first);
+    const std::shared_ptr<NetworkAssistanceSession > &obj2 = *reinterpret_cast<const std::shared_ptr<NetworkAssistanceSession >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_network_assistance_session_get_na_session_id(const data_collection_model_network_assistance_session_t *obj_network_assistance_session)
 {

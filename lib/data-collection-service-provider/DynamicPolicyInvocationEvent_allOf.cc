@@ -86,6 +86,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_dynamic_policy_invocation_event_all_of_is_equal_to(const data_collection_model_dynamic_policy_invocation_event_all_of_t *first, const data_collection_model_dynamic_policy_invocation_event_all_of_t *second)
+{
+    const std::shared_ptr<DynamicPolicyInvocationEvent_allOf > &obj1 = *reinterpret_cast<const std::shared_ptr<DynamicPolicyInvocationEvent_allOf >*>(first);
+    const std::shared_ptr<DynamicPolicyInvocationEvent_allOf > &obj2 = *reinterpret_cast<const std::shared_ptr<DynamicPolicyInvocationEvent_allOf >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_dynamic_policy_invocation_event_all_of_get_policy_template_id(const data_collection_model_dynamic_policy_invocation_event_all_of_t *obj_dynamic_policy_invocation_event_all_of)
 {

@@ -84,6 +84,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_redirect_respo
     return NULL;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_redirect_response_is_equal_to(const data_collection_model_redirect_response_t *first, const data_collection_model_redirect_response_t *second)
+{
+    const std::shared_ptr<RedirectResponse > &obj1 = *reinterpret_cast<const std::shared_ptr<RedirectResponse >*>(first);
+    const std::shared_ptr<RedirectResponse > &obj2 = *reinterpret_cast<const std::shared_ptr<RedirectResponse >*>(second);
+    return (obj1 == obj2 || *obj1 == *obj2);
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_redirect_response_get_cause(const data_collection_model_redirect_response_t *obj_redirect_response)
 {
