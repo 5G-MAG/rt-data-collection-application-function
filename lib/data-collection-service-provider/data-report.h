@@ -37,6 +37,8 @@ typedef struct data_collection_data_report_record_s {
 extern bool remove_expired_data_reports(ogs_hash_t *data_reports);
 extern bool data_reports_clear(ogs_hash_t *data_reports);
 extern void data_collection_report_destroy(data_collection_data_report_record_t *report);
+extern int data_collection_report_client_type(ogs_sbi_server_t *server);
+
 
 #ifdef __cplusplus
 }

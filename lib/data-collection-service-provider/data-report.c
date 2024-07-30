@@ -269,6 +269,25 @@ void data_collection_report_destroy(data_collection_data_report_record_t *report
     ogs_free(report);
 }
 
+int data_collection_report_client_type(ogs_sbi_server_t *server) {
+    size_t i;
+    int data_report_server;
+
+    static const struct {
+        int server_ifc;
+	int client_type;
+    } server_ifc_client_type[] = {{DATA_COLLECTION_SVR_DIRECT_DATA_REPORTING, DATA_COLLECTION_REPORTING_CLIENT_TYPE_DIRECT}, 
+	    {DATA_COLLECTION_SVR_INDIRECT_DATA_REPORTING, DATA_COLLECTION_REPORTING_CLIENT_TYPE_INDIRECT},
+	    {DATA_COLLECTION_SVR_AS_DATA_REPORTING, DATA_COLLECTION_REPORTING_CLIENT_TYPE_APPLICATION_SERVER}
+    };
+
+    data_report_server = data_collection_context_get_server_interface(server);
+    for (i=0; i<sizeof(server_ifc_client_type)/sizeof(server_ifc_client_type[0]); i++) {
+        if(server_ifc_client_type[i].server_ifc == data_report_server) return server_ifc_client_type[i].client_type;	    
+    }
+    return -1;
+}
+
 static int data_collection_report_destroy_expired(ogs_list_t *data_reports)
 {
     data_collection_data_report_record_t *data_report = NULL;

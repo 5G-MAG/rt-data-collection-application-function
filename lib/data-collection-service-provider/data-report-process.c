@@ -346,6 +346,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                         dc_api_data_reporting_session_free(data_reporting_session);
                                     } */
 				    supported_domains = __populate_supported_domains(data_reporting_session->supported_domains);
+				    client_type = (data_collection_reporting_client_type_e) data_collection_report_client_type(server);
 				    data_collection_reporting_session = data_collection_reporting_session_create(data_reporting_session->external_application_id, supported_domains, client_type);
                                     __free_supported_domains(supported_domains);
 				    if (!data_collection_reporting_session) {

@@ -612,6 +612,21 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
     return OGS_OK;
 }
 
+int data_collection_context_get_server_interface(ogs_sbi_server_t *server) {
+    int i, j;	
+    for (i=0; i<DATA_COLLECTION_SVR_NUM_IFCS; i++) {
+        for (j=0; j<self->config.servers[i].num_v4_server_instances; j++) {
+            if(self->config.servers[i].ogs_server[j].server_v4) {
+                if(self->config.servers[i].ogs_server[j].server_v4 == server) {
+                    return i;
+                }
+            }
+	}
+    }
+    return -1;
+}
+
+
 /***** Private functions *****/
 
 static void data_collection_context_data_reporting_provisioning_sessions_remove(void) {

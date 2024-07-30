@@ -90,6 +90,8 @@ extern void data_collection_context_init(void);
 extern void data_collection_context_final(void);
 extern data_collection_context_t *data_collection_self(void);
 extern int data_collection_parse_config(const data_collection_configuration_t* const configuration);
+extern int data_collection_context_get_server_interface(ogs_sbi_server_t *server); 
+
 
 extern int data_collection_context_server_name_set(void);
 
