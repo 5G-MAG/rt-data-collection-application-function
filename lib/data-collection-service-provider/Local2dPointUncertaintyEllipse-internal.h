@@ -16,6 +16,7 @@
 // #include "LocalOrigin.h"
 // #include "UncertaintyEllipse.h"
 // #include "RelativeCartesianLocation.h"
+// #include "GADShape.h"
 // #include "SupportedGADShapes.h"
 
 #include "data-collection-sp/data-collection.h"

@@ -126,6 +126,14 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_any_of
         return DCM_POSITIONING_METHOD_ANY_OF_VAL_UL_AOA;
     case PositioningMethod_anyOf::Enum::VAL_NETWORK_SPECIFIC:
         return DCM_POSITIONING_METHOD_ANY_OF_VAL_NETWORK_SPECIFIC;
+    case PositioningMethod_anyOf::Enum::VAL_SL_TDOA:
+        return DCM_POSITIONING_METHOD_ANY_OF_VAL_SL_TDOA;
+    case PositioningMethod_anyOf::Enum::VAL_SL_TOA:
+        return DCM_POSITIONING_METHOD_ANY_OF_VAL_SL_TOA;
+    case PositioningMethod_anyOf::Enum::VAL_SL_AO_A:
+        return DCM_POSITIONING_METHOD_ANY_OF_VAL_SL_AO_A;
+    case PositioningMethod_anyOf::Enum::VAL_SL_RT:
+        return DCM_POSITIONING_METHOD_ANY_OF_VAL_SL_RT;
     default:
         break;
     }
@@ -189,6 +197,18 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_method_a
         return true;
     case DCM_POSITIONING_METHOD_ANY_OF_VAL_NETWORK_SPECIFIC:
         *obj = PositioningMethod_anyOf::Enum::VAL_NETWORK_SPECIFIC;
+        return true;
+    case DCM_POSITIONING_METHOD_ANY_OF_VAL_SL_TDOA:
+        *obj = PositioningMethod_anyOf::Enum::VAL_SL_TDOA;
+        return true;
+    case DCM_POSITIONING_METHOD_ANY_OF_VAL_SL_TOA:
+        *obj = PositioningMethod_anyOf::Enum::VAL_SL_TOA;
+        return true;
+    case DCM_POSITIONING_METHOD_ANY_OF_VAL_SL_AO_A:
+        *obj = PositioningMethod_anyOf::Enum::VAL_SL_AO_A;
+        return true;
+    case DCM_POSITIONING_METHOD_ANY_OF_VAL_SL_RT:
+        *obj = PositioningMethod_anyOf::Enum::VAL_SL_RT;
         return true;
     default:
         break;

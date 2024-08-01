@@ -142,6 +142,10 @@ libspdc_inst_includes = files('''
     data-collection-sp/HorizontalWithVerticalVelocity.h
     data-collection-sp/IndoorOutdoorInd_anyOf.h
     data-collection-sp/IndoorOutdoorInd.h
+    data-collection-sp/IntegrityComputingEntity.h
+    data-collection-sp/IntegrityComputingEntity_anyOf.h
+    data-collection-sp/IntegrityProtectionLevel.h
+    data-collection-sp/IntegrityResult.h
     data-collection-sp/InvalidParam.h
     data-collection-sp/IpAddr.h
     data-collection-sp/IpPacketFilterSet.h

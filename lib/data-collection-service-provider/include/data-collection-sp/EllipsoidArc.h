@@ -18,6 +18,7 @@
 #endif
 
 #include "GeographicalCoordinates.h"
+#include "GADShape.h"
 #include "SupportedGADShapes.h"
 
 #ifdef __cplusplus

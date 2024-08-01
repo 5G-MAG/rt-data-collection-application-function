@@ -299,6 +299,14 @@ IndoorOutdoorInd_anyOf.cc
 IndoorOutdoorInd_anyOf-internal.h
 IndoorOutdoorInd.cc
 IndoorOutdoorInd-internal.h
+IntegrityComputingEntity-internal.h
+IntegrityComputingEntity.cc
+IntegrityComputingEntity_anyOf-internal.h
+IntegrityComputingEntity_anyOf.cc
+IntegrityProtectionLevel-internal.h
+IntegrityProtectionLevel.cc
+IntegrityResult-internal.h
+IntegrityResult.cc
 InvalidParam.cc
 InvalidParam-internal.h
 IpAddr.cc

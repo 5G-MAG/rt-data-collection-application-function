@@ -30,9 +30,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
 
 
 
+
 )
 {
     return reinterpret_cast<data_collection_model_point_altitude_uncertainty_t*>(new std::shared_ptr<PointAltitudeUncertainty>(new PointAltitudeUncertainty(
+
 
 
 
@@ -311,6 +313,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     ValueType value = value_from;
     
     if (!obj->setConfidence(std::move(value))) return NULL;
+    return obj_point_altitude_uncertainty;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_point_altitude_uncertainty_get_v_confidence(const data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty)
+{
+    const std::shared_ptr<PointAltitudeUncertainty > &obj = *reinterpret_cast<const std::shared_ptr<PointAltitudeUncertainty >*>(obj_point_altitude_uncertainty);
+    typedef typename PointAltitudeUncertainty::VConfidenceType ResultFromType;
+    const ResultFromType result_from = obj->getVConfidence();
+    const ResultFromType result = result_from;
+    return result;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_v_confidence(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, const int32_t p_v_confidence)
+{
+    if (obj_point_altitude_uncertainty == NULL) return NULL;
+
+    std::shared_ptr<PointAltitudeUncertainty > &obj = *reinterpret_cast<std::shared_ptr<PointAltitudeUncertainty >*>(obj_point_altitude_uncertainty);
+    const auto &value_from = p_v_confidence;
+    typedef typename PointAltitudeUncertainty::VConfidenceType ValueType;
+
+    ValueType value = value_from;
+    if (!obj->setVConfidence(value)) return NULL;
+    return obj_point_altitude_uncertainty;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_v_confidence_move(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, int32_t p_v_confidence)
+{
+    if (obj_point_altitude_uncertainty == NULL) return NULL;
+
+    std::shared_ptr<PointAltitudeUncertainty > &obj = *reinterpret_cast<std::shared_ptr<PointAltitudeUncertainty >*>(obj_point_altitude_uncertainty);
+    const auto &value_from = p_v_confidence;
+    typedef typename PointAltitudeUncertainty::VConfidenceType ValueType;
+
+    ValueType value = value_from;
+    
+    if (!obj->setVConfidence(std::move(value))) return NULL;
     return obj_point_altitude_uncertainty;
 }
 

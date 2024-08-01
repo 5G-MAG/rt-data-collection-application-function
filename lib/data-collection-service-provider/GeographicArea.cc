@@ -36,9 +36,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
 
 
 
+
 )
 {
     return reinterpret_cast<data_collection_model_geographic_area_t*>(new std::shared_ptr<GeographicArea>(new GeographicArea(
+
 
 
 
@@ -450,6 +452,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     ValueType value = value_from;
     
     if (!obj->setUncertaintyAltitude(std::move(value))) return NULL;
+    return obj_geographic_area;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_geographic_area_get_v_confidence(const data_collection_model_geographic_area_t *obj_geographic_area)
+{
+    const std::shared_ptr<GeographicArea > &obj = *reinterpret_cast<const std::shared_ptr<GeographicArea >*>(obj_geographic_area);
+    typedef typename GeographicArea::VConfidenceType ResultFromType;
+    const ResultFromType result_from = obj->getVConfidence();
+    const ResultFromType result = result_from;
+    return result;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_v_confidence(data_collection_model_geographic_area_t *obj_geographic_area, const int32_t p_v_confidence)
+{
+    if (obj_geographic_area == NULL) return NULL;
+
+    std::shared_ptr<GeographicArea > &obj = *reinterpret_cast<std::shared_ptr<GeographicArea >*>(obj_geographic_area);
+    const auto &value_from = p_v_confidence;
+    typedef typename GeographicArea::VConfidenceType ValueType;
+
+    ValueType value = value_from;
+    if (!obj->setVConfidence(value)) return NULL;
+    return obj_geographic_area;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_v_confidence_move(data_collection_model_geographic_area_t *obj_geographic_area, int32_t p_v_confidence)
+{
+    if (obj_geographic_area == NULL) return NULL;
+
+    std::shared_ptr<GeographicArea > &obj = *reinterpret_cast<std::shared_ptr<GeographicArea >*>(obj_geographic_area);
+    const auto &value_from = p_v_confidence;
+    typedef typename GeographicArea::VConfidenceType ValueType;
+
+    ValueType value = value_from;
+    
+    if (!obj->setVConfidence(std::move(value))) return NULL;
     return obj_geographic_area;
 }
 

@@ -90,39 +90,39 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_range_dir
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_range_direction_get_range(const data_collection_model_range_direction_t *obj_range_direction)
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_range_direction_get_distance(const data_collection_model_range_direction_t *obj_range_direction)
 {
     const std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<const std::shared_ptr<RangeDirection >*>(obj_range_direction);
-    typedef typename RangeDirection::RangeType ResultFromType;
-    const ResultFromType result_from = obj->getRange();
+    typedef typename RangeDirection::DistanceType ResultFromType;
+    const ResultFromType result_from = obj->getDistance();
     const ResultFromType result = result_from;
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_set_range(data_collection_model_range_direction_t *obj_range_direction, const double p_range)
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_set_distance(data_collection_model_range_direction_t *obj_range_direction, const double p_distance)
 {
     if (obj_range_direction == NULL) return NULL;
 
     std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<std::shared_ptr<RangeDirection >*>(obj_range_direction);
-    const auto &value_from = p_range;
-    typedef typename RangeDirection::RangeType ValueType;
+    const auto &value_from = p_distance;
+    typedef typename RangeDirection::DistanceType ValueType;
 
     ValueType value = value_from;
-    if (!obj->setRange(value)) return NULL;
+    if (!obj->setDistance(value)) return NULL;
     return obj_range_direction;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_set_range_move(data_collection_model_range_direction_t *obj_range_direction, double p_range)
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_set_distance_move(data_collection_model_range_direction_t *obj_range_direction, double p_distance)
 {
     if (obj_range_direction == NULL) return NULL;
 
     std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<std::shared_ptr<RangeDirection >*>(obj_range_direction);
-    const auto &value_from = p_range;
-    typedef typename RangeDirection::RangeType ValueType;
+    const auto &value_from = p_distance;
+    typedef typename RangeDirection::DistanceType ValueType;
 
     ValueType value = value_from;
     
-    if (!obj->setRange(std::move(value))) return NULL;
+    if (!obj->setDistance(std::move(value))) return NULL;
     return obj_range_direction;
 }
 

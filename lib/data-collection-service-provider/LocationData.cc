@@ -50,9 +50,15 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
 
 
 
+
+
+
 )
 {
     return reinterpret_cast<data_collection_model_location_data_t*>(new std::shared_ptr<LocationData>(new LocationData(
+
+
+
 
 
 
@@ -646,6 +652,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" const bool data_collection_model_location_data_is_remote_ue_ind(const data_collection_model_location_data_t *obj_location_data)
+{
+    const std::shared_ptr<LocationData > &obj = *reinterpret_cast<const std::shared_ptr<LocationData >*>(obj_location_data);
+    typedef typename LocationData::RemoteUeIndType ResultFromType;
+    const ResultFromType result_from = obj->isRemoteUeInd();
+    const ResultFromType result = result_from;
+    return result;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_remote_ue_ind(data_collection_model_location_data_t *obj_location_data, const bool p_remote_ue_ind)
+{
+    if (obj_location_data == NULL) return NULL;
+
+    std::shared_ptr<LocationData > &obj = *reinterpret_cast<std::shared_ptr<LocationData >*>(obj_location_data);
+    const auto &value_from = p_remote_ue_ind;
+    typedef typename LocationData::RemoteUeIndType ValueType;
+
+    ValueType value = value_from;
+    if (!obj->setRemoteUeInd(value)) return NULL;
+    return obj_location_data;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_remote_ue_ind_move(data_collection_model_location_data_t *obj_location_data, bool p_remote_ue_ind)
+{
+    if (obj_location_data == NULL) return NULL;
+
+    std::shared_ptr<LocationData > &obj = *reinterpret_cast<std::shared_ptr<LocationData >*>(obj_location_data);
+    const auto &value_from = p_remote_ue_ind;
+    typedef typename LocationData::RemoteUeIndType ValueType;
+
+    ValueType value = value_from;
+    
+    if (!obj->setRemoteUeInd(std::move(value))) return NULL;
+    return obj_location_data;
+}
+
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_location_data_get_altitude(const data_collection_model_location_data_t *obj_location_data)
 {
     const std::shared_ptr<LocationData > &obj = *reinterpret_cast<const std::shared_ptr<LocationData >*>(obj_location_data);
@@ -1114,39 +1156,39 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_range_direction_t* data_collection_model_location_data_get_range_direction(const data_collection_model_location_data_t *obj_location_data)
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_range_direction_t* data_collection_model_location_data_get_distance_direction(const data_collection_model_location_data_t *obj_location_data)
 {
     const std::shared_ptr<LocationData > &obj = *reinterpret_cast<const std::shared_ptr<LocationData >*>(obj_location_data);
-    typedef typename LocationData::RangeDirectionType ResultFromType;
-    const ResultFromType result_from = obj->getRangeDirection();
+    typedef typename LocationData::DistanceDirectionType ResultFromType;
+    const ResultFromType result_from = obj->getDistanceDirection();
     const data_collection_model_range_direction_t *result = reinterpret_cast<const data_collection_model_range_direction_t*>(&result_from);
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_range_direction(data_collection_model_location_data_t *obj_location_data, const data_collection_model_range_direction_t* p_range_direction)
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_distance_direction(data_collection_model_location_data_t *obj_location_data, const data_collection_model_range_direction_t* p_distance_direction)
 {
     if (obj_location_data == NULL) return NULL;
 
     std::shared_ptr<LocationData > &obj = *reinterpret_cast<std::shared_ptr<LocationData >*>(obj_location_data);
-    const auto &value_from = p_range_direction;
-    typedef typename LocationData::RangeDirectionType ValueType;
+    const auto &value_from = p_distance_direction;
+    typedef typename LocationData::DistanceDirectionType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
-    if (!obj->setRangeDirection(value)) return NULL;
+    if (!obj->setDistanceDirection(value)) return NULL;
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_range_direction_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_range_direction_t* p_range_direction)
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_distance_direction_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_range_direction_t* p_distance_direction)
 {
     if (obj_location_data == NULL) return NULL;
 
     std::shared_ptr<LocationData > &obj = *reinterpret_cast<std::shared_ptr<LocationData >*>(obj_location_data);
-    const auto &value_from = p_range_direction;
-    typedef typename LocationData::RangeDirectionType ValueType;
+    const auto &value_from = p_distance_direction;
+    typedef typename LocationData::DistanceDirectionType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
-    if (!obj->setRangeDirection(std::move(value))) return NULL;
+    if (!obj->setDistanceDirection(std::move(value))) return NULL;
     return obj_location_data;
 }
 
@@ -1255,6 +1297,78 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setRelativeVelocity(std::move(value))) return NULL;
+    return obj_location_data;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" const unsigned char* data_collection_model_location_data_get_ranging_sl_capability(const data_collection_model_location_data_t *obj_location_data)
+{
+    const std::shared_ptr<LocationData > &obj = *reinterpret_cast<const std::shared_ptr<LocationData >*>(obj_location_data);
+    typedef typename LocationData::RangingSlCapabilityType ResultFromType;
+    const ResultFromType result_from = obj->getRangingSlCapability();
+    const unsigned char *result = result_from.c_str();
+    return result;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_ranging_sl_capability(data_collection_model_location_data_t *obj_location_data, const unsigned char* p_ranging_sl_capability)
+{
+    if (obj_location_data == NULL) return NULL;
+
+    std::shared_ptr<LocationData > &obj = *reinterpret_cast<std::shared_ptr<LocationData >*>(obj_location_data);
+    const auto &value_from = p_ranging_sl_capability;
+    typedef typename LocationData::RangingSlCapabilityType ValueType;
+
+    ValueType value(value_from);
+    if (!obj->setRangingSlCapability(value)) return NULL;
+    return obj_location_data;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_ranging_sl_capability_move(data_collection_model_location_data_t *obj_location_data, unsigned char* p_ranging_sl_capability)
+{
+    if (obj_location_data == NULL) return NULL;
+
+    std::shared_ptr<LocationData > &obj = *reinterpret_cast<std::shared_ptr<LocationData >*>(obj_location_data);
+    const auto &value_from = p_ranging_sl_capability;
+    typedef typename LocationData::RangingSlCapabilityType ValueType;
+
+    ValueType value(value_from);
+    
+    if (!obj->setRangingSlCapability(std::move(value))) return NULL;
+    return obj_location_data;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_integrity_result_t* data_collection_model_location_data_get_integrity_result(const data_collection_model_location_data_t *obj_location_data)
+{
+    const std::shared_ptr<LocationData > &obj = *reinterpret_cast<const std::shared_ptr<LocationData >*>(obj_location_data);
+    typedef typename LocationData::IntegrityResultType ResultFromType;
+    const ResultFromType result_from = obj->getIntegrityResult();
+    const data_collection_model_integrity_result_t *result = reinterpret_cast<const data_collection_model_integrity_result_t*>(&result_from);
+    return result;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_integrity_result(data_collection_model_location_data_t *obj_location_data, const data_collection_model_integrity_result_t* p_integrity_result)
+{
+    if (obj_location_data == NULL) return NULL;
+
+    std::shared_ptr<LocationData > &obj = *reinterpret_cast<std::shared_ptr<LocationData >*>(obj_location_data);
+    const auto &value_from = p_integrity_result;
+    typedef typename LocationData::IntegrityResultType ValueType;
+
+    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    if (!obj->setIntegrityResult(value)) return NULL;
+    return obj_location_data;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_integrity_result_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_integrity_result_t* p_integrity_result)
+{
+    if (obj_location_data == NULL) return NULL;
+
+    std::shared_ptr<LocationData > &obj = *reinterpret_cast<std::shared_ptr<LocationData >*>(obj_location_data);
+    const auto &value_from = p_integrity_result;
+    typedef typename LocationData::IntegrityResultType ValueType;
+
+    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    
+    if (!obj->setIntegrityResult(std::move(value))) return NULL;
     return obj_location_data;
 }
 

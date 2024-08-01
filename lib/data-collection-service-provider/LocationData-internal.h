@@ -22,6 +22,7 @@
 // #include "LosNlosMeasureInd.h"
 // #include "HighAccuracyGnssMetrics.h"
 // #include "PeriodicEventInfo.h"
+// #include "IntegrityResult.h"
 // #include "r_3DRelativeLocation.h"
 // #include "GnssPositioningMethodAndUsage.h"
 // #include "AccuracyFulfilmentIndicator.h"

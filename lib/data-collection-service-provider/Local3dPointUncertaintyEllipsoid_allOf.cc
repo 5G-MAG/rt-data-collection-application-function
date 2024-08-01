@@ -28,9 +28,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_
 
 
 
+
 )
 {
     return reinterpret_cast<data_collection_model_local3d_point_uncertainty_ellipsoid_all_of_t*>(new std::shared_ptr<Local3dPointUncertaintyEllipsoid_allOf>(new Local3dPointUncertaintyEllipsoid_allOf(
+
 
 
 
@@ -235,6 +237,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_
     ValueType value = value_from;
     
     if (!obj->setConfidence(std::move(value))) return NULL;
+    return obj_local3d_point_uncertainty_ellipsoid_all_of;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_local3d_point_uncertainty_ellipsoid_all_of_get_v_confidence(const data_collection_model_local3d_point_uncertainty_ellipsoid_all_of_t *obj_local3d_point_uncertainty_ellipsoid_all_of)
+{
+    const std::shared_ptr<Local3dPointUncertaintyEllipsoid_allOf > &obj = *reinterpret_cast<const std::shared_ptr<Local3dPointUncertaintyEllipsoid_allOf >*>(obj_local3d_point_uncertainty_ellipsoid_all_of);
+    typedef typename Local3dPointUncertaintyEllipsoid_allOf::VConfidenceType ResultFromType;
+    const ResultFromType result_from = obj->getVConfidence();
+    const ResultFromType result = result_from;
+    return result;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_uncertainty_ellipsoid_all_of_t *data_collection_model_local3d_point_uncertainty_ellipsoid_all_of_set_v_confidence(data_collection_model_local3d_point_uncertainty_ellipsoid_all_of_t *obj_local3d_point_uncertainty_ellipsoid_all_of, const int32_t p_v_confidence)
+{
+    if (obj_local3d_point_uncertainty_ellipsoid_all_of == NULL) return NULL;
+
+    std::shared_ptr<Local3dPointUncertaintyEllipsoid_allOf > &obj = *reinterpret_cast<std::shared_ptr<Local3dPointUncertaintyEllipsoid_allOf >*>(obj_local3d_point_uncertainty_ellipsoid_all_of);
+    const auto &value_from = p_v_confidence;
+    typedef typename Local3dPointUncertaintyEllipsoid_allOf::VConfidenceType ValueType;
+
+    ValueType value = value_from;
+    if (!obj->setVConfidence(value)) return NULL;
+    return obj_local3d_point_uncertainty_ellipsoid_all_of;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_uncertainty_ellipsoid_all_of_t *data_collection_model_local3d_point_uncertainty_ellipsoid_all_of_set_v_confidence_move(data_collection_model_local3d_point_uncertainty_ellipsoid_all_of_t *obj_local3d_point_uncertainty_ellipsoid_all_of, int32_t p_v_confidence)
+{
+    if (obj_local3d_point_uncertainty_ellipsoid_all_of == NULL) return NULL;
+
+    std::shared_ptr<Local3dPointUncertaintyEllipsoid_allOf > &obj = *reinterpret_cast<std::shared_ptr<Local3dPointUncertaintyEllipsoid_allOf >*>(obj_local3d_point_uncertainty_ellipsoid_all_of);
+    const auto &value_from = p_v_confidence;
+    typedef typename Local3dPointUncertaintyEllipsoid_allOf::VConfidenceType ValueType;
+
+    ValueType value = value_from;
+    
+    if (!obj->setVConfidence(std::move(value))) return NULL;
     return obj_local3d_point_uncertainty_ellipsoid_all_of;
 }
 

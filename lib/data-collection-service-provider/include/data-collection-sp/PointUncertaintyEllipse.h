@@ -19,6 +19,7 @@
 
 #include "GeographicalCoordinates.h"
 #include "UncertaintyEllipse.h"
+#include "GADShape.h"
 #include "SupportedGADShapes.h"
 
 #ifdef __cplusplus

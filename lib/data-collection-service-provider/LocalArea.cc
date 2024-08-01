@@ -28,9 +28,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *
 
 
 
+
 )
 {
     return reinterpret_cast<data_collection_model_local_area_t*>(new std::shared_ptr<LocalArea>(new LocalArea(
+
 
 
 
@@ -309,6 +311,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setUncertaintyEllipsoid(std::move(value))) return NULL;
+    return obj_local_area;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_local_area_get_v_confidence(const data_collection_model_local_area_t *obj_local_area)
+{
+    const std::shared_ptr<LocalArea > &obj = *reinterpret_cast<const std::shared_ptr<LocalArea >*>(obj_local_area);
+    typedef typename LocalArea::VConfidenceType ResultFromType;
+    const ResultFromType result_from = obj->getVConfidence();
+    const ResultFromType result = result_from;
+    return result;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *data_collection_model_local_area_set_v_confidence(data_collection_model_local_area_t *obj_local_area, const int32_t p_v_confidence)
+{
+    if (obj_local_area == NULL) return NULL;
+
+    std::shared_ptr<LocalArea > &obj = *reinterpret_cast<std::shared_ptr<LocalArea >*>(obj_local_area);
+    const auto &value_from = p_v_confidence;
+    typedef typename LocalArea::VConfidenceType ValueType;
+
+    ValueType value = value_from;
+    if (!obj->setVConfidence(value)) return NULL;
+    return obj_local_area;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *data_collection_model_local_area_set_v_confidence_move(data_collection_model_local_area_t *obj_local_area, int32_t p_v_confidence)
+{
+    if (obj_local_area == NULL) return NULL;
+
+    std::shared_ptr<LocalArea > &obj = *reinterpret_cast<std::shared_ptr<LocalArea >*>(obj_local_area);
+    const auto &value_from = p_v_confidence;
+    typedef typename LocalArea::VConfidenceType ValueType;
+
+    ValueType value = value_from;
+    
+    if (!obj->setVConfidence(std::move(value))) return NULL;
     return obj_local_area;
 }
 
