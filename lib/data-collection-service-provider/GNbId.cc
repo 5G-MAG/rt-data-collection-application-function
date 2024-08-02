@@ -35,36 +35,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnb_id_t *data
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnb_id_t *data_collection_model_gnb_id_create_copy(const data_collection_model_gnb_id_t *other)
 {
-    return reinterpret_cast<data_collection_model_gnb_id_t*>(new std::shared_ptr<GNbId >(new GNbId(**reinterpret_cast<const std::shared_ptr<GNbId >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<GNbId > &obj = *reinterpret_cast<const std::shared_ptr<GNbId >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_gnb_id_t*>(new std::shared_ptr<GNbId >(new GNbId(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnb_id_t *data_collection_model_gnb_id_create_move(data_collection_model_gnb_id_t *other)
 {
-    return reinterpret_cast<data_collection_model_gnb_id_t*>(new std::shared_ptr<GNbId >(std::move(*reinterpret_cast<std::shared_ptr<GNbId >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<GNbId > *obj = reinterpret_cast<std::shared_ptr<GNbId >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnb_id_t *data_collection_model_gnb_id_copy(data_collection_model_gnb_id_t *gnb_id, const data_collection_model_gnb_id_t *other)
 {
-    std::shared_ptr<GNbId > &obj = *reinterpret_cast<std::shared_ptr<GNbId >*>(gnb_id);
-    *obj = **reinterpret_cast<const std::shared_ptr<GNbId >*>(other);
+    if (gnb_id) {
+        std::shared_ptr<GNbId > &obj = *reinterpret_cast<std::shared_ptr<GNbId >*>(gnb_id);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<GNbId > &other_obj = *reinterpret_cast<const std::shared_ptr<GNbId >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<GNbId > &other_obj = *reinterpret_cast<const std::shared_ptr<GNbId >*>(other);
+                if (other_obj) {
+                    obj.reset(new GNbId(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        gnb_id = data_collection_model_gnb_id_create_copy(other);
+    }
     return gnb_id;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnb_id_t *data_collection_model_gnb_id_move(data_collection_model_gnb_id_t *gnb_id, data_collection_model_gnb_id_t *other)
 {
-    std::shared_ptr<GNbId > &obj = *reinterpret_cast<std::shared_ptr<GNbId >*>(gnb_id);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<GNbId >*>(other));
+    std::shared_ptr<GNbId > *other_ptr = reinterpret_cast<std::shared_ptr<GNbId >*>(other);
+
+    if (gnb_id) {
+        std::shared_ptr<GNbId > &obj = *reinterpret_cast<std::shared_ptr<GNbId >*>(gnb_id);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                gnb_id = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return gnb_id;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_gnb_id_free(data_collection_model_gnb_id_t *gnb_id)
 {
+    if (!gnb_id) return;
     delete reinterpret_cast<std::shared_ptr<GNbId >*>(gnb_id);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_gnb_id_toJSON(const data_collection_model_gnb_id_t *gnb_id, bool as_request)
 {
+    if (!gnb_id) return NULL;
     const std::shared_ptr<GNbId > &obj = *reinterpret_cast<const std::shared_ptr<GNbId >*>(gnb_id);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -84,15 +137,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnb_id_t *data
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_gnb_id_is_equal_to(const data_collection_model_gnb_id_t *first, const data_collection_model_gnb_id_t *second)
 {
-    const std::shared_ptr<GNbId > &obj1 = *reinterpret_cast<const std::shared_ptr<GNbId >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<GNbId > &obj2 = *reinterpret_cast<const std::shared_ptr<GNbId >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<GNbId > &obj1 = *reinterpret_cast<const std::shared_ptr<GNbId >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_gnb_id_get_bit_length(const data_collection_model_gnb_id_t *obj_gnb_id)
 {
+    if (!obj_gnb_id) {
+        const int32_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<GNbId > &obj = *reinterpret_cast<const std::shared_ptr<GNbId >*>(obj_gnb_id);
+    if (!obj) {
+        const int32_t result = 0;
+        return result;
+    }
+
     typedef typename GNbId::BitLengthType ResultFromType;
     const ResultFromType result_from = obj->getBitLength();
     const ResultFromType result = result_from;
@@ -101,34 +181,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnb_id_t *data_collection_model_gnb_id_set_bit_length(data_collection_model_gnb_id_t *obj_gnb_id, const int32_t p_bit_length)
 {
-    if (obj_gnb_id == NULL) return NULL;
+    if (!obj_gnb_id) return NULL;
 
     std::shared_ptr<GNbId > &obj = *reinterpret_cast<std::shared_ptr<GNbId >*>(obj_gnb_id);
+    if (!obj) return NULL;
+
     const auto &value_from = p_bit_length;
     typedef typename GNbId::BitLengthType ValueType;
 
     ValueType value = value_from;
     if (!obj->setBitLength(value)) return NULL;
+
     return obj_gnb_id;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnb_id_t *data_collection_model_gnb_id_set_bit_length_move(data_collection_model_gnb_id_t *obj_gnb_id, int32_t p_bit_length)
 {
-    if (obj_gnb_id == NULL) return NULL;
+    if (!obj_gnb_id) return NULL;
 
     std::shared_ptr<GNbId > &obj = *reinterpret_cast<std::shared_ptr<GNbId >*>(obj_gnb_id);
+    if (!obj) return NULL;
+
     const auto &value_from = p_bit_length;
     typedef typename GNbId::BitLengthType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setBitLength(std::move(value))) return NULL;
+
     return obj_gnb_id;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_gnb_id_get_gnb_value(const data_collection_model_gnb_id_t *obj_gnb_id)
 {
+    if (!obj_gnb_id) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<GNbId > &obj = *reinterpret_cast<const std::shared_ptr<GNbId >*>(obj_gnb_id);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename GNbId::GNBValueType ResultFromType;
     const ResultFromType result_from = obj->getGNBValue();
     const char *result = result_from.c_str();
@@ -137,28 +233,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_gn
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnb_id_t *data_collection_model_gnb_id_set_gnb_value(data_collection_model_gnb_id_t *obj_gnb_id, const char* p_gnb_value)
 {
-    if (obj_gnb_id == NULL) return NULL;
+    if (!obj_gnb_id) return NULL;
 
     std::shared_ptr<GNbId > &obj = *reinterpret_cast<std::shared_ptr<GNbId >*>(obj_gnb_id);
+    if (!obj) return NULL;
+
     const auto &value_from = p_gnb_value;
     typedef typename GNbId::GNBValueType ValueType;
 
     ValueType value(value_from);
     if (!obj->setGNBValue(value)) return NULL;
+
     return obj_gnb_id;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnb_id_t *data_collection_model_gnb_id_set_gnb_value_move(data_collection_model_gnb_id_t *obj_gnb_id, char* p_gnb_value)
 {
-    if (obj_gnb_id == NULL) return NULL;
+    if (!obj_gnb_id) return NULL;
 
     std::shared_ptr<GNbId > &obj = *reinterpret_cast<std::shared_ptr<GNbId >*>(obj_gnb_id);
+    if (!obj) return NULL;
+
     const auto &value_from = p_gnb_value;
     typedef typename GNbId::GNBValueType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setGNBValue(std::move(value))) return NULL;
+
     return obj_gnb_id;
 }
 
@@ -172,6 +274,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_gnb_id_refcount(data_collection_model_gnb_id_t *obj_gnb_id)
 {
+    if (!obj_gnb_id) return 0l;
     std::shared_ptr<GNbId > &obj = *reinterpret_cast<std::shared_ptr<GNbId >*>(obj_gnb_id);
     return obj.use_count();
 }

@@ -35,36 +35,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_invalid_param_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_invalid_param_t *data_collection_model_invalid_param_create_copy(const data_collection_model_invalid_param_t *other)
 {
-    return reinterpret_cast<data_collection_model_invalid_param_t*>(new std::shared_ptr<InvalidParam >(new InvalidParam(**reinterpret_cast<const std::shared_ptr<InvalidParam >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<InvalidParam > &obj = *reinterpret_cast<const std::shared_ptr<InvalidParam >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_invalid_param_t*>(new std::shared_ptr<InvalidParam >(new InvalidParam(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_invalid_param_t *data_collection_model_invalid_param_create_move(data_collection_model_invalid_param_t *other)
 {
-    return reinterpret_cast<data_collection_model_invalid_param_t*>(new std::shared_ptr<InvalidParam >(std::move(*reinterpret_cast<std::shared_ptr<InvalidParam >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<InvalidParam > *obj = reinterpret_cast<std::shared_ptr<InvalidParam >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_invalid_param_t *data_collection_model_invalid_param_copy(data_collection_model_invalid_param_t *invalid_param, const data_collection_model_invalid_param_t *other)
 {
-    std::shared_ptr<InvalidParam > &obj = *reinterpret_cast<std::shared_ptr<InvalidParam >*>(invalid_param);
-    *obj = **reinterpret_cast<const std::shared_ptr<InvalidParam >*>(other);
+    if (invalid_param) {
+        std::shared_ptr<InvalidParam > &obj = *reinterpret_cast<std::shared_ptr<InvalidParam >*>(invalid_param);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<InvalidParam > &other_obj = *reinterpret_cast<const std::shared_ptr<InvalidParam >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<InvalidParam > &other_obj = *reinterpret_cast<const std::shared_ptr<InvalidParam >*>(other);
+                if (other_obj) {
+                    obj.reset(new InvalidParam(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        invalid_param = data_collection_model_invalid_param_create_copy(other);
+    }
     return invalid_param;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_invalid_param_t *data_collection_model_invalid_param_move(data_collection_model_invalid_param_t *invalid_param, data_collection_model_invalid_param_t *other)
 {
-    std::shared_ptr<InvalidParam > &obj = *reinterpret_cast<std::shared_ptr<InvalidParam >*>(invalid_param);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<InvalidParam >*>(other));
+    std::shared_ptr<InvalidParam > *other_ptr = reinterpret_cast<std::shared_ptr<InvalidParam >*>(other);
+
+    if (invalid_param) {
+        std::shared_ptr<InvalidParam > &obj = *reinterpret_cast<std::shared_ptr<InvalidParam >*>(invalid_param);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                invalid_param = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return invalid_param;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_invalid_param_free(data_collection_model_invalid_param_t *invalid_param)
 {
+    if (!invalid_param) return;
     delete reinterpret_cast<std::shared_ptr<InvalidParam >*>(invalid_param);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_invalid_param_toJSON(const data_collection_model_invalid_param_t *invalid_param, bool as_request)
 {
+    if (!invalid_param) return NULL;
     const std::shared_ptr<InvalidParam > &obj = *reinterpret_cast<const std::shared_ptr<InvalidParam >*>(invalid_param);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -84,15 +137,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_invalid_param_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_invalid_param_is_equal_to(const data_collection_model_invalid_param_t *first, const data_collection_model_invalid_param_t *second)
 {
-    const std::shared_ptr<InvalidParam > &obj1 = *reinterpret_cast<const std::shared_ptr<InvalidParam >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<InvalidParam > &obj2 = *reinterpret_cast<const std::shared_ptr<InvalidParam >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<InvalidParam > &obj1 = *reinterpret_cast<const std::shared_ptr<InvalidParam >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_invalid_param_get_param(const data_collection_model_invalid_param_t *obj_invalid_param)
 {
+    if (!obj_invalid_param) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<InvalidParam > &obj = *reinterpret_cast<const std::shared_ptr<InvalidParam >*>(obj_invalid_param);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename InvalidParam::ParamType ResultFromType;
     const ResultFromType result_from = obj->getParam();
     const char *result = result_from.c_str();
@@ -101,34 +181,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_in
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_invalid_param_t *data_collection_model_invalid_param_set_param(data_collection_model_invalid_param_t *obj_invalid_param, const char* p_param)
 {
-    if (obj_invalid_param == NULL) return NULL;
+    if (!obj_invalid_param) return NULL;
 
     std::shared_ptr<InvalidParam > &obj = *reinterpret_cast<std::shared_ptr<InvalidParam >*>(obj_invalid_param);
+    if (!obj) return NULL;
+
     const auto &value_from = p_param;
     typedef typename InvalidParam::ParamType ValueType;
 
     ValueType value(value_from);
     if (!obj->setParam(value)) return NULL;
+
     return obj_invalid_param;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_invalid_param_t *data_collection_model_invalid_param_set_param_move(data_collection_model_invalid_param_t *obj_invalid_param, char* p_param)
 {
-    if (obj_invalid_param == NULL) return NULL;
+    if (!obj_invalid_param) return NULL;
 
     std::shared_ptr<InvalidParam > &obj = *reinterpret_cast<std::shared_ptr<InvalidParam >*>(obj_invalid_param);
+    if (!obj) return NULL;
+
     const auto &value_from = p_param;
     typedef typename InvalidParam::ParamType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setParam(std::move(value))) return NULL;
+
     return obj_invalid_param;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_invalid_param_get_reason(const data_collection_model_invalid_param_t *obj_invalid_param)
 {
+    if (!obj_invalid_param) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<InvalidParam > &obj = *reinterpret_cast<const std::shared_ptr<InvalidParam >*>(obj_invalid_param);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename InvalidParam::ReasonType ResultFromType;
     const ResultFromType result_from = obj->getReason();
     const char *result = result_from.c_str();
@@ -137,28 +233,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_in
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_invalid_param_t *data_collection_model_invalid_param_set_reason(data_collection_model_invalid_param_t *obj_invalid_param, const char* p_reason)
 {
-    if (obj_invalid_param == NULL) return NULL;
+    if (!obj_invalid_param) return NULL;
 
     std::shared_ptr<InvalidParam > &obj = *reinterpret_cast<std::shared_ptr<InvalidParam >*>(obj_invalid_param);
+    if (!obj) return NULL;
+
     const auto &value_from = p_reason;
     typedef typename InvalidParam::ReasonType ValueType;
 
     ValueType value(value_from);
     if (!obj->setReason(value)) return NULL;
+
     return obj_invalid_param;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_invalid_param_t *data_collection_model_invalid_param_set_reason_move(data_collection_model_invalid_param_t *obj_invalid_param, char* p_reason)
 {
-    if (obj_invalid_param == NULL) return NULL;
+    if (!obj_invalid_param) return NULL;
 
     std::shared_ptr<InvalidParam > &obj = *reinterpret_cast<std::shared_ptr<InvalidParam >*>(obj_invalid_param);
+    if (!obj) return NULL;
+
     const auto &value_from = p_reason;
     typedef typename InvalidParam::ReasonType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setReason(std::move(value))) return NULL;
+
     return obj_invalid_param;
 }
 
@@ -172,6 +274,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_invalid_param_refcount(data_collection_model_invalid_param_t *obj_invalid_param)
 {
+    if (!obj_invalid_param) return 0l;
     std::shared_ptr<InvalidParam > &obj = *reinterpret_cast<std::shared_ptr<InvalidParam >*>(obj_invalid_param);
     return obj.use_count();
 }

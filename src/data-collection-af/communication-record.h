@@ -24,12 +24,8 @@
 #include "utilities.h"
 #include "hash.h"
 #include "data-collection-sp/data-collection.h"
-#include "openapi/model/dcaf_api_data_report.h"
-#include "openapi/model/dcaf_api_communication_record.h"
 
 /* Local functions */
-
-typedef struct dcaf_api_communication_record_s dcaf_api_communication_record_t;
 
 extern const data_collection_data_report_handler_t communication_record_data_report_type;
 

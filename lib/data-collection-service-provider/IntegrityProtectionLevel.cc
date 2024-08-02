@@ -33,36 +33,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_prot
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_create_copy(const data_collection_model_integrity_protection_level_t *other)
 {
-    return reinterpret_cast<data_collection_model_integrity_protection_level_t*>(new std::shared_ptr<IntegrityProtectionLevel >(new IntegrityProtectionLevel(**reinterpret_cast<const std::shared_ptr<IntegrityProtectionLevel >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<IntegrityProtectionLevel > &obj = *reinterpret_cast<const std::shared_ptr<IntegrityProtectionLevel >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_integrity_protection_level_t*>(new std::shared_ptr<IntegrityProtectionLevel >(new IntegrityProtectionLevel(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_create_move(data_collection_model_integrity_protection_level_t *other)
 {
-    return reinterpret_cast<data_collection_model_integrity_protection_level_t*>(new std::shared_ptr<IntegrityProtectionLevel >(std::move(*reinterpret_cast<std::shared_ptr<IntegrityProtectionLevel >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<IntegrityProtectionLevel > *obj = reinterpret_cast<std::shared_ptr<IntegrityProtectionLevel >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_copy(data_collection_model_integrity_protection_level_t *integrity_protection_level, const data_collection_model_integrity_protection_level_t *other)
 {
-    std::shared_ptr<IntegrityProtectionLevel > &obj = *reinterpret_cast<std::shared_ptr<IntegrityProtectionLevel >*>(integrity_protection_level);
-    *obj = **reinterpret_cast<const std::shared_ptr<IntegrityProtectionLevel >*>(other);
+    if (integrity_protection_level) {
+        std::shared_ptr<IntegrityProtectionLevel > &obj = *reinterpret_cast<std::shared_ptr<IntegrityProtectionLevel >*>(integrity_protection_level);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<IntegrityProtectionLevel > &other_obj = *reinterpret_cast<const std::shared_ptr<IntegrityProtectionLevel >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<IntegrityProtectionLevel > &other_obj = *reinterpret_cast<const std::shared_ptr<IntegrityProtectionLevel >*>(other);
+                if (other_obj) {
+                    obj.reset(new IntegrityProtectionLevel(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        integrity_protection_level = data_collection_model_integrity_protection_level_create_copy(other);
+    }
     return integrity_protection_level;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_move(data_collection_model_integrity_protection_level_t *integrity_protection_level, data_collection_model_integrity_protection_level_t *other)
 {
-    std::shared_ptr<IntegrityProtectionLevel > &obj = *reinterpret_cast<std::shared_ptr<IntegrityProtectionLevel >*>(integrity_protection_level);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<IntegrityProtectionLevel >*>(other));
+    std::shared_ptr<IntegrityProtectionLevel > *other_ptr = reinterpret_cast<std::shared_ptr<IntegrityProtectionLevel >*>(other);
+
+    if (integrity_protection_level) {
+        std::shared_ptr<IntegrityProtectionLevel > &obj = *reinterpret_cast<std::shared_ptr<IntegrityProtectionLevel >*>(integrity_protection_level);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                integrity_protection_level = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return integrity_protection_level;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_integrity_protection_level_free(data_collection_model_integrity_protection_level_t *integrity_protection_level)
 {
+    if (!integrity_protection_level) return;
     delete reinterpret_cast<std::shared_ptr<IntegrityProtectionLevel >*>(integrity_protection_level);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_integrity_protection_level_toJSON(const data_collection_model_integrity_protection_level_t *integrity_protection_level, bool as_request)
 {
+    if (!integrity_protection_level) return NULL;
     const std::shared_ptr<IntegrityProtectionLevel > &obj = *reinterpret_cast<const std::shared_ptr<IntegrityProtectionLevel >*>(integrity_protection_level);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -82,15 +135,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_prot
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_integrity_protection_level_is_equal_to(const data_collection_model_integrity_protection_level_t *first, const data_collection_model_integrity_protection_level_t *second)
 {
-    const std::shared_ptr<IntegrityProtectionLevel > &obj1 = *reinterpret_cast<const std::shared_ptr<IntegrityProtectionLevel >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<IntegrityProtectionLevel > &obj2 = *reinterpret_cast<const std::shared_ptr<IntegrityProtectionLevel >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<IntegrityProtectionLevel > &obj1 = *reinterpret_cast<const std::shared_ptr<IntegrityProtectionLevel >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_integrity_protection_level_get_horizontal_protection_level(const data_collection_model_integrity_protection_level_t *obj_integrity_protection_level)
 {
+    if (!obj_integrity_protection_level) {
+        const int32_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<IntegrityProtectionLevel > &obj = *reinterpret_cast<const std::shared_ptr<IntegrityProtectionLevel >*>(obj_integrity_protection_level);
+    if (!obj) {
+        const int32_t result = 0;
+        return result;
+    }
+
     typedef typename IntegrityProtectionLevel::HorizontalProtectionLevelType ResultFromType;
     const ResultFromType result_from = obj->getHorizontalProtectionLevel();
     const ResultFromType result = result_from;
@@ -99,34 +179,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_set_horizontal_protection_level(data_collection_model_integrity_protection_level_t *obj_integrity_protection_level, const int32_t p_horizontal_protection_level)
 {
-    if (obj_integrity_protection_level == NULL) return NULL;
+    if (!obj_integrity_protection_level) return NULL;
 
     std::shared_ptr<IntegrityProtectionLevel > &obj = *reinterpret_cast<std::shared_ptr<IntegrityProtectionLevel >*>(obj_integrity_protection_level);
+    if (!obj) return NULL;
+
     const auto &value_from = p_horizontal_protection_level;
     typedef typename IntegrityProtectionLevel::HorizontalProtectionLevelType ValueType;
 
     ValueType value = value_from;
     if (!obj->setHorizontalProtectionLevel(value)) return NULL;
+
     return obj_integrity_protection_level;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_set_horizontal_protection_level_move(data_collection_model_integrity_protection_level_t *obj_integrity_protection_level, int32_t p_horizontal_protection_level)
 {
-    if (obj_integrity_protection_level == NULL) return NULL;
+    if (!obj_integrity_protection_level) return NULL;
 
     std::shared_ptr<IntegrityProtectionLevel > &obj = *reinterpret_cast<std::shared_ptr<IntegrityProtectionLevel >*>(obj_integrity_protection_level);
+    if (!obj) return NULL;
+
     const auto &value_from = p_horizontal_protection_level;
     typedef typename IntegrityProtectionLevel::HorizontalProtectionLevelType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setHorizontalProtectionLevel(std::move(value))) return NULL;
+
     return obj_integrity_protection_level;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_integrity_protection_level_get_vertical_protection_level(const data_collection_model_integrity_protection_level_t *obj_integrity_protection_level)
 {
+    if (!obj_integrity_protection_level) {
+        const int32_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<IntegrityProtectionLevel > &obj = *reinterpret_cast<const std::shared_ptr<IntegrityProtectionLevel >*>(obj_integrity_protection_level);
+    if (!obj) {
+        const int32_t result = 0;
+        return result;
+    }
+
     typedef typename IntegrityProtectionLevel::VerticalProtectionLevelType ResultFromType;
     const ResultFromType result_from = obj->getVerticalProtectionLevel();
     const ResultFromType result = result_from;
@@ -135,28 +231,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_set_vertical_protection_level(data_collection_model_integrity_protection_level_t *obj_integrity_protection_level, const int32_t p_vertical_protection_level)
 {
-    if (obj_integrity_protection_level == NULL) return NULL;
+    if (!obj_integrity_protection_level) return NULL;
 
     std::shared_ptr<IntegrityProtectionLevel > &obj = *reinterpret_cast<std::shared_ptr<IntegrityProtectionLevel >*>(obj_integrity_protection_level);
+    if (!obj) return NULL;
+
     const auto &value_from = p_vertical_protection_level;
     typedef typename IntegrityProtectionLevel::VerticalProtectionLevelType ValueType;
 
     ValueType value = value_from;
     if (!obj->setVerticalProtectionLevel(value)) return NULL;
+
     return obj_integrity_protection_level;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_set_vertical_protection_level_move(data_collection_model_integrity_protection_level_t *obj_integrity_protection_level, int32_t p_vertical_protection_level)
 {
-    if (obj_integrity_protection_level == NULL) return NULL;
+    if (!obj_integrity_protection_level) return NULL;
 
     std::shared_ptr<IntegrityProtectionLevel > &obj = *reinterpret_cast<std::shared_ptr<IntegrityProtectionLevel >*>(obj_integrity_protection_level);
+    if (!obj) return NULL;
+
     const auto &value_from = p_vertical_protection_level;
     typedef typename IntegrityProtectionLevel::VerticalProtectionLevelType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setVerticalProtectionLevel(std::move(value))) return NULL;
+
     return obj_integrity_protection_level;
 }
 
@@ -170,6 +272,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_integrity_protection_level_refcount(data_collection_model_integrity_protection_level_t *obj_integrity_protection_level)
 {
+    if (!obj_integrity_protection_level) return 0l;
     std::shared_ptr<IntegrityProtectionLevel > &obj = *reinterpret_cast<std::shared_ptr<IntegrityProtectionLevel >*>(obj_integrity_protection_level);
     return obj.use_count();
 }

@@ -37,36 +37,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_me
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_create_copy(const data_collection_model_positioning_method_and_usage_t *other)
 {
-    return reinterpret_cast<data_collection_model_positioning_method_and_usage_t*>(new std::shared_ptr<PositioningMethodAndUsage >(new PositioningMethodAndUsage(**reinterpret_cast<const std::shared_ptr<PositioningMethodAndUsage >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<PositioningMethodAndUsage > &obj = *reinterpret_cast<const std::shared_ptr<PositioningMethodAndUsage >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_positioning_method_and_usage_t*>(new std::shared_ptr<PositioningMethodAndUsage >(new PositioningMethodAndUsage(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_create_move(data_collection_model_positioning_method_and_usage_t *other)
 {
-    return reinterpret_cast<data_collection_model_positioning_method_and_usage_t*>(new std::shared_ptr<PositioningMethodAndUsage >(std::move(*reinterpret_cast<std::shared_ptr<PositioningMethodAndUsage >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<PositioningMethodAndUsage > *obj = reinterpret_cast<std::shared_ptr<PositioningMethodAndUsage >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_copy(data_collection_model_positioning_method_and_usage_t *positioning_method_and_usage, const data_collection_model_positioning_method_and_usage_t *other)
 {
-    std::shared_ptr<PositioningMethodAndUsage > &obj = *reinterpret_cast<std::shared_ptr<PositioningMethodAndUsage >*>(positioning_method_and_usage);
-    *obj = **reinterpret_cast<const std::shared_ptr<PositioningMethodAndUsage >*>(other);
+    if (positioning_method_and_usage) {
+        std::shared_ptr<PositioningMethodAndUsage > &obj = *reinterpret_cast<std::shared_ptr<PositioningMethodAndUsage >*>(positioning_method_and_usage);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<PositioningMethodAndUsage > &other_obj = *reinterpret_cast<const std::shared_ptr<PositioningMethodAndUsage >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<PositioningMethodAndUsage > &other_obj = *reinterpret_cast<const std::shared_ptr<PositioningMethodAndUsage >*>(other);
+                if (other_obj) {
+                    obj.reset(new PositioningMethodAndUsage(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        positioning_method_and_usage = data_collection_model_positioning_method_and_usage_create_copy(other);
+    }
     return positioning_method_and_usage;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_move(data_collection_model_positioning_method_and_usage_t *positioning_method_and_usage, data_collection_model_positioning_method_and_usage_t *other)
 {
-    std::shared_ptr<PositioningMethodAndUsage > &obj = *reinterpret_cast<std::shared_ptr<PositioningMethodAndUsage >*>(positioning_method_and_usage);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<PositioningMethodAndUsage >*>(other));
+    std::shared_ptr<PositioningMethodAndUsage > *other_ptr = reinterpret_cast<std::shared_ptr<PositioningMethodAndUsage >*>(other);
+
+    if (positioning_method_and_usage) {
+        std::shared_ptr<PositioningMethodAndUsage > &obj = *reinterpret_cast<std::shared_ptr<PositioningMethodAndUsage >*>(positioning_method_and_usage);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                positioning_method_and_usage = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return positioning_method_and_usage;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_positioning_method_and_usage_free(data_collection_model_positioning_method_and_usage_t *positioning_method_and_usage)
 {
+    if (!positioning_method_and_usage) return;
     delete reinterpret_cast<std::shared_ptr<PositioningMethodAndUsage >*>(positioning_method_and_usage);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_positioning_method_and_usage_toJSON(const data_collection_model_positioning_method_and_usage_t *positioning_method_and_usage, bool as_request)
 {
+    if (!positioning_method_and_usage) return NULL;
     const std::shared_ptr<PositioningMethodAndUsage > &obj = *reinterpret_cast<const std::shared_ptr<PositioningMethodAndUsage >*>(positioning_method_and_usage);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -86,15 +139,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_me
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_positioning_method_and_usage_is_equal_to(const data_collection_model_positioning_method_and_usage_t *first, const data_collection_model_positioning_method_and_usage_t *second)
 {
-    const std::shared_ptr<PositioningMethodAndUsage > &obj1 = *reinterpret_cast<const std::shared_ptr<PositioningMethodAndUsage >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<PositioningMethodAndUsage > &obj2 = *reinterpret_cast<const std::shared_ptr<PositioningMethodAndUsage >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<PositioningMethodAndUsage > &obj1 = *reinterpret_cast<const std::shared_ptr<PositioningMethodAndUsage >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_positioning_method_t* data_collection_model_positioning_method_and_usage_get_method(const data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage)
 {
+    if (!obj_positioning_method_and_usage) {
+        const data_collection_model_positioning_method_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<PositioningMethodAndUsage > &obj = *reinterpret_cast<const std::shared_ptr<PositioningMethodAndUsage >*>(obj_positioning_method_and_usage);
+    if (!obj) {
+        const data_collection_model_positioning_method_t *result = NULL;
+        return result;
+    }
+
     typedef typename PositioningMethodAndUsage::MethodType ResultFromType;
     const ResultFromType result_from = obj->getMethod();
     const data_collection_model_positioning_method_t *result = reinterpret_cast<const data_collection_model_positioning_method_t*>(&result_from);
@@ -103,34 +183,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_position
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_method(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, const data_collection_model_positioning_method_t* p_method)
 {
-    if (obj_positioning_method_and_usage == NULL) return NULL;
+    if (!obj_positioning_method_and_usage) return NULL;
 
     std::shared_ptr<PositioningMethodAndUsage > &obj = *reinterpret_cast<std::shared_ptr<PositioningMethodAndUsage >*>(obj_positioning_method_and_usage);
+    if (!obj) return NULL;
+
     const auto &value_from = p_method;
     typedef typename PositioningMethodAndUsage::MethodType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setMethod(value)) return NULL;
+
     return obj_positioning_method_and_usage;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_method_move(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, data_collection_model_positioning_method_t* p_method)
 {
-    if (obj_positioning_method_and_usage == NULL) return NULL;
+    if (!obj_positioning_method_and_usage) return NULL;
 
     std::shared_ptr<PositioningMethodAndUsage > &obj = *reinterpret_cast<std::shared_ptr<PositioningMethodAndUsage >*>(obj_positioning_method_and_usage);
+    if (!obj) return NULL;
+
     const auto &value_from = p_method;
     typedef typename PositioningMethodAndUsage::MethodType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setMethod(std::move(value))) return NULL;
+
     return obj_positioning_method_and_usage;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_positioning_mode_t* data_collection_model_positioning_method_and_usage_get_mode(const data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage)
 {
+    if (!obj_positioning_method_and_usage) {
+        const data_collection_model_positioning_mode_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<PositioningMethodAndUsage > &obj = *reinterpret_cast<const std::shared_ptr<PositioningMethodAndUsage >*>(obj_positioning_method_and_usage);
+    if (!obj) {
+        const data_collection_model_positioning_mode_t *result = NULL;
+        return result;
+    }
+
     typedef typename PositioningMethodAndUsage::ModeType ResultFromType;
     const ResultFromType result_from = obj->getMode();
     const data_collection_model_positioning_mode_t *result = reinterpret_cast<const data_collection_model_positioning_mode_t*>(&result_from);
@@ -139,34 +235,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_position
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_mode(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, const data_collection_model_positioning_mode_t* p_mode)
 {
-    if (obj_positioning_method_and_usage == NULL) return NULL;
+    if (!obj_positioning_method_and_usage) return NULL;
 
     std::shared_ptr<PositioningMethodAndUsage > &obj = *reinterpret_cast<std::shared_ptr<PositioningMethodAndUsage >*>(obj_positioning_method_and_usage);
+    if (!obj) return NULL;
+
     const auto &value_from = p_mode;
     typedef typename PositioningMethodAndUsage::ModeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setMode(value)) return NULL;
+
     return obj_positioning_method_and_usage;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_mode_move(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, data_collection_model_positioning_mode_t* p_mode)
 {
-    if (obj_positioning_method_and_usage == NULL) return NULL;
+    if (!obj_positioning_method_and_usage) return NULL;
 
     std::shared_ptr<PositioningMethodAndUsage > &obj = *reinterpret_cast<std::shared_ptr<PositioningMethodAndUsage >*>(obj_positioning_method_and_usage);
+    if (!obj) return NULL;
+
     const auto &value_from = p_mode;
     typedef typename PositioningMethodAndUsage::ModeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setMode(std::move(value))) return NULL;
+
     return obj_positioning_method_and_usage;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_usage_t* data_collection_model_positioning_method_and_usage_get_usage(const data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage)
 {
+    if (!obj_positioning_method_and_usage) {
+        const data_collection_model_usage_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<PositioningMethodAndUsage > &obj = *reinterpret_cast<const std::shared_ptr<PositioningMethodAndUsage >*>(obj_positioning_method_and_usage);
+    if (!obj) {
+        const data_collection_model_usage_t *result = NULL;
+        return result;
+    }
+
     typedef typename PositioningMethodAndUsage::UsageType ResultFromType;
     const ResultFromType result_from = obj->getUsage();
     const data_collection_model_usage_t *result = reinterpret_cast<const data_collection_model_usage_t*>(&result_from);
@@ -175,34 +287,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_usage_t*
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_usage(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, const data_collection_model_usage_t* p_usage)
 {
-    if (obj_positioning_method_and_usage == NULL) return NULL;
+    if (!obj_positioning_method_and_usage) return NULL;
 
     std::shared_ptr<PositioningMethodAndUsage > &obj = *reinterpret_cast<std::shared_ptr<PositioningMethodAndUsage >*>(obj_positioning_method_and_usage);
+    if (!obj) return NULL;
+
     const auto &value_from = p_usage;
     typedef typename PositioningMethodAndUsage::UsageType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setUsage(value)) return NULL;
+
     return obj_positioning_method_and_usage;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_usage_move(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, data_collection_model_usage_t* p_usage)
 {
-    if (obj_positioning_method_and_usage == NULL) return NULL;
+    if (!obj_positioning_method_and_usage) return NULL;
 
     std::shared_ptr<PositioningMethodAndUsage > &obj = *reinterpret_cast<std::shared_ptr<PositioningMethodAndUsage >*>(obj_positioning_method_and_usage);
+    if (!obj) return NULL;
+
     const auto &value_from = p_usage;
     typedef typename PositioningMethodAndUsage::UsageType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setUsage(std::move(value))) return NULL;
+
     return obj_positioning_method_and_usage;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_positioning_method_and_usage_get_method_code(const data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage)
 {
+    if (!obj_positioning_method_and_usage) {
+        const int32_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<PositioningMethodAndUsage > &obj = *reinterpret_cast<const std::shared_ptr<PositioningMethodAndUsage >*>(obj_positioning_method_and_usage);
+    if (!obj) {
+        const int32_t result = 0;
+        return result;
+    }
+
     typedef typename PositioningMethodAndUsage::MethodCodeType ResultFromType;
     const ResultFromType result_from = obj->getMethodCode();
     const ResultFromType result = result_from;
@@ -211,28 +339,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_method_code(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, const int32_t p_method_code)
 {
-    if (obj_positioning_method_and_usage == NULL) return NULL;
+    if (!obj_positioning_method_and_usage) return NULL;
 
     std::shared_ptr<PositioningMethodAndUsage > &obj = *reinterpret_cast<std::shared_ptr<PositioningMethodAndUsage >*>(obj_positioning_method_and_usage);
+    if (!obj) return NULL;
+
     const auto &value_from = p_method_code;
     typedef typename PositioningMethodAndUsage::MethodCodeType ValueType;
 
     ValueType value = value_from;
     if (!obj->setMethodCode(value)) return NULL;
+
     return obj_positioning_method_and_usage;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_method_code_move(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, int32_t p_method_code)
 {
-    if (obj_positioning_method_and_usage == NULL) return NULL;
+    if (!obj_positioning_method_and_usage) return NULL;
 
     std::shared_ptr<PositioningMethodAndUsage > &obj = *reinterpret_cast<std::shared_ptr<PositioningMethodAndUsage >*>(obj_positioning_method_and_usage);
+    if (!obj) return NULL;
+
     const auto &value_from = p_method_code;
     typedef typename PositioningMethodAndUsage::MethodCodeType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setMethodCode(std::move(value))) return NULL;
+
     return obj_positioning_method_and_usage;
 }
 
@@ -246,6 +380,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_positioning_method_and_usage_refcount(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage)
 {
+    if (!obj_positioning_method_and_usage) return 0l;
     std::shared_ptr<PositioningMethodAndUsage > &obj = *reinterpret_cast<std::shared_ptr<PositioningMethodAndUsage >*>(obj_positioning_method_and_usage);
     return obj.use_count();
 }

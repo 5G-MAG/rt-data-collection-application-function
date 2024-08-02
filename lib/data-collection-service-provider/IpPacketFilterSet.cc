@@ -49,36 +49,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_create_copy(const data_collection_model_ip_packet_filter_set_t *other)
 {
-    return reinterpret_cast<data_collection_model_ip_packet_filter_set_t*>(new std::shared_ptr<IpPacketFilterSet >(new IpPacketFilterSet(**reinterpret_cast<const std::shared_ptr<IpPacketFilterSet >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<const std::shared_ptr<IpPacketFilterSet >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_ip_packet_filter_set_t*>(new std::shared_ptr<IpPacketFilterSet >(new IpPacketFilterSet(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_create_move(data_collection_model_ip_packet_filter_set_t *other)
 {
-    return reinterpret_cast<data_collection_model_ip_packet_filter_set_t*>(new std::shared_ptr<IpPacketFilterSet >(std::move(*reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<IpPacketFilterSet > *obj = reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_copy(data_collection_model_ip_packet_filter_set_t *ip_packet_filter_set, const data_collection_model_ip_packet_filter_set_t *other)
 {
-    std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(ip_packet_filter_set);
-    *obj = **reinterpret_cast<const std::shared_ptr<IpPacketFilterSet >*>(other);
+    if (ip_packet_filter_set) {
+        std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(ip_packet_filter_set);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<IpPacketFilterSet > &other_obj = *reinterpret_cast<const std::shared_ptr<IpPacketFilterSet >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<IpPacketFilterSet > &other_obj = *reinterpret_cast<const std::shared_ptr<IpPacketFilterSet >*>(other);
+                if (other_obj) {
+                    obj.reset(new IpPacketFilterSet(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        ip_packet_filter_set = data_collection_model_ip_packet_filter_set_create_copy(other);
+    }
     return ip_packet_filter_set;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_move(data_collection_model_ip_packet_filter_set_t *ip_packet_filter_set, data_collection_model_ip_packet_filter_set_t *other)
 {
-    std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(ip_packet_filter_set);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(other));
+    std::shared_ptr<IpPacketFilterSet > *other_ptr = reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(other);
+
+    if (ip_packet_filter_set) {
+        std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(ip_packet_filter_set);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                ip_packet_filter_set = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return ip_packet_filter_set;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_ip_packet_filter_set_free(data_collection_model_ip_packet_filter_set_t *ip_packet_filter_set)
 {
+    if (!ip_packet_filter_set) return;
     delete reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(ip_packet_filter_set);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_ip_packet_filter_set_toJSON(const data_collection_model_ip_packet_filter_set_t *ip_packet_filter_set, bool as_request)
 {
+    if (!ip_packet_filter_set) return NULL;
     const std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<const std::shared_ptr<IpPacketFilterSet >*>(ip_packet_filter_set);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -98,15 +151,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ip_packet_filter_set_is_equal_to(const data_collection_model_ip_packet_filter_set_t *first, const data_collection_model_ip_packet_filter_set_t *second)
 {
-    const std::shared_ptr<IpPacketFilterSet > &obj1 = *reinterpret_cast<const std::shared_ptr<IpPacketFilterSet >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<IpPacketFilterSet > &obj2 = *reinterpret_cast<const std::shared_ptr<IpPacketFilterSet >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<IpPacketFilterSet > &obj1 = *reinterpret_cast<const std::shared_ptr<IpPacketFilterSet >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ip_packet_filter_set_get_direction(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
 {
+    if (!obj_ip_packet_filter_set) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<const std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename IpPacketFilterSet::DirectionType ResultFromType;
     const ResultFromType result_from = obj->getDirection();
     const char *result = result_from.c_str();
@@ -115,34 +195,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ip
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_direction(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const char* p_direction)
 {
-    if (obj_ip_packet_filter_set == NULL) return NULL;
+    if (!obj_ip_packet_filter_set) return NULL;
 
     std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) return NULL;
+
     const auto &value_from = p_direction;
     typedef typename IpPacketFilterSet::DirectionType ValueType;
 
     ValueType value(value_from);
     if (!obj->setDirection(value)) return NULL;
+
     return obj_ip_packet_filter_set;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_direction_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, char* p_direction)
 {
-    if (obj_ip_packet_filter_set == NULL) return NULL;
+    if (!obj_ip_packet_filter_set) return NULL;
 
     std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) return NULL;
+
     const auto &value_from = p_direction;
     typedef typename IpPacketFilterSet::DirectionType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setDirection(std::move(value))) return NULL;
+
     return obj_ip_packet_filter_set;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ip_addr_t* data_collection_model_ip_packet_filter_set_get_source_address(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
 {
+    if (!obj_ip_packet_filter_set) {
+        const data_collection_model_ip_addr_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<const std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) {
+        const data_collection_model_ip_addr_t *result = NULL;
+        return result;
+    }
+
     typedef typename IpPacketFilterSet::SourceAddressType ResultFromType;
     const ResultFromType result_from = obj->getSourceAddress();
     const data_collection_model_ip_addr_t *result = reinterpret_cast<const data_collection_model_ip_addr_t*>(&result_from);
@@ -151,34 +247,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ip_addr_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_source_address(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const data_collection_model_ip_addr_t* p_source_address)
 {
-    if (obj_ip_packet_filter_set == NULL) return NULL;
+    if (!obj_ip_packet_filter_set) return NULL;
 
     std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) return NULL;
+
     const auto &value_from = p_source_address;
     typedef typename IpPacketFilterSet::SourceAddressType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setSourceAddress(value)) return NULL;
+
     return obj_ip_packet_filter_set;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_source_address_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, data_collection_model_ip_addr_t* p_source_address)
 {
-    if (obj_ip_packet_filter_set == NULL) return NULL;
+    if (!obj_ip_packet_filter_set) return NULL;
 
     std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) return NULL;
+
     const auto &value_from = p_source_address;
     typedef typename IpPacketFilterSet::SourceAddressType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setSourceAddress(std::move(value))) return NULL;
+
     return obj_ip_packet_filter_set;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ip_addr_t* data_collection_model_ip_packet_filter_set_get_destination_address(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
 {
+    if (!obj_ip_packet_filter_set) {
+        const data_collection_model_ip_addr_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<const std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) {
+        const data_collection_model_ip_addr_t *result = NULL;
+        return result;
+    }
+
     typedef typename IpPacketFilterSet::DestinationAddressType ResultFromType;
     const ResultFromType result_from = obj->getDestinationAddress();
     const data_collection_model_ip_addr_t *result = reinterpret_cast<const data_collection_model_ip_addr_t*>(&result_from);
@@ -187,34 +299,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ip_addr_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_destination_address(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const data_collection_model_ip_addr_t* p_destination_address)
 {
-    if (obj_ip_packet_filter_set == NULL) return NULL;
+    if (!obj_ip_packet_filter_set) return NULL;
 
     std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) return NULL;
+
     const auto &value_from = p_destination_address;
     typedef typename IpPacketFilterSet::DestinationAddressType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setDestinationAddress(value)) return NULL;
+
     return obj_ip_packet_filter_set;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_destination_address_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, data_collection_model_ip_addr_t* p_destination_address)
 {
-    if (obj_ip_packet_filter_set == NULL) return NULL;
+    if (!obj_ip_packet_filter_set) return NULL;
 
     std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) return NULL;
+
     const auto &value_from = p_destination_address;
     typedef typename IpPacketFilterSet::DestinationAddressType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setDestinationAddress(std::move(value))) return NULL;
+
     return obj_ip_packet_filter_set;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_ip_packet_filter_set_get_protocol_number(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
 {
+    if (!obj_ip_packet_filter_set) {
+        const int32_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<const std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) {
+        const int32_t result = 0;
+        return result;
+    }
+
     typedef typename IpPacketFilterSet::ProtocolNumberType ResultFromType;
     const ResultFromType result_from = obj->getProtocolNumber();
     const ResultFromType result = result_from;
@@ -223,34 +351,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_protocol_number(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const int32_t p_protocol_number)
 {
-    if (obj_ip_packet_filter_set == NULL) return NULL;
+    if (!obj_ip_packet_filter_set) return NULL;
 
     std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) return NULL;
+
     const auto &value_from = p_protocol_number;
     typedef typename IpPacketFilterSet::ProtocolNumberType ValueType;
 
     ValueType value = value_from;
     if (!obj->setProtocolNumber(value)) return NULL;
+
     return obj_ip_packet_filter_set;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_protocol_number_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, int32_t p_protocol_number)
 {
-    if (obj_ip_packet_filter_set == NULL) return NULL;
+    if (!obj_ip_packet_filter_set) return NULL;
 
     std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) return NULL;
+
     const auto &value_from = p_protocol_number;
     typedef typename IpPacketFilterSet::ProtocolNumberType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setProtocolNumber(std::move(value))) return NULL;
+
     return obj_ip_packet_filter_set;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_ip_packet_filter_set_get_source_port(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
 {
+    if (!obj_ip_packet_filter_set) {
+        const int32_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<const std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) {
+        const int32_t result = 0;
+        return result;
+    }
+
     typedef typename IpPacketFilterSet::SourcePortType ResultFromType;
     const ResultFromType result_from = obj->getSourcePort();
     const ResultFromType result = result_from;
@@ -259,34 +403,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_source_port(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const int32_t p_source_port)
 {
-    if (obj_ip_packet_filter_set == NULL) return NULL;
+    if (!obj_ip_packet_filter_set) return NULL;
 
     std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) return NULL;
+
     const auto &value_from = p_source_port;
     typedef typename IpPacketFilterSet::SourcePortType ValueType;
 
     ValueType value = value_from;
     if (!obj->setSourcePort(value)) return NULL;
+
     return obj_ip_packet_filter_set;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_source_port_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, int32_t p_source_port)
 {
-    if (obj_ip_packet_filter_set == NULL) return NULL;
+    if (!obj_ip_packet_filter_set) return NULL;
 
     std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) return NULL;
+
     const auto &value_from = p_source_port;
     typedef typename IpPacketFilterSet::SourcePortType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setSourcePort(std::move(value))) return NULL;
+
     return obj_ip_packet_filter_set;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_ip_packet_filter_set_get_destination_port(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
 {
+    if (!obj_ip_packet_filter_set) {
+        const int32_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<const std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) {
+        const int32_t result = 0;
+        return result;
+    }
+
     typedef typename IpPacketFilterSet::DestinationPortType ResultFromType;
     const ResultFromType result_from = obj->getDestinationPort();
     const ResultFromType result = result_from;
@@ -295,34 +455,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_destination_port(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const int32_t p_destination_port)
 {
-    if (obj_ip_packet_filter_set == NULL) return NULL;
+    if (!obj_ip_packet_filter_set) return NULL;
 
     std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) return NULL;
+
     const auto &value_from = p_destination_port;
     typedef typename IpPacketFilterSet::DestinationPortType ValueType;
 
     ValueType value = value_from;
     if (!obj->setDestinationPort(value)) return NULL;
+
     return obj_ip_packet_filter_set;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_destination_port_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, int32_t p_destination_port)
 {
-    if (obj_ip_packet_filter_set == NULL) return NULL;
+    if (!obj_ip_packet_filter_set) return NULL;
 
     std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) return NULL;
+
     const auto &value_from = p_destination_port;
     typedef typename IpPacketFilterSet::DestinationPortType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setDestinationPort(std::move(value))) return NULL;
+
     return obj_ip_packet_filter_set;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_ip_packet_filter_set_get_differentiated_services_code_point(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
 {
+    if (!obj_ip_packet_filter_set) {
+        const int32_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<const std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) {
+        const int32_t result = 0;
+        return result;
+    }
+
     typedef typename IpPacketFilterSet::DifferentiatedServicesCodePointType ResultFromType;
     const ResultFromType result_from = obj->getDifferentiatedServicesCodePoint();
     const ResultFromType result = result_from;
@@ -331,34 +507,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_differentiated_services_code_point(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const int32_t p_differentiated_services_code_point)
 {
-    if (obj_ip_packet_filter_set == NULL) return NULL;
+    if (!obj_ip_packet_filter_set) return NULL;
 
     std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) return NULL;
+
     const auto &value_from = p_differentiated_services_code_point;
     typedef typename IpPacketFilterSet::DifferentiatedServicesCodePointType ValueType;
 
     ValueType value = value_from;
     if (!obj->setDifferentiatedServicesCodePoint(value)) return NULL;
+
     return obj_ip_packet_filter_set;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_differentiated_services_code_point_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, int32_t p_differentiated_services_code_point)
 {
-    if (obj_ip_packet_filter_set == NULL) return NULL;
+    if (!obj_ip_packet_filter_set) return NULL;
 
     std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) return NULL;
+
     const auto &value_from = p_differentiated_services_code_point;
     typedef typename IpPacketFilterSet::DifferentiatedServicesCodePointType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setDifferentiatedServicesCodePoint(std::move(value))) return NULL;
+
     return obj_ip_packet_filter_set;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_ip_packet_filter_set_get_flow_label(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
 {
+    if (!obj_ip_packet_filter_set) {
+        const int32_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<const std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) {
+        const int32_t result = 0;
+        return result;
+    }
+
     typedef typename IpPacketFilterSet::FlowLabelType ResultFromType;
     const ResultFromType result_from = obj->getFlowLabel();
     const ResultFromType result = result_from;
@@ -367,34 +559,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_flow_label(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const int32_t p_flow_label)
 {
-    if (obj_ip_packet_filter_set == NULL) return NULL;
+    if (!obj_ip_packet_filter_set) return NULL;
 
     std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) return NULL;
+
     const auto &value_from = p_flow_label;
     typedef typename IpPacketFilterSet::FlowLabelType ValueType;
 
     ValueType value = value_from;
     if (!obj->setFlowLabel(value)) return NULL;
+
     return obj_ip_packet_filter_set;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_flow_label_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, int32_t p_flow_label)
 {
-    if (obj_ip_packet_filter_set == NULL) return NULL;
+    if (!obj_ip_packet_filter_set) return NULL;
 
     std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) return NULL;
+
     const auto &value_from = p_flow_label;
     typedef typename IpPacketFilterSet::FlowLabelType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setFlowLabel(std::move(value))) return NULL;
+
     return obj_ip_packet_filter_set;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_ip_packet_filter_set_get_security_parameters_index(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
 {
+    if (!obj_ip_packet_filter_set) {
+        const int32_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<const std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) {
+        const int32_t result = 0;
+        return result;
+    }
+
     typedef typename IpPacketFilterSet::SecurityParametersIndexType ResultFromType;
     const ResultFromType result_from = obj->getSecurityParametersIndex();
     const ResultFromType result = result_from;
@@ -403,28 +611,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_security_parameters_index(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const int32_t p_security_parameters_index)
 {
-    if (obj_ip_packet_filter_set == NULL) return NULL;
+    if (!obj_ip_packet_filter_set) return NULL;
 
     std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) return NULL;
+
     const auto &value_from = p_security_parameters_index;
     typedef typename IpPacketFilterSet::SecurityParametersIndexType ValueType;
 
     ValueType value = value_from;
     if (!obj->setSecurityParametersIndex(value)) return NULL;
+
     return obj_ip_packet_filter_set;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_security_parameters_index_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, int32_t p_security_parameters_index)
 {
-    if (obj_ip_packet_filter_set == NULL) return NULL;
+    if (!obj_ip_packet_filter_set) return NULL;
 
     std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
+    if (!obj) return NULL;
+
     const auto &value_from = p_security_parameters_index;
     typedef typename IpPacketFilterSet::SecurityParametersIndexType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setSecurityParametersIndex(std::move(value))) return NULL;
+
     return obj_ip_packet_filter_set;
 }
 
@@ -438,6 +652,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_ip_packet_filter_set_refcount(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
 {
+    if (!obj_ip_packet_filter_set) return 0l;
     std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(obj_ip_packet_filter_set);
     return obj.use_count();
 }

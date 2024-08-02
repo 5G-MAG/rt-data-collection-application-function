@@ -31,36 +31,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_acti
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_create_copy(const data_collection_model_ms_access_activity_collection_t *other)
 {
-    return reinterpret_cast<data_collection_model_ms_access_activity_collection_t*>(new std::shared_ptr<MSAccessActivityCollection >(new MSAccessActivityCollection(**reinterpret_cast<const std::shared_ptr<MSAccessActivityCollection >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<MSAccessActivityCollection > &obj = *reinterpret_cast<const std::shared_ptr<MSAccessActivityCollection >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_ms_access_activity_collection_t*>(new std::shared_ptr<MSAccessActivityCollection >(new MSAccessActivityCollection(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_create_move(data_collection_model_ms_access_activity_collection_t *other)
 {
-    return reinterpret_cast<data_collection_model_ms_access_activity_collection_t*>(new std::shared_ptr<MSAccessActivityCollection >(std::move(*reinterpret_cast<std::shared_ptr<MSAccessActivityCollection >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<MSAccessActivityCollection > *obj = reinterpret_cast<std::shared_ptr<MSAccessActivityCollection >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_copy(data_collection_model_ms_access_activity_collection_t *ms_access_activity_collection, const data_collection_model_ms_access_activity_collection_t *other)
 {
-    std::shared_ptr<MSAccessActivityCollection > &obj = *reinterpret_cast<std::shared_ptr<MSAccessActivityCollection >*>(ms_access_activity_collection);
-    *obj = **reinterpret_cast<const std::shared_ptr<MSAccessActivityCollection >*>(other);
+    if (ms_access_activity_collection) {
+        std::shared_ptr<MSAccessActivityCollection > &obj = *reinterpret_cast<std::shared_ptr<MSAccessActivityCollection >*>(ms_access_activity_collection);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<MSAccessActivityCollection > &other_obj = *reinterpret_cast<const std::shared_ptr<MSAccessActivityCollection >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<MSAccessActivityCollection > &other_obj = *reinterpret_cast<const std::shared_ptr<MSAccessActivityCollection >*>(other);
+                if (other_obj) {
+                    obj.reset(new MSAccessActivityCollection(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        ms_access_activity_collection = data_collection_model_ms_access_activity_collection_create_copy(other);
+    }
     return ms_access_activity_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_move(data_collection_model_ms_access_activity_collection_t *ms_access_activity_collection, data_collection_model_ms_access_activity_collection_t *other)
 {
-    std::shared_ptr<MSAccessActivityCollection > &obj = *reinterpret_cast<std::shared_ptr<MSAccessActivityCollection >*>(ms_access_activity_collection);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<MSAccessActivityCollection >*>(other));
+    std::shared_ptr<MSAccessActivityCollection > *other_ptr = reinterpret_cast<std::shared_ptr<MSAccessActivityCollection >*>(other);
+
+    if (ms_access_activity_collection) {
+        std::shared_ptr<MSAccessActivityCollection > &obj = *reinterpret_cast<std::shared_ptr<MSAccessActivityCollection >*>(ms_access_activity_collection);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                ms_access_activity_collection = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return ms_access_activity_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_ms_access_activity_collection_free(data_collection_model_ms_access_activity_collection_t *ms_access_activity_collection)
 {
+    if (!ms_access_activity_collection) return;
     delete reinterpret_cast<std::shared_ptr<MSAccessActivityCollection >*>(ms_access_activity_collection);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_ms_access_activity_collection_toJSON(const data_collection_model_ms_access_activity_collection_t *ms_access_activity_collection, bool as_request)
 {
+    if (!ms_access_activity_collection) return NULL;
     const std::shared_ptr<MSAccessActivityCollection > &obj = *reinterpret_cast<const std::shared_ptr<MSAccessActivityCollection >*>(ms_access_activity_collection);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -80,15 +133,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_acti
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ms_access_activity_collection_is_equal_to(const data_collection_model_ms_access_activity_collection_t *first, const data_collection_model_ms_access_activity_collection_t *second)
 {
-    const std::shared_ptr<MSAccessActivityCollection > &obj1 = *reinterpret_cast<const std::shared_ptr<MSAccessActivityCollection >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<MSAccessActivityCollection > &obj2 = *reinterpret_cast<const std::shared_ptr<MSAccessActivityCollection >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<MSAccessActivityCollection > &obj1 = *reinterpret_cast<const std::shared_ptr<MSAccessActivityCollection >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ms_access_activity_collection_get_ms_acc_acts(const data_collection_model_ms_access_activity_collection_t *obj_ms_access_activity_collection)
 {
+    if (!obj_ms_access_activity_collection) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<MSAccessActivityCollection > &obj = *reinterpret_cast<const std::shared_ptr<MSAccessActivityCollection >*>(obj_ms_access_activity_collection);
+    if (!obj) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     typedef typename MSAccessActivityCollection::MsAccActsType ResultFromType;
     const ResultFromType result_from = obj->getMsAccActs();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
@@ -105,9 +185,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ms
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_set_ms_acc_acts(data_collection_model_ms_access_activity_collection_t *obj_ms_access_activity_collection, const ogs_list_t* p_ms_acc_acts)
 {
-    if (obj_ms_access_activity_collection == NULL) return NULL;
+    if (!obj_ms_access_activity_collection) return NULL;
 
     std::shared_ptr<MSAccessActivityCollection > &obj = *reinterpret_cast<std::shared_ptr<MSAccessActivityCollection >*>(obj_ms_access_activity_collection);
+    if (!obj) return NULL;
+
     const auto &value_from = p_ms_acc_acts;
     typedef typename MSAccessActivityCollection::MsAccActsType ValueType;
 
@@ -121,14 +203,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_acti
         }
     }
     if (!obj->setMsAccActs(value)) return NULL;
+
     return obj_ms_access_activity_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_set_ms_acc_acts_move(data_collection_model_ms_access_activity_collection_t *obj_ms_access_activity_collection, ogs_list_t* p_ms_acc_acts)
 {
-    if (obj_ms_access_activity_collection == NULL) return NULL;
+    if (!obj_ms_access_activity_collection) return NULL;
 
     std::shared_ptr<MSAccessActivityCollection > &obj = *reinterpret_cast<std::shared_ptr<MSAccessActivityCollection >*>(obj_ms_access_activity_collection);
+    if (!obj) return NULL;
+
     const auto &value_from = p_ms_acc_acts;
     typedef typename MSAccessActivityCollection::MsAccActsType ValueType;
 
@@ -143,12 +228,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_acti
     }
     data_collection_list_free(p_ms_acc_acts);
     if (!obj->setMsAccActs(std::move(value))) return NULL;
+
     return obj_ms_access_activity_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_add_ms_acc_acts(data_collection_model_ms_access_activity_collection_t *obj_ms_access_activity_collection, data_collection_model_media_streaming_access_record_t* p_ms_acc_acts)
 {
+    if (!obj_ms_access_activity_collection) return NULL;
+
     std::shared_ptr<MSAccessActivityCollection > &obj = *reinterpret_cast<std::shared_ptr<MSAccessActivityCollection >*>(obj_ms_access_activity_collection);
+    if (!obj) return NULL;
+
     typedef typename MSAccessActivityCollection::MsAccActsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_ms_acc_acts;
@@ -161,7 +251,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_acti
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_remove_ms_acc_acts(data_collection_model_ms_access_activity_collection_t *obj_ms_access_activity_collection, const data_collection_model_media_streaming_access_record_t* p_ms_acc_acts)
 {
+    if (!obj_ms_access_activity_collection) return NULL;
+
     std::shared_ptr<MSAccessActivityCollection > &obj = *reinterpret_cast<std::shared_ptr<MSAccessActivityCollection >*>(obj_ms_access_activity_collection);
+    if (!obj) return NULL;
+
     typedef typename MSAccessActivityCollection::MsAccActsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_ms_acc_acts;
@@ -171,8 +265,12 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_acti
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_clear_ms_acc_acts(data_collection_model_ms_access_activity_collection_t *obj_ms_access_activity_collection)
-{   
+{
+    if (!obj_ms_access_activity_collection) return NULL;
+
     std::shared_ptr<MSAccessActivityCollection > &obj = *reinterpret_cast<std::shared_ptr<MSAccessActivityCollection >*>(obj_ms_access_activity_collection);
+    if (!obj) return NULL;
+
     obj->clearMsAccActs();
     return obj_ms_access_activity_collection;
 }
@@ -187,6 +285,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_ms_access_activity_collection_refcount(data_collection_model_ms_access_activity_collection_t *obj_ms_access_activity_collection)
 {
+    if (!obj_ms_access_activity_collection) return 0l;
     std::shared_ptr<MSAccessActivityCollection > &obj = *reinterpret_cast<std::shared_ptr<MSAccessActivityCollection >*>(obj_ms_access_activity_collection);
     return obj.use_count();
 }

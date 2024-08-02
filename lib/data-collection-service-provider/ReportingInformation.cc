@@ -51,36 +51,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_info
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_create_copy(const data_collection_model_reporting_information_t *other)
 {
-    return reinterpret_cast<data_collection_model_reporting_information_t*>(new std::shared_ptr<ReportingInformation >(new ReportingInformation(**reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_reporting_information_t*>(new std::shared_ptr<ReportingInformation >(new ReportingInformation(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_create_move(data_collection_model_reporting_information_t *other)
 {
-    return reinterpret_cast<data_collection_model_reporting_information_t*>(new std::shared_ptr<ReportingInformation >(std::move(*reinterpret_cast<std::shared_ptr<ReportingInformation >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<ReportingInformation > *obj = reinterpret_cast<std::shared_ptr<ReportingInformation >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_copy(data_collection_model_reporting_information_t *reporting_information, const data_collection_model_reporting_information_t *other)
 {
-    std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(reporting_information);
-    *obj = **reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(other);
+    if (reporting_information) {
+        std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(reporting_information);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<ReportingInformation > &other_obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<ReportingInformation > &other_obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(other);
+                if (other_obj) {
+                    obj.reset(new ReportingInformation(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        reporting_information = data_collection_model_reporting_information_create_copy(other);
+    }
     return reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_move(data_collection_model_reporting_information_t *reporting_information, data_collection_model_reporting_information_t *other)
 {
-    std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(reporting_information);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<ReportingInformation >*>(other));
+    std::shared_ptr<ReportingInformation > *other_ptr = reinterpret_cast<std::shared_ptr<ReportingInformation >*>(other);
+
+    if (reporting_information) {
+        std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(reporting_information);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                reporting_information = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_reporting_information_free(data_collection_model_reporting_information_t *reporting_information)
 {
+    if (!reporting_information) return;
     delete reinterpret_cast<std::shared_ptr<ReportingInformation >*>(reporting_information);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_reporting_information_toJSON(const data_collection_model_reporting_information_t *reporting_information, bool as_request)
 {
+    if (!reporting_information) return NULL;
     const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(reporting_information);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -100,15 +153,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_info
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_reporting_information_is_equal_to(const data_collection_model_reporting_information_t *first, const data_collection_model_reporting_information_t *second)
 {
-    const std::shared_ptr<ReportingInformation > &obj1 = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<ReportingInformation > &obj2 = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<ReportingInformation > &obj1 = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const bool data_collection_model_reporting_information_is_imm_rep(const data_collection_model_reporting_information_t *obj_reporting_information)
 {
+    if (!obj_reporting_information) {
+        const bool result = 0;
+        return result;
+    }
+
     const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) {
+        const bool result = 0;
+        return result;
+    }
+
     typedef typename ReportingInformation::ImmRepType ResultFromType;
     const ResultFromType result_from = obj->isImmRep();
     const ResultFromType result = result_from;
@@ -117,34 +197,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const bool data_collection_model_rep
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_set_imm_rep(data_collection_model_reporting_information_t *obj_reporting_information, const bool p_imm_rep)
 {
-    if (obj_reporting_information == NULL) return NULL;
+    if (!obj_reporting_information) return NULL;
 
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     const auto &value_from = p_imm_rep;
     typedef typename ReportingInformation::ImmRepType ValueType;
 
     ValueType value = value_from;
     if (!obj->setImmRep(value)) return NULL;
+
     return obj_reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_set_imm_rep_move(data_collection_model_reporting_information_t *obj_reporting_information, bool p_imm_rep)
 {
-    if (obj_reporting_information == NULL) return NULL;
+    if (!obj_reporting_information) return NULL;
 
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     const auto &value_from = p_imm_rep;
     typedef typename ReportingInformation::ImmRepType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setImmRep(std::move(value))) return NULL;
+
     return obj_reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_notification_method_t* data_collection_model_reporting_information_get_notif_method(const data_collection_model_reporting_information_t *obj_reporting_information)
 {
+    if (!obj_reporting_information) {
+        const data_collection_model_notification_method_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) {
+        const data_collection_model_notification_method_t *result = NULL;
+        return result;
+    }
+
     typedef typename ReportingInformation::NotifMethodType ResultFromType;
     const ResultFromType result_from = obj->getNotifMethod();
     const data_collection_model_notification_method_t *result = reinterpret_cast<const data_collection_model_notification_method_t*>(&result_from);
@@ -153,34 +249,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_notifica
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_set_notif_method(data_collection_model_reporting_information_t *obj_reporting_information, const data_collection_model_notification_method_t* p_notif_method)
 {
-    if (obj_reporting_information == NULL) return NULL;
+    if (!obj_reporting_information) return NULL;
 
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     const auto &value_from = p_notif_method;
     typedef typename ReportingInformation::NotifMethodType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setNotifMethod(value)) return NULL;
+
     return obj_reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_set_notif_method_move(data_collection_model_reporting_information_t *obj_reporting_information, data_collection_model_notification_method_t* p_notif_method)
 {
-    if (obj_reporting_information == NULL) return NULL;
+    if (!obj_reporting_information) return NULL;
 
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     const auto &value_from = p_notif_method;
     typedef typename ReportingInformation::NotifMethodType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setNotifMethod(std::move(value))) return NULL;
+
     return obj_reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_reporting_information_get_max_report_nbr(const data_collection_model_reporting_information_t *obj_reporting_information)
 {
+    if (!obj_reporting_information) {
+        const int32_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) {
+        const int32_t result = 0;
+        return result;
+    }
+
     typedef typename ReportingInformation::MaxReportNbrType ResultFromType;
     const ResultFromType result_from = obj->getMaxReportNbr();
     const ResultFromType result = result_from;
@@ -189,34 +301,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_set_max_report_nbr(data_collection_model_reporting_information_t *obj_reporting_information, const int32_t p_max_report_nbr)
 {
-    if (obj_reporting_information == NULL) return NULL;
+    if (!obj_reporting_information) return NULL;
 
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     const auto &value_from = p_max_report_nbr;
     typedef typename ReportingInformation::MaxReportNbrType ValueType;
 
     ValueType value = value_from;
     if (!obj->setMaxReportNbr(value)) return NULL;
+
     return obj_reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_set_max_report_nbr_move(data_collection_model_reporting_information_t *obj_reporting_information, int32_t p_max_report_nbr)
 {
-    if (obj_reporting_information == NULL) return NULL;
+    if (!obj_reporting_information) return NULL;
 
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     const auto &value_from = p_max_report_nbr;
     typedef typename ReportingInformation::MaxReportNbrType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setMaxReportNbr(std::move(value))) return NULL;
+
     return obj_reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_reporting_information_get_mon_dur(const data_collection_model_reporting_information_t *obj_reporting_information)
 {
+    if (!obj_reporting_information) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename ReportingInformation::MonDurType ResultFromType;
     const ResultFromType result_from = obj->getMonDur();
     const char *result = result_from.c_str();
@@ -225,34 +353,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_re
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_set_mon_dur(data_collection_model_reporting_information_t *obj_reporting_information, const char* p_mon_dur)
 {
-    if (obj_reporting_information == NULL) return NULL;
+    if (!obj_reporting_information) return NULL;
 
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     const auto &value_from = p_mon_dur;
     typedef typename ReportingInformation::MonDurType ValueType;
 
     ValueType value(value_from);
     if (!obj->setMonDur(value)) return NULL;
+
     return obj_reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_set_mon_dur_move(data_collection_model_reporting_information_t *obj_reporting_information, char* p_mon_dur)
 {
-    if (obj_reporting_information == NULL) return NULL;
+    if (!obj_reporting_information) return NULL;
 
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     const auto &value_from = p_mon_dur;
     typedef typename ReportingInformation::MonDurType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setMonDur(std::move(value))) return NULL;
+
     return obj_reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_reporting_information_get_rep_period(const data_collection_model_reporting_information_t *obj_reporting_information)
 {
+    if (!obj_reporting_information) {
+        const int32_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) {
+        const int32_t result = 0;
+        return result;
+    }
+
     typedef typename ReportingInformation::RepPeriodType ResultFromType;
     const ResultFromType result_from = obj->getRepPeriod();
     const ResultFromType result = result_from;
@@ -261,34 +405,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_set_rep_period(data_collection_model_reporting_information_t *obj_reporting_information, const int32_t p_rep_period)
 {
-    if (obj_reporting_information == NULL) return NULL;
+    if (!obj_reporting_information) return NULL;
 
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     const auto &value_from = p_rep_period;
     typedef typename ReportingInformation::RepPeriodType ValueType;
 
     ValueType value = value_from;
     if (!obj->setRepPeriod(value)) return NULL;
+
     return obj_reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_set_rep_period_move(data_collection_model_reporting_information_t *obj_reporting_information, int32_t p_rep_period)
 {
-    if (obj_reporting_information == NULL) return NULL;
+    if (!obj_reporting_information) return NULL;
 
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     const auto &value_from = p_rep_period;
     typedef typename ReportingInformation::RepPeriodType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setRepPeriod(std::move(value))) return NULL;
+
     return obj_reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_reporting_information_get_samp_ratio(const data_collection_model_reporting_information_t *obj_reporting_information)
 {
+    if (!obj_reporting_information) {
+        const int32_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) {
+        const int32_t result = 0;
+        return result;
+    }
+
     typedef typename ReportingInformation::SampRatioType ResultFromType;
     const ResultFromType result_from = obj->getSampRatio();
     const ResultFromType result = result_from;
@@ -297,34 +457,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_set_samp_ratio(data_collection_model_reporting_information_t *obj_reporting_information, const int32_t p_samp_ratio)
 {
-    if (obj_reporting_information == NULL) return NULL;
+    if (!obj_reporting_information) return NULL;
 
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     const auto &value_from = p_samp_ratio;
     typedef typename ReportingInformation::SampRatioType ValueType;
 
     ValueType value = value_from;
     if (!obj->setSampRatio(value)) return NULL;
+
     return obj_reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_set_samp_ratio_move(data_collection_model_reporting_information_t *obj_reporting_information, int32_t p_samp_ratio)
 {
-    if (obj_reporting_information == NULL) return NULL;
+    if (!obj_reporting_information) return NULL;
 
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     const auto &value_from = p_samp_ratio;
     typedef typename ReportingInformation::SampRatioType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setSampRatio(std::move(value))) return NULL;
+
     return obj_reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_reporting_information_get_partition_criteria(const data_collection_model_reporting_information_t *obj_reporting_information)
 {
+    if (!obj_reporting_information) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     typedef typename ReportingInformation::PartitionCriteriaType ResultFromType;
     const ResultFromType result_from = obj->getPartitionCriteria();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
@@ -341,9 +517,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_re
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_set_partition_criteria(data_collection_model_reporting_information_t *obj_reporting_information, const ogs_list_t* p_partition_criteria)
 {
-    if (obj_reporting_information == NULL) return NULL;
+    if (!obj_reporting_information) return NULL;
 
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     const auto &value_from = p_partition_criteria;
     typedef typename ReportingInformation::PartitionCriteriaType ValueType;
 
@@ -357,14 +535,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_info
         }
     }
     if (!obj->setPartitionCriteria(value)) return NULL;
+
     return obj_reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_set_partition_criteria_move(data_collection_model_reporting_information_t *obj_reporting_information, ogs_list_t* p_partition_criteria)
 {
-    if (obj_reporting_information == NULL) return NULL;
+    if (!obj_reporting_information) return NULL;
 
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     const auto &value_from = p_partition_criteria;
     typedef typename ReportingInformation::PartitionCriteriaType ValueType;
 
@@ -379,12 +560,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_info
     }
     data_collection_list_free(p_partition_criteria);
     if (!obj->setPartitionCriteria(std::move(value))) return NULL;
+
     return obj_reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_add_partition_criteria(data_collection_model_reporting_information_t *obj_reporting_information, data_collection_model_partitioning_criteria_t* p_partition_criteria)
 {
+    if (!obj_reporting_information) return NULL;
+
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     typedef typename ReportingInformation::PartitionCriteriaType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_partition_criteria;
@@ -397,7 +583,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_info
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_remove_partition_criteria(data_collection_model_reporting_information_t *obj_reporting_information, const data_collection_model_partitioning_criteria_t* p_partition_criteria)
 {
+    if (!obj_reporting_information) return NULL;
+
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     typedef typename ReportingInformation::PartitionCriteriaType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_partition_criteria;
@@ -407,15 +597,29 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_info
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_clear_partition_criteria(data_collection_model_reporting_information_t *obj_reporting_information)
-{   
+{
+    if (!obj_reporting_information) return NULL;
+
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     obj->clearPartitionCriteria();
     return obj_reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_reporting_information_get_grp_rep_time(const data_collection_model_reporting_information_t *obj_reporting_information)
 {
+    if (!obj_reporting_information) {
+        const int32_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) {
+        const int32_t result = 0;
+        return result;
+    }
+
     typedef typename ReportingInformation::GrpRepTimeType ResultFromType;
     const ResultFromType result_from = obj->getGrpRepTime();
     const ResultFromType result = result_from;
@@ -424,34 +628,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_set_grp_rep_time(data_collection_model_reporting_information_t *obj_reporting_information, const int32_t p_grp_rep_time)
 {
-    if (obj_reporting_information == NULL) return NULL;
+    if (!obj_reporting_information) return NULL;
 
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     const auto &value_from = p_grp_rep_time;
     typedef typename ReportingInformation::GrpRepTimeType ValueType;
 
     ValueType value = value_from;
     if (!obj->setGrpRepTime(value)) return NULL;
+
     return obj_reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_set_grp_rep_time_move(data_collection_model_reporting_information_t *obj_reporting_information, int32_t p_grp_rep_time)
 {
-    if (obj_reporting_information == NULL) return NULL;
+    if (!obj_reporting_information) return NULL;
 
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     const auto &value_from = p_grp_rep_time;
     typedef typename ReportingInformation::GrpRepTimeType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setGrpRepTime(std::move(value))) return NULL;
+
     return obj_reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_notification_flag_t* data_collection_model_reporting_information_get_notif_flag(const data_collection_model_reporting_information_t *obj_reporting_information)
 {
+    if (!obj_reporting_information) {
+        const data_collection_model_notification_flag_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) {
+        const data_collection_model_notification_flag_t *result = NULL;
+        return result;
+    }
+
     typedef typename ReportingInformation::NotifFlagType ResultFromType;
     const ResultFromType result_from = obj->getNotifFlag();
     const data_collection_model_notification_flag_t *result = reinterpret_cast<const data_collection_model_notification_flag_t*>(&result_from);
@@ -460,34 +680,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_notifica
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_set_notif_flag(data_collection_model_reporting_information_t *obj_reporting_information, const data_collection_model_notification_flag_t* p_notif_flag)
 {
-    if (obj_reporting_information == NULL) return NULL;
+    if (!obj_reporting_information) return NULL;
 
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     const auto &value_from = p_notif_flag;
     typedef typename ReportingInformation::NotifFlagType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setNotifFlag(value)) return NULL;
+
     return obj_reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_set_notif_flag_move(data_collection_model_reporting_information_t *obj_reporting_information, data_collection_model_notification_flag_t* p_notif_flag)
 {
-    if (obj_reporting_information == NULL) return NULL;
+    if (!obj_reporting_information) return NULL;
 
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     const auto &value_from = p_notif_flag;
     typedef typename ReportingInformation::NotifFlagType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setNotifFlag(std::move(value))) return NULL;
+
     return obj_reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_muting_exception_instructions_t* data_collection_model_reporting_information_get_notif_flag_instruct(const data_collection_model_reporting_information_t *obj_reporting_information)
 {
+    if (!obj_reporting_information) {
+        const data_collection_model_muting_exception_instructions_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) {
+        const data_collection_model_muting_exception_instructions_t *result = NULL;
+        return result;
+    }
+
     typedef typename ReportingInformation::NotifFlagInstructType ResultFromType;
     const ResultFromType result_from = obj->getNotifFlagInstruct();
     const data_collection_model_muting_exception_instructions_t *result = reinterpret_cast<const data_collection_model_muting_exception_instructions_t*>(&result_from);
@@ -496,34 +732,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_muting_e
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_set_notif_flag_instruct(data_collection_model_reporting_information_t *obj_reporting_information, const data_collection_model_muting_exception_instructions_t* p_notif_flag_instruct)
 {
-    if (obj_reporting_information == NULL) return NULL;
+    if (!obj_reporting_information) return NULL;
 
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     const auto &value_from = p_notif_flag_instruct;
     typedef typename ReportingInformation::NotifFlagInstructType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setNotifFlagInstruct(value)) return NULL;
+
     return obj_reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_set_notif_flag_instruct_move(data_collection_model_reporting_information_t *obj_reporting_information, data_collection_model_muting_exception_instructions_t* p_notif_flag_instruct)
 {
-    if (obj_reporting_information == NULL) return NULL;
+    if (!obj_reporting_information) return NULL;
 
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     const auto &value_from = p_notif_flag_instruct;
     typedef typename ReportingInformation::NotifFlagInstructType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setNotifFlagInstruct(std::move(value))) return NULL;
+
     return obj_reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_muting_notifications_settings_t* data_collection_model_reporting_information_get_muting_setting(const data_collection_model_reporting_information_t *obj_reporting_information)
 {
+    if (!obj_reporting_information) {
+        const data_collection_model_muting_notifications_settings_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) {
+        const data_collection_model_muting_notifications_settings_t *result = NULL;
+        return result;
+    }
+
     typedef typename ReportingInformation::MutingSettingType ResultFromType;
     const ResultFromType result_from = obj->getMutingSetting();
     const data_collection_model_muting_notifications_settings_t *result = reinterpret_cast<const data_collection_model_muting_notifications_settings_t*>(&result_from);
@@ -532,28 +784,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_muting_n
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_set_muting_setting(data_collection_model_reporting_information_t *obj_reporting_information, const data_collection_model_muting_notifications_settings_t* p_muting_setting)
 {
-    if (obj_reporting_information == NULL) return NULL;
+    if (!obj_reporting_information) return NULL;
 
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     const auto &value_from = p_muting_setting;
     typedef typename ReportingInformation::MutingSettingType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setMutingSetting(value)) return NULL;
+
     return obj_reporting_information;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_reporting_information_t *data_collection_model_reporting_information_set_muting_setting_move(data_collection_model_reporting_information_t *obj_reporting_information, data_collection_model_muting_notifications_settings_t* p_muting_setting)
 {
-    if (obj_reporting_information == NULL) return NULL;
+    if (!obj_reporting_information) return NULL;
 
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return NULL;
+
     const auto &value_from = p_muting_setting;
     typedef typename ReportingInformation::MutingSettingType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setMutingSetting(std::move(value))) return NULL;
+
     return obj_reporting_information;
 }
 
@@ -567,6 +825,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_reporting_information_refcount(data_collection_model_reporting_information_t *obj_reporting_information)
 {
+    if (!obj_reporting_information) return 0l;
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
     return obj.use_count();
 }

@@ -31,36 +31,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_accesses_collection_all_of_t *data_collection_model_media_streaming_accesses_collection_all_of_create_copy(const data_collection_model_media_streaming_accesses_collection_all_of_t *other)
 {
-    return reinterpret_cast<data_collection_model_media_streaming_accesses_collection_all_of_t*>(new std::shared_ptr<MediaStreamingAccessesCollection_allOf >(new MediaStreamingAccessesCollection_allOf(**reinterpret_cast<const std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<MediaStreamingAccessesCollection_allOf > &obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_media_streaming_accesses_collection_all_of_t*>(new std::shared_ptr<MediaStreamingAccessesCollection_allOf >(new MediaStreamingAccessesCollection_allOf(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_accesses_collection_all_of_t *data_collection_model_media_streaming_accesses_collection_all_of_create_move(data_collection_model_media_streaming_accesses_collection_all_of_t *other)
 {
-    return reinterpret_cast<data_collection_model_media_streaming_accesses_collection_all_of_t*>(new std::shared_ptr<MediaStreamingAccessesCollection_allOf >(std::move(*reinterpret_cast<std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<MediaStreamingAccessesCollection_allOf > *obj = reinterpret_cast<std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_accesses_collection_all_of_t *data_collection_model_media_streaming_accesses_collection_all_of_copy(data_collection_model_media_streaming_accesses_collection_all_of_t *media_streaming_accesses_collection_all_of, const data_collection_model_media_streaming_accesses_collection_all_of_t *other)
 {
-    std::shared_ptr<MediaStreamingAccessesCollection_allOf > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(media_streaming_accesses_collection_all_of);
-    *obj = **reinterpret_cast<const std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(other);
+    if (media_streaming_accesses_collection_all_of) {
+        std::shared_ptr<MediaStreamingAccessesCollection_allOf > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(media_streaming_accesses_collection_all_of);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<MediaStreamingAccessesCollection_allOf > &other_obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<MediaStreamingAccessesCollection_allOf > &other_obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(other);
+                if (other_obj) {
+                    obj.reset(new MediaStreamingAccessesCollection_allOf(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        media_streaming_accesses_collection_all_of = data_collection_model_media_streaming_accesses_collection_all_of_create_copy(other);
+    }
     return media_streaming_accesses_collection_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_accesses_collection_all_of_t *data_collection_model_media_streaming_accesses_collection_all_of_move(data_collection_model_media_streaming_accesses_collection_all_of_t *media_streaming_accesses_collection_all_of, data_collection_model_media_streaming_accesses_collection_all_of_t *other)
 {
-    std::shared_ptr<MediaStreamingAccessesCollection_allOf > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(media_streaming_accesses_collection_all_of);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(other));
+    std::shared_ptr<MediaStreamingAccessesCollection_allOf > *other_ptr = reinterpret_cast<std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(other);
+
+    if (media_streaming_accesses_collection_all_of) {
+        std::shared_ptr<MediaStreamingAccessesCollection_allOf > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(media_streaming_accesses_collection_all_of);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                media_streaming_accesses_collection_all_of = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return media_streaming_accesses_collection_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_media_streaming_accesses_collection_all_of_free(data_collection_model_media_streaming_accesses_collection_all_of_t *media_streaming_accesses_collection_all_of)
 {
+    if (!media_streaming_accesses_collection_all_of) return;
     delete reinterpret_cast<std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(media_streaming_accesses_collection_all_of);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_media_streaming_accesses_collection_all_of_toJSON(const data_collection_model_media_streaming_accesses_collection_all_of_t *media_streaming_accesses_collection_all_of, bool as_request)
 {
+    if (!media_streaming_accesses_collection_all_of) return NULL;
     const std::shared_ptr<MediaStreamingAccessesCollection_allOf > &obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(media_streaming_accesses_collection_all_of);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -80,15 +133,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_media_streaming_accesses_collection_all_of_is_equal_to(const data_collection_model_media_streaming_accesses_collection_all_of_t *first, const data_collection_model_media_streaming_accesses_collection_all_of_t *second)
 {
-    const std::shared_ptr<MediaStreamingAccessesCollection_allOf > &obj1 = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<MediaStreamingAccessesCollection_allOf > &obj2 = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<MediaStreamingAccessesCollection_allOf > &obj1 = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_media_streaming_accesses_collection_all_of_get_records(const data_collection_model_media_streaming_accesses_collection_all_of_t *obj_media_streaming_accesses_collection_all_of)
 {
+    if (!obj_media_streaming_accesses_collection_all_of) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<MediaStreamingAccessesCollection_allOf > &obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(obj_media_streaming_accesses_collection_all_of);
+    if (!obj) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     typedef typename MediaStreamingAccessesCollection_allOf::RecordsType ResultFromType;
     const ResultFromType result_from = obj->getRecords();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
@@ -105,9 +185,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_me
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_accesses_collection_all_of_t *data_collection_model_media_streaming_accesses_collection_all_of_set_records(data_collection_model_media_streaming_accesses_collection_all_of_t *obj_media_streaming_accesses_collection_all_of, const ogs_list_t* p_records)
 {
-    if (obj_media_streaming_accesses_collection_all_of == NULL) return NULL;
+    if (!obj_media_streaming_accesses_collection_all_of) return NULL;
 
     std::shared_ptr<MediaStreamingAccessesCollection_allOf > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(obj_media_streaming_accesses_collection_all_of);
+    if (!obj) return NULL;
+
     const auto &value_from = p_records;
     typedef typename MediaStreamingAccessesCollection_allOf::RecordsType ValueType;
 
@@ -121,14 +203,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
         }
     }
     if (!obj->setRecords(value)) return NULL;
+
     return obj_media_streaming_accesses_collection_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_accesses_collection_all_of_t *data_collection_model_media_streaming_accesses_collection_all_of_set_records_move(data_collection_model_media_streaming_accesses_collection_all_of_t *obj_media_streaming_accesses_collection_all_of, ogs_list_t* p_records)
 {
-    if (obj_media_streaming_accesses_collection_all_of == NULL) return NULL;
+    if (!obj_media_streaming_accesses_collection_all_of) return NULL;
 
     std::shared_ptr<MediaStreamingAccessesCollection_allOf > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(obj_media_streaming_accesses_collection_all_of);
+    if (!obj) return NULL;
+
     const auto &value_from = p_records;
     typedef typename MediaStreamingAccessesCollection_allOf::RecordsType ValueType;
 
@@ -143,12 +228,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     }
     data_collection_list_free(p_records);
     if (!obj->setRecords(std::move(value))) return NULL;
+
     return obj_media_streaming_accesses_collection_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_accesses_collection_all_of_t *data_collection_model_media_streaming_accesses_collection_all_of_add_records(data_collection_model_media_streaming_accesses_collection_all_of_t *obj_media_streaming_accesses_collection_all_of, data_collection_model_media_streaming_access_event_t* p_records)
 {
+    if (!obj_media_streaming_accesses_collection_all_of) return NULL;
+
     std::shared_ptr<MediaStreamingAccessesCollection_allOf > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(obj_media_streaming_accesses_collection_all_of);
+    if (!obj) return NULL;
+
     typedef typename MediaStreamingAccessesCollection_allOf::RecordsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_records;
@@ -161,7 +251,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_accesses_collection_all_of_t *data_collection_model_media_streaming_accesses_collection_all_of_remove_records(data_collection_model_media_streaming_accesses_collection_all_of_t *obj_media_streaming_accesses_collection_all_of, const data_collection_model_media_streaming_access_event_t* p_records)
 {
+    if (!obj_media_streaming_accesses_collection_all_of) return NULL;
+
     std::shared_ptr<MediaStreamingAccessesCollection_allOf > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(obj_media_streaming_accesses_collection_all_of);
+    if (!obj) return NULL;
+
     typedef typename MediaStreamingAccessesCollection_allOf::RecordsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_records;
@@ -171,8 +265,12 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_accesses_collection_all_of_t *data_collection_model_media_streaming_accesses_collection_all_of_clear_records(data_collection_model_media_streaming_accesses_collection_all_of_t *obj_media_streaming_accesses_collection_all_of)
-{   
+{
+    if (!obj_media_streaming_accesses_collection_all_of) return NULL;
+
     std::shared_ptr<MediaStreamingAccessesCollection_allOf > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(obj_media_streaming_accesses_collection_all_of);
+    if (!obj) return NULL;
+
     obj->clearRecords();
     return obj_media_streaming_accesses_collection_all_of;
 }
@@ -187,6 +285,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_media_streaming_accesses_collection_all_of_refcount(data_collection_model_media_streaming_accesses_collection_all_of_t *obj_media_streaming_accesses_collection_all_of)
 {
+    if (!obj_media_streaming_accesses_collection_all_of) return 0l;
     std::shared_ptr<MediaStreamingAccessesCollection_allOf > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccessesCollection_allOf >*>(obj_media_streaming_accesses_collection_all_of);
     return obj.use_count();
 }

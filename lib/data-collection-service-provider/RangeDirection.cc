@@ -35,36 +35,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_directio
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_create_copy(const data_collection_model_range_direction_t *other)
 {
-    return reinterpret_cast<data_collection_model_range_direction_t*>(new std::shared_ptr<RangeDirection >(new RangeDirection(**reinterpret_cast<const std::shared_ptr<RangeDirection >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<const std::shared_ptr<RangeDirection >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_range_direction_t*>(new std::shared_ptr<RangeDirection >(new RangeDirection(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_create_move(data_collection_model_range_direction_t *other)
 {
-    return reinterpret_cast<data_collection_model_range_direction_t*>(new std::shared_ptr<RangeDirection >(std::move(*reinterpret_cast<std::shared_ptr<RangeDirection >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<RangeDirection > *obj = reinterpret_cast<std::shared_ptr<RangeDirection >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_copy(data_collection_model_range_direction_t *range_direction, const data_collection_model_range_direction_t *other)
 {
-    std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<std::shared_ptr<RangeDirection >*>(range_direction);
-    *obj = **reinterpret_cast<const std::shared_ptr<RangeDirection >*>(other);
+    if (range_direction) {
+        std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<std::shared_ptr<RangeDirection >*>(range_direction);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<RangeDirection > &other_obj = *reinterpret_cast<const std::shared_ptr<RangeDirection >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<RangeDirection > &other_obj = *reinterpret_cast<const std::shared_ptr<RangeDirection >*>(other);
+                if (other_obj) {
+                    obj.reset(new RangeDirection(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        range_direction = data_collection_model_range_direction_create_copy(other);
+    }
     return range_direction;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_move(data_collection_model_range_direction_t *range_direction, data_collection_model_range_direction_t *other)
 {
-    std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<std::shared_ptr<RangeDirection >*>(range_direction);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<RangeDirection >*>(other));
+    std::shared_ptr<RangeDirection > *other_ptr = reinterpret_cast<std::shared_ptr<RangeDirection >*>(other);
+
+    if (range_direction) {
+        std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<std::shared_ptr<RangeDirection >*>(range_direction);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                range_direction = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return range_direction;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_range_direction_free(data_collection_model_range_direction_t *range_direction)
 {
+    if (!range_direction) return;
     delete reinterpret_cast<std::shared_ptr<RangeDirection >*>(range_direction);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_range_direction_toJSON(const data_collection_model_range_direction_t *range_direction, bool as_request)
 {
+    if (!range_direction) return NULL;
     const std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<const std::shared_ptr<RangeDirection >*>(range_direction);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -84,15 +137,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_directio
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_range_direction_is_equal_to(const data_collection_model_range_direction_t *first, const data_collection_model_range_direction_t *second)
 {
-    const std::shared_ptr<RangeDirection > &obj1 = *reinterpret_cast<const std::shared_ptr<RangeDirection >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<RangeDirection > &obj2 = *reinterpret_cast<const std::shared_ptr<RangeDirection >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<RangeDirection > &obj1 = *reinterpret_cast<const std::shared_ptr<RangeDirection >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_range_direction_get_distance(const data_collection_model_range_direction_t *obj_range_direction)
 {
+    if (!obj_range_direction) {
+        const double result = 0;
+        return result;
+    }
+
     const std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<const std::shared_ptr<RangeDirection >*>(obj_range_direction);
+    if (!obj) {
+        const double result = 0;
+        return result;
+    }
+
     typedef typename RangeDirection::DistanceType ResultFromType;
     const ResultFromType result_from = obj->getDistance();
     const ResultFromType result = result_from;
@@ -101,34 +181,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_r
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_set_distance(data_collection_model_range_direction_t *obj_range_direction, const double p_distance)
 {
-    if (obj_range_direction == NULL) return NULL;
+    if (!obj_range_direction) return NULL;
 
     std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<std::shared_ptr<RangeDirection >*>(obj_range_direction);
+    if (!obj) return NULL;
+
     const auto &value_from = p_distance;
     typedef typename RangeDirection::DistanceType ValueType;
 
     ValueType value = value_from;
     if (!obj->setDistance(value)) return NULL;
+
     return obj_range_direction;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_set_distance_move(data_collection_model_range_direction_t *obj_range_direction, double p_distance)
 {
-    if (obj_range_direction == NULL) return NULL;
+    if (!obj_range_direction) return NULL;
 
     std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<std::shared_ptr<RangeDirection >*>(obj_range_direction);
+    if (!obj) return NULL;
+
     const auto &value_from = p_distance;
     typedef typename RangeDirection::DistanceType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setDistance(std::move(value))) return NULL;
+
     return obj_range_direction;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_range_direction_get_azimuth_direction(const data_collection_model_range_direction_t *obj_range_direction)
 {
+    if (!obj_range_direction) {
+        const int32_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<const std::shared_ptr<RangeDirection >*>(obj_range_direction);
+    if (!obj) {
+        const int32_t result = 0;
+        return result;
+    }
+
     typedef typename RangeDirection::AzimuthDirectionType ResultFromType;
     const ResultFromType result_from = obj->getAzimuthDirection();
     const ResultFromType result = result_from;
@@ -137,34 +233,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_set_azimuth_direction(data_collection_model_range_direction_t *obj_range_direction, const int32_t p_azimuth_direction)
 {
-    if (obj_range_direction == NULL) return NULL;
+    if (!obj_range_direction) return NULL;
 
     std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<std::shared_ptr<RangeDirection >*>(obj_range_direction);
+    if (!obj) return NULL;
+
     const auto &value_from = p_azimuth_direction;
     typedef typename RangeDirection::AzimuthDirectionType ValueType;
 
     ValueType value = value_from;
     if (!obj->setAzimuthDirection(value)) return NULL;
+
     return obj_range_direction;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_set_azimuth_direction_move(data_collection_model_range_direction_t *obj_range_direction, int32_t p_azimuth_direction)
 {
-    if (obj_range_direction == NULL) return NULL;
+    if (!obj_range_direction) return NULL;
 
     std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<std::shared_ptr<RangeDirection >*>(obj_range_direction);
+    if (!obj) return NULL;
+
     const auto &value_from = p_azimuth_direction;
     typedef typename RangeDirection::AzimuthDirectionType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setAzimuthDirection(std::move(value))) return NULL;
+
     return obj_range_direction;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_range_direction_get_elevation_direction(const data_collection_model_range_direction_t *obj_range_direction)
 {
+    if (!obj_range_direction) {
+        const int32_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<const std::shared_ptr<RangeDirection >*>(obj_range_direction);
+    if (!obj) {
+        const int32_t result = 0;
+        return result;
+    }
+
     typedef typename RangeDirection::ElevationDirectionType ResultFromType;
     const ResultFromType result_from = obj->getElevationDirection();
     const ResultFromType result = result_from;
@@ -173,28 +285,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_set_elevation_direction(data_collection_model_range_direction_t *obj_range_direction, const int32_t p_elevation_direction)
 {
-    if (obj_range_direction == NULL) return NULL;
+    if (!obj_range_direction) return NULL;
 
     std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<std::shared_ptr<RangeDirection >*>(obj_range_direction);
+    if (!obj) return NULL;
+
     const auto &value_from = p_elevation_direction;
     typedef typename RangeDirection::ElevationDirectionType ValueType;
 
     ValueType value = value_from;
     if (!obj->setElevationDirection(value)) return NULL;
+
     return obj_range_direction;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_set_elevation_direction_move(data_collection_model_range_direction_t *obj_range_direction, int32_t p_elevation_direction)
 {
-    if (obj_range_direction == NULL) return NULL;
+    if (!obj_range_direction) return NULL;
 
     std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<std::shared_ptr<RangeDirection >*>(obj_range_direction);
+    if (!obj) return NULL;
+
     const auto &value_from = p_elevation_direction;
     typedef typename RangeDirection::ElevationDirectionType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setElevationDirection(std::move(value))) return NULL;
+
     return obj_range_direction;
 }
 
@@ -208,6 +326,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_range_direction_refcount(data_collection_model_range_direction_t *obj_range_direction)
 {
+    if (!obj_range_direction) return 0l;
     std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<std::shared_ptr<RangeDirection >*>(obj_range_direction);
     return obj.use_count();
 }

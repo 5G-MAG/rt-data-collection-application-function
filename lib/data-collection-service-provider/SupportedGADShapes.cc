@@ -31,36 +31,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_supported_gad_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_supported_gad_shapes_t *data_collection_model_supported_gad_shapes_create_copy(const data_collection_model_supported_gad_shapes_t *other)
 {
-    return reinterpret_cast<data_collection_model_supported_gad_shapes_t*>(new std::shared_ptr<SupportedGADShapes >(new SupportedGADShapes(**reinterpret_cast<const std::shared_ptr<SupportedGADShapes >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<SupportedGADShapes > &obj = *reinterpret_cast<const std::shared_ptr<SupportedGADShapes >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_supported_gad_shapes_t*>(new std::shared_ptr<SupportedGADShapes >(new SupportedGADShapes(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_supported_gad_shapes_t *data_collection_model_supported_gad_shapes_create_move(data_collection_model_supported_gad_shapes_t *other)
 {
-    return reinterpret_cast<data_collection_model_supported_gad_shapes_t*>(new std::shared_ptr<SupportedGADShapes >(std::move(*reinterpret_cast<std::shared_ptr<SupportedGADShapes >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<SupportedGADShapes > *obj = reinterpret_cast<std::shared_ptr<SupportedGADShapes >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_supported_gad_shapes_t *data_collection_model_supported_gad_shapes_copy(data_collection_model_supported_gad_shapes_t *supported_gad_shapes, const data_collection_model_supported_gad_shapes_t *other)
 {
-    std::shared_ptr<SupportedGADShapes > &obj = *reinterpret_cast<std::shared_ptr<SupportedGADShapes >*>(supported_gad_shapes);
-    *obj = **reinterpret_cast<const std::shared_ptr<SupportedGADShapes >*>(other);
+    if (supported_gad_shapes) {
+        std::shared_ptr<SupportedGADShapes > &obj = *reinterpret_cast<std::shared_ptr<SupportedGADShapes >*>(supported_gad_shapes);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<SupportedGADShapes > &other_obj = *reinterpret_cast<const std::shared_ptr<SupportedGADShapes >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<SupportedGADShapes > &other_obj = *reinterpret_cast<const std::shared_ptr<SupportedGADShapes >*>(other);
+                if (other_obj) {
+                    obj.reset(new SupportedGADShapes(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        supported_gad_shapes = data_collection_model_supported_gad_shapes_create_copy(other);
+    }
     return supported_gad_shapes;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_supported_gad_shapes_t *data_collection_model_supported_gad_shapes_move(data_collection_model_supported_gad_shapes_t *supported_gad_shapes, data_collection_model_supported_gad_shapes_t *other)
 {
-    std::shared_ptr<SupportedGADShapes > &obj = *reinterpret_cast<std::shared_ptr<SupportedGADShapes >*>(supported_gad_shapes);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<SupportedGADShapes >*>(other));
+    std::shared_ptr<SupportedGADShapes > *other_ptr = reinterpret_cast<std::shared_ptr<SupportedGADShapes >*>(other);
+
+    if (supported_gad_shapes) {
+        std::shared_ptr<SupportedGADShapes > &obj = *reinterpret_cast<std::shared_ptr<SupportedGADShapes >*>(supported_gad_shapes);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                supported_gad_shapes = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return supported_gad_shapes;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_supported_gad_shapes_free(data_collection_model_supported_gad_shapes_t *supported_gad_shapes)
 {
+    if (!supported_gad_shapes) return;
     delete reinterpret_cast<std::shared_ptr<SupportedGADShapes >*>(supported_gad_shapes);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_supported_gad_shapes_toJSON(const data_collection_model_supported_gad_shapes_t *supported_gad_shapes, bool as_request)
 {
+    if (!supported_gad_shapes) return NULL;
     const std::shared_ptr<SupportedGADShapes > &obj = *reinterpret_cast<const std::shared_ptr<SupportedGADShapes >*>(supported_gad_shapes);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -80,27 +133,51 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_supported_gad_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_supported_gad_shapes_is_equal_to(const data_collection_model_supported_gad_shapes_t *first, const data_collection_model_supported_gad_shapes_t *second)
 {
-    const std::shared_ptr<SupportedGADShapes > &obj1 = *reinterpret_cast<const std::shared_ptr<SupportedGADShapes >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<SupportedGADShapes > &obj2 = *reinterpret_cast<const std::shared_ptr<SupportedGADShapes >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<SupportedGADShapes > &obj1 = *reinterpret_cast<const std::shared_ptr<SupportedGADShapes >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_supported_gad_shapes_is_not_set(const data_collection_model_supported_gad_shapes_t *obj_supported_gad_shapes)
 {
+    if (!obj_supported_gad_shapes) return true;
     const std::shared_ptr<SupportedGADShapes > &obj = *reinterpret_cast<const std::shared_ptr<SupportedGADShapes >*>(obj_supported_gad_shapes);
+    if (!obj) return true;
     return obj->getValue() == SupportedGADShapes::Enum::NO_VAL;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_supported_gad_shapes_is_non_standard(const data_collection_model_supported_gad_shapes_t *obj_supported_gad_shapes)
 {
+    if (!obj_supported_gad_shapes) return false;
     const std::shared_ptr<SupportedGADShapes > &obj = *reinterpret_cast<const std::shared_ptr<SupportedGADShapes >*>(obj_supported_gad_shapes);
+    if (!obj) return false;
     return obj->getValue() == SupportedGADShapes::Enum::OTHER;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_supported_gad_shapes_e data_collection_model_supported_gad_shapes_get_enum(const data_collection_model_supported_gad_shapes_t *obj_supported_gad_shapes)
 {
+    if (!obj_supported_gad_shapes)
+        return DCM_SUPPORTED_GAD_SHAPES_NO_VAL;
     const std::shared_ptr<SupportedGADShapes > &obj = *reinterpret_cast<const std::shared_ptr<SupportedGADShapes >*>(obj_supported_gad_shapes);
+    if (!obj) return DCM_SUPPORTED_GAD_SHAPES_NO_VAL;
     switch (obj->getValue()) {
     case SupportedGADShapes::Enum::NO_VAL:
         return DCM_SUPPORTED_GAD_SHAPES_NO_VAL;
@@ -136,13 +213,17 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_supported_gad_shapes_e da
 
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_supported_gad_shapes_get_string(const data_collection_model_supported_gad_shapes_t *obj_supported_gad_shapes)
 {
+    if (!obj_supported_gad_shapes) return NULL;
     const std::shared_ptr<SupportedGADShapes > &obj = *reinterpret_cast<const std::shared_ptr<SupportedGADShapes >*>(obj_supported_gad_shapes);
+    if (!obj) return NULL;
     return obj->getString().c_str();
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_supported_gad_shapes_set_enum(data_collection_model_supported_gad_shapes_t *obj_supported_gad_shapes, data_collection_model_supported_gad_shapes_e p_value)
 {
+    if (!obj_supported_gad_shapes) return false;
     std::shared_ptr<SupportedGADShapes > &obj = *reinterpret_cast<std::shared_ptr<SupportedGADShapes >*>(obj_supported_gad_shapes);
+    if (!obj) return false;
     switch (p_value) {
     case DCM_SUPPORTED_GAD_SHAPES_NO_VAL:
         *obj = SupportedGADShapes::Enum::NO_VAL;
@@ -191,7 +272,9 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_supported_gad_shapes
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_supported_gad_shapes_set_string(data_collection_model_supported_gad_shapes_t *obj_supported_gad_shapes, const char *p_value)
 {
+    if (!obj_supported_gad_shapes) return false;
     std::shared_ptr<SupportedGADShapes > &obj = *reinterpret_cast<std::shared_ptr<SupportedGADShapes >*>(obj_supported_gad_shapes);
+    if (!obj) return false;
     if (p_value) {
         *obj = std::string(p_value);
     } else {
@@ -211,6 +294,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_supported_gad_shapes_refcount(data_collection_model_supported_gad_shapes_t *obj_supported_gad_shapes)
 {
+    if (!obj_supported_gad_shapes) return 0l;
     std::shared_ptr<SupportedGADShapes > &obj = *reinterpret_cast<std::shared_ptr<SupportedGADShapes >*>(obj_supported_gad_shapes);
     return obj.use_count();
 }

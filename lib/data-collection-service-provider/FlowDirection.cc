@@ -29,36 +29,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_direction
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_direction_t *data_collection_model_flow_direction_create_copy(const data_collection_model_flow_direction_t *other)
 {
-    return reinterpret_cast<data_collection_model_flow_direction_t*>(new std::shared_ptr<FlowDirection >(new FlowDirection(**reinterpret_cast<const std::shared_ptr<FlowDirection >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<FlowDirection > &obj = *reinterpret_cast<const std::shared_ptr<FlowDirection >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_flow_direction_t*>(new std::shared_ptr<FlowDirection >(new FlowDirection(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_direction_t *data_collection_model_flow_direction_create_move(data_collection_model_flow_direction_t *other)
 {
-    return reinterpret_cast<data_collection_model_flow_direction_t*>(new std::shared_ptr<FlowDirection >(std::move(*reinterpret_cast<std::shared_ptr<FlowDirection >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<FlowDirection > *obj = reinterpret_cast<std::shared_ptr<FlowDirection >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_direction_t *data_collection_model_flow_direction_copy(data_collection_model_flow_direction_t *flow_direction, const data_collection_model_flow_direction_t *other)
 {
-    std::shared_ptr<FlowDirection > &obj = *reinterpret_cast<std::shared_ptr<FlowDirection >*>(flow_direction);
-    *obj = **reinterpret_cast<const std::shared_ptr<FlowDirection >*>(other);
+    if (flow_direction) {
+        std::shared_ptr<FlowDirection > &obj = *reinterpret_cast<std::shared_ptr<FlowDirection >*>(flow_direction);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<FlowDirection > &other_obj = *reinterpret_cast<const std::shared_ptr<FlowDirection >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<FlowDirection > &other_obj = *reinterpret_cast<const std::shared_ptr<FlowDirection >*>(other);
+                if (other_obj) {
+                    obj.reset(new FlowDirection(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        flow_direction = data_collection_model_flow_direction_create_copy(other);
+    }
     return flow_direction;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_direction_t *data_collection_model_flow_direction_move(data_collection_model_flow_direction_t *flow_direction, data_collection_model_flow_direction_t *other)
 {
-    std::shared_ptr<FlowDirection > &obj = *reinterpret_cast<std::shared_ptr<FlowDirection >*>(flow_direction);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<FlowDirection >*>(other));
+    std::shared_ptr<FlowDirection > *other_ptr = reinterpret_cast<std::shared_ptr<FlowDirection >*>(other);
+
+    if (flow_direction) {
+        std::shared_ptr<FlowDirection > &obj = *reinterpret_cast<std::shared_ptr<FlowDirection >*>(flow_direction);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                flow_direction = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return flow_direction;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_flow_direction_free(data_collection_model_flow_direction_t *flow_direction)
 {
+    if (!flow_direction) return;
     delete reinterpret_cast<std::shared_ptr<FlowDirection >*>(flow_direction);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_flow_direction_toJSON(const data_collection_model_flow_direction_t *flow_direction, bool as_request)
 {
+    if (!flow_direction) return NULL;
     const std::shared_ptr<FlowDirection > &obj = *reinterpret_cast<const std::shared_ptr<FlowDirection >*>(flow_direction);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -78,27 +131,51 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_direction
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_flow_direction_is_equal_to(const data_collection_model_flow_direction_t *first, const data_collection_model_flow_direction_t *second)
 {
-    const std::shared_ptr<FlowDirection > &obj1 = *reinterpret_cast<const std::shared_ptr<FlowDirection >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<FlowDirection > &obj2 = *reinterpret_cast<const std::shared_ptr<FlowDirection >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<FlowDirection > &obj1 = *reinterpret_cast<const std::shared_ptr<FlowDirection >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_flow_direction_is_not_set(const data_collection_model_flow_direction_t *obj_flow_direction)
 {
+    if (!obj_flow_direction) return true;
     const std::shared_ptr<FlowDirection > &obj = *reinterpret_cast<const std::shared_ptr<FlowDirection >*>(obj_flow_direction);
+    if (!obj) return true;
     return obj->getValue() == FlowDirection::Enum::NO_VAL;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_flow_direction_is_non_standard(const data_collection_model_flow_direction_t *obj_flow_direction)
 {
+    if (!obj_flow_direction) return false;
     const std::shared_ptr<FlowDirection > &obj = *reinterpret_cast<const std::shared_ptr<FlowDirection >*>(obj_flow_direction);
+    if (!obj) return false;
     return obj->getValue() == FlowDirection::Enum::OTHER;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_direction_e data_collection_model_flow_direction_get_enum(const data_collection_model_flow_direction_t *obj_flow_direction)
 {
+    if (!obj_flow_direction)
+        return DCM_FLOW_DIRECTION_NO_VAL;
     const std::shared_ptr<FlowDirection > &obj = *reinterpret_cast<const std::shared_ptr<FlowDirection >*>(obj_flow_direction);
+    if (!obj) return DCM_FLOW_DIRECTION_NO_VAL;
     switch (obj->getValue()) {
     case FlowDirection::Enum::NO_VAL:
         return DCM_FLOW_DIRECTION_NO_VAL;
@@ -118,13 +195,17 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_direction_e data_col
 
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_flow_direction_get_string(const data_collection_model_flow_direction_t *obj_flow_direction)
 {
+    if (!obj_flow_direction) return NULL;
     const std::shared_ptr<FlowDirection > &obj = *reinterpret_cast<const std::shared_ptr<FlowDirection >*>(obj_flow_direction);
+    if (!obj) return NULL;
     return obj->getString().c_str();
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_flow_direction_set_enum(data_collection_model_flow_direction_t *obj_flow_direction, data_collection_model_flow_direction_e p_value)
 {
+    if (!obj_flow_direction) return false;
     std::shared_ptr<FlowDirection > &obj = *reinterpret_cast<std::shared_ptr<FlowDirection >*>(obj_flow_direction);
+    if (!obj) return false;
     switch (p_value) {
     case DCM_FLOW_DIRECTION_NO_VAL:
         *obj = FlowDirection::Enum::NO_VAL;
@@ -149,7 +230,9 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_flow_direction_set_e
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_flow_direction_set_string(data_collection_model_flow_direction_t *obj_flow_direction, const char *p_value)
 {
+    if (!obj_flow_direction) return false;
     std::shared_ptr<FlowDirection > &obj = *reinterpret_cast<std::shared_ptr<FlowDirection >*>(obj_flow_direction);
+    if (!obj) return false;
     if (p_value) {
         *obj = std::string(p_value);
     } else {
@@ -169,6 +252,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_flow_direction_refcount(data_collection_model_flow_direction_t *obj_flow_direction)
 {
+    if (!obj_flow_direction) return 0l;
     std::shared_ptr<FlowDirection > &obj = *reinterpret_cast<std::shared_ptr<FlowDirection >*>(obj_flow_direction);
     return obj.use_count();
 }

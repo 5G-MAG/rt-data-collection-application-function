@@ -29,36 +29,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_traffic_profil
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_traffic_profile_t *data_collection_model_traffic_profile_create_copy(const data_collection_model_traffic_profile_t *other)
 {
-    return reinterpret_cast<data_collection_model_traffic_profile_t*>(new std::shared_ptr<TrafficProfile >(new TrafficProfile(**reinterpret_cast<const std::shared_ptr<TrafficProfile >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<TrafficProfile > &obj = *reinterpret_cast<const std::shared_ptr<TrafficProfile >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_traffic_profile_t*>(new std::shared_ptr<TrafficProfile >(new TrafficProfile(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_traffic_profile_t *data_collection_model_traffic_profile_create_move(data_collection_model_traffic_profile_t *other)
 {
-    return reinterpret_cast<data_collection_model_traffic_profile_t*>(new std::shared_ptr<TrafficProfile >(std::move(*reinterpret_cast<std::shared_ptr<TrafficProfile >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<TrafficProfile > *obj = reinterpret_cast<std::shared_ptr<TrafficProfile >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_traffic_profile_t *data_collection_model_traffic_profile_copy(data_collection_model_traffic_profile_t *traffic_profile, const data_collection_model_traffic_profile_t *other)
 {
-    std::shared_ptr<TrafficProfile > &obj = *reinterpret_cast<std::shared_ptr<TrafficProfile >*>(traffic_profile);
-    *obj = **reinterpret_cast<const std::shared_ptr<TrafficProfile >*>(other);
+    if (traffic_profile) {
+        std::shared_ptr<TrafficProfile > &obj = *reinterpret_cast<std::shared_ptr<TrafficProfile >*>(traffic_profile);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<TrafficProfile > &other_obj = *reinterpret_cast<const std::shared_ptr<TrafficProfile >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<TrafficProfile > &other_obj = *reinterpret_cast<const std::shared_ptr<TrafficProfile >*>(other);
+                if (other_obj) {
+                    obj.reset(new TrafficProfile(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        traffic_profile = data_collection_model_traffic_profile_create_copy(other);
+    }
     return traffic_profile;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_traffic_profile_t *data_collection_model_traffic_profile_move(data_collection_model_traffic_profile_t *traffic_profile, data_collection_model_traffic_profile_t *other)
 {
-    std::shared_ptr<TrafficProfile > &obj = *reinterpret_cast<std::shared_ptr<TrafficProfile >*>(traffic_profile);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<TrafficProfile >*>(other));
+    std::shared_ptr<TrafficProfile > *other_ptr = reinterpret_cast<std::shared_ptr<TrafficProfile >*>(other);
+
+    if (traffic_profile) {
+        std::shared_ptr<TrafficProfile > &obj = *reinterpret_cast<std::shared_ptr<TrafficProfile >*>(traffic_profile);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                traffic_profile = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return traffic_profile;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_traffic_profile_free(data_collection_model_traffic_profile_t *traffic_profile)
 {
+    if (!traffic_profile) return;
     delete reinterpret_cast<std::shared_ptr<TrafficProfile >*>(traffic_profile);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_traffic_profile_toJSON(const data_collection_model_traffic_profile_t *traffic_profile, bool as_request)
 {
+    if (!traffic_profile) return NULL;
     const std::shared_ptr<TrafficProfile > &obj = *reinterpret_cast<const std::shared_ptr<TrafficProfile >*>(traffic_profile);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -78,27 +131,51 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_traffic_profil
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_traffic_profile_is_equal_to(const data_collection_model_traffic_profile_t *first, const data_collection_model_traffic_profile_t *second)
 {
-    const std::shared_ptr<TrafficProfile > &obj1 = *reinterpret_cast<const std::shared_ptr<TrafficProfile >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<TrafficProfile > &obj2 = *reinterpret_cast<const std::shared_ptr<TrafficProfile >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<TrafficProfile > &obj1 = *reinterpret_cast<const std::shared_ptr<TrafficProfile >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_traffic_profile_is_not_set(const data_collection_model_traffic_profile_t *obj_traffic_profile)
 {
+    if (!obj_traffic_profile) return true;
     const std::shared_ptr<TrafficProfile > &obj = *reinterpret_cast<const std::shared_ptr<TrafficProfile >*>(obj_traffic_profile);
+    if (!obj) return true;
     return obj->getValue() == TrafficProfile::Enum::NO_VAL;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_traffic_profile_is_non_standard(const data_collection_model_traffic_profile_t *obj_traffic_profile)
 {
+    if (!obj_traffic_profile) return false;
     const std::shared_ptr<TrafficProfile > &obj = *reinterpret_cast<const std::shared_ptr<TrafficProfile >*>(obj_traffic_profile);
+    if (!obj) return false;
     return obj->getValue() == TrafficProfile::Enum::OTHER;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_traffic_profile_e data_collection_model_traffic_profile_get_enum(const data_collection_model_traffic_profile_t *obj_traffic_profile)
 {
+    if (!obj_traffic_profile)
+        return DCM_TRAFFIC_PROFILE_NO_VAL;
     const std::shared_ptr<TrafficProfile > &obj = *reinterpret_cast<const std::shared_ptr<TrafficProfile >*>(obj_traffic_profile);
+    if (!obj) return DCM_TRAFFIC_PROFILE_NO_VAL;
     switch (obj->getValue()) {
     case TrafficProfile::Enum::NO_VAL:
         return DCM_TRAFFIC_PROFILE_NO_VAL;
@@ -120,13 +197,17 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_traffic_profile_e data_co
 
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_traffic_profile_get_string(const data_collection_model_traffic_profile_t *obj_traffic_profile)
 {
+    if (!obj_traffic_profile) return NULL;
     const std::shared_ptr<TrafficProfile > &obj = *reinterpret_cast<const std::shared_ptr<TrafficProfile >*>(obj_traffic_profile);
+    if (!obj) return NULL;
     return obj->getString().c_str();
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_traffic_profile_set_enum(data_collection_model_traffic_profile_t *obj_traffic_profile, data_collection_model_traffic_profile_e p_value)
 {
+    if (!obj_traffic_profile) return false;
     std::shared_ptr<TrafficProfile > &obj = *reinterpret_cast<std::shared_ptr<TrafficProfile >*>(obj_traffic_profile);
+    if (!obj) return false;
     switch (p_value) {
     case DCM_TRAFFIC_PROFILE_NO_VAL:
         *obj = TrafficProfile::Enum::NO_VAL;
@@ -154,7 +235,9 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_traffic_profile_set_
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_traffic_profile_set_string(data_collection_model_traffic_profile_t *obj_traffic_profile, const char *p_value)
 {
+    if (!obj_traffic_profile) return false;
     std::shared_ptr<TrafficProfile > &obj = *reinterpret_cast<std::shared_ptr<TrafficProfile >*>(obj_traffic_profile);
+    if (!obj) return false;
     if (p_value) {
         *obj = std::string(p_value);
     } else {
@@ -174,6 +257,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_traffic_profile_refcount(data_collection_model_traffic_profile_t *obj_traffic_profile)
 {
+    if (!obj_traffic_profile) return 0l;
     std::shared_ptr<TrafficProfile > &obj = *reinterpret_cast<std::shared_ptr<TrafficProfile >*>(obj_traffic_profile);
     return obj.use_count();
 }

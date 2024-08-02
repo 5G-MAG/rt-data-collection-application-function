@@ -39,36 +39,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_response_message_t *data_collection_model_media_streaming_access_response_message_create_copy(const data_collection_model_media_streaming_access_response_message_t *other)
 {
-    return reinterpret_cast<data_collection_model_media_streaming_access_response_message_t*>(new std::shared_ptr<MediaStreamingAccess_responseMessage >(new MediaStreamingAccess_responseMessage(**reinterpret_cast<const std::shared_ptr<MediaStreamingAccess_responseMessage >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<MediaStreamingAccess_responseMessage > &obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccess_responseMessage >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_media_streaming_access_response_message_t*>(new std::shared_ptr<MediaStreamingAccess_responseMessage >(new MediaStreamingAccess_responseMessage(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_response_message_t *data_collection_model_media_streaming_access_response_message_create_move(data_collection_model_media_streaming_access_response_message_t *other)
 {
-    return reinterpret_cast<data_collection_model_media_streaming_access_response_message_t*>(new std::shared_ptr<MediaStreamingAccess_responseMessage >(std::move(*reinterpret_cast<std::shared_ptr<MediaStreamingAccess_responseMessage >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<MediaStreamingAccess_responseMessage > *obj = reinterpret_cast<std::shared_ptr<MediaStreamingAccess_responseMessage >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_response_message_t *data_collection_model_media_streaming_access_response_message_copy(data_collection_model_media_streaming_access_response_message_t *media_streaming_access_response_message, const data_collection_model_media_streaming_access_response_message_t *other)
 {
-    std::shared_ptr<MediaStreamingAccess_responseMessage > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccess_responseMessage >*>(media_streaming_access_response_message);
-    *obj = **reinterpret_cast<const std::shared_ptr<MediaStreamingAccess_responseMessage >*>(other);
+    if (media_streaming_access_response_message) {
+        std::shared_ptr<MediaStreamingAccess_responseMessage > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccess_responseMessage >*>(media_streaming_access_response_message);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<MediaStreamingAccess_responseMessage > &other_obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccess_responseMessage >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<MediaStreamingAccess_responseMessage > &other_obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccess_responseMessage >*>(other);
+                if (other_obj) {
+                    obj.reset(new MediaStreamingAccess_responseMessage(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        media_streaming_access_response_message = data_collection_model_media_streaming_access_response_message_create_copy(other);
+    }
     return media_streaming_access_response_message;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_response_message_t *data_collection_model_media_streaming_access_response_message_move(data_collection_model_media_streaming_access_response_message_t *media_streaming_access_response_message, data_collection_model_media_streaming_access_response_message_t *other)
 {
-    std::shared_ptr<MediaStreamingAccess_responseMessage > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccess_responseMessage >*>(media_streaming_access_response_message);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<MediaStreamingAccess_responseMessage >*>(other));
+    std::shared_ptr<MediaStreamingAccess_responseMessage > *other_ptr = reinterpret_cast<std::shared_ptr<MediaStreamingAccess_responseMessage >*>(other);
+
+    if (media_streaming_access_response_message) {
+        std::shared_ptr<MediaStreamingAccess_responseMessage > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccess_responseMessage >*>(media_streaming_access_response_message);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                media_streaming_access_response_message = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return media_streaming_access_response_message;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_media_streaming_access_response_message_free(data_collection_model_media_streaming_access_response_message_t *media_streaming_access_response_message)
 {
+    if (!media_streaming_access_response_message) return;
     delete reinterpret_cast<std::shared_ptr<MediaStreamingAccess_responseMessage >*>(media_streaming_access_response_message);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_media_streaming_access_response_message_toJSON(const data_collection_model_media_streaming_access_response_message_t *media_streaming_access_response_message, bool as_request)
 {
+    if (!media_streaming_access_response_message) return NULL;
     const std::shared_ptr<MediaStreamingAccess_responseMessage > &obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccess_responseMessage >*>(media_streaming_access_response_message);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -88,15 +141,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_media_streaming_access_response_message_is_equal_to(const data_collection_model_media_streaming_access_response_message_t *first, const data_collection_model_media_streaming_access_response_message_t *second)
 {
-    const std::shared_ptr<MediaStreamingAccess_responseMessage > &obj1 = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccess_responseMessage >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<MediaStreamingAccess_responseMessage > &obj2 = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccess_responseMessage >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<MediaStreamingAccess_responseMessage > &obj1 = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccess_responseMessage >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_media_streaming_access_response_message_get_response_code(const data_collection_model_media_streaming_access_response_message_t *obj_media_streaming_access_response_message)
 {
+    if (!obj_media_streaming_access_response_message) {
+        const int32_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<MediaStreamingAccess_responseMessage > &obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccess_responseMessage >*>(obj_media_streaming_access_response_message);
+    if (!obj) {
+        const int32_t result = 0;
+        return result;
+    }
+
     typedef typename MediaStreamingAccess_responseMessage::ResponseCodeType ResultFromType;
     const ResultFromType result_from = obj->getResponseCode();
     const ResultFromType result = result_from;
@@ -105,34 +185,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_response_message_t *data_collection_model_media_streaming_access_response_message_set_response_code(data_collection_model_media_streaming_access_response_message_t *obj_media_streaming_access_response_message, const int32_t p_response_code)
 {
-    if (obj_media_streaming_access_response_message == NULL) return NULL;
+    if (!obj_media_streaming_access_response_message) return NULL;
 
     std::shared_ptr<MediaStreamingAccess_responseMessage > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccess_responseMessage >*>(obj_media_streaming_access_response_message);
+    if (!obj) return NULL;
+
     const auto &value_from = p_response_code;
     typedef typename MediaStreamingAccess_responseMessage::ResponseCodeType ValueType;
 
     ValueType value = value_from;
     if (!obj->setResponseCode(value)) return NULL;
+
     return obj_media_streaming_access_response_message;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_response_message_t *data_collection_model_media_streaming_access_response_message_set_response_code_move(data_collection_model_media_streaming_access_response_message_t *obj_media_streaming_access_response_message, int32_t p_response_code)
 {
-    if (obj_media_streaming_access_response_message == NULL) return NULL;
+    if (!obj_media_streaming_access_response_message) return NULL;
 
     std::shared_ptr<MediaStreamingAccess_responseMessage > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccess_responseMessage >*>(obj_media_streaming_access_response_message);
+    if (!obj) return NULL;
+
     const auto &value_from = p_response_code;
     typedef typename MediaStreamingAccess_responseMessage::ResponseCodeType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setResponseCode(std::move(value))) return NULL;
+
     return obj_media_streaming_access_response_message;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_media_streaming_access_response_message_get_size(const data_collection_model_media_streaming_access_response_message_t *obj_media_streaming_access_response_message)
 {
+    if (!obj_media_streaming_access_response_message) {
+        const int32_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<MediaStreamingAccess_responseMessage > &obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccess_responseMessage >*>(obj_media_streaming_access_response_message);
+    if (!obj) {
+        const int32_t result = 0;
+        return result;
+    }
+
     typedef typename MediaStreamingAccess_responseMessage::SizeType ResultFromType;
     const ResultFromType result_from = obj->getSize();
     const ResultFromType result = result_from;
@@ -141,34 +237,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_response_message_t *data_collection_model_media_streaming_access_response_message_set_size(data_collection_model_media_streaming_access_response_message_t *obj_media_streaming_access_response_message, const int32_t p_size)
 {
-    if (obj_media_streaming_access_response_message == NULL) return NULL;
+    if (!obj_media_streaming_access_response_message) return NULL;
 
     std::shared_ptr<MediaStreamingAccess_responseMessage > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccess_responseMessage >*>(obj_media_streaming_access_response_message);
+    if (!obj) return NULL;
+
     const auto &value_from = p_size;
     typedef typename MediaStreamingAccess_responseMessage::SizeType ValueType;
 
     ValueType value = value_from;
     if (!obj->setSize(value)) return NULL;
+
     return obj_media_streaming_access_response_message;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_response_message_t *data_collection_model_media_streaming_access_response_message_set_size_move(data_collection_model_media_streaming_access_response_message_t *obj_media_streaming_access_response_message, int32_t p_size)
 {
-    if (obj_media_streaming_access_response_message == NULL) return NULL;
+    if (!obj_media_streaming_access_response_message) return NULL;
 
     std::shared_ptr<MediaStreamingAccess_responseMessage > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccess_responseMessage >*>(obj_media_streaming_access_response_message);
+    if (!obj) return NULL;
+
     const auto &value_from = p_size;
     typedef typename MediaStreamingAccess_responseMessage::SizeType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setSize(std::move(value))) return NULL;
+
     return obj_media_streaming_access_response_message;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_media_streaming_access_response_message_get_body_size(const data_collection_model_media_streaming_access_response_message_t *obj_media_streaming_access_response_message)
 {
+    if (!obj_media_streaming_access_response_message) {
+        const int32_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<MediaStreamingAccess_responseMessage > &obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccess_responseMessage >*>(obj_media_streaming_access_response_message);
+    if (!obj) {
+        const int32_t result = 0;
+        return result;
+    }
+
     typedef typename MediaStreamingAccess_responseMessage::BodySizeType ResultFromType;
     const ResultFromType result_from = obj->getBodySize();
     const ResultFromType result = result_from;
@@ -177,34 +289,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_response_message_t *data_collection_model_media_streaming_access_response_message_set_body_size(data_collection_model_media_streaming_access_response_message_t *obj_media_streaming_access_response_message, const int32_t p_body_size)
 {
-    if (obj_media_streaming_access_response_message == NULL) return NULL;
+    if (!obj_media_streaming_access_response_message) return NULL;
 
     std::shared_ptr<MediaStreamingAccess_responseMessage > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccess_responseMessage >*>(obj_media_streaming_access_response_message);
+    if (!obj) return NULL;
+
     const auto &value_from = p_body_size;
     typedef typename MediaStreamingAccess_responseMessage::BodySizeType ValueType;
 
     ValueType value = value_from;
     if (!obj->setBodySize(value)) return NULL;
+
     return obj_media_streaming_access_response_message;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_response_message_t *data_collection_model_media_streaming_access_response_message_set_body_size_move(data_collection_model_media_streaming_access_response_message_t *obj_media_streaming_access_response_message, int32_t p_body_size)
 {
-    if (obj_media_streaming_access_response_message == NULL) return NULL;
+    if (!obj_media_streaming_access_response_message) return NULL;
 
     std::shared_ptr<MediaStreamingAccess_responseMessage > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccess_responseMessage >*>(obj_media_streaming_access_response_message);
+    if (!obj) return NULL;
+
     const auto &value_from = p_body_size;
     typedef typename MediaStreamingAccess_responseMessage::BodySizeType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setBodySize(std::move(value))) return NULL;
+
     return obj_media_streaming_access_response_message;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_media_streaming_access_response_message_get_content_type(const data_collection_model_media_streaming_access_response_message_t *obj_media_streaming_access_response_message)
 {
+    if (!obj_media_streaming_access_response_message) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<MediaStreamingAccess_responseMessage > &obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccess_responseMessage >*>(obj_media_streaming_access_response_message);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename MediaStreamingAccess_responseMessage::ContentTypeType ResultFromType;
     const ResultFromType result_from = obj->getContentType();
     const char *result = result_from.c_str();
@@ -213,28 +341,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_me
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_response_message_t *data_collection_model_media_streaming_access_response_message_set_content_type(data_collection_model_media_streaming_access_response_message_t *obj_media_streaming_access_response_message, const char* p_content_type)
 {
-    if (obj_media_streaming_access_response_message == NULL) return NULL;
+    if (!obj_media_streaming_access_response_message) return NULL;
 
     std::shared_ptr<MediaStreamingAccess_responseMessage > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccess_responseMessage >*>(obj_media_streaming_access_response_message);
+    if (!obj) return NULL;
+
     const auto &value_from = p_content_type;
     typedef typename MediaStreamingAccess_responseMessage::ContentTypeType ValueType;
 
     ValueType value(value_from);
     if (!obj->setContentType(value)) return NULL;
+
     return obj_media_streaming_access_response_message;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_response_message_t *data_collection_model_media_streaming_access_response_message_set_content_type_move(data_collection_model_media_streaming_access_response_message_t *obj_media_streaming_access_response_message, char* p_content_type)
 {
-    if (obj_media_streaming_access_response_message == NULL) return NULL;
+    if (!obj_media_streaming_access_response_message) return NULL;
 
     std::shared_ptr<MediaStreamingAccess_responseMessage > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccess_responseMessage >*>(obj_media_streaming_access_response_message);
+    if (!obj) return NULL;
+
     const auto &value_from = p_content_type;
     typedef typename MediaStreamingAccess_responseMessage::ContentTypeType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setContentType(std::move(value))) return NULL;
+
     return obj_media_streaming_access_response_message;
 }
 
@@ -248,6 +382,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_media_streaming_access_response_message_refcount(data_collection_model_media_streaming_access_response_message_t *obj_media_streaming_access_response_message)
 {
+    if (!obj_media_streaming_access_response_message) return 0l;
     std::shared_ptr<MediaStreamingAccess_responseMessage > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccess_responseMessage >*>(obj_media_streaming_access_response_message);
     return obj.use_count();
 }

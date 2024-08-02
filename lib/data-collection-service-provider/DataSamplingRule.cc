@@ -37,36 +37,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_sampling_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_sampling_rule_t *data_collection_model_data_sampling_rule_create_copy(const data_collection_model_data_sampling_rule_t *other)
 {
-    return reinterpret_cast<data_collection_model_data_sampling_rule_t*>(new std::shared_ptr<DataSamplingRule >(new DataSamplingRule(**reinterpret_cast<const std::shared_ptr<DataSamplingRule >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<const std::shared_ptr<DataSamplingRule >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_data_sampling_rule_t*>(new std::shared_ptr<DataSamplingRule >(new DataSamplingRule(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_sampling_rule_t *data_collection_model_data_sampling_rule_create_move(data_collection_model_data_sampling_rule_t *other)
 {
-    return reinterpret_cast<data_collection_model_data_sampling_rule_t*>(new std::shared_ptr<DataSamplingRule >(std::move(*reinterpret_cast<std::shared_ptr<DataSamplingRule >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<DataSamplingRule > *obj = reinterpret_cast<std::shared_ptr<DataSamplingRule >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_sampling_rule_t *data_collection_model_data_sampling_rule_copy(data_collection_model_data_sampling_rule_t *data_sampling_rule, const data_collection_model_data_sampling_rule_t *other)
 {
-    std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<std::shared_ptr<DataSamplingRule >*>(data_sampling_rule);
-    *obj = **reinterpret_cast<const std::shared_ptr<DataSamplingRule >*>(other);
+    if (data_sampling_rule) {
+        std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<std::shared_ptr<DataSamplingRule >*>(data_sampling_rule);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<DataSamplingRule > &other_obj = *reinterpret_cast<const std::shared_ptr<DataSamplingRule >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<DataSamplingRule > &other_obj = *reinterpret_cast<const std::shared_ptr<DataSamplingRule >*>(other);
+                if (other_obj) {
+                    obj.reset(new DataSamplingRule(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        data_sampling_rule = data_collection_model_data_sampling_rule_create_copy(other);
+    }
     return data_sampling_rule;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_sampling_rule_t *data_collection_model_data_sampling_rule_move(data_collection_model_data_sampling_rule_t *data_sampling_rule, data_collection_model_data_sampling_rule_t *other)
 {
-    std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<std::shared_ptr<DataSamplingRule >*>(data_sampling_rule);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<DataSamplingRule >*>(other));
+    std::shared_ptr<DataSamplingRule > *other_ptr = reinterpret_cast<std::shared_ptr<DataSamplingRule >*>(other);
+
+    if (data_sampling_rule) {
+        std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<std::shared_ptr<DataSamplingRule >*>(data_sampling_rule);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                data_sampling_rule = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return data_sampling_rule;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_data_sampling_rule_free(data_collection_model_data_sampling_rule_t *data_sampling_rule)
 {
+    if (!data_sampling_rule) return;
     delete reinterpret_cast<std::shared_ptr<DataSamplingRule >*>(data_sampling_rule);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_data_sampling_rule_toJSON(const data_collection_model_data_sampling_rule_t *data_sampling_rule, bool as_request)
 {
+    if (!data_sampling_rule) return NULL;
     const std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<const std::shared_ptr<DataSamplingRule >*>(data_sampling_rule);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -86,15 +139,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_sampling_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_data_sampling_rule_is_equal_to(const data_collection_model_data_sampling_rule_t *first, const data_collection_model_data_sampling_rule_t *second)
 {
-    const std::shared_ptr<DataSamplingRule > &obj1 = *reinterpret_cast<const std::shared_ptr<DataSamplingRule >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<DataSamplingRule > &obj2 = *reinterpret_cast<const std::shared_ptr<DataSamplingRule >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<DataSamplingRule > &obj1 = *reinterpret_cast<const std::shared_ptr<DataSamplingRule >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_data_sampling_rule_get_context_ids(const data_collection_model_data_sampling_rule_t *obj_data_sampling_rule)
 {
+    if (!obj_data_sampling_rule) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<const std::shared_ptr<DataSamplingRule >*>(obj_data_sampling_rule);
+    if (!obj) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     typedef typename DataSamplingRule::ContextIdsType ResultFromType;
     const ResultFromType result_from = obj->getContextIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
@@ -110,9 +190,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_da
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_sampling_rule_t *data_collection_model_data_sampling_rule_set_context_ids(data_collection_model_data_sampling_rule_t *obj_data_sampling_rule, const ogs_list_t* p_context_ids)
 {
-    if (obj_data_sampling_rule == NULL) return NULL;
+    if (!obj_data_sampling_rule) return NULL;
 
     std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<std::shared_ptr<DataSamplingRule >*>(obj_data_sampling_rule);
+    if (!obj) return NULL;
+
     const auto &value_from = p_context_ids;
     typedef typename DataSamplingRule::ContextIdsType ValueType;
 
@@ -126,14 +208,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_sampling_
         }
     }
     if (!obj->setContextIds(value)) return NULL;
+
     return obj_data_sampling_rule;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_sampling_rule_t *data_collection_model_data_sampling_rule_set_context_ids_move(data_collection_model_data_sampling_rule_t *obj_data_sampling_rule, ogs_list_t* p_context_ids)
 {
-    if (obj_data_sampling_rule == NULL) return NULL;
+    if (!obj_data_sampling_rule) return NULL;
 
     std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<std::shared_ptr<DataSamplingRule >*>(obj_data_sampling_rule);
+    if (!obj) return NULL;
+
     const auto &value_from = p_context_ids;
     typedef typename DataSamplingRule::ContextIdsType ValueType;
 
@@ -148,12 +233,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_sampling_
     }
     data_collection_list_free(p_context_ids);
     if (!obj->setContextIds(std::move(value))) return NULL;
+
     return obj_data_sampling_rule;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_sampling_rule_t *data_collection_model_data_sampling_rule_add_context_ids(data_collection_model_data_sampling_rule_t *obj_data_sampling_rule, char* p_context_ids)
 {
+    if (!obj_data_sampling_rule) return NULL;
+
     std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<std::shared_ptr<DataSamplingRule >*>(obj_data_sampling_rule);
+    if (!obj) return NULL;
+
     typedef typename DataSamplingRule::ContextIdsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_context_ids;
@@ -166,7 +256,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_sampling_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_sampling_rule_t *data_collection_model_data_sampling_rule_remove_context_ids(data_collection_model_data_sampling_rule_t *obj_data_sampling_rule, const char* p_context_ids)
 {
+    if (!obj_data_sampling_rule) return NULL;
+
     std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<std::shared_ptr<DataSamplingRule >*>(obj_data_sampling_rule);
+    if (!obj) return NULL;
+
     typedef typename DataSamplingRule::ContextIdsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_context_ids;
@@ -176,15 +270,29 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_sampling_
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_sampling_rule_t *data_collection_model_data_sampling_rule_clear_context_ids(data_collection_model_data_sampling_rule_t *obj_data_sampling_rule)
-{   
+{
+    if (!obj_data_sampling_rule) return NULL;
+
     std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<std::shared_ptr<DataSamplingRule >*>(obj_data_sampling_rule);
+    if (!obj) return NULL;
+
     obj->clearContextIds();
     return obj_data_sampling_rule;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_data_sampling_rule_get_sampling_period(const data_collection_model_data_sampling_rule_t *obj_data_sampling_rule)
 {
+    if (!obj_data_sampling_rule) {
+        const float result = 0;
+        return result;
+    }
+
     const std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<const std::shared_ptr<DataSamplingRule >*>(obj_data_sampling_rule);
+    if (!obj) {
+        const float result = 0;
+        return result;
+    }
+
     typedef typename DataSamplingRule::SamplingPeriodType ResultFromType;
     const ResultFromType result_from = obj->getSamplingPeriod();
     const ResultFromType result = result_from;
@@ -193,34 +301,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_da
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_sampling_rule_t *data_collection_model_data_sampling_rule_set_sampling_period(data_collection_model_data_sampling_rule_t *obj_data_sampling_rule, const float p_sampling_period)
 {
-    if (obj_data_sampling_rule == NULL) return NULL;
+    if (!obj_data_sampling_rule) return NULL;
 
     std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<std::shared_ptr<DataSamplingRule >*>(obj_data_sampling_rule);
+    if (!obj) return NULL;
+
     const auto &value_from = p_sampling_period;
     typedef typename DataSamplingRule::SamplingPeriodType ValueType;
 
     ValueType value = value_from;
     if (!obj->setSamplingPeriod(value)) return NULL;
+
     return obj_data_sampling_rule;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_sampling_rule_t *data_collection_model_data_sampling_rule_set_sampling_period_move(data_collection_model_data_sampling_rule_t *obj_data_sampling_rule, float p_sampling_period)
 {
-    if (obj_data_sampling_rule == NULL) return NULL;
+    if (!obj_data_sampling_rule) return NULL;
 
     std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<std::shared_ptr<DataSamplingRule >*>(obj_data_sampling_rule);
+    if (!obj) return NULL;
+
     const auto &value_from = p_sampling_period;
     typedef typename DataSamplingRule::SamplingPeriodType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setSamplingPeriod(std::move(value))) return NULL;
+
     return obj_data_sampling_rule;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_location_area5_g_t* data_collection_model_data_sampling_rule_get_location_filter(const data_collection_model_data_sampling_rule_t *obj_data_sampling_rule)
 {
+    if (!obj_data_sampling_rule) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<const std::shared_ptr<DataSamplingRule >*>(obj_data_sampling_rule);
+    if (!obj) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+        return result;
+    }
+
     typedef typename DataSamplingRule::LocationFilterType ResultFromType;
     const ResultFromType result_from = obj->getLocationFilter();
     const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(&result_from);
@@ -229,28 +353,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_location
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_sampling_rule_t *data_collection_model_data_sampling_rule_set_location_filter(data_collection_model_data_sampling_rule_t *obj_data_sampling_rule, const data_collection_model_location_area5_g_t* p_location_filter)
 {
-    if (obj_data_sampling_rule == NULL) return NULL;
+    if (!obj_data_sampling_rule) return NULL;
 
     std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<std::shared_ptr<DataSamplingRule >*>(obj_data_sampling_rule);
+    if (!obj) return NULL;
+
     const auto &value_from = p_location_filter;
     typedef typename DataSamplingRule::LocationFilterType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setLocationFilter(value)) return NULL;
+
     return obj_data_sampling_rule;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_sampling_rule_t *data_collection_model_data_sampling_rule_set_location_filter_move(data_collection_model_data_sampling_rule_t *obj_data_sampling_rule, data_collection_model_location_area5_g_t* p_location_filter)
 {
-    if (obj_data_sampling_rule == NULL) return NULL;
+    if (!obj_data_sampling_rule) return NULL;
 
     std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<std::shared_ptr<DataSamplingRule >*>(obj_data_sampling_rule);
+    if (!obj) return NULL;
+
     const auto &value_from = p_location_filter;
     typedef typename DataSamplingRule::LocationFilterType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setLocationFilter(std::move(value))) return NULL;
+
     return obj_data_sampling_rule;
 }
 
@@ -264,6 +394,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_data_sampling_rule_refcount(data_collection_model_data_sampling_rule_t *obj_data_sampling_rule)
 {
+    if (!obj_data_sampling_rule) return 0l;
     std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<std::shared_ptr<DataSamplingRule >*>(obj_data_sampling_rule);
     return obj.use_count();
 }

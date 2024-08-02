@@ -29,36 +29,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_domain_t 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_domain_t *data_collection_model_data_domain_create_copy(const data_collection_model_data_domain_t *other)
 {
-    return reinterpret_cast<data_collection_model_data_domain_t*>(new std::shared_ptr<DataDomain >(new DataDomain(**reinterpret_cast<const std::shared_ptr<DataDomain >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<DataDomain > &obj = *reinterpret_cast<const std::shared_ptr<DataDomain >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_data_domain_t*>(new std::shared_ptr<DataDomain >(new DataDomain(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_domain_t *data_collection_model_data_domain_create_move(data_collection_model_data_domain_t *other)
 {
-    return reinterpret_cast<data_collection_model_data_domain_t*>(new std::shared_ptr<DataDomain >(std::move(*reinterpret_cast<std::shared_ptr<DataDomain >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<DataDomain > *obj = reinterpret_cast<std::shared_ptr<DataDomain >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_domain_t *data_collection_model_data_domain_copy(data_collection_model_data_domain_t *data_domain, const data_collection_model_data_domain_t *other)
 {
-    std::shared_ptr<DataDomain > &obj = *reinterpret_cast<std::shared_ptr<DataDomain >*>(data_domain);
-    *obj = **reinterpret_cast<const std::shared_ptr<DataDomain >*>(other);
+    if (data_domain) {
+        std::shared_ptr<DataDomain > &obj = *reinterpret_cast<std::shared_ptr<DataDomain >*>(data_domain);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<DataDomain > &other_obj = *reinterpret_cast<const std::shared_ptr<DataDomain >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<DataDomain > &other_obj = *reinterpret_cast<const std::shared_ptr<DataDomain >*>(other);
+                if (other_obj) {
+                    obj.reset(new DataDomain(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        data_domain = data_collection_model_data_domain_create_copy(other);
+    }
     return data_domain;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_domain_t *data_collection_model_data_domain_move(data_collection_model_data_domain_t *data_domain, data_collection_model_data_domain_t *other)
 {
-    std::shared_ptr<DataDomain > &obj = *reinterpret_cast<std::shared_ptr<DataDomain >*>(data_domain);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<DataDomain >*>(other));
+    std::shared_ptr<DataDomain > *other_ptr = reinterpret_cast<std::shared_ptr<DataDomain >*>(other);
+
+    if (data_domain) {
+        std::shared_ptr<DataDomain > &obj = *reinterpret_cast<std::shared_ptr<DataDomain >*>(data_domain);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                data_domain = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return data_domain;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_data_domain_free(data_collection_model_data_domain_t *data_domain)
 {
+    if (!data_domain) return;
     delete reinterpret_cast<std::shared_ptr<DataDomain >*>(data_domain);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_data_domain_toJSON(const data_collection_model_data_domain_t *data_domain, bool as_request)
 {
+    if (!data_domain) return NULL;
     const std::shared_ptr<DataDomain > &obj = *reinterpret_cast<const std::shared_ptr<DataDomain >*>(data_domain);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -78,27 +131,51 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_domain_t 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_data_domain_is_equal_to(const data_collection_model_data_domain_t *first, const data_collection_model_data_domain_t *second)
 {
-    const std::shared_ptr<DataDomain > &obj1 = *reinterpret_cast<const std::shared_ptr<DataDomain >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<DataDomain > &obj2 = *reinterpret_cast<const std::shared_ptr<DataDomain >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<DataDomain > &obj1 = *reinterpret_cast<const std::shared_ptr<DataDomain >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_domain_is_not_set(const data_collection_model_data_domain_t *obj_data_domain)
 {
+    if (!obj_data_domain) return true;
     const std::shared_ptr<DataDomain > &obj = *reinterpret_cast<const std::shared_ptr<DataDomain >*>(obj_data_domain);
+    if (!obj) return true;
     return obj->getValue() == DataDomain::Enum::NO_VAL;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_domain_is_non_standard(const data_collection_model_data_domain_t *obj_data_domain)
 {
+    if (!obj_data_domain) return false;
     const std::shared_ptr<DataDomain > &obj = *reinterpret_cast<const std::shared_ptr<DataDomain >*>(obj_data_domain);
+    if (!obj) return false;
     return obj->getValue() == DataDomain::Enum::OTHER;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_domain_e data_collection_model_data_domain_get_enum(const data_collection_model_data_domain_t *obj_data_domain)
 {
+    if (!obj_data_domain)
+        return DCM_DATA_DOMAIN_NO_VAL;
     const std::shared_ptr<DataDomain > &obj = *reinterpret_cast<const std::shared_ptr<DataDomain >*>(obj_data_domain);
+    if (!obj) return DCM_DATA_DOMAIN_NO_VAL;
     switch (obj->getValue()) {
     case DataDomain::Enum::NO_VAL:
         return DCM_DATA_DOMAIN_NO_VAL;
@@ -126,13 +203,17 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_domain_e data_collec
 
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_data_domain_get_string(const data_collection_model_data_domain_t *obj_data_domain)
 {
+    if (!obj_data_domain) return NULL;
     const std::shared_ptr<DataDomain > &obj = *reinterpret_cast<const std::shared_ptr<DataDomain >*>(obj_data_domain);
+    if (!obj) return NULL;
     return obj->getString().c_str();
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_domain_set_enum(data_collection_model_data_domain_t *obj_data_domain, data_collection_model_data_domain_e p_value)
 {
+    if (!obj_data_domain) return false;
     std::shared_ptr<DataDomain > &obj = *reinterpret_cast<std::shared_ptr<DataDomain >*>(obj_data_domain);
+    if (!obj) return false;
     switch (p_value) {
     case DCM_DATA_DOMAIN_NO_VAL:
         *obj = DataDomain::Enum::NO_VAL;
@@ -169,7 +250,9 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_domain_set_enum
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_domain_set_string(data_collection_model_data_domain_t *obj_data_domain, const char *p_value)
 {
+    if (!obj_data_domain) return false;
     std::shared_ptr<DataDomain > &obj = *reinterpret_cast<std::shared_ptr<DataDomain >*>(obj_data_domain);
+    if (!obj) return false;
     if (p_value) {
         *obj = std::string(p_value);
     } else {
@@ -189,6 +272,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_data_domain_refcount(data_collection_model_data_domain_t *obj_data_domain)
 {
+    if (!obj_data_domain) return 0l;
     std::shared_ptr<DataDomain > &obj = *reinterpret_cast<std::shared_ptr<DataDomain >*>(obj_data_domain);
     return obj.use_count();
 }

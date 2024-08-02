@@ -39,36 +39,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_origin_t
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_origin_t *data_collection_model_local_origin_create_copy(const data_collection_model_local_origin_t *other)
 {
-    return reinterpret_cast<data_collection_model_local_origin_t*>(new std::shared_ptr<LocalOrigin >(new LocalOrigin(**reinterpret_cast<const std::shared_ptr<LocalOrigin >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<LocalOrigin > &obj = *reinterpret_cast<const std::shared_ptr<LocalOrigin >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_local_origin_t*>(new std::shared_ptr<LocalOrigin >(new LocalOrigin(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_origin_t *data_collection_model_local_origin_create_move(data_collection_model_local_origin_t *other)
 {
-    return reinterpret_cast<data_collection_model_local_origin_t*>(new std::shared_ptr<LocalOrigin >(std::move(*reinterpret_cast<std::shared_ptr<LocalOrigin >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<LocalOrigin > *obj = reinterpret_cast<std::shared_ptr<LocalOrigin >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_origin_t *data_collection_model_local_origin_copy(data_collection_model_local_origin_t *local_origin, const data_collection_model_local_origin_t *other)
 {
-    std::shared_ptr<LocalOrigin > &obj = *reinterpret_cast<std::shared_ptr<LocalOrigin >*>(local_origin);
-    *obj = **reinterpret_cast<const std::shared_ptr<LocalOrigin >*>(other);
+    if (local_origin) {
+        std::shared_ptr<LocalOrigin > &obj = *reinterpret_cast<std::shared_ptr<LocalOrigin >*>(local_origin);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<LocalOrigin > &other_obj = *reinterpret_cast<const std::shared_ptr<LocalOrigin >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<LocalOrigin > &other_obj = *reinterpret_cast<const std::shared_ptr<LocalOrigin >*>(other);
+                if (other_obj) {
+                    obj.reset(new LocalOrigin(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        local_origin = data_collection_model_local_origin_create_copy(other);
+    }
     return local_origin;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_origin_t *data_collection_model_local_origin_move(data_collection_model_local_origin_t *local_origin, data_collection_model_local_origin_t *other)
 {
-    std::shared_ptr<LocalOrigin > &obj = *reinterpret_cast<std::shared_ptr<LocalOrigin >*>(local_origin);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<LocalOrigin >*>(other));
+    std::shared_ptr<LocalOrigin > *other_ptr = reinterpret_cast<std::shared_ptr<LocalOrigin >*>(other);
+
+    if (local_origin) {
+        std::shared_ptr<LocalOrigin > &obj = *reinterpret_cast<std::shared_ptr<LocalOrigin >*>(local_origin);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                local_origin = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return local_origin;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_local_origin_free(data_collection_model_local_origin_t *local_origin)
 {
+    if (!local_origin) return;
     delete reinterpret_cast<std::shared_ptr<LocalOrigin >*>(local_origin);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_local_origin_toJSON(const data_collection_model_local_origin_t *local_origin, bool as_request)
 {
+    if (!local_origin) return NULL;
     const std::shared_ptr<LocalOrigin > &obj = *reinterpret_cast<const std::shared_ptr<LocalOrigin >*>(local_origin);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -88,15 +141,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_origin_t
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_local_origin_is_equal_to(const data_collection_model_local_origin_t *first, const data_collection_model_local_origin_t *second)
 {
-    const std::shared_ptr<LocalOrigin > &obj1 = *reinterpret_cast<const std::shared_ptr<LocalOrigin >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<LocalOrigin > &obj2 = *reinterpret_cast<const std::shared_ptr<LocalOrigin >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<LocalOrigin > &obj1 = *reinterpret_cast<const std::shared_ptr<LocalOrigin >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_local_origin_get_coordinate_id(const data_collection_model_local_origin_t *obj_local_origin)
 {
+    if (!obj_local_origin) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<LocalOrigin > &obj = *reinterpret_cast<const std::shared_ptr<LocalOrigin >*>(obj_local_origin);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename LocalOrigin::CoordinateIdType ResultFromType;
     const ResultFromType result_from = obj->getCoordinateId();
     const char *result = result_from.c_str();
@@ -105,34 +185,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_lo
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_origin_t *data_collection_model_local_origin_set_coordinate_id(data_collection_model_local_origin_t *obj_local_origin, const char* p_coordinate_id)
 {
-    if (obj_local_origin == NULL) return NULL;
+    if (!obj_local_origin) return NULL;
 
     std::shared_ptr<LocalOrigin > &obj = *reinterpret_cast<std::shared_ptr<LocalOrigin >*>(obj_local_origin);
+    if (!obj) return NULL;
+
     const auto &value_from = p_coordinate_id;
     typedef typename LocalOrigin::CoordinateIdType ValueType;
 
     ValueType value(value_from);
     if (!obj->setCoordinateId(value)) return NULL;
+
     return obj_local_origin;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_origin_t *data_collection_model_local_origin_set_coordinate_id_move(data_collection_model_local_origin_t *obj_local_origin, char* p_coordinate_id)
 {
-    if (obj_local_origin == NULL) return NULL;
+    if (!obj_local_origin) return NULL;
 
     std::shared_ptr<LocalOrigin > &obj = *reinterpret_cast<std::shared_ptr<LocalOrigin >*>(obj_local_origin);
+    if (!obj) return NULL;
+
     const auto &value_from = p_coordinate_id;
     typedef typename LocalOrigin::CoordinateIdType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setCoordinateId(std::move(value))) return NULL;
+
     return obj_local_origin;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geographical_coordinates_t* data_collection_model_local_origin_get_point(const data_collection_model_local_origin_t *obj_local_origin)
 {
+    if (!obj_local_origin) {
+        const data_collection_model_geographical_coordinates_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<LocalOrigin > &obj = *reinterpret_cast<const std::shared_ptr<LocalOrigin >*>(obj_local_origin);
+    if (!obj) {
+        const data_collection_model_geographical_coordinates_t *result = NULL;
+        return result;
+    }
+
     typedef typename LocalOrigin::PointType ResultFromType;
     const ResultFromType result_from = obj->getPoint();
     const data_collection_model_geographical_coordinates_t *result = reinterpret_cast<const data_collection_model_geographical_coordinates_t*>(&result_from);
@@ -141,34 +237,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geograph
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_origin_t *data_collection_model_local_origin_set_point(data_collection_model_local_origin_t *obj_local_origin, const data_collection_model_geographical_coordinates_t* p_point)
 {
-    if (obj_local_origin == NULL) return NULL;
+    if (!obj_local_origin) return NULL;
 
     std::shared_ptr<LocalOrigin > &obj = *reinterpret_cast<std::shared_ptr<LocalOrigin >*>(obj_local_origin);
+    if (!obj) return NULL;
+
     const auto &value_from = p_point;
     typedef typename LocalOrigin::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setPoint(value)) return NULL;
+
     return obj_local_origin;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_origin_t *data_collection_model_local_origin_set_point_move(data_collection_model_local_origin_t *obj_local_origin, data_collection_model_geographical_coordinates_t* p_point)
 {
-    if (obj_local_origin == NULL) return NULL;
+    if (!obj_local_origin) return NULL;
 
     std::shared_ptr<LocalOrigin > &obj = *reinterpret_cast<std::shared_ptr<LocalOrigin >*>(obj_local_origin);
+    if (!obj) return NULL;
+
     const auto &value_from = p_point;
     typedef typename LocalOrigin::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setPoint(std::move(value))) return NULL;
+
     return obj_local_origin;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geographic_area_t* data_collection_model_local_origin_get_area(const data_collection_model_local_origin_t *obj_local_origin)
 {
+    if (!obj_local_origin) {
+        const data_collection_model_geographic_area_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<LocalOrigin > &obj = *reinterpret_cast<const std::shared_ptr<LocalOrigin >*>(obj_local_origin);
+    if (!obj) {
+        const data_collection_model_geographic_area_t *result = NULL;
+        return result;
+    }
+
     typedef typename LocalOrigin::AreaType ResultFromType;
     const ResultFromType result_from = obj->getArea();
     const data_collection_model_geographic_area_t *result = reinterpret_cast<const data_collection_model_geographic_area_t*>(&result_from);
@@ -177,34 +289,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geograph
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_origin_t *data_collection_model_local_origin_set_area(data_collection_model_local_origin_t *obj_local_origin, const data_collection_model_geographic_area_t* p_area)
 {
-    if (obj_local_origin == NULL) return NULL;
+    if (!obj_local_origin) return NULL;
 
     std::shared_ptr<LocalOrigin > &obj = *reinterpret_cast<std::shared_ptr<LocalOrigin >*>(obj_local_origin);
+    if (!obj) return NULL;
+
     const auto &value_from = p_area;
     typedef typename LocalOrigin::AreaType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setArea(value)) return NULL;
+
     return obj_local_origin;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_origin_t *data_collection_model_local_origin_set_area_move(data_collection_model_local_origin_t *obj_local_origin, data_collection_model_geographic_area_t* p_area)
 {
-    if (obj_local_origin == NULL) return NULL;
+    if (!obj_local_origin) return NULL;
 
     std::shared_ptr<LocalOrigin > &obj = *reinterpret_cast<std::shared_ptr<LocalOrigin >*>(obj_local_origin);
+    if (!obj) return NULL;
+
     const auto &value_from = p_area;
     typedef typename LocalOrigin::AreaType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setArea(std::move(value))) return NULL;
+
     return obj_local_origin;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_local_origin_get_horiz_axes_orientation(const data_collection_model_local_origin_t *obj_local_origin)
 {
+    if (!obj_local_origin) {
+        const int32_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<LocalOrigin > &obj = *reinterpret_cast<const std::shared_ptr<LocalOrigin >*>(obj_local_origin);
+    if (!obj) {
+        const int32_t result = 0;
+        return result;
+    }
+
     typedef typename LocalOrigin::HorizAxesOrientationType ResultFromType;
     const ResultFromType result_from = obj->getHorizAxesOrientation();
     const ResultFromType result = result_from;
@@ -213,28 +341,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_origin_t *data_collection_model_local_origin_set_horiz_axes_orientation(data_collection_model_local_origin_t *obj_local_origin, const int32_t p_horiz_axes_orientation)
 {
-    if (obj_local_origin == NULL) return NULL;
+    if (!obj_local_origin) return NULL;
 
     std::shared_ptr<LocalOrigin > &obj = *reinterpret_cast<std::shared_ptr<LocalOrigin >*>(obj_local_origin);
+    if (!obj) return NULL;
+
     const auto &value_from = p_horiz_axes_orientation;
     typedef typename LocalOrigin::HorizAxesOrientationType ValueType;
 
     ValueType value = value_from;
     if (!obj->setHorizAxesOrientation(value)) return NULL;
+
     return obj_local_origin;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_origin_t *data_collection_model_local_origin_set_horiz_axes_orientation_move(data_collection_model_local_origin_t *obj_local_origin, int32_t p_horiz_axes_orientation)
 {
-    if (obj_local_origin == NULL) return NULL;
+    if (!obj_local_origin) return NULL;
 
     std::shared_ptr<LocalOrigin > &obj = *reinterpret_cast<std::shared_ptr<LocalOrigin >*>(obj_local_origin);
+    if (!obj) return NULL;
+
     const auto &value_from = p_horiz_axes_orientation;
     typedef typename LocalOrigin::HorizAxesOrientationType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setHorizAxesOrientation(std::move(value))) return NULL;
+
     return obj_local_origin;
 }
 
@@ -248,6 +382,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_local_origin_refcount(data_collection_model_local_origin_t *obj_local_origin)
 {
+    if (!obj_local_origin) return 0l;
     std::shared_ptr<LocalOrigin > &obj = *reinterpret_cast<std::shared_ptr<LocalOrigin >*>(obj_local_origin);
     return obj.use_count();
 }

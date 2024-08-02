@@ -35,36 +35,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_typed_location
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_typed_location_t *data_collection_model_typed_location_create_copy(const data_collection_model_typed_location_t *other)
 {
-    return reinterpret_cast<data_collection_model_typed_location_t*>(new std::shared_ptr<TypedLocation >(new TypedLocation(**reinterpret_cast<const std::shared_ptr<TypedLocation >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<TypedLocation > &obj = *reinterpret_cast<const std::shared_ptr<TypedLocation >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_typed_location_t*>(new std::shared_ptr<TypedLocation >(new TypedLocation(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_typed_location_t *data_collection_model_typed_location_create_move(data_collection_model_typed_location_t *other)
 {
-    return reinterpret_cast<data_collection_model_typed_location_t*>(new std::shared_ptr<TypedLocation >(std::move(*reinterpret_cast<std::shared_ptr<TypedLocation >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<TypedLocation > *obj = reinterpret_cast<std::shared_ptr<TypedLocation >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_typed_location_t *data_collection_model_typed_location_copy(data_collection_model_typed_location_t *typed_location, const data_collection_model_typed_location_t *other)
 {
-    std::shared_ptr<TypedLocation > &obj = *reinterpret_cast<std::shared_ptr<TypedLocation >*>(typed_location);
-    *obj = **reinterpret_cast<const std::shared_ptr<TypedLocation >*>(other);
+    if (typed_location) {
+        std::shared_ptr<TypedLocation > &obj = *reinterpret_cast<std::shared_ptr<TypedLocation >*>(typed_location);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<TypedLocation > &other_obj = *reinterpret_cast<const std::shared_ptr<TypedLocation >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<TypedLocation > &other_obj = *reinterpret_cast<const std::shared_ptr<TypedLocation >*>(other);
+                if (other_obj) {
+                    obj.reset(new TypedLocation(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        typed_location = data_collection_model_typed_location_create_copy(other);
+    }
     return typed_location;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_typed_location_t *data_collection_model_typed_location_move(data_collection_model_typed_location_t *typed_location, data_collection_model_typed_location_t *other)
 {
-    std::shared_ptr<TypedLocation > &obj = *reinterpret_cast<std::shared_ptr<TypedLocation >*>(typed_location);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<TypedLocation >*>(other));
+    std::shared_ptr<TypedLocation > *other_ptr = reinterpret_cast<std::shared_ptr<TypedLocation >*>(other);
+
+    if (typed_location) {
+        std::shared_ptr<TypedLocation > &obj = *reinterpret_cast<std::shared_ptr<TypedLocation >*>(typed_location);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                typed_location = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return typed_location;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_typed_location_free(data_collection_model_typed_location_t *typed_location)
 {
+    if (!typed_location) return;
     delete reinterpret_cast<std::shared_ptr<TypedLocation >*>(typed_location);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_typed_location_toJSON(const data_collection_model_typed_location_t *typed_location, bool as_request)
 {
+    if (!typed_location) return NULL;
     const std::shared_ptr<TypedLocation > &obj = *reinterpret_cast<const std::shared_ptr<TypedLocation >*>(typed_location);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -84,15 +137,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_typed_location
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_typed_location_is_equal_to(const data_collection_model_typed_location_t *first, const data_collection_model_typed_location_t *second)
 {
-    const std::shared_ptr<TypedLocation > &obj1 = *reinterpret_cast<const std::shared_ptr<TypedLocation >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<TypedLocation > &obj2 = *reinterpret_cast<const std::shared_ptr<TypedLocation >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<TypedLocation > &obj1 = *reinterpret_cast<const std::shared_ptr<TypedLocation >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_cell_identifier_type_t* data_collection_model_typed_location_get_location_identifier_type(const data_collection_model_typed_location_t *obj_typed_location)
 {
+    if (!obj_typed_location) {
+        const data_collection_model_cell_identifier_type_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<TypedLocation > &obj = *reinterpret_cast<const std::shared_ptr<TypedLocation >*>(obj_typed_location);
+    if (!obj) {
+        const data_collection_model_cell_identifier_type_t *result = NULL;
+        return result;
+    }
+
     typedef typename TypedLocation::LocationIdentifierTypeType ResultFromType;
     const ResultFromType result_from = obj->getLocationIdentifierType();
     const data_collection_model_cell_identifier_type_t *result = reinterpret_cast<const data_collection_model_cell_identifier_type_t*>(&result_from);
@@ -101,34 +181,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_cell_ide
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_typed_location_t *data_collection_model_typed_location_set_location_identifier_type(data_collection_model_typed_location_t *obj_typed_location, const data_collection_model_cell_identifier_type_t* p_location_identifier_type)
 {
-    if (obj_typed_location == NULL) return NULL;
+    if (!obj_typed_location) return NULL;
 
     std::shared_ptr<TypedLocation > &obj = *reinterpret_cast<std::shared_ptr<TypedLocation >*>(obj_typed_location);
+    if (!obj) return NULL;
+
     const auto &value_from = p_location_identifier_type;
     typedef typename TypedLocation::LocationIdentifierTypeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setLocationIdentifierType(value)) return NULL;
+
     return obj_typed_location;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_typed_location_t *data_collection_model_typed_location_set_location_identifier_type_move(data_collection_model_typed_location_t *obj_typed_location, data_collection_model_cell_identifier_type_t* p_location_identifier_type)
 {
-    if (obj_typed_location == NULL) return NULL;
+    if (!obj_typed_location) return NULL;
 
     std::shared_ptr<TypedLocation > &obj = *reinterpret_cast<std::shared_ptr<TypedLocation >*>(obj_typed_location);
+    if (!obj) return NULL;
+
     const auto &value_from = p_location_identifier_type;
     typedef typename TypedLocation::LocationIdentifierTypeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setLocationIdentifierType(std::move(value))) return NULL;
+
     return obj_typed_location;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_typed_location_get_location(const data_collection_model_typed_location_t *obj_typed_location)
 {
+    if (!obj_typed_location) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<TypedLocation > &obj = *reinterpret_cast<const std::shared_ptr<TypedLocation >*>(obj_typed_location);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename TypedLocation::LocationType ResultFromType;
     const ResultFromType result_from = obj->getLocation();
     const char *result = result_from.c_str();
@@ -137,28 +233,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ty
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_typed_location_t *data_collection_model_typed_location_set_location(data_collection_model_typed_location_t *obj_typed_location, const char* p_location)
 {
-    if (obj_typed_location == NULL) return NULL;
+    if (!obj_typed_location) return NULL;
 
     std::shared_ptr<TypedLocation > &obj = *reinterpret_cast<std::shared_ptr<TypedLocation >*>(obj_typed_location);
+    if (!obj) return NULL;
+
     const auto &value_from = p_location;
     typedef typename TypedLocation::LocationType ValueType;
 
     ValueType value(value_from);
     if (!obj->setLocation(value)) return NULL;
+
     return obj_typed_location;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_typed_location_t *data_collection_model_typed_location_set_location_move(data_collection_model_typed_location_t *obj_typed_location, char* p_location)
 {
-    if (obj_typed_location == NULL) return NULL;
+    if (!obj_typed_location) return NULL;
 
     std::shared_ptr<TypedLocation > &obj = *reinterpret_cast<std::shared_ptr<TypedLocation >*>(obj_typed_location);
+    if (!obj) return NULL;
+
     const auto &value_from = p_location;
     typedef typename TypedLocation::LocationType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setLocation(std::move(value))) return NULL;
+
     return obj_typed_location;
 }
 
@@ -172,6 +274,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_typed_location_refcount(data_collection_model_typed_location_t *obj_typed_location)
 {
+    if (!obj_typed_location) return 0l;
     std::shared_ptr<TypedLocation > &obj = *reinterpret_cast<std::shared_ptr<TypedLocation >*>(obj_typed_location);
     return obj.use_count();
 }

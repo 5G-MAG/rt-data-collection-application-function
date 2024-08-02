@@ -35,36 +35,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *d
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_create_copy(const data_collection_model_flow_info_t *other)
 {
-    return reinterpret_cast<data_collection_model_flow_info_t*>(new std::shared_ptr<FlowInfo >(new FlowInfo(**reinterpret_cast<const std::shared_ptr<FlowInfo >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<const std::shared_ptr<FlowInfo >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_flow_info_t*>(new std::shared_ptr<FlowInfo >(new FlowInfo(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_create_move(data_collection_model_flow_info_t *other)
 {
-    return reinterpret_cast<data_collection_model_flow_info_t*>(new std::shared_ptr<FlowInfo >(std::move(*reinterpret_cast<std::shared_ptr<FlowInfo >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<FlowInfo > *obj = reinterpret_cast<std::shared_ptr<FlowInfo >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_copy(data_collection_model_flow_info_t *flow_info, const data_collection_model_flow_info_t *other)
 {
-    std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<std::shared_ptr<FlowInfo >*>(flow_info);
-    *obj = **reinterpret_cast<const std::shared_ptr<FlowInfo >*>(other);
+    if (flow_info) {
+        std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<std::shared_ptr<FlowInfo >*>(flow_info);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<FlowInfo > &other_obj = *reinterpret_cast<const std::shared_ptr<FlowInfo >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<FlowInfo > &other_obj = *reinterpret_cast<const std::shared_ptr<FlowInfo >*>(other);
+                if (other_obj) {
+                    obj.reset(new FlowInfo(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        flow_info = data_collection_model_flow_info_create_copy(other);
+    }
     return flow_info;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_move(data_collection_model_flow_info_t *flow_info, data_collection_model_flow_info_t *other)
 {
-    std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<std::shared_ptr<FlowInfo >*>(flow_info);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<FlowInfo >*>(other));
+    std::shared_ptr<FlowInfo > *other_ptr = reinterpret_cast<std::shared_ptr<FlowInfo >*>(other);
+
+    if (flow_info) {
+        std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<std::shared_ptr<FlowInfo >*>(flow_info);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                flow_info = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return flow_info;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_flow_info_free(data_collection_model_flow_info_t *flow_info)
 {
+    if (!flow_info) return;
     delete reinterpret_cast<std::shared_ptr<FlowInfo >*>(flow_info);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_flow_info_toJSON(const data_collection_model_flow_info_t *flow_info, bool as_request)
 {
+    if (!flow_info) return NULL;
     const std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<const std::shared_ptr<FlowInfo >*>(flow_info);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -84,15 +137,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *d
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_flow_info_is_equal_to(const data_collection_model_flow_info_t *first, const data_collection_model_flow_info_t *second)
 {
-    const std::shared_ptr<FlowInfo > &obj1 = *reinterpret_cast<const std::shared_ptr<FlowInfo >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<FlowInfo > &obj2 = *reinterpret_cast<const std::shared_ptr<FlowInfo >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<FlowInfo > &obj1 = *reinterpret_cast<const std::shared_ptr<FlowInfo >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_flow_info_get_flow_id(const data_collection_model_flow_info_t *obj_flow_info)
 {
+    if (!obj_flow_info) {
+        const int32_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<const std::shared_ptr<FlowInfo >*>(obj_flow_info);
+    if (!obj) {
+        const int32_t result = 0;
+        return result;
+    }
+
     typedef typename FlowInfo::FlowIdType ResultFromType;
     const ResultFromType result_from = obj->getFlowId();
     const ResultFromType result = result_from;
@@ -101,34 +181,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_set_flow_id(data_collection_model_flow_info_t *obj_flow_info, const int32_t p_flow_id)
 {
-    if (obj_flow_info == NULL) return NULL;
+    if (!obj_flow_info) return NULL;
 
     std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<std::shared_ptr<FlowInfo >*>(obj_flow_info);
+    if (!obj) return NULL;
+
     const auto &value_from = p_flow_id;
     typedef typename FlowInfo::FlowIdType ValueType;
 
     ValueType value = value_from;
     if (!obj->setFlowId(value)) return NULL;
+
     return obj_flow_info;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_set_flow_id_move(data_collection_model_flow_info_t *obj_flow_info, int32_t p_flow_id)
 {
-    if (obj_flow_info == NULL) return NULL;
+    if (!obj_flow_info) return NULL;
 
     std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<std::shared_ptr<FlowInfo >*>(obj_flow_info);
+    if (!obj) return NULL;
+
     const auto &value_from = p_flow_id;
     typedef typename FlowInfo::FlowIdType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setFlowId(std::move(value))) return NULL;
+
     return obj_flow_info;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_flow_info_get_flow_descriptions(const data_collection_model_flow_info_t *obj_flow_info)
 {
+    if (!obj_flow_info) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<const std::shared_ptr<FlowInfo >*>(obj_flow_info);
+    if (!obj) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     typedef typename FlowInfo::FlowDescriptionsType ResultFromType;
     const ResultFromType result_from = obj->getFlowDescriptions();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
@@ -144,9 +240,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_fl
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_set_flow_descriptions(data_collection_model_flow_info_t *obj_flow_info, const ogs_list_t* p_flow_descriptions)
 {
-    if (obj_flow_info == NULL) return NULL;
+    if (!obj_flow_info) return NULL;
 
     std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<std::shared_ptr<FlowInfo >*>(obj_flow_info);
+    if (!obj) return NULL;
+
     const auto &value_from = p_flow_descriptions;
     typedef typename FlowInfo::FlowDescriptionsType ValueType;
 
@@ -160,14 +258,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *d
         }
     }
     if (!obj->setFlowDescriptions(value)) return NULL;
+
     return obj_flow_info;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_set_flow_descriptions_move(data_collection_model_flow_info_t *obj_flow_info, ogs_list_t* p_flow_descriptions)
 {
-    if (obj_flow_info == NULL) return NULL;
+    if (!obj_flow_info) return NULL;
 
     std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<std::shared_ptr<FlowInfo >*>(obj_flow_info);
+    if (!obj) return NULL;
+
     const auto &value_from = p_flow_descriptions;
     typedef typename FlowInfo::FlowDescriptionsType ValueType;
 
@@ -182,12 +283,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *d
     }
     data_collection_list_free(p_flow_descriptions);
     if (!obj->setFlowDescriptions(std::move(value))) return NULL;
+
     return obj_flow_info;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_add_flow_descriptions(data_collection_model_flow_info_t *obj_flow_info, char* p_flow_descriptions)
 {
+    if (!obj_flow_info) return NULL;
+
     std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<std::shared_ptr<FlowInfo >*>(obj_flow_info);
+    if (!obj) return NULL;
+
     typedef typename FlowInfo::FlowDescriptionsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_flow_descriptions;
@@ -200,7 +306,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *d
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_remove_flow_descriptions(data_collection_model_flow_info_t *obj_flow_info, const char* p_flow_descriptions)
 {
+    if (!obj_flow_info) return NULL;
+
     std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<std::shared_ptr<FlowInfo >*>(obj_flow_info);
+    if (!obj) return NULL;
+
     typedef typename FlowInfo::FlowDescriptionsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_flow_descriptions;
@@ -210,15 +320,29 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *d
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_clear_flow_descriptions(data_collection_model_flow_info_t *obj_flow_info)
-{   
+{
+    if (!obj_flow_info) return NULL;
+
     std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<std::shared_ptr<FlowInfo >*>(obj_flow_info);
+    if (!obj) return NULL;
+
     obj->clearFlowDescriptions();
     return obj_flow_info;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_flow_info_get_tos_tc(const data_collection_model_flow_info_t *obj_flow_info)
 {
+    if (!obj_flow_info) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<const std::shared_ptr<FlowInfo >*>(obj_flow_info);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename FlowInfo::TosTCType ResultFromType;
     const ResultFromType result_from = obj->getTosTC();
     const char *result = result_from.c_str();
@@ -227,28 +351,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_fl
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_set_tos_tc(data_collection_model_flow_info_t *obj_flow_info, const char* p_tos_tc)
 {
-    if (obj_flow_info == NULL) return NULL;
+    if (!obj_flow_info) return NULL;
 
     std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<std::shared_ptr<FlowInfo >*>(obj_flow_info);
+    if (!obj) return NULL;
+
     const auto &value_from = p_tos_tc;
     typedef typename FlowInfo::TosTCType ValueType;
 
     ValueType value(value_from);
     if (!obj->setTosTC(value)) return NULL;
+
     return obj_flow_info;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_set_tos_tc_move(data_collection_model_flow_info_t *obj_flow_info, char* p_tos_tc)
 {
-    if (obj_flow_info == NULL) return NULL;
+    if (!obj_flow_info) return NULL;
 
     std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<std::shared_ptr<FlowInfo >*>(obj_flow_info);
+    if (!obj) return NULL;
+
     const auto &value_from = p_tos_tc;
     typedef typename FlowInfo::TosTCType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setTosTC(std::move(value))) return NULL;
+
     return obj_flow_info;
 }
 
@@ -262,6 +392,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_flow_info_refcount(data_collection_model_flow_info_t *obj_flow_info)
 {
+    if (!obj_flow_info) return 0l;
     std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<std::shared_ptr<FlowInfo >*>(obj_flow_info);
     return obj.use_count();
 }

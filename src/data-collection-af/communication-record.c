@@ -17,7 +17,7 @@
 
 /* Local functions */
 
-typedef struct dcaf_api_communication_record_s dcaf_api_communication_record_t;
+typedef struct data_collection_model_communication_record_s data_collection_model_communication_record_t;
 
 static void *communication_record_parse(const data_collection_reporting_session_t *session, cJSON *json, const char **error_return);
 static void *communication_record_clone(const void *to_copy);
@@ -48,7 +48,7 @@ const data_collection_data_report_handler_t communication_record_data_report_typ
 /* Communication Report handling */
 static void *communication_record_parse(const data_collection_reporting_session_t *session, cJSON *json, const char **error_return)
 {
-    dcaf_api_communication_record_t *communication_record = NULL;	
+    data_collection_model_communication_record_t *communication_record = NULL;	
 
     ogs_info("PARSE: Example Consumption Report handling");
     {
@@ -57,7 +57,7 @@ static void *communication_record_parse(const data_collection_reporting_session_
         cJSON_free(txt);
     }
 
-    communication_record = dcaf_api_communication_record_parseRequestFromJSON(json, error_return);
+    communication_record = data_collection_model_communication_record_parseRequestFromJSON(json, error_return);
 	
     return communication_record;
 }
@@ -65,45 +65,40 @@ static void *communication_record_parse(const data_collection_reporting_session_
 static void *communication_record_clone(const void *to_copy)
 {
    
-    const dcaf_api_communication_record_t *existing_report = (const dcaf_api_communication_record_t*)to_copy;
+    const data_collection_model_communication_record_t *existing_report = (const data_collection_model_communication_record_t*)to_copy;
     return (void*)existing_report;
 
 }
 
 static void communication_record_free(void *report)
 {
-    if (report) dcaf_api_communication_record_free((dcaf_api_communication_record_t *)report);
+    if (report) data_collection_model_communication_record_free((data_collection_model_communication_record_t *)report);
         //ogs_free(report);
 }
 
 static cJSON *communication_record_json(const void *report)
 {
     cJSON *report_json = NULL;
-    dcaf_api_communication_record_t *communication_record = (dcaf_api_communication_record_t *)report;
+    data_collection_model_communication_record_t *communication_record = (data_collection_model_communication_record_t *)report;
 
     if(!communication_record) return NULL;
 
-    report_json = dcaf_api_communication_record_convertRequestToJSON(communication_record);
+    report_json = data_collection_model_communication_record_convertRequestToJSON(communication_record);
     return report_json;
 
 }
 
 static struct timespec *communication_record_timestamp(const void *report)
 {
-    
-    static time_t time;
     static struct timespec ts;
-    char *timestamp;
+    const char *timestamp;
+    data_collection_model_communication_record_t *communication_report = (data_collection_model_communication_record_t *)report;
 
-    dcaf_api_communication_record_t *communication_report;
-    
-    communication_report = (dcaf_api_communication_record_t *)report;
-    ogs_assert(communication_report->timestamp);
-    timestamp = communication_report->timestamp;
-    time = str_to_rfc3339_time((const char *)ogs_strdup(timestamp));
+    timestamp = data_collection_model_communication_record_get_timestamp(communication_report);
 
-    ts.tv_sec = time;
-    ts.tv_nsec = get_nsec_from_time_str((const char *)ogs_strdup(timestamp));
+    ts.tv_sec = str_to_rfc3339_time(timestamp);
+    ts.tv_nsec = get_nsec_from_time_str(timestamp);
+
     return &ts;
 }
 
@@ -112,9 +107,9 @@ static char *communication_record_make_tag(const void *report)
     cJSON *report_json;
     char *data_report_to_hash;
     char *data_report_hashed = NULL;
-    const dcaf_api_communication_record_t *communication_record = (const dcaf_api_communication_record_t*)report;
+    const data_collection_model_communication_record_t *communication_record = (const data_collection_model_communication_record_t*)report;
 
-    report_json = communication_record_json(communication_record);
+    report_json = data_collection_model_communication_record_toJSON(communication_record, false);
     if (!report_json) return NULL;
 
     data_report_to_hash = cJSON_Print(report_json);
@@ -129,11 +124,11 @@ static char *communication_record_make_tag(const void *report)
 
 static char *communication_record_serialise(const void *report)
 {
-    const dcaf_api_communication_record_t *existing_report = (const dcaf_api_communication_record_t*)report;
+    const data_collection_model_communication_record_t *existing_report = (const data_collection_model_communication_record_t*)report;
     char *comm_rec_json_str;
     cJSON *json;
 
-    json = communication_record_json(existing_report);
+    json = data_collection_model_communication_record_toJSON(existing_report, false);
     if (!json) return NULL;
 
     comm_rec_json_str = cJSON_Print(json);
@@ -157,7 +152,7 @@ static long int get_nsec_from_time_str(const char *time_str) {
         memcpy(ms, ns, max(9,strlen(ns)));
 
         time_nsec = ascii_to_long(ms);
-
+        ogs_free(time);
     }
     return time_nsec;
 

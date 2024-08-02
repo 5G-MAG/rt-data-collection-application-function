@@ -25,21 +25,8 @@
 #include "hash.h"
 #include "event-notification.h"
 #include "data-collection-sp/data-collection.h"
-#include "openapi/model/dcaf_api_communication_collection.h"
-#include "openapi/model/dcaf_api_ue_communication_collection.h"
-#include "openapi/model/dcaf_api_af_event_notification.h"
-#include "openapi/model/dcaf_api_af_event_exposure_notif.h"
-#include "openapi/model/dcaf_api_communication_record.h"
 
 /* Local functions */
-
-typedef struct dcaf_api_communication_collection_s dcaf_api_communication_collection_t;
-
-typedef struct dcaf_api_ue_communication_collection_s dcaf_api_ue_communication_collection_t;
-
-typedef struct dcaf_api_af_event_notification_s dcaf_api_af_event_notification_t;
-
-typedef struct dcaf_api_af_event_exposure_notif_s dcaf_api_af_event_exposure_notif_t;
 
 extern ogs_list_t *generate_af_event_notifications(ogs_list_t *data_reports, data_collection_event_subscription_t *data_collection_event_subscription);
 

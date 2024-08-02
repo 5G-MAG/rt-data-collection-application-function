@@ -49,21 +49,11 @@ version_conf.set_quoted('DCAF_VERSION', meson.project_version())
 version_conf.set_quoted('DCAF_TYPE', app_type)
 libdcaf_gen_sources = [configure_file(output : 'dcaf-version.h', configuration : version_conf)]
 
-api_tag = latest_apis?'REL-'+fiveg_api_release:'TSG'+fiveg_api_approval+'-Rel'+fiveg_api_release
-
-gen_dcaf_sh = find_program('sh')
-openapi_dep_file = meson.current_source_dir() / '.openapi.srcs'
-message('Generating OpenAPI bindings for version '+api_tag+' of the 5G APIs...')
-openapi_gen_result = run_command([gen_dcaf_sh,'-c','"$MESON_SOURCE_ROOT/$MESON_SUBDIR/generator-dcaf" -M "'+openapi_dep_file+'" -b '+api_tag], capture: true, check: true)
-libdacf_api_sources = files(fs.read(openapi_dep_file).split())
-
-libdcaf_gen_include = include_directories('openapi/include')
-
-libdcaf_sources = libdcaf_dist_sources + libdcaf_gen_sources + libdacf_api_sources
+libdcaf_sources = libdcaf_dist_sources + libdcaf_gen_sources
 
 libdcaf = static_library('dcaf',
     sources : libdcaf_sources,
-    include_directories : [libdcaf_gen_include, sbi_openapi_inc, libdc_common_libinc],
+    include_directories : [sbi_openapi_inc, libdc_common_libinc],
     link_whole : [libdccommon],
     dependencies : [libsbi_dep,
                     libsbi_openapi_dep,

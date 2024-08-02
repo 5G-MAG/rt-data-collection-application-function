@@ -29,36 +29,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_cp_failure_cod
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_cp_failure_code_t *data_collection_model_cp_failure_code_create_copy(const data_collection_model_cp_failure_code_t *other)
 {
-    return reinterpret_cast<data_collection_model_cp_failure_code_t*>(new std::shared_ptr<CpFailureCode >(new CpFailureCode(**reinterpret_cast<const std::shared_ptr<CpFailureCode >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<CpFailureCode > &obj = *reinterpret_cast<const std::shared_ptr<CpFailureCode >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_cp_failure_code_t*>(new std::shared_ptr<CpFailureCode >(new CpFailureCode(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_cp_failure_code_t *data_collection_model_cp_failure_code_create_move(data_collection_model_cp_failure_code_t *other)
 {
-    return reinterpret_cast<data_collection_model_cp_failure_code_t*>(new std::shared_ptr<CpFailureCode >(std::move(*reinterpret_cast<std::shared_ptr<CpFailureCode >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<CpFailureCode > *obj = reinterpret_cast<std::shared_ptr<CpFailureCode >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_cp_failure_code_t *data_collection_model_cp_failure_code_copy(data_collection_model_cp_failure_code_t *cp_failure_code, const data_collection_model_cp_failure_code_t *other)
 {
-    std::shared_ptr<CpFailureCode > &obj = *reinterpret_cast<std::shared_ptr<CpFailureCode >*>(cp_failure_code);
-    *obj = **reinterpret_cast<const std::shared_ptr<CpFailureCode >*>(other);
+    if (cp_failure_code) {
+        std::shared_ptr<CpFailureCode > &obj = *reinterpret_cast<std::shared_ptr<CpFailureCode >*>(cp_failure_code);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<CpFailureCode > &other_obj = *reinterpret_cast<const std::shared_ptr<CpFailureCode >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<CpFailureCode > &other_obj = *reinterpret_cast<const std::shared_ptr<CpFailureCode >*>(other);
+                if (other_obj) {
+                    obj.reset(new CpFailureCode(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        cp_failure_code = data_collection_model_cp_failure_code_create_copy(other);
+    }
     return cp_failure_code;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_cp_failure_code_t *data_collection_model_cp_failure_code_move(data_collection_model_cp_failure_code_t *cp_failure_code, data_collection_model_cp_failure_code_t *other)
 {
-    std::shared_ptr<CpFailureCode > &obj = *reinterpret_cast<std::shared_ptr<CpFailureCode >*>(cp_failure_code);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<CpFailureCode >*>(other));
+    std::shared_ptr<CpFailureCode > *other_ptr = reinterpret_cast<std::shared_ptr<CpFailureCode >*>(other);
+
+    if (cp_failure_code) {
+        std::shared_ptr<CpFailureCode > &obj = *reinterpret_cast<std::shared_ptr<CpFailureCode >*>(cp_failure_code);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                cp_failure_code = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return cp_failure_code;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_cp_failure_code_free(data_collection_model_cp_failure_code_t *cp_failure_code)
 {
+    if (!cp_failure_code) return;
     delete reinterpret_cast<std::shared_ptr<CpFailureCode >*>(cp_failure_code);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_cp_failure_code_toJSON(const data_collection_model_cp_failure_code_t *cp_failure_code, bool as_request)
 {
+    if (!cp_failure_code) return NULL;
     const std::shared_ptr<CpFailureCode > &obj = *reinterpret_cast<const std::shared_ptr<CpFailureCode >*>(cp_failure_code);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -78,27 +131,51 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_cp_failure_cod
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_cp_failure_code_is_equal_to(const data_collection_model_cp_failure_code_t *first, const data_collection_model_cp_failure_code_t *second)
 {
-    const std::shared_ptr<CpFailureCode > &obj1 = *reinterpret_cast<const std::shared_ptr<CpFailureCode >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<CpFailureCode > &obj2 = *reinterpret_cast<const std::shared_ptr<CpFailureCode >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<CpFailureCode > &obj1 = *reinterpret_cast<const std::shared_ptr<CpFailureCode >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cp_failure_code_is_not_set(const data_collection_model_cp_failure_code_t *obj_cp_failure_code)
 {
+    if (!obj_cp_failure_code) return true;
     const std::shared_ptr<CpFailureCode > &obj = *reinterpret_cast<const std::shared_ptr<CpFailureCode >*>(obj_cp_failure_code);
+    if (!obj) return true;
     return obj->getValue() == CpFailureCode::Enum::NO_VAL;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cp_failure_code_is_non_standard(const data_collection_model_cp_failure_code_t *obj_cp_failure_code)
 {
+    if (!obj_cp_failure_code) return false;
     const std::shared_ptr<CpFailureCode > &obj = *reinterpret_cast<const std::shared_ptr<CpFailureCode >*>(obj_cp_failure_code);
+    if (!obj) return false;
     return obj->getValue() == CpFailureCode::Enum::OTHER;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_failure_code_e data_collection_model_cp_failure_code_get_enum(const data_collection_model_cp_failure_code_t *obj_cp_failure_code)
 {
+    if (!obj_cp_failure_code)
+        return DCM_CP_FAILURE_CODE_NO_VAL;
     const std::shared_ptr<CpFailureCode > &obj = *reinterpret_cast<const std::shared_ptr<CpFailureCode >*>(obj_cp_failure_code);
+    if (!obj) return DCM_CP_FAILURE_CODE_NO_VAL;
     switch (obj->getValue()) {
     case CpFailureCode::Enum::NO_VAL:
         return DCM_CP_FAILURE_CODE_NO_VAL;
@@ -120,13 +197,17 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_failure_code_e data_co
 
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_cp_failure_code_get_string(const data_collection_model_cp_failure_code_t *obj_cp_failure_code)
 {
+    if (!obj_cp_failure_code) return NULL;
     const std::shared_ptr<CpFailureCode > &obj = *reinterpret_cast<const std::shared_ptr<CpFailureCode >*>(obj_cp_failure_code);
+    if (!obj) return NULL;
     return obj->getString().c_str();
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cp_failure_code_set_enum(data_collection_model_cp_failure_code_t *obj_cp_failure_code, data_collection_model_cp_failure_code_e p_value)
 {
+    if (!obj_cp_failure_code) return false;
     std::shared_ptr<CpFailureCode > &obj = *reinterpret_cast<std::shared_ptr<CpFailureCode >*>(obj_cp_failure_code);
+    if (!obj) return false;
     switch (p_value) {
     case DCM_CP_FAILURE_CODE_NO_VAL:
         *obj = CpFailureCode::Enum::NO_VAL;
@@ -154,7 +235,9 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cp_failure_code_set_
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cp_failure_code_set_string(data_collection_model_cp_failure_code_t *obj_cp_failure_code, const char *p_value)
 {
+    if (!obj_cp_failure_code) return false;
     std::shared_ptr<CpFailureCode > &obj = *reinterpret_cast<std::shared_ptr<CpFailureCode >*>(obj_cp_failure_code);
+    if (!obj) return false;
     if (p_value) {
         *obj = std::string(p_value);
     } else {
@@ -174,6 +257,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_cp_failure_code_refcount(data_collection_model_cp_failure_code_t *obj_cp_failure_code)
 {
+    if (!obj_cp_failure_code) return 0l;
     std::shared_ptr<CpFailureCode > &obj = *reinterpret_cast<std::shared_ptr<CpFailureCode >*>(obj_cp_failure_code);
     return obj.use_count();
 }

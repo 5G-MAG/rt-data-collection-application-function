@@ -35,36 +35,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_c
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_create_copy(const data_collection_model_geographical_coordinates_t *other)
 {
-    return reinterpret_cast<data_collection_model_geographical_coordinates_t*>(new std::shared_ptr<GeographicalCoordinates >(new GeographicalCoordinates(**reinterpret_cast<const std::shared_ptr<GeographicalCoordinates >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<GeographicalCoordinates > &obj = *reinterpret_cast<const std::shared_ptr<GeographicalCoordinates >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_geographical_coordinates_t*>(new std::shared_ptr<GeographicalCoordinates >(new GeographicalCoordinates(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_create_move(data_collection_model_geographical_coordinates_t *other)
 {
-    return reinterpret_cast<data_collection_model_geographical_coordinates_t*>(new std::shared_ptr<GeographicalCoordinates >(std::move(*reinterpret_cast<std::shared_ptr<GeographicalCoordinates >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<GeographicalCoordinates > *obj = reinterpret_cast<std::shared_ptr<GeographicalCoordinates >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_copy(data_collection_model_geographical_coordinates_t *geographical_coordinates, const data_collection_model_geographical_coordinates_t *other)
 {
-    std::shared_ptr<GeographicalCoordinates > &obj = *reinterpret_cast<std::shared_ptr<GeographicalCoordinates >*>(geographical_coordinates);
-    *obj = **reinterpret_cast<const std::shared_ptr<GeographicalCoordinates >*>(other);
+    if (geographical_coordinates) {
+        std::shared_ptr<GeographicalCoordinates > &obj = *reinterpret_cast<std::shared_ptr<GeographicalCoordinates >*>(geographical_coordinates);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<GeographicalCoordinates > &other_obj = *reinterpret_cast<const std::shared_ptr<GeographicalCoordinates >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<GeographicalCoordinates > &other_obj = *reinterpret_cast<const std::shared_ptr<GeographicalCoordinates >*>(other);
+                if (other_obj) {
+                    obj.reset(new GeographicalCoordinates(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        geographical_coordinates = data_collection_model_geographical_coordinates_create_copy(other);
+    }
     return geographical_coordinates;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_move(data_collection_model_geographical_coordinates_t *geographical_coordinates, data_collection_model_geographical_coordinates_t *other)
 {
-    std::shared_ptr<GeographicalCoordinates > &obj = *reinterpret_cast<std::shared_ptr<GeographicalCoordinates >*>(geographical_coordinates);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<GeographicalCoordinates >*>(other));
+    std::shared_ptr<GeographicalCoordinates > *other_ptr = reinterpret_cast<std::shared_ptr<GeographicalCoordinates >*>(other);
+
+    if (geographical_coordinates) {
+        std::shared_ptr<GeographicalCoordinates > &obj = *reinterpret_cast<std::shared_ptr<GeographicalCoordinates >*>(geographical_coordinates);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                geographical_coordinates = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return geographical_coordinates;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_geographical_coordinates_free(data_collection_model_geographical_coordinates_t *geographical_coordinates)
 {
+    if (!geographical_coordinates) return;
     delete reinterpret_cast<std::shared_ptr<GeographicalCoordinates >*>(geographical_coordinates);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_geographical_coordinates_toJSON(const data_collection_model_geographical_coordinates_t *geographical_coordinates, bool as_request)
 {
+    if (!geographical_coordinates) return NULL;
     const std::shared_ptr<GeographicalCoordinates > &obj = *reinterpret_cast<const std::shared_ptr<GeographicalCoordinates >*>(geographical_coordinates);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -84,15 +137,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_c
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_geographical_coordinates_is_equal_to(const data_collection_model_geographical_coordinates_t *first, const data_collection_model_geographical_coordinates_t *second)
 {
-    const std::shared_ptr<GeographicalCoordinates > &obj1 = *reinterpret_cast<const std::shared_ptr<GeographicalCoordinates >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<GeographicalCoordinates > &obj2 = *reinterpret_cast<const std::shared_ptr<GeographicalCoordinates >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<GeographicalCoordinates > &obj1 = *reinterpret_cast<const std::shared_ptr<GeographicalCoordinates >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_geographical_coordinates_get_lon(const data_collection_model_geographical_coordinates_t *obj_geographical_coordinates)
 {
+    if (!obj_geographical_coordinates) {
+        const double result = 0;
+        return result;
+    }
+
     const std::shared_ptr<GeographicalCoordinates > &obj = *reinterpret_cast<const std::shared_ptr<GeographicalCoordinates >*>(obj_geographical_coordinates);
+    if (!obj) {
+        const double result = 0;
+        return result;
+    }
+
     typedef typename GeographicalCoordinates::LonType ResultFromType;
     const ResultFromType result_from = obj->getLon();
     const ResultFromType result = result_from;
@@ -101,34 +181,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_g
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_set_lon(data_collection_model_geographical_coordinates_t *obj_geographical_coordinates, const double p_lon)
 {
-    if (obj_geographical_coordinates == NULL) return NULL;
+    if (!obj_geographical_coordinates) return NULL;
 
     std::shared_ptr<GeographicalCoordinates > &obj = *reinterpret_cast<std::shared_ptr<GeographicalCoordinates >*>(obj_geographical_coordinates);
+    if (!obj) return NULL;
+
     const auto &value_from = p_lon;
     typedef typename GeographicalCoordinates::LonType ValueType;
 
     ValueType value = value_from;
     if (!obj->setLon(value)) return NULL;
+
     return obj_geographical_coordinates;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_set_lon_move(data_collection_model_geographical_coordinates_t *obj_geographical_coordinates, double p_lon)
 {
-    if (obj_geographical_coordinates == NULL) return NULL;
+    if (!obj_geographical_coordinates) return NULL;
 
     std::shared_ptr<GeographicalCoordinates > &obj = *reinterpret_cast<std::shared_ptr<GeographicalCoordinates >*>(obj_geographical_coordinates);
+    if (!obj) return NULL;
+
     const auto &value_from = p_lon;
     typedef typename GeographicalCoordinates::LonType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setLon(std::move(value))) return NULL;
+
     return obj_geographical_coordinates;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_geographical_coordinates_get_lat(const data_collection_model_geographical_coordinates_t *obj_geographical_coordinates)
 {
+    if (!obj_geographical_coordinates) {
+        const double result = 0;
+        return result;
+    }
+
     const std::shared_ptr<GeographicalCoordinates > &obj = *reinterpret_cast<const std::shared_ptr<GeographicalCoordinates >*>(obj_geographical_coordinates);
+    if (!obj) {
+        const double result = 0;
+        return result;
+    }
+
     typedef typename GeographicalCoordinates::LatType ResultFromType;
     const ResultFromType result_from = obj->getLat();
     const ResultFromType result = result_from;
@@ -137,28 +233,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_g
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_set_lat(data_collection_model_geographical_coordinates_t *obj_geographical_coordinates, const double p_lat)
 {
-    if (obj_geographical_coordinates == NULL) return NULL;
+    if (!obj_geographical_coordinates) return NULL;
 
     std::shared_ptr<GeographicalCoordinates > &obj = *reinterpret_cast<std::shared_ptr<GeographicalCoordinates >*>(obj_geographical_coordinates);
+    if (!obj) return NULL;
+
     const auto &value_from = p_lat;
     typedef typename GeographicalCoordinates::LatType ValueType;
 
     ValueType value = value_from;
     if (!obj->setLat(value)) return NULL;
+
     return obj_geographical_coordinates;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_set_lat_move(data_collection_model_geographical_coordinates_t *obj_geographical_coordinates, double p_lat)
 {
-    if (obj_geographical_coordinates == NULL) return NULL;
+    if (!obj_geographical_coordinates) return NULL;
 
     std::shared_ptr<GeographicalCoordinates > &obj = *reinterpret_cast<std::shared_ptr<GeographicalCoordinates >*>(obj_geographical_coordinates);
+    if (!obj) return NULL;
+
     const auto &value_from = p_lat;
     typedef typename GeographicalCoordinates::LatType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setLat(std::move(value))) return NULL;
+
     return obj_geographical_coordinates;
 }
 
@@ -172,6 +274,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_geographical_coordinates_refcount(data_collection_model_geographical_coordinates_t *obj_geographical_coordinates)
 {
+    if (!obj_geographical_coordinates) return 0l;
     std::shared_ptr<GeographicalCoordinates > &obj = *reinterpret_cast<std::shared_ptr<GeographicalCoordinates >*>(obj_geographical_coordinates);
     return obj.use_count();
 }

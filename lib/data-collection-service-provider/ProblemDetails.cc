@@ -57,36 +57,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_create_copy(const data_collection_model_problem_details_t *other)
 {
-    return reinterpret_cast<data_collection_model_problem_details_t*>(new std::shared_ptr<ProblemDetails >(new ProblemDetails(**reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_problem_details_t*>(new std::shared_ptr<ProblemDetails >(new ProblemDetails(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_create_move(data_collection_model_problem_details_t *other)
 {
-    return reinterpret_cast<data_collection_model_problem_details_t*>(new std::shared_ptr<ProblemDetails >(std::move(*reinterpret_cast<std::shared_ptr<ProblemDetails >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<ProblemDetails > *obj = reinterpret_cast<std::shared_ptr<ProblemDetails >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_copy(data_collection_model_problem_details_t *problem_details, const data_collection_model_problem_details_t *other)
 {
-    std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(problem_details);
-    *obj = **reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(other);
+    if (problem_details) {
+        std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(problem_details);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<ProblemDetails > &other_obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<ProblemDetails > &other_obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(other);
+                if (other_obj) {
+                    obj.reset(new ProblemDetails(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        problem_details = data_collection_model_problem_details_create_copy(other);
+    }
     return problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_move(data_collection_model_problem_details_t *problem_details, data_collection_model_problem_details_t *other)
 {
-    std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(problem_details);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<ProblemDetails >*>(other));
+    std::shared_ptr<ProblemDetails > *other_ptr = reinterpret_cast<std::shared_ptr<ProblemDetails >*>(other);
+
+    if (problem_details) {
+        std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(problem_details);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                problem_details = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_problem_details_free(data_collection_model_problem_details_t *problem_details)
 {
+    if (!problem_details) return;
     delete reinterpret_cast<std::shared_ptr<ProblemDetails >*>(problem_details);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_problem_details_toJSON(const data_collection_model_problem_details_t *problem_details, bool as_request)
 {
+    if (!problem_details) return NULL;
     const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(problem_details);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -106,15 +159,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_problem_details_is_equal_to(const data_collection_model_problem_details_t *first, const data_collection_model_problem_details_t *second)
 {
-    const std::shared_ptr<ProblemDetails > &obj1 = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<ProblemDetails > &obj2 = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<ProblemDetails > &obj1 = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_problem_details_get_type(const data_collection_model_problem_details_t *obj_problem_details)
 {
+    if (!obj_problem_details) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename ProblemDetails::TypeType ResultFromType;
     const ResultFromType result_from = obj->getType();
     const char *result = result_from.c_str();
@@ -123,34 +203,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pr
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_type(data_collection_model_problem_details_t *obj_problem_details, const char* p_type)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_type;
     typedef typename ProblemDetails::TypeType ValueType;
 
     ValueType value(value_from);
     if (!obj->setType(value)) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_type_move(data_collection_model_problem_details_t *obj_problem_details, char* p_type)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_type;
     typedef typename ProblemDetails::TypeType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setType(std::move(value))) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_problem_details_get_title(const data_collection_model_problem_details_t *obj_problem_details)
 {
+    if (!obj_problem_details) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename ProblemDetails::TitleType ResultFromType;
     const ResultFromType result_from = obj->getTitle();
     const char *result = result_from.c_str();
@@ -159,34 +255,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pr
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_title(data_collection_model_problem_details_t *obj_problem_details, const char* p_title)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_title;
     typedef typename ProblemDetails::TitleType ValueType;
 
     ValueType value(value_from);
     if (!obj->setTitle(value)) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_title_move(data_collection_model_problem_details_t *obj_problem_details, char* p_title)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_title;
     typedef typename ProblemDetails::TitleType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setTitle(std::move(value))) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_problem_details_get_status(const data_collection_model_problem_details_t *obj_problem_details)
 {
+    if (!obj_problem_details) {
+        const int32_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) {
+        const int32_t result = 0;
+        return result;
+    }
+
     typedef typename ProblemDetails::StatusType ResultFromType;
     const ResultFromType result_from = obj->getStatus();
     const ResultFromType result = result_from;
@@ -195,34 +307,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_status(data_collection_model_problem_details_t *obj_problem_details, const int32_t p_status)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_status;
     typedef typename ProblemDetails::StatusType ValueType;
 
     ValueType value = value_from;
     if (!obj->setStatus(value)) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_status_move(data_collection_model_problem_details_t *obj_problem_details, int32_t p_status)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_status;
     typedef typename ProblemDetails::StatusType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setStatus(std::move(value))) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_problem_details_get_detail(const data_collection_model_problem_details_t *obj_problem_details)
 {
+    if (!obj_problem_details) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename ProblemDetails::DetailType ResultFromType;
     const ResultFromType result_from = obj->getDetail();
     const char *result = result_from.c_str();
@@ -231,34 +359,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pr
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_detail(data_collection_model_problem_details_t *obj_problem_details, const char* p_detail)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_detail;
     typedef typename ProblemDetails::DetailType ValueType;
 
     ValueType value(value_from);
     if (!obj->setDetail(value)) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_detail_move(data_collection_model_problem_details_t *obj_problem_details, char* p_detail)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_detail;
     typedef typename ProblemDetails::DetailType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setDetail(std::move(value))) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_problem_details_get_instance(const data_collection_model_problem_details_t *obj_problem_details)
 {
+    if (!obj_problem_details) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename ProblemDetails::InstanceType ResultFromType;
     const ResultFromType result_from = obj->getInstance();
     const char *result = result_from.c_str();
@@ -267,34 +411,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pr
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_instance(data_collection_model_problem_details_t *obj_problem_details, const char* p_instance)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_instance;
     typedef typename ProblemDetails::InstanceType ValueType;
 
     ValueType value(value_from);
     if (!obj->setInstance(value)) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_instance_move(data_collection_model_problem_details_t *obj_problem_details, char* p_instance)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_instance;
     typedef typename ProblemDetails::InstanceType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setInstance(std::move(value))) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_problem_details_get_cause(const data_collection_model_problem_details_t *obj_problem_details)
 {
+    if (!obj_problem_details) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename ProblemDetails::CauseType ResultFromType;
     const ResultFromType result_from = obj->getCause();
     const char *result = result_from.c_str();
@@ -303,34 +463,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pr
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_cause(data_collection_model_problem_details_t *obj_problem_details, const char* p_cause)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_cause;
     typedef typename ProblemDetails::CauseType ValueType;
 
     ValueType value(value_from);
     if (!obj->setCause(value)) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_cause_move(data_collection_model_problem_details_t *obj_problem_details, char* p_cause)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_cause;
     typedef typename ProblemDetails::CauseType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setCause(std::move(value))) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_problem_details_get_invalid_params(const data_collection_model_problem_details_t *obj_problem_details)
 {
+    if (!obj_problem_details) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     typedef typename ProblemDetails::InvalidParamsType ResultFromType;
     const ResultFromType result_from = obj->getInvalidParams();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
@@ -347,9 +523,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_pr
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_invalid_params(data_collection_model_problem_details_t *obj_problem_details, const ogs_list_t* p_invalid_params)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_invalid_params;
     typedef typename ProblemDetails::InvalidParamsType ValueType;
 
@@ -363,14 +541,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
         }
     }
     if (!obj->setInvalidParams(value)) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_invalid_params_move(data_collection_model_problem_details_t *obj_problem_details, ogs_list_t* p_invalid_params)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_invalid_params;
     typedef typename ProblemDetails::InvalidParamsType ValueType;
 
@@ -385,12 +566,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     }
     data_collection_list_free(p_invalid_params);
     if (!obj->setInvalidParams(std::move(value))) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_add_invalid_params(data_collection_model_problem_details_t *obj_problem_details, data_collection_model_invalid_param_t* p_invalid_params)
 {
+    if (!obj_problem_details) return NULL;
+
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     typedef typename ProblemDetails::InvalidParamsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_invalid_params;
@@ -403,7 +589,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_remove_invalid_params(data_collection_model_problem_details_t *obj_problem_details, const data_collection_model_invalid_param_t* p_invalid_params)
 {
+    if (!obj_problem_details) return NULL;
+
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     typedef typename ProblemDetails::InvalidParamsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_invalid_params;
@@ -413,15 +603,29 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_clear_invalid_params(data_collection_model_problem_details_t *obj_problem_details)
-{   
+{
+    if (!obj_problem_details) return NULL;
+
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     obj->clearInvalidParams();
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_problem_details_get_supported_features(const data_collection_model_problem_details_t *obj_problem_details)
 {
+    if (!obj_problem_details) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename ProblemDetails::SupportedFeaturesType ResultFromType;
     const ResultFromType result_from = obj->getSupportedFeatures();
     const char *result = result_from.c_str();
@@ -430,34 +634,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pr
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_supported_features(data_collection_model_problem_details_t *obj_problem_details, const char* p_supported_features)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_supported_features;
     typedef typename ProblemDetails::SupportedFeaturesType ValueType;
 
     ValueType value(value_from);
     if (!obj->setSupportedFeatures(value)) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_supported_features_move(data_collection_model_problem_details_t *obj_problem_details, char* p_supported_features)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_supported_features;
     typedef typename ProblemDetails::SupportedFeaturesType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setSupportedFeatures(std::move(value))) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_access_token_err_t* data_collection_model_problem_details_get_access_token_error(const data_collection_model_problem_details_t *obj_problem_details)
 {
+    if (!obj_problem_details) {
+        const data_collection_model_access_token_err_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) {
+        const data_collection_model_access_token_err_t *result = NULL;
+        return result;
+    }
+
     typedef typename ProblemDetails::AccessTokenErrorType ResultFromType;
     const ResultFromType result_from = obj->getAccessTokenError();
     const data_collection_model_access_token_err_t *result = reinterpret_cast<const data_collection_model_access_token_err_t*>(&result_from);
@@ -466,34 +686,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_access_t
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_access_token_error(data_collection_model_problem_details_t *obj_problem_details, const data_collection_model_access_token_err_t* p_access_token_error)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_access_token_error;
     typedef typename ProblemDetails::AccessTokenErrorType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setAccessTokenError(value)) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_access_token_error_move(data_collection_model_problem_details_t *obj_problem_details, data_collection_model_access_token_err_t* p_access_token_error)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_access_token_error;
     typedef typename ProblemDetails::AccessTokenErrorType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setAccessTokenError(std::move(value))) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_access_token_req_t* data_collection_model_problem_details_get_access_token_request(const data_collection_model_problem_details_t *obj_problem_details)
 {
+    if (!obj_problem_details) {
+        const data_collection_model_access_token_req_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) {
+        const data_collection_model_access_token_req_t *result = NULL;
+        return result;
+    }
+
     typedef typename ProblemDetails::AccessTokenRequestType ResultFromType;
     const ResultFromType result_from = obj->getAccessTokenRequest();
     const data_collection_model_access_token_req_t *result = reinterpret_cast<const data_collection_model_access_token_req_t*>(&result_from);
@@ -502,34 +738,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_access_t
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_access_token_request(data_collection_model_problem_details_t *obj_problem_details, const data_collection_model_access_token_req_t* p_access_token_request)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_access_token_request;
     typedef typename ProblemDetails::AccessTokenRequestType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setAccessTokenRequest(value)) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_access_token_request_move(data_collection_model_problem_details_t *obj_problem_details, data_collection_model_access_token_req_t* p_access_token_request)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_access_token_request;
     typedef typename ProblemDetails::AccessTokenRequestType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setAccessTokenRequest(std::move(value))) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_problem_details_get_nrf_id(const data_collection_model_problem_details_t *obj_problem_details)
 {
+    if (!obj_problem_details) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename ProblemDetails::NrfIdType ResultFromType;
     const ResultFromType result_from = obj->getNrfId();
     const char *result = result_from.c_str();
@@ -538,34 +790,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pr
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_nrf_id(data_collection_model_problem_details_t *obj_problem_details, const char* p_nrf_id)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_nrf_id;
     typedef typename ProblemDetails::NrfIdType ValueType;
 
     ValueType value(value_from);
     if (!obj->setNrfId(value)) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_nrf_id_move(data_collection_model_problem_details_t *obj_problem_details, char* p_nrf_id)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_nrf_id;
     typedef typename ProblemDetails::NrfIdType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setNrfId(std::move(value))) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_problem_details_get_supported_api_versions(const data_collection_model_problem_details_t *obj_problem_details)
 {
+    if (!obj_problem_details) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     typedef typename ProblemDetails::SupportedApiVersionsType ResultFromType;
     const ResultFromType result_from = obj->getSupportedApiVersions();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
@@ -581,9 +849,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_pr
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_supported_api_versions(data_collection_model_problem_details_t *obj_problem_details, const ogs_list_t* p_supported_api_versions)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_supported_api_versions;
     typedef typename ProblemDetails::SupportedApiVersionsType ValueType;
 
@@ -597,14 +867,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
         }
     }
     if (!obj->setSupportedApiVersions(value)) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_supported_api_versions_move(data_collection_model_problem_details_t *obj_problem_details, ogs_list_t* p_supported_api_versions)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_supported_api_versions;
     typedef typename ProblemDetails::SupportedApiVersionsType ValueType;
 
@@ -619,12 +892,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     }
     data_collection_list_free(p_supported_api_versions);
     if (!obj->setSupportedApiVersions(std::move(value))) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_add_supported_api_versions(data_collection_model_problem_details_t *obj_problem_details, char* p_supported_api_versions)
 {
+    if (!obj_problem_details) return NULL;
+
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     typedef typename ProblemDetails::SupportedApiVersionsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_supported_api_versions;
@@ -637,7 +915,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_remove_supported_api_versions(data_collection_model_problem_details_t *obj_problem_details, const char* p_supported_api_versions)
 {
+    if (!obj_problem_details) return NULL;
+
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     typedef typename ProblemDetails::SupportedApiVersionsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_supported_api_versions;
@@ -647,15 +929,29 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_clear_supported_api_versions(data_collection_model_problem_details_t *obj_problem_details)
-{   
+{
+    if (!obj_problem_details) return NULL;
+
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     obj->clearSupportedApiVersions();
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_no_profile_match_info_t* data_collection_model_problem_details_get_no_profile_match_info(const data_collection_model_problem_details_t *obj_problem_details)
 {
+    if (!obj_problem_details) {
+        const data_collection_model_no_profile_match_info_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) {
+        const data_collection_model_no_profile_match_info_t *result = NULL;
+        return result;
+    }
+
     typedef typename ProblemDetails::NoProfileMatchInfoType ResultFromType;
     const ResultFromType result_from = obj->getNoProfileMatchInfo();
     const data_collection_model_no_profile_match_info_t *result = reinterpret_cast<const data_collection_model_no_profile_match_info_t*>(&result_from);
@@ -664,28 +960,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_no_profi
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_no_profile_match_info(data_collection_model_problem_details_t *obj_problem_details, const data_collection_model_no_profile_match_info_t* p_no_profile_match_info)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_no_profile_match_info;
     typedef typename ProblemDetails::NoProfileMatchInfoType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setNoProfileMatchInfo(value)) return NULL;
+
     return obj_problem_details;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_no_profile_match_info_move(data_collection_model_problem_details_t *obj_problem_details, data_collection_model_no_profile_match_info_t* p_no_profile_match_info)
 {
-    if (obj_problem_details == NULL) return NULL;
+    if (!obj_problem_details) return NULL;
 
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return NULL;
+
     const auto &value_from = p_no_profile_match_info;
     typedef typename ProblemDetails::NoProfileMatchInfoType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setNoProfileMatchInfo(std::move(value))) return NULL;
+
     return obj_problem_details;
 }
 
@@ -699,6 +1001,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_problem_details_refcount(data_collection_model_problem_details_t *obj_problem_details)
 {
+    if (!obj_problem_details) return 0l;
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
     return obj.use_count();
 }

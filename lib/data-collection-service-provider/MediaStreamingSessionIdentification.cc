@@ -33,36 +33,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_session_identification_t *data_collection_model_media_streaming_session_identification_create_copy(const data_collection_model_media_streaming_session_identification_t *other)
 {
-    return reinterpret_cast<data_collection_model_media_streaming_session_identification_t*>(new std::shared_ptr<MediaStreamingSessionIdentification >(new MediaStreamingSessionIdentification(**reinterpret_cast<const std::shared_ptr<MediaStreamingSessionIdentification >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<MediaStreamingSessionIdentification > &obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingSessionIdentification >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_media_streaming_session_identification_t*>(new std::shared_ptr<MediaStreamingSessionIdentification >(new MediaStreamingSessionIdentification(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_session_identification_t *data_collection_model_media_streaming_session_identification_create_move(data_collection_model_media_streaming_session_identification_t *other)
 {
-    return reinterpret_cast<data_collection_model_media_streaming_session_identification_t*>(new std::shared_ptr<MediaStreamingSessionIdentification >(std::move(*reinterpret_cast<std::shared_ptr<MediaStreamingSessionIdentification >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<MediaStreamingSessionIdentification > *obj = reinterpret_cast<std::shared_ptr<MediaStreamingSessionIdentification >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_session_identification_t *data_collection_model_media_streaming_session_identification_copy(data_collection_model_media_streaming_session_identification_t *media_streaming_session_identification, const data_collection_model_media_streaming_session_identification_t *other)
 {
-    std::shared_ptr<MediaStreamingSessionIdentification > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingSessionIdentification >*>(media_streaming_session_identification);
-    *obj = **reinterpret_cast<const std::shared_ptr<MediaStreamingSessionIdentification >*>(other);
+    if (media_streaming_session_identification) {
+        std::shared_ptr<MediaStreamingSessionIdentification > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingSessionIdentification >*>(media_streaming_session_identification);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<MediaStreamingSessionIdentification > &other_obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingSessionIdentification >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<MediaStreamingSessionIdentification > &other_obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingSessionIdentification >*>(other);
+                if (other_obj) {
+                    obj.reset(new MediaStreamingSessionIdentification(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        media_streaming_session_identification = data_collection_model_media_streaming_session_identification_create_copy(other);
+    }
     return media_streaming_session_identification;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_session_identification_t *data_collection_model_media_streaming_session_identification_move(data_collection_model_media_streaming_session_identification_t *media_streaming_session_identification, data_collection_model_media_streaming_session_identification_t *other)
 {
-    std::shared_ptr<MediaStreamingSessionIdentification > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingSessionIdentification >*>(media_streaming_session_identification);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<MediaStreamingSessionIdentification >*>(other));
+    std::shared_ptr<MediaStreamingSessionIdentification > *other_ptr = reinterpret_cast<std::shared_ptr<MediaStreamingSessionIdentification >*>(other);
+
+    if (media_streaming_session_identification) {
+        std::shared_ptr<MediaStreamingSessionIdentification > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingSessionIdentification >*>(media_streaming_session_identification);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                media_streaming_session_identification = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return media_streaming_session_identification;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_media_streaming_session_identification_free(data_collection_model_media_streaming_session_identification_t *media_streaming_session_identification)
 {
+    if (!media_streaming_session_identification) return;
     delete reinterpret_cast<std::shared_ptr<MediaStreamingSessionIdentification >*>(media_streaming_session_identification);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_media_streaming_session_identification_toJSON(const data_collection_model_media_streaming_session_identification_t *media_streaming_session_identification, bool as_request)
 {
+    if (!media_streaming_session_identification) return NULL;
     const std::shared_ptr<MediaStreamingSessionIdentification > &obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingSessionIdentification >*>(media_streaming_session_identification);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -82,15 +135,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_media_streaming_session_identification_is_equal_to(const data_collection_model_media_streaming_session_identification_t *first, const data_collection_model_media_streaming_session_identification_t *second)
 {
-    const std::shared_ptr<MediaStreamingSessionIdentification > &obj1 = *reinterpret_cast<const std::shared_ptr<MediaStreamingSessionIdentification >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<MediaStreamingSessionIdentification > &obj2 = *reinterpret_cast<const std::shared_ptr<MediaStreamingSessionIdentification >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<MediaStreamingSessionIdentification > &obj1 = *reinterpret_cast<const std::shared_ptr<MediaStreamingSessionIdentification >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_media_streaming_session_identification_get_session_id(const data_collection_model_media_streaming_session_identification_t *obj_media_streaming_session_identification)
 {
+    if (!obj_media_streaming_session_identification) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<MediaStreamingSessionIdentification > &obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingSessionIdentification >*>(obj_media_streaming_session_identification);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename MediaStreamingSessionIdentification::SessionIdType ResultFromType;
     const ResultFromType result_from = obj->getSessionId();
     const char *result = result_from.c_str();
@@ -99,28 +179,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_me
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_session_identification_t *data_collection_model_media_streaming_session_identification_set_session_id(data_collection_model_media_streaming_session_identification_t *obj_media_streaming_session_identification, const char* p_session_id)
 {
-    if (obj_media_streaming_session_identification == NULL) return NULL;
+    if (!obj_media_streaming_session_identification) return NULL;
 
     std::shared_ptr<MediaStreamingSessionIdentification > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingSessionIdentification >*>(obj_media_streaming_session_identification);
+    if (!obj) return NULL;
+
     const auto &value_from = p_session_id;
     typedef typename MediaStreamingSessionIdentification::SessionIdType ValueType;
 
     ValueType value(value_from);
     if (!obj->setSessionId(value)) return NULL;
+
     return obj_media_streaming_session_identification;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_session_identification_t *data_collection_model_media_streaming_session_identification_set_session_id_move(data_collection_model_media_streaming_session_identification_t *obj_media_streaming_session_identification, char* p_session_id)
 {
-    if (obj_media_streaming_session_identification == NULL) return NULL;
+    if (!obj_media_streaming_session_identification) return NULL;
 
     std::shared_ptr<MediaStreamingSessionIdentification > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingSessionIdentification >*>(obj_media_streaming_session_identification);
+    if (!obj) return NULL;
+
     const auto &value_from = p_session_id;
     typedef typename MediaStreamingSessionIdentification::SessionIdType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setSessionId(std::move(value))) return NULL;
+
     return obj_media_streaming_session_identification;
 }
 
@@ -134,6 +220,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_media_streaming_session_identification_refcount(data_collection_model_media_streaming_session_identification_t *obj_media_streaming_session_identification)
 {
+    if (!obj_media_streaming_session_identification) return 0l;
     std::shared_ptr<MediaStreamingSessionIdentification > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingSessionIdentification >*>(obj_media_streaming_session_identification);
     return obj.use_count();
 }

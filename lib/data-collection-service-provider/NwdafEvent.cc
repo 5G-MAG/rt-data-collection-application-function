@@ -31,36 +31,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_nwdaf_event_t 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_nwdaf_event_t *data_collection_model_nwdaf_event_create_copy(const data_collection_model_nwdaf_event_t *other)
 {
-    return reinterpret_cast<data_collection_model_nwdaf_event_t*>(new std::shared_ptr<NwdafEvent >(new NwdafEvent(**reinterpret_cast<const std::shared_ptr<NwdafEvent >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<NwdafEvent > &obj = *reinterpret_cast<const std::shared_ptr<NwdafEvent >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_nwdaf_event_t*>(new std::shared_ptr<NwdafEvent >(new NwdafEvent(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_nwdaf_event_t *data_collection_model_nwdaf_event_create_move(data_collection_model_nwdaf_event_t *other)
 {
-    return reinterpret_cast<data_collection_model_nwdaf_event_t*>(new std::shared_ptr<NwdafEvent >(std::move(*reinterpret_cast<std::shared_ptr<NwdafEvent >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<NwdafEvent > *obj = reinterpret_cast<std::shared_ptr<NwdafEvent >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_nwdaf_event_t *data_collection_model_nwdaf_event_copy(data_collection_model_nwdaf_event_t *nwdaf_event, const data_collection_model_nwdaf_event_t *other)
 {
-    std::shared_ptr<NwdafEvent > &obj = *reinterpret_cast<std::shared_ptr<NwdafEvent >*>(nwdaf_event);
-    *obj = **reinterpret_cast<const std::shared_ptr<NwdafEvent >*>(other);
+    if (nwdaf_event) {
+        std::shared_ptr<NwdafEvent > &obj = *reinterpret_cast<std::shared_ptr<NwdafEvent >*>(nwdaf_event);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<NwdafEvent > &other_obj = *reinterpret_cast<const std::shared_ptr<NwdafEvent >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<NwdafEvent > &other_obj = *reinterpret_cast<const std::shared_ptr<NwdafEvent >*>(other);
+                if (other_obj) {
+                    obj.reset(new NwdafEvent(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        nwdaf_event = data_collection_model_nwdaf_event_create_copy(other);
+    }
     return nwdaf_event;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_nwdaf_event_t *data_collection_model_nwdaf_event_move(data_collection_model_nwdaf_event_t *nwdaf_event, data_collection_model_nwdaf_event_t *other)
 {
-    std::shared_ptr<NwdafEvent > &obj = *reinterpret_cast<std::shared_ptr<NwdafEvent >*>(nwdaf_event);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<NwdafEvent >*>(other));
+    std::shared_ptr<NwdafEvent > *other_ptr = reinterpret_cast<std::shared_ptr<NwdafEvent >*>(other);
+
+    if (nwdaf_event) {
+        std::shared_ptr<NwdafEvent > &obj = *reinterpret_cast<std::shared_ptr<NwdafEvent >*>(nwdaf_event);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                nwdaf_event = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return nwdaf_event;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_nwdaf_event_free(data_collection_model_nwdaf_event_t *nwdaf_event)
 {
+    if (!nwdaf_event) return;
     delete reinterpret_cast<std::shared_ptr<NwdafEvent >*>(nwdaf_event);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_nwdaf_event_toJSON(const data_collection_model_nwdaf_event_t *nwdaf_event, bool as_request)
 {
+    if (!nwdaf_event) return NULL;
     const std::shared_ptr<NwdafEvent > &obj = *reinterpret_cast<const std::shared_ptr<NwdafEvent >*>(nwdaf_event);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -80,27 +133,51 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_nwdaf_event_t 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_nwdaf_event_is_equal_to(const data_collection_model_nwdaf_event_t *first, const data_collection_model_nwdaf_event_t *second)
 {
-    const std::shared_ptr<NwdafEvent > &obj1 = *reinterpret_cast<const std::shared_ptr<NwdafEvent >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<NwdafEvent > &obj2 = *reinterpret_cast<const std::shared_ptr<NwdafEvent >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<NwdafEvent > &obj1 = *reinterpret_cast<const std::shared_ptr<NwdafEvent >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_nwdaf_event_is_not_set(const data_collection_model_nwdaf_event_t *obj_nwdaf_event)
 {
+    if (!obj_nwdaf_event) return true;
     const std::shared_ptr<NwdafEvent > &obj = *reinterpret_cast<const std::shared_ptr<NwdafEvent >*>(obj_nwdaf_event);
+    if (!obj) return true;
     return obj->getValue() == NwdafEvent::Enum::NO_VAL;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_nwdaf_event_is_non_standard(const data_collection_model_nwdaf_event_t *obj_nwdaf_event)
 {
+    if (!obj_nwdaf_event) return false;
     const std::shared_ptr<NwdafEvent > &obj = *reinterpret_cast<const std::shared_ptr<NwdafEvent >*>(obj_nwdaf_event);
+    if (!obj) return false;
     return obj->getValue() == NwdafEvent::Enum::OTHER;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_nwdaf_event_e data_collection_model_nwdaf_event_get_enum(const data_collection_model_nwdaf_event_t *obj_nwdaf_event)
 {
+    if (!obj_nwdaf_event)
+        return DCM_NWDAF_EVENT_NO_VAL;
     const std::shared_ptr<NwdafEvent > &obj = *reinterpret_cast<const std::shared_ptr<NwdafEvent >*>(obj_nwdaf_event);
+    if (!obj) return DCM_NWDAF_EVENT_NO_VAL;
     switch (obj->getValue()) {
     case NwdafEvent::Enum::NO_VAL:
         return DCM_NWDAF_EVENT_NO_VAL;
@@ -164,13 +241,17 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_nwdaf_event_e data_collec
 
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_nwdaf_event_get_string(const data_collection_model_nwdaf_event_t *obj_nwdaf_event)
 {
+    if (!obj_nwdaf_event) return NULL;
     const std::shared_ptr<NwdafEvent > &obj = *reinterpret_cast<const std::shared_ptr<NwdafEvent >*>(obj_nwdaf_event);
+    if (!obj) return NULL;
     return obj->getString().c_str();
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_nwdaf_event_set_enum(data_collection_model_nwdaf_event_t *obj_nwdaf_event, data_collection_model_nwdaf_event_e p_value)
 {
+    if (!obj_nwdaf_event) return false;
     std::shared_ptr<NwdafEvent > &obj = *reinterpret_cast<std::shared_ptr<NwdafEvent >*>(obj_nwdaf_event);
+    if (!obj) return false;
     switch (p_value) {
     case DCM_NWDAF_EVENT_NO_VAL:
         *obj = NwdafEvent::Enum::NO_VAL;
@@ -261,7 +342,9 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_nwdaf_event_set_enum
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_nwdaf_event_set_string(data_collection_model_nwdaf_event_t *obj_nwdaf_event, const char *p_value)
 {
+    if (!obj_nwdaf_event) return false;
     std::shared_ptr<NwdafEvent > &obj = *reinterpret_cast<std::shared_ptr<NwdafEvent >*>(obj_nwdaf_event);
+    if (!obj) return false;
     if (p_value) {
         *obj = std::string(p_value);
     } else {
@@ -281,6 +364,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_nwdaf_event_refcount(data_collection_model_nwdaf_event_t *obj_nwdaf_event)
 {
+    if (!obj_nwdaf_event) return 0l;
     std::shared_ptr<NwdafEvent > &obj = *reinterpret_cast<std::shared_ptr<NwdafEvent >*>(obj_nwdaf_event);
     return obj.use_count();
 }

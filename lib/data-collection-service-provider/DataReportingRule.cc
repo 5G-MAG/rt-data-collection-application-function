@@ -39,36 +39,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_rule_t *data_collection_model_data_reporting_rule_create_copy(const data_collection_model_data_reporting_rule_t *other)
 {
-    return reinterpret_cast<data_collection_model_data_reporting_rule_t*>(new std::shared_ptr<DataReportingRule >(new DataReportingRule(**reinterpret_cast<const std::shared_ptr<DataReportingRule >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<DataReportingRule > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingRule >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_data_reporting_rule_t*>(new std::shared_ptr<DataReportingRule >(new DataReportingRule(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_rule_t *data_collection_model_data_reporting_rule_create_move(data_collection_model_data_reporting_rule_t *other)
 {
-    return reinterpret_cast<data_collection_model_data_reporting_rule_t*>(new std::shared_ptr<DataReportingRule >(std::move(*reinterpret_cast<std::shared_ptr<DataReportingRule >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<DataReportingRule > *obj = reinterpret_cast<std::shared_ptr<DataReportingRule >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_rule_t *data_collection_model_data_reporting_rule_copy(data_collection_model_data_reporting_rule_t *data_reporting_rule, const data_collection_model_data_reporting_rule_t *other)
 {
-    std::shared_ptr<DataReportingRule > &obj = *reinterpret_cast<std::shared_ptr<DataReportingRule >*>(data_reporting_rule);
-    *obj = **reinterpret_cast<const std::shared_ptr<DataReportingRule >*>(other);
+    if (data_reporting_rule) {
+        std::shared_ptr<DataReportingRule > &obj = *reinterpret_cast<std::shared_ptr<DataReportingRule >*>(data_reporting_rule);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<DataReportingRule > &other_obj = *reinterpret_cast<const std::shared_ptr<DataReportingRule >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<DataReportingRule > &other_obj = *reinterpret_cast<const std::shared_ptr<DataReportingRule >*>(other);
+                if (other_obj) {
+                    obj.reset(new DataReportingRule(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        data_reporting_rule = data_collection_model_data_reporting_rule_create_copy(other);
+    }
     return data_reporting_rule;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_rule_t *data_collection_model_data_reporting_rule_move(data_collection_model_data_reporting_rule_t *data_reporting_rule, data_collection_model_data_reporting_rule_t *other)
 {
-    std::shared_ptr<DataReportingRule > &obj = *reinterpret_cast<std::shared_ptr<DataReportingRule >*>(data_reporting_rule);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<DataReportingRule >*>(other));
+    std::shared_ptr<DataReportingRule > *other_ptr = reinterpret_cast<std::shared_ptr<DataReportingRule >*>(other);
+
+    if (data_reporting_rule) {
+        std::shared_ptr<DataReportingRule > &obj = *reinterpret_cast<std::shared_ptr<DataReportingRule >*>(data_reporting_rule);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                data_reporting_rule = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return data_reporting_rule;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_data_reporting_rule_free(data_collection_model_data_reporting_rule_t *data_reporting_rule)
 {
+    if (!data_reporting_rule) return;
     delete reinterpret_cast<std::shared_ptr<DataReportingRule >*>(data_reporting_rule);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_data_reporting_rule_toJSON(const data_collection_model_data_reporting_rule_t *data_reporting_rule, bool as_request)
 {
+    if (!data_reporting_rule) return NULL;
     const std::shared_ptr<DataReportingRule > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingRule >*>(data_reporting_rule);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -88,15 +141,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_data_reporting_rule_is_equal_to(const data_collection_model_data_reporting_rule_t *first, const data_collection_model_data_reporting_rule_t *second)
 {
-    const std::shared_ptr<DataReportingRule > &obj1 = *reinterpret_cast<const std::shared_ptr<DataReportingRule >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<DataReportingRule > &obj2 = *reinterpret_cast<const std::shared_ptr<DataReportingRule >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<DataReportingRule > &obj1 = *reinterpret_cast<const std::shared_ptr<DataReportingRule >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_data_reporting_rule_get_context_ids(const data_collection_model_data_reporting_rule_t *obj_data_reporting_rule)
 {
+    if (!obj_data_reporting_rule) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<DataReportingRule > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingRule >*>(obj_data_reporting_rule);
+    if (!obj) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     typedef typename DataReportingRule::ContextIdsType ResultFromType;
     const ResultFromType result_from = obj->getContextIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
@@ -112,9 +192,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_da
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_rule_t *data_collection_model_data_reporting_rule_set_context_ids(data_collection_model_data_reporting_rule_t *obj_data_reporting_rule, const ogs_list_t* p_context_ids)
 {
-    if (obj_data_reporting_rule == NULL) return NULL;
+    if (!obj_data_reporting_rule) return NULL;
 
     std::shared_ptr<DataReportingRule > &obj = *reinterpret_cast<std::shared_ptr<DataReportingRule >*>(obj_data_reporting_rule);
+    if (!obj) return NULL;
+
     const auto &value_from = p_context_ids;
     typedef typename DataReportingRule::ContextIdsType ValueType;
 
@@ -128,14 +210,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
         }
     }
     if (!obj->setContextIds(value)) return NULL;
+
     return obj_data_reporting_rule;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_rule_t *data_collection_model_data_reporting_rule_set_context_ids_move(data_collection_model_data_reporting_rule_t *obj_data_reporting_rule, ogs_list_t* p_context_ids)
 {
-    if (obj_data_reporting_rule == NULL) return NULL;
+    if (!obj_data_reporting_rule) return NULL;
 
     std::shared_ptr<DataReportingRule > &obj = *reinterpret_cast<std::shared_ptr<DataReportingRule >*>(obj_data_reporting_rule);
+    if (!obj) return NULL;
+
     const auto &value_from = p_context_ids;
     typedef typename DataReportingRule::ContextIdsType ValueType;
 
@@ -150,12 +235,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     }
     data_collection_list_free(p_context_ids);
     if (!obj->setContextIds(std::move(value))) return NULL;
+
     return obj_data_reporting_rule;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_rule_t *data_collection_model_data_reporting_rule_add_context_ids(data_collection_model_data_reporting_rule_t *obj_data_reporting_rule, char* p_context_ids)
 {
+    if (!obj_data_reporting_rule) return NULL;
+
     std::shared_ptr<DataReportingRule > &obj = *reinterpret_cast<std::shared_ptr<DataReportingRule >*>(obj_data_reporting_rule);
+    if (!obj) return NULL;
+
     typedef typename DataReportingRule::ContextIdsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_context_ids;
@@ -168,7 +258,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_rule_t *data_collection_model_data_reporting_rule_remove_context_ids(data_collection_model_data_reporting_rule_t *obj_data_reporting_rule, const char* p_context_ids)
 {
+    if (!obj_data_reporting_rule) return NULL;
+
     std::shared_ptr<DataReportingRule > &obj = *reinterpret_cast<std::shared_ptr<DataReportingRule >*>(obj_data_reporting_rule);
+    if (!obj) return NULL;
+
     typedef typename DataReportingRule::ContextIdsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_context_ids;
@@ -178,15 +272,29 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_rule_t *data_collection_model_data_reporting_rule_clear_context_ids(data_collection_model_data_reporting_rule_t *obj_data_reporting_rule)
-{   
+{
+    if (!obj_data_reporting_rule) return NULL;
+
     std::shared_ptr<DataReportingRule > &obj = *reinterpret_cast<std::shared_ptr<DataReportingRule >*>(obj_data_reporting_rule);
+    if (!obj) return NULL;
+
     obj->clearContextIds();
     return obj_data_reporting_rule;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_data_reporting_rule_get_reporting_probability(const data_collection_model_data_reporting_rule_t *obj_data_reporting_rule)
 {
+    if (!obj_data_reporting_rule) {
+        const double result = 0;
+        return result;
+    }
+
     const std::shared_ptr<DataReportingRule > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingRule >*>(obj_data_reporting_rule);
+    if (!obj) {
+        const double result = 0;
+        return result;
+    }
+
     typedef typename DataReportingRule::ReportingProbabilityType ResultFromType;
     const ResultFromType result_from = obj->getReportingProbability();
     const ResultFromType result = result_from;
@@ -195,34 +303,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_d
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_rule_t *data_collection_model_data_reporting_rule_set_reporting_probability(data_collection_model_data_reporting_rule_t *obj_data_reporting_rule, const double p_reporting_probability)
 {
-    if (obj_data_reporting_rule == NULL) return NULL;
+    if (!obj_data_reporting_rule) return NULL;
 
     std::shared_ptr<DataReportingRule > &obj = *reinterpret_cast<std::shared_ptr<DataReportingRule >*>(obj_data_reporting_rule);
+    if (!obj) return NULL;
+
     const auto &value_from = p_reporting_probability;
     typedef typename DataReportingRule::ReportingProbabilityType ValueType;
 
     ValueType value = value_from;
     if (!obj->setReportingProbability(value)) return NULL;
+
     return obj_data_reporting_rule;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_rule_t *data_collection_model_data_reporting_rule_set_reporting_probability_move(data_collection_model_data_reporting_rule_t *obj_data_reporting_rule, double p_reporting_probability)
 {
-    if (obj_data_reporting_rule == NULL) return NULL;
+    if (!obj_data_reporting_rule) return NULL;
 
     std::shared_ptr<DataReportingRule > &obj = *reinterpret_cast<std::shared_ptr<DataReportingRule >*>(obj_data_reporting_rule);
+    if (!obj) return NULL;
+
     const auto &value_from = p_reporting_probability;
     typedef typename DataReportingRule::ReportingProbabilityType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setReportingProbability(std::move(value))) return NULL;
+
     return obj_data_reporting_rule;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_data_reporting_rule_get_reporting_format(const data_collection_model_data_reporting_rule_t *obj_data_reporting_rule)
 {
+    if (!obj_data_reporting_rule) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<DataReportingRule > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingRule >*>(obj_data_reporting_rule);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename DataReportingRule::ReportingFormatType ResultFromType;
     const ResultFromType result_from = obj->getReportingFormat();
     const char *result = result_from.c_str();
@@ -231,34 +355,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_da
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_rule_t *data_collection_model_data_reporting_rule_set_reporting_format(data_collection_model_data_reporting_rule_t *obj_data_reporting_rule, const char* p_reporting_format)
 {
-    if (obj_data_reporting_rule == NULL) return NULL;
+    if (!obj_data_reporting_rule) return NULL;
 
     std::shared_ptr<DataReportingRule > &obj = *reinterpret_cast<std::shared_ptr<DataReportingRule >*>(obj_data_reporting_rule);
+    if (!obj) return NULL;
+
     const auto &value_from = p_reporting_format;
     typedef typename DataReportingRule::ReportingFormatType ValueType;
 
     ValueType value(value_from);
     if (!obj->setReportingFormat(value)) return NULL;
+
     return obj_data_reporting_rule;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_rule_t *data_collection_model_data_reporting_rule_set_reporting_format_move(data_collection_model_data_reporting_rule_t *obj_data_reporting_rule, char* p_reporting_format)
 {
-    if (obj_data_reporting_rule == NULL) return NULL;
+    if (!obj_data_reporting_rule) return NULL;
 
     std::shared_ptr<DataReportingRule > &obj = *reinterpret_cast<std::shared_ptr<DataReportingRule >*>(obj_data_reporting_rule);
+    if (!obj) return NULL;
+
     const auto &value_from = p_reporting_format;
     typedef typename DataReportingRule::ReportingFormatType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setReportingFormat(std::move(value))) return NULL;
+
     return obj_data_reporting_rule;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_data_reporting_rule_get_data_packaging_strategy(const data_collection_model_data_reporting_rule_t *obj_data_reporting_rule)
 {
+    if (!obj_data_reporting_rule) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<DataReportingRule > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingRule >*>(obj_data_reporting_rule);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename DataReportingRule::DataPackagingStrategyType ResultFromType;
     const ResultFromType result_from = obj->getDataPackagingStrategy();
     const char *result = result_from.c_str();
@@ -267,28 +407,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_da
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_rule_t *data_collection_model_data_reporting_rule_set_data_packaging_strategy(data_collection_model_data_reporting_rule_t *obj_data_reporting_rule, const char* p_data_packaging_strategy)
 {
-    if (obj_data_reporting_rule == NULL) return NULL;
+    if (!obj_data_reporting_rule) return NULL;
 
     std::shared_ptr<DataReportingRule > &obj = *reinterpret_cast<std::shared_ptr<DataReportingRule >*>(obj_data_reporting_rule);
+    if (!obj) return NULL;
+
     const auto &value_from = p_data_packaging_strategy;
     typedef typename DataReportingRule::DataPackagingStrategyType ValueType;
 
     ValueType value(value_from);
     if (!obj->setDataPackagingStrategy(value)) return NULL;
+
     return obj_data_reporting_rule;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_rule_t *data_collection_model_data_reporting_rule_set_data_packaging_strategy_move(data_collection_model_data_reporting_rule_t *obj_data_reporting_rule, char* p_data_packaging_strategy)
 {
-    if (obj_data_reporting_rule == NULL) return NULL;
+    if (!obj_data_reporting_rule) return NULL;
 
     std::shared_ptr<DataReportingRule > &obj = *reinterpret_cast<std::shared_ptr<DataReportingRule >*>(obj_data_reporting_rule);
+    if (!obj) return NULL;
+
     const auto &value_from = p_data_packaging_strategy;
     typedef typename DataReportingRule::DataPackagingStrategyType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setDataPackagingStrategy(std::move(value))) return NULL;
+
     return obj_data_reporting_rule;
 }
 
@@ -302,6 +448,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_data_reporting_rule_refcount(data_collection_model_data_reporting_rule_t *obj_data_reporting_rule)
 {
+    if (!obj_data_reporting_rule) return 0l;
     std::shared_ptr<DataReportingRule > &obj = *reinterpret_cast<std::shared_ptr<DataReportingRule >*>(obj_data_reporting_rule);
     return obj.use_count();
 }

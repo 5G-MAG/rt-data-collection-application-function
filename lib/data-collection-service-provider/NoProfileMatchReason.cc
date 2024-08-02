@@ -31,36 +31,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_mat
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_match_reason_t *data_collection_model_no_profile_match_reason_create_copy(const data_collection_model_no_profile_match_reason_t *other)
 {
-    return reinterpret_cast<data_collection_model_no_profile_match_reason_t*>(new std::shared_ptr<NoProfileMatchReason >(new NoProfileMatchReason(**reinterpret_cast<const std::shared_ptr<NoProfileMatchReason >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<NoProfileMatchReason > &obj = *reinterpret_cast<const std::shared_ptr<NoProfileMatchReason >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_no_profile_match_reason_t*>(new std::shared_ptr<NoProfileMatchReason >(new NoProfileMatchReason(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_match_reason_t *data_collection_model_no_profile_match_reason_create_move(data_collection_model_no_profile_match_reason_t *other)
 {
-    return reinterpret_cast<data_collection_model_no_profile_match_reason_t*>(new std::shared_ptr<NoProfileMatchReason >(std::move(*reinterpret_cast<std::shared_ptr<NoProfileMatchReason >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<NoProfileMatchReason > *obj = reinterpret_cast<std::shared_ptr<NoProfileMatchReason >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_match_reason_t *data_collection_model_no_profile_match_reason_copy(data_collection_model_no_profile_match_reason_t *no_profile_match_reason, const data_collection_model_no_profile_match_reason_t *other)
 {
-    std::shared_ptr<NoProfileMatchReason > &obj = *reinterpret_cast<std::shared_ptr<NoProfileMatchReason >*>(no_profile_match_reason);
-    *obj = **reinterpret_cast<const std::shared_ptr<NoProfileMatchReason >*>(other);
+    if (no_profile_match_reason) {
+        std::shared_ptr<NoProfileMatchReason > &obj = *reinterpret_cast<std::shared_ptr<NoProfileMatchReason >*>(no_profile_match_reason);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<NoProfileMatchReason > &other_obj = *reinterpret_cast<const std::shared_ptr<NoProfileMatchReason >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<NoProfileMatchReason > &other_obj = *reinterpret_cast<const std::shared_ptr<NoProfileMatchReason >*>(other);
+                if (other_obj) {
+                    obj.reset(new NoProfileMatchReason(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        no_profile_match_reason = data_collection_model_no_profile_match_reason_create_copy(other);
+    }
     return no_profile_match_reason;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_match_reason_t *data_collection_model_no_profile_match_reason_move(data_collection_model_no_profile_match_reason_t *no_profile_match_reason, data_collection_model_no_profile_match_reason_t *other)
 {
-    std::shared_ptr<NoProfileMatchReason > &obj = *reinterpret_cast<std::shared_ptr<NoProfileMatchReason >*>(no_profile_match_reason);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<NoProfileMatchReason >*>(other));
+    std::shared_ptr<NoProfileMatchReason > *other_ptr = reinterpret_cast<std::shared_ptr<NoProfileMatchReason >*>(other);
+
+    if (no_profile_match_reason) {
+        std::shared_ptr<NoProfileMatchReason > &obj = *reinterpret_cast<std::shared_ptr<NoProfileMatchReason >*>(no_profile_match_reason);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                no_profile_match_reason = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return no_profile_match_reason;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_no_profile_match_reason_free(data_collection_model_no_profile_match_reason_t *no_profile_match_reason)
 {
+    if (!no_profile_match_reason) return;
     delete reinterpret_cast<std::shared_ptr<NoProfileMatchReason >*>(no_profile_match_reason);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_no_profile_match_reason_toJSON(const data_collection_model_no_profile_match_reason_t *no_profile_match_reason, bool as_request)
 {
+    if (!no_profile_match_reason) return NULL;
     const std::shared_ptr<NoProfileMatchReason > &obj = *reinterpret_cast<const std::shared_ptr<NoProfileMatchReason >*>(no_profile_match_reason);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -80,27 +133,51 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_mat
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_no_profile_match_reason_is_equal_to(const data_collection_model_no_profile_match_reason_t *first, const data_collection_model_no_profile_match_reason_t *second)
 {
-    const std::shared_ptr<NoProfileMatchReason > &obj1 = *reinterpret_cast<const std::shared_ptr<NoProfileMatchReason >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<NoProfileMatchReason > &obj2 = *reinterpret_cast<const std::shared_ptr<NoProfileMatchReason >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<NoProfileMatchReason > &obj1 = *reinterpret_cast<const std::shared_ptr<NoProfileMatchReason >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profile_match_reason_is_not_set(const data_collection_model_no_profile_match_reason_t *obj_no_profile_match_reason)
 {
+    if (!obj_no_profile_match_reason) return true;
     const std::shared_ptr<NoProfileMatchReason > &obj = *reinterpret_cast<const std::shared_ptr<NoProfileMatchReason >*>(obj_no_profile_match_reason);
+    if (!obj) return true;
     return obj->getValue() == NoProfileMatchReason::Enum::NO_VAL;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profile_match_reason_is_non_standard(const data_collection_model_no_profile_match_reason_t *obj_no_profile_match_reason)
 {
+    if (!obj_no_profile_match_reason) return false;
     const std::shared_ptr<NoProfileMatchReason > &obj = *reinterpret_cast<const std::shared_ptr<NoProfileMatchReason >*>(obj_no_profile_match_reason);
+    if (!obj) return false;
     return obj->getValue() == NoProfileMatchReason::Enum::OTHER;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_reason_e data_collection_model_no_profile_match_reason_get_enum(const data_collection_model_no_profile_match_reason_t *obj_no_profile_match_reason)
 {
+    if (!obj_no_profile_match_reason)
+        return DCM_NO_PROFILE_MATCH_REASON_NO_VAL;
     const std::shared_ptr<NoProfileMatchReason > &obj = *reinterpret_cast<const std::shared_ptr<NoProfileMatchReason >*>(obj_no_profile_match_reason);
+    if (!obj) return DCM_NO_PROFILE_MATCH_REASON_NO_VAL;
     switch (obj->getValue()) {
     case NoProfileMatchReason::Enum::NO_VAL:
         return DCM_NO_PROFILE_MATCH_REASON_NO_VAL;
@@ -124,13 +201,17 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_reason_e
 
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_no_profile_match_reason_get_string(const data_collection_model_no_profile_match_reason_t *obj_no_profile_match_reason)
 {
+    if (!obj_no_profile_match_reason) return NULL;
     const std::shared_ptr<NoProfileMatchReason > &obj = *reinterpret_cast<const std::shared_ptr<NoProfileMatchReason >*>(obj_no_profile_match_reason);
+    if (!obj) return NULL;
     return obj->getString().c_str();
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profile_match_reason_set_enum(data_collection_model_no_profile_match_reason_t *obj_no_profile_match_reason, data_collection_model_no_profile_match_reason_e p_value)
 {
+    if (!obj_no_profile_match_reason) return false;
     std::shared_ptr<NoProfileMatchReason > &obj = *reinterpret_cast<std::shared_ptr<NoProfileMatchReason >*>(obj_no_profile_match_reason);
+    if (!obj) return false;
     switch (p_value) {
     case DCM_NO_PROFILE_MATCH_REASON_NO_VAL:
         *obj = NoProfileMatchReason::Enum::NO_VAL;
@@ -161,7 +242,9 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profile_match_rea
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profile_match_reason_set_string(data_collection_model_no_profile_match_reason_t *obj_no_profile_match_reason, const char *p_value)
 {
+    if (!obj_no_profile_match_reason) return false;
     std::shared_ptr<NoProfileMatchReason > &obj = *reinterpret_cast<std::shared_ptr<NoProfileMatchReason >*>(obj_no_profile_match_reason);
+    if (!obj) return false;
     if (p_value) {
         *obj = std::string(p_value);
     } else {
@@ -181,6 +264,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_no_profile_match_reason_refcount(data_collection_model_no_profile_match_reason_t *obj_no_profile_match_reason)
 {
+    if (!obj_no_profile_match_reason) return 0l;
     std::shared_ptr<NoProfileMatchReason > &obj = *reinterpret_cast<std::shared_ptr<NoProfileMatchReason >*>(obj_no_profile_match_reason);
     return obj.use_count();
 }

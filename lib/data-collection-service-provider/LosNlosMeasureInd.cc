@@ -29,36 +29,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_los_nlos_measu
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_los_nlos_measure_ind_t *data_collection_model_los_nlos_measure_ind_create_copy(const data_collection_model_los_nlos_measure_ind_t *other)
 {
-    return reinterpret_cast<data_collection_model_los_nlos_measure_ind_t*>(new std::shared_ptr<LosNlosMeasureInd >(new LosNlosMeasureInd(**reinterpret_cast<const std::shared_ptr<LosNlosMeasureInd >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<LosNlosMeasureInd > &obj = *reinterpret_cast<const std::shared_ptr<LosNlosMeasureInd >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_los_nlos_measure_ind_t*>(new std::shared_ptr<LosNlosMeasureInd >(new LosNlosMeasureInd(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_los_nlos_measure_ind_t *data_collection_model_los_nlos_measure_ind_create_move(data_collection_model_los_nlos_measure_ind_t *other)
 {
-    return reinterpret_cast<data_collection_model_los_nlos_measure_ind_t*>(new std::shared_ptr<LosNlosMeasureInd >(std::move(*reinterpret_cast<std::shared_ptr<LosNlosMeasureInd >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<LosNlosMeasureInd > *obj = reinterpret_cast<std::shared_ptr<LosNlosMeasureInd >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_los_nlos_measure_ind_t *data_collection_model_los_nlos_measure_ind_copy(data_collection_model_los_nlos_measure_ind_t *los_nlos_measure_ind, const data_collection_model_los_nlos_measure_ind_t *other)
 {
-    std::shared_ptr<LosNlosMeasureInd > &obj = *reinterpret_cast<std::shared_ptr<LosNlosMeasureInd >*>(los_nlos_measure_ind);
-    *obj = **reinterpret_cast<const std::shared_ptr<LosNlosMeasureInd >*>(other);
+    if (los_nlos_measure_ind) {
+        std::shared_ptr<LosNlosMeasureInd > &obj = *reinterpret_cast<std::shared_ptr<LosNlosMeasureInd >*>(los_nlos_measure_ind);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<LosNlosMeasureInd > &other_obj = *reinterpret_cast<const std::shared_ptr<LosNlosMeasureInd >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<LosNlosMeasureInd > &other_obj = *reinterpret_cast<const std::shared_ptr<LosNlosMeasureInd >*>(other);
+                if (other_obj) {
+                    obj.reset(new LosNlosMeasureInd(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        los_nlos_measure_ind = data_collection_model_los_nlos_measure_ind_create_copy(other);
+    }
     return los_nlos_measure_ind;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_los_nlos_measure_ind_t *data_collection_model_los_nlos_measure_ind_move(data_collection_model_los_nlos_measure_ind_t *los_nlos_measure_ind, data_collection_model_los_nlos_measure_ind_t *other)
 {
-    std::shared_ptr<LosNlosMeasureInd > &obj = *reinterpret_cast<std::shared_ptr<LosNlosMeasureInd >*>(los_nlos_measure_ind);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<LosNlosMeasureInd >*>(other));
+    std::shared_ptr<LosNlosMeasureInd > *other_ptr = reinterpret_cast<std::shared_ptr<LosNlosMeasureInd >*>(other);
+
+    if (los_nlos_measure_ind) {
+        std::shared_ptr<LosNlosMeasureInd > &obj = *reinterpret_cast<std::shared_ptr<LosNlosMeasureInd >*>(los_nlos_measure_ind);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                los_nlos_measure_ind = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return los_nlos_measure_ind;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_los_nlos_measure_ind_free(data_collection_model_los_nlos_measure_ind_t *los_nlos_measure_ind)
 {
+    if (!los_nlos_measure_ind) return;
     delete reinterpret_cast<std::shared_ptr<LosNlosMeasureInd >*>(los_nlos_measure_ind);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_los_nlos_measure_ind_toJSON(const data_collection_model_los_nlos_measure_ind_t *los_nlos_measure_ind, bool as_request)
 {
+    if (!los_nlos_measure_ind) return NULL;
     const std::shared_ptr<LosNlosMeasureInd > &obj = *reinterpret_cast<const std::shared_ptr<LosNlosMeasureInd >*>(los_nlos_measure_ind);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -78,27 +131,51 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_los_nlos_measu
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_los_nlos_measure_ind_is_equal_to(const data_collection_model_los_nlos_measure_ind_t *first, const data_collection_model_los_nlos_measure_ind_t *second)
 {
-    const std::shared_ptr<LosNlosMeasureInd > &obj1 = *reinterpret_cast<const std::shared_ptr<LosNlosMeasureInd >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<LosNlosMeasureInd > &obj2 = *reinterpret_cast<const std::shared_ptr<LosNlosMeasureInd >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<LosNlosMeasureInd > &obj1 = *reinterpret_cast<const std::shared_ptr<LosNlosMeasureInd >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_los_nlos_measure_ind_is_not_set(const data_collection_model_los_nlos_measure_ind_t *obj_los_nlos_measure_ind)
 {
+    if (!obj_los_nlos_measure_ind) return true;
     const std::shared_ptr<LosNlosMeasureInd > &obj = *reinterpret_cast<const std::shared_ptr<LosNlosMeasureInd >*>(obj_los_nlos_measure_ind);
+    if (!obj) return true;
     return obj->getValue() == LosNlosMeasureInd::Enum::NO_VAL;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_los_nlos_measure_ind_is_non_standard(const data_collection_model_los_nlos_measure_ind_t *obj_los_nlos_measure_ind)
 {
+    if (!obj_los_nlos_measure_ind) return false;
     const std::shared_ptr<LosNlosMeasureInd > &obj = *reinterpret_cast<const std::shared_ptr<LosNlosMeasureInd >*>(obj_los_nlos_measure_ind);
+    if (!obj) return false;
     return obj->getValue() == LosNlosMeasureInd::Enum::OTHER;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_los_nlos_measure_ind_e data_collection_model_los_nlos_measure_ind_get_enum(const data_collection_model_los_nlos_measure_ind_t *obj_los_nlos_measure_ind)
 {
+    if (!obj_los_nlos_measure_ind)
+        return DCM_LOS_NLOS_MEASURE_IND_NO_VAL;
     const std::shared_ptr<LosNlosMeasureInd > &obj = *reinterpret_cast<const std::shared_ptr<LosNlosMeasureInd >*>(obj_los_nlos_measure_ind);
+    if (!obj) return DCM_LOS_NLOS_MEASURE_IND_NO_VAL;
     switch (obj->getValue()) {
     case LosNlosMeasureInd::Enum::NO_VAL:
         return DCM_LOS_NLOS_MEASURE_IND_NO_VAL;
@@ -114,13 +191,17 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_los_nlos_measure_ind_e da
 
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_los_nlos_measure_ind_get_string(const data_collection_model_los_nlos_measure_ind_t *obj_los_nlos_measure_ind)
 {
+    if (!obj_los_nlos_measure_ind) return NULL;
     const std::shared_ptr<LosNlosMeasureInd > &obj = *reinterpret_cast<const std::shared_ptr<LosNlosMeasureInd >*>(obj_los_nlos_measure_ind);
+    if (!obj) return NULL;
     return obj->getString().c_str();
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_los_nlos_measure_ind_set_enum(data_collection_model_los_nlos_measure_ind_t *obj_los_nlos_measure_ind, data_collection_model_los_nlos_measure_ind_e p_value)
 {
+    if (!obj_los_nlos_measure_ind) return false;
     std::shared_ptr<LosNlosMeasureInd > &obj = *reinterpret_cast<std::shared_ptr<LosNlosMeasureInd >*>(obj_los_nlos_measure_ind);
+    if (!obj) return false;
     switch (p_value) {
     case DCM_LOS_NLOS_MEASURE_IND_NO_VAL:
         *obj = LosNlosMeasureInd::Enum::NO_VAL;
@@ -139,7 +220,9 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_los_nlos_measure_ind
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_los_nlos_measure_ind_set_string(data_collection_model_los_nlos_measure_ind_t *obj_los_nlos_measure_ind, const char *p_value)
 {
+    if (!obj_los_nlos_measure_ind) return false;
     std::shared_ptr<LosNlosMeasureInd > &obj = *reinterpret_cast<std::shared_ptr<LosNlosMeasureInd >*>(obj_los_nlos_measure_ind);
+    if (!obj) return false;
     if (p_value) {
         *obj = std::string(p_value);
     } else {
@@ -159,6 +242,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_los_nlos_measure_ind_refcount(data_collection_model_los_nlos_measure_ind_t *obj_los_nlos_measure_ind)
 {
+    if (!obj_los_nlos_measure_ind) return 0l;
     std::shared_ptr<LosNlosMeasureInd > &obj = *reinterpret_cast<std::shared_ptr<LosNlosMeasureInd >*>(obj_los_nlos_measure_ind);
     return obj.use_count();
 }

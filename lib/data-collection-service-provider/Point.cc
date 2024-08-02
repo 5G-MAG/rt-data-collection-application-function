@@ -35,36 +35,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_collection_model_point_create_copy(const data_collection_model_point_t *other)
 {
-    return reinterpret_cast<data_collection_model_point_t*>(new std::shared_ptr<Point >(new Point(**reinterpret_cast<const std::shared_ptr<Point >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<Point > &obj = *reinterpret_cast<const std::shared_ptr<Point >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_point_t*>(new std::shared_ptr<Point >(new Point(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_collection_model_point_create_move(data_collection_model_point_t *other)
 {
-    return reinterpret_cast<data_collection_model_point_t*>(new std::shared_ptr<Point >(std::move(*reinterpret_cast<std::shared_ptr<Point >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<Point > *obj = reinterpret_cast<std::shared_ptr<Point >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_collection_model_point_copy(data_collection_model_point_t *point, const data_collection_model_point_t *other)
 {
-    std::shared_ptr<Point > &obj = *reinterpret_cast<std::shared_ptr<Point >*>(point);
-    *obj = **reinterpret_cast<const std::shared_ptr<Point >*>(other);
+    if (point) {
+        std::shared_ptr<Point > &obj = *reinterpret_cast<std::shared_ptr<Point >*>(point);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<Point > &other_obj = *reinterpret_cast<const std::shared_ptr<Point >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<Point > &other_obj = *reinterpret_cast<const std::shared_ptr<Point >*>(other);
+                if (other_obj) {
+                    obj.reset(new Point(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        point = data_collection_model_point_create_copy(other);
+    }
     return point;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_collection_model_point_move(data_collection_model_point_t *point, data_collection_model_point_t *other)
 {
-    std::shared_ptr<Point > &obj = *reinterpret_cast<std::shared_ptr<Point >*>(point);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<Point >*>(other));
+    std::shared_ptr<Point > *other_ptr = reinterpret_cast<std::shared_ptr<Point >*>(other);
+
+    if (point) {
+        std::shared_ptr<Point > &obj = *reinterpret_cast<std::shared_ptr<Point >*>(point);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                point = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return point;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_point_free(data_collection_model_point_t *point)
 {
+    if (!point) return;
     delete reinterpret_cast<std::shared_ptr<Point >*>(point);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_point_toJSON(const data_collection_model_point_t *point, bool as_request)
 {
+    if (!point) return NULL;
     const std::shared_ptr<Point > &obj = *reinterpret_cast<const std::shared_ptr<Point >*>(point);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -84,15 +137,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_point_is_equal_to(const data_collection_model_point_t *first, const data_collection_model_point_t *second)
 {
-    const std::shared_ptr<Point > &obj1 = *reinterpret_cast<const std::shared_ptr<Point >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<Point > &obj2 = *reinterpret_cast<const std::shared_ptr<Point >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<Point > &obj1 = *reinterpret_cast<const std::shared_ptr<Point >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_supported_gad_shapes_t* data_collection_model_point_get_shape(const data_collection_model_point_t *obj_point)
 {
+    if (!obj_point) {
+        const data_collection_model_supported_gad_shapes_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<Point > &obj = *reinterpret_cast<const std::shared_ptr<Point >*>(obj_point);
+    if (!obj) {
+        const data_collection_model_supported_gad_shapes_t *result = NULL;
+        return result;
+    }
+
     typedef typename Point::ShapeType ResultFromType;
     const ResultFromType result_from = obj->getShape();
     const data_collection_model_supported_gad_shapes_t *result = reinterpret_cast<const data_collection_model_supported_gad_shapes_t*>(&result_from);
@@ -101,34 +181,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_supporte
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_collection_model_point_set_shape(data_collection_model_point_t *obj_point, const data_collection_model_supported_gad_shapes_t* p_shape)
 {
-    if (obj_point == NULL) return NULL;
+    if (!obj_point) return NULL;
 
     std::shared_ptr<Point > &obj = *reinterpret_cast<std::shared_ptr<Point >*>(obj_point);
+    if (!obj) return NULL;
+
     const auto &value_from = p_shape;
     typedef typename Point::ShapeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setShape(value)) return NULL;
+
     return obj_point;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_collection_model_point_set_shape_move(data_collection_model_point_t *obj_point, data_collection_model_supported_gad_shapes_t* p_shape)
 {
-    if (obj_point == NULL) return NULL;
+    if (!obj_point) return NULL;
 
     std::shared_ptr<Point > &obj = *reinterpret_cast<std::shared_ptr<Point >*>(obj_point);
+    if (!obj) return NULL;
+
     const auto &value_from = p_shape;
     typedef typename Point::ShapeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setShape(std::move(value))) return NULL;
+
     return obj_point;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geographical_coordinates_t* data_collection_model_point_get_point(const data_collection_model_point_t *obj_point)
 {
+    if (!obj_point) {
+        const data_collection_model_geographical_coordinates_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<Point > &obj = *reinterpret_cast<const std::shared_ptr<Point >*>(obj_point);
+    if (!obj) {
+        const data_collection_model_geographical_coordinates_t *result = NULL;
+        return result;
+    }
+
     typedef typename Point::PointType ResultFromType;
     const ResultFromType result_from = obj->getPoint();
     const data_collection_model_geographical_coordinates_t *result = reinterpret_cast<const data_collection_model_geographical_coordinates_t*>(&result_from);
@@ -137,28 +233,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geograph
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_collection_model_point_set_point(data_collection_model_point_t *obj_point, const data_collection_model_geographical_coordinates_t* p_point)
 {
-    if (obj_point == NULL) return NULL;
+    if (!obj_point) return NULL;
 
     std::shared_ptr<Point > &obj = *reinterpret_cast<std::shared_ptr<Point >*>(obj_point);
+    if (!obj) return NULL;
+
     const auto &value_from = p_point;
     typedef typename Point::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setPoint(value)) return NULL;
+
     return obj_point;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_collection_model_point_set_point_move(data_collection_model_point_t *obj_point, data_collection_model_geographical_coordinates_t* p_point)
 {
-    if (obj_point == NULL) return NULL;
+    if (!obj_point) return NULL;
 
     std::shared_ptr<Point > &obj = *reinterpret_cast<std::shared_ptr<Point >*>(obj_point);
+    if (!obj) return NULL;
+
     const auto &value_from = p_point;
     typedef typename Point::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setPoint(std::move(value))) return NULL;
+
     return obj_point;
 }
 
@@ -172,6 +274,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_point_refcount(data_collection_model_point_t *obj_point)
 {
+    if (!obj_point) return 0l;
     std::shared_ptr<Point > &obj = *reinterpret_cast<std::shared_ptr<Point >*>(obj_point);
     return obj.use_count();
 }

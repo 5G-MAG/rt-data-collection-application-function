@@ -19,7 +19,6 @@
 #include "hash.h"
 #include "dcaf-version.h"
 #include "data-collection-sp/data-collection.h"
-#include "openapi/model/dcaf_api_data_report.h"
 
 /* Local constants */
 #define TERMINATION_HOLDING_TIME ogs_time_from_msec(300)
@@ -50,7 +49,7 @@ static const data_collection_data_report_handler_t * const dc_config_report_type
 static const data_collection_configuration_t dc_config = {
     "dataCollection",                /* configuration section */
     0,                               /* library feature disable flags */
-    DATA_COLLECTION_SUPPORTED_FEATURE_EVENT_UE_COMMUNICATION, /* event supported feature flags - when UE_comm implemented */
+    DATA_COLLECTION_SUPPORTED_FEATURE_EVENT_UE_COMMUNICATION, /* event supported feature flags */
     DCAF_NAME,
     DCAF_VERSION,
     DCAF_TYPE,

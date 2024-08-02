@@ -37,36 +37,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_redirect_respo
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_redirect_response_t *data_collection_model_redirect_response_create_copy(const data_collection_model_redirect_response_t *other)
 {
-    return reinterpret_cast<data_collection_model_redirect_response_t*>(new std::shared_ptr<RedirectResponse >(new RedirectResponse(**reinterpret_cast<const std::shared_ptr<RedirectResponse >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<RedirectResponse > &obj = *reinterpret_cast<const std::shared_ptr<RedirectResponse >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_redirect_response_t*>(new std::shared_ptr<RedirectResponse >(new RedirectResponse(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_redirect_response_t *data_collection_model_redirect_response_create_move(data_collection_model_redirect_response_t *other)
 {
-    return reinterpret_cast<data_collection_model_redirect_response_t*>(new std::shared_ptr<RedirectResponse >(std::move(*reinterpret_cast<std::shared_ptr<RedirectResponse >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<RedirectResponse > *obj = reinterpret_cast<std::shared_ptr<RedirectResponse >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_redirect_response_t *data_collection_model_redirect_response_copy(data_collection_model_redirect_response_t *redirect_response, const data_collection_model_redirect_response_t *other)
 {
-    std::shared_ptr<RedirectResponse > &obj = *reinterpret_cast<std::shared_ptr<RedirectResponse >*>(redirect_response);
-    *obj = **reinterpret_cast<const std::shared_ptr<RedirectResponse >*>(other);
+    if (redirect_response) {
+        std::shared_ptr<RedirectResponse > &obj = *reinterpret_cast<std::shared_ptr<RedirectResponse >*>(redirect_response);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<RedirectResponse > &other_obj = *reinterpret_cast<const std::shared_ptr<RedirectResponse >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<RedirectResponse > &other_obj = *reinterpret_cast<const std::shared_ptr<RedirectResponse >*>(other);
+                if (other_obj) {
+                    obj.reset(new RedirectResponse(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        redirect_response = data_collection_model_redirect_response_create_copy(other);
+    }
     return redirect_response;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_redirect_response_t *data_collection_model_redirect_response_move(data_collection_model_redirect_response_t *redirect_response, data_collection_model_redirect_response_t *other)
 {
-    std::shared_ptr<RedirectResponse > &obj = *reinterpret_cast<std::shared_ptr<RedirectResponse >*>(redirect_response);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<RedirectResponse >*>(other));
+    std::shared_ptr<RedirectResponse > *other_ptr = reinterpret_cast<std::shared_ptr<RedirectResponse >*>(other);
+
+    if (redirect_response) {
+        std::shared_ptr<RedirectResponse > &obj = *reinterpret_cast<std::shared_ptr<RedirectResponse >*>(redirect_response);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                redirect_response = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return redirect_response;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_redirect_response_free(data_collection_model_redirect_response_t *redirect_response)
 {
+    if (!redirect_response) return;
     delete reinterpret_cast<std::shared_ptr<RedirectResponse >*>(redirect_response);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_redirect_response_toJSON(const data_collection_model_redirect_response_t *redirect_response, bool as_request)
 {
+    if (!redirect_response) return NULL;
     const std::shared_ptr<RedirectResponse > &obj = *reinterpret_cast<const std::shared_ptr<RedirectResponse >*>(redirect_response);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -86,15 +139,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_redirect_respo
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_redirect_response_is_equal_to(const data_collection_model_redirect_response_t *first, const data_collection_model_redirect_response_t *second)
 {
-    const std::shared_ptr<RedirectResponse > &obj1 = *reinterpret_cast<const std::shared_ptr<RedirectResponse >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<RedirectResponse > &obj2 = *reinterpret_cast<const std::shared_ptr<RedirectResponse >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<RedirectResponse > &obj1 = *reinterpret_cast<const std::shared_ptr<RedirectResponse >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_redirect_response_get_cause(const data_collection_model_redirect_response_t *obj_redirect_response)
 {
+    if (!obj_redirect_response) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<RedirectResponse > &obj = *reinterpret_cast<const std::shared_ptr<RedirectResponse >*>(obj_redirect_response);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename RedirectResponse::CauseType ResultFromType;
     const ResultFromType result_from = obj->getCause();
     const char *result = result_from.c_str();
@@ -103,34 +183,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_re
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_redirect_response_t *data_collection_model_redirect_response_set_cause(data_collection_model_redirect_response_t *obj_redirect_response, const char* p_cause)
 {
-    if (obj_redirect_response == NULL) return NULL;
+    if (!obj_redirect_response) return NULL;
 
     std::shared_ptr<RedirectResponse > &obj = *reinterpret_cast<std::shared_ptr<RedirectResponse >*>(obj_redirect_response);
+    if (!obj) return NULL;
+
     const auto &value_from = p_cause;
     typedef typename RedirectResponse::CauseType ValueType;
 
     ValueType value(value_from);
     if (!obj->setCause(value)) return NULL;
+
     return obj_redirect_response;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_redirect_response_t *data_collection_model_redirect_response_set_cause_move(data_collection_model_redirect_response_t *obj_redirect_response, char* p_cause)
 {
-    if (obj_redirect_response == NULL) return NULL;
+    if (!obj_redirect_response) return NULL;
 
     std::shared_ptr<RedirectResponse > &obj = *reinterpret_cast<std::shared_ptr<RedirectResponse >*>(obj_redirect_response);
+    if (!obj) return NULL;
+
     const auto &value_from = p_cause;
     typedef typename RedirectResponse::CauseType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setCause(std::move(value))) return NULL;
+
     return obj_redirect_response;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_redirect_response_get_target_scp(const data_collection_model_redirect_response_t *obj_redirect_response)
 {
+    if (!obj_redirect_response) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<RedirectResponse > &obj = *reinterpret_cast<const std::shared_ptr<RedirectResponse >*>(obj_redirect_response);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename RedirectResponse::TargetScpType ResultFromType;
     const ResultFromType result_from = obj->getTargetScp();
     const char *result = result_from.c_str();
@@ -139,34 +235,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_re
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_redirect_response_t *data_collection_model_redirect_response_set_target_scp(data_collection_model_redirect_response_t *obj_redirect_response, const char* p_target_scp)
 {
-    if (obj_redirect_response == NULL) return NULL;
+    if (!obj_redirect_response) return NULL;
 
     std::shared_ptr<RedirectResponse > &obj = *reinterpret_cast<std::shared_ptr<RedirectResponse >*>(obj_redirect_response);
+    if (!obj) return NULL;
+
     const auto &value_from = p_target_scp;
     typedef typename RedirectResponse::TargetScpType ValueType;
 
     ValueType value(value_from);
     if (!obj->setTargetScp(value)) return NULL;
+
     return obj_redirect_response;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_redirect_response_t *data_collection_model_redirect_response_set_target_scp_move(data_collection_model_redirect_response_t *obj_redirect_response, char* p_target_scp)
 {
-    if (obj_redirect_response == NULL) return NULL;
+    if (!obj_redirect_response) return NULL;
 
     std::shared_ptr<RedirectResponse > &obj = *reinterpret_cast<std::shared_ptr<RedirectResponse >*>(obj_redirect_response);
+    if (!obj) return NULL;
+
     const auto &value_from = p_target_scp;
     typedef typename RedirectResponse::TargetScpType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setTargetScp(std::move(value))) return NULL;
+
     return obj_redirect_response;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_redirect_response_get_target_sepp(const data_collection_model_redirect_response_t *obj_redirect_response)
 {
+    if (!obj_redirect_response) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<RedirectResponse > &obj = *reinterpret_cast<const std::shared_ptr<RedirectResponse >*>(obj_redirect_response);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename RedirectResponse::TargetSeppType ResultFromType;
     const ResultFromType result_from = obj->getTargetSepp();
     const char *result = result_from.c_str();
@@ -175,28 +287,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_re
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_redirect_response_t *data_collection_model_redirect_response_set_target_sepp(data_collection_model_redirect_response_t *obj_redirect_response, const char* p_target_sepp)
 {
-    if (obj_redirect_response == NULL) return NULL;
+    if (!obj_redirect_response) return NULL;
 
     std::shared_ptr<RedirectResponse > &obj = *reinterpret_cast<std::shared_ptr<RedirectResponse >*>(obj_redirect_response);
+    if (!obj) return NULL;
+
     const auto &value_from = p_target_sepp;
     typedef typename RedirectResponse::TargetSeppType ValueType;
 
     ValueType value(value_from);
     if (!obj->setTargetSepp(value)) return NULL;
+
     return obj_redirect_response;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_redirect_response_t *data_collection_model_redirect_response_set_target_sepp_move(data_collection_model_redirect_response_t *obj_redirect_response, char* p_target_sepp)
 {
-    if (obj_redirect_response == NULL) return NULL;
+    if (!obj_redirect_response) return NULL;
 
     std::shared_ptr<RedirectResponse > &obj = *reinterpret_cast<std::shared_ptr<RedirectResponse >*>(obj_redirect_response);
+    if (!obj) return NULL;
+
     const auto &value_from = p_target_sepp;
     typedef typename RedirectResponse::TargetSeppType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setTargetSepp(std::move(value))) return NULL;
+
     return obj_redirect_response;
 }
 
@@ -210,6 +328,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_redirect_response_refcount(data_collection_model_redirect_response_t *obj_redirect_response)
 {
+    if (!obj_redirect_response) return 0l;
     std::shared_ptr<RedirectResponse > &obj = *reinterpret_cast<std::shared_ptr<RedirectResponse >*>(obj_redirect_response);
     return obj.use_count();
 }

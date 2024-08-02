@@ -35,36 +35,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_create_copy(const data_collection_model_scheduled_communication_time_t *other)
 {
-    return reinterpret_cast<data_collection_model_scheduled_communication_time_t*>(new std::shared_ptr<ScheduledCommunicationTime >(new ScheduledCommunicationTime(**reinterpret_cast<const std::shared_ptr<ScheduledCommunicationTime >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<ScheduledCommunicationTime > &obj = *reinterpret_cast<const std::shared_ptr<ScheduledCommunicationTime >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_scheduled_communication_time_t*>(new std::shared_ptr<ScheduledCommunicationTime >(new ScheduledCommunicationTime(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_create_move(data_collection_model_scheduled_communication_time_t *other)
 {
-    return reinterpret_cast<data_collection_model_scheduled_communication_time_t*>(new std::shared_ptr<ScheduledCommunicationTime >(std::move(*reinterpret_cast<std::shared_ptr<ScheduledCommunicationTime >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<ScheduledCommunicationTime > *obj = reinterpret_cast<std::shared_ptr<ScheduledCommunicationTime >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_copy(data_collection_model_scheduled_communication_time_t *scheduled_communication_time, const data_collection_model_scheduled_communication_time_t *other)
 {
-    std::shared_ptr<ScheduledCommunicationTime > &obj = *reinterpret_cast<std::shared_ptr<ScheduledCommunicationTime >*>(scheduled_communication_time);
-    *obj = **reinterpret_cast<const std::shared_ptr<ScheduledCommunicationTime >*>(other);
+    if (scheduled_communication_time) {
+        std::shared_ptr<ScheduledCommunicationTime > &obj = *reinterpret_cast<std::shared_ptr<ScheduledCommunicationTime >*>(scheduled_communication_time);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<ScheduledCommunicationTime > &other_obj = *reinterpret_cast<const std::shared_ptr<ScheduledCommunicationTime >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<ScheduledCommunicationTime > &other_obj = *reinterpret_cast<const std::shared_ptr<ScheduledCommunicationTime >*>(other);
+                if (other_obj) {
+                    obj.reset(new ScheduledCommunicationTime(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        scheduled_communication_time = data_collection_model_scheduled_communication_time_create_copy(other);
+    }
     return scheduled_communication_time;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_move(data_collection_model_scheduled_communication_time_t *scheduled_communication_time, data_collection_model_scheduled_communication_time_t *other)
 {
-    std::shared_ptr<ScheduledCommunicationTime > &obj = *reinterpret_cast<std::shared_ptr<ScheduledCommunicationTime >*>(scheduled_communication_time);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<ScheduledCommunicationTime >*>(other));
+    std::shared_ptr<ScheduledCommunicationTime > *other_ptr = reinterpret_cast<std::shared_ptr<ScheduledCommunicationTime >*>(other);
+
+    if (scheduled_communication_time) {
+        std::shared_ptr<ScheduledCommunicationTime > &obj = *reinterpret_cast<std::shared_ptr<ScheduledCommunicationTime >*>(scheduled_communication_time);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                scheduled_communication_time = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return scheduled_communication_time;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_scheduled_communication_time_free(data_collection_model_scheduled_communication_time_t *scheduled_communication_time)
 {
+    if (!scheduled_communication_time) return;
     delete reinterpret_cast<std::shared_ptr<ScheduledCommunicationTime >*>(scheduled_communication_time);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_scheduled_communication_time_toJSON(const data_collection_model_scheduled_communication_time_t *scheduled_communication_time, bool as_request)
 {
+    if (!scheduled_communication_time) return NULL;
     const std::shared_ptr<ScheduledCommunicationTime > &obj = *reinterpret_cast<const std::shared_ptr<ScheduledCommunicationTime >*>(scheduled_communication_time);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -84,15 +137,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_scheduled_communication_time_is_equal_to(const data_collection_model_scheduled_communication_time_t *first, const data_collection_model_scheduled_communication_time_t *second)
 {
-    const std::shared_ptr<ScheduledCommunicationTime > &obj1 = *reinterpret_cast<const std::shared_ptr<ScheduledCommunicationTime >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<ScheduledCommunicationTime > &obj2 = *reinterpret_cast<const std::shared_ptr<ScheduledCommunicationTime >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<ScheduledCommunicationTime > &obj1 = *reinterpret_cast<const std::shared_ptr<ScheduledCommunicationTime >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_scheduled_communication_time_get_days_of_week(const data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time)
 {
+    if (!obj_scheduled_communication_time) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ScheduledCommunicationTime > &obj = *reinterpret_cast<const std::shared_ptr<ScheduledCommunicationTime >*>(obj_scheduled_communication_time);
+    if (!obj) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     typedef typename ScheduledCommunicationTime::DaysOfWeekType ResultFromType;
     const ResultFromType result_from = obj->getDaysOfWeek();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
@@ -110,9 +190,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_sc
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_set_days_of_week(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, const ogs_list_t* p_days_of_week)
 {
-    if (obj_scheduled_communication_time == NULL) return NULL;
+    if (!obj_scheduled_communication_time) return NULL;
 
     std::shared_ptr<ScheduledCommunicationTime > &obj = *reinterpret_cast<std::shared_ptr<ScheduledCommunicationTime >*>(obj_scheduled_communication_time);
+    if (!obj) return NULL;
+
     const auto &value_from = p_days_of_week;
     typedef typename ScheduledCommunicationTime::DaysOfWeekType ValueType;
 
@@ -126,14 +208,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
         }
     }
     if (!obj->setDaysOfWeek(value)) return NULL;
+
     return obj_scheduled_communication_time;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_set_days_of_week_move(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, ogs_list_t* p_days_of_week)
 {
-    if (obj_scheduled_communication_time == NULL) return NULL;
+    if (!obj_scheduled_communication_time) return NULL;
 
     std::shared_ptr<ScheduledCommunicationTime > &obj = *reinterpret_cast<std::shared_ptr<ScheduledCommunicationTime >*>(obj_scheduled_communication_time);
+    if (!obj) return NULL;
+
     const auto &value_from = p_days_of_week;
     typedef typename ScheduledCommunicationTime::DaysOfWeekType ValueType;
 
@@ -148,12 +233,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
     }
     data_collection_list_free(p_days_of_week);
     if (!obj->setDaysOfWeek(std::move(value))) return NULL;
+
     return obj_scheduled_communication_time;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_add_days_of_week(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, int32_t p_days_of_week)
 {
+    if (!obj_scheduled_communication_time) return NULL;
+
     std::shared_ptr<ScheduledCommunicationTime > &obj = *reinterpret_cast<std::shared_ptr<ScheduledCommunicationTime >*>(obj_scheduled_communication_time);
+    if (!obj) return NULL;
+
     typedef typename ScheduledCommunicationTime::DaysOfWeekType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_days_of_week;
@@ -166,7 +256,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_remove_days_of_week(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, const int32_t p_days_of_week)
 {
+    if (!obj_scheduled_communication_time) return NULL;
+
     std::shared_ptr<ScheduledCommunicationTime > &obj = *reinterpret_cast<std::shared_ptr<ScheduledCommunicationTime >*>(obj_scheduled_communication_time);
+    if (!obj) return NULL;
+
     typedef typename ScheduledCommunicationTime::DaysOfWeekType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_days_of_week;
@@ -176,15 +270,29 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_clear_days_of_week(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time)
-{   
+{
+    if (!obj_scheduled_communication_time) return NULL;
+
     std::shared_ptr<ScheduledCommunicationTime > &obj = *reinterpret_cast<std::shared_ptr<ScheduledCommunicationTime >*>(obj_scheduled_communication_time);
+    if (!obj) return NULL;
+
     obj->clearDaysOfWeek();
     return obj_scheduled_communication_time;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_scheduled_communication_time_get_time_of_day_start(const data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time)
 {
+    if (!obj_scheduled_communication_time) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ScheduledCommunicationTime > &obj = *reinterpret_cast<const std::shared_ptr<ScheduledCommunicationTime >*>(obj_scheduled_communication_time);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename ScheduledCommunicationTime::TimeOfDayStartType ResultFromType;
     const ResultFromType result_from = obj->getTimeOfDayStart();
     const char *result = result_from.c_str();
@@ -193,34 +301,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_sc
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_set_time_of_day_start(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, const char* p_time_of_day_start)
 {
-    if (obj_scheduled_communication_time == NULL) return NULL;
+    if (!obj_scheduled_communication_time) return NULL;
 
     std::shared_ptr<ScheduledCommunicationTime > &obj = *reinterpret_cast<std::shared_ptr<ScheduledCommunicationTime >*>(obj_scheduled_communication_time);
+    if (!obj) return NULL;
+
     const auto &value_from = p_time_of_day_start;
     typedef typename ScheduledCommunicationTime::TimeOfDayStartType ValueType;
 
     ValueType value(value_from);
     if (!obj->setTimeOfDayStart(value)) return NULL;
+
     return obj_scheduled_communication_time;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_set_time_of_day_start_move(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, char* p_time_of_day_start)
 {
-    if (obj_scheduled_communication_time == NULL) return NULL;
+    if (!obj_scheduled_communication_time) return NULL;
 
     std::shared_ptr<ScheduledCommunicationTime > &obj = *reinterpret_cast<std::shared_ptr<ScheduledCommunicationTime >*>(obj_scheduled_communication_time);
+    if (!obj) return NULL;
+
     const auto &value_from = p_time_of_day_start;
     typedef typename ScheduledCommunicationTime::TimeOfDayStartType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setTimeOfDayStart(std::move(value))) return NULL;
+
     return obj_scheduled_communication_time;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_scheduled_communication_time_get_time_of_day_end(const data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time)
 {
+    if (!obj_scheduled_communication_time) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ScheduledCommunicationTime > &obj = *reinterpret_cast<const std::shared_ptr<ScheduledCommunicationTime >*>(obj_scheduled_communication_time);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename ScheduledCommunicationTime::TimeOfDayEndType ResultFromType;
     const ResultFromType result_from = obj->getTimeOfDayEnd();
     const char *result = result_from.c_str();
@@ -229,28 +353,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_sc
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_set_time_of_day_end(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, const char* p_time_of_day_end)
 {
-    if (obj_scheduled_communication_time == NULL) return NULL;
+    if (!obj_scheduled_communication_time) return NULL;
 
     std::shared_ptr<ScheduledCommunicationTime > &obj = *reinterpret_cast<std::shared_ptr<ScheduledCommunicationTime >*>(obj_scheduled_communication_time);
+    if (!obj) return NULL;
+
     const auto &value_from = p_time_of_day_end;
     typedef typename ScheduledCommunicationTime::TimeOfDayEndType ValueType;
 
     ValueType value(value_from);
     if (!obj->setTimeOfDayEnd(value)) return NULL;
+
     return obj_scheduled_communication_time;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_set_time_of_day_end_move(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, char* p_time_of_day_end)
 {
-    if (obj_scheduled_communication_time == NULL) return NULL;
+    if (!obj_scheduled_communication_time) return NULL;
 
     std::shared_ptr<ScheduledCommunicationTime > &obj = *reinterpret_cast<std::shared_ptr<ScheduledCommunicationTime >*>(obj_scheduled_communication_time);
+    if (!obj) return NULL;
+
     const auto &value_from = p_time_of_day_end;
     typedef typename ScheduledCommunicationTime::TimeOfDayEndType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setTimeOfDayEnd(std::move(value))) return NULL;
+
     return obj_scheduled_communication_time;
 }
 
@@ -264,6 +394,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_scheduled_communication_time_refcount(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time)
 {
+    if (!obj_scheduled_communication_time) return 0l;
     std::shared_ptr<ScheduledCommunicationTime > &obj = *reinterpret_cast<std::shared_ptr<ScheduledCommunicationTime >*>(obj_scheduled_communication_time);
     return obj.use_count();
 }

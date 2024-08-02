@@ -43,36 +43,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_create_copy(const data_collection_model_af_event_exposure_subsc_t *other)
 {
-    return reinterpret_cast<data_collection_model_af_event_exposure_subsc_t*>(new std::shared_ptr<AfEventExposureSubsc >(new AfEventExposureSubsc(**reinterpret_cast<const std::shared_ptr<AfEventExposureSubsc >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<const std::shared_ptr<AfEventExposureSubsc >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_af_event_exposure_subsc_t*>(new std::shared_ptr<AfEventExposureSubsc >(new AfEventExposureSubsc(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_create_move(data_collection_model_af_event_exposure_subsc_t *other)
 {
-    return reinterpret_cast<data_collection_model_af_event_exposure_subsc_t*>(new std::shared_ptr<AfEventExposureSubsc >(std::move(*reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<AfEventExposureSubsc > *obj = reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_copy(data_collection_model_af_event_exposure_subsc_t *af_event_exposure_subsc, const data_collection_model_af_event_exposure_subsc_t *other)
 {
-    std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(af_event_exposure_subsc);
-    *obj = **reinterpret_cast<const std::shared_ptr<AfEventExposureSubsc >*>(other);
+    if (af_event_exposure_subsc) {
+        std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(af_event_exposure_subsc);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<AfEventExposureSubsc > &other_obj = *reinterpret_cast<const std::shared_ptr<AfEventExposureSubsc >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<AfEventExposureSubsc > &other_obj = *reinterpret_cast<const std::shared_ptr<AfEventExposureSubsc >*>(other);
+                if (other_obj) {
+                    obj.reset(new AfEventExposureSubsc(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        af_event_exposure_subsc = data_collection_model_af_event_exposure_subsc_create_copy(other);
+    }
     return af_event_exposure_subsc;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_move(data_collection_model_af_event_exposure_subsc_t *af_event_exposure_subsc, data_collection_model_af_event_exposure_subsc_t *other)
 {
-    std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(af_event_exposure_subsc);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(other));
+    std::shared_ptr<AfEventExposureSubsc > *other_ptr = reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(other);
+
+    if (af_event_exposure_subsc) {
+        std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(af_event_exposure_subsc);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                af_event_exposure_subsc = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return af_event_exposure_subsc;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_af_event_exposure_subsc_free(data_collection_model_af_event_exposure_subsc_t *af_event_exposure_subsc)
 {
+    if (!af_event_exposure_subsc) return;
     delete reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(af_event_exposure_subsc);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_af_event_exposure_subsc_toJSON(const data_collection_model_af_event_exposure_subsc_t *af_event_exposure_subsc, bool as_request)
 {
+    if (!af_event_exposure_subsc) return NULL;
     const std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<const std::shared_ptr<AfEventExposureSubsc >*>(af_event_exposure_subsc);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -92,15 +145,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_af_event_exposure_subsc_is_equal_to(const data_collection_model_af_event_exposure_subsc_t *first, const data_collection_model_af_event_exposure_subsc_t *second)
 {
-    const std::shared_ptr<AfEventExposureSubsc > &obj1 = *reinterpret_cast<const std::shared_ptr<AfEventExposureSubsc >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<AfEventExposureSubsc > &obj2 = *reinterpret_cast<const std::shared_ptr<AfEventExposureSubsc >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<AfEventExposureSubsc > &obj1 = *reinterpret_cast<const std::shared_ptr<AfEventExposureSubsc >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_af_event_exposure_subsc_get_data_acc_prof_id(const data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc)
 {
+    if (!obj_af_event_exposure_subsc) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<const std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename AfEventExposureSubsc::DataAccProfIdType ResultFromType;
     const ResultFromType result_from = obj->getDataAccProfId();
     const char *result = result_from.c_str();
@@ -109,34 +189,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_af
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_set_data_acc_prof_id(data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc, const char* p_data_acc_prof_id)
 {
-    if (obj_af_event_exposure_subsc == NULL) return NULL;
+    if (!obj_af_event_exposure_subsc) return NULL;
 
     std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) return NULL;
+
     const auto &value_from = p_data_acc_prof_id;
     typedef typename AfEventExposureSubsc::DataAccProfIdType ValueType;
 
     ValueType value(value_from);
     if (!obj->setDataAccProfId(value)) return NULL;
+
     return obj_af_event_exposure_subsc;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_set_data_acc_prof_id_move(data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc, char* p_data_acc_prof_id)
 {
-    if (obj_af_event_exposure_subsc == NULL) return NULL;
+    if (!obj_af_event_exposure_subsc) return NULL;
 
     std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) return NULL;
+
     const auto &value_from = p_data_acc_prof_id;
     typedef typename AfEventExposureSubsc::DataAccProfIdType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setDataAccProfId(std::move(value))) return NULL;
+
     return obj_af_event_exposure_subsc;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af_event_exposure_subsc_get_events_subs(const data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc)
 {
+    if (!obj_af_event_exposure_subsc) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<const std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     typedef typename AfEventExposureSubsc::EventsSubsType ResultFromType;
     const ResultFromType result_from = obj->getEventsSubs();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
@@ -153,9 +249,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_set_events_subs(data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc, const ogs_list_t* p_events_subs)
 {
-    if (obj_af_event_exposure_subsc == NULL) return NULL;
+    if (!obj_af_event_exposure_subsc) return NULL;
 
     std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) return NULL;
+
     const auto &value_from = p_events_subs;
     typedef typename AfEventExposureSubsc::EventsSubsType ValueType;
 
@@ -169,14 +267,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
         }
     }
     if (!obj->setEventsSubs(value)) return NULL;
+
     return obj_af_event_exposure_subsc;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_set_events_subs_move(data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc, ogs_list_t* p_events_subs)
 {
-    if (obj_af_event_exposure_subsc == NULL) return NULL;
+    if (!obj_af_event_exposure_subsc) return NULL;
 
     std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) return NULL;
+
     const auto &value_from = p_events_subs;
     typedef typename AfEventExposureSubsc::EventsSubsType ValueType;
 
@@ -191,12 +292,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
     }
     data_collection_list_free(p_events_subs);
     if (!obj->setEventsSubs(std::move(value))) return NULL;
+
     return obj_af_event_exposure_subsc;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_add_events_subs(data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc, data_collection_model_events_subs_t* p_events_subs)
 {
+    if (!obj_af_event_exposure_subsc) return NULL;
+
     std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) return NULL;
+
     typedef typename AfEventExposureSubsc::EventsSubsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_events_subs;
@@ -209,7 +315,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_remove_events_subs(data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc, const data_collection_model_events_subs_t* p_events_subs)
 {
+    if (!obj_af_event_exposure_subsc) return NULL;
+
     std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) return NULL;
+
     typedef typename AfEventExposureSubsc::EventsSubsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_events_subs;
@@ -219,15 +329,29 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_clear_events_subs(data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc)
-{   
+{
+    if (!obj_af_event_exposure_subsc) return NULL;
+
     std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) return NULL;
+
     obj->clearEventsSubs();
     return obj_af_event_exposure_subsc;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_reporting_information_t* data_collection_model_af_event_exposure_subsc_get_events_rep_info(const data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc)
 {
+    if (!obj_af_event_exposure_subsc) {
+        const data_collection_model_reporting_information_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<const std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) {
+        const data_collection_model_reporting_information_t *result = NULL;
+        return result;
+    }
+
     typedef typename AfEventExposureSubsc::EventsRepInfoType ResultFromType;
     const ResultFromType result_from = obj->getEventsRepInfo();
     const data_collection_model_reporting_information_t *result = reinterpret_cast<const data_collection_model_reporting_information_t*>(&result_from);
@@ -236,34 +360,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_reportin
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_set_events_rep_info(data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc, const data_collection_model_reporting_information_t* p_events_rep_info)
 {
-    if (obj_af_event_exposure_subsc == NULL) return NULL;
+    if (!obj_af_event_exposure_subsc) return NULL;
 
     std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) return NULL;
+
     const auto &value_from = p_events_rep_info;
     typedef typename AfEventExposureSubsc::EventsRepInfoType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setEventsRepInfo(value)) return NULL;
+
     return obj_af_event_exposure_subsc;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_set_events_rep_info_move(data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc, data_collection_model_reporting_information_t* p_events_rep_info)
 {
-    if (obj_af_event_exposure_subsc == NULL) return NULL;
+    if (!obj_af_event_exposure_subsc) return NULL;
 
     std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) return NULL;
+
     const auto &value_from = p_events_rep_info;
     typedef typename AfEventExposureSubsc::EventsRepInfoType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setEventsRepInfo(std::move(value))) return NULL;
+
     return obj_af_event_exposure_subsc;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_af_event_exposure_subsc_get_notif_uri(const data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc)
 {
+    if (!obj_af_event_exposure_subsc) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<const std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename AfEventExposureSubsc::NotifUriType ResultFromType;
     const ResultFromType result_from = obj->getNotifUri();
     const char *result = result_from.c_str();
@@ -272,34 +412,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_af
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_set_notif_uri(data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc, const char* p_notif_uri)
 {
-    if (obj_af_event_exposure_subsc == NULL) return NULL;
+    if (!obj_af_event_exposure_subsc) return NULL;
 
     std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) return NULL;
+
     const auto &value_from = p_notif_uri;
     typedef typename AfEventExposureSubsc::NotifUriType ValueType;
 
     ValueType value(value_from);
     if (!obj->setNotifUri(value)) return NULL;
+
     return obj_af_event_exposure_subsc;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_set_notif_uri_move(data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc, char* p_notif_uri)
 {
-    if (obj_af_event_exposure_subsc == NULL) return NULL;
+    if (!obj_af_event_exposure_subsc) return NULL;
 
     std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) return NULL;
+
     const auto &value_from = p_notif_uri;
     typedef typename AfEventExposureSubsc::NotifUriType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setNotifUri(std::move(value))) return NULL;
+
     return obj_af_event_exposure_subsc;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_af_event_exposure_subsc_get_notif_id(const data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc)
 {
+    if (!obj_af_event_exposure_subsc) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<const std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename AfEventExposureSubsc::NotifIdType ResultFromType;
     const ResultFromType result_from = obj->getNotifId();
     const char *result = result_from.c_str();
@@ -308,34 +464,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_af
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_set_notif_id(data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc, const char* p_notif_id)
 {
-    if (obj_af_event_exposure_subsc == NULL) return NULL;
+    if (!obj_af_event_exposure_subsc) return NULL;
 
     std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) return NULL;
+
     const auto &value_from = p_notif_id;
     typedef typename AfEventExposureSubsc::NotifIdType ValueType;
 
     ValueType value(value_from);
     if (!obj->setNotifId(value)) return NULL;
+
     return obj_af_event_exposure_subsc;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_set_notif_id_move(data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc, char* p_notif_id)
 {
-    if (obj_af_event_exposure_subsc == NULL) return NULL;
+    if (!obj_af_event_exposure_subsc) return NULL;
 
     std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) return NULL;
+
     const auto &value_from = p_notif_id;
     typedef typename AfEventExposureSubsc::NotifIdType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setNotifId(std::move(value))) return NULL;
+
     return obj_af_event_exposure_subsc;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af_event_exposure_subsc_get_event_notifs(const data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc)
 {
+    if (!obj_af_event_exposure_subsc) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<const std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     typedef typename AfEventExposureSubsc::EventNotifsType ResultFromType;
     const ResultFromType result_from = obj->getEventNotifs();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
@@ -352,9 +524,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_set_event_notifs(data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc, const ogs_list_t* p_event_notifs)
 {
-    if (obj_af_event_exposure_subsc == NULL) return NULL;
+    if (!obj_af_event_exposure_subsc) return NULL;
 
     std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) return NULL;
+
     const auto &value_from = p_event_notifs;
     typedef typename AfEventExposureSubsc::EventNotifsType ValueType;
 
@@ -368,14 +542,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
         }
     }
     if (!obj->setEventNotifs(value)) return NULL;
+
     return obj_af_event_exposure_subsc;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_set_event_notifs_move(data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc, ogs_list_t* p_event_notifs)
 {
-    if (obj_af_event_exposure_subsc == NULL) return NULL;
+    if (!obj_af_event_exposure_subsc) return NULL;
 
     std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) return NULL;
+
     const auto &value_from = p_event_notifs;
     typedef typename AfEventExposureSubsc::EventNotifsType ValueType;
 
@@ -390,12 +567,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
     }
     data_collection_list_free(p_event_notifs);
     if (!obj->setEventNotifs(std::move(value))) return NULL;
+
     return obj_af_event_exposure_subsc;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_add_event_notifs(data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc, data_collection_model_af_event_notification_t* p_event_notifs)
 {
+    if (!obj_af_event_exposure_subsc) return NULL;
+
     std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) return NULL;
+
     typedef typename AfEventExposureSubsc::EventNotifsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_event_notifs;
@@ -408,7 +590,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_remove_event_notifs(data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc, const data_collection_model_af_event_notification_t* p_event_notifs)
 {
+    if (!obj_af_event_exposure_subsc) return NULL;
+
     std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) return NULL;
+
     typedef typename AfEventExposureSubsc::EventNotifsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_event_notifs;
@@ -418,15 +604,29 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_clear_event_notifs(data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc)
-{   
+{
+    if (!obj_af_event_exposure_subsc) return NULL;
+
     std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) return NULL;
+
     obj->clearEventNotifs();
     return obj_af_event_exposure_subsc;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_af_event_exposure_subsc_get_supp_feat(const data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc)
 {
+    if (!obj_af_event_exposure_subsc) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<const std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename AfEventExposureSubsc::SuppFeatType ResultFromType;
     const ResultFromType result_from = obj->getSuppFeat();
     const char *result = result_from.c_str();
@@ -435,28 +635,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_af
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_set_supp_feat(data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc, const char* p_supp_feat)
 {
-    if (obj_af_event_exposure_subsc == NULL) return NULL;
+    if (!obj_af_event_exposure_subsc) return NULL;
 
     std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) return NULL;
+
     const auto &value_from = p_supp_feat;
     typedef typename AfEventExposureSubsc::SuppFeatType ValueType;
 
     ValueType value(value_from);
     if (!obj->setSuppFeat(value)) return NULL;
+
     return obj_af_event_exposure_subsc;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_set_supp_feat_move(data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc, char* p_supp_feat)
 {
-    if (obj_af_event_exposure_subsc == NULL) return NULL;
+    if (!obj_af_event_exposure_subsc) return NULL;
 
     std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) return NULL;
+
     const auto &value_from = p_supp_feat;
     typedef typename AfEventExposureSubsc::SuppFeatType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setSuppFeat(std::move(value))) return NULL;
+
     return obj_af_event_exposure_subsc;
 }
 
@@ -524,6 +730,7 @@ extern "C" cJSON *_model_af_event_exposure_subsc_generate_notification(const dat
 
 extern "C" long _model_af_event_exposure_subsc_refcount(data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc)
 {
+    if (!obj_af_event_exposure_subsc) return 0l;
     std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
     return obj.use_count();
 }

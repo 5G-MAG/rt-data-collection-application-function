@@ -29,36 +29,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_handli
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_handling_info_t *data_collection_model_pdu_set_handling_info_create_copy(const data_collection_model_pdu_set_handling_info_t *other)
 {
-    return reinterpret_cast<data_collection_model_pdu_set_handling_info_t*>(new std::shared_ptr<PduSetHandlingInfo >(new PduSetHandlingInfo(**reinterpret_cast<const std::shared_ptr<PduSetHandlingInfo >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<PduSetHandlingInfo > &obj = *reinterpret_cast<const std::shared_ptr<PduSetHandlingInfo >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_pdu_set_handling_info_t*>(new std::shared_ptr<PduSetHandlingInfo >(new PduSetHandlingInfo(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_handling_info_t *data_collection_model_pdu_set_handling_info_create_move(data_collection_model_pdu_set_handling_info_t *other)
 {
-    return reinterpret_cast<data_collection_model_pdu_set_handling_info_t*>(new std::shared_ptr<PduSetHandlingInfo >(std::move(*reinterpret_cast<std::shared_ptr<PduSetHandlingInfo >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<PduSetHandlingInfo > *obj = reinterpret_cast<std::shared_ptr<PduSetHandlingInfo >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_handling_info_t *data_collection_model_pdu_set_handling_info_copy(data_collection_model_pdu_set_handling_info_t *pdu_set_handling_info, const data_collection_model_pdu_set_handling_info_t *other)
 {
-    std::shared_ptr<PduSetHandlingInfo > &obj = *reinterpret_cast<std::shared_ptr<PduSetHandlingInfo >*>(pdu_set_handling_info);
-    *obj = **reinterpret_cast<const std::shared_ptr<PduSetHandlingInfo >*>(other);
+    if (pdu_set_handling_info) {
+        std::shared_ptr<PduSetHandlingInfo > &obj = *reinterpret_cast<std::shared_ptr<PduSetHandlingInfo >*>(pdu_set_handling_info);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<PduSetHandlingInfo > &other_obj = *reinterpret_cast<const std::shared_ptr<PduSetHandlingInfo >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<PduSetHandlingInfo > &other_obj = *reinterpret_cast<const std::shared_ptr<PduSetHandlingInfo >*>(other);
+                if (other_obj) {
+                    obj.reset(new PduSetHandlingInfo(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        pdu_set_handling_info = data_collection_model_pdu_set_handling_info_create_copy(other);
+    }
     return pdu_set_handling_info;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_handling_info_t *data_collection_model_pdu_set_handling_info_move(data_collection_model_pdu_set_handling_info_t *pdu_set_handling_info, data_collection_model_pdu_set_handling_info_t *other)
 {
-    std::shared_ptr<PduSetHandlingInfo > &obj = *reinterpret_cast<std::shared_ptr<PduSetHandlingInfo >*>(pdu_set_handling_info);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<PduSetHandlingInfo >*>(other));
+    std::shared_ptr<PduSetHandlingInfo > *other_ptr = reinterpret_cast<std::shared_ptr<PduSetHandlingInfo >*>(other);
+
+    if (pdu_set_handling_info) {
+        std::shared_ptr<PduSetHandlingInfo > &obj = *reinterpret_cast<std::shared_ptr<PduSetHandlingInfo >*>(pdu_set_handling_info);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                pdu_set_handling_info = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return pdu_set_handling_info;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_pdu_set_handling_info_free(data_collection_model_pdu_set_handling_info_t *pdu_set_handling_info)
 {
+    if (!pdu_set_handling_info) return;
     delete reinterpret_cast<std::shared_ptr<PduSetHandlingInfo >*>(pdu_set_handling_info);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_pdu_set_handling_info_toJSON(const data_collection_model_pdu_set_handling_info_t *pdu_set_handling_info, bool as_request)
 {
+    if (!pdu_set_handling_info) return NULL;
     const std::shared_ptr<PduSetHandlingInfo > &obj = *reinterpret_cast<const std::shared_ptr<PduSetHandlingInfo >*>(pdu_set_handling_info);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -78,27 +131,51 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_handli
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_pdu_set_handling_info_is_equal_to(const data_collection_model_pdu_set_handling_info_t *first, const data_collection_model_pdu_set_handling_info_t *second)
 {
-    const std::shared_ptr<PduSetHandlingInfo > &obj1 = *reinterpret_cast<const std::shared_ptr<PduSetHandlingInfo >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<PduSetHandlingInfo > &obj2 = *reinterpret_cast<const std::shared_ptr<PduSetHandlingInfo >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<PduSetHandlingInfo > &obj1 = *reinterpret_cast<const std::shared_ptr<PduSetHandlingInfo >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_handling_info_is_not_set(const data_collection_model_pdu_set_handling_info_t *obj_pdu_set_handling_info)
 {
+    if (!obj_pdu_set_handling_info) return true;
     const std::shared_ptr<PduSetHandlingInfo > &obj = *reinterpret_cast<const std::shared_ptr<PduSetHandlingInfo >*>(obj_pdu_set_handling_info);
+    if (!obj) return true;
     return obj->getValue() == PduSetHandlingInfo::Enum::NO_VAL;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_handling_info_is_non_standard(const data_collection_model_pdu_set_handling_info_t *obj_pdu_set_handling_info)
 {
+    if (!obj_pdu_set_handling_info) return false;
     const std::shared_ptr<PduSetHandlingInfo > &obj = *reinterpret_cast<const std::shared_ptr<PduSetHandlingInfo >*>(obj_pdu_set_handling_info);
+    if (!obj) return false;
     return obj->getValue() == PduSetHandlingInfo::Enum::OTHER;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_handling_info_e data_collection_model_pdu_set_handling_info_get_enum(const data_collection_model_pdu_set_handling_info_t *obj_pdu_set_handling_info)
 {
+    if (!obj_pdu_set_handling_info)
+        return DCM_PDU_SET_HANDLING_INFO_NO_VAL;
     const std::shared_ptr<PduSetHandlingInfo > &obj = *reinterpret_cast<const std::shared_ptr<PduSetHandlingInfo >*>(obj_pdu_set_handling_info);
+    if (!obj) return DCM_PDU_SET_HANDLING_INFO_NO_VAL;
     switch (obj->getValue()) {
     case PduSetHandlingInfo::Enum::NO_VAL:
         return DCM_PDU_SET_HANDLING_INFO_NO_VAL;
@@ -114,13 +191,17 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_handling_info_e d
 
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_pdu_set_handling_info_get_string(const data_collection_model_pdu_set_handling_info_t *obj_pdu_set_handling_info)
 {
+    if (!obj_pdu_set_handling_info) return NULL;
     const std::shared_ptr<PduSetHandlingInfo > &obj = *reinterpret_cast<const std::shared_ptr<PduSetHandlingInfo >*>(obj_pdu_set_handling_info);
+    if (!obj) return NULL;
     return obj->getString().c_str();
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_handling_info_set_enum(data_collection_model_pdu_set_handling_info_t *obj_pdu_set_handling_info, data_collection_model_pdu_set_handling_info_e p_value)
 {
+    if (!obj_pdu_set_handling_info) return false;
     std::shared_ptr<PduSetHandlingInfo > &obj = *reinterpret_cast<std::shared_ptr<PduSetHandlingInfo >*>(obj_pdu_set_handling_info);
+    if (!obj) return false;
     switch (p_value) {
     case DCM_PDU_SET_HANDLING_INFO_NO_VAL:
         *obj = PduSetHandlingInfo::Enum::NO_VAL;
@@ -139,7 +220,9 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_handling_inf
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_handling_info_set_string(data_collection_model_pdu_set_handling_info_t *obj_pdu_set_handling_info, const char *p_value)
 {
+    if (!obj_pdu_set_handling_info) return false;
     std::shared_ptr<PduSetHandlingInfo > &obj = *reinterpret_cast<std::shared_ptr<PduSetHandlingInfo >*>(obj_pdu_set_handling_info);
+    if (!obj) return false;
     if (p_value) {
         *obj = std::string(p_value);
     } else {
@@ -159,6 +242,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_pdu_set_handling_info_refcount(data_collection_model_pdu_set_handling_info_t *obj_pdu_set_handling_info)
 {
+    if (!obj_pdu_set_handling_info) return 0l;
     std::shared_ptr<PduSetHandlingInfo > &obj = *reinterpret_cast<std::shared_ptr<PduSetHandlingInfo >*>(obj_pdu_set_handling_info);
     return obj.use_count();
 }

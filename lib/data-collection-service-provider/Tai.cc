@@ -37,36 +37,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_tai_t *data_co
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_tai_t *data_collection_model_tai_create_copy(const data_collection_model_tai_t *other)
 {
-    return reinterpret_cast<data_collection_model_tai_t*>(new std::shared_ptr<Tai >(new Tai(**reinterpret_cast<const std::shared_ptr<Tai >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<Tai > &obj = *reinterpret_cast<const std::shared_ptr<Tai >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_tai_t*>(new std::shared_ptr<Tai >(new Tai(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_tai_t *data_collection_model_tai_create_move(data_collection_model_tai_t *other)
 {
-    return reinterpret_cast<data_collection_model_tai_t*>(new std::shared_ptr<Tai >(std::move(*reinterpret_cast<std::shared_ptr<Tai >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<Tai > *obj = reinterpret_cast<std::shared_ptr<Tai >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_tai_t *data_collection_model_tai_copy(data_collection_model_tai_t *tai, const data_collection_model_tai_t *other)
 {
-    std::shared_ptr<Tai > &obj = *reinterpret_cast<std::shared_ptr<Tai >*>(tai);
-    *obj = **reinterpret_cast<const std::shared_ptr<Tai >*>(other);
+    if (tai) {
+        std::shared_ptr<Tai > &obj = *reinterpret_cast<std::shared_ptr<Tai >*>(tai);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<Tai > &other_obj = *reinterpret_cast<const std::shared_ptr<Tai >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<Tai > &other_obj = *reinterpret_cast<const std::shared_ptr<Tai >*>(other);
+                if (other_obj) {
+                    obj.reset(new Tai(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        tai = data_collection_model_tai_create_copy(other);
+    }
     return tai;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_tai_t *data_collection_model_tai_move(data_collection_model_tai_t *tai, data_collection_model_tai_t *other)
 {
-    std::shared_ptr<Tai > &obj = *reinterpret_cast<std::shared_ptr<Tai >*>(tai);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<Tai >*>(other));
+    std::shared_ptr<Tai > *other_ptr = reinterpret_cast<std::shared_ptr<Tai >*>(other);
+
+    if (tai) {
+        std::shared_ptr<Tai > &obj = *reinterpret_cast<std::shared_ptr<Tai >*>(tai);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                tai = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return tai;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_tai_free(data_collection_model_tai_t *tai)
 {
+    if (!tai) return;
     delete reinterpret_cast<std::shared_ptr<Tai >*>(tai);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_tai_toJSON(const data_collection_model_tai_t *tai, bool as_request)
 {
+    if (!tai) return NULL;
     const std::shared_ptr<Tai > &obj = *reinterpret_cast<const std::shared_ptr<Tai >*>(tai);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -86,15 +139,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_tai_t *data_co
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_tai_is_equal_to(const data_collection_model_tai_t *first, const data_collection_model_tai_t *second)
 {
-    const std::shared_ptr<Tai > &obj1 = *reinterpret_cast<const std::shared_ptr<Tai >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<Tai > &obj2 = *reinterpret_cast<const std::shared_ptr<Tai >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<Tai > &obj1 = *reinterpret_cast<const std::shared_ptr<Tai >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_plmn_id_t* data_collection_model_tai_get_plmn_id(const data_collection_model_tai_t *obj_tai)
 {
+    if (!obj_tai) {
+        const data_collection_model_plmn_id_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<Tai > &obj = *reinterpret_cast<const std::shared_ptr<Tai >*>(obj_tai);
+    if (!obj) {
+        const data_collection_model_plmn_id_t *result = NULL;
+        return result;
+    }
+
     typedef typename Tai::PlmnIdType ResultFromType;
     const ResultFromType result_from = obj->getPlmnId();
     const data_collection_model_plmn_id_t *result = reinterpret_cast<const data_collection_model_plmn_id_t*>(&result_from);
@@ -103,34 +183,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_plmn_id_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_tai_t *data_collection_model_tai_set_plmn_id(data_collection_model_tai_t *obj_tai, const data_collection_model_plmn_id_t* p_plmn_id)
 {
-    if (obj_tai == NULL) return NULL;
+    if (!obj_tai) return NULL;
 
     std::shared_ptr<Tai > &obj = *reinterpret_cast<std::shared_ptr<Tai >*>(obj_tai);
+    if (!obj) return NULL;
+
     const auto &value_from = p_plmn_id;
     typedef typename Tai::PlmnIdType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setPlmnId(value)) return NULL;
+
     return obj_tai;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_tai_t *data_collection_model_tai_set_plmn_id_move(data_collection_model_tai_t *obj_tai, data_collection_model_plmn_id_t* p_plmn_id)
 {
-    if (obj_tai == NULL) return NULL;
+    if (!obj_tai) return NULL;
 
     std::shared_ptr<Tai > &obj = *reinterpret_cast<std::shared_ptr<Tai >*>(obj_tai);
+    if (!obj) return NULL;
+
     const auto &value_from = p_plmn_id;
     typedef typename Tai::PlmnIdType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setPlmnId(std::move(value))) return NULL;
+
     return obj_tai;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_tai_get_tac(const data_collection_model_tai_t *obj_tai)
 {
+    if (!obj_tai) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<Tai > &obj = *reinterpret_cast<const std::shared_ptr<Tai >*>(obj_tai);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename Tai::TacType ResultFromType;
     const ResultFromType result_from = obj->getTac();
     const char *result = result_from.c_str();
@@ -139,34 +235,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ta
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_tai_t *data_collection_model_tai_set_tac(data_collection_model_tai_t *obj_tai, const char* p_tac)
 {
-    if (obj_tai == NULL) return NULL;
+    if (!obj_tai) return NULL;
 
     std::shared_ptr<Tai > &obj = *reinterpret_cast<std::shared_ptr<Tai >*>(obj_tai);
+    if (!obj) return NULL;
+
     const auto &value_from = p_tac;
     typedef typename Tai::TacType ValueType;
 
     ValueType value(value_from);
     if (!obj->setTac(value)) return NULL;
+
     return obj_tai;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_tai_t *data_collection_model_tai_set_tac_move(data_collection_model_tai_t *obj_tai, char* p_tac)
 {
-    if (obj_tai == NULL) return NULL;
+    if (!obj_tai) return NULL;
 
     std::shared_ptr<Tai > &obj = *reinterpret_cast<std::shared_ptr<Tai >*>(obj_tai);
+    if (!obj) return NULL;
+
     const auto &value_from = p_tac;
     typedef typename Tai::TacType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setTac(std::move(value))) return NULL;
+
     return obj_tai;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_tai_get_nid(const data_collection_model_tai_t *obj_tai)
 {
+    if (!obj_tai) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<Tai > &obj = *reinterpret_cast<const std::shared_ptr<Tai >*>(obj_tai);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename Tai::NidType ResultFromType;
     const ResultFromType result_from = obj->getNid();
     const char *result = result_from.c_str();
@@ -175,28 +287,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ta
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_tai_t *data_collection_model_tai_set_nid(data_collection_model_tai_t *obj_tai, const char* p_nid)
 {
-    if (obj_tai == NULL) return NULL;
+    if (!obj_tai) return NULL;
 
     std::shared_ptr<Tai > &obj = *reinterpret_cast<std::shared_ptr<Tai >*>(obj_tai);
+    if (!obj) return NULL;
+
     const auto &value_from = p_nid;
     typedef typename Tai::NidType ValueType;
 
     ValueType value(value_from);
     if (!obj->setNid(value)) return NULL;
+
     return obj_tai;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_tai_t *data_collection_model_tai_set_nid_move(data_collection_model_tai_t *obj_tai, char* p_nid)
 {
-    if (obj_tai == NULL) return NULL;
+    if (!obj_tai) return NULL;
 
     std::shared_ptr<Tai > &obj = *reinterpret_cast<std::shared_ptr<Tai >*>(obj_tai);
+    if (!obj) return NULL;
+
     const auto &value_from = p_nid;
     typedef typename Tai::NidType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setNid(std::move(value))) return NULL;
+
     return obj_tai;
 }
 
@@ -210,6 +328,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_tai_refcount(data_collection_model_tai_t *obj_tai)
 {
+    if (!obj_tai) return 0l;
     std::shared_ptr<Tai > &obj = *reinterpret_cast<std::shared_ptr<Tai >*>(obj_tai);
     return obj.use_count();
 }

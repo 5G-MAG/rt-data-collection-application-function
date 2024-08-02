@@ -35,36 +35,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *d
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_create_copy(const data_collection_model_addr_fqdn_t *other)
 {
-    return reinterpret_cast<data_collection_model_addr_fqdn_t*>(new std::shared_ptr<AddrFqdn >(new AddrFqdn(**reinterpret_cast<const std::shared_ptr<AddrFqdn >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<AddrFqdn > &obj = *reinterpret_cast<const std::shared_ptr<AddrFqdn >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_addr_fqdn_t*>(new std::shared_ptr<AddrFqdn >(new AddrFqdn(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_create_move(data_collection_model_addr_fqdn_t *other)
 {
-    return reinterpret_cast<data_collection_model_addr_fqdn_t*>(new std::shared_ptr<AddrFqdn >(std::move(*reinterpret_cast<std::shared_ptr<AddrFqdn >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<AddrFqdn > *obj = reinterpret_cast<std::shared_ptr<AddrFqdn >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_copy(data_collection_model_addr_fqdn_t *addr_fqdn, const data_collection_model_addr_fqdn_t *other)
 {
-    std::shared_ptr<AddrFqdn > &obj = *reinterpret_cast<std::shared_ptr<AddrFqdn >*>(addr_fqdn);
-    *obj = **reinterpret_cast<const std::shared_ptr<AddrFqdn >*>(other);
+    if (addr_fqdn) {
+        std::shared_ptr<AddrFqdn > &obj = *reinterpret_cast<std::shared_ptr<AddrFqdn >*>(addr_fqdn);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<AddrFqdn > &other_obj = *reinterpret_cast<const std::shared_ptr<AddrFqdn >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<AddrFqdn > &other_obj = *reinterpret_cast<const std::shared_ptr<AddrFqdn >*>(other);
+                if (other_obj) {
+                    obj.reset(new AddrFqdn(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        addr_fqdn = data_collection_model_addr_fqdn_create_copy(other);
+    }
     return addr_fqdn;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_move(data_collection_model_addr_fqdn_t *addr_fqdn, data_collection_model_addr_fqdn_t *other)
 {
-    std::shared_ptr<AddrFqdn > &obj = *reinterpret_cast<std::shared_ptr<AddrFqdn >*>(addr_fqdn);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<AddrFqdn >*>(other));
+    std::shared_ptr<AddrFqdn > *other_ptr = reinterpret_cast<std::shared_ptr<AddrFqdn >*>(other);
+
+    if (addr_fqdn) {
+        std::shared_ptr<AddrFqdn > &obj = *reinterpret_cast<std::shared_ptr<AddrFqdn >*>(addr_fqdn);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                addr_fqdn = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return addr_fqdn;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_addr_fqdn_free(data_collection_model_addr_fqdn_t *addr_fqdn)
 {
+    if (!addr_fqdn) return;
     delete reinterpret_cast<std::shared_ptr<AddrFqdn >*>(addr_fqdn);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_addr_fqdn_toJSON(const data_collection_model_addr_fqdn_t *addr_fqdn, bool as_request)
 {
+    if (!addr_fqdn) return NULL;
     const std::shared_ptr<AddrFqdn > &obj = *reinterpret_cast<const std::shared_ptr<AddrFqdn >*>(addr_fqdn);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -84,15 +137,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *d
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_addr_fqdn_is_equal_to(const data_collection_model_addr_fqdn_t *first, const data_collection_model_addr_fqdn_t *second)
 {
-    const std::shared_ptr<AddrFqdn > &obj1 = *reinterpret_cast<const std::shared_ptr<AddrFqdn >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<AddrFqdn > &obj2 = *reinterpret_cast<const std::shared_ptr<AddrFqdn >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<AddrFqdn > &obj1 = *reinterpret_cast<const std::shared_ptr<AddrFqdn >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ip_addr_t* data_collection_model_addr_fqdn_get_ip_addr(const data_collection_model_addr_fqdn_t *obj_addr_fqdn)
 {
+    if (!obj_addr_fqdn) {
+        const data_collection_model_ip_addr_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<AddrFqdn > &obj = *reinterpret_cast<const std::shared_ptr<AddrFqdn >*>(obj_addr_fqdn);
+    if (!obj) {
+        const data_collection_model_ip_addr_t *result = NULL;
+        return result;
+    }
+
     typedef typename AddrFqdn::IpAddrType ResultFromType;
     const ResultFromType result_from = obj->getIpAddr();
     const data_collection_model_ip_addr_t *result = reinterpret_cast<const data_collection_model_ip_addr_t*>(&result_from);
@@ -101,34 +181,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ip_addr_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_set_ip_addr(data_collection_model_addr_fqdn_t *obj_addr_fqdn, const data_collection_model_ip_addr_t* p_ip_addr)
 {
-    if (obj_addr_fqdn == NULL) return NULL;
+    if (!obj_addr_fqdn) return NULL;
 
     std::shared_ptr<AddrFqdn > &obj = *reinterpret_cast<std::shared_ptr<AddrFqdn >*>(obj_addr_fqdn);
+    if (!obj) return NULL;
+
     const auto &value_from = p_ip_addr;
     typedef typename AddrFqdn::IpAddrType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setIpAddr(value)) return NULL;
+
     return obj_addr_fqdn;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_set_ip_addr_move(data_collection_model_addr_fqdn_t *obj_addr_fqdn, data_collection_model_ip_addr_t* p_ip_addr)
 {
-    if (obj_addr_fqdn == NULL) return NULL;
+    if (!obj_addr_fqdn) return NULL;
 
     std::shared_ptr<AddrFqdn > &obj = *reinterpret_cast<std::shared_ptr<AddrFqdn >*>(obj_addr_fqdn);
+    if (!obj) return NULL;
+
     const auto &value_from = p_ip_addr;
     typedef typename AddrFqdn::IpAddrType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setIpAddr(std::move(value))) return NULL;
+
     return obj_addr_fqdn;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_addr_fqdn_get_fqdn(const data_collection_model_addr_fqdn_t *obj_addr_fqdn)
 {
+    if (!obj_addr_fqdn) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<AddrFqdn > &obj = *reinterpret_cast<const std::shared_ptr<AddrFqdn >*>(obj_addr_fqdn);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename AddrFqdn::FqdnType ResultFromType;
     const ResultFromType result_from = obj->getFqdn();
     const char *result = result_from.c_str();
@@ -137,28 +233,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ad
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_set_fqdn(data_collection_model_addr_fqdn_t *obj_addr_fqdn, const char* p_fqdn)
 {
-    if (obj_addr_fqdn == NULL) return NULL;
+    if (!obj_addr_fqdn) return NULL;
 
     std::shared_ptr<AddrFqdn > &obj = *reinterpret_cast<std::shared_ptr<AddrFqdn >*>(obj_addr_fqdn);
+    if (!obj) return NULL;
+
     const auto &value_from = p_fqdn;
     typedef typename AddrFqdn::FqdnType ValueType;
 
     ValueType value(value_from);
     if (!obj->setFqdn(value)) return NULL;
+
     return obj_addr_fqdn;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_set_fqdn_move(data_collection_model_addr_fqdn_t *obj_addr_fqdn, char* p_fqdn)
 {
-    if (obj_addr_fqdn == NULL) return NULL;
+    if (!obj_addr_fqdn) return NULL;
 
     std::shared_ptr<AddrFqdn > &obj = *reinterpret_cast<std::shared_ptr<AddrFqdn >*>(obj_addr_fqdn);
+    if (!obj) return NULL;
+
     const auto &value_from = p_fqdn;
     typedef typename AddrFqdn::FqdnType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setFqdn(std::move(value))) return NULL;
+
     return obj_addr_fqdn;
 }
 
@@ -172,6 +274,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_addr_fqdn_refcount(data_collection_model_addr_fqdn_t *obj_addr_fqdn)
 {
+    if (!obj_addr_fqdn) return 0l;
     std::shared_ptr<AddrFqdn > &obj = *reinterpret_cast<std::shared_ptr<AddrFqdn >*>(obj_addr_fqdn);
     return obj.use_count();
 }

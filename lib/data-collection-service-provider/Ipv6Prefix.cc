@@ -31,36 +31,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ipv6_prefix_t 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ipv6_prefix_t *data_collection_model_ipv6_prefix_create_copy(const data_collection_model_ipv6_prefix_t *other)
 {
-    return reinterpret_cast<data_collection_model_ipv6_prefix_t*>(new std::shared_ptr<Ipv6Prefix >(new Ipv6Prefix(**reinterpret_cast<const std::shared_ptr<Ipv6Prefix >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<Ipv6Prefix > &obj = *reinterpret_cast<const std::shared_ptr<Ipv6Prefix >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_ipv6_prefix_t*>(new std::shared_ptr<Ipv6Prefix >(new Ipv6Prefix(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ipv6_prefix_t *data_collection_model_ipv6_prefix_create_move(data_collection_model_ipv6_prefix_t *other)
 {
-    return reinterpret_cast<data_collection_model_ipv6_prefix_t*>(new std::shared_ptr<Ipv6Prefix >(std::move(*reinterpret_cast<std::shared_ptr<Ipv6Prefix >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<Ipv6Prefix > *obj = reinterpret_cast<std::shared_ptr<Ipv6Prefix >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ipv6_prefix_t *data_collection_model_ipv6_prefix_copy(data_collection_model_ipv6_prefix_t *ipv6_prefix, const data_collection_model_ipv6_prefix_t *other)
 {
-    std::shared_ptr<Ipv6Prefix > &obj = *reinterpret_cast<std::shared_ptr<Ipv6Prefix >*>(ipv6_prefix);
-    *obj = **reinterpret_cast<const std::shared_ptr<Ipv6Prefix >*>(other);
+    if (ipv6_prefix) {
+        std::shared_ptr<Ipv6Prefix > &obj = *reinterpret_cast<std::shared_ptr<Ipv6Prefix >*>(ipv6_prefix);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<Ipv6Prefix > &other_obj = *reinterpret_cast<const std::shared_ptr<Ipv6Prefix >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<Ipv6Prefix > &other_obj = *reinterpret_cast<const std::shared_ptr<Ipv6Prefix >*>(other);
+                if (other_obj) {
+                    obj.reset(new Ipv6Prefix(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        ipv6_prefix = data_collection_model_ipv6_prefix_create_copy(other);
+    }
     return ipv6_prefix;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ipv6_prefix_t *data_collection_model_ipv6_prefix_move(data_collection_model_ipv6_prefix_t *ipv6_prefix, data_collection_model_ipv6_prefix_t *other)
 {
-    std::shared_ptr<Ipv6Prefix > &obj = *reinterpret_cast<std::shared_ptr<Ipv6Prefix >*>(ipv6_prefix);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<Ipv6Prefix >*>(other));
+    std::shared_ptr<Ipv6Prefix > *other_ptr = reinterpret_cast<std::shared_ptr<Ipv6Prefix >*>(other);
+
+    if (ipv6_prefix) {
+        std::shared_ptr<Ipv6Prefix > &obj = *reinterpret_cast<std::shared_ptr<Ipv6Prefix >*>(ipv6_prefix);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                ipv6_prefix = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return ipv6_prefix;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_ipv6_prefix_free(data_collection_model_ipv6_prefix_t *ipv6_prefix)
 {
+    if (!ipv6_prefix) return;
     delete reinterpret_cast<std::shared_ptr<Ipv6Prefix >*>(ipv6_prefix);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_ipv6_prefix_toJSON(const data_collection_model_ipv6_prefix_t *ipv6_prefix, bool as_request)
 {
+    if (!ipv6_prefix) return NULL;
     const std::shared_ptr<Ipv6Prefix > &obj = *reinterpret_cast<const std::shared_ptr<Ipv6Prefix >*>(ipv6_prefix);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -80,9 +133,26 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ipv6_prefix_t 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ipv6_prefix_is_equal_to(const data_collection_model_ipv6_prefix_t *first, const data_collection_model_ipv6_prefix_t *second)
 {
-    const std::shared_ptr<Ipv6Prefix > &obj1 = *reinterpret_cast<const std::shared_ptr<Ipv6Prefix >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<Ipv6Prefix > &obj2 = *reinterpret_cast<const std::shared_ptr<Ipv6Prefix >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<Ipv6Prefix > &obj1 = *reinterpret_cast<const std::shared_ptr<Ipv6Prefix >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
@@ -96,6 +166,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_ipv6_prefix_refcount(data_collection_model_ipv6_prefix_t *obj_ipv6_prefix)
 {
+    if (!obj_ipv6_prefix) return 0l;
     std::shared_ptr<Ipv6Prefix > &obj = *reinterpret_cast<std::shared_ptr<Ipv6Prefix >*>(obj_ipv6_prefix);
     return obj.use_count();
 }

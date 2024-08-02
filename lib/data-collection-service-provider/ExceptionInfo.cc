@@ -35,36 +35,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_info
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_info_t *data_collection_model_exception_info_create_copy(const data_collection_model_exception_info_t *other)
 {
-    return reinterpret_cast<data_collection_model_exception_info_t*>(new std::shared_ptr<ExceptionInfo >(new ExceptionInfo(**reinterpret_cast<const std::shared_ptr<ExceptionInfo >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<ExceptionInfo > &obj = *reinterpret_cast<const std::shared_ptr<ExceptionInfo >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_exception_info_t*>(new std::shared_ptr<ExceptionInfo >(new ExceptionInfo(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_info_t *data_collection_model_exception_info_create_move(data_collection_model_exception_info_t *other)
 {
-    return reinterpret_cast<data_collection_model_exception_info_t*>(new std::shared_ptr<ExceptionInfo >(std::move(*reinterpret_cast<std::shared_ptr<ExceptionInfo >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<ExceptionInfo > *obj = reinterpret_cast<std::shared_ptr<ExceptionInfo >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_info_t *data_collection_model_exception_info_copy(data_collection_model_exception_info_t *exception_info, const data_collection_model_exception_info_t *other)
 {
-    std::shared_ptr<ExceptionInfo > &obj = *reinterpret_cast<std::shared_ptr<ExceptionInfo >*>(exception_info);
-    *obj = **reinterpret_cast<const std::shared_ptr<ExceptionInfo >*>(other);
+    if (exception_info) {
+        std::shared_ptr<ExceptionInfo > &obj = *reinterpret_cast<std::shared_ptr<ExceptionInfo >*>(exception_info);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<ExceptionInfo > &other_obj = *reinterpret_cast<const std::shared_ptr<ExceptionInfo >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<ExceptionInfo > &other_obj = *reinterpret_cast<const std::shared_ptr<ExceptionInfo >*>(other);
+                if (other_obj) {
+                    obj.reset(new ExceptionInfo(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        exception_info = data_collection_model_exception_info_create_copy(other);
+    }
     return exception_info;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_info_t *data_collection_model_exception_info_move(data_collection_model_exception_info_t *exception_info, data_collection_model_exception_info_t *other)
 {
-    std::shared_ptr<ExceptionInfo > &obj = *reinterpret_cast<std::shared_ptr<ExceptionInfo >*>(exception_info);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<ExceptionInfo >*>(other));
+    std::shared_ptr<ExceptionInfo > *other_ptr = reinterpret_cast<std::shared_ptr<ExceptionInfo >*>(other);
+
+    if (exception_info) {
+        std::shared_ptr<ExceptionInfo > &obj = *reinterpret_cast<std::shared_ptr<ExceptionInfo >*>(exception_info);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                exception_info = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return exception_info;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_exception_info_free(data_collection_model_exception_info_t *exception_info)
 {
+    if (!exception_info) return;
     delete reinterpret_cast<std::shared_ptr<ExceptionInfo >*>(exception_info);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_exception_info_toJSON(const data_collection_model_exception_info_t *exception_info, bool as_request)
 {
+    if (!exception_info) return NULL;
     const std::shared_ptr<ExceptionInfo > &obj = *reinterpret_cast<const std::shared_ptr<ExceptionInfo >*>(exception_info);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -84,15 +137,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_info
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_exception_info_is_equal_to(const data_collection_model_exception_info_t *first, const data_collection_model_exception_info_t *second)
 {
-    const std::shared_ptr<ExceptionInfo > &obj1 = *reinterpret_cast<const std::shared_ptr<ExceptionInfo >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<ExceptionInfo > &obj2 = *reinterpret_cast<const std::shared_ptr<ExceptionInfo >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<ExceptionInfo > &obj1 = *reinterpret_cast<const std::shared_ptr<ExceptionInfo >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_flow_info_t* data_collection_model_exception_info_get_ip_traffic_filter(const data_collection_model_exception_info_t *obj_exception_info)
 {
+    if (!obj_exception_info) {
+        const data_collection_model_flow_info_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ExceptionInfo > &obj = *reinterpret_cast<const std::shared_ptr<ExceptionInfo >*>(obj_exception_info);
+    if (!obj) {
+        const data_collection_model_flow_info_t *result = NULL;
+        return result;
+    }
+
     typedef typename ExceptionInfo::IpTrafficFilterType ResultFromType;
     const ResultFromType result_from = obj->getIpTrafficFilter();
     const data_collection_model_flow_info_t *result = reinterpret_cast<const data_collection_model_flow_info_t*>(&result_from);
@@ -101,34 +181,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_flow_inf
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_info_t *data_collection_model_exception_info_set_ip_traffic_filter(data_collection_model_exception_info_t *obj_exception_info, const data_collection_model_flow_info_t* p_ip_traffic_filter)
 {
-    if (obj_exception_info == NULL) return NULL;
+    if (!obj_exception_info) return NULL;
 
     std::shared_ptr<ExceptionInfo > &obj = *reinterpret_cast<std::shared_ptr<ExceptionInfo >*>(obj_exception_info);
+    if (!obj) return NULL;
+
     const auto &value_from = p_ip_traffic_filter;
     typedef typename ExceptionInfo::IpTrafficFilterType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setIpTrafficFilter(value)) return NULL;
+
     return obj_exception_info;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_info_t *data_collection_model_exception_info_set_ip_traffic_filter_move(data_collection_model_exception_info_t *obj_exception_info, data_collection_model_flow_info_t* p_ip_traffic_filter)
 {
-    if (obj_exception_info == NULL) return NULL;
+    if (!obj_exception_info) return NULL;
 
     std::shared_ptr<ExceptionInfo > &obj = *reinterpret_cast<std::shared_ptr<ExceptionInfo >*>(obj_exception_info);
+    if (!obj) return NULL;
+
     const auto &value_from = p_ip_traffic_filter;
     typedef typename ExceptionInfo::IpTrafficFilterType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setIpTrafficFilter(std::move(value))) return NULL;
+
     return obj_exception_info;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_eth_flow_description_t* data_collection_model_exception_info_get_eth_traffic_filter(const data_collection_model_exception_info_t *obj_exception_info)
 {
+    if (!obj_exception_info) {
+        const data_collection_model_eth_flow_description_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ExceptionInfo > &obj = *reinterpret_cast<const std::shared_ptr<ExceptionInfo >*>(obj_exception_info);
+    if (!obj) {
+        const data_collection_model_eth_flow_description_t *result = NULL;
+        return result;
+    }
+
     typedef typename ExceptionInfo::EthTrafficFilterType ResultFromType;
     const ResultFromType result_from = obj->getEthTrafficFilter();
     const data_collection_model_eth_flow_description_t *result = reinterpret_cast<const data_collection_model_eth_flow_description_t*>(&result_from);
@@ -137,34 +233,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_eth_flow
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_info_t *data_collection_model_exception_info_set_eth_traffic_filter(data_collection_model_exception_info_t *obj_exception_info, const data_collection_model_eth_flow_description_t* p_eth_traffic_filter)
 {
-    if (obj_exception_info == NULL) return NULL;
+    if (!obj_exception_info) return NULL;
 
     std::shared_ptr<ExceptionInfo > &obj = *reinterpret_cast<std::shared_ptr<ExceptionInfo >*>(obj_exception_info);
+    if (!obj) return NULL;
+
     const auto &value_from = p_eth_traffic_filter;
     typedef typename ExceptionInfo::EthTrafficFilterType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setEthTrafficFilter(value)) return NULL;
+
     return obj_exception_info;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_info_t *data_collection_model_exception_info_set_eth_traffic_filter_move(data_collection_model_exception_info_t *obj_exception_info, data_collection_model_eth_flow_description_t* p_eth_traffic_filter)
 {
-    if (obj_exception_info == NULL) return NULL;
+    if (!obj_exception_info) return NULL;
 
     std::shared_ptr<ExceptionInfo > &obj = *reinterpret_cast<std::shared_ptr<ExceptionInfo >*>(obj_exception_info);
+    if (!obj) return NULL;
+
     const auto &value_from = p_eth_traffic_filter;
     typedef typename ExceptionInfo::EthTrafficFilterType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setEthTrafficFilter(std::move(value))) return NULL;
+
     return obj_exception_info;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_exception_info_get_exceps(const data_collection_model_exception_info_t *obj_exception_info)
 {
+    if (!obj_exception_info) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<ExceptionInfo > &obj = *reinterpret_cast<const std::shared_ptr<ExceptionInfo >*>(obj_exception_info);
+    if (!obj) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     typedef typename ExceptionInfo::ExcepsType ResultFromType;
     const ResultFromType result_from = obj->getExceps();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
@@ -181,9 +293,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ex
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_info_t *data_collection_model_exception_info_set_exceps(data_collection_model_exception_info_t *obj_exception_info, const ogs_list_t* p_exceps)
 {
-    if (obj_exception_info == NULL) return NULL;
+    if (!obj_exception_info) return NULL;
 
     std::shared_ptr<ExceptionInfo > &obj = *reinterpret_cast<std::shared_ptr<ExceptionInfo >*>(obj_exception_info);
+    if (!obj) return NULL;
+
     const auto &value_from = p_exceps;
     typedef typename ExceptionInfo::ExcepsType ValueType;
 
@@ -197,14 +311,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_info
         }
     }
     if (!obj->setExceps(value)) return NULL;
+
     return obj_exception_info;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_info_t *data_collection_model_exception_info_set_exceps_move(data_collection_model_exception_info_t *obj_exception_info, ogs_list_t* p_exceps)
 {
-    if (obj_exception_info == NULL) return NULL;
+    if (!obj_exception_info) return NULL;
 
     std::shared_ptr<ExceptionInfo > &obj = *reinterpret_cast<std::shared_ptr<ExceptionInfo >*>(obj_exception_info);
+    if (!obj) return NULL;
+
     const auto &value_from = p_exceps;
     typedef typename ExceptionInfo::ExcepsType ValueType;
 
@@ -219,12 +336,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_info
     }
     data_collection_list_free(p_exceps);
     if (!obj->setExceps(std::move(value))) return NULL;
+
     return obj_exception_info;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_info_t *data_collection_model_exception_info_add_exceps(data_collection_model_exception_info_t *obj_exception_info, data_collection_model_exception_t* p_exceps)
 {
+    if (!obj_exception_info) return NULL;
+
     std::shared_ptr<ExceptionInfo > &obj = *reinterpret_cast<std::shared_ptr<ExceptionInfo >*>(obj_exception_info);
+    if (!obj) return NULL;
+
     typedef typename ExceptionInfo::ExcepsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_exceps;
@@ -237,7 +359,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_info
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_info_t *data_collection_model_exception_info_remove_exceps(data_collection_model_exception_info_t *obj_exception_info, const data_collection_model_exception_t* p_exceps)
 {
+    if (!obj_exception_info) return NULL;
+
     std::shared_ptr<ExceptionInfo > &obj = *reinterpret_cast<std::shared_ptr<ExceptionInfo >*>(obj_exception_info);
+    if (!obj) return NULL;
+
     typedef typename ExceptionInfo::ExcepsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_exceps;
@@ -247,8 +373,12 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_info
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_info_t *data_collection_model_exception_info_clear_exceps(data_collection_model_exception_info_t *obj_exception_info)
-{   
+{
+    if (!obj_exception_info) return NULL;
+
     std::shared_ptr<ExceptionInfo > &obj = *reinterpret_cast<std::shared_ptr<ExceptionInfo >*>(obj_exception_info);
+    if (!obj) return NULL;
+
     obj->clearExceps();
     return obj_exception_info;
 }
@@ -263,6 +393,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_exception_info_refcount(data_collection_model_exception_info_t *obj_exception_info)
 {
+    if (!obj_exception_info) return 0l;
     std::shared_ptr<ExceptionInfo > &obj = *reinterpret_cast<std::shared_ptr<ExceptionInfo >*>(obj_exception_info);
     return obj.use_count();
 }

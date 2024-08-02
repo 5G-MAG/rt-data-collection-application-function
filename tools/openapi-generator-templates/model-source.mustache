@@ -33,36 +33,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowe
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_create_copy(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *other)
 {
-    return reinterpret_cast<data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t*>(new std::shared_ptr<{{classname}} >(new {{classname}}(**reinterpret_cast<const std::shared_ptr<{{classname}} >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t*>(new std::shared_ptr<{{classname}} >(new {{classname}}(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_create_move(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *other)
 {
-    return reinterpret_cast<data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t*>(new std::shared_ptr<{{classname}} >(std::move(*reinterpret_cast<std::shared_ptr<{{classname}} >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<{{classname}} > *obj = reinterpret_cast<std::shared_ptr<{{classname}} >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_copy(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}, const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *other)
 {
-    std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>({{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}});
-    *obj = **reinterpret_cast<const std::shared_ptr<{{classname}} >*>(other);
+    if ({{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}) {
+        std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>({{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}});
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<{{classname}} > &other_obj = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<{{classname}} > &other_obj = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>(other);
+                if (other_obj) {
+                    obj.reset(new {{classname}}(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        {{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}} = data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_create_copy(other);
+    }
     return {{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}};
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_move(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}, data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *other)
 {
-    std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>({{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}){{/lambda.snakecase}}{{/lambda.lowercase}};
-    obj = std::move(*reinterpret_cast<std::shared_ptr<{{classname}} >*>(other));
+    std::shared_ptr<{{classname}} > *other_ptr = reinterpret_cast<std::shared_ptr<{{classname}} >*>(other);
+
+    if ({{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}) {
+        std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>({{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}});
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                {{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}} = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return {{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}};
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_free(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}})
 {
+    if (!{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}) return;
     delete reinterpret_cast<std::shared_ptr<{{classname}} >*>({{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}});
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_toJSON(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}, bool as_request)
 {
+    if (!{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}) return NULL;
     const std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>({{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}});
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -82,21 +135,43 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowe
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_is_equal_to(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *first, const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *second)
 {
-    const std::shared_ptr<{{classname}} > &obj1 = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<{{classname}} > &obj2 = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<{{classname}} > &obj1 = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 {{^hasVars}}{{#isEnum}}{{#allowableValues}}
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_is_not_set(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
 {
+    if (!{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}) return true;
     const std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>({{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    if (!obj) return true;
     return obj->getValue() == {{classname}}::Enum::NO_VAL;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_e data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_get_enum(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
 {
+    if (!obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
+        return DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_NO_VAL;
     const std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    if (!obj) return DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_NO_VAL;
     switch (obj->getValue()) {
     case {{classname}}::Enum::NO_VAL:
         return DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_NO_VAL;
@@ -111,13 +186,17 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#l
 
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_get_string(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
 {
+    if (!obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}) return NULL;
     const std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    if (!obj) return NULL;
     return obj->getString().c_str();
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_set_enum(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_e p_value)
 {
+    if (!obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}) return false;
     std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    if (!obj) return false;
     switch (p_value) {
     case DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_NO_VAL:
         *obj = {{classname}}::Enum::NO_VAL;
@@ -134,7 +213,9 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_set_string(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, const char *p_value)
 {
+    if (!obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}) return false;
     std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    if (!obj) return false;
     if (p_value) {
         *obj = std::string(p_value);
     } else {
@@ -146,19 +227,26 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}
 {{/allowableValues}}{{/isEnum}}{{^isEnum}}{{#composedSchemas}}{{^oneOf}}{{^allOf}}{{^anyOf.2.name}}{{#anyOf.1.isString}}{{#anyOf.0.isEnumRef}}
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_is_not_set(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
 {
+    if (!obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}) return true;
     const std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    if (!obj) return true;
     return obj->getValue() == {{classname}}::Enum::NO_VAL;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_is_non_standard(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
 {
+    if (!obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}) return false;
     const std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    if (!obj) return false;
     return obj->getValue() == {{classname}}::Enum::OTHER;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_e data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_get_enum(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
 {
+    if (!obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
+        return DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_NO_VAL;
     const std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    if (!obj) return DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_NO_VAL;
     switch (obj->getValue()) {
     case {{classname}}::Enum::NO_VAL:
         return DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_NO_VAL;
@@ -173,13 +261,17 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#l
 
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_get_string(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
 {
+    if (!obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}) return NULL;
     const std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    if (!obj) return NULL;
     return obj->getString().c_str();
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_set_enum(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_e p_value)
 {
+    if (!obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}) return false;
     std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    if (!obj) return false;
     switch (p_value) {
     case DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_NO_VAL:
         *obj = {{classname}}::Enum::NO_VAL;
@@ -196,7 +288,9 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_set_string(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, const char *p_value)
 {
+    if (!obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}) return false;
     std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    if (!obj) return false;
     if (p_value) {
         *obj = std::string(p_value);
     } else {
@@ -209,7 +303,17 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}
 {{#vars}}
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" {{#isContainer}}{{^isArray}}const {{/isArray}}{{/isContainer}}{{^isContainer}}const {{/isContainer}}{{>data-type}} data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_{{#lambda.lowercase}}{{#lambda.snakecase}}{{getter}}{{/lambda.snakecase}}{{/lambda.lowercase}}(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
 {
+    if (!obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}) {
+        {{>make-empty-result}}
+        return result;
+    }
+
     const std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    if (!obj) {
+        {{>make-empty-result}}
+        return result;
+    }
+
     typedef typename {{{classname}}}::{{name}}Type ResultFromType;
     const ResultFromType result_from = obj->{{{getter}}}();
     {{>make-result}}
@@ -219,23 +323,28 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" {{#isContainer}}{{^isArray}}const {{
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_{{#lambda.lowercase}}{{#lambda.snakecase}}{{setter}}{{/lambda.snakecase}}{{/lambda.lowercase}}(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, const {{>data-type}} p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}})
 {
-    if (obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} == NULL) return NULL;
+    if (!obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}) return NULL;
 
     std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    if (!obj) return NULL;
+
     const auto &value_from = p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}};
     typedef typename {{{classname}}}::{{name}}Type ValueType;
 
     {{>make-value}}
 
     if (!obj->{{setter}}(value)) return NULL;
+
     return obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}};
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_{{#lambda.lowercase}}{{#lambda.snakecase}}{{setter}}{{/lambda.snakecase}}{{/lambda.lowercase}}_move(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, {{>data-type}} p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}})
 {
-    if (obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} == NULL) return NULL;
+    if (!obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}) return NULL;
 
     std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    if (!obj) return NULL;
+
     const auto &value_from = p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}};
     typedef typename {{{classname}}}::{{name}}Type ValueType;
 
@@ -243,13 +352,18 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowe
 
     {{#isContainer}}{{#isArray}}data_collection_list_free(p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}});{{/isArray}}{{#isMap}}data_collection_hash_free(p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}, reinterpret_cast<void(*)(void*)>({{#items}}{{#isString}}_ogs_free{{/isString}}{{^isString}}data_collection_model_{{#lambda.snakecase}}{{{complexType}}}{{/lambda.snakecase}}_free{{/isString}}{{/items}}));{{/isMap}}{{/isContainer}}
     if (!obj->{{setter}}(std::move(value))) return NULL;
+
     return obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}};
 }
 
 {{#isContainer}}
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_add_{{#lambda.lowercase}}{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}{{/lambda.lowercase}}(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, {{#isMap}}const char *p_key, const {{/isMap}}{{#items}}{{>data-type}}{{/items}} p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}})
 {
+    if (!obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}) return NULL;
+
     std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    if (!obj) return NULL;
+
     typedef typename {{{classname}}}::{{name}}Type ContainerType;
     typedef typename ContainerType::{{#isMap}}mapped_type{{/isMap}}{{#isArray}}value_type{{/isArray}} ValueType;
     const auto &value_from = p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}};
@@ -262,7 +376,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowe
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_remove_{{#lambda.lowercase}}{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}{{/lambda.lowercase}}(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, const {{#isMap}}char *p_key{{/isMap}}{{^isMap}}{{#items}}{{>data-type}}{{/items}} p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}{{/isMap}})
 {
+    if (!obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}) return NULL;
+
     std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    if (!obj) return NULL;
+
     {{^isMap}}typedef typename {{{classname}}}::{{name}}Type ContainerType;
     typedef typename ContainerType::{{#isMap}}mapped_type{{/isMap}}{{#isArray}}value_type{{/isArray}} ValueType;
     auto &value_from = p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}};
@@ -272,8 +390,12 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowe
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_clear_{{#lambda.lowercase}}{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}{{/lambda.lowercase}}(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
-{   
+{
+    if (!obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}) return NULL;
+
     std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    if (!obj) return NULL;
+
     obj->clear{{name}}();
     return obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}};
 }
@@ -290,6 +412,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_refcount(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
 {
+    if (!obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}) return 0l;
     std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
     return obj.use_count();
 }

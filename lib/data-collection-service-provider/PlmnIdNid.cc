@@ -37,36 +37,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_plmn_id_nid_t 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_plmn_id_nid_t *data_collection_model_plmn_id_nid_create_copy(const data_collection_model_plmn_id_nid_t *other)
 {
-    return reinterpret_cast<data_collection_model_plmn_id_nid_t*>(new std::shared_ptr<PlmnIdNid >(new PlmnIdNid(**reinterpret_cast<const std::shared_ptr<PlmnIdNid >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<PlmnIdNid > &obj = *reinterpret_cast<const std::shared_ptr<PlmnIdNid >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_plmn_id_nid_t*>(new std::shared_ptr<PlmnIdNid >(new PlmnIdNid(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_plmn_id_nid_t *data_collection_model_plmn_id_nid_create_move(data_collection_model_plmn_id_nid_t *other)
 {
-    return reinterpret_cast<data_collection_model_plmn_id_nid_t*>(new std::shared_ptr<PlmnIdNid >(std::move(*reinterpret_cast<std::shared_ptr<PlmnIdNid >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<PlmnIdNid > *obj = reinterpret_cast<std::shared_ptr<PlmnIdNid >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_plmn_id_nid_t *data_collection_model_plmn_id_nid_copy(data_collection_model_plmn_id_nid_t *plmn_id_nid, const data_collection_model_plmn_id_nid_t *other)
 {
-    std::shared_ptr<PlmnIdNid > &obj = *reinterpret_cast<std::shared_ptr<PlmnIdNid >*>(plmn_id_nid);
-    *obj = **reinterpret_cast<const std::shared_ptr<PlmnIdNid >*>(other);
+    if (plmn_id_nid) {
+        std::shared_ptr<PlmnIdNid > &obj = *reinterpret_cast<std::shared_ptr<PlmnIdNid >*>(plmn_id_nid);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<PlmnIdNid > &other_obj = *reinterpret_cast<const std::shared_ptr<PlmnIdNid >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<PlmnIdNid > &other_obj = *reinterpret_cast<const std::shared_ptr<PlmnIdNid >*>(other);
+                if (other_obj) {
+                    obj.reset(new PlmnIdNid(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        plmn_id_nid = data_collection_model_plmn_id_nid_create_copy(other);
+    }
     return plmn_id_nid;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_plmn_id_nid_t *data_collection_model_plmn_id_nid_move(data_collection_model_plmn_id_nid_t *plmn_id_nid, data_collection_model_plmn_id_nid_t *other)
 {
-    std::shared_ptr<PlmnIdNid > &obj = *reinterpret_cast<std::shared_ptr<PlmnIdNid >*>(plmn_id_nid);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<PlmnIdNid >*>(other));
+    std::shared_ptr<PlmnIdNid > *other_ptr = reinterpret_cast<std::shared_ptr<PlmnIdNid >*>(other);
+
+    if (plmn_id_nid) {
+        std::shared_ptr<PlmnIdNid > &obj = *reinterpret_cast<std::shared_ptr<PlmnIdNid >*>(plmn_id_nid);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                plmn_id_nid = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return plmn_id_nid;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_plmn_id_nid_free(data_collection_model_plmn_id_nid_t *plmn_id_nid)
 {
+    if (!plmn_id_nid) return;
     delete reinterpret_cast<std::shared_ptr<PlmnIdNid >*>(plmn_id_nid);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_plmn_id_nid_toJSON(const data_collection_model_plmn_id_nid_t *plmn_id_nid, bool as_request)
 {
+    if (!plmn_id_nid) return NULL;
     const std::shared_ptr<PlmnIdNid > &obj = *reinterpret_cast<const std::shared_ptr<PlmnIdNid >*>(plmn_id_nid);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -86,15 +139,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_plmn_id_nid_t 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_plmn_id_nid_is_equal_to(const data_collection_model_plmn_id_nid_t *first, const data_collection_model_plmn_id_nid_t *second)
 {
-    const std::shared_ptr<PlmnIdNid > &obj1 = *reinterpret_cast<const std::shared_ptr<PlmnIdNid >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<PlmnIdNid > &obj2 = *reinterpret_cast<const std::shared_ptr<PlmnIdNid >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<PlmnIdNid > &obj1 = *reinterpret_cast<const std::shared_ptr<PlmnIdNid >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_plmn_id_nid_get_mcc(const data_collection_model_plmn_id_nid_t *obj_plmn_id_nid)
 {
+    if (!obj_plmn_id_nid) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<PlmnIdNid > &obj = *reinterpret_cast<const std::shared_ptr<PlmnIdNid >*>(obj_plmn_id_nid);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename PlmnIdNid::MccType ResultFromType;
     const ResultFromType result_from = obj->getMcc();
     const char *result = result_from.c_str();
@@ -103,34 +183,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pl
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_plmn_id_nid_t *data_collection_model_plmn_id_nid_set_mcc(data_collection_model_plmn_id_nid_t *obj_plmn_id_nid, const char* p_mcc)
 {
-    if (obj_plmn_id_nid == NULL) return NULL;
+    if (!obj_plmn_id_nid) return NULL;
 
     std::shared_ptr<PlmnIdNid > &obj = *reinterpret_cast<std::shared_ptr<PlmnIdNid >*>(obj_plmn_id_nid);
+    if (!obj) return NULL;
+
     const auto &value_from = p_mcc;
     typedef typename PlmnIdNid::MccType ValueType;
 
     ValueType value(value_from);
     if (!obj->setMcc(value)) return NULL;
+
     return obj_plmn_id_nid;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_plmn_id_nid_t *data_collection_model_plmn_id_nid_set_mcc_move(data_collection_model_plmn_id_nid_t *obj_plmn_id_nid, char* p_mcc)
 {
-    if (obj_plmn_id_nid == NULL) return NULL;
+    if (!obj_plmn_id_nid) return NULL;
 
     std::shared_ptr<PlmnIdNid > &obj = *reinterpret_cast<std::shared_ptr<PlmnIdNid >*>(obj_plmn_id_nid);
+    if (!obj) return NULL;
+
     const auto &value_from = p_mcc;
     typedef typename PlmnIdNid::MccType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setMcc(std::move(value))) return NULL;
+
     return obj_plmn_id_nid;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_plmn_id_nid_get_mnc(const data_collection_model_plmn_id_nid_t *obj_plmn_id_nid)
 {
+    if (!obj_plmn_id_nid) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<PlmnIdNid > &obj = *reinterpret_cast<const std::shared_ptr<PlmnIdNid >*>(obj_plmn_id_nid);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename PlmnIdNid::MncType ResultFromType;
     const ResultFromType result_from = obj->getMnc();
     const char *result = result_from.c_str();
@@ -139,34 +235,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pl
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_plmn_id_nid_t *data_collection_model_plmn_id_nid_set_mnc(data_collection_model_plmn_id_nid_t *obj_plmn_id_nid, const char* p_mnc)
 {
-    if (obj_plmn_id_nid == NULL) return NULL;
+    if (!obj_plmn_id_nid) return NULL;
 
     std::shared_ptr<PlmnIdNid > &obj = *reinterpret_cast<std::shared_ptr<PlmnIdNid >*>(obj_plmn_id_nid);
+    if (!obj) return NULL;
+
     const auto &value_from = p_mnc;
     typedef typename PlmnIdNid::MncType ValueType;
 
     ValueType value(value_from);
     if (!obj->setMnc(value)) return NULL;
+
     return obj_plmn_id_nid;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_plmn_id_nid_t *data_collection_model_plmn_id_nid_set_mnc_move(data_collection_model_plmn_id_nid_t *obj_plmn_id_nid, char* p_mnc)
 {
-    if (obj_plmn_id_nid == NULL) return NULL;
+    if (!obj_plmn_id_nid) return NULL;
 
     std::shared_ptr<PlmnIdNid > &obj = *reinterpret_cast<std::shared_ptr<PlmnIdNid >*>(obj_plmn_id_nid);
+    if (!obj) return NULL;
+
     const auto &value_from = p_mnc;
     typedef typename PlmnIdNid::MncType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setMnc(std::move(value))) return NULL;
+
     return obj_plmn_id_nid;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_plmn_id_nid_get_nid(const data_collection_model_plmn_id_nid_t *obj_plmn_id_nid)
 {
+    if (!obj_plmn_id_nid) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<PlmnIdNid > &obj = *reinterpret_cast<const std::shared_ptr<PlmnIdNid >*>(obj_plmn_id_nid);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename PlmnIdNid::NidType ResultFromType;
     const ResultFromType result_from = obj->getNid();
     const char *result = result_from.c_str();
@@ -175,28 +287,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pl
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_plmn_id_nid_t *data_collection_model_plmn_id_nid_set_nid(data_collection_model_plmn_id_nid_t *obj_plmn_id_nid, const char* p_nid)
 {
-    if (obj_plmn_id_nid == NULL) return NULL;
+    if (!obj_plmn_id_nid) return NULL;
 
     std::shared_ptr<PlmnIdNid > &obj = *reinterpret_cast<std::shared_ptr<PlmnIdNid >*>(obj_plmn_id_nid);
+    if (!obj) return NULL;
+
     const auto &value_from = p_nid;
     typedef typename PlmnIdNid::NidType ValueType;
 
     ValueType value(value_from);
     if (!obj->setNid(value)) return NULL;
+
     return obj_plmn_id_nid;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_plmn_id_nid_t *data_collection_model_plmn_id_nid_set_nid_move(data_collection_model_plmn_id_nid_t *obj_plmn_id_nid, char* p_nid)
 {
-    if (obj_plmn_id_nid == NULL) return NULL;
+    if (!obj_plmn_id_nid) return NULL;
 
     std::shared_ptr<PlmnIdNid > &obj = *reinterpret_cast<std::shared_ptr<PlmnIdNid >*>(obj_plmn_id_nid);
+    if (!obj) return NULL;
+
     const auto &value_from = p_nid;
     typedef typename PlmnIdNid::NidType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setNid(std::move(value))) return NULL;
+
     return obj_plmn_id_nid;
 }
 
@@ -210,6 +328,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_plmn_id_nid_refcount(data_collection_model_plmn_id_nid_t *obj_plmn_id_nid)
 {
+    if (!obj_plmn_id_nid) return 0l;
     std::shared_ptr<PlmnIdNid > &obj = *reinterpret_cast<std::shared_ptr<PlmnIdNid >*>(obj_plmn_id_nid);
     return obj.use_count();
 }

@@ -33,36 +33,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_serv_area
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_serv_area_t *data_collection_model_gnss_serv_area_create_copy(const data_collection_model_gnss_serv_area_t *other)
 {
-    return reinterpret_cast<data_collection_model_gnss_serv_area_t*>(new std::shared_ptr<GNSSServArea >(new GNSSServArea(**reinterpret_cast<const std::shared_ptr<GNSSServArea >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<GNSSServArea > &obj = *reinterpret_cast<const std::shared_ptr<GNSSServArea >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_gnss_serv_area_t*>(new std::shared_ptr<GNSSServArea >(new GNSSServArea(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_serv_area_t *data_collection_model_gnss_serv_area_create_move(data_collection_model_gnss_serv_area_t *other)
 {
-    return reinterpret_cast<data_collection_model_gnss_serv_area_t*>(new std::shared_ptr<GNSSServArea >(std::move(*reinterpret_cast<std::shared_ptr<GNSSServArea >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<GNSSServArea > *obj = reinterpret_cast<std::shared_ptr<GNSSServArea >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_serv_area_t *data_collection_model_gnss_serv_area_copy(data_collection_model_gnss_serv_area_t *gnss_serv_area, const data_collection_model_gnss_serv_area_t *other)
 {
-    std::shared_ptr<GNSSServArea > &obj = *reinterpret_cast<std::shared_ptr<GNSSServArea >*>(gnss_serv_area);
-    *obj = **reinterpret_cast<const std::shared_ptr<GNSSServArea >*>(other);
+    if (gnss_serv_area) {
+        std::shared_ptr<GNSSServArea > &obj = *reinterpret_cast<std::shared_ptr<GNSSServArea >*>(gnss_serv_area);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<GNSSServArea > &other_obj = *reinterpret_cast<const std::shared_ptr<GNSSServArea >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<GNSSServArea > &other_obj = *reinterpret_cast<const std::shared_ptr<GNSSServArea >*>(other);
+                if (other_obj) {
+                    obj.reset(new GNSSServArea(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        gnss_serv_area = data_collection_model_gnss_serv_area_create_copy(other);
+    }
     return gnss_serv_area;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_serv_area_t *data_collection_model_gnss_serv_area_move(data_collection_model_gnss_serv_area_t *gnss_serv_area, data_collection_model_gnss_serv_area_t *other)
 {
-    std::shared_ptr<GNSSServArea > &obj = *reinterpret_cast<std::shared_ptr<GNSSServArea >*>(gnss_serv_area);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<GNSSServArea >*>(other));
+    std::shared_ptr<GNSSServArea > *other_ptr = reinterpret_cast<std::shared_ptr<GNSSServArea >*>(other);
+
+    if (gnss_serv_area) {
+        std::shared_ptr<GNSSServArea > &obj = *reinterpret_cast<std::shared_ptr<GNSSServArea >*>(gnss_serv_area);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                gnss_serv_area = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return gnss_serv_area;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_gnss_serv_area_free(data_collection_model_gnss_serv_area_t *gnss_serv_area)
 {
+    if (!gnss_serv_area) return;
     delete reinterpret_cast<std::shared_ptr<GNSSServArea >*>(gnss_serv_area);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_gnss_serv_area_toJSON(const data_collection_model_gnss_serv_area_t *gnss_serv_area, bool as_request)
 {
+    if (!gnss_serv_area) return NULL;
     const std::shared_ptr<GNSSServArea > &obj = *reinterpret_cast<const std::shared_ptr<GNSSServArea >*>(gnss_serv_area);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -82,15 +135,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_serv_area
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_gnss_serv_area_is_equal_to(const data_collection_model_gnss_serv_area_t *first, const data_collection_model_gnss_serv_area_t *second)
 {
-    const std::shared_ptr<GNSSServArea > &obj1 = *reinterpret_cast<const std::shared_ptr<GNSSServArea >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<GNSSServArea > &obj2 = *reinterpret_cast<const std::shared_ptr<GNSSServArea >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<GNSSServArea > &obj1 = *reinterpret_cast<const std::shared_ptr<GNSSServArea >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geographic_area_t* data_collection_model_gnss_serv_area_get_geographical_area(const data_collection_model_gnss_serv_area_t *obj_gnss_serv_area)
 {
+    if (!obj_gnss_serv_area) {
+        const data_collection_model_geographic_area_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<GNSSServArea > &obj = *reinterpret_cast<const std::shared_ptr<GNSSServArea >*>(obj_gnss_serv_area);
+    if (!obj) {
+        const data_collection_model_geographic_area_t *result = NULL;
+        return result;
+    }
+
     typedef typename GNSSServArea::GeographicalAreaType ResultFromType;
     const ResultFromType result_from = obj->getGeographicalArea();
     const data_collection_model_geographic_area_t *result = reinterpret_cast<const data_collection_model_geographic_area_t*>(&result_from);
@@ -99,34 +179,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geograph
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_serv_area_t *data_collection_model_gnss_serv_area_set_geographical_area(data_collection_model_gnss_serv_area_t *obj_gnss_serv_area, const data_collection_model_geographic_area_t* p_geographical_area)
 {
-    if (obj_gnss_serv_area == NULL) return NULL;
+    if (!obj_gnss_serv_area) return NULL;
 
     std::shared_ptr<GNSSServArea > &obj = *reinterpret_cast<std::shared_ptr<GNSSServArea >*>(obj_gnss_serv_area);
+    if (!obj) return NULL;
+
     const auto &value_from = p_geographical_area;
     typedef typename GNSSServArea::GeographicalAreaType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setGeographicalArea(value)) return NULL;
+
     return obj_gnss_serv_area;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_serv_area_t *data_collection_model_gnss_serv_area_set_geographical_area_move(data_collection_model_gnss_serv_area_t *obj_gnss_serv_area, data_collection_model_geographic_area_t* p_geographical_area)
 {
-    if (obj_gnss_serv_area == NULL) return NULL;
+    if (!obj_gnss_serv_area) return NULL;
 
     std::shared_ptr<GNSSServArea > &obj = *reinterpret_cast<std::shared_ptr<GNSSServArea >*>(obj_gnss_serv_area);
+    if (!obj) return NULL;
+
     const auto &value_from = p_geographical_area;
     typedef typename GNSSServArea::GeographicalAreaType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setGeographicalArea(std::move(value))) return NULL;
+
     return obj_gnss_serv_area;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_gnss_serv_area_get_tai_list(const data_collection_model_gnss_serv_area_t *obj_gnss_serv_area)
 {
+    if (!obj_gnss_serv_area) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<GNSSServArea > &obj = *reinterpret_cast<const std::shared_ptr<GNSSServArea >*>(obj_gnss_serv_area);
+    if (!obj) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     typedef typename GNSSServArea::TaiListType ResultFromType;
     const ResultFromType result_from = obj->getTaiList();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
@@ -143,9 +239,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_gn
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_serv_area_t *data_collection_model_gnss_serv_area_set_tai_list(data_collection_model_gnss_serv_area_t *obj_gnss_serv_area, const ogs_list_t* p_tai_list)
 {
-    if (obj_gnss_serv_area == NULL) return NULL;
+    if (!obj_gnss_serv_area) return NULL;
 
     std::shared_ptr<GNSSServArea > &obj = *reinterpret_cast<std::shared_ptr<GNSSServArea >*>(obj_gnss_serv_area);
+    if (!obj) return NULL;
+
     const auto &value_from = p_tai_list;
     typedef typename GNSSServArea::TaiListType ValueType;
 
@@ -159,14 +257,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_serv_area
         }
     }
     if (!obj->setTaiList(value)) return NULL;
+
     return obj_gnss_serv_area;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_serv_area_t *data_collection_model_gnss_serv_area_set_tai_list_move(data_collection_model_gnss_serv_area_t *obj_gnss_serv_area, ogs_list_t* p_tai_list)
 {
-    if (obj_gnss_serv_area == NULL) return NULL;
+    if (!obj_gnss_serv_area) return NULL;
 
     std::shared_ptr<GNSSServArea > &obj = *reinterpret_cast<std::shared_ptr<GNSSServArea >*>(obj_gnss_serv_area);
+    if (!obj) return NULL;
+
     const auto &value_from = p_tai_list;
     typedef typename GNSSServArea::TaiListType ValueType;
 
@@ -181,12 +282,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_serv_area
     }
     data_collection_list_free(p_tai_list);
     if (!obj->setTaiList(std::move(value))) return NULL;
+
     return obj_gnss_serv_area;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_serv_area_t *data_collection_model_gnss_serv_area_add_tai_list(data_collection_model_gnss_serv_area_t *obj_gnss_serv_area, data_collection_model_tai_t* p_tai_list)
 {
+    if (!obj_gnss_serv_area) return NULL;
+
     std::shared_ptr<GNSSServArea > &obj = *reinterpret_cast<std::shared_ptr<GNSSServArea >*>(obj_gnss_serv_area);
+    if (!obj) return NULL;
+
     typedef typename GNSSServArea::TaiListType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_tai_list;
@@ -199,7 +305,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_serv_area
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_serv_area_t *data_collection_model_gnss_serv_area_remove_tai_list(data_collection_model_gnss_serv_area_t *obj_gnss_serv_area, const data_collection_model_tai_t* p_tai_list)
 {
+    if (!obj_gnss_serv_area) return NULL;
+
     std::shared_ptr<GNSSServArea > &obj = *reinterpret_cast<std::shared_ptr<GNSSServArea >*>(obj_gnss_serv_area);
+    if (!obj) return NULL;
+
     typedef typename GNSSServArea::TaiListType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_tai_list;
@@ -209,8 +319,12 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_serv_area
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_serv_area_t *data_collection_model_gnss_serv_area_clear_tai_list(data_collection_model_gnss_serv_area_t *obj_gnss_serv_area)
-{   
+{
+    if (!obj_gnss_serv_area) return NULL;
+
     std::shared_ptr<GNSSServArea > &obj = *reinterpret_cast<std::shared_ptr<GNSSServArea >*>(obj_gnss_serv_area);
+    if (!obj) return NULL;
+
     obj->clearTaiList();
     return obj_gnss_serv_area;
 }
@@ -225,6 +339,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_gnss_serv_area_refcount(data_collection_model_gnss_serv_area_t *obj_gnss_serv_area)
 {
+    if (!obj_gnss_serv_area) return 0l;
     std::shared_ptr<GNSSServArea > &obj = *reinterpret_cast<std::shared_ptr<GNSSServArea >*>(obj_gnss_serv_area);
     return obj.use_count();
 }

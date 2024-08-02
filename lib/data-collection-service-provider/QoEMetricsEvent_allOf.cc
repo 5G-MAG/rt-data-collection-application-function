@@ -33,36 +33,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_qo_e_metrics_e
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_qo_e_metrics_event_all_of_t *data_collection_model_qo_e_metrics_event_all_of_create_copy(const data_collection_model_qo_e_metrics_event_all_of_t *other)
 {
-    return reinterpret_cast<data_collection_model_qo_e_metrics_event_all_of_t*>(new std::shared_ptr<QoEMetricsEvent_allOf >(new QoEMetricsEvent_allOf(**reinterpret_cast<const std::shared_ptr<QoEMetricsEvent_allOf >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<QoEMetricsEvent_allOf > &obj = *reinterpret_cast<const std::shared_ptr<QoEMetricsEvent_allOf >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_qo_e_metrics_event_all_of_t*>(new std::shared_ptr<QoEMetricsEvent_allOf >(new QoEMetricsEvent_allOf(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_qo_e_metrics_event_all_of_t *data_collection_model_qo_e_metrics_event_all_of_create_move(data_collection_model_qo_e_metrics_event_all_of_t *other)
 {
-    return reinterpret_cast<data_collection_model_qo_e_metrics_event_all_of_t*>(new std::shared_ptr<QoEMetricsEvent_allOf >(std::move(*reinterpret_cast<std::shared_ptr<QoEMetricsEvent_allOf >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<QoEMetricsEvent_allOf > *obj = reinterpret_cast<std::shared_ptr<QoEMetricsEvent_allOf >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_qo_e_metrics_event_all_of_t *data_collection_model_qo_e_metrics_event_all_of_copy(data_collection_model_qo_e_metrics_event_all_of_t *qo_e_metrics_event_all_of, const data_collection_model_qo_e_metrics_event_all_of_t *other)
 {
-    std::shared_ptr<QoEMetricsEvent_allOf > &obj = *reinterpret_cast<std::shared_ptr<QoEMetricsEvent_allOf >*>(qo_e_metrics_event_all_of);
-    *obj = **reinterpret_cast<const std::shared_ptr<QoEMetricsEvent_allOf >*>(other);
+    if (qo_e_metrics_event_all_of) {
+        std::shared_ptr<QoEMetricsEvent_allOf > &obj = *reinterpret_cast<std::shared_ptr<QoEMetricsEvent_allOf >*>(qo_e_metrics_event_all_of);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<QoEMetricsEvent_allOf > &other_obj = *reinterpret_cast<const std::shared_ptr<QoEMetricsEvent_allOf >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<QoEMetricsEvent_allOf > &other_obj = *reinterpret_cast<const std::shared_ptr<QoEMetricsEvent_allOf >*>(other);
+                if (other_obj) {
+                    obj.reset(new QoEMetricsEvent_allOf(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        qo_e_metrics_event_all_of = data_collection_model_qo_e_metrics_event_all_of_create_copy(other);
+    }
     return qo_e_metrics_event_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_qo_e_metrics_event_all_of_t *data_collection_model_qo_e_metrics_event_all_of_move(data_collection_model_qo_e_metrics_event_all_of_t *qo_e_metrics_event_all_of, data_collection_model_qo_e_metrics_event_all_of_t *other)
 {
-    std::shared_ptr<QoEMetricsEvent_allOf > &obj = *reinterpret_cast<std::shared_ptr<QoEMetricsEvent_allOf >*>(qo_e_metrics_event_all_of);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<QoEMetricsEvent_allOf >*>(other));
+    std::shared_ptr<QoEMetricsEvent_allOf > *other_ptr = reinterpret_cast<std::shared_ptr<QoEMetricsEvent_allOf >*>(other);
+
+    if (qo_e_metrics_event_all_of) {
+        std::shared_ptr<QoEMetricsEvent_allOf > &obj = *reinterpret_cast<std::shared_ptr<QoEMetricsEvent_allOf >*>(qo_e_metrics_event_all_of);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                qo_e_metrics_event_all_of = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return qo_e_metrics_event_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_qo_e_metrics_event_all_of_free(data_collection_model_qo_e_metrics_event_all_of_t *qo_e_metrics_event_all_of)
 {
+    if (!qo_e_metrics_event_all_of) return;
     delete reinterpret_cast<std::shared_ptr<QoEMetricsEvent_allOf >*>(qo_e_metrics_event_all_of);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_qo_e_metrics_event_all_of_toJSON(const data_collection_model_qo_e_metrics_event_all_of_t *qo_e_metrics_event_all_of, bool as_request)
 {
+    if (!qo_e_metrics_event_all_of) return NULL;
     const std::shared_ptr<QoEMetricsEvent_allOf > &obj = *reinterpret_cast<const std::shared_ptr<QoEMetricsEvent_allOf >*>(qo_e_metrics_event_all_of);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -82,15 +135,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_qo_e_metrics_e
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_qo_e_metrics_event_all_of_is_equal_to(const data_collection_model_qo_e_metrics_event_all_of_t *first, const data_collection_model_qo_e_metrics_event_all_of_t *second)
 {
-    const std::shared_ptr<QoEMetricsEvent_allOf > &obj1 = *reinterpret_cast<const std::shared_ptr<QoEMetricsEvent_allOf >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<QoEMetricsEvent_allOf > &obj2 = *reinterpret_cast<const std::shared_ptr<QoEMetricsEvent_allOf >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<QoEMetricsEvent_allOf > &obj1 = *reinterpret_cast<const std::shared_ptr<QoEMetricsEvent_allOf >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_qo_e_metrics_event_all_of_get_metric_type(const data_collection_model_qo_e_metrics_event_all_of_t *obj_qo_e_metrics_event_all_of)
 {
+    if (!obj_qo_e_metrics_event_all_of) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<QoEMetricsEvent_allOf > &obj = *reinterpret_cast<const std::shared_ptr<QoEMetricsEvent_allOf >*>(obj_qo_e_metrics_event_all_of);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename QoEMetricsEvent_allOf::MetricTypeType ResultFromType;
     const ResultFromType result_from = obj->getMetricType();
     const char *result = result_from.c_str();
@@ -99,34 +179,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_qo
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_qo_e_metrics_event_all_of_t *data_collection_model_qo_e_metrics_event_all_of_set_metric_type(data_collection_model_qo_e_metrics_event_all_of_t *obj_qo_e_metrics_event_all_of, const char* p_metric_type)
 {
-    if (obj_qo_e_metrics_event_all_of == NULL) return NULL;
+    if (!obj_qo_e_metrics_event_all_of) return NULL;
 
     std::shared_ptr<QoEMetricsEvent_allOf > &obj = *reinterpret_cast<std::shared_ptr<QoEMetricsEvent_allOf >*>(obj_qo_e_metrics_event_all_of);
+    if (!obj) return NULL;
+
     const auto &value_from = p_metric_type;
     typedef typename QoEMetricsEvent_allOf::MetricTypeType ValueType;
 
     ValueType value(value_from);
     if (!obj->setMetricType(value)) return NULL;
+
     return obj_qo_e_metrics_event_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_qo_e_metrics_event_all_of_t *data_collection_model_qo_e_metrics_event_all_of_set_metric_type_move(data_collection_model_qo_e_metrics_event_all_of_t *obj_qo_e_metrics_event_all_of, char* p_metric_type)
 {
-    if (obj_qo_e_metrics_event_all_of == NULL) return NULL;
+    if (!obj_qo_e_metrics_event_all_of) return NULL;
 
     std::shared_ptr<QoEMetricsEvent_allOf > &obj = *reinterpret_cast<std::shared_ptr<QoEMetricsEvent_allOf >*>(obj_qo_e_metrics_event_all_of);
+    if (!obj) return NULL;
+
     const auto &value_from = p_metric_type;
     typedef typename QoEMetricsEvent_allOf::MetricTypeType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setMetricType(std::move(value))) return NULL;
+
     return obj_qo_e_metrics_event_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_qo_e_metrics_event_all_of_get_samples(const data_collection_model_qo_e_metrics_event_all_of_t *obj_qo_e_metrics_event_all_of)
 {
+    if (!obj_qo_e_metrics_event_all_of) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<QoEMetricsEvent_allOf > &obj = *reinterpret_cast<const std::shared_ptr<QoEMetricsEvent_allOf >*>(obj_qo_e_metrics_event_all_of);
+    if (!obj) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     typedef typename QoEMetricsEvent_allOf::SamplesType ResultFromType;
     const ResultFromType result_from = obj->getSamples();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
@@ -143,9 +239,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_qo
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_qo_e_metrics_event_all_of_t *data_collection_model_qo_e_metrics_event_all_of_set_samples(data_collection_model_qo_e_metrics_event_all_of_t *obj_qo_e_metrics_event_all_of, const ogs_list_t* p_samples)
 {
-    if (obj_qo_e_metrics_event_all_of == NULL) return NULL;
+    if (!obj_qo_e_metrics_event_all_of) return NULL;
 
     std::shared_ptr<QoEMetricsEvent_allOf > &obj = *reinterpret_cast<std::shared_ptr<QoEMetricsEvent_allOf >*>(obj_qo_e_metrics_event_all_of);
+    if (!obj) return NULL;
+
     const auto &value_from = p_samples;
     typedef typename QoEMetricsEvent_allOf::SamplesType ValueType;
 
@@ -159,14 +257,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_qo_e_metrics_e
         }
     }
     if (!obj->setSamples(value)) return NULL;
+
     return obj_qo_e_metrics_event_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_qo_e_metrics_event_all_of_t *data_collection_model_qo_e_metrics_event_all_of_set_samples_move(data_collection_model_qo_e_metrics_event_all_of_t *obj_qo_e_metrics_event_all_of, ogs_list_t* p_samples)
 {
-    if (obj_qo_e_metrics_event_all_of == NULL) return NULL;
+    if (!obj_qo_e_metrics_event_all_of) return NULL;
 
     std::shared_ptr<QoEMetricsEvent_allOf > &obj = *reinterpret_cast<std::shared_ptr<QoEMetricsEvent_allOf >*>(obj_qo_e_metrics_event_all_of);
+    if (!obj) return NULL;
+
     const auto &value_from = p_samples;
     typedef typename QoEMetricsEvent_allOf::SamplesType ValueType;
 
@@ -181,12 +282,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_qo_e_metrics_e
     }
     data_collection_list_free(p_samples);
     if (!obj->setSamples(std::move(value))) return NULL;
+
     return obj_qo_e_metrics_event_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_qo_e_metrics_event_all_of_t *data_collection_model_qo_e_metrics_event_all_of_add_samples(data_collection_model_qo_e_metrics_event_all_of_t *obj_qo_e_metrics_event_all_of, data_collection_model_qo_e_metrics_event_all_of_samples_t* p_samples)
 {
+    if (!obj_qo_e_metrics_event_all_of) return NULL;
+
     std::shared_ptr<QoEMetricsEvent_allOf > &obj = *reinterpret_cast<std::shared_ptr<QoEMetricsEvent_allOf >*>(obj_qo_e_metrics_event_all_of);
+    if (!obj) return NULL;
+
     typedef typename QoEMetricsEvent_allOf::SamplesType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_samples;
@@ -199,7 +305,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_qo_e_metrics_e
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_qo_e_metrics_event_all_of_t *data_collection_model_qo_e_metrics_event_all_of_remove_samples(data_collection_model_qo_e_metrics_event_all_of_t *obj_qo_e_metrics_event_all_of, const data_collection_model_qo_e_metrics_event_all_of_samples_t* p_samples)
 {
+    if (!obj_qo_e_metrics_event_all_of) return NULL;
+
     std::shared_ptr<QoEMetricsEvent_allOf > &obj = *reinterpret_cast<std::shared_ptr<QoEMetricsEvent_allOf >*>(obj_qo_e_metrics_event_all_of);
+    if (!obj) return NULL;
+
     typedef typename QoEMetricsEvent_allOf::SamplesType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_samples;
@@ -209,8 +319,12 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_qo_e_metrics_e
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_qo_e_metrics_event_all_of_t *data_collection_model_qo_e_metrics_event_all_of_clear_samples(data_collection_model_qo_e_metrics_event_all_of_t *obj_qo_e_metrics_event_all_of)
-{   
+{
+    if (!obj_qo_e_metrics_event_all_of) return NULL;
+
     std::shared_ptr<QoEMetricsEvent_allOf > &obj = *reinterpret_cast<std::shared_ptr<QoEMetricsEvent_allOf >*>(obj_qo_e_metrics_event_all_of);
+    if (!obj) return NULL;
+
     obj->clearSamples();
     return obj_qo_e_metrics_event_all_of;
 }
@@ -225,6 +339,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_qo_e_metrics_event_all_of_refcount(data_collection_model_qo_e_metrics_event_all_of_t *obj_qo_e_metrics_event_all_of)
 {
+    if (!obj_qo_e_metrics_event_all_of) return 0l;
     std::shared_ptr<QoEMetricsEvent_allOf > &obj = *reinterpret_cast<std::shared_ptr<QoEMetricsEvent_allOf >*>(obj_qo_e_metrics_event_all_of);
     return obj.use_count();
 }

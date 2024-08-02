@@ -35,36 +35,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t *data_collection_model_time_window_create_copy(const data_collection_model_time_window_t *other)
 {
-    return reinterpret_cast<data_collection_model_time_window_t*>(new std::shared_ptr<TimeWindow >(new TimeWindow(**reinterpret_cast<const std::shared_ptr<TimeWindow >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<TimeWindow > &obj = *reinterpret_cast<const std::shared_ptr<TimeWindow >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_time_window_t*>(new std::shared_ptr<TimeWindow >(new TimeWindow(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t *data_collection_model_time_window_create_move(data_collection_model_time_window_t *other)
 {
-    return reinterpret_cast<data_collection_model_time_window_t*>(new std::shared_ptr<TimeWindow >(std::move(*reinterpret_cast<std::shared_ptr<TimeWindow >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<TimeWindow > *obj = reinterpret_cast<std::shared_ptr<TimeWindow >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t *data_collection_model_time_window_copy(data_collection_model_time_window_t *time_window, const data_collection_model_time_window_t *other)
 {
-    std::shared_ptr<TimeWindow > &obj = *reinterpret_cast<std::shared_ptr<TimeWindow >*>(time_window);
-    *obj = **reinterpret_cast<const std::shared_ptr<TimeWindow >*>(other);
+    if (time_window) {
+        std::shared_ptr<TimeWindow > &obj = *reinterpret_cast<std::shared_ptr<TimeWindow >*>(time_window);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<TimeWindow > &other_obj = *reinterpret_cast<const std::shared_ptr<TimeWindow >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<TimeWindow > &other_obj = *reinterpret_cast<const std::shared_ptr<TimeWindow >*>(other);
+                if (other_obj) {
+                    obj.reset(new TimeWindow(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        time_window = data_collection_model_time_window_create_copy(other);
+    }
     return time_window;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t *data_collection_model_time_window_move(data_collection_model_time_window_t *time_window, data_collection_model_time_window_t *other)
 {
-    std::shared_ptr<TimeWindow > &obj = *reinterpret_cast<std::shared_ptr<TimeWindow >*>(time_window);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<TimeWindow >*>(other));
+    std::shared_ptr<TimeWindow > *other_ptr = reinterpret_cast<std::shared_ptr<TimeWindow >*>(other);
+
+    if (time_window) {
+        std::shared_ptr<TimeWindow > &obj = *reinterpret_cast<std::shared_ptr<TimeWindow >*>(time_window);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                time_window = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return time_window;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_time_window_free(data_collection_model_time_window_t *time_window)
 {
+    if (!time_window) return;
     delete reinterpret_cast<std::shared_ptr<TimeWindow >*>(time_window);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_time_window_toJSON(const data_collection_model_time_window_t *time_window, bool as_request)
 {
+    if (!time_window) return NULL;
     const std::shared_ptr<TimeWindow > &obj = *reinterpret_cast<const std::shared_ptr<TimeWindow >*>(time_window);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -84,15 +137,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_time_window_is_equal_to(const data_collection_model_time_window_t *first, const data_collection_model_time_window_t *second)
 {
-    const std::shared_ptr<TimeWindow > &obj1 = *reinterpret_cast<const std::shared_ptr<TimeWindow >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<TimeWindow > &obj2 = *reinterpret_cast<const std::shared_ptr<TimeWindow >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<TimeWindow > &obj1 = *reinterpret_cast<const std::shared_ptr<TimeWindow >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_time_window_get_start_time(const data_collection_model_time_window_t *obj_time_window)
 {
+    if (!obj_time_window) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<TimeWindow > &obj = *reinterpret_cast<const std::shared_ptr<TimeWindow >*>(obj_time_window);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename TimeWindow::StartTimeType ResultFromType;
     const ResultFromType result_from = obj->getStartTime();
     const char *result = result_from.c_str();
@@ -101,34 +181,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ti
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t *data_collection_model_time_window_set_start_time(data_collection_model_time_window_t *obj_time_window, const char* p_start_time)
 {
-    if (obj_time_window == NULL) return NULL;
+    if (!obj_time_window) return NULL;
 
     std::shared_ptr<TimeWindow > &obj = *reinterpret_cast<std::shared_ptr<TimeWindow >*>(obj_time_window);
+    if (!obj) return NULL;
+
     const auto &value_from = p_start_time;
     typedef typename TimeWindow::StartTimeType ValueType;
 
     ValueType value(value_from);
     if (!obj->setStartTime(value)) return NULL;
+
     return obj_time_window;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t *data_collection_model_time_window_set_start_time_move(data_collection_model_time_window_t *obj_time_window, char* p_start_time)
 {
-    if (obj_time_window == NULL) return NULL;
+    if (!obj_time_window) return NULL;
 
     std::shared_ptr<TimeWindow > &obj = *reinterpret_cast<std::shared_ptr<TimeWindow >*>(obj_time_window);
+    if (!obj) return NULL;
+
     const auto &value_from = p_start_time;
     typedef typename TimeWindow::StartTimeType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setStartTime(std::move(value))) return NULL;
+
     return obj_time_window;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_time_window_get_stop_time(const data_collection_model_time_window_t *obj_time_window)
 {
+    if (!obj_time_window) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<TimeWindow > &obj = *reinterpret_cast<const std::shared_ptr<TimeWindow >*>(obj_time_window);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename TimeWindow::StopTimeType ResultFromType;
     const ResultFromType result_from = obj->getStopTime();
     const char *result = result_from.c_str();
@@ -137,28 +233,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ti
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t *data_collection_model_time_window_set_stop_time(data_collection_model_time_window_t *obj_time_window, const char* p_stop_time)
 {
-    if (obj_time_window == NULL) return NULL;
+    if (!obj_time_window) return NULL;
 
     std::shared_ptr<TimeWindow > &obj = *reinterpret_cast<std::shared_ptr<TimeWindow >*>(obj_time_window);
+    if (!obj) return NULL;
+
     const auto &value_from = p_stop_time;
     typedef typename TimeWindow::StopTimeType ValueType;
 
     ValueType value(value_from);
     if (!obj->setStopTime(value)) return NULL;
+
     return obj_time_window;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t *data_collection_model_time_window_set_stop_time_move(data_collection_model_time_window_t *obj_time_window, char* p_stop_time)
 {
-    if (obj_time_window == NULL) return NULL;
+    if (!obj_time_window) return NULL;
 
     std::shared_ptr<TimeWindow > &obj = *reinterpret_cast<std::shared_ptr<TimeWindow >*>(obj_time_window);
+    if (!obj) return NULL;
+
     const auto &value_from = p_stop_time;
     typedef typename TimeWindow::StopTimeType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setStopTime(std::move(value))) return NULL;
+
     return obj_time_window;
 }
 
@@ -172,6 +274,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_time_window_refcount(data_collection_model_time_window_t *obj_time_window)
 {
+    if (!obj_time_window) return 0l;
     std::shared_ptr<TimeWindow > &obj = *reinterpret_cast<std::shared_ptr<TimeWindow >*>(obj_time_window);
     return obj.use_count();
 }

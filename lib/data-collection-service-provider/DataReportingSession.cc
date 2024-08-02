@@ -43,36 +43,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_create_copy(const data_collection_model_data_reporting_session_t *other)
 {
-    return reinterpret_cast<data_collection_model_data_reporting_session_t*>(new std::shared_ptr<DataReportingSession >(new DataReportingSession(**reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_data_reporting_session_t*>(new std::shared_ptr<DataReportingSession >(new DataReportingSession(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_create_move(data_collection_model_data_reporting_session_t *other)
 {
-    return reinterpret_cast<data_collection_model_data_reporting_session_t*>(new std::shared_ptr<DataReportingSession >(std::move(*reinterpret_cast<std::shared_ptr<DataReportingSession >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<DataReportingSession > *obj = reinterpret_cast<std::shared_ptr<DataReportingSession >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_copy(data_collection_model_data_reporting_session_t *data_reporting_session, const data_collection_model_data_reporting_session_t *other)
 {
-    std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(data_reporting_session);
-    *obj = **reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(other);
+    if (data_reporting_session) {
+        std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(data_reporting_session);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<DataReportingSession > &other_obj = *reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<DataReportingSession > &other_obj = *reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(other);
+                if (other_obj) {
+                    obj.reset(new DataReportingSession(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        data_reporting_session = data_collection_model_data_reporting_session_create_copy(other);
+    }
     return data_reporting_session;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_move(data_collection_model_data_reporting_session_t *data_reporting_session, data_collection_model_data_reporting_session_t *other)
 {
-    std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(data_reporting_session);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<DataReportingSession >*>(other));
+    std::shared_ptr<DataReportingSession > *other_ptr = reinterpret_cast<std::shared_ptr<DataReportingSession >*>(other);
+
+    if (data_reporting_session) {
+        std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(data_reporting_session);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                data_reporting_session = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return data_reporting_session;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_data_reporting_session_free(data_collection_model_data_reporting_session_t *data_reporting_session)
 {
+    if (!data_reporting_session) return;
     delete reinterpret_cast<std::shared_ptr<DataReportingSession >*>(data_reporting_session);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_data_reporting_session_toJSON(const data_collection_model_data_reporting_session_t *data_reporting_session, bool as_request)
 {
+    if (!data_reporting_session) return NULL;
     const std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(data_reporting_session);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -92,15 +145,44 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_data_reporting_session_is_equal_to(const data_collection_model_data_reporting_session_t *first, const data_collection_model_data_reporting_session_t *second)
 {
-    const std::shared_ptr<DataReportingSession > &obj1 = *reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<DataReportingSession > &obj2 = *reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<DataReportingSession > &obj1 = *reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_data_reporting_session_get_session_id(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
 {
+    if (!obj_data_reporting_session) {
+        const char *result = NULL;
+
+        return result;
+    }
+
     const std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
     typedef typename DataReportingSession::SessionIdType ResultFromType;
     const ResultFromType result_from = obj->getSessionId();
     const char *result = result_from.c_str();
@@ -109,34 +191,52 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_da
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_set_session_id(data_collection_model_data_reporting_session_t *obj_data_reporting_session, const char* p_session_id)
 {
-    if (obj_data_reporting_session == NULL) return NULL;
+    if (!obj_data_reporting_session) return NULL;
 
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     const auto &value_from = p_session_id;
     typedef typename DataReportingSession::SessionIdType ValueType;
 
     ValueType value(value_from);
     if (!obj->setSessionId(value)) return NULL;
+
     return obj_data_reporting_session;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_set_session_id_move(data_collection_model_data_reporting_session_t *obj_data_reporting_session, char* p_session_id)
 {
-    if (obj_data_reporting_session == NULL) return NULL;
+    if (!obj_data_reporting_session) return NULL;
 
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     const auto &value_from = p_session_id;
     typedef typename DataReportingSession::SessionIdType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setSessionId(std::move(value))) return NULL;
+
     return obj_data_reporting_session;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_data_reporting_session_get_valid_until(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
 {
+    if (!obj_data_reporting_session) {
+        const char *result = NULL;
+
+        return result;
+    }
+
     const std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
     typedef typename DataReportingSession::ValidUntilType ResultFromType;
     const ResultFromType result_from = obj->getValidUntil();
     const char *result = result_from.c_str();
@@ -145,34 +245,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_da
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_set_valid_until(data_collection_model_data_reporting_session_t *obj_data_reporting_session, const char* p_valid_until)
 {
-    if (obj_data_reporting_session == NULL) return NULL;
+    if (!obj_data_reporting_session) return NULL;
 
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     const auto &value_from = p_valid_until;
     typedef typename DataReportingSession::ValidUntilType ValueType;
 
     ValueType value(value_from);
     if (!obj->setValidUntil(value)) return NULL;
+
     return obj_data_reporting_session;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_set_valid_until_move(data_collection_model_data_reporting_session_t *obj_data_reporting_session, char* p_valid_until)
 {
-    if (obj_data_reporting_session == NULL) return NULL;
+    if (!obj_data_reporting_session) return NULL;
 
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     const auto &value_from = p_valid_until;
     typedef typename DataReportingSession::ValidUntilType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setValidUntil(std::move(value))) return NULL;
+
     return obj_data_reporting_session;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_data_reporting_session_get_external_application_id(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
 {
+    if (!obj_data_reporting_session) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename DataReportingSession::ExternalApplicationIdType ResultFromType;
     const ResultFromType result_from = obj->getExternalApplicationId();
     const char *result = result_from.c_str();
@@ -181,34 +297,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_da
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_set_external_application_id(data_collection_model_data_reporting_session_t *obj_data_reporting_session, const char* p_external_application_id)
 {
-    if (obj_data_reporting_session == NULL) return NULL;
+    if (!obj_data_reporting_session) return NULL;
 
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     const auto &value_from = p_external_application_id;
     typedef typename DataReportingSession::ExternalApplicationIdType ValueType;
 
     ValueType value(value_from);
     if (!obj->setExternalApplicationId(value)) return NULL;
+
     return obj_data_reporting_session;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_set_external_application_id_move(data_collection_model_data_reporting_session_t *obj_data_reporting_session, char* p_external_application_id)
 {
-    if (obj_data_reporting_session == NULL) return NULL;
+    if (!obj_data_reporting_session) return NULL;
 
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     const auto &value_from = p_external_application_id;
     typedef typename DataReportingSession::ExternalApplicationIdType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setExternalApplicationId(std::move(value))) return NULL;
+
     return obj_data_reporting_session;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_data_reporting_session_get_supported_domains(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
 {
+    if (!obj_data_reporting_session) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     typedef typename DataReportingSession::SupportedDomainsType ResultFromType;
     const ResultFromType result_from = obj->getSupportedDomains();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
@@ -225,9 +357,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_da
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_set_supported_domains(data_collection_model_data_reporting_session_t *obj_data_reporting_session, const ogs_list_t* p_supported_domains)
 {
-    if (obj_data_reporting_session == NULL) return NULL;
+    if (!obj_data_reporting_session) return NULL;
 
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     const auto &value_from = p_supported_domains;
     typedef typename DataReportingSession::SupportedDomainsType ValueType;
 
@@ -241,14 +375,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
         }
     }
     if (!obj->setSupportedDomains(value)) return NULL;
+
     return obj_data_reporting_session;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_set_supported_domains_move(data_collection_model_data_reporting_session_t *obj_data_reporting_session, ogs_list_t* p_supported_domains)
 {
-    if (obj_data_reporting_session == NULL) return NULL;
+    if (!obj_data_reporting_session) return NULL;
 
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     const auto &value_from = p_supported_domains;
     typedef typename DataReportingSession::SupportedDomainsType ValueType;
 
@@ -263,12 +400,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     }
     data_collection_list_free(p_supported_domains);
     if (!obj->setSupportedDomains(std::move(value))) return NULL;
+
     return obj_data_reporting_session;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_add_supported_domains(data_collection_model_data_reporting_session_t *obj_data_reporting_session, data_collection_model_data_domain_t* p_supported_domains)
 {
+    if (!obj_data_reporting_session) return NULL;
+
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     typedef typename DataReportingSession::SupportedDomainsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_supported_domains;
@@ -281,7 +423,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_remove_supported_domains(data_collection_model_data_reporting_session_t *obj_data_reporting_session, const data_collection_model_data_domain_t* p_supported_domains)
 {
+    if (!obj_data_reporting_session) return NULL;
+
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     typedef typename DataReportingSession::SupportedDomainsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_supported_domains;
@@ -291,15 +437,29 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_clear_supported_domains(data_collection_model_data_reporting_session_t *obj_data_reporting_session)
-{   
+{
+    if (!obj_data_reporting_session) return NULL;
+
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     obj->clearSupportedDomains();
     return obj_data_reporting_session;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const ogs_hash_t* data_collection_model_data_reporting_session_get_sampling_rules(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
 {
+    if (!obj_data_reporting_session) {
+        ogs_hash_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) {
+        ogs_hash_t *result = NULL;
+        return result;
+    }
+
     typedef typename DataReportingSession::SamplingRulesType ResultFromType;
     const ResultFromType result_from = obj->getSamplingRules();
     ogs_hash_t *result = ogs_hash_make();
@@ -328,9 +488,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const ogs_hash_t* data_collection_mo
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_set_sampling_rules(data_collection_model_data_reporting_session_t *obj_data_reporting_session, const ogs_hash_t* p_sampling_rules)
 {
-    if (obj_data_reporting_session == NULL) return NULL;
+    if (!obj_data_reporting_session) return NULL;
 
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     const auto &value_from = p_sampling_rules;
     typedef typename DataReportingSession::SamplingRulesType ValueType;
 
@@ -361,14 +523,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
         ogs_free(entry);
     }
     if (!obj->setSamplingRules(value)) return NULL;
+
     return obj_data_reporting_session;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_set_sampling_rules_move(data_collection_model_data_reporting_session_t *obj_data_reporting_session, ogs_hash_t* p_sampling_rules)
 {
-    if (obj_data_reporting_session == NULL) return NULL;
+    if (!obj_data_reporting_session) return NULL;
 
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     const auto &value_from = p_sampling_rules;
     typedef typename DataReportingSession::SamplingRulesType ValueType;
 
@@ -400,12 +565,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     }
     data_collection_hash_free(p_sampling_rules, reinterpret_cast<void(*)(void*)>(data_collection_model_data_sampling_rule_free));
     if (!obj->setSamplingRules(std::move(value))) return NULL;
+
     return obj_data_reporting_session;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_add_sampling_rules(data_collection_model_data_reporting_session_t *obj_data_reporting_session, const char *p_key, const ogs_list_t* p_sampling_rules)
 {
+    if (!obj_data_reporting_session) return NULL;
+
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     typedef typename DataReportingSession::SamplingRulesType ContainerType;
     typedef typename ContainerType::mapped_type ValueType;
     const auto &value_from = p_sampling_rules;
@@ -426,22 +596,40 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_remove_sampling_rules(data_collection_model_data_reporting_session_t *obj_data_reporting_session, const char *p_key)
 {
+    if (!obj_data_reporting_session) return NULL;
+
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     
     obj->removeSamplingRules(std::string(p_key));
     return obj_data_reporting_session;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_clear_sampling_rules(data_collection_model_data_reporting_session_t *obj_data_reporting_session)
-{   
+{
+    if (!obj_data_reporting_session) return NULL;
+
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     obj->clearSamplingRules();
     return obj_data_reporting_session;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const ogs_hash_t* data_collection_model_data_reporting_session_get_reporting_conditions(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
 {
+    if (!obj_data_reporting_session) {
+        ogs_hash_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) {
+        ogs_hash_t *result = NULL;
+        return result;
+    }
+
     typedef typename DataReportingSession::ReportingConditionsType ResultFromType;
     const ResultFromType result_from = obj->getReportingConditions();
     ogs_hash_t *result = ogs_hash_make();
@@ -470,9 +658,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const ogs_hash_t* data_collection_mo
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_set_reporting_conditions(data_collection_model_data_reporting_session_t *obj_data_reporting_session, const ogs_hash_t* p_reporting_conditions)
 {
-    if (obj_data_reporting_session == NULL) return NULL;
+    if (!obj_data_reporting_session) return NULL;
 
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     const auto &value_from = p_reporting_conditions;
     typedef typename DataReportingSession::ReportingConditionsType ValueType;
 
@@ -503,14 +693,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
         ogs_free(entry);
     }
     if (!obj->setReportingConditions(value)) return NULL;
+
     return obj_data_reporting_session;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_set_reporting_conditions_move(data_collection_model_data_reporting_session_t *obj_data_reporting_session, ogs_hash_t* p_reporting_conditions)
 {
-    if (obj_data_reporting_session == NULL) return NULL;
+    if (!obj_data_reporting_session) return NULL;
 
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     const auto &value_from = p_reporting_conditions;
     typedef typename DataReportingSession::ReportingConditionsType ValueType;
 
@@ -542,12 +735,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     }
     data_collection_hash_free(p_reporting_conditions, reinterpret_cast<void(*)(void*)>(data_collection_model_data_reporting_condition_free));
     if (!obj->setReportingConditions(std::move(value))) return NULL;
+
     return obj_data_reporting_session;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_add_reporting_conditions(data_collection_model_data_reporting_session_t *obj_data_reporting_session, const char *p_key, const ogs_list_t* p_reporting_conditions)
 {
+    if (!obj_data_reporting_session) return NULL;
+
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     typedef typename DataReportingSession::ReportingConditionsType ContainerType;
     typedef typename ContainerType::mapped_type ValueType;
     const auto &value_from = p_reporting_conditions;
@@ -568,22 +766,40 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_remove_reporting_conditions(data_collection_model_data_reporting_session_t *obj_data_reporting_session, const char *p_key)
 {
+    if (!obj_data_reporting_session) return NULL;
+
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     
     obj->removeReportingConditions(std::string(p_key));
     return obj_data_reporting_session;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_clear_reporting_conditions(data_collection_model_data_reporting_session_t *obj_data_reporting_session)
-{   
+{
+    if (!obj_data_reporting_session) return NULL;
+
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     obj->clearReportingConditions();
     return obj_data_reporting_session;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const ogs_hash_t* data_collection_model_data_reporting_session_get_reporting_rules(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
 {
+    if (!obj_data_reporting_session) {
+        ogs_hash_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) {
+        ogs_hash_t *result = NULL;
+        return result;
+    }
+
     typedef typename DataReportingSession::ReportingRulesType ResultFromType;
     const ResultFromType result_from = obj->getReportingRules();
     ogs_hash_t *result = ogs_hash_make();
@@ -612,9 +828,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const ogs_hash_t* data_collection_mo
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_set_reporting_rules(data_collection_model_data_reporting_session_t *obj_data_reporting_session, const ogs_hash_t* p_reporting_rules)
 {
-    if (obj_data_reporting_session == NULL) return NULL;
+    if (!obj_data_reporting_session) return NULL;
 
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     const auto &value_from = p_reporting_rules;
     typedef typename DataReportingSession::ReportingRulesType ValueType;
 
@@ -645,14 +863,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
         ogs_free(entry);
     }
     if (!obj->setReportingRules(value)) return NULL;
+
     return obj_data_reporting_session;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_set_reporting_rules_move(data_collection_model_data_reporting_session_t *obj_data_reporting_session, ogs_hash_t* p_reporting_rules)
 {
-    if (obj_data_reporting_session == NULL) return NULL;
+    if (!obj_data_reporting_session) return NULL;
 
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     const auto &value_from = p_reporting_rules;
     typedef typename DataReportingSession::ReportingRulesType ValueType;
 
@@ -684,12 +905,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     }
     data_collection_hash_free(p_reporting_rules, reinterpret_cast<void(*)(void*)>(data_collection_model_data_reporting_rule_free));
     if (!obj->setReportingRules(std::move(value))) return NULL;
+
     return obj_data_reporting_session;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_add_reporting_rules(data_collection_model_data_reporting_session_t *obj_data_reporting_session, const char *p_key, const ogs_list_t* p_reporting_rules)
 {
+    if (!obj_data_reporting_session) return NULL;
+
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     typedef typename DataReportingSession::ReportingRulesType ContainerType;
     typedef typename ContainerType::mapped_type ValueType;
     const auto &value_from = p_reporting_rules;
@@ -710,15 +936,23 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_remove_reporting_rules(data_collection_model_data_reporting_session_t *obj_data_reporting_session, const char *p_key)
 {
+    if (!obj_data_reporting_session) return NULL;
+
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     
     obj->removeReportingRules(std::string(p_key));
     return obj_data_reporting_session;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_clear_reporting_rules(data_collection_model_data_reporting_session_t *obj_data_reporting_session)
-{   
+{
+    if (!obj_data_reporting_session) return NULL;
+
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return NULL;
+
     obj->clearReportingRules();
     return obj_data_reporting_session;
 }
@@ -733,6 +967,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_data_reporting_session_refcount(data_collection_model_data_reporting_session_t *obj_data_reporting_session)
 {
+    if (!obj_data_reporting_session) return 0l;
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
     return obj.use_count();
 }

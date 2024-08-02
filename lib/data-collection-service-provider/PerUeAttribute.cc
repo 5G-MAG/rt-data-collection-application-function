@@ -37,36 +37,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribu
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_create_copy(const data_collection_model_per_ue_attribute_t *other)
 {
-    return reinterpret_cast<data_collection_model_per_ue_attribute_t*>(new std::shared_ptr<PerUeAttribute >(new PerUeAttribute(**reinterpret_cast<const std::shared_ptr<PerUeAttribute >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<const std::shared_ptr<PerUeAttribute >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_per_ue_attribute_t*>(new std::shared_ptr<PerUeAttribute >(new PerUeAttribute(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_create_move(data_collection_model_per_ue_attribute_t *other)
 {
-    return reinterpret_cast<data_collection_model_per_ue_attribute_t*>(new std::shared_ptr<PerUeAttribute >(std::move(*reinterpret_cast<std::shared_ptr<PerUeAttribute >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<PerUeAttribute > *obj = reinterpret_cast<std::shared_ptr<PerUeAttribute >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_copy(data_collection_model_per_ue_attribute_t *per_ue_attribute, const data_collection_model_per_ue_attribute_t *other)
 {
-    std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<std::shared_ptr<PerUeAttribute >*>(per_ue_attribute);
-    *obj = **reinterpret_cast<const std::shared_ptr<PerUeAttribute >*>(other);
+    if (per_ue_attribute) {
+        std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<std::shared_ptr<PerUeAttribute >*>(per_ue_attribute);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<PerUeAttribute > &other_obj = *reinterpret_cast<const std::shared_ptr<PerUeAttribute >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<PerUeAttribute > &other_obj = *reinterpret_cast<const std::shared_ptr<PerUeAttribute >*>(other);
+                if (other_obj) {
+                    obj.reset(new PerUeAttribute(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        per_ue_attribute = data_collection_model_per_ue_attribute_create_copy(other);
+    }
     return per_ue_attribute;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_move(data_collection_model_per_ue_attribute_t *per_ue_attribute, data_collection_model_per_ue_attribute_t *other)
 {
-    std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<std::shared_ptr<PerUeAttribute >*>(per_ue_attribute);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<PerUeAttribute >*>(other));
+    std::shared_ptr<PerUeAttribute > *other_ptr = reinterpret_cast<std::shared_ptr<PerUeAttribute >*>(other);
+
+    if (per_ue_attribute) {
+        std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<std::shared_ptr<PerUeAttribute >*>(per_ue_attribute);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                per_ue_attribute = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return per_ue_attribute;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_per_ue_attribute_free(data_collection_model_per_ue_attribute_t *per_ue_attribute)
 {
+    if (!per_ue_attribute) return;
     delete reinterpret_cast<std::shared_ptr<PerUeAttribute >*>(per_ue_attribute);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_per_ue_attribute_toJSON(const data_collection_model_per_ue_attribute_t *per_ue_attribute, bool as_request)
 {
+    if (!per_ue_attribute) return NULL;
     const std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<const std::shared_ptr<PerUeAttribute >*>(per_ue_attribute);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -86,15 +139,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribu
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_per_ue_attribute_is_equal_to(const data_collection_model_per_ue_attribute_t *first, const data_collection_model_per_ue_attribute_t *second)
 {
-    const std::shared_ptr<PerUeAttribute > &obj1 = *reinterpret_cast<const std::shared_ptr<PerUeAttribute >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<PerUeAttribute > &obj2 = *reinterpret_cast<const std::shared_ptr<PerUeAttribute >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<PerUeAttribute > &obj1 = *reinterpret_cast<const std::shared_ptr<PerUeAttribute >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_location_area5_g_t* data_collection_model_per_ue_attribute_get_ue_dest(const data_collection_model_per_ue_attribute_t *obj_per_ue_attribute)
 {
+    if (!obj_per_ue_attribute) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<const std::shared_ptr<PerUeAttribute >*>(obj_per_ue_attribute);
+    if (!obj) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+        return result;
+    }
+
     typedef typename PerUeAttribute::UeDestType ResultFromType;
     const ResultFromType result_from = obj->getUeDest();
     const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(&result_from);
@@ -103,34 +183,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_location
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_ue_dest(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, const data_collection_model_location_area5_g_t* p_ue_dest)
 {
-    if (obj_per_ue_attribute == NULL) return NULL;
+    if (!obj_per_ue_attribute) return NULL;
 
     std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<std::shared_ptr<PerUeAttribute >*>(obj_per_ue_attribute);
+    if (!obj) return NULL;
+
     const auto &value_from = p_ue_dest;
     typedef typename PerUeAttribute::UeDestType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setUeDest(value)) return NULL;
+
     return obj_per_ue_attribute;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_ue_dest_move(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, data_collection_model_location_area5_g_t* p_ue_dest)
 {
-    if (obj_per_ue_attribute == NULL) return NULL;
+    if (!obj_per_ue_attribute) return NULL;
 
     std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<std::shared_ptr<PerUeAttribute >*>(obj_per_ue_attribute);
+    if (!obj) return NULL;
+
     const auto &value_from = p_ue_dest;
     typedef typename PerUeAttribute::UeDestType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setUeDest(std::move(value))) return NULL;
+
     return obj_per_ue_attribute;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_per_ue_attribute_get_route(const data_collection_model_per_ue_attribute_t *obj_per_ue_attribute)
 {
+    if (!obj_per_ue_attribute) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<const std::shared_ptr<PerUeAttribute >*>(obj_per_ue_attribute);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename PerUeAttribute::RouteType ResultFromType;
     const ResultFromType result_from = obj->getRoute();
     const char *result = result_from.c_str();
@@ -139,34 +235,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pe
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_route(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, const char* p_route)
 {
-    if (obj_per_ue_attribute == NULL) return NULL;
+    if (!obj_per_ue_attribute) return NULL;
 
     std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<std::shared_ptr<PerUeAttribute >*>(obj_per_ue_attribute);
+    if (!obj) return NULL;
+
     const auto &value_from = p_route;
     typedef typename PerUeAttribute::RouteType ValueType;
 
     ValueType value(value_from);
     if (!obj->setRoute(value)) return NULL;
+
     return obj_per_ue_attribute;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_route_move(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, char* p_route)
 {
-    if (obj_per_ue_attribute == NULL) return NULL;
+    if (!obj_per_ue_attribute) return NULL;
 
     std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<std::shared_ptr<PerUeAttribute >*>(obj_per_ue_attribute);
+    if (!obj) return NULL;
+
     const auto &value_from = p_route;
     typedef typename PerUeAttribute::RouteType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setRoute(std::move(value))) return NULL;
+
     return obj_per_ue_attribute;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_per_ue_attribute_get_avg_speed(const data_collection_model_per_ue_attribute_t *obj_per_ue_attribute)
 {
+    if (!obj_per_ue_attribute) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<const std::shared_ptr<PerUeAttribute >*>(obj_per_ue_attribute);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename PerUeAttribute::AvgSpeedType ResultFromType;
     const ResultFromType result_from = obj->getAvgSpeed();
     const char *result = result_from.c_str();
@@ -175,34 +287,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pe
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_avg_speed(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, const char* p_avg_speed)
 {
-    if (obj_per_ue_attribute == NULL) return NULL;
+    if (!obj_per_ue_attribute) return NULL;
 
     std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<std::shared_ptr<PerUeAttribute >*>(obj_per_ue_attribute);
+    if (!obj) return NULL;
+
     const auto &value_from = p_avg_speed;
     typedef typename PerUeAttribute::AvgSpeedType ValueType;
 
     ValueType value(value_from);
     if (!obj->setAvgSpeed(value)) return NULL;
+
     return obj_per_ue_attribute;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_avg_speed_move(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, char* p_avg_speed)
 {
-    if (obj_per_ue_attribute == NULL) return NULL;
+    if (!obj_per_ue_attribute) return NULL;
 
     std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<std::shared_ptr<PerUeAttribute >*>(obj_per_ue_attribute);
+    if (!obj) return NULL;
+
     const auto &value_from = p_avg_speed;
     typedef typename PerUeAttribute::AvgSpeedType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setAvgSpeed(std::move(value))) return NULL;
+
     return obj_per_ue_attribute;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_per_ue_attribute_get_time_of_arrival(const data_collection_model_per_ue_attribute_t *obj_per_ue_attribute)
 {
+    if (!obj_per_ue_attribute) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<const std::shared_ptr<PerUeAttribute >*>(obj_per_ue_attribute);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename PerUeAttribute::TimeOfArrivalType ResultFromType;
     const ResultFromType result_from = obj->getTimeOfArrival();
     const char *result = result_from.c_str();
@@ -211,28 +339,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pe
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_time_of_arrival(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, const char* p_time_of_arrival)
 {
-    if (obj_per_ue_attribute == NULL) return NULL;
+    if (!obj_per_ue_attribute) return NULL;
 
     std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<std::shared_ptr<PerUeAttribute >*>(obj_per_ue_attribute);
+    if (!obj) return NULL;
+
     const auto &value_from = p_time_of_arrival;
     typedef typename PerUeAttribute::TimeOfArrivalType ValueType;
 
     ValueType value(value_from);
     if (!obj->setTimeOfArrival(value)) return NULL;
+
     return obj_per_ue_attribute;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_time_of_arrival_move(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, char* p_time_of_arrival)
 {
-    if (obj_per_ue_attribute == NULL) return NULL;
+    if (!obj_per_ue_attribute) return NULL;
 
     std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<std::shared_ptr<PerUeAttribute >*>(obj_per_ue_attribute);
+    if (!obj) return NULL;
+
     const auto &value_from = p_time_of_arrival;
     typedef typename PerUeAttribute::TimeOfArrivalType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setTimeOfArrival(std::move(value))) return NULL;
+
     return obj_per_ue_attribute;
 }
 
@@ -246,6 +380,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_per_ue_attribute_refcount(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute)
 {
+    if (!obj_per_ue_attribute) return 0l;
     std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<std::shared_ptr<PerUeAttribute >*>(obj_per_ue_attribute);
     return obj.use_count();
 }

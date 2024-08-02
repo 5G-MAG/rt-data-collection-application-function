@@ -33,36 +33,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_umt_location_a
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_umt_location_area5_g_all_of_t *data_collection_model_umt_location_area5_g_all_of_create_copy(const data_collection_model_umt_location_area5_g_all_of_t *other)
 {
-    return reinterpret_cast<data_collection_model_umt_location_area5_g_all_of_t*>(new std::shared_ptr<UmtLocationArea5G_allOf >(new UmtLocationArea5G_allOf(**reinterpret_cast<const std::shared_ptr<UmtLocationArea5G_allOf >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<UmtLocationArea5G_allOf > &obj = *reinterpret_cast<const std::shared_ptr<UmtLocationArea5G_allOf >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_umt_location_area5_g_all_of_t*>(new std::shared_ptr<UmtLocationArea5G_allOf >(new UmtLocationArea5G_allOf(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_umt_location_area5_g_all_of_t *data_collection_model_umt_location_area5_g_all_of_create_move(data_collection_model_umt_location_area5_g_all_of_t *other)
 {
-    return reinterpret_cast<data_collection_model_umt_location_area5_g_all_of_t*>(new std::shared_ptr<UmtLocationArea5G_allOf >(std::move(*reinterpret_cast<std::shared_ptr<UmtLocationArea5G_allOf >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<UmtLocationArea5G_allOf > *obj = reinterpret_cast<std::shared_ptr<UmtLocationArea5G_allOf >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_umt_location_area5_g_all_of_t *data_collection_model_umt_location_area5_g_all_of_copy(data_collection_model_umt_location_area5_g_all_of_t *umt_location_area5_g_all_of, const data_collection_model_umt_location_area5_g_all_of_t *other)
 {
-    std::shared_ptr<UmtLocationArea5G_allOf > &obj = *reinterpret_cast<std::shared_ptr<UmtLocationArea5G_allOf >*>(umt_location_area5_g_all_of);
-    *obj = **reinterpret_cast<const std::shared_ptr<UmtLocationArea5G_allOf >*>(other);
+    if (umt_location_area5_g_all_of) {
+        std::shared_ptr<UmtLocationArea5G_allOf > &obj = *reinterpret_cast<std::shared_ptr<UmtLocationArea5G_allOf >*>(umt_location_area5_g_all_of);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<UmtLocationArea5G_allOf > &other_obj = *reinterpret_cast<const std::shared_ptr<UmtLocationArea5G_allOf >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<UmtLocationArea5G_allOf > &other_obj = *reinterpret_cast<const std::shared_ptr<UmtLocationArea5G_allOf >*>(other);
+                if (other_obj) {
+                    obj.reset(new UmtLocationArea5G_allOf(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        umt_location_area5_g_all_of = data_collection_model_umt_location_area5_g_all_of_create_copy(other);
+    }
     return umt_location_area5_g_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_umt_location_area5_g_all_of_t *data_collection_model_umt_location_area5_g_all_of_move(data_collection_model_umt_location_area5_g_all_of_t *umt_location_area5_g_all_of, data_collection_model_umt_location_area5_g_all_of_t *other)
 {
-    std::shared_ptr<UmtLocationArea5G_allOf > &obj = *reinterpret_cast<std::shared_ptr<UmtLocationArea5G_allOf >*>(umt_location_area5_g_all_of);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<UmtLocationArea5G_allOf >*>(other));
+    std::shared_ptr<UmtLocationArea5G_allOf > *other_ptr = reinterpret_cast<std::shared_ptr<UmtLocationArea5G_allOf >*>(other);
+
+    if (umt_location_area5_g_all_of) {
+        std::shared_ptr<UmtLocationArea5G_allOf > &obj = *reinterpret_cast<std::shared_ptr<UmtLocationArea5G_allOf >*>(umt_location_area5_g_all_of);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                umt_location_area5_g_all_of = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return umt_location_area5_g_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_umt_location_area5_g_all_of_free(data_collection_model_umt_location_area5_g_all_of_t *umt_location_area5_g_all_of)
 {
+    if (!umt_location_area5_g_all_of) return;
     delete reinterpret_cast<std::shared_ptr<UmtLocationArea5G_allOf >*>(umt_location_area5_g_all_of);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_umt_location_area5_g_all_of_toJSON(const data_collection_model_umt_location_area5_g_all_of_t *umt_location_area5_g_all_of, bool as_request)
 {
+    if (!umt_location_area5_g_all_of) return NULL;
     const std::shared_ptr<UmtLocationArea5G_allOf > &obj = *reinterpret_cast<const std::shared_ptr<UmtLocationArea5G_allOf >*>(umt_location_area5_g_all_of);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -82,15 +135,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_umt_location_a
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_umt_location_area5_g_all_of_is_equal_to(const data_collection_model_umt_location_area5_g_all_of_t *first, const data_collection_model_umt_location_area5_g_all_of_t *second)
 {
-    const std::shared_ptr<UmtLocationArea5G_allOf > &obj1 = *reinterpret_cast<const std::shared_ptr<UmtLocationArea5G_allOf >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<UmtLocationArea5G_allOf > &obj2 = *reinterpret_cast<const std::shared_ptr<UmtLocationArea5G_allOf >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<UmtLocationArea5G_allOf > &obj1 = *reinterpret_cast<const std::shared_ptr<UmtLocationArea5G_allOf >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_umt_location_area5_g_all_of_get_umt_time(const data_collection_model_umt_location_area5_g_all_of_t *obj_umt_location_area5_g_all_of)
 {
+    if (!obj_umt_location_area5_g_all_of) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<UmtLocationArea5G_allOf > &obj = *reinterpret_cast<const std::shared_ptr<UmtLocationArea5G_allOf >*>(obj_umt_location_area5_g_all_of);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename UmtLocationArea5G_allOf::UmtTimeType ResultFromType;
     const ResultFromType result_from = obj->getUmtTime();
     const char *result = result_from.c_str();
@@ -99,34 +179,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_um
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_umt_location_area5_g_all_of_t *data_collection_model_umt_location_area5_g_all_of_set_umt_time(data_collection_model_umt_location_area5_g_all_of_t *obj_umt_location_area5_g_all_of, const char* p_umt_time)
 {
-    if (obj_umt_location_area5_g_all_of == NULL) return NULL;
+    if (!obj_umt_location_area5_g_all_of) return NULL;
 
     std::shared_ptr<UmtLocationArea5G_allOf > &obj = *reinterpret_cast<std::shared_ptr<UmtLocationArea5G_allOf >*>(obj_umt_location_area5_g_all_of);
+    if (!obj) return NULL;
+
     const auto &value_from = p_umt_time;
     typedef typename UmtLocationArea5G_allOf::UmtTimeType ValueType;
 
     ValueType value(value_from);
     if (!obj->setUmtTime(value)) return NULL;
+
     return obj_umt_location_area5_g_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_umt_location_area5_g_all_of_t *data_collection_model_umt_location_area5_g_all_of_set_umt_time_move(data_collection_model_umt_location_area5_g_all_of_t *obj_umt_location_area5_g_all_of, char* p_umt_time)
 {
-    if (obj_umt_location_area5_g_all_of == NULL) return NULL;
+    if (!obj_umt_location_area5_g_all_of) return NULL;
 
     std::shared_ptr<UmtLocationArea5G_allOf > &obj = *reinterpret_cast<std::shared_ptr<UmtLocationArea5G_allOf >*>(obj_umt_location_area5_g_all_of);
+    if (!obj) return NULL;
+
     const auto &value_from = p_umt_time;
     typedef typename UmtLocationArea5G_allOf::UmtTimeType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setUmtTime(std::move(value))) return NULL;
+
     return obj_umt_location_area5_g_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_umt_location_area5_g_all_of_get_umt_duration(const data_collection_model_umt_location_area5_g_all_of_t *obj_umt_location_area5_g_all_of)
 {
+    if (!obj_umt_location_area5_g_all_of) {
+        const int32_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<UmtLocationArea5G_allOf > &obj = *reinterpret_cast<const std::shared_ptr<UmtLocationArea5G_allOf >*>(obj_umt_location_area5_g_all_of);
+    if (!obj) {
+        const int32_t result = 0;
+        return result;
+    }
+
     typedef typename UmtLocationArea5G_allOf::UmtDurationType ResultFromType;
     const ResultFromType result_from = obj->getUmtDuration();
     const ResultFromType result = result_from;
@@ -135,28 +231,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_umt_location_area5_g_all_of_t *data_collection_model_umt_location_area5_g_all_of_set_umt_duration(data_collection_model_umt_location_area5_g_all_of_t *obj_umt_location_area5_g_all_of, const int32_t p_umt_duration)
 {
-    if (obj_umt_location_area5_g_all_of == NULL) return NULL;
+    if (!obj_umt_location_area5_g_all_of) return NULL;
 
     std::shared_ptr<UmtLocationArea5G_allOf > &obj = *reinterpret_cast<std::shared_ptr<UmtLocationArea5G_allOf >*>(obj_umt_location_area5_g_all_of);
+    if (!obj) return NULL;
+
     const auto &value_from = p_umt_duration;
     typedef typename UmtLocationArea5G_allOf::UmtDurationType ValueType;
 
     ValueType value = value_from;
     if (!obj->setUmtDuration(value)) return NULL;
+
     return obj_umt_location_area5_g_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_umt_location_area5_g_all_of_t *data_collection_model_umt_location_area5_g_all_of_set_umt_duration_move(data_collection_model_umt_location_area5_g_all_of_t *obj_umt_location_area5_g_all_of, int32_t p_umt_duration)
 {
-    if (obj_umt_location_area5_g_all_of == NULL) return NULL;
+    if (!obj_umt_location_area5_g_all_of) return NULL;
 
     std::shared_ptr<UmtLocationArea5G_allOf > &obj = *reinterpret_cast<std::shared_ptr<UmtLocationArea5G_allOf >*>(obj_umt_location_area5_g_all_of);
+    if (!obj) return NULL;
+
     const auto &value_from = p_umt_duration;
     typedef typename UmtLocationArea5G_allOf::UmtDurationType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setUmtDuration(std::move(value))) return NULL;
+
     return obj_umt_location_area5_g_all_of;
 }
 
@@ -170,6 +272,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_umt_location_area5_g_all_of_refcount(data_collection_model_umt_location_area5_g_all_of_t *obj_umt_location_area5_g_all_of)
 {
+    if (!obj_umt_location_area5_g_all_of) return 0l;
     std::shared_ptr<UmtLocationArea5G_allOf > &obj = *reinterpret_cast<std::shared_ptr<UmtLocationArea5G_allOf >*>(obj_umt_location_area5_g_all_of);
     return obj.use_count();
 }

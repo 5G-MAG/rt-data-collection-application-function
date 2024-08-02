@@ -37,36 +37,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5_g_t *data_collection_model_location_area5_g_create_copy(const data_collection_model_location_area5_g_t *other)
 {
-    return reinterpret_cast<data_collection_model_location_area5_g_t*>(new std::shared_ptr<LocationArea5G >(new LocationArea5G(**reinterpret_cast<const std::shared_ptr<LocationArea5G >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<const std::shared_ptr<LocationArea5G >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_location_area5_g_t*>(new std::shared_ptr<LocationArea5G >(new LocationArea5G(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5_g_t *data_collection_model_location_area5_g_create_move(data_collection_model_location_area5_g_t *other)
 {
-    return reinterpret_cast<data_collection_model_location_area5_g_t*>(new std::shared_ptr<LocationArea5G >(std::move(*reinterpret_cast<std::shared_ptr<LocationArea5G >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<LocationArea5G > *obj = reinterpret_cast<std::shared_ptr<LocationArea5G >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5_g_t *data_collection_model_location_area5_g_copy(data_collection_model_location_area5_g_t *location_area5_g, const data_collection_model_location_area5_g_t *other)
 {
-    std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<std::shared_ptr<LocationArea5G >*>(location_area5_g);
-    *obj = **reinterpret_cast<const std::shared_ptr<LocationArea5G >*>(other);
+    if (location_area5_g) {
+        std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<std::shared_ptr<LocationArea5G >*>(location_area5_g);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<LocationArea5G > &other_obj = *reinterpret_cast<const std::shared_ptr<LocationArea5G >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<LocationArea5G > &other_obj = *reinterpret_cast<const std::shared_ptr<LocationArea5G >*>(other);
+                if (other_obj) {
+                    obj.reset(new LocationArea5G(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        location_area5_g = data_collection_model_location_area5_g_create_copy(other);
+    }
     return location_area5_g;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5_g_t *data_collection_model_location_area5_g_move(data_collection_model_location_area5_g_t *location_area5_g, data_collection_model_location_area5_g_t *other)
 {
-    std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<std::shared_ptr<LocationArea5G >*>(location_area5_g);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<LocationArea5G >*>(other));
+    std::shared_ptr<LocationArea5G > *other_ptr = reinterpret_cast<std::shared_ptr<LocationArea5G >*>(other);
+
+    if (location_area5_g) {
+        std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<std::shared_ptr<LocationArea5G >*>(location_area5_g);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                location_area5_g = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return location_area5_g;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_location_area5_g_free(data_collection_model_location_area5_g_t *location_area5_g)
 {
+    if (!location_area5_g) return;
     delete reinterpret_cast<std::shared_ptr<LocationArea5G >*>(location_area5_g);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_location_area5_g_toJSON(const data_collection_model_location_area5_g_t *location_area5_g, bool as_request)
 {
+    if (!location_area5_g) return NULL;
     const std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<const std::shared_ptr<LocationArea5G >*>(location_area5_g);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -86,15 +139,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_location_area5_g_is_equal_to(const data_collection_model_location_area5_g_t *first, const data_collection_model_location_area5_g_t *second)
 {
-    const std::shared_ptr<LocationArea5G > &obj1 = *reinterpret_cast<const std::shared_ptr<LocationArea5G >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<LocationArea5G > &obj2 = *reinterpret_cast<const std::shared_ptr<LocationArea5G >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<LocationArea5G > &obj1 = *reinterpret_cast<const std::shared_ptr<LocationArea5G >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_location_area5_g_get_geographic_areas(const data_collection_model_location_area5_g_t *obj_location_area5_g)
 {
+    if (!obj_location_area5_g) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<const std::shared_ptr<LocationArea5G >*>(obj_location_area5_g);
+    if (!obj) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     typedef typename LocationArea5G::GeographicAreasType ResultFromType;
     const ResultFromType result_from = obj->getGeographicAreas();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
@@ -111,9 +191,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_lo
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5_g_t *data_collection_model_location_area5_g_set_geographic_areas(data_collection_model_location_area5_g_t *obj_location_area5_g, const ogs_list_t* p_geographic_areas)
 {
-    if (obj_location_area5_g == NULL) return NULL;
+    if (!obj_location_area5_g) return NULL;
 
     std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<std::shared_ptr<LocationArea5G >*>(obj_location_area5_g);
+    if (!obj) return NULL;
+
     const auto &value_from = p_geographic_areas;
     typedef typename LocationArea5G::GeographicAreasType ValueType;
 
@@ -127,14 +209,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5
         }
     }
     if (!obj->setGeographicAreas(value)) return NULL;
+
     return obj_location_area5_g;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5_g_t *data_collection_model_location_area5_g_set_geographic_areas_move(data_collection_model_location_area5_g_t *obj_location_area5_g, ogs_list_t* p_geographic_areas)
 {
-    if (obj_location_area5_g == NULL) return NULL;
+    if (!obj_location_area5_g) return NULL;
 
     std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<std::shared_ptr<LocationArea5G >*>(obj_location_area5_g);
+    if (!obj) return NULL;
+
     const auto &value_from = p_geographic_areas;
     typedef typename LocationArea5G::GeographicAreasType ValueType;
 
@@ -149,12 +234,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5
     }
     data_collection_list_free(p_geographic_areas);
     if (!obj->setGeographicAreas(std::move(value))) return NULL;
+
     return obj_location_area5_g;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5_g_t *data_collection_model_location_area5_g_add_geographic_areas(data_collection_model_location_area5_g_t *obj_location_area5_g, data_collection_model_geographic_area_t* p_geographic_areas)
 {
+    if (!obj_location_area5_g) return NULL;
+
     std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<std::shared_ptr<LocationArea5G >*>(obj_location_area5_g);
+    if (!obj) return NULL;
+
     typedef typename LocationArea5G::GeographicAreasType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_geographic_areas;
@@ -167,7 +257,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5_g_t *data_collection_model_location_area5_g_remove_geographic_areas(data_collection_model_location_area5_g_t *obj_location_area5_g, const data_collection_model_geographic_area_t* p_geographic_areas)
 {
+    if (!obj_location_area5_g) return NULL;
+
     std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<std::shared_ptr<LocationArea5G >*>(obj_location_area5_g);
+    if (!obj) return NULL;
+
     typedef typename LocationArea5G::GeographicAreasType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_geographic_areas;
@@ -177,15 +271,29 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5_g_t *data_collection_model_location_area5_g_clear_geographic_areas(data_collection_model_location_area5_g_t *obj_location_area5_g)
-{   
+{
+    if (!obj_location_area5_g) return NULL;
+
     std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<std::shared_ptr<LocationArea5G >*>(obj_location_area5_g);
+    if (!obj) return NULL;
+
     obj->clearGeographicAreas();
     return obj_location_area5_g;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_location_area5_g_get_civic_addresses(const data_collection_model_location_area5_g_t *obj_location_area5_g)
 {
+    if (!obj_location_area5_g) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<const std::shared_ptr<LocationArea5G >*>(obj_location_area5_g);
+    if (!obj) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     typedef typename LocationArea5G::CivicAddressesType ResultFromType;
     const ResultFromType result_from = obj->getCivicAddresses();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
@@ -202,9 +310,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_lo
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5_g_t *data_collection_model_location_area5_g_set_civic_addresses(data_collection_model_location_area5_g_t *obj_location_area5_g, const ogs_list_t* p_civic_addresses)
 {
-    if (obj_location_area5_g == NULL) return NULL;
+    if (!obj_location_area5_g) return NULL;
 
     std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<std::shared_ptr<LocationArea5G >*>(obj_location_area5_g);
+    if (!obj) return NULL;
+
     const auto &value_from = p_civic_addresses;
     typedef typename LocationArea5G::CivicAddressesType ValueType;
 
@@ -218,14 +328,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5
         }
     }
     if (!obj->setCivicAddresses(value)) return NULL;
+
     return obj_location_area5_g;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5_g_t *data_collection_model_location_area5_g_set_civic_addresses_move(data_collection_model_location_area5_g_t *obj_location_area5_g, ogs_list_t* p_civic_addresses)
 {
-    if (obj_location_area5_g == NULL) return NULL;
+    if (!obj_location_area5_g) return NULL;
 
     std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<std::shared_ptr<LocationArea5G >*>(obj_location_area5_g);
+    if (!obj) return NULL;
+
     const auto &value_from = p_civic_addresses;
     typedef typename LocationArea5G::CivicAddressesType ValueType;
 
@@ -240,12 +353,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5
     }
     data_collection_list_free(p_civic_addresses);
     if (!obj->setCivicAddresses(std::move(value))) return NULL;
+
     return obj_location_area5_g;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5_g_t *data_collection_model_location_area5_g_add_civic_addresses(data_collection_model_location_area5_g_t *obj_location_area5_g, data_collection_model_civic_address_t* p_civic_addresses)
 {
+    if (!obj_location_area5_g) return NULL;
+
     std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<std::shared_ptr<LocationArea5G >*>(obj_location_area5_g);
+    if (!obj) return NULL;
+
     typedef typename LocationArea5G::CivicAddressesType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_civic_addresses;
@@ -258,7 +376,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5_g_t *data_collection_model_location_area5_g_remove_civic_addresses(data_collection_model_location_area5_g_t *obj_location_area5_g, const data_collection_model_civic_address_t* p_civic_addresses)
 {
+    if (!obj_location_area5_g) return NULL;
+
     std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<std::shared_ptr<LocationArea5G >*>(obj_location_area5_g);
+    if (!obj) return NULL;
+
     typedef typename LocationArea5G::CivicAddressesType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_civic_addresses;
@@ -268,15 +390,29 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5_g_t *data_collection_model_location_area5_g_clear_civic_addresses(data_collection_model_location_area5_g_t *obj_location_area5_g)
-{   
+{
+    if (!obj_location_area5_g) return NULL;
+
     std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<std::shared_ptr<LocationArea5G >*>(obj_location_area5_g);
+    if (!obj) return NULL;
+
     obj->clearCivicAddresses();
     return obj_location_area5_g;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_network_area_info_t* data_collection_model_location_area5_g_get_nw_area_info(const data_collection_model_location_area5_g_t *obj_location_area5_g)
 {
+    if (!obj_location_area5_g) {
+        const data_collection_model_network_area_info_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<const std::shared_ptr<LocationArea5G >*>(obj_location_area5_g);
+    if (!obj) {
+        const data_collection_model_network_area_info_t *result = NULL;
+        return result;
+    }
+
     typedef typename LocationArea5G::NwAreaInfoType ResultFromType;
     const ResultFromType result_from = obj->getNwAreaInfo();
     const data_collection_model_network_area_info_t *result = reinterpret_cast<const data_collection_model_network_area_info_t*>(&result_from);
@@ -285,28 +421,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_network_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5_g_t *data_collection_model_location_area5_g_set_nw_area_info(data_collection_model_location_area5_g_t *obj_location_area5_g, const data_collection_model_network_area_info_t* p_nw_area_info)
 {
-    if (obj_location_area5_g == NULL) return NULL;
+    if (!obj_location_area5_g) return NULL;
 
     std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<std::shared_ptr<LocationArea5G >*>(obj_location_area5_g);
+    if (!obj) return NULL;
+
     const auto &value_from = p_nw_area_info;
     typedef typename LocationArea5G::NwAreaInfoType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setNwAreaInfo(value)) return NULL;
+
     return obj_location_area5_g;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_area5_g_t *data_collection_model_location_area5_g_set_nw_area_info_move(data_collection_model_location_area5_g_t *obj_location_area5_g, data_collection_model_network_area_info_t* p_nw_area_info)
 {
-    if (obj_location_area5_g == NULL) return NULL;
+    if (!obj_location_area5_g) return NULL;
 
     std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<std::shared_ptr<LocationArea5G >*>(obj_location_area5_g);
+    if (!obj) return NULL;
+
     const auto &value_from = p_nw_area_info;
     typedef typename LocationArea5G::NwAreaInfoType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setNwAreaInfo(std::move(value))) return NULL;
+
     return obj_location_area5_g;
 }
 
@@ -320,6 +462,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_location_area5_g_refcount(data_collection_model_location_area5_g_t *obj_location_area5_g)
 {
+    if (!obj_location_area5_g) return 0l;
     std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<std::shared_ptr<LocationArea5G >*>(obj_location_area5_g);
     return obj.use_count();
 }

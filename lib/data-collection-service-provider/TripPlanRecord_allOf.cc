@@ -39,36 +39,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_trip_plan_reco
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_trip_plan_record_all_of_t *data_collection_model_trip_plan_record_all_of_create_copy(const data_collection_model_trip_plan_record_all_of_t *other)
 {
-    return reinterpret_cast<data_collection_model_trip_plan_record_all_of_t*>(new std::shared_ptr<TripPlanRecord_allOf >(new TripPlanRecord_allOf(**reinterpret_cast<const std::shared_ptr<TripPlanRecord_allOf >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<const std::shared_ptr<TripPlanRecord_allOf >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_trip_plan_record_all_of_t*>(new std::shared_ptr<TripPlanRecord_allOf >(new TripPlanRecord_allOf(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_trip_plan_record_all_of_t *data_collection_model_trip_plan_record_all_of_create_move(data_collection_model_trip_plan_record_all_of_t *other)
 {
-    return reinterpret_cast<data_collection_model_trip_plan_record_all_of_t*>(new std::shared_ptr<TripPlanRecord_allOf >(std::move(*reinterpret_cast<std::shared_ptr<TripPlanRecord_allOf >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<TripPlanRecord_allOf > *obj = reinterpret_cast<std::shared_ptr<TripPlanRecord_allOf >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_trip_plan_record_all_of_t *data_collection_model_trip_plan_record_all_of_copy(data_collection_model_trip_plan_record_all_of_t *trip_plan_record_all_of, const data_collection_model_trip_plan_record_all_of_t *other)
 {
-    std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<std::shared_ptr<TripPlanRecord_allOf >*>(trip_plan_record_all_of);
-    *obj = **reinterpret_cast<const std::shared_ptr<TripPlanRecord_allOf >*>(other);
+    if (trip_plan_record_all_of) {
+        std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<std::shared_ptr<TripPlanRecord_allOf >*>(trip_plan_record_all_of);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<TripPlanRecord_allOf > &other_obj = *reinterpret_cast<const std::shared_ptr<TripPlanRecord_allOf >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<TripPlanRecord_allOf > &other_obj = *reinterpret_cast<const std::shared_ptr<TripPlanRecord_allOf >*>(other);
+                if (other_obj) {
+                    obj.reset(new TripPlanRecord_allOf(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        trip_plan_record_all_of = data_collection_model_trip_plan_record_all_of_create_copy(other);
+    }
     return trip_plan_record_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_trip_plan_record_all_of_t *data_collection_model_trip_plan_record_all_of_move(data_collection_model_trip_plan_record_all_of_t *trip_plan_record_all_of, data_collection_model_trip_plan_record_all_of_t *other)
 {
-    std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<std::shared_ptr<TripPlanRecord_allOf >*>(trip_plan_record_all_of);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<TripPlanRecord_allOf >*>(other));
+    std::shared_ptr<TripPlanRecord_allOf > *other_ptr = reinterpret_cast<std::shared_ptr<TripPlanRecord_allOf >*>(other);
+
+    if (trip_plan_record_all_of) {
+        std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<std::shared_ptr<TripPlanRecord_allOf >*>(trip_plan_record_all_of);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                trip_plan_record_all_of = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return trip_plan_record_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_trip_plan_record_all_of_free(data_collection_model_trip_plan_record_all_of_t *trip_plan_record_all_of)
 {
+    if (!trip_plan_record_all_of) return;
     delete reinterpret_cast<std::shared_ptr<TripPlanRecord_allOf >*>(trip_plan_record_all_of);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_trip_plan_record_all_of_toJSON(const data_collection_model_trip_plan_record_all_of_t *trip_plan_record_all_of, bool as_request)
 {
+    if (!trip_plan_record_all_of) return NULL;
     const std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<const std::shared_ptr<TripPlanRecord_allOf >*>(trip_plan_record_all_of);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -88,15 +141,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_trip_plan_reco
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_trip_plan_record_all_of_is_equal_to(const data_collection_model_trip_plan_record_all_of_t *first, const data_collection_model_trip_plan_record_all_of_t *second)
 {
-    const std::shared_ptr<TripPlanRecord_allOf > &obj1 = *reinterpret_cast<const std::shared_ptr<TripPlanRecord_allOf >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<TripPlanRecord_allOf > &obj2 = *reinterpret_cast<const std::shared_ptr<TripPlanRecord_allOf >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<TripPlanRecord_allOf > &obj1 = *reinterpret_cast<const std::shared_ptr<TripPlanRecord_allOf >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_location_data_t* data_collection_model_trip_plan_record_all_of_get_starting_point(const data_collection_model_trip_plan_record_all_of_t *obj_trip_plan_record_all_of)
 {
+    if (!obj_trip_plan_record_all_of) {
+        const data_collection_model_location_data_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<const std::shared_ptr<TripPlanRecord_allOf >*>(obj_trip_plan_record_all_of);
+    if (!obj) {
+        const data_collection_model_location_data_t *result = NULL;
+        return result;
+    }
+
     typedef typename TripPlanRecord_allOf::StartingPointType ResultFromType;
     const ResultFromType result_from = obj->getStartingPoint();
     const data_collection_model_location_data_t *result = reinterpret_cast<const data_collection_model_location_data_t*>(&result_from);
@@ -105,34 +185,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_location
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_trip_plan_record_all_of_t *data_collection_model_trip_plan_record_all_of_set_starting_point(data_collection_model_trip_plan_record_all_of_t *obj_trip_plan_record_all_of, const data_collection_model_location_data_t* p_starting_point)
 {
-    if (obj_trip_plan_record_all_of == NULL) return NULL;
+    if (!obj_trip_plan_record_all_of) return NULL;
 
     std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<std::shared_ptr<TripPlanRecord_allOf >*>(obj_trip_plan_record_all_of);
+    if (!obj) return NULL;
+
     const auto &value_from = p_starting_point;
     typedef typename TripPlanRecord_allOf::StartingPointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setStartingPoint(value)) return NULL;
+
     return obj_trip_plan_record_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_trip_plan_record_all_of_t *data_collection_model_trip_plan_record_all_of_set_starting_point_move(data_collection_model_trip_plan_record_all_of_t *obj_trip_plan_record_all_of, data_collection_model_location_data_t* p_starting_point)
 {
-    if (obj_trip_plan_record_all_of == NULL) return NULL;
+    if (!obj_trip_plan_record_all_of) return NULL;
 
     std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<std::shared_ptr<TripPlanRecord_allOf >*>(obj_trip_plan_record_all_of);
+    if (!obj) return NULL;
+
     const auto &value_from = p_starting_point;
     typedef typename TripPlanRecord_allOf::StartingPointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setStartingPoint(std::move(value))) return NULL;
+
     return obj_trip_plan_record_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_trip_plan_record_all_of_get_waypoints(const data_collection_model_trip_plan_record_all_of_t *obj_trip_plan_record_all_of)
 {
+    if (!obj_trip_plan_record_all_of) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<const std::shared_ptr<TripPlanRecord_allOf >*>(obj_trip_plan_record_all_of);
+    if (!obj) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     typedef typename TripPlanRecord_allOf::WaypointsType ResultFromType;
     const ResultFromType result_from = obj->getWaypoints();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
@@ -149,9 +245,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_tr
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_trip_plan_record_all_of_t *data_collection_model_trip_plan_record_all_of_set_waypoints(data_collection_model_trip_plan_record_all_of_t *obj_trip_plan_record_all_of, const ogs_list_t* p_waypoints)
 {
-    if (obj_trip_plan_record_all_of == NULL) return NULL;
+    if (!obj_trip_plan_record_all_of) return NULL;
 
     std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<std::shared_ptr<TripPlanRecord_allOf >*>(obj_trip_plan_record_all_of);
+    if (!obj) return NULL;
+
     const auto &value_from = p_waypoints;
     typedef typename TripPlanRecord_allOf::WaypointsType ValueType;
 
@@ -165,14 +263,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_trip_plan_reco
         }
     }
     if (!obj->setWaypoints(value)) return NULL;
+
     return obj_trip_plan_record_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_trip_plan_record_all_of_t *data_collection_model_trip_plan_record_all_of_set_waypoints_move(data_collection_model_trip_plan_record_all_of_t *obj_trip_plan_record_all_of, ogs_list_t* p_waypoints)
 {
-    if (obj_trip_plan_record_all_of == NULL) return NULL;
+    if (!obj_trip_plan_record_all_of) return NULL;
 
     std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<std::shared_ptr<TripPlanRecord_allOf >*>(obj_trip_plan_record_all_of);
+    if (!obj) return NULL;
+
     const auto &value_from = p_waypoints;
     typedef typename TripPlanRecord_allOf::WaypointsType ValueType;
 
@@ -187,12 +288,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_trip_plan_reco
     }
     data_collection_list_free(p_waypoints);
     if (!obj->setWaypoints(std::move(value))) return NULL;
+
     return obj_trip_plan_record_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_trip_plan_record_all_of_t *data_collection_model_trip_plan_record_all_of_add_waypoints(data_collection_model_trip_plan_record_all_of_t *obj_trip_plan_record_all_of, data_collection_model_location_data_t* p_waypoints)
 {
+    if (!obj_trip_plan_record_all_of) return NULL;
+
     std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<std::shared_ptr<TripPlanRecord_allOf >*>(obj_trip_plan_record_all_of);
+    if (!obj) return NULL;
+
     typedef typename TripPlanRecord_allOf::WaypointsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_waypoints;
@@ -205,7 +311,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_trip_plan_reco
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_trip_plan_record_all_of_t *data_collection_model_trip_plan_record_all_of_remove_waypoints(data_collection_model_trip_plan_record_all_of_t *obj_trip_plan_record_all_of, const data_collection_model_location_data_t* p_waypoints)
 {
+    if (!obj_trip_plan_record_all_of) return NULL;
+
     std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<std::shared_ptr<TripPlanRecord_allOf >*>(obj_trip_plan_record_all_of);
+    if (!obj) return NULL;
+
     typedef typename TripPlanRecord_allOf::WaypointsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_waypoints;
@@ -215,15 +325,29 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_trip_plan_reco
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_trip_plan_record_all_of_t *data_collection_model_trip_plan_record_all_of_clear_waypoints(data_collection_model_trip_plan_record_all_of_t *obj_trip_plan_record_all_of)
-{   
+{
+    if (!obj_trip_plan_record_all_of) return NULL;
+
     std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<std::shared_ptr<TripPlanRecord_allOf >*>(obj_trip_plan_record_all_of);
+    if (!obj) return NULL;
+
     obj->clearWaypoints();
     return obj_trip_plan_record_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_location_data_t* data_collection_model_trip_plan_record_all_of_get_destination(const data_collection_model_trip_plan_record_all_of_t *obj_trip_plan_record_all_of)
 {
+    if (!obj_trip_plan_record_all_of) {
+        const data_collection_model_location_data_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<const std::shared_ptr<TripPlanRecord_allOf >*>(obj_trip_plan_record_all_of);
+    if (!obj) {
+        const data_collection_model_location_data_t *result = NULL;
+        return result;
+    }
+
     typedef typename TripPlanRecord_allOf::DestinationType ResultFromType;
     const ResultFromType result_from = obj->getDestination();
     const data_collection_model_location_data_t *result = reinterpret_cast<const data_collection_model_location_data_t*>(&result_from);
@@ -232,34 +356,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_location
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_trip_plan_record_all_of_t *data_collection_model_trip_plan_record_all_of_set_destination(data_collection_model_trip_plan_record_all_of_t *obj_trip_plan_record_all_of, const data_collection_model_location_data_t* p_destination)
 {
-    if (obj_trip_plan_record_all_of == NULL) return NULL;
+    if (!obj_trip_plan_record_all_of) return NULL;
 
     std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<std::shared_ptr<TripPlanRecord_allOf >*>(obj_trip_plan_record_all_of);
+    if (!obj) return NULL;
+
     const auto &value_from = p_destination;
     typedef typename TripPlanRecord_allOf::DestinationType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setDestination(value)) return NULL;
+
     return obj_trip_plan_record_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_trip_plan_record_all_of_t *data_collection_model_trip_plan_record_all_of_set_destination_move(data_collection_model_trip_plan_record_all_of_t *obj_trip_plan_record_all_of, data_collection_model_location_data_t* p_destination)
 {
-    if (obj_trip_plan_record_all_of == NULL) return NULL;
+    if (!obj_trip_plan_record_all_of) return NULL;
 
     std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<std::shared_ptr<TripPlanRecord_allOf >*>(obj_trip_plan_record_all_of);
+    if (!obj) return NULL;
+
     const auto &value_from = p_destination;
     typedef typename TripPlanRecord_allOf::DestinationType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setDestination(std::move(value))) return NULL;
+
     return obj_trip_plan_record_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_trip_plan_record_all_of_get_estimated_average_speed(const data_collection_model_trip_plan_record_all_of_t *obj_trip_plan_record_all_of)
 {
+    if (!obj_trip_plan_record_all_of) {
+        const float result = 0;
+        return result;
+    }
+
     const std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<const std::shared_ptr<TripPlanRecord_allOf >*>(obj_trip_plan_record_all_of);
+    if (!obj) {
+        const float result = 0;
+        return result;
+    }
+
     typedef typename TripPlanRecord_allOf::EstimatedAverageSpeedType ResultFromType;
     const ResultFromType result_from = obj->getEstimatedAverageSpeed();
     const ResultFromType result = result_from;
@@ -268,34 +408,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_tr
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_trip_plan_record_all_of_t *data_collection_model_trip_plan_record_all_of_set_estimated_average_speed(data_collection_model_trip_plan_record_all_of_t *obj_trip_plan_record_all_of, const float p_estimated_average_speed)
 {
-    if (obj_trip_plan_record_all_of == NULL) return NULL;
+    if (!obj_trip_plan_record_all_of) return NULL;
 
     std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<std::shared_ptr<TripPlanRecord_allOf >*>(obj_trip_plan_record_all_of);
+    if (!obj) return NULL;
+
     const auto &value_from = p_estimated_average_speed;
     typedef typename TripPlanRecord_allOf::EstimatedAverageSpeedType ValueType;
 
     ValueType value = value_from;
     if (!obj->setEstimatedAverageSpeed(value)) return NULL;
+
     return obj_trip_plan_record_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_trip_plan_record_all_of_t *data_collection_model_trip_plan_record_all_of_set_estimated_average_speed_move(data_collection_model_trip_plan_record_all_of_t *obj_trip_plan_record_all_of, float p_estimated_average_speed)
 {
-    if (obj_trip_plan_record_all_of == NULL) return NULL;
+    if (!obj_trip_plan_record_all_of) return NULL;
 
     std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<std::shared_ptr<TripPlanRecord_allOf >*>(obj_trip_plan_record_all_of);
+    if (!obj) return NULL;
+
     const auto &value_from = p_estimated_average_speed;
     typedef typename TripPlanRecord_allOf::EstimatedAverageSpeedType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setEstimatedAverageSpeed(std::move(value))) return NULL;
+
     return obj_trip_plan_record_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_trip_plan_record_all_of_get_estimated_arrival_time(const data_collection_model_trip_plan_record_all_of_t *obj_trip_plan_record_all_of)
 {
+    if (!obj_trip_plan_record_all_of) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<const std::shared_ptr<TripPlanRecord_allOf >*>(obj_trip_plan_record_all_of);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename TripPlanRecord_allOf::EstimatedArrivalTimeType ResultFromType;
     const ResultFromType result_from = obj->getEstimatedArrivalTime();
     const char *result = result_from.c_str();
@@ -304,28 +460,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_tr
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_trip_plan_record_all_of_t *data_collection_model_trip_plan_record_all_of_set_estimated_arrival_time(data_collection_model_trip_plan_record_all_of_t *obj_trip_plan_record_all_of, const char* p_estimated_arrival_time)
 {
-    if (obj_trip_plan_record_all_of == NULL) return NULL;
+    if (!obj_trip_plan_record_all_of) return NULL;
 
     std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<std::shared_ptr<TripPlanRecord_allOf >*>(obj_trip_plan_record_all_of);
+    if (!obj) return NULL;
+
     const auto &value_from = p_estimated_arrival_time;
     typedef typename TripPlanRecord_allOf::EstimatedArrivalTimeType ValueType;
 
     ValueType value(value_from);
     if (!obj->setEstimatedArrivalTime(value)) return NULL;
+
     return obj_trip_plan_record_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_trip_plan_record_all_of_t *data_collection_model_trip_plan_record_all_of_set_estimated_arrival_time_move(data_collection_model_trip_plan_record_all_of_t *obj_trip_plan_record_all_of, char* p_estimated_arrival_time)
 {
-    if (obj_trip_plan_record_all_of == NULL) return NULL;
+    if (!obj_trip_plan_record_all_of) return NULL;
 
     std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<std::shared_ptr<TripPlanRecord_allOf >*>(obj_trip_plan_record_all_of);
+    if (!obj) return NULL;
+
     const auto &value_from = p_estimated_arrival_time;
     typedef typename TripPlanRecord_allOf::EstimatedArrivalTimeType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setEstimatedArrivalTime(std::move(value))) return NULL;
+
     return obj_trip_plan_record_all_of;
 }
 
@@ -339,6 +501,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_trip_plan_record_all_of_refcount(data_collection_model_trip_plan_record_all_of_t *obj_trip_plan_record_all_of)
 {
+    if (!obj_trip_plan_record_all_of) return 0l;
     std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<std::shared_ptr<TripPlanRecord_allOf >*>(obj_trip_plan_record_all_of);
     return obj.use_count();
 }

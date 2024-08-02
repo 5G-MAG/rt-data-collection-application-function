@@ -37,36 +37,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_addr_t *dat
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_addr_t *data_collection_model_ip_addr_create_copy(const data_collection_model_ip_addr_t *other)
 {
-    return reinterpret_cast<data_collection_model_ip_addr_t*>(new std::shared_ptr<IpAddr >(new IpAddr(**reinterpret_cast<const std::shared_ptr<IpAddr >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<IpAddr > &obj = *reinterpret_cast<const std::shared_ptr<IpAddr >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_ip_addr_t*>(new std::shared_ptr<IpAddr >(new IpAddr(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_addr_t *data_collection_model_ip_addr_create_move(data_collection_model_ip_addr_t *other)
 {
-    return reinterpret_cast<data_collection_model_ip_addr_t*>(new std::shared_ptr<IpAddr >(std::move(*reinterpret_cast<std::shared_ptr<IpAddr >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<IpAddr > *obj = reinterpret_cast<std::shared_ptr<IpAddr >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_addr_t *data_collection_model_ip_addr_copy(data_collection_model_ip_addr_t *ip_addr, const data_collection_model_ip_addr_t *other)
 {
-    std::shared_ptr<IpAddr > &obj = *reinterpret_cast<std::shared_ptr<IpAddr >*>(ip_addr);
-    *obj = **reinterpret_cast<const std::shared_ptr<IpAddr >*>(other);
+    if (ip_addr) {
+        std::shared_ptr<IpAddr > &obj = *reinterpret_cast<std::shared_ptr<IpAddr >*>(ip_addr);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<IpAddr > &other_obj = *reinterpret_cast<const std::shared_ptr<IpAddr >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<IpAddr > &other_obj = *reinterpret_cast<const std::shared_ptr<IpAddr >*>(other);
+                if (other_obj) {
+                    obj.reset(new IpAddr(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        ip_addr = data_collection_model_ip_addr_create_copy(other);
+    }
     return ip_addr;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_addr_t *data_collection_model_ip_addr_move(data_collection_model_ip_addr_t *ip_addr, data_collection_model_ip_addr_t *other)
 {
-    std::shared_ptr<IpAddr > &obj = *reinterpret_cast<std::shared_ptr<IpAddr >*>(ip_addr);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<IpAddr >*>(other));
+    std::shared_ptr<IpAddr > *other_ptr = reinterpret_cast<std::shared_ptr<IpAddr >*>(other);
+
+    if (ip_addr) {
+        std::shared_ptr<IpAddr > &obj = *reinterpret_cast<std::shared_ptr<IpAddr >*>(ip_addr);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                ip_addr = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return ip_addr;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_ip_addr_free(data_collection_model_ip_addr_t *ip_addr)
 {
+    if (!ip_addr) return;
     delete reinterpret_cast<std::shared_ptr<IpAddr >*>(ip_addr);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_ip_addr_toJSON(const data_collection_model_ip_addr_t *ip_addr, bool as_request)
 {
+    if (!ip_addr) return NULL;
     const std::shared_ptr<IpAddr > &obj = *reinterpret_cast<const std::shared_ptr<IpAddr >*>(ip_addr);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -86,15 +139,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_addr_t *dat
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ip_addr_is_equal_to(const data_collection_model_ip_addr_t *first, const data_collection_model_ip_addr_t *second)
 {
-    const std::shared_ptr<IpAddr > &obj1 = *reinterpret_cast<const std::shared_ptr<IpAddr >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<IpAddr > &obj2 = *reinterpret_cast<const std::shared_ptr<IpAddr >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<IpAddr > &obj1 = *reinterpret_cast<const std::shared_ptr<IpAddr >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ip_addr_get_ipv4_addr(const data_collection_model_ip_addr_t *obj_ip_addr)
 {
+    if (!obj_ip_addr) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<IpAddr > &obj = *reinterpret_cast<const std::shared_ptr<IpAddr >*>(obj_ip_addr);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename IpAddr::Ipv4AddrType ResultFromType;
     const ResultFromType result_from = obj->getIpv4Addr();
     const char *result = result_from.c_str();
@@ -103,34 +183,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ip
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_addr_t *data_collection_model_ip_addr_set_ipv4_addr(data_collection_model_ip_addr_t *obj_ip_addr, const char* p_ipv4_addr)
 {
-    if (obj_ip_addr == NULL) return NULL;
+    if (!obj_ip_addr) return NULL;
 
     std::shared_ptr<IpAddr > &obj = *reinterpret_cast<std::shared_ptr<IpAddr >*>(obj_ip_addr);
+    if (!obj) return NULL;
+
     const auto &value_from = p_ipv4_addr;
     typedef typename IpAddr::Ipv4AddrType ValueType;
 
     ValueType value(value_from);
     if (!obj->setIpv4Addr(value)) return NULL;
+
     return obj_ip_addr;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_addr_t *data_collection_model_ip_addr_set_ipv4_addr_move(data_collection_model_ip_addr_t *obj_ip_addr, char* p_ipv4_addr)
 {
-    if (obj_ip_addr == NULL) return NULL;
+    if (!obj_ip_addr) return NULL;
 
     std::shared_ptr<IpAddr > &obj = *reinterpret_cast<std::shared_ptr<IpAddr >*>(obj_ip_addr);
+    if (!obj) return NULL;
+
     const auto &value_from = p_ipv4_addr;
     typedef typename IpAddr::Ipv4AddrType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setIpv4Addr(std::move(value))) return NULL;
+
     return obj_ip_addr;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ipv6_addr_t* data_collection_model_ip_addr_get_ipv6_addr(const data_collection_model_ip_addr_t *obj_ip_addr)
 {
+    if (!obj_ip_addr) {
+        const data_collection_model_ipv6_addr_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<IpAddr > &obj = *reinterpret_cast<const std::shared_ptr<IpAddr >*>(obj_ip_addr);
+    if (!obj) {
+        const data_collection_model_ipv6_addr_t *result = NULL;
+        return result;
+    }
+
     typedef typename IpAddr::Ipv6AddrType ResultFromType;
     const ResultFromType result_from = obj->getIpv6Addr();
     const data_collection_model_ipv6_addr_t *result = reinterpret_cast<const data_collection_model_ipv6_addr_t*>(&result_from);
@@ -139,34 +235,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ipv6_add
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_addr_t *data_collection_model_ip_addr_set_ipv6_addr(data_collection_model_ip_addr_t *obj_ip_addr, const data_collection_model_ipv6_addr_t* p_ipv6_addr)
 {
-    if (obj_ip_addr == NULL) return NULL;
+    if (!obj_ip_addr) return NULL;
 
     std::shared_ptr<IpAddr > &obj = *reinterpret_cast<std::shared_ptr<IpAddr >*>(obj_ip_addr);
+    if (!obj) return NULL;
+
     const auto &value_from = p_ipv6_addr;
     typedef typename IpAddr::Ipv6AddrType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setIpv6Addr(value)) return NULL;
+
     return obj_ip_addr;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_addr_t *data_collection_model_ip_addr_set_ipv6_addr_move(data_collection_model_ip_addr_t *obj_ip_addr, data_collection_model_ipv6_addr_t* p_ipv6_addr)
 {
-    if (obj_ip_addr == NULL) return NULL;
+    if (!obj_ip_addr) return NULL;
 
     std::shared_ptr<IpAddr > &obj = *reinterpret_cast<std::shared_ptr<IpAddr >*>(obj_ip_addr);
+    if (!obj) return NULL;
+
     const auto &value_from = p_ipv6_addr;
     typedef typename IpAddr::Ipv6AddrType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setIpv6Addr(std::move(value))) return NULL;
+
     return obj_ip_addr;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ipv6_prefix_t* data_collection_model_ip_addr_get_ipv6_prefix(const data_collection_model_ip_addr_t *obj_ip_addr)
 {
+    if (!obj_ip_addr) {
+        const data_collection_model_ipv6_prefix_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<IpAddr > &obj = *reinterpret_cast<const std::shared_ptr<IpAddr >*>(obj_ip_addr);
+    if (!obj) {
+        const data_collection_model_ipv6_prefix_t *result = NULL;
+        return result;
+    }
+
     typedef typename IpAddr::Ipv6PrefixType ResultFromType;
     const ResultFromType result_from = obj->getIpv6Prefix();
     const data_collection_model_ipv6_prefix_t *result = reinterpret_cast<const data_collection_model_ipv6_prefix_t*>(&result_from);
@@ -175,28 +287,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ipv6_pre
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_addr_t *data_collection_model_ip_addr_set_ipv6_prefix(data_collection_model_ip_addr_t *obj_ip_addr, const data_collection_model_ipv6_prefix_t* p_ipv6_prefix)
 {
-    if (obj_ip_addr == NULL) return NULL;
+    if (!obj_ip_addr) return NULL;
 
     std::shared_ptr<IpAddr > &obj = *reinterpret_cast<std::shared_ptr<IpAddr >*>(obj_ip_addr);
+    if (!obj) return NULL;
+
     const auto &value_from = p_ipv6_prefix;
     typedef typename IpAddr::Ipv6PrefixType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setIpv6Prefix(value)) return NULL;
+
     return obj_ip_addr;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_addr_t *data_collection_model_ip_addr_set_ipv6_prefix_move(data_collection_model_ip_addr_t *obj_ip_addr, data_collection_model_ipv6_prefix_t* p_ipv6_prefix)
 {
-    if (obj_ip_addr == NULL) return NULL;
+    if (!obj_ip_addr) return NULL;
 
     std::shared_ptr<IpAddr > &obj = *reinterpret_cast<std::shared_ptr<IpAddr >*>(obj_ip_addr);
+    if (!obj) return NULL;
+
     const auto &value_from = p_ipv6_prefix;
     typedef typename IpAddr::Ipv6PrefixType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setIpv6Prefix(std::move(value))) return NULL;
+
     return obj_ip_addr;
 }
 
@@ -210,6 +328,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_ip_addr_refcount(data_collection_model_ip_addr_t *obj_ip_addr)
 {
+    if (!obj_ip_addr) return 0l;
     std::shared_ptr<IpAddr > &obj = *reinterpret_cast<std::shared_ptr<IpAddr >*>(obj_ip_addr);
     return obj.use_count();
 }

@@ -35,36 +35,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_paramete
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_parameter_t *data_collection_model_query_parameter_create_copy(const data_collection_model_query_parameter_t *other)
 {
-    return reinterpret_cast<data_collection_model_query_parameter_t*>(new std::shared_ptr<QueryParameter >(new QueryParameter(**reinterpret_cast<const std::shared_ptr<QueryParameter >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<QueryParameter > &obj = *reinterpret_cast<const std::shared_ptr<QueryParameter >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_query_parameter_t*>(new std::shared_ptr<QueryParameter >(new QueryParameter(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_parameter_t *data_collection_model_query_parameter_create_move(data_collection_model_query_parameter_t *other)
 {
-    return reinterpret_cast<data_collection_model_query_parameter_t*>(new std::shared_ptr<QueryParameter >(std::move(*reinterpret_cast<std::shared_ptr<QueryParameter >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<QueryParameter > *obj = reinterpret_cast<std::shared_ptr<QueryParameter >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_parameter_t *data_collection_model_query_parameter_copy(data_collection_model_query_parameter_t *query_parameter, const data_collection_model_query_parameter_t *other)
 {
-    std::shared_ptr<QueryParameter > &obj = *reinterpret_cast<std::shared_ptr<QueryParameter >*>(query_parameter);
-    *obj = **reinterpret_cast<const std::shared_ptr<QueryParameter >*>(other);
+    if (query_parameter) {
+        std::shared_ptr<QueryParameter > &obj = *reinterpret_cast<std::shared_ptr<QueryParameter >*>(query_parameter);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<QueryParameter > &other_obj = *reinterpret_cast<const std::shared_ptr<QueryParameter >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<QueryParameter > &other_obj = *reinterpret_cast<const std::shared_ptr<QueryParameter >*>(other);
+                if (other_obj) {
+                    obj.reset(new QueryParameter(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        query_parameter = data_collection_model_query_parameter_create_copy(other);
+    }
     return query_parameter;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_parameter_t *data_collection_model_query_parameter_move(data_collection_model_query_parameter_t *query_parameter, data_collection_model_query_parameter_t *other)
 {
-    std::shared_ptr<QueryParameter > &obj = *reinterpret_cast<std::shared_ptr<QueryParameter >*>(query_parameter);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<QueryParameter >*>(other));
+    std::shared_ptr<QueryParameter > *other_ptr = reinterpret_cast<std::shared_ptr<QueryParameter >*>(other);
+
+    if (query_parameter) {
+        std::shared_ptr<QueryParameter > &obj = *reinterpret_cast<std::shared_ptr<QueryParameter >*>(query_parameter);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                query_parameter = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return query_parameter;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_query_parameter_free(data_collection_model_query_parameter_t *query_parameter)
 {
+    if (!query_parameter) return;
     delete reinterpret_cast<std::shared_ptr<QueryParameter >*>(query_parameter);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_query_parameter_toJSON(const data_collection_model_query_parameter_t *query_parameter, bool as_request)
 {
+    if (!query_parameter) return NULL;
     const std::shared_ptr<QueryParameter > &obj = *reinterpret_cast<const std::shared_ptr<QueryParameter >*>(query_parameter);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -84,15 +137,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_paramete
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_query_parameter_is_equal_to(const data_collection_model_query_parameter_t *first, const data_collection_model_query_parameter_t *second)
 {
-    const std::shared_ptr<QueryParameter > &obj1 = *reinterpret_cast<const std::shared_ptr<QueryParameter >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<QueryParameter > &obj2 = *reinterpret_cast<const std::shared_ptr<QueryParameter >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<QueryParameter > &obj1 = *reinterpret_cast<const std::shared_ptr<QueryParameter >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_query_parameter_get_name(const data_collection_model_query_parameter_t *obj_query_parameter)
 {
+    if (!obj_query_parameter) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<QueryParameter > &obj = *reinterpret_cast<const std::shared_ptr<QueryParameter >*>(obj_query_parameter);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename QueryParameter::NameType ResultFromType;
     const ResultFromType result_from = obj->getName();
     const char *result = result_from.c_str();
@@ -101,34 +181,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_qu
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_parameter_t *data_collection_model_query_parameter_set_name(data_collection_model_query_parameter_t *obj_query_parameter, const char* p_name)
 {
-    if (obj_query_parameter == NULL) return NULL;
+    if (!obj_query_parameter) return NULL;
 
     std::shared_ptr<QueryParameter > &obj = *reinterpret_cast<std::shared_ptr<QueryParameter >*>(obj_query_parameter);
+    if (!obj) return NULL;
+
     const auto &value_from = p_name;
     typedef typename QueryParameter::NameType ValueType;
 
     ValueType value(value_from);
     if (!obj->setName(value)) return NULL;
+
     return obj_query_parameter;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_parameter_t *data_collection_model_query_parameter_set_name_move(data_collection_model_query_parameter_t *obj_query_parameter, char* p_name)
 {
-    if (obj_query_parameter == NULL) return NULL;
+    if (!obj_query_parameter) return NULL;
 
     std::shared_ptr<QueryParameter > &obj = *reinterpret_cast<std::shared_ptr<QueryParameter >*>(obj_query_parameter);
+    if (!obj) return NULL;
+
     const auto &value_from = p_name;
     typedef typename QueryParameter::NameType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setName(std::move(value))) return NULL;
+
     return obj_query_parameter;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_query_parameter_get_value(const data_collection_model_query_parameter_t *obj_query_parameter)
 {
+    if (!obj_query_parameter) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<QueryParameter > &obj = *reinterpret_cast<const std::shared_ptr<QueryParameter >*>(obj_query_parameter);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename QueryParameter::ValueType ResultFromType;
     const ResultFromType result_from = obj->getValue();
     const char *result = result_from.c_str();
@@ -137,28 +233,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_qu
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_parameter_t *data_collection_model_query_parameter_set_value(data_collection_model_query_parameter_t *obj_query_parameter, const char* p_value)
 {
-    if (obj_query_parameter == NULL) return NULL;
+    if (!obj_query_parameter) return NULL;
 
     std::shared_ptr<QueryParameter > &obj = *reinterpret_cast<std::shared_ptr<QueryParameter >*>(obj_query_parameter);
+    if (!obj) return NULL;
+
     const auto &value_from = p_value;
     typedef typename QueryParameter::ValueType ValueType;
 
     ValueType value(value_from);
     if (!obj->setValue(value)) return NULL;
+
     return obj_query_parameter;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_parameter_t *data_collection_model_query_parameter_set_value_move(data_collection_model_query_parameter_t *obj_query_parameter, char* p_value)
 {
-    if (obj_query_parameter == NULL) return NULL;
+    if (!obj_query_parameter) return NULL;
 
     std::shared_ptr<QueryParameter > &obj = *reinterpret_cast<std::shared_ptr<QueryParameter >*>(obj_query_parameter);
+    if (!obj) return NULL;
+
     const auto &value_from = p_value;
     typedef typename QueryParameter::ValueType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setValue(std::move(value))) return NULL;
+
     return obj_query_parameter;
 }
 
@@ -172,6 +274,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_query_parameter_refcount(data_collection_model_query_parameter_t *obj_query_parameter)
 {
+    if (!obj_query_parameter) return 0l;
     std::shared_ptr<QueryParameter > &obj = *reinterpret_cast<std::shared_ptr<QueryParameter >*>(obj_query_parameter);
     return obj.use_count();
 }

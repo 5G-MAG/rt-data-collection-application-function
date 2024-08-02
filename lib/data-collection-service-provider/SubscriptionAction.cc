@@ -29,36 +29,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_subscription_a
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_subscription_action_t *data_collection_model_subscription_action_create_copy(const data_collection_model_subscription_action_t *other)
 {
-    return reinterpret_cast<data_collection_model_subscription_action_t*>(new std::shared_ptr<SubscriptionAction >(new SubscriptionAction(**reinterpret_cast<const std::shared_ptr<SubscriptionAction >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<SubscriptionAction > &obj = *reinterpret_cast<const std::shared_ptr<SubscriptionAction >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_subscription_action_t*>(new std::shared_ptr<SubscriptionAction >(new SubscriptionAction(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_subscription_action_t *data_collection_model_subscription_action_create_move(data_collection_model_subscription_action_t *other)
 {
-    return reinterpret_cast<data_collection_model_subscription_action_t*>(new std::shared_ptr<SubscriptionAction >(std::move(*reinterpret_cast<std::shared_ptr<SubscriptionAction >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<SubscriptionAction > *obj = reinterpret_cast<std::shared_ptr<SubscriptionAction >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_subscription_action_t *data_collection_model_subscription_action_copy(data_collection_model_subscription_action_t *subscription_action, const data_collection_model_subscription_action_t *other)
 {
-    std::shared_ptr<SubscriptionAction > &obj = *reinterpret_cast<std::shared_ptr<SubscriptionAction >*>(subscription_action);
-    *obj = **reinterpret_cast<const std::shared_ptr<SubscriptionAction >*>(other);
+    if (subscription_action) {
+        std::shared_ptr<SubscriptionAction > &obj = *reinterpret_cast<std::shared_ptr<SubscriptionAction >*>(subscription_action);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<SubscriptionAction > &other_obj = *reinterpret_cast<const std::shared_ptr<SubscriptionAction >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<SubscriptionAction > &other_obj = *reinterpret_cast<const std::shared_ptr<SubscriptionAction >*>(other);
+                if (other_obj) {
+                    obj.reset(new SubscriptionAction(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        subscription_action = data_collection_model_subscription_action_create_copy(other);
+    }
     return subscription_action;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_subscription_action_t *data_collection_model_subscription_action_move(data_collection_model_subscription_action_t *subscription_action, data_collection_model_subscription_action_t *other)
 {
-    std::shared_ptr<SubscriptionAction > &obj = *reinterpret_cast<std::shared_ptr<SubscriptionAction >*>(subscription_action);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<SubscriptionAction >*>(other));
+    std::shared_ptr<SubscriptionAction > *other_ptr = reinterpret_cast<std::shared_ptr<SubscriptionAction >*>(other);
+
+    if (subscription_action) {
+        std::shared_ptr<SubscriptionAction > &obj = *reinterpret_cast<std::shared_ptr<SubscriptionAction >*>(subscription_action);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                subscription_action = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return subscription_action;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_subscription_action_free(data_collection_model_subscription_action_t *subscription_action)
 {
+    if (!subscription_action) return;
     delete reinterpret_cast<std::shared_ptr<SubscriptionAction >*>(subscription_action);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_subscription_action_toJSON(const data_collection_model_subscription_action_t *subscription_action, bool as_request)
 {
+    if (!subscription_action) return NULL;
     const std::shared_ptr<SubscriptionAction > &obj = *reinterpret_cast<const std::shared_ptr<SubscriptionAction >*>(subscription_action);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -78,27 +131,51 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_subscription_a
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_subscription_action_is_equal_to(const data_collection_model_subscription_action_t *first, const data_collection_model_subscription_action_t *second)
 {
-    const std::shared_ptr<SubscriptionAction > &obj1 = *reinterpret_cast<const std::shared_ptr<SubscriptionAction >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<SubscriptionAction > &obj2 = *reinterpret_cast<const std::shared_ptr<SubscriptionAction >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<SubscriptionAction > &obj1 = *reinterpret_cast<const std::shared_ptr<SubscriptionAction >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_subscription_action_is_not_set(const data_collection_model_subscription_action_t *obj_subscription_action)
 {
+    if (!obj_subscription_action) return true;
     const std::shared_ptr<SubscriptionAction > &obj = *reinterpret_cast<const std::shared_ptr<SubscriptionAction >*>(obj_subscription_action);
+    if (!obj) return true;
     return obj->getValue() == SubscriptionAction::Enum::NO_VAL;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_subscription_action_is_non_standard(const data_collection_model_subscription_action_t *obj_subscription_action)
 {
+    if (!obj_subscription_action) return false;
     const std::shared_ptr<SubscriptionAction > &obj = *reinterpret_cast<const std::shared_ptr<SubscriptionAction >*>(obj_subscription_action);
+    if (!obj) return false;
     return obj->getValue() == SubscriptionAction::Enum::OTHER;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_subscription_action_e data_collection_model_subscription_action_get_enum(const data_collection_model_subscription_action_t *obj_subscription_action)
 {
+    if (!obj_subscription_action)
+        return DCM_SUBSCRIPTION_ACTION_NO_VAL;
     const std::shared_ptr<SubscriptionAction > &obj = *reinterpret_cast<const std::shared_ptr<SubscriptionAction >*>(obj_subscription_action);
+    if (!obj) return DCM_SUBSCRIPTION_ACTION_NO_VAL;
     switch (obj->getValue()) {
     case SubscriptionAction::Enum::NO_VAL:
         return DCM_SUBSCRIPTION_ACTION_NO_VAL;
@@ -116,13 +193,17 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_subscription_action_e dat
 
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_subscription_action_get_string(const data_collection_model_subscription_action_t *obj_subscription_action)
 {
+    if (!obj_subscription_action) return NULL;
     const std::shared_ptr<SubscriptionAction > &obj = *reinterpret_cast<const std::shared_ptr<SubscriptionAction >*>(obj_subscription_action);
+    if (!obj) return NULL;
     return obj->getString().c_str();
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_subscription_action_set_enum(data_collection_model_subscription_action_t *obj_subscription_action, data_collection_model_subscription_action_e p_value)
 {
+    if (!obj_subscription_action) return false;
     std::shared_ptr<SubscriptionAction > &obj = *reinterpret_cast<std::shared_ptr<SubscriptionAction >*>(obj_subscription_action);
+    if (!obj) return false;
     switch (p_value) {
     case DCM_SUBSCRIPTION_ACTION_NO_VAL:
         *obj = SubscriptionAction::Enum::NO_VAL;
@@ -144,7 +225,9 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_subscription_action_
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_subscription_action_set_string(data_collection_model_subscription_action_t *obj_subscription_action, const char *p_value)
 {
+    if (!obj_subscription_action) return false;
     std::shared_ptr<SubscriptionAction > &obj = *reinterpret_cast<std::shared_ptr<SubscriptionAction >*>(obj_subscription_action);
+    if (!obj) return false;
     if (p_value) {
         *obj = std::string(p_value);
     } else {
@@ -164,6 +247,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_subscription_action_refcount(data_collection_model_subscription_action_t *obj_subscription_action)
 {
+    if (!obj_subscription_action) return 0l;
     std::shared_ptr<SubscriptionAction > &obj = *reinterpret_cast<std::shared_ptr<SubscriptionAction >*>(obj_subscription_action);
     return obj.use_count();
 }

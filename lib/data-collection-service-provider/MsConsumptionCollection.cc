@@ -31,36 +31,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_create_copy(const data_collection_model_ms_consumption_collection_t *other)
 {
-    return reinterpret_cast<data_collection_model_ms_consumption_collection_t*>(new std::shared_ptr<MsConsumptionCollection >(new MsConsumptionCollection(**reinterpret_cast<const std::shared_ptr<MsConsumptionCollection >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<MsConsumptionCollection > &obj = *reinterpret_cast<const std::shared_ptr<MsConsumptionCollection >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_ms_consumption_collection_t*>(new std::shared_ptr<MsConsumptionCollection >(new MsConsumptionCollection(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_create_move(data_collection_model_ms_consumption_collection_t *other)
 {
-    return reinterpret_cast<data_collection_model_ms_consumption_collection_t*>(new std::shared_ptr<MsConsumptionCollection >(std::move(*reinterpret_cast<std::shared_ptr<MsConsumptionCollection >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<MsConsumptionCollection > *obj = reinterpret_cast<std::shared_ptr<MsConsumptionCollection >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_copy(data_collection_model_ms_consumption_collection_t *ms_consumption_collection, const data_collection_model_ms_consumption_collection_t *other)
 {
-    std::shared_ptr<MsConsumptionCollection > &obj = *reinterpret_cast<std::shared_ptr<MsConsumptionCollection >*>(ms_consumption_collection);
-    *obj = **reinterpret_cast<const std::shared_ptr<MsConsumptionCollection >*>(other);
+    if (ms_consumption_collection) {
+        std::shared_ptr<MsConsumptionCollection > &obj = *reinterpret_cast<std::shared_ptr<MsConsumptionCollection >*>(ms_consumption_collection);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<MsConsumptionCollection > &other_obj = *reinterpret_cast<const std::shared_ptr<MsConsumptionCollection >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<MsConsumptionCollection > &other_obj = *reinterpret_cast<const std::shared_ptr<MsConsumptionCollection >*>(other);
+                if (other_obj) {
+                    obj.reset(new MsConsumptionCollection(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        ms_consumption_collection = data_collection_model_ms_consumption_collection_create_copy(other);
+    }
     return ms_consumption_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_move(data_collection_model_ms_consumption_collection_t *ms_consumption_collection, data_collection_model_ms_consumption_collection_t *other)
 {
-    std::shared_ptr<MsConsumptionCollection > &obj = *reinterpret_cast<std::shared_ptr<MsConsumptionCollection >*>(ms_consumption_collection);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<MsConsumptionCollection >*>(other));
+    std::shared_ptr<MsConsumptionCollection > *other_ptr = reinterpret_cast<std::shared_ptr<MsConsumptionCollection >*>(other);
+
+    if (ms_consumption_collection) {
+        std::shared_ptr<MsConsumptionCollection > &obj = *reinterpret_cast<std::shared_ptr<MsConsumptionCollection >*>(ms_consumption_collection);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                ms_consumption_collection = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return ms_consumption_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_ms_consumption_collection_free(data_collection_model_ms_consumption_collection_t *ms_consumption_collection)
 {
+    if (!ms_consumption_collection) return;
     delete reinterpret_cast<std::shared_ptr<MsConsumptionCollection >*>(ms_consumption_collection);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_ms_consumption_collection_toJSON(const data_collection_model_ms_consumption_collection_t *ms_consumption_collection, bool as_request)
 {
+    if (!ms_consumption_collection) return NULL;
     const std::shared_ptr<MsConsumptionCollection > &obj = *reinterpret_cast<const std::shared_ptr<MsConsumptionCollection >*>(ms_consumption_collection);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -80,15 +133,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ms_consumption_collection_is_equal_to(const data_collection_model_ms_consumption_collection_t *first, const data_collection_model_ms_consumption_collection_t *second)
 {
-    const std::shared_ptr<MsConsumptionCollection > &obj1 = *reinterpret_cast<const std::shared_ptr<MsConsumptionCollection >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<MsConsumptionCollection > &obj2 = *reinterpret_cast<const std::shared_ptr<MsConsumptionCollection >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<MsConsumptionCollection > &obj1 = *reinterpret_cast<const std::shared_ptr<MsConsumptionCollection >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ms_consumption_collection_get_ms_consumps(const data_collection_model_ms_consumption_collection_t *obj_ms_consumption_collection)
 {
+    if (!obj_ms_consumption_collection) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<MsConsumptionCollection > &obj = *reinterpret_cast<const std::shared_ptr<MsConsumptionCollection >*>(obj_ms_consumption_collection);
+    if (!obj) {
+        ogs_list_t *result = NULL;
+        return result;
+    }
+
     typedef typename MsConsumptionCollection::MsConsumpsType ResultFromType;
     const ResultFromType result_from = obj->getMsConsumps();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
@@ -104,9 +184,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ms
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_set_ms_consumps(data_collection_model_ms_consumption_collection_t *obj_ms_consumption_collection, const ogs_list_t* p_ms_consumps)
 {
-    if (obj_ms_consumption_collection == NULL) return NULL;
+    if (!obj_ms_consumption_collection) return NULL;
 
     std::shared_ptr<MsConsumptionCollection > &obj = *reinterpret_cast<std::shared_ptr<MsConsumptionCollection >*>(obj_ms_consumption_collection);
+    if (!obj) return NULL;
+
     const auto &value_from = p_ms_consumps;
     typedef typename MsConsumptionCollection::MsConsumpsType ValueType;
 
@@ -120,14 +202,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption
         }
     }
     if (!obj->setMsConsumps(value)) return NULL;
+
     return obj_ms_consumption_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_set_ms_consumps_move(data_collection_model_ms_consumption_collection_t *obj_ms_consumption_collection, ogs_list_t* p_ms_consumps)
 {
-    if (obj_ms_consumption_collection == NULL) return NULL;
+    if (!obj_ms_consumption_collection) return NULL;
 
     std::shared_ptr<MsConsumptionCollection > &obj = *reinterpret_cast<std::shared_ptr<MsConsumptionCollection >*>(obj_ms_consumption_collection);
+    if (!obj) return NULL;
+
     const auto &value_from = p_ms_consumps;
     typedef typename MsConsumptionCollection::MsConsumpsType ValueType;
 
@@ -142,12 +227,17 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption
     }
     data_collection_list_free(p_ms_consumps);
     if (!obj->setMsConsumps(std::move(value))) return NULL;
+
     return obj_ms_consumption_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_add_ms_consumps(data_collection_model_ms_consumption_collection_t *obj_ms_consumption_collection, char* p_ms_consumps)
 {
+    if (!obj_ms_consumption_collection) return NULL;
+
     std::shared_ptr<MsConsumptionCollection > &obj = *reinterpret_cast<std::shared_ptr<MsConsumptionCollection >*>(obj_ms_consumption_collection);
+    if (!obj) return NULL;
+
     typedef typename MsConsumptionCollection::MsConsumpsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_ms_consumps;
@@ -160,7 +250,11 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_remove_ms_consumps(data_collection_model_ms_consumption_collection_t *obj_ms_consumption_collection, const char* p_ms_consumps)
 {
+    if (!obj_ms_consumption_collection) return NULL;
+
     std::shared_ptr<MsConsumptionCollection > &obj = *reinterpret_cast<std::shared_ptr<MsConsumptionCollection >*>(obj_ms_consumption_collection);
+    if (!obj) return NULL;
+
     typedef typename MsConsumptionCollection::MsConsumpsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_ms_consumps;
@@ -170,8 +264,12 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_clear_ms_consumps(data_collection_model_ms_consumption_collection_t *obj_ms_consumption_collection)
-{   
+{
+    if (!obj_ms_consumption_collection) return NULL;
+
     std::shared_ptr<MsConsumptionCollection > &obj = *reinterpret_cast<std::shared_ptr<MsConsumptionCollection >*>(obj_ms_consumption_collection);
+    if (!obj) return NULL;
+
     obj->clearMsConsumps();
     return obj_ms_consumption_collection;
 }
@@ -186,6 +284,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_ms_consumption_collection_refcount(data_collection_model_ms_consumption_collection_t *obj_ms_consumption_collection)
 {
+    if (!obj_ms_consumption_collection) return 0l;
     std::shared_ptr<MsConsumptionCollection > &obj = *reinterpret_cast<std::shared_ptr<MsConsumptionCollection >*>(obj_ms_consumption_collection);
     return obj.use_count();
 }

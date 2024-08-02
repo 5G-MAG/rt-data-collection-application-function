@@ -33,36 +33,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_all_of_t
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_all_of_t *data_collection_model_point_all_of_create_copy(const data_collection_model_point_all_of_t *other)
 {
-    return reinterpret_cast<data_collection_model_point_all_of_t*>(new std::shared_ptr<Point_allOf >(new Point_allOf(**reinterpret_cast<const std::shared_ptr<Point_allOf >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<Point_allOf > &obj = *reinterpret_cast<const std::shared_ptr<Point_allOf >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_point_all_of_t*>(new std::shared_ptr<Point_allOf >(new Point_allOf(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_all_of_t *data_collection_model_point_all_of_create_move(data_collection_model_point_all_of_t *other)
 {
-    return reinterpret_cast<data_collection_model_point_all_of_t*>(new std::shared_ptr<Point_allOf >(std::move(*reinterpret_cast<std::shared_ptr<Point_allOf >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<Point_allOf > *obj = reinterpret_cast<std::shared_ptr<Point_allOf >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_all_of_t *data_collection_model_point_all_of_copy(data_collection_model_point_all_of_t *point_all_of, const data_collection_model_point_all_of_t *other)
 {
-    std::shared_ptr<Point_allOf > &obj = *reinterpret_cast<std::shared_ptr<Point_allOf >*>(point_all_of);
-    *obj = **reinterpret_cast<const std::shared_ptr<Point_allOf >*>(other);
+    if (point_all_of) {
+        std::shared_ptr<Point_allOf > &obj = *reinterpret_cast<std::shared_ptr<Point_allOf >*>(point_all_of);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<Point_allOf > &other_obj = *reinterpret_cast<const std::shared_ptr<Point_allOf >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<Point_allOf > &other_obj = *reinterpret_cast<const std::shared_ptr<Point_allOf >*>(other);
+                if (other_obj) {
+                    obj.reset(new Point_allOf(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        point_all_of = data_collection_model_point_all_of_create_copy(other);
+    }
     return point_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_all_of_t *data_collection_model_point_all_of_move(data_collection_model_point_all_of_t *point_all_of, data_collection_model_point_all_of_t *other)
 {
-    std::shared_ptr<Point_allOf > &obj = *reinterpret_cast<std::shared_ptr<Point_allOf >*>(point_all_of);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<Point_allOf >*>(other));
+    std::shared_ptr<Point_allOf > *other_ptr = reinterpret_cast<std::shared_ptr<Point_allOf >*>(other);
+
+    if (point_all_of) {
+        std::shared_ptr<Point_allOf > &obj = *reinterpret_cast<std::shared_ptr<Point_allOf >*>(point_all_of);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                point_all_of = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return point_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_point_all_of_free(data_collection_model_point_all_of_t *point_all_of)
 {
+    if (!point_all_of) return;
     delete reinterpret_cast<std::shared_ptr<Point_allOf >*>(point_all_of);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_point_all_of_toJSON(const data_collection_model_point_all_of_t *point_all_of, bool as_request)
 {
+    if (!point_all_of) return NULL;
     const std::shared_ptr<Point_allOf > &obj = *reinterpret_cast<const std::shared_ptr<Point_allOf >*>(point_all_of);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -82,15 +135,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_all_of_t
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_point_all_of_is_equal_to(const data_collection_model_point_all_of_t *first, const data_collection_model_point_all_of_t *second)
 {
-    const std::shared_ptr<Point_allOf > &obj1 = *reinterpret_cast<const std::shared_ptr<Point_allOf >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<Point_allOf > &obj2 = *reinterpret_cast<const std::shared_ptr<Point_allOf >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<Point_allOf > &obj1 = *reinterpret_cast<const std::shared_ptr<Point_allOf >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geographical_coordinates_t* data_collection_model_point_all_of_get_point(const data_collection_model_point_all_of_t *obj_point_all_of)
 {
+    if (!obj_point_all_of) {
+        const data_collection_model_geographical_coordinates_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<Point_allOf > &obj = *reinterpret_cast<const std::shared_ptr<Point_allOf >*>(obj_point_all_of);
+    if (!obj) {
+        const data_collection_model_geographical_coordinates_t *result = NULL;
+        return result;
+    }
+
     typedef typename Point_allOf::PointType ResultFromType;
     const ResultFromType result_from = obj->getPoint();
     const data_collection_model_geographical_coordinates_t *result = reinterpret_cast<const data_collection_model_geographical_coordinates_t*>(&result_from);
@@ -99,28 +179,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geograph
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_all_of_t *data_collection_model_point_all_of_set_point(data_collection_model_point_all_of_t *obj_point_all_of, const data_collection_model_geographical_coordinates_t* p_point)
 {
-    if (obj_point_all_of == NULL) return NULL;
+    if (!obj_point_all_of) return NULL;
 
     std::shared_ptr<Point_allOf > &obj = *reinterpret_cast<std::shared_ptr<Point_allOf >*>(obj_point_all_of);
+    if (!obj) return NULL;
+
     const auto &value_from = p_point;
     typedef typename Point_allOf::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setPoint(value)) return NULL;
+
     return obj_point_all_of;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_all_of_t *data_collection_model_point_all_of_set_point_move(data_collection_model_point_all_of_t *obj_point_all_of, data_collection_model_geographical_coordinates_t* p_point)
 {
-    if (obj_point_all_of == NULL) return NULL;
+    if (!obj_point_all_of) return NULL;
 
     std::shared_ptr<Point_allOf > &obj = *reinterpret_cast<std::shared_ptr<Point_allOf >*>(obj_point_all_of);
+    if (!obj) return NULL;
+
     const auto &value_from = p_point;
     typedef typename Point_allOf::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setPoint(std::move(value))) return NULL;
+
     return obj_point_all_of;
 }
 
@@ -134,6 +220,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_point_all_of_refcount(data_collection_model_point_all_of_t *obj_point_all_of)
 {
+    if (!obj_point_all_of) return 0l;
     std::shared_ptr<Point_allOf > &obj = *reinterpret_cast<std::shared_ptr<Point_allOf >*>(obj_point_all_of);
     return obj.use_count();
 }

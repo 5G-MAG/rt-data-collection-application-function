@@ -45,36 +45,89 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dat_vol_trans_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dat_vol_trans_time_collection_t *data_collection_model_dat_vol_trans_time_collection_create_copy(const data_collection_model_dat_vol_trans_time_collection_t *other)
 {
-    return reinterpret_cast<data_collection_model_dat_vol_trans_time_collection_t*>(new std::shared_ptr<DatVolTransTimeCollection >(new DatVolTransTimeCollection(**reinterpret_cast<const std::shared_ptr<DatVolTransTimeCollection >*>(other))));
+    if (!other) return NULL;
+    const std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<const std::shared_ptr<DatVolTransTimeCollection >*>(other);
+    if (!obj) return NULL;
+    return reinterpret_cast<data_collection_model_dat_vol_trans_time_collection_t*>(new std::shared_ptr<DatVolTransTimeCollection >(new DatVolTransTimeCollection(*obj)));
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dat_vol_trans_time_collection_t *data_collection_model_dat_vol_trans_time_collection_create_move(data_collection_model_dat_vol_trans_time_collection_t *other)
 {
-    return reinterpret_cast<data_collection_model_dat_vol_trans_time_collection_t*>(new std::shared_ptr<DatVolTransTimeCollection >(std::move(*reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(other))));
+    if (!other) return NULL;
+
+    std::shared_ptr<DatVolTransTimeCollection > *obj = reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(other);
+    if (!*obj) {
+        delete obj;
+        return NULL;
+    }
+
+    return other;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dat_vol_trans_time_collection_t *data_collection_model_dat_vol_trans_time_collection_copy(data_collection_model_dat_vol_trans_time_collection_t *dat_vol_trans_time_collection, const data_collection_model_dat_vol_trans_time_collection_t *other)
 {
-    std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(dat_vol_trans_time_collection);
-    *obj = **reinterpret_cast<const std::shared_ptr<DatVolTransTimeCollection >*>(other);
+    if (dat_vol_trans_time_collection) {
+        std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(dat_vol_trans_time_collection);
+        if (obj) {
+            if (other) {
+                const std::shared_ptr<DatVolTransTimeCollection > &other_obj = *reinterpret_cast<const std::shared_ptr<DatVolTransTimeCollection >*>(other);
+                if (other_obj) {
+                    *obj = *other_obj;
+                } else {
+                    obj.reset();
+                }
+            } else {
+                obj.reset();
+            }
+        } else {
+            if (other) {
+                const std::shared_ptr<DatVolTransTimeCollection > &other_obj = *reinterpret_cast<const std::shared_ptr<DatVolTransTimeCollection >*>(other);
+                if (other_obj) {
+                    obj.reset(new DatVolTransTimeCollection(*other_obj));
+                } /* else already null shared pointer */
+            } /* else already null shared pointer */
+        }
+    } else {
+        dat_vol_trans_time_collection = data_collection_model_dat_vol_trans_time_collection_create_copy(other);
+    }
     return dat_vol_trans_time_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dat_vol_trans_time_collection_t *data_collection_model_dat_vol_trans_time_collection_move(data_collection_model_dat_vol_trans_time_collection_t *dat_vol_trans_time_collection, data_collection_model_dat_vol_trans_time_collection_t *other)
 {
-    std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(dat_vol_trans_time_collection);
-    obj = std::move(*reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(other));
+    std::shared_ptr<DatVolTransTimeCollection > *other_ptr = reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(other);
+
+    if (dat_vol_trans_time_collection) {
+        std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(dat_vol_trans_time_collection);
+        if (other_ptr) {
+            obj = std::move(*other_ptr);
+            delete other_ptr;
+        } else {
+            obj.reset();
+        }
+    } else {
+        if (other_ptr) {
+            if (*other_ptr) {
+                dat_vol_trans_time_collection = other;
+            } else {
+                delete other_ptr;
+            }
+        }
+    }
     return dat_vol_trans_time_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_dat_vol_trans_time_collection_free(data_collection_model_dat_vol_trans_time_collection_t *dat_vol_trans_time_collection)
 {
+    if (!dat_vol_trans_time_collection) return;
     delete reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(dat_vol_trans_time_collection);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_dat_vol_trans_time_collection_toJSON(const data_collection_model_dat_vol_trans_time_collection_t *dat_vol_trans_time_collection, bool as_request)
 {
+    if (!dat_vol_trans_time_collection) return NULL;
     const std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<const std::shared_ptr<DatVolTransTimeCollection >*>(dat_vol_trans_time_collection);
+    if (!obj) return NULL;
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
@@ -94,15 +147,42 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dat_vol_trans_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_dat_vol_trans_time_collection_is_equal_to(const data_collection_model_dat_vol_trans_time_collection_t *first, const data_collection_model_dat_vol_trans_time_collection_t *second)
 {
-    const std::shared_ptr<DatVolTransTimeCollection > &obj1 = *reinterpret_cast<const std::shared_ptr<DatVolTransTimeCollection >*>(first);
+    /* check pointers first */
+    if (first == second) return true;
     const std::shared_ptr<DatVolTransTimeCollection > &obj2 = *reinterpret_cast<const std::shared_ptr<DatVolTransTimeCollection >*>(second);
-    return (obj1 == obj2 || *obj1 == *obj2);
+    if (!first) {
+        if (!obj2) return true;
+        return false;
+    }
+    const std::shared_ptr<DatVolTransTimeCollection > &obj1 = *reinterpret_cast<const std::shared_ptr<DatVolTransTimeCollection >*>(first);
+    if (!second) {
+        if (!obj1) return true;
+        return false;
+    }
+    
+    /* check what std::shared_ptr objects are pointing to */
+    if (obj1 == obj2) return true;
+    if (!obj1) return false;
+    if (!obj2) return false;
+
+    /* different shared_ptr objects pointing to different instances, so compare instances */
+    return (*obj1 == *obj2);
 }
 
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_dat_vol_trans_time_collection_get_app_id(const data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection)
 {
+    if (!obj_dat_vol_trans_time_collection) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<const std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename DatVolTransTimeCollection::AppIdType ResultFromType;
     const ResultFromType result_from = obj->getAppId();
     const char *result = result_from.c_str();
@@ -111,34 +191,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_da
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dat_vol_trans_time_collection_t *data_collection_model_dat_vol_trans_time_collection_set_app_id(data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection, const char* p_app_id)
 {
-    if (obj_dat_vol_trans_time_collection == NULL) return NULL;
+    if (!obj_dat_vol_trans_time_collection) return NULL;
 
     std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) return NULL;
+
     const auto &value_from = p_app_id;
     typedef typename DatVolTransTimeCollection::AppIdType ValueType;
 
     ValueType value(value_from);
     if (!obj->setAppId(value)) return NULL;
+
     return obj_dat_vol_trans_time_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dat_vol_trans_time_collection_t *data_collection_model_dat_vol_trans_time_collection_set_app_id_move(data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection, char* p_app_id)
 {
-    if (obj_dat_vol_trans_time_collection == NULL) return NULL;
+    if (!obj_dat_vol_trans_time_collection) return NULL;
 
     std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) return NULL;
+
     const auto &value_from = p_app_id;
     typedef typename DatVolTransTimeCollection::AppIdType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setAppId(std::move(value))) return NULL;
+
     return obj_dat_vol_trans_time_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_addr_fqdn_t* data_collection_model_dat_vol_trans_time_collection_get_app_server_inst(const data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection)
 {
+    if (!obj_dat_vol_trans_time_collection) {
+        const data_collection_model_addr_fqdn_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<const std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) {
+        const data_collection_model_addr_fqdn_t *result = NULL;
+        return result;
+    }
+
     typedef typename DatVolTransTimeCollection::AppServerInstType ResultFromType;
     const ResultFromType result_from = obj->getAppServerInst();
     const data_collection_model_addr_fqdn_t *result = reinterpret_cast<const data_collection_model_addr_fqdn_t*>(&result_from);
@@ -147,34 +243,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_addr_fqd
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dat_vol_trans_time_collection_t *data_collection_model_dat_vol_trans_time_collection_set_app_server_inst(data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection, const data_collection_model_addr_fqdn_t* p_app_server_inst)
 {
-    if (obj_dat_vol_trans_time_collection == NULL) return NULL;
+    if (!obj_dat_vol_trans_time_collection) return NULL;
 
     std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) return NULL;
+
     const auto &value_from = p_app_server_inst;
     typedef typename DatVolTransTimeCollection::AppServerInstType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setAppServerInst(value)) return NULL;
+
     return obj_dat_vol_trans_time_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dat_vol_trans_time_collection_t *data_collection_model_dat_vol_trans_time_collection_set_app_server_inst_move(data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection, data_collection_model_addr_fqdn_t* p_app_server_inst)
 {
-    if (obj_dat_vol_trans_time_collection == NULL) return NULL;
+    if (!obj_dat_vol_trans_time_collection) return NULL;
 
     std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) return NULL;
+
     const auto &value_from = p_app_server_inst;
     typedef typename DatVolTransTimeCollection::AppServerInstType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setAppServerInst(std::move(value))) return NULL;
+
     return obj_dat_vol_trans_time_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_dat_vol_trans_time_collection_get_gpsi(const data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection)
 {
+    if (!obj_dat_vol_trans_time_collection) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<const std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename DatVolTransTimeCollection::GpsiType ResultFromType;
     const ResultFromType result_from = obj->getGpsi();
     const char *result = result_from.c_str();
@@ -183,34 +295,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_da
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dat_vol_trans_time_collection_t *data_collection_model_dat_vol_trans_time_collection_set_gpsi(data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection, const char* p_gpsi)
 {
-    if (obj_dat_vol_trans_time_collection == NULL) return NULL;
+    if (!obj_dat_vol_trans_time_collection) return NULL;
 
     std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) return NULL;
+
     const auto &value_from = p_gpsi;
     typedef typename DatVolTransTimeCollection::GpsiType ValueType;
 
     ValueType value(value_from);
     if (!obj->setGpsi(value)) return NULL;
+
     return obj_dat_vol_trans_time_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dat_vol_trans_time_collection_t *data_collection_model_dat_vol_trans_time_collection_set_gpsi_move(data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection, char* p_gpsi)
 {
-    if (obj_dat_vol_trans_time_collection == NULL) return NULL;
+    if (!obj_dat_vol_trans_time_collection) return NULL;
 
     std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) return NULL;
+
     const auto &value_from = p_gpsi;
     typedef typename DatVolTransTimeCollection::GpsiType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setGpsi(std::move(value))) return NULL;
+
     return obj_dat_vol_trans_time_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_dat_vol_trans_time_collection_get_supi(const data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection)
 {
+    if (!obj_dat_vol_trans_time_collection) {
+        const char *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<const std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
     typedef typename DatVolTransTimeCollection::SupiType ResultFromType;
     const ResultFromType result_from = obj->getSupi();
     const char *result = result_from.c_str();
@@ -219,34 +347,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_da
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dat_vol_trans_time_collection_t *data_collection_model_dat_vol_trans_time_collection_set_supi(data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection, const char* p_supi)
 {
-    if (obj_dat_vol_trans_time_collection == NULL) return NULL;
+    if (!obj_dat_vol_trans_time_collection) return NULL;
 
     std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) return NULL;
+
     const auto &value_from = p_supi;
     typedef typename DatVolTransTimeCollection::SupiType ValueType;
 
     ValueType value(value_from);
     if (!obj->setSupi(value)) return NULL;
+
     return obj_dat_vol_trans_time_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dat_vol_trans_time_collection_t *data_collection_model_dat_vol_trans_time_collection_set_supi_move(data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection, char* p_supi)
 {
-    if (obj_dat_vol_trans_time_collection == NULL) return NULL;
+    if (!obj_dat_vol_trans_time_collection) return NULL;
 
     std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) return NULL;
+
     const auto &value_from = p_supi;
     typedef typename DatVolTransTimeCollection::SupiType ValueType;
 
     ValueType value(value_from);
     
     if (!obj->setSupi(std::move(value))) return NULL;
+
     return obj_dat_vol_trans_time_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int64_t data_collection_model_dat_vol_trans_time_collection_get_ul_trans_vol(const data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection)
 {
+    if (!obj_dat_vol_trans_time_collection) {
+        const int64_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<const std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) {
+        const int64_t result = 0;
+        return result;
+    }
+
     typedef typename DatVolTransTimeCollection::UlTransVolType ResultFromType;
     const ResultFromType result_from = obj->getUlTransVol();
     const ResultFromType result = result_from;
@@ -255,34 +399,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int64_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dat_vol_trans_time_collection_t *data_collection_model_dat_vol_trans_time_collection_set_ul_trans_vol(data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection, const int64_t p_ul_trans_vol)
 {
-    if (obj_dat_vol_trans_time_collection == NULL) return NULL;
+    if (!obj_dat_vol_trans_time_collection) return NULL;
 
     std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) return NULL;
+
     const auto &value_from = p_ul_trans_vol;
     typedef typename DatVolTransTimeCollection::UlTransVolType ValueType;
 
     ValueType value = value_from;
     if (!obj->setUlTransVol(value)) return NULL;
+
     return obj_dat_vol_trans_time_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dat_vol_trans_time_collection_t *data_collection_model_dat_vol_trans_time_collection_set_ul_trans_vol_move(data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection, int64_t p_ul_trans_vol)
 {
-    if (obj_dat_vol_trans_time_collection == NULL) return NULL;
+    if (!obj_dat_vol_trans_time_collection) return NULL;
 
     std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) return NULL;
+
     const auto &value_from = p_ul_trans_vol;
     typedef typename DatVolTransTimeCollection::UlTransVolType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setUlTransVol(std::move(value))) return NULL;
+
     return obj_dat_vol_trans_time_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int64_t data_collection_model_dat_vol_trans_time_collection_get_dl_trans_vol(const data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection)
 {
+    if (!obj_dat_vol_trans_time_collection) {
+        const int64_t result = 0;
+        return result;
+    }
+
     const std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<const std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) {
+        const int64_t result = 0;
+        return result;
+    }
+
     typedef typename DatVolTransTimeCollection::DlTransVolType ResultFromType;
     const ResultFromType result_from = obj->getDlTransVol();
     const ResultFromType result = result_from;
@@ -291,34 +451,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int64_t data_collection_model_
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dat_vol_trans_time_collection_t *data_collection_model_dat_vol_trans_time_collection_set_dl_trans_vol(data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection, const int64_t p_dl_trans_vol)
 {
-    if (obj_dat_vol_trans_time_collection == NULL) return NULL;
+    if (!obj_dat_vol_trans_time_collection) return NULL;
 
     std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) return NULL;
+
     const auto &value_from = p_dl_trans_vol;
     typedef typename DatVolTransTimeCollection::DlTransVolType ValueType;
 
     ValueType value = value_from;
     if (!obj->setDlTransVol(value)) return NULL;
+
     return obj_dat_vol_trans_time_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dat_vol_trans_time_collection_t *data_collection_model_dat_vol_trans_time_collection_set_dl_trans_vol_move(data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection, int64_t p_dl_trans_vol)
 {
-    if (obj_dat_vol_trans_time_collection == NULL) return NULL;
+    if (!obj_dat_vol_trans_time_collection) return NULL;
 
     std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) return NULL;
+
     const auto &value_from = p_dl_trans_vol;
     typedef typename DatVolTransTimeCollection::DlTransVolType ValueType;
 
     ValueType value = value_from;
     
     if (!obj->setDlTransVol(std::move(value))) return NULL;
+
     return obj_dat_vol_trans_time_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_time_window_t* data_collection_model_dat_vol_trans_time_collection_get_ul_trans_time_dur(const data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection)
 {
+    if (!obj_dat_vol_trans_time_collection) {
+        const data_collection_model_time_window_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<const std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) {
+        const data_collection_model_time_window_t *result = NULL;
+        return result;
+    }
+
     typedef typename DatVolTransTimeCollection::UlTransTimeDurType ResultFromType;
     const ResultFromType result_from = obj->getUlTransTimeDur();
     const data_collection_model_time_window_t *result = reinterpret_cast<const data_collection_model_time_window_t*>(&result_from);
@@ -327,34 +503,50 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_time_win
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dat_vol_trans_time_collection_t *data_collection_model_dat_vol_trans_time_collection_set_ul_trans_time_dur(data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection, const data_collection_model_time_window_t* p_ul_trans_time_dur)
 {
-    if (obj_dat_vol_trans_time_collection == NULL) return NULL;
+    if (!obj_dat_vol_trans_time_collection) return NULL;
 
     std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) return NULL;
+
     const auto &value_from = p_ul_trans_time_dur;
     typedef typename DatVolTransTimeCollection::UlTransTimeDurType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setUlTransTimeDur(value)) return NULL;
+
     return obj_dat_vol_trans_time_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dat_vol_trans_time_collection_t *data_collection_model_dat_vol_trans_time_collection_set_ul_trans_time_dur_move(data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection, data_collection_model_time_window_t* p_ul_trans_time_dur)
 {
-    if (obj_dat_vol_trans_time_collection == NULL) return NULL;
+    if (!obj_dat_vol_trans_time_collection) return NULL;
 
     std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) return NULL;
+
     const auto &value_from = p_ul_trans_time_dur;
     typedef typename DatVolTransTimeCollection::UlTransTimeDurType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setUlTransTimeDur(std::move(value))) return NULL;
+
     return obj_dat_vol_trans_time_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_time_window_t* data_collection_model_dat_vol_trans_time_collection_get_dl_trans_time_dur(const data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection)
 {
+    if (!obj_dat_vol_trans_time_collection) {
+        const data_collection_model_time_window_t *result = NULL;
+        return result;
+    }
+
     const std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<const std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) {
+        const data_collection_model_time_window_t *result = NULL;
+        return result;
+    }
+
     typedef typename DatVolTransTimeCollection::DlTransTimeDurType ResultFromType;
     const ResultFromType result_from = obj->getDlTransTimeDur();
     const data_collection_model_time_window_t *result = reinterpret_cast<const data_collection_model_time_window_t*>(&result_from);
@@ -363,28 +555,34 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_time_win
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dat_vol_trans_time_collection_t *data_collection_model_dat_vol_trans_time_collection_set_dl_trans_time_dur(data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection, const data_collection_model_time_window_t* p_dl_trans_time_dur)
 {
-    if (obj_dat_vol_trans_time_collection == NULL) return NULL;
+    if (!obj_dat_vol_trans_time_collection) return NULL;
 
     std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) return NULL;
+
     const auto &value_from = p_dl_trans_time_dur;
     typedef typename DatVolTransTimeCollection::DlTransTimeDurType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     if (!obj->setDlTransTimeDur(value)) return NULL;
+
     return obj_dat_vol_trans_time_collection;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dat_vol_trans_time_collection_t *data_collection_model_dat_vol_trans_time_collection_set_dl_trans_time_dur_move(data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection, data_collection_model_time_window_t* p_dl_trans_time_dur)
 {
-    if (obj_dat_vol_trans_time_collection == NULL) return NULL;
+    if (!obj_dat_vol_trans_time_collection) return NULL;
 
     std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
+    if (!obj) return NULL;
+
     const auto &value_from = p_dl_trans_time_dur;
     typedef typename DatVolTransTimeCollection::DlTransTimeDurType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
     
     if (!obj->setDlTransTimeDur(std::move(value))) return NULL;
+
     return obj_dat_vol_trans_time_collection;
 }
 
@@ -398,6 +596,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collec
 
 extern "C" long _model_dat_vol_trans_time_collection_refcount(data_collection_model_dat_vol_trans_time_collection_t *obj_dat_vol_trans_time_collection)
 {
+    if (!obj_dat_vol_trans_time_collection) return 0l;
     std::shared_ptr<DatVolTransTimeCollection > &obj = *reinterpret_cast<std::shared_ptr<DatVolTransTimeCollection >*>(obj_dat_vol_trans_time_collection);
     return obj.use_count();
 }
