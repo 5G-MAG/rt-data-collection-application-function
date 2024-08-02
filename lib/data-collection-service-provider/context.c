@@ -130,26 +130,20 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
             ogs_yaml_iter_t dc_iter;
 
             bool data_reporting_provisioning_disable_r1;
-            bool data_reporting_provisioning_disable;
             bool data_reporting_disable_r2;
             bool data_reporting_disable_r3;
             bool data_reporting_disable_r4;
-            bool data_reporting_disable;
 	    bool event_exposure_disable_r5;
 	    bool event_exposure_disable_r6;
-	    bool event_exposure_disable;
 	    
 	    int i = 0;
 
             data_reporting_provisioning_disable_r1 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_PROVISIONING_R1);
-            data_reporting_provisioning_disable = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_PROVISIONING);
             data_reporting_disable_r2 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_R2);
             data_reporting_disable_r3 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_R3);
             data_reporting_disable_r4 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_R4);
-            data_reporting_disable = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING);
 	    event_exposure_disable_r5 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_EVENT_EXPOSURE_R5);
 	    event_exposure_disable_r6 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_EVENT_EXPOSURE_R6);
-	    event_exposure_disable = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_EVENT_EXPOSURE);
 
             const data_collection_data_report_handler_t * const *handlers = configuration->data_report_handlers;
             if(!handlers[i]) {
@@ -205,15 +199,12 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
                     ogs_yaml_iter_t sbi_array, sbi_iter;
 
 		    if(data_reporting_provisioning_disable_r1 && !strcmp(dc_key, "provisioning")) continue;
-		    if(data_reporting_provisioning_disable && !strcmp(dc_key, "provisioning")) continue;
 
 		    if(data_reporting_disable_r2 && !strcmp(dc_key, "directDataReporting")) continue;
 		    if(data_reporting_disable_r3 && !strcmp(dc_key, "indirectDataReporting")) continue;
-		    
 		    if(data_reporting_disable_r4 && !strcmp(dc_key, "applicationServerDataReporting")) continue;
 		    
 		    if(event_exposure_disable_r5 && !strcmp(dc_key, "eventConsumerApplicationFunctionEventExposure")) continue;
-		    
 		    if(event_exposure_disable_r6 && !strcmp(dc_key, "networkDataAnalyticsFunctionEventExposure")) continue;
 
                     ogs_yaml_iter_recurse(&dc_iter, &sbi_array);
@@ -418,7 +409,6 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
                                                                   server->node.addr));
                             self->config.servers[ifc_num].ogs_server[ifc_svr].server_v4 = server;
                             self->config.servers[ifc_num].num_v4_server_instances++;
-
 
 			    if(!data_reporting_disable_r2 && !data_reporting_disable_r3){
 			        data_report_sockaddr = does_sockaddr_v4_match(DATA_COLLECTION_SVR_DIRECT_DATA_REPORTING, DATA_COLLECTION_SVR_INDIRECT_DATA_REPORTING);

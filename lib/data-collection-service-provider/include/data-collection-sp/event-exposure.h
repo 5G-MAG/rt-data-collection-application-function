@@ -109,7 +109,7 @@ typedef struct data_collection_data_event_s {
 /***** Library function API *****/
 
 /** Subscribe to event exposure session */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_event_subscription_t *data_collection_event_subscription_subscribe(data_collection_model_af_event_exposure_subsc_t *subscription, char **error_return /* output */, char **error_parameter /* output */);
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_event_subscription_t *data_collection_event_subscription_subscribe(data_collection_model_af_event_exposure_subsc_t *subscription, char **error_return /* output */, char **error_classname /* output */, char **error_parameter /* output */);
 
 /** Unsubscribe an event exposure session */
 DATA_COLLECTION_SVC_PRODUCER_API void data_collection_event_subscription_unsubscribe(data_collection_event_subscription_t *event_subscription);

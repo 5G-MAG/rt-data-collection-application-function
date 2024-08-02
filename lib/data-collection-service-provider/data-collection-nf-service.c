@@ -93,7 +93,7 @@ static ogs_sbi_nf_service_t *__data_collection_nf_service(const char *name, int 
 
     ogs_sbi_nf_service_add_version(nf_service, OGS_SBI_API_V1, api_version, NULL);
 
-    nf_service->supported_features = supported_features;
+    nf_service->supported_features = data_collection_strdup(supported_features);
 
     ogs_debug("Data Collection Service [%s]", nf_service->name);
 

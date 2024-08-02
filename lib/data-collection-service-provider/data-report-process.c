@@ -33,7 +33,7 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 
 #include "data-collection-sp/data-collection.h"
 
-#include "data-reporting-process.h"
+#include "data-report-process.h"
 
 #ifdef __cplusplus
 extern "C" {
@@ -294,7 +294,6 @@ bool _data_report_process_event(ogs_event_t *e)
 				    data_collection_model_data_reporting_session_t *data_reporting_session;
 				    data_collection_reporting_session_t *data_collection_reporting_session;
                                     char *reason = NULL, *err_classname = NULL, *err_parameter = NULL;
-				    data_domain_list_t *supported_domains;
 				    data_collection_reporting_client_type_e client_type;
 
 				    ogs_debug("Request body: %s", request->http.content);

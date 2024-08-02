@@ -12,7 +12,7 @@ project('rt-data-collection-application-function', 'c', 'cpp',
     license : '5G-MAG Public',
     meson_version : '>= 0.63.0',
     default_options : [
-        'c_std=gnu89',
+        'c_std=gnu99',
         'cpp_std=c++11',
     ],
 )
