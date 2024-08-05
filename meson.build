@@ -13,7 +13,7 @@ project('rt-data-collection-application-function', 'c', 'cpp',
     meson_version : '>= 0.63.0',
     default_options : [
         'c_std=gnu99',
-        'cpp_std=c++11',
+        'cpp_std=gnu++17',
     ],
 )
 
