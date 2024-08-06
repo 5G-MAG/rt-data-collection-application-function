@@ -97,7 +97,7 @@ DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report(data_colle
     
     report = data_collection_model_data_report_fromJSON(data_report, true, error_return, error_classname, error_parameter);
     if (!report) {
-        ogs_error("%s: %s (%s)", error_classname, error_return, error_parameter);
+        ogs_error("%s: %s (%s)", error_classname?*error_classname:"<null>", error_return?*error_return:"<null>", error_parameter?*error_parameter:"<null>");
         if (error_code) *error_code = "400";
         return OGS_ERROR;
     }
@@ -121,7 +121,7 @@ DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report(data_colle
                 if(parsed_data) {
                     __data_collection_report_create(session, handlers[i], parsed_data, external_application_id);
                 } else {
-                    ogs_error("Report not understood at %s.%s: %s", error_classname, error_parameter, error_return);
+                    ogs_error("Report not understood at %s.%s: %s", error_classname?*error_classname:"<null>", error_parameter?*error_parameter:"<null>", error_return?*error_return:"<null>");
                     if (error_code) *error_code = "400";
                     return OGS_ERROR;
                 }

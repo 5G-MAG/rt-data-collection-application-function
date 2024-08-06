@@ -56,13 +56,15 @@ typedef enum data_collection_configuration_server_ifc_e {
 
 #define DATA_COLLECTION_SVR_MAX_SERVERS_PER_IFC 8
 
+typedef struct data_collection_configuration_server_hdr_s {
+    size_t num_v4_server_instances;
+    size_t num_v6_server_instances;
+    data_collection_configuration_server_t ogs_server[DATA_COLLECTION_SVR_MAX_SERVERS_PER_IFC];
+} data_collection_configuration_server_hdr_t;
+
 typedef struct data_collection_lib_configuration_s {
     const data_collection_configuration_t *data_collection_configuration;
-    struct {
-        size_t num_v4_server_instances;
-        size_t num_v6_server_instances;
-        data_collection_configuration_server_t ogs_server[DATA_COLLECTION_SVR_MAX_SERVERS_PER_IFC];
-    } servers[DATA_COLLECTION_SVR_NUM_IFCS];
+    data_collection_configuration_server_hdr_t servers[DATA_COLLECTION_SVR_NUM_IFCS];
     data_collection_server_response_cache_control_t *server_response_cache_control;
 
     char *data_collection_dir;
