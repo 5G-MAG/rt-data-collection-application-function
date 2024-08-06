@@ -19,7 +19,7 @@
 
 typedef struct data_collection_model_communication_record_s data_collection_model_communication_record_t;
 
-static void *communication_record_parse(const data_collection_reporting_session_t *session, cJSON *json, const char **error_return);
+static void *communication_record_parse(const data_collection_reporting_session_t *session, cJSON *json, char **error_return, char **error_class, char **error_param);
 static void *communication_record_clone(const void *to_copy);
 static void communication_record_free(void *report);
 static cJSON *communication_record_json(const void *report);
@@ -46,10 +46,8 @@ const data_collection_data_report_handler_t communication_record_data_report_typ
 };
 
 /* Communication Report handling */
-static void *communication_record_parse(const data_collection_reporting_session_t *session, cJSON *json, const char **error_return)
+static void *communication_record_parse(const data_collection_reporting_session_t *session, cJSON *json, char **error_return, char **error_class, char **error_param)
 {
-    data_collection_model_communication_record_t *communication_record = NULL;	
-
     ogs_info("PARSE: Example Consumption Report handling");
     {
         char *txt = cJSON_Print(json);
@@ -57,9 +55,11 @@ static void *communication_record_parse(const data_collection_reporting_session_
         cJSON_free(txt);
     }
 
-    communication_record = data_collection_model_communication_record_parseRequestFromJSON(json, error_return);
-	
-    return communication_record;
+    if (error_return) *error_return = NULL;
+    if (error_class) *error_class = NULL;
+    if (error_param) *error_param = NULL;
+
+    return data_collection_model_communication_record_fromJSON(json, true, error_return, error_class, error_param);
 }
 
 static void *communication_record_clone(const void *to_copy)
@@ -83,7 +83,7 @@ static cJSON *communication_record_json(const void *report)
 
     if(!communication_record) return NULL;
 
-    report_json = data_collection_model_communication_record_convertRequestToJSON(communication_record);
+    report_json = data_collection_model_communication_record_toJSON(communication_record, false);
     return report_json;
 
 }
