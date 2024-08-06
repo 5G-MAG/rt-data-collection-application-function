@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_range_direction_t *data_collection_model_range_direction_create(
 
 
 )
@@ -33,7 +33,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_directio
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_create_copy(const data_collection_model_range_direction_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_range_direction_t *data_collection_model_range_direction_create_copy(const data_collection_model_range_direction_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<const std::shared_ptr<RangeDirection >*>(other);
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_directio
     return reinterpret_cast<data_collection_model_range_direction_t*>(new std::shared_ptr<RangeDirection >(new RangeDirection(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_create_move(data_collection_model_range_direction_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_range_direction_t *data_collection_model_range_direction_create_move(data_collection_model_range_direction_t *other)
 {
     if (!other) return NULL;
 
@@ -54,7 +54,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_directio
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_copy(data_collection_model_range_direction_t *range_direction, const data_collection_model_range_direction_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_range_direction_t *data_collection_model_range_direction_copy(data_collection_model_range_direction_t *range_direction, const data_collection_model_range_direction_t *other)
 {
     if (range_direction) {
         std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<std::shared_ptr<RangeDirection >*>(range_direction);
@@ -83,7 +83,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_directio
     return range_direction;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_move(data_collection_model_range_direction_t *range_direction, data_collection_model_range_direction_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_range_direction_t *data_collection_model_range_direction_move(data_collection_model_range_direction_t *range_direction, data_collection_model_range_direction_t *other)
 {
     std::shared_ptr<RangeDirection > *other_ptr = reinterpret_cast<std::shared_ptr<RangeDirection >*>(other);
 
@@ -107,13 +107,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_directio
     return range_direction;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_range_direction_free(data_collection_model_range_direction_t *range_direction)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_range_direction_free(data_collection_model_range_direction_t *range_direction)
 {
     if (!range_direction) return;
     delete reinterpret_cast<std::shared_ptr<RangeDirection >*>(range_direction);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_range_direction_toJSON(const data_collection_model_range_direction_t *range_direction, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_range_direction_toJSON(const data_collection_model_range_direction_t *range_direction, bool as_request)
 {
     if (!range_direction) return NULL;
     const std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<const std::shared_ptr<RangeDirection >*>(range_direction);
@@ -122,7 +122,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_range_d
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_range_direction_t *data_collection_model_range_direction_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -135,7 +135,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_directio
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_range_direction_is_equal_to(const data_collection_model_range_direction_t *first, const data_collection_model_range_direction_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_range_direction_is_equal_to(const data_collection_model_range_direction_t *first, const data_collection_model_range_direction_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -160,7 +160,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_range_dir
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_range_direction_get_distance(const data_collection_model_range_direction_t *obj_range_direction)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const double data_collection_model_range_direction_get_distance(const data_collection_model_range_direction_t *obj_range_direction)
 {
     if (!obj_range_direction) {
         const double result = 0;
@@ -179,7 +179,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_r
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_set_distance(data_collection_model_range_direction_t *obj_range_direction, const double p_distance)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_range_direction_t *data_collection_model_range_direction_set_distance(data_collection_model_range_direction_t *obj_range_direction, const double p_distance)
 {
     if (!obj_range_direction) return NULL;
 
@@ -195,7 +195,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_directio
     return obj_range_direction;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_set_distance_move(data_collection_model_range_direction_t *obj_range_direction, double p_distance)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_range_direction_t *data_collection_model_range_direction_set_distance_move(data_collection_model_range_direction_t *obj_range_direction, double p_distance)
 {
     if (!obj_range_direction) return NULL;
 
@@ -212,7 +212,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_directio
     return obj_range_direction;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_range_direction_get_azimuth_direction(const data_collection_model_range_direction_t *obj_range_direction)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_range_direction_get_azimuth_direction(const data_collection_model_range_direction_t *obj_range_direction)
 {
     if (!obj_range_direction) {
         const int32_t result = 0;
@@ -231,7 +231,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_set_azimuth_direction(data_collection_model_range_direction_t *obj_range_direction, const int32_t p_azimuth_direction)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_range_direction_t *data_collection_model_range_direction_set_azimuth_direction(data_collection_model_range_direction_t *obj_range_direction, const int32_t p_azimuth_direction)
 {
     if (!obj_range_direction) return NULL;
 
@@ -247,7 +247,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_directio
     return obj_range_direction;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_set_azimuth_direction_move(data_collection_model_range_direction_t *obj_range_direction, int32_t p_azimuth_direction)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_range_direction_t *data_collection_model_range_direction_set_azimuth_direction_move(data_collection_model_range_direction_t *obj_range_direction, int32_t p_azimuth_direction)
 {
     if (!obj_range_direction) return NULL;
 
@@ -264,7 +264,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_directio
     return obj_range_direction;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_range_direction_get_elevation_direction(const data_collection_model_range_direction_t *obj_range_direction)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_range_direction_get_elevation_direction(const data_collection_model_range_direction_t *obj_range_direction)
 {
     if (!obj_range_direction) {
         const int32_t result = 0;
@@ -283,7 +283,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_set_elevation_direction(data_collection_model_range_direction_t *obj_range_direction, const int32_t p_elevation_direction)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_range_direction_t *data_collection_model_range_direction_set_elevation_direction(data_collection_model_range_direction_t *obj_range_direction, const int32_t p_elevation_direction)
 {
     if (!obj_range_direction) return NULL;
 
@@ -299,7 +299,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_directio
     return obj_range_direction;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_direction_t *data_collection_model_range_direction_set_elevation_direction_move(data_collection_model_range_direction_t *obj_range_direction, int32_t p_elevation_direction)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_range_direction_t *data_collection_model_range_direction_set_elevation_direction_move(data_collection_model_range_direction_t *obj_range_direction, int32_t p_elevation_direction)
 {
     if (!obj_range_direction) return NULL;
 
@@ -317,7 +317,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_range_directio
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_range_direction_make_lnode(data_collection_model_range_direction_t *p_range_direction)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_range_direction_make_lnode(data_collection_model_range_direction_t *p_range_direction)
 {
     return data_collection_lnode_create(p_range_direction, reinterpret_cast<void(*)(void*)>(data_collection_model_range_direction_free));
 }

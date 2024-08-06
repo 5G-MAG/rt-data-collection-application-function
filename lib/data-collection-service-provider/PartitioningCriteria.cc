@@ -22,12 +22,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_partitioning_criteria_t *data_collection_model_partitioning_criteria_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_partitioning_criteria_t *data_collection_model_partitioning_criteria_create()
 {
     return reinterpret_cast<data_collection_model_partitioning_criteria_t*>(new std::shared_ptr<PartitioningCriteria>(new PartitioningCriteria()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_partitioning_criteria_t *data_collection_model_partitioning_criteria_create_copy(const data_collection_model_partitioning_criteria_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_partitioning_criteria_t *data_collection_model_partitioning_criteria_create_copy(const data_collection_model_partitioning_criteria_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<PartitioningCriteria > &obj = *reinterpret_cast<const std::shared_ptr<PartitioningCriteria >*>(other);
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_partitioning_c
     return reinterpret_cast<data_collection_model_partitioning_criteria_t*>(new std::shared_ptr<PartitioningCriteria >(new PartitioningCriteria(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_partitioning_criteria_t *data_collection_model_partitioning_criteria_create_move(data_collection_model_partitioning_criteria_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_partitioning_criteria_t *data_collection_model_partitioning_criteria_create_move(data_collection_model_partitioning_criteria_t *other)
 {
     if (!other) return NULL;
 
@@ -48,7 +48,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_partitioning_c
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_partitioning_criteria_t *data_collection_model_partitioning_criteria_copy(data_collection_model_partitioning_criteria_t *partitioning_criteria, const data_collection_model_partitioning_criteria_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_partitioning_criteria_t *data_collection_model_partitioning_criteria_copy(data_collection_model_partitioning_criteria_t *partitioning_criteria, const data_collection_model_partitioning_criteria_t *other)
 {
     if (partitioning_criteria) {
         std::shared_ptr<PartitioningCriteria > &obj = *reinterpret_cast<std::shared_ptr<PartitioningCriteria >*>(partitioning_criteria);
@@ -77,7 +77,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_partitioning_c
     return partitioning_criteria;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_partitioning_criteria_t *data_collection_model_partitioning_criteria_move(data_collection_model_partitioning_criteria_t *partitioning_criteria, data_collection_model_partitioning_criteria_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_partitioning_criteria_t *data_collection_model_partitioning_criteria_move(data_collection_model_partitioning_criteria_t *partitioning_criteria, data_collection_model_partitioning_criteria_t *other)
 {
     std::shared_ptr<PartitioningCriteria > *other_ptr = reinterpret_cast<std::shared_ptr<PartitioningCriteria >*>(other);
 
@@ -101,13 +101,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_partitioning_c
     return partitioning_criteria;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_partitioning_criteria_free(data_collection_model_partitioning_criteria_t *partitioning_criteria)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_partitioning_criteria_free(data_collection_model_partitioning_criteria_t *partitioning_criteria)
 {
     if (!partitioning_criteria) return;
     delete reinterpret_cast<std::shared_ptr<PartitioningCriteria >*>(partitioning_criteria);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_partitioning_criteria_toJSON(const data_collection_model_partitioning_criteria_t *partitioning_criteria, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_partitioning_criteria_toJSON(const data_collection_model_partitioning_criteria_t *partitioning_criteria, bool as_request)
 {
     if (!partitioning_criteria) return NULL;
     const std::shared_ptr<PartitioningCriteria > &obj = *reinterpret_cast<const std::shared_ptr<PartitioningCriteria >*>(partitioning_criteria);
@@ -116,7 +116,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_partiti
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_partitioning_criteria_t *data_collection_model_partitioning_criteria_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_partitioning_criteria_t *data_collection_model_partitioning_criteria_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -129,7 +129,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_partitioning_c
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_partitioning_criteria_is_equal_to(const data_collection_model_partitioning_criteria_t *first, const data_collection_model_partitioning_criteria_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_partitioning_criteria_is_equal_to(const data_collection_model_partitioning_criteria_t *first, const data_collection_model_partitioning_criteria_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -154,7 +154,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_partition
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_partitioning_criteria_is_not_set(const data_collection_model_partitioning_criteria_t *obj_partitioning_criteria)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_partitioning_criteria_is_not_set(const data_collection_model_partitioning_criteria_t *obj_partitioning_criteria)
 {
     if (!obj_partitioning_criteria) return true;
     const std::shared_ptr<PartitioningCriteria > &obj = *reinterpret_cast<const std::shared_ptr<PartitioningCriteria >*>(obj_partitioning_criteria);
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_partitioning_criteri
     return obj->getValue() == PartitioningCriteria::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_partitioning_criteria_is_non_standard(const data_collection_model_partitioning_criteria_t *obj_partitioning_criteria)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_partitioning_criteria_is_non_standard(const data_collection_model_partitioning_criteria_t *obj_partitioning_criteria)
 {
     if (!obj_partitioning_criteria) return false;
     const std::shared_ptr<PartitioningCriteria > &obj = *reinterpret_cast<const std::shared_ptr<PartitioningCriteria >*>(obj_partitioning_criteria);
@@ -170,7 +170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_partitioning_criteri
     return obj->getValue() == PartitioningCriteria::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_partitioning_criteria_e data_collection_model_partitioning_criteria_get_enum(const data_collection_model_partitioning_criteria_t *obj_partitioning_criteria)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_partitioning_criteria_e data_collection_model_partitioning_criteria_get_enum(const data_collection_model_partitioning_criteria_t *obj_partitioning_criteria)
 {
     if (!obj_partitioning_criteria)
         return DCM_PARTITIONING_CRITERIA_NO_VAL;
@@ -195,7 +195,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_partitioning_criteria_e d
     return DCM_PARTITIONING_CRITERIA_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_partitioning_criteria_get_string(const data_collection_model_partitioning_criteria_t *obj_partitioning_criteria)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_partitioning_criteria_get_string(const data_collection_model_partitioning_criteria_t *obj_partitioning_criteria)
 {
     if (!obj_partitioning_criteria) return NULL;
     const std::shared_ptr<PartitioningCriteria > &obj = *reinterpret_cast<const std::shared_ptr<PartitioningCriteria >*>(obj_partitioning_criteria);
@@ -203,7 +203,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_partitioning_
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_partitioning_criteria_set_enum(data_collection_model_partitioning_criteria_t *obj_partitioning_criteria, data_collection_model_partitioning_criteria_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_partitioning_criteria_set_enum(data_collection_model_partitioning_criteria_t *obj_partitioning_criteria, data_collection_model_partitioning_criteria_e p_value)
 {
     if (!obj_partitioning_criteria) return false;
     std::shared_ptr<PartitioningCriteria > &obj = *reinterpret_cast<std::shared_ptr<PartitioningCriteria >*>(obj_partitioning_criteria);
@@ -233,7 +233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_partitioning_criteri
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_partitioning_criteria_set_string(data_collection_model_partitioning_criteria_t *obj_partitioning_criteria, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_partitioning_criteria_set_string(data_collection_model_partitioning_criteria_t *obj_partitioning_criteria, const char *p_value)
 {
     if (!obj_partitioning_criteria) return false;
     std::shared_ptr<PartitioningCriteria > &obj = *reinterpret_cast<std::shared_ptr<PartitioningCriteria >*>(obj_partitioning_criteria);
@@ -248,7 +248,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_partitioning_criteri
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_partitioning_criteria_make_lnode(data_collection_model_partitioning_criteria_t *p_partitioning_criteria)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_partitioning_criteria_make_lnode(data_collection_model_partitioning_criteria_t *p_partitioning_criteria)
 {
     return data_collection_lnode_create(p_partitioning_criteria, reinterpret_cast<void(*)(void*)>(data_collection_model_partitioning_criteria_free));
 }

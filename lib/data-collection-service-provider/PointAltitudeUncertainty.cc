@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_create(
 
 
 
@@ -43,7 +43,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_create_copy(const data_collection_model_point_altitude_uncertainty_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_create_copy(const data_collection_model_point_altitude_uncertainty_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<PointAltitudeUncertainty > &obj = *reinterpret_cast<const std::shared_ptr<PointAltitudeUncertainty >*>(other);
@@ -51,7 +51,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return reinterpret_cast<data_collection_model_point_altitude_uncertainty_t*>(new std::shared_ptr<PointAltitudeUncertainty >(new PointAltitudeUncertainty(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_create_move(data_collection_model_point_altitude_uncertainty_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_create_move(data_collection_model_point_altitude_uncertainty_t *other)
 {
     if (!other) return NULL;
 
@@ -64,7 +64,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_copy(data_collection_model_point_altitude_uncertainty_t *point_altitude_uncertainty, const data_collection_model_point_altitude_uncertainty_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_copy(data_collection_model_point_altitude_uncertainty_t *point_altitude_uncertainty, const data_collection_model_point_altitude_uncertainty_t *other)
 {
     if (point_altitude_uncertainty) {
         std::shared_ptr<PointAltitudeUncertainty > &obj = *reinterpret_cast<std::shared_ptr<PointAltitudeUncertainty >*>(point_altitude_uncertainty);
@@ -93,7 +93,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return point_altitude_uncertainty;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_move(data_collection_model_point_altitude_uncertainty_t *point_altitude_uncertainty, data_collection_model_point_altitude_uncertainty_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_move(data_collection_model_point_altitude_uncertainty_t *point_altitude_uncertainty, data_collection_model_point_altitude_uncertainty_t *other)
 {
     std::shared_ptr<PointAltitudeUncertainty > *other_ptr = reinterpret_cast<std::shared_ptr<PointAltitudeUncertainty >*>(other);
 
@@ -117,13 +117,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return point_altitude_uncertainty;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_point_altitude_uncertainty_free(data_collection_model_point_altitude_uncertainty_t *point_altitude_uncertainty)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_point_altitude_uncertainty_free(data_collection_model_point_altitude_uncertainty_t *point_altitude_uncertainty)
 {
     if (!point_altitude_uncertainty) return;
     delete reinterpret_cast<std::shared_ptr<PointAltitudeUncertainty >*>(point_altitude_uncertainty);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_point_altitude_uncertainty_toJSON(const data_collection_model_point_altitude_uncertainty_t *point_altitude_uncertainty, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_point_altitude_uncertainty_toJSON(const data_collection_model_point_altitude_uncertainty_t *point_altitude_uncertainty, bool as_request)
 {
     if (!point_altitude_uncertainty) return NULL;
     const std::shared_ptr<PointAltitudeUncertainty > &obj = *reinterpret_cast<const std::shared_ptr<PointAltitudeUncertainty >*>(point_altitude_uncertainty);
@@ -132,7 +132,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_point_a
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -145,7 +145,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_point_altitude_uncertainty_is_equal_to(const data_collection_model_point_altitude_uncertainty_t *first, const data_collection_model_point_altitude_uncertainty_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_point_altitude_uncertainty_is_equal_to(const data_collection_model_point_altitude_uncertainty_t *first, const data_collection_model_point_altitude_uncertainty_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -170,7 +170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_point_alt
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_supported_gad_shapes_t* data_collection_model_point_altitude_uncertainty_get_shape(const data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supported_gad_shapes_t* data_collection_model_point_altitude_uncertainty_get_shape(const data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty)
 {
     if (!obj_point_altitude_uncertainty) {
         const data_collection_model_supported_gad_shapes_t *result = NULL;
@@ -189,7 +189,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_supporte
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_shape(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, const data_collection_model_supported_gad_shapes_t* p_shape)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_shape(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, const data_collection_model_supported_gad_shapes_t* p_shape)
 {
     if (!obj_point_altitude_uncertainty) return NULL;
 
@@ -205,7 +205,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return obj_point_altitude_uncertainty;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_shape_move(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, data_collection_model_supported_gad_shapes_t* p_shape)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_shape_move(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, data_collection_model_supported_gad_shapes_t* p_shape)
 {
     if (!obj_point_altitude_uncertainty) return NULL;
 
@@ -222,7 +222,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return obj_point_altitude_uncertainty;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geographical_coordinates_t* data_collection_model_point_altitude_uncertainty_get_point(const data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geographical_coordinates_t* data_collection_model_point_altitude_uncertainty_get_point(const data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty)
 {
     if (!obj_point_altitude_uncertainty) {
         const data_collection_model_geographical_coordinates_t *result = NULL;
@@ -241,7 +241,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geograph
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_point(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, const data_collection_model_geographical_coordinates_t* p_point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_point(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, const data_collection_model_geographical_coordinates_t* p_point)
 {
     if (!obj_point_altitude_uncertainty) return NULL;
 
@@ -257,7 +257,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return obj_point_altitude_uncertainty;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_point_move(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, data_collection_model_geographical_coordinates_t* p_point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_point_move(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, data_collection_model_geographical_coordinates_t* p_point)
 {
     if (!obj_point_altitude_uncertainty) return NULL;
 
@@ -274,7 +274,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return obj_point_altitude_uncertainty;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_point_altitude_uncertainty_get_altitude(const data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const double data_collection_model_point_altitude_uncertainty_get_altitude(const data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty)
 {
     if (!obj_point_altitude_uncertainty) {
         const double result = 0;
@@ -293,7 +293,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_p
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_altitude(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, const double p_altitude)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_altitude(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, const double p_altitude)
 {
     if (!obj_point_altitude_uncertainty) return NULL;
 
@@ -309,7 +309,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return obj_point_altitude_uncertainty;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_altitude_move(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, double p_altitude)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_altitude_move(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, double p_altitude)
 {
     if (!obj_point_altitude_uncertainty) return NULL;
 
@@ -326,7 +326,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return obj_point_altitude_uncertainty;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_uncertainty_ellipse_t* data_collection_model_point_altitude_uncertainty_get_uncertainty_ellipse(const data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_uncertainty_ellipse_t* data_collection_model_point_altitude_uncertainty_get_uncertainty_ellipse(const data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty)
 {
     if (!obj_point_altitude_uncertainty) {
         const data_collection_model_uncertainty_ellipse_t *result = NULL;
@@ -345,7 +345,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_uncertai
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_uncertainty_ellipse(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, const data_collection_model_uncertainty_ellipse_t* p_uncertainty_ellipse)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_uncertainty_ellipse(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, const data_collection_model_uncertainty_ellipse_t* p_uncertainty_ellipse)
 {
     if (!obj_point_altitude_uncertainty) return NULL;
 
@@ -361,7 +361,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return obj_point_altitude_uncertainty;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_uncertainty_ellipse_move(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, data_collection_model_uncertainty_ellipse_t* p_uncertainty_ellipse)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_uncertainty_ellipse_move(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, data_collection_model_uncertainty_ellipse_t* p_uncertainty_ellipse)
 {
     if (!obj_point_altitude_uncertainty) return NULL;
 
@@ -378,7 +378,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return obj_point_altitude_uncertainty;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_point_altitude_uncertainty_get_uncertainty_altitude(const data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_point_altitude_uncertainty_get_uncertainty_altitude(const data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty)
 {
     if (!obj_point_altitude_uncertainty) {
         const float result = 0;
@@ -397,7 +397,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_po
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_uncertainty_altitude(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, const float p_uncertainty_altitude)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_uncertainty_altitude(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, const float p_uncertainty_altitude)
 {
     if (!obj_point_altitude_uncertainty) return NULL;
 
@@ -413,7 +413,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return obj_point_altitude_uncertainty;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_uncertainty_altitude_move(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, float p_uncertainty_altitude)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_uncertainty_altitude_move(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, float p_uncertainty_altitude)
 {
     if (!obj_point_altitude_uncertainty) return NULL;
 
@@ -430,7 +430,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return obj_point_altitude_uncertainty;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_point_altitude_uncertainty_get_confidence(const data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_point_altitude_uncertainty_get_confidence(const data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty)
 {
     if (!obj_point_altitude_uncertainty) {
         const int32_t result = 0;
@@ -449,7 +449,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_confidence(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, const int32_t p_confidence)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_confidence(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, const int32_t p_confidence)
 {
     if (!obj_point_altitude_uncertainty) return NULL;
 
@@ -465,7 +465,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return obj_point_altitude_uncertainty;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_confidence_move(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, int32_t p_confidence)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_confidence_move(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, int32_t p_confidence)
 {
     if (!obj_point_altitude_uncertainty) return NULL;
 
@@ -482,7 +482,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return obj_point_altitude_uncertainty;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_point_altitude_uncertainty_get_v_confidence(const data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_point_altitude_uncertainty_get_v_confidence(const data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty)
 {
     if (!obj_point_altitude_uncertainty) {
         const int32_t result = 0;
@@ -501,7 +501,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_v_confidence(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, const int32_t p_v_confidence)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_v_confidence(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, const int32_t p_v_confidence)
 {
     if (!obj_point_altitude_uncertainty) return NULL;
 
@@ -517,7 +517,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return obj_point_altitude_uncertainty;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_v_confidence_move(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, int32_t p_v_confidence)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_set_v_confidence_move(data_collection_model_point_altitude_uncertainty_t *obj_point_altitude_uncertainty, int32_t p_v_confidence)
 {
     if (!obj_point_altitude_uncertainty) return NULL;
 
@@ -535,7 +535,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_point_altitude_uncertainty_make_lnode(data_collection_model_point_altitude_uncertainty_t *p_point_altitude_uncertainty)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_point_altitude_uncertainty_make_lnode(data_collection_model_point_altitude_uncertainty_t *p_point_altitude_uncertainty)
 {
     return data_collection_lnode_create(p_point_altitude_uncertainty, reinterpret_cast<void(*)(void*)>(data_collection_model_point_altitude_uncertainty_free));
 }

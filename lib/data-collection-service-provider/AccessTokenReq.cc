@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_create(
 
 
 
@@ -73,7 +73,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_create_copy(const data_collection_model_access_token_req_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_create_copy(const data_collection_model_access_token_req_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<AccessTokenReq > &obj = *reinterpret_cast<const std::shared_ptr<AccessTokenReq >*>(other);
@@ -81,7 +81,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return reinterpret_cast<data_collection_model_access_token_req_t*>(new std::shared_ptr<AccessTokenReq >(new AccessTokenReq(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_create_move(data_collection_model_access_token_req_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_create_move(data_collection_model_access_token_req_t *other)
 {
     if (!other) return NULL;
 
@@ -94,7 +94,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_copy(data_collection_model_access_token_req_t *access_token_req, const data_collection_model_access_token_req_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_copy(data_collection_model_access_token_req_t *access_token_req, const data_collection_model_access_token_req_t *other)
 {
     if (access_token_req) {
         std::shared_ptr<AccessTokenReq > &obj = *reinterpret_cast<std::shared_ptr<AccessTokenReq >*>(access_token_req);
@@ -123,7 +123,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_move(data_collection_model_access_token_req_t *access_token_req, data_collection_model_access_token_req_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_move(data_collection_model_access_token_req_t *access_token_req, data_collection_model_access_token_req_t *other)
 {
     std::shared_ptr<AccessTokenReq > *other_ptr = reinterpret_cast<std::shared_ptr<AccessTokenReq >*>(other);
 
@@ -147,13 +147,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_access_token_req_free(data_collection_model_access_token_req_t *access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_access_token_req_free(data_collection_model_access_token_req_t *access_token_req)
 {
     if (!access_token_req) return;
     delete reinterpret_cast<std::shared_ptr<AccessTokenReq >*>(access_token_req);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_access_token_req_toJSON(const data_collection_model_access_token_req_t *access_token_req, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_access_token_req_toJSON(const data_collection_model_access_token_req_t *access_token_req, bool as_request)
 {
     if (!access_token_req) return NULL;
     const std::shared_ptr<AccessTokenReq > &obj = *reinterpret_cast<const std::shared_ptr<AccessTokenReq >*>(access_token_req);
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_access_
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -175,7 +175,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_access_token_req_is_equal_to(const data_collection_model_access_token_req_t *first, const data_collection_model_access_token_req_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_access_token_req_is_equal_to(const data_collection_model_access_token_req_t *first, const data_collection_model_access_token_req_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -200,7 +200,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_access_to
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_access_token_req_get_grant_type(const data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_access_token_req_get_grant_type(const data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) {
         const char *result = NULL;
@@ -219,7 +219,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ac
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_grant_type(data_collection_model_access_token_req_t *obj_access_token_req, const char* p_grant_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_grant_type(data_collection_model_access_token_req_t *obj_access_token_req, const char* p_grant_type)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -235,7 +235,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_grant_type_move(data_collection_model_access_token_req_t *obj_access_token_req, char* p_grant_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_grant_type_move(data_collection_model_access_token_req_t *obj_access_token_req, char* p_grant_type)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -252,7 +252,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_access_token_req_get_nf_instance_id(const data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_access_token_req_get_nf_instance_id(const data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) {
         const char *result = NULL;
@@ -271,7 +271,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ac
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_nf_instance_id(data_collection_model_access_token_req_t *obj_access_token_req, const char* p_nf_instance_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_nf_instance_id(data_collection_model_access_token_req_t *obj_access_token_req, const char* p_nf_instance_id)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -287,7 +287,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_nf_instance_id_move(data_collection_model_access_token_req_t *obj_access_token_req, char* p_nf_instance_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_nf_instance_id_move(data_collection_model_access_token_req_t *obj_access_token_req, char* p_nf_instance_id)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -304,7 +304,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_nf_type_t* data_collection_model_access_token_req_get_nf_type(const data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_nf_type_t* data_collection_model_access_token_req_get_nf_type(const data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) {
         const data_collection_model_nf_type_t *result = NULL;
@@ -323,7 +323,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_nf_type_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_nf_type(data_collection_model_access_token_req_t *obj_access_token_req, const data_collection_model_nf_type_t* p_nf_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_nf_type(data_collection_model_access_token_req_t *obj_access_token_req, const data_collection_model_nf_type_t* p_nf_type)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -339,7 +339,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_nf_type_move(data_collection_model_access_token_req_t *obj_access_token_req, data_collection_model_nf_type_t* p_nf_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_nf_type_move(data_collection_model_access_token_req_t *obj_access_token_req, data_collection_model_nf_type_t* p_nf_type)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -356,7 +356,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_nf_type_t* data_collection_model_access_token_req_get_target_nf_type(const data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_nf_type_t* data_collection_model_access_token_req_get_target_nf_type(const data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) {
         const data_collection_model_nf_type_t *result = NULL;
@@ -375,7 +375,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_nf_type_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_nf_type(data_collection_model_access_token_req_t *obj_access_token_req, const data_collection_model_nf_type_t* p_target_nf_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_nf_type(data_collection_model_access_token_req_t *obj_access_token_req, const data_collection_model_nf_type_t* p_target_nf_type)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -391,7 +391,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_nf_type_move(data_collection_model_access_token_req_t *obj_access_token_req, data_collection_model_nf_type_t* p_target_nf_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_nf_type_move(data_collection_model_access_token_req_t *obj_access_token_req, data_collection_model_nf_type_t* p_target_nf_type)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -408,7 +408,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_access_token_req_get_scope(const data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_access_token_req_get_scope(const data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) {
         const char *result = NULL;
@@ -427,7 +427,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ac
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_scope(data_collection_model_access_token_req_t *obj_access_token_req, const char* p_scope)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_scope(data_collection_model_access_token_req_t *obj_access_token_req, const char* p_scope)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -443,7 +443,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_scope_move(data_collection_model_access_token_req_t *obj_access_token_req, char* p_scope)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_scope_move(data_collection_model_access_token_req_t *obj_access_token_req, char* p_scope)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -460,7 +460,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_access_token_req_get_target_nf_instance_id(const data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_access_token_req_get_target_nf_instance_id(const data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) {
         const char *result = NULL;
@@ -479,7 +479,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ac
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_nf_instance_id(data_collection_model_access_token_req_t *obj_access_token_req, const char* p_target_nf_instance_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_nf_instance_id(data_collection_model_access_token_req_t *obj_access_token_req, const char* p_target_nf_instance_id)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -495,7 +495,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_nf_instance_id_move(data_collection_model_access_token_req_t *obj_access_token_req, char* p_target_nf_instance_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_nf_instance_id_move(data_collection_model_access_token_req_t *obj_access_token_req, char* p_target_nf_instance_id)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -512,7 +512,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_plmn_id_t* data_collection_model_access_token_req_get_requester_plmn(const data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_plmn_id_t* data_collection_model_access_token_req_get_requester_plmn(const data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) {
         const data_collection_model_plmn_id_t *result = NULL;
@@ -531,7 +531,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_plmn_id_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_plmn(data_collection_model_access_token_req_t *obj_access_token_req, const data_collection_model_plmn_id_t* p_requester_plmn)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_plmn(data_collection_model_access_token_req_t *obj_access_token_req, const data_collection_model_plmn_id_t* p_requester_plmn)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -547,7 +547,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_plmn_move(data_collection_model_access_token_req_t *obj_access_token_req, data_collection_model_plmn_id_t* p_requester_plmn)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_plmn_move(data_collection_model_access_token_req_t *obj_access_token_req, data_collection_model_plmn_id_t* p_requester_plmn)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -564,7 +564,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_access_token_req_get_requester_plmn_list(const data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_access_token_req_get_requester_plmn_list(const data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) {
         ogs_list_t *result = NULL;
@@ -591,7 +591,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ac
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_plmn_list(data_collection_model_access_token_req_t *obj_access_token_req, const ogs_list_t* p_requester_plmn_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_plmn_list(data_collection_model_access_token_req_t *obj_access_token_req, const ogs_list_t* p_requester_plmn_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -615,7 +615,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_plmn_list_move(data_collection_model_access_token_req_t *obj_access_token_req, ogs_list_t* p_requester_plmn_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_plmn_list_move(data_collection_model_access_token_req_t *obj_access_token_req, ogs_list_t* p_requester_plmn_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -640,7 +640,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_add_requester_plmn_list(data_collection_model_access_token_req_t *obj_access_token_req, data_collection_model_plmn_id_t* p_requester_plmn_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_add_requester_plmn_list(data_collection_model_access_token_req_t *obj_access_token_req, data_collection_model_plmn_id_t* p_requester_plmn_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -657,7 +657,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_remove_requester_plmn_list(data_collection_model_access_token_req_t *obj_access_token_req, const data_collection_model_plmn_id_t* p_requester_plmn_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_remove_requester_plmn_list(data_collection_model_access_token_req_t *obj_access_token_req, const data_collection_model_plmn_id_t* p_requester_plmn_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -672,7 +672,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_clear_requester_plmn_list(data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_clear_requester_plmn_list(data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -683,7 +683,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_access_token_req_get_requester_snssai_list(const data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_access_token_req_get_requester_snssai_list(const data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) {
         ogs_list_t *result = NULL;
@@ -710,7 +710,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ac
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_snssai_list(data_collection_model_access_token_req_t *obj_access_token_req, const ogs_list_t* p_requester_snssai_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_snssai_list(data_collection_model_access_token_req_t *obj_access_token_req, const ogs_list_t* p_requester_snssai_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -734,7 +734,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_snssai_list_move(data_collection_model_access_token_req_t *obj_access_token_req, ogs_list_t* p_requester_snssai_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_snssai_list_move(data_collection_model_access_token_req_t *obj_access_token_req, ogs_list_t* p_requester_snssai_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -759,7 +759,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_add_requester_snssai_list(data_collection_model_access_token_req_t *obj_access_token_req, data_collection_model_snssai_t* p_requester_snssai_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_add_requester_snssai_list(data_collection_model_access_token_req_t *obj_access_token_req, data_collection_model_snssai_t* p_requester_snssai_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -776,7 +776,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_remove_requester_snssai_list(data_collection_model_access_token_req_t *obj_access_token_req, const data_collection_model_snssai_t* p_requester_snssai_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_remove_requester_snssai_list(data_collection_model_access_token_req_t *obj_access_token_req, const data_collection_model_snssai_t* p_requester_snssai_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -791,7 +791,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_clear_requester_snssai_list(data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_clear_requester_snssai_list(data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -802,7 +802,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_access_token_req_get_requester_fqdn(const data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_access_token_req_get_requester_fqdn(const data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) {
         const char *result = NULL;
@@ -821,7 +821,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ac
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_fqdn(data_collection_model_access_token_req_t *obj_access_token_req, const char* p_requester_fqdn)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_fqdn(data_collection_model_access_token_req_t *obj_access_token_req, const char* p_requester_fqdn)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -837,7 +837,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_fqdn_move(data_collection_model_access_token_req_t *obj_access_token_req, char* p_requester_fqdn)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_fqdn_move(data_collection_model_access_token_req_t *obj_access_token_req, char* p_requester_fqdn)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -854,7 +854,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_access_token_req_get_requester_snpn_list(const data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_access_token_req_get_requester_snpn_list(const data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) {
         ogs_list_t *result = NULL;
@@ -881,7 +881,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ac
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_snpn_list(data_collection_model_access_token_req_t *obj_access_token_req, const ogs_list_t* p_requester_snpn_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_snpn_list(data_collection_model_access_token_req_t *obj_access_token_req, const ogs_list_t* p_requester_snpn_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -905,7 +905,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_snpn_list_move(data_collection_model_access_token_req_t *obj_access_token_req, ogs_list_t* p_requester_snpn_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_snpn_list_move(data_collection_model_access_token_req_t *obj_access_token_req, ogs_list_t* p_requester_snpn_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -930,7 +930,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_add_requester_snpn_list(data_collection_model_access_token_req_t *obj_access_token_req, data_collection_model_plmn_id_nid_t* p_requester_snpn_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_add_requester_snpn_list(data_collection_model_access_token_req_t *obj_access_token_req, data_collection_model_plmn_id_nid_t* p_requester_snpn_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -947,7 +947,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_remove_requester_snpn_list(data_collection_model_access_token_req_t *obj_access_token_req, const data_collection_model_plmn_id_nid_t* p_requester_snpn_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_remove_requester_snpn_list(data_collection_model_access_token_req_t *obj_access_token_req, const data_collection_model_plmn_id_nid_t* p_requester_snpn_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -962,7 +962,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_clear_requester_snpn_list(data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_clear_requester_snpn_list(data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -973,7 +973,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_plmn_id_t* data_collection_model_access_token_req_get_target_plmn(const data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_plmn_id_t* data_collection_model_access_token_req_get_target_plmn(const data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) {
         const data_collection_model_plmn_id_t *result = NULL;
@@ -992,7 +992,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_plmn_id_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_plmn(data_collection_model_access_token_req_t *obj_access_token_req, const data_collection_model_plmn_id_t* p_target_plmn)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_plmn(data_collection_model_access_token_req_t *obj_access_token_req, const data_collection_model_plmn_id_t* p_target_plmn)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1008,7 +1008,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_plmn_move(data_collection_model_access_token_req_t *obj_access_token_req, data_collection_model_plmn_id_t* p_target_plmn)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_plmn_move(data_collection_model_access_token_req_t *obj_access_token_req, data_collection_model_plmn_id_t* p_target_plmn)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1025,7 +1025,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_plmn_id_nid_t* data_collection_model_access_token_req_get_target_snpn(const data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_plmn_id_nid_t* data_collection_model_access_token_req_get_target_snpn(const data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) {
         const data_collection_model_plmn_id_nid_t *result = NULL;
@@ -1044,7 +1044,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_plmn_id_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_snpn(data_collection_model_access_token_req_t *obj_access_token_req, const data_collection_model_plmn_id_nid_t* p_target_snpn)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_snpn(data_collection_model_access_token_req_t *obj_access_token_req, const data_collection_model_plmn_id_nid_t* p_target_snpn)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1060,7 +1060,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_snpn_move(data_collection_model_access_token_req_t *obj_access_token_req, data_collection_model_plmn_id_nid_t* p_target_snpn)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_snpn_move(data_collection_model_access_token_req_t *obj_access_token_req, data_collection_model_plmn_id_nid_t* p_target_snpn)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1077,7 +1077,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_access_token_req_get_target_snssai_list(const data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_access_token_req_get_target_snssai_list(const data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) {
         ogs_list_t *result = NULL;
@@ -1104,7 +1104,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ac
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_snssai_list(data_collection_model_access_token_req_t *obj_access_token_req, const ogs_list_t* p_target_snssai_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_snssai_list(data_collection_model_access_token_req_t *obj_access_token_req, const ogs_list_t* p_target_snssai_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1128,7 +1128,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_snssai_list_move(data_collection_model_access_token_req_t *obj_access_token_req, ogs_list_t* p_target_snssai_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_snssai_list_move(data_collection_model_access_token_req_t *obj_access_token_req, ogs_list_t* p_target_snssai_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1153,7 +1153,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_add_target_snssai_list(data_collection_model_access_token_req_t *obj_access_token_req, data_collection_model_snssai_t* p_target_snssai_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_add_target_snssai_list(data_collection_model_access_token_req_t *obj_access_token_req, data_collection_model_snssai_t* p_target_snssai_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1170,7 +1170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_remove_target_snssai_list(data_collection_model_access_token_req_t *obj_access_token_req, const data_collection_model_snssai_t* p_target_snssai_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_remove_target_snssai_list(data_collection_model_access_token_req_t *obj_access_token_req, const data_collection_model_snssai_t* p_target_snssai_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1185,7 +1185,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_clear_target_snssai_list(data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_clear_target_snssai_list(data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1196,7 +1196,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_access_token_req_get_target_nsi_list(const data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_access_token_req_get_target_nsi_list(const data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) {
         ogs_list_t *result = NULL;
@@ -1222,7 +1222,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ac
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_nsi_list(data_collection_model_access_token_req_t *obj_access_token_req, const ogs_list_t* p_target_nsi_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_nsi_list(data_collection_model_access_token_req_t *obj_access_token_req, const ogs_list_t* p_target_nsi_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1246,7 +1246,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_nsi_list_move(data_collection_model_access_token_req_t *obj_access_token_req, ogs_list_t* p_target_nsi_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_nsi_list_move(data_collection_model_access_token_req_t *obj_access_token_req, ogs_list_t* p_target_nsi_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1271,7 +1271,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_add_target_nsi_list(data_collection_model_access_token_req_t *obj_access_token_req, char* p_target_nsi_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_add_target_nsi_list(data_collection_model_access_token_req_t *obj_access_token_req, char* p_target_nsi_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1288,7 +1288,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_remove_target_nsi_list(data_collection_model_access_token_req_t *obj_access_token_req, const char* p_target_nsi_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_remove_target_nsi_list(data_collection_model_access_token_req_t *obj_access_token_req, const char* p_target_nsi_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1303,7 +1303,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_clear_target_nsi_list(data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_clear_target_nsi_list(data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1314,7 +1314,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_access_token_req_get_target_nf_set_id(const data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_access_token_req_get_target_nf_set_id(const data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) {
         const char *result = NULL;
@@ -1333,7 +1333,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ac
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_nf_set_id(data_collection_model_access_token_req_t *obj_access_token_req, const char* p_target_nf_set_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_nf_set_id(data_collection_model_access_token_req_t *obj_access_token_req, const char* p_target_nf_set_id)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1349,7 +1349,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_nf_set_id_move(data_collection_model_access_token_req_t *obj_access_token_req, char* p_target_nf_set_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_nf_set_id_move(data_collection_model_access_token_req_t *obj_access_token_req, char* p_target_nf_set_id)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1366,7 +1366,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_access_token_req_get_target_nf_service_set_id(const data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_access_token_req_get_target_nf_service_set_id(const data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) {
         const char *result = NULL;
@@ -1385,7 +1385,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ac
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_nf_service_set_id(data_collection_model_access_token_req_t *obj_access_token_req, const char* p_target_nf_service_set_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_nf_service_set_id(data_collection_model_access_token_req_t *obj_access_token_req, const char* p_target_nf_service_set_id)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1401,7 +1401,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_nf_service_set_id_move(data_collection_model_access_token_req_t *obj_access_token_req, char* p_target_nf_service_set_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_target_nf_service_set_id_move(data_collection_model_access_token_req_t *obj_access_token_req, char* p_target_nf_service_set_id)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1418,7 +1418,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_access_token_req_get_hnrf_access_token_uri(const data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_access_token_req_get_hnrf_access_token_uri(const data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) {
         const char *result = NULL;
@@ -1437,7 +1437,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ac
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_hnrf_access_token_uri(data_collection_model_access_token_req_t *obj_access_token_req, const char* p_hnrf_access_token_uri)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_hnrf_access_token_uri(data_collection_model_access_token_req_t *obj_access_token_req, const char* p_hnrf_access_token_uri)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1453,7 +1453,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_hnrf_access_token_uri_move(data_collection_model_access_token_req_t *obj_access_token_req, char* p_hnrf_access_token_uri)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_hnrf_access_token_uri_move(data_collection_model_access_token_req_t *obj_access_token_req, char* p_hnrf_access_token_uri)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1470,7 +1470,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_access_token_req_get_source_nf_instance_id(const data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_access_token_req_get_source_nf_instance_id(const data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) {
         const char *result = NULL;
@@ -1489,7 +1489,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ac
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_source_nf_instance_id(data_collection_model_access_token_req_t *obj_access_token_req, const char* p_source_nf_instance_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_source_nf_instance_id(data_collection_model_access_token_req_t *obj_access_token_req, const char* p_source_nf_instance_id)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1505,7 +1505,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_source_nf_instance_id_move(data_collection_model_access_token_req_t *obj_access_token_req, char* p_source_nf_instance_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_source_nf_instance_id_move(data_collection_model_access_token_req_t *obj_access_token_req, char* p_source_nf_instance_id)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1522,7 +1522,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_access_token_req_get_vendor_id(const data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_access_token_req_get_vendor_id(const data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) {
         const char *result = NULL;
@@ -1541,7 +1541,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ac
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_vendor_id(data_collection_model_access_token_req_t *obj_access_token_req, const char* p_vendor_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_vendor_id(data_collection_model_access_token_req_t *obj_access_token_req, const char* p_vendor_id)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1557,7 +1557,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_vendor_id_move(data_collection_model_access_token_req_t *obj_access_token_req, char* p_vendor_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_vendor_id_move(data_collection_model_access_token_req_t *obj_access_token_req, char* p_vendor_id)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1574,7 +1574,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_access_token_req_get_analytics_ids(const data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_access_token_req_get_analytics_ids(const data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) {
         ogs_list_t *result = NULL;
@@ -1601,7 +1601,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ac
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_analytics_ids(data_collection_model_access_token_req_t *obj_access_token_req, const ogs_list_t* p_analytics_ids)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_analytics_ids(data_collection_model_access_token_req_t *obj_access_token_req, const ogs_list_t* p_analytics_ids)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1625,7 +1625,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_analytics_ids_move(data_collection_model_access_token_req_t *obj_access_token_req, ogs_list_t* p_analytics_ids)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_analytics_ids_move(data_collection_model_access_token_req_t *obj_access_token_req, ogs_list_t* p_analytics_ids)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1650,7 +1650,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_add_analytics_ids(data_collection_model_access_token_req_t *obj_access_token_req, data_collection_model_nwdaf_event_t* p_analytics_ids)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_add_analytics_ids(data_collection_model_access_token_req_t *obj_access_token_req, data_collection_model_nwdaf_event_t* p_analytics_ids)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1667,7 +1667,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_remove_analytics_ids(data_collection_model_access_token_req_t *obj_access_token_req, const data_collection_model_nwdaf_event_t* p_analytics_ids)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_remove_analytics_ids(data_collection_model_access_token_req_t *obj_access_token_req, const data_collection_model_nwdaf_event_t* p_analytics_ids)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1682,7 +1682,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_clear_analytics_ids(data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_clear_analytics_ids(data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1693,7 +1693,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_access_token_req_get_requester_inter_ind_list(const data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_access_token_req_get_requester_inter_ind_list(const data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) {
         ogs_list_t *result = NULL;
@@ -1720,7 +1720,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ac
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_inter_ind_list(data_collection_model_access_token_req_t *obj_access_token_req, const ogs_list_t* p_requester_inter_ind_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_inter_ind_list(data_collection_model_access_token_req_t *obj_access_token_req, const ogs_list_t* p_requester_inter_ind_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1744,7 +1744,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_inter_ind_list_move(data_collection_model_access_token_req_t *obj_access_token_req, ogs_list_t* p_requester_inter_ind_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_requester_inter_ind_list_move(data_collection_model_access_token_req_t *obj_access_token_req, ogs_list_t* p_requester_inter_ind_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1769,7 +1769,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_add_requester_inter_ind_list(data_collection_model_access_token_req_t *obj_access_token_req, data_collection_model_ml_model_inter_ind_t* p_requester_inter_ind_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_add_requester_inter_ind_list(data_collection_model_access_token_req_t *obj_access_token_req, data_collection_model_ml_model_inter_ind_t* p_requester_inter_ind_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1786,7 +1786,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_remove_requester_inter_ind_list(data_collection_model_access_token_req_t *obj_access_token_req, const data_collection_model_ml_model_inter_ind_t* p_requester_inter_ind_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_remove_requester_inter_ind_list(data_collection_model_access_token_req_t *obj_access_token_req, const data_collection_model_ml_model_inter_ind_t* p_requester_inter_ind_list)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1801,7 +1801,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_req_t *data_collection_model_access_token_req_clear_requester_inter_ind_list(data_collection_model_access_token_req_t *obj_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_clear_requester_inter_ind_list(data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) return NULL;
 
@@ -1813,7 +1813,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_access_token_r
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_access_token_req_make_lnode(data_collection_model_access_token_req_t *p_access_token_req)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_access_token_req_make_lnode(data_collection_model_access_token_req_t *p_access_token_req)
 {
     return data_collection_lnode_create(p_access_token_req, reinterpret_cast<void(*)(void*)>(data_collection_model_access_token_req_free));
 }

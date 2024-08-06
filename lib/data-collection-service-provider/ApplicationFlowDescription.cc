@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_create(
 
 
 
@@ -39,7 +39,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_fl
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_create_copy(const data_collection_model_application_flow_description_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_create_copy(const data_collection_model_application_flow_description_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<ApplicationFlowDescription > &obj = *reinterpret_cast<const std::shared_ptr<ApplicationFlowDescription >*>(other);
@@ -47,7 +47,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_fl
     return reinterpret_cast<data_collection_model_application_flow_description_t*>(new std::shared_ptr<ApplicationFlowDescription >(new ApplicationFlowDescription(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_create_move(data_collection_model_application_flow_description_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_create_move(data_collection_model_application_flow_description_t *other)
 {
     if (!other) return NULL;
 
@@ -60,7 +60,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_fl
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_copy(data_collection_model_application_flow_description_t *application_flow_description, const data_collection_model_application_flow_description_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_copy(data_collection_model_application_flow_description_t *application_flow_description, const data_collection_model_application_flow_description_t *other)
 {
     if (application_flow_description) {
         std::shared_ptr<ApplicationFlowDescription > &obj = *reinterpret_cast<std::shared_ptr<ApplicationFlowDescription >*>(application_flow_description);
@@ -89,7 +89,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_fl
     return application_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_move(data_collection_model_application_flow_description_t *application_flow_description, data_collection_model_application_flow_description_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_move(data_collection_model_application_flow_description_t *application_flow_description, data_collection_model_application_flow_description_t *other)
 {
     std::shared_ptr<ApplicationFlowDescription > *other_ptr = reinterpret_cast<std::shared_ptr<ApplicationFlowDescription >*>(other);
 
@@ -113,13 +113,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_fl
     return application_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_application_flow_description_free(data_collection_model_application_flow_description_t *application_flow_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_application_flow_description_free(data_collection_model_application_flow_description_t *application_flow_description)
 {
     if (!application_flow_description) return;
     delete reinterpret_cast<std::shared_ptr<ApplicationFlowDescription >*>(application_flow_description);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_application_flow_description_toJSON(const data_collection_model_application_flow_description_t *application_flow_description, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_application_flow_description_toJSON(const data_collection_model_application_flow_description_t *application_flow_description, bool as_request)
 {
     if (!application_flow_description) return NULL;
     const std::shared_ptr<ApplicationFlowDescription > &obj = *reinterpret_cast<const std::shared_ptr<ApplicationFlowDescription >*>(application_flow_description);
@@ -128,7 +128,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_applica
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -141,7 +141,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_fl
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_application_flow_description_is_equal_to(const data_collection_model_application_flow_description_t *first, const data_collection_model_application_flow_description_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_application_flow_description_is_equal_to(const data_collection_model_application_flow_description_t *first, const data_collection_model_application_flow_description_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -166,7 +166,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_applicati
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_sdf_method_t* data_collection_model_application_flow_description_get_filter_method(const data_collection_model_application_flow_description_t *obj_application_flow_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_sdf_method_t* data_collection_model_application_flow_description_get_filter_method(const data_collection_model_application_flow_description_t *obj_application_flow_description)
 {
     if (!obj_application_flow_description) {
         const data_collection_model_sdf_method_t *result = NULL;
@@ -185,7 +185,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_sdf_meth
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_set_filter_method(data_collection_model_application_flow_description_t *obj_application_flow_description, const data_collection_model_sdf_method_t* p_filter_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_set_filter_method(data_collection_model_application_flow_description_t *obj_application_flow_description, const data_collection_model_sdf_method_t* p_filter_method)
 {
     if (!obj_application_flow_description) return NULL;
 
@@ -201,7 +201,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_fl
     return obj_application_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_set_filter_method_move(data_collection_model_application_flow_description_t *obj_application_flow_description, data_collection_model_sdf_method_t* p_filter_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_set_filter_method_move(data_collection_model_application_flow_description_t *obj_application_flow_description, data_collection_model_sdf_method_t* p_filter_method)
 {
     if (!obj_application_flow_description) return NULL;
 
@@ -218,7 +218,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_fl
     return obj_application_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ip_packet_filter_set_t* data_collection_model_application_flow_description_get_packet_filter(const data_collection_model_application_flow_description_t *obj_application_flow_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ip_packet_filter_set_t* data_collection_model_application_flow_description_get_packet_filter(const data_collection_model_application_flow_description_t *obj_application_flow_description)
 {
     if (!obj_application_flow_description) {
         const data_collection_model_ip_packet_filter_set_t *result = NULL;
@@ -237,7 +237,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ip_packe
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_set_packet_filter(data_collection_model_application_flow_description_t *obj_application_flow_description, const data_collection_model_ip_packet_filter_set_t* p_packet_filter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_set_packet_filter(data_collection_model_application_flow_description_t *obj_application_flow_description, const data_collection_model_ip_packet_filter_set_t* p_packet_filter)
 {
     if (!obj_application_flow_description) return NULL;
 
@@ -253,7 +253,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_fl
     return obj_application_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_set_packet_filter_move(data_collection_model_application_flow_description_t *obj_application_flow_description, data_collection_model_ip_packet_filter_set_t* p_packet_filter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_set_packet_filter_move(data_collection_model_application_flow_description_t *obj_application_flow_description, data_collection_model_ip_packet_filter_set_t* p_packet_filter)
 {
     if (!obj_application_flow_description) return NULL;
 
@@ -270,7 +270,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_fl
     return obj_application_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_application_flow_description_get_domain_name(const data_collection_model_application_flow_description_t *obj_application_flow_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_application_flow_description_get_domain_name(const data_collection_model_application_flow_description_t *obj_application_flow_description)
 {
     if (!obj_application_flow_description) {
         const char *result = NULL;
@@ -289,7 +289,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ap
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_set_domain_name(data_collection_model_application_flow_description_t *obj_application_flow_description, const char* p_domain_name)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_set_domain_name(data_collection_model_application_flow_description_t *obj_application_flow_description, const char* p_domain_name)
 {
     if (!obj_application_flow_description) return NULL;
 
@@ -305,7 +305,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_fl
     return obj_application_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_set_domain_name_move(data_collection_model_application_flow_description_t *obj_application_flow_description, char* p_domain_name)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_set_domain_name_move(data_collection_model_application_flow_description_t *obj_application_flow_description, char* p_domain_name)
 {
     if (!obj_application_flow_description) return NULL;
 
@@ -322,7 +322,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_fl
     return obj_application_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_media_type_t* data_collection_model_application_flow_description_get_media_type(const data_collection_model_application_flow_description_t *obj_application_flow_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_media_type_t* data_collection_model_application_flow_description_get_media_type(const data_collection_model_application_flow_description_t *obj_application_flow_description)
 {
     if (!obj_application_flow_description) {
         const data_collection_model_media_type_t *result = NULL;
@@ -341,7 +341,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_media_ty
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_set_media_type(data_collection_model_application_flow_description_t *obj_application_flow_description, const data_collection_model_media_type_t* p_media_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_set_media_type(data_collection_model_application_flow_description_t *obj_application_flow_description, const data_collection_model_media_type_t* p_media_type)
 {
     if (!obj_application_flow_description) return NULL;
 
@@ -357,7 +357,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_fl
     return obj_application_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_set_media_type_move(data_collection_model_application_flow_description_t *obj_application_flow_description, data_collection_model_media_type_t* p_media_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_set_media_type_move(data_collection_model_application_flow_description_t *obj_application_flow_description, data_collection_model_media_type_t* p_media_type)
 {
     if (!obj_application_flow_description) return NULL;
 
@@ -374,7 +374,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_fl
     return obj_application_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_protocol_description_t* data_collection_model_application_flow_description_get_media_transport_parameters(const data_collection_model_application_flow_description_t *obj_application_flow_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_protocol_description_t* data_collection_model_application_flow_description_get_media_transport_parameters(const data_collection_model_application_flow_description_t *obj_application_flow_description)
 {
     if (!obj_application_flow_description) {
         const data_collection_model_protocol_description_t *result = NULL;
@@ -393,7 +393,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_protocol
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_set_media_transport_parameters(data_collection_model_application_flow_description_t *obj_application_flow_description, const data_collection_model_protocol_description_t* p_media_transport_parameters)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_set_media_transport_parameters(data_collection_model_application_flow_description_t *obj_application_flow_description, const data_collection_model_protocol_description_t* p_media_transport_parameters)
 {
     if (!obj_application_flow_description) return NULL;
 
@@ -409,7 +409,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_fl
     return obj_application_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_set_media_transport_parameters_move(data_collection_model_application_flow_description_t *obj_application_flow_description, data_collection_model_protocol_description_t* p_media_transport_parameters)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_set_media_transport_parameters_move(data_collection_model_application_flow_description_t *obj_application_flow_description, data_collection_model_protocol_description_t* p_media_transport_parameters)
 {
     if (!obj_application_flow_description) return NULL;
 
@@ -427,7 +427,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_application_fl
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_application_flow_description_make_lnode(data_collection_model_application_flow_description_t *p_application_flow_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_application_flow_description_make_lnode(data_collection_model_application_flow_description_t *p_application_flow_description)
 {
     return data_collection_lnode_create(p_application_flow_description, reinterpret_cast<void(*)(void*)>(data_collection_model_application_flow_description_free));
 }

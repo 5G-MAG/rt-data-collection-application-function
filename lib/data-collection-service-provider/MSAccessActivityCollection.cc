@@ -22,14 +22,14 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_create(
 )
 {
     return reinterpret_cast<data_collection_model_ms_access_activity_collection_t*>(new std::shared_ptr<MSAccessActivityCollection>(new MSAccessActivityCollection(
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_create_copy(const data_collection_model_ms_access_activity_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_create_copy(const data_collection_model_ms_access_activity_collection_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<MSAccessActivityCollection > &obj = *reinterpret_cast<const std::shared_ptr<MSAccessActivityCollection >*>(other);
@@ -37,7 +37,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_acti
     return reinterpret_cast<data_collection_model_ms_access_activity_collection_t*>(new std::shared_ptr<MSAccessActivityCollection >(new MSAccessActivityCollection(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_create_move(data_collection_model_ms_access_activity_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_create_move(data_collection_model_ms_access_activity_collection_t *other)
 {
     if (!other) return NULL;
 
@@ -50,7 +50,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_acti
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_copy(data_collection_model_ms_access_activity_collection_t *ms_access_activity_collection, const data_collection_model_ms_access_activity_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_copy(data_collection_model_ms_access_activity_collection_t *ms_access_activity_collection, const data_collection_model_ms_access_activity_collection_t *other)
 {
     if (ms_access_activity_collection) {
         std::shared_ptr<MSAccessActivityCollection > &obj = *reinterpret_cast<std::shared_ptr<MSAccessActivityCollection >*>(ms_access_activity_collection);
@@ -79,7 +79,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_acti
     return ms_access_activity_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_move(data_collection_model_ms_access_activity_collection_t *ms_access_activity_collection, data_collection_model_ms_access_activity_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_move(data_collection_model_ms_access_activity_collection_t *ms_access_activity_collection, data_collection_model_ms_access_activity_collection_t *other)
 {
     std::shared_ptr<MSAccessActivityCollection > *other_ptr = reinterpret_cast<std::shared_ptr<MSAccessActivityCollection >*>(other);
 
@@ -103,13 +103,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_acti
     return ms_access_activity_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_ms_access_activity_collection_free(data_collection_model_ms_access_activity_collection_t *ms_access_activity_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_ms_access_activity_collection_free(data_collection_model_ms_access_activity_collection_t *ms_access_activity_collection)
 {
     if (!ms_access_activity_collection) return;
     delete reinterpret_cast<std::shared_ptr<MSAccessActivityCollection >*>(ms_access_activity_collection);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_ms_access_activity_collection_toJSON(const data_collection_model_ms_access_activity_collection_t *ms_access_activity_collection, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_ms_access_activity_collection_toJSON(const data_collection_model_ms_access_activity_collection_t *ms_access_activity_collection, bool as_request)
 {
     if (!ms_access_activity_collection) return NULL;
     const std::shared_ptr<MSAccessActivityCollection > &obj = *reinterpret_cast<const std::shared_ptr<MSAccessActivityCollection >*>(ms_access_activity_collection);
@@ -118,7 +118,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_ms_acce
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -131,7 +131,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_acti
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ms_access_activity_collection_is_equal_to(const data_collection_model_ms_access_activity_collection_t *first, const data_collection_model_ms_access_activity_collection_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ms_access_activity_collection_is_equal_to(const data_collection_model_ms_access_activity_collection_t *first, const data_collection_model_ms_access_activity_collection_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -156,7 +156,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ms_access
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ms_access_activity_collection_get_ms_acc_acts(const data_collection_model_ms_access_activity_collection_t *obj_ms_access_activity_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ms_access_activity_collection_get_ms_acc_acts(const data_collection_model_ms_access_activity_collection_t *obj_ms_access_activity_collection)
 {
     if (!obj_ms_access_activity_collection) {
         ogs_list_t *result = NULL;
@@ -183,7 +183,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ms
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_set_ms_acc_acts(data_collection_model_ms_access_activity_collection_t *obj_ms_access_activity_collection, const ogs_list_t* p_ms_acc_acts)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_set_ms_acc_acts(data_collection_model_ms_access_activity_collection_t *obj_ms_access_activity_collection, const ogs_list_t* p_ms_acc_acts)
 {
     if (!obj_ms_access_activity_collection) return NULL;
 
@@ -207,7 +207,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_acti
     return obj_ms_access_activity_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_set_ms_acc_acts_move(data_collection_model_ms_access_activity_collection_t *obj_ms_access_activity_collection, ogs_list_t* p_ms_acc_acts)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_set_ms_acc_acts_move(data_collection_model_ms_access_activity_collection_t *obj_ms_access_activity_collection, ogs_list_t* p_ms_acc_acts)
 {
     if (!obj_ms_access_activity_collection) return NULL;
 
@@ -232,7 +232,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_acti
     return obj_ms_access_activity_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_add_ms_acc_acts(data_collection_model_ms_access_activity_collection_t *obj_ms_access_activity_collection, data_collection_model_media_streaming_access_record_t* p_ms_acc_acts)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_add_ms_acc_acts(data_collection_model_ms_access_activity_collection_t *obj_ms_access_activity_collection, data_collection_model_media_streaming_access_record_t* p_ms_acc_acts)
 {
     if (!obj_ms_access_activity_collection) return NULL;
 
@@ -249,7 +249,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_acti
     return obj_ms_access_activity_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_remove_ms_acc_acts(data_collection_model_ms_access_activity_collection_t *obj_ms_access_activity_collection, const data_collection_model_media_streaming_access_record_t* p_ms_acc_acts)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_remove_ms_acc_acts(data_collection_model_ms_access_activity_collection_t *obj_ms_access_activity_collection, const data_collection_model_media_streaming_access_record_t* p_ms_acc_acts)
 {
     if (!obj_ms_access_activity_collection) return NULL;
 
@@ -264,7 +264,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_acti
     return obj_ms_access_activity_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_clear_ms_acc_acts(data_collection_model_ms_access_activity_collection_t *obj_ms_access_activity_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_clear_ms_acc_acts(data_collection_model_ms_access_activity_collection_t *obj_ms_access_activity_collection)
 {
     if (!obj_ms_access_activity_collection) return NULL;
 
@@ -276,7 +276,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_access_acti
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_ms_access_activity_collection_make_lnode(data_collection_model_ms_access_activity_collection_t *p_ms_access_activity_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_ms_access_activity_collection_make_lnode(data_collection_model_ms_access_activity_collection_t *p_ms_access_activity_collection)
 {
     return data_collection_lnode_create(p_ms_access_activity_collection, reinterpret_cast<void(*)(void*)>(data_collection_model_ms_access_activity_collection_free));
 }

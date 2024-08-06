@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_create(
 
 
 
@@ -43,7 +43,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_create_copy(const data_collection_model_dynamic_policy_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_create_copy(const data_collection_model_dynamic_policy_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<DynamicPolicy > &obj = *reinterpret_cast<const std::shared_ptr<DynamicPolicy >*>(other);
@@ -51,7 +51,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return reinterpret_cast<data_collection_model_dynamic_policy_t*>(new std::shared_ptr<DynamicPolicy >(new DynamicPolicy(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_create_move(data_collection_model_dynamic_policy_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_create_move(data_collection_model_dynamic_policy_t *other)
 {
     if (!other) return NULL;
 
@@ -64,7 +64,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_copy(data_collection_model_dynamic_policy_t *dynamic_policy, const data_collection_model_dynamic_policy_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_copy(data_collection_model_dynamic_policy_t *dynamic_policy, const data_collection_model_dynamic_policy_t *other)
 {
     if (dynamic_policy) {
         std::shared_ptr<DynamicPolicy > &obj = *reinterpret_cast<std::shared_ptr<DynamicPolicy >*>(dynamic_policy);
@@ -93,7 +93,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return dynamic_policy;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_move(data_collection_model_dynamic_policy_t *dynamic_policy, data_collection_model_dynamic_policy_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_move(data_collection_model_dynamic_policy_t *dynamic_policy, data_collection_model_dynamic_policy_t *other)
 {
     std::shared_ptr<DynamicPolicy > *other_ptr = reinterpret_cast<std::shared_ptr<DynamicPolicy >*>(other);
 
@@ -117,13 +117,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return dynamic_policy;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_dynamic_policy_free(data_collection_model_dynamic_policy_t *dynamic_policy)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_dynamic_policy_free(data_collection_model_dynamic_policy_t *dynamic_policy)
 {
     if (!dynamic_policy) return;
     delete reinterpret_cast<std::shared_ptr<DynamicPolicy >*>(dynamic_policy);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_dynamic_policy_toJSON(const data_collection_model_dynamic_policy_t *dynamic_policy, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_dynamic_policy_toJSON(const data_collection_model_dynamic_policy_t *dynamic_policy, bool as_request)
 {
     if (!dynamic_policy) return NULL;
     const std::shared_ptr<DynamicPolicy > &obj = *reinterpret_cast<const std::shared_ptr<DynamicPolicy >*>(dynamic_policy);
@@ -132,7 +132,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_dynamic
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -145,7 +145,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_dynamic_policy_is_equal_to(const data_collection_model_dynamic_policy_t *first, const data_collection_model_dynamic_policy_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_dynamic_policy_is_equal_to(const data_collection_model_dynamic_policy_t *first, const data_collection_model_dynamic_policy_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -170,7 +170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_dynamic_p
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_dynamic_policy_get_dynamic_policy_id(const data_collection_model_dynamic_policy_t *obj_dynamic_policy)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_dynamic_policy_get_dynamic_policy_id(const data_collection_model_dynamic_policy_t *obj_dynamic_policy)
 {
     if (!obj_dynamic_policy) {
         const char *result = NULL;
@@ -189,7 +189,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_dy
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_dynamic_policy_id(data_collection_model_dynamic_policy_t *obj_dynamic_policy, const char* p_dynamic_policy_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_dynamic_policy_id(data_collection_model_dynamic_policy_t *obj_dynamic_policy, const char* p_dynamic_policy_id)
 {
     if (!obj_dynamic_policy) return NULL;
 
@@ -205,7 +205,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return obj_dynamic_policy;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_dynamic_policy_id_move(data_collection_model_dynamic_policy_t *obj_dynamic_policy, char* p_dynamic_policy_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_dynamic_policy_id_move(data_collection_model_dynamic_policy_t *obj_dynamic_policy, char* p_dynamic_policy_id)
 {
     if (!obj_dynamic_policy) return NULL;
 
@@ -222,7 +222,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return obj_dynamic_policy;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_dynamic_policy_get_policy_template_id(const data_collection_model_dynamic_policy_t *obj_dynamic_policy)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_dynamic_policy_get_policy_template_id(const data_collection_model_dynamic_policy_t *obj_dynamic_policy)
 {
     if (!obj_dynamic_policy) {
         const char *result = NULL;
@@ -241,7 +241,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_dy
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_policy_template_id(data_collection_model_dynamic_policy_t *obj_dynamic_policy, const char* p_policy_template_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_policy_template_id(data_collection_model_dynamic_policy_t *obj_dynamic_policy, const char* p_policy_template_id)
 {
     if (!obj_dynamic_policy) return NULL;
 
@@ -257,7 +257,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return obj_dynamic_policy;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_policy_template_id_move(data_collection_model_dynamic_policy_t *obj_dynamic_policy, char* p_policy_template_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_policy_template_id_move(data_collection_model_dynamic_policy_t *obj_dynamic_policy, char* p_policy_template_id)
 {
     if (!obj_dynamic_policy) return NULL;
 
@@ -274,7 +274,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return obj_dynamic_policy;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_dynamic_policy_get_service_data_flow_descriptions(const data_collection_model_dynamic_policy_t *obj_dynamic_policy)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_dynamic_policy_get_service_data_flow_descriptions(const data_collection_model_dynamic_policy_t *obj_dynamic_policy)
 {
     if (!obj_dynamic_policy) {
         ogs_list_t *result = NULL;
@@ -301,7 +301,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_dy
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_service_data_flow_descriptions(data_collection_model_dynamic_policy_t *obj_dynamic_policy, const ogs_list_t* p_service_data_flow_descriptions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_service_data_flow_descriptions(data_collection_model_dynamic_policy_t *obj_dynamic_policy, const ogs_list_t* p_service_data_flow_descriptions)
 {
     if (!obj_dynamic_policy) return NULL;
 
@@ -325,7 +325,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return obj_dynamic_policy;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_service_data_flow_descriptions_move(data_collection_model_dynamic_policy_t *obj_dynamic_policy, ogs_list_t* p_service_data_flow_descriptions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_service_data_flow_descriptions_move(data_collection_model_dynamic_policy_t *obj_dynamic_policy, ogs_list_t* p_service_data_flow_descriptions)
 {
     if (!obj_dynamic_policy) return NULL;
 
@@ -350,7 +350,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return obj_dynamic_policy;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_add_service_data_flow_descriptions(data_collection_model_dynamic_policy_t *obj_dynamic_policy, data_collection_model_application_flow_description_t* p_service_data_flow_descriptions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_add_service_data_flow_descriptions(data_collection_model_dynamic_policy_t *obj_dynamic_policy, data_collection_model_application_flow_description_t* p_service_data_flow_descriptions)
 {
     if (!obj_dynamic_policy) return NULL;
 
@@ -367,7 +367,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return obj_dynamic_policy;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_remove_service_data_flow_descriptions(data_collection_model_dynamic_policy_t *obj_dynamic_policy, const data_collection_model_application_flow_description_t* p_service_data_flow_descriptions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_remove_service_data_flow_descriptions(data_collection_model_dynamic_policy_t *obj_dynamic_policy, const data_collection_model_application_flow_description_t* p_service_data_flow_descriptions)
 {
     if (!obj_dynamic_policy) return NULL;
 
@@ -382,7 +382,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return obj_dynamic_policy;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_clear_service_data_flow_descriptions(data_collection_model_dynamic_policy_t *obj_dynamic_policy)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_clear_service_data_flow_descriptions(data_collection_model_dynamic_policy_t *obj_dynamic_policy)
 {
     if (!obj_dynamic_policy) return NULL;
 
@@ -393,7 +393,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return obj_dynamic_policy;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_media_type_t* data_collection_model_dynamic_policy_get_media_type(const data_collection_model_dynamic_policy_t *obj_dynamic_policy)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_media_type_t* data_collection_model_dynamic_policy_get_media_type(const data_collection_model_dynamic_policy_t *obj_dynamic_policy)
 {
     if (!obj_dynamic_policy) {
         const data_collection_model_media_type_t *result = NULL;
@@ -412,7 +412,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_media_ty
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_media_type(data_collection_model_dynamic_policy_t *obj_dynamic_policy, const data_collection_model_media_type_t* p_media_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_media_type(data_collection_model_dynamic_policy_t *obj_dynamic_policy, const data_collection_model_media_type_t* p_media_type)
 {
     if (!obj_dynamic_policy) return NULL;
 
@@ -428,7 +428,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return obj_dynamic_policy;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_media_type_move(data_collection_model_dynamic_policy_t *obj_dynamic_policy, data_collection_model_media_type_t* p_media_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_media_type_move(data_collection_model_dynamic_policy_t *obj_dynamic_policy, data_collection_model_media_type_t* p_media_type)
 {
     if (!obj_dynamic_policy) return NULL;
 
@@ -445,7 +445,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return obj_dynamic_policy;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_dynamic_policy_get_provisioning_session_id(const data_collection_model_dynamic_policy_t *obj_dynamic_policy)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_dynamic_policy_get_provisioning_session_id(const data_collection_model_dynamic_policy_t *obj_dynamic_policy)
 {
     if (!obj_dynamic_policy) {
         const char *result = NULL;
@@ -464,7 +464,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_dy
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_provisioning_session_id(data_collection_model_dynamic_policy_t *obj_dynamic_policy, const char* p_provisioning_session_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_provisioning_session_id(data_collection_model_dynamic_policy_t *obj_dynamic_policy, const char* p_provisioning_session_id)
 {
     if (!obj_dynamic_policy) return NULL;
 
@@ -480,7 +480,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return obj_dynamic_policy;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_provisioning_session_id_move(data_collection_model_dynamic_policy_t *obj_dynamic_policy, char* p_provisioning_session_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_provisioning_session_id_move(data_collection_model_dynamic_policy_t *obj_dynamic_policy, char* p_provisioning_session_id)
 {
     if (!obj_dynamic_policy) return NULL;
 
@@ -497,7 +497,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return obj_dynamic_policy;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_m5_qo_s_specification_t* data_collection_model_dynamic_policy_get_qos_specification(const data_collection_model_dynamic_policy_t *obj_dynamic_policy)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_m5_qo_s_specification_t* data_collection_model_dynamic_policy_get_qos_specification(const data_collection_model_dynamic_policy_t *obj_dynamic_policy)
 {
     if (!obj_dynamic_policy) {
         const data_collection_model_m5_qo_s_specification_t *result = NULL;
@@ -516,7 +516,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_m5_qo_s_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_qos_specification(data_collection_model_dynamic_policy_t *obj_dynamic_policy, const data_collection_model_m5_qo_s_specification_t* p_qos_specification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_qos_specification(data_collection_model_dynamic_policy_t *obj_dynamic_policy, const data_collection_model_m5_qo_s_specification_t* p_qos_specification)
 {
     if (!obj_dynamic_policy) return NULL;
 
@@ -532,7 +532,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return obj_dynamic_policy;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_qos_specification_move(data_collection_model_dynamic_policy_t *obj_dynamic_policy, data_collection_model_m5_qo_s_specification_t* p_qos_specification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_qos_specification_move(data_collection_model_dynamic_policy_t *obj_dynamic_policy, data_collection_model_m5_qo_s_specification_t* p_qos_specification)
 {
     if (!obj_dynamic_policy) return NULL;
 
@@ -549,7 +549,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return obj_dynamic_policy;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_dynamic_policy_get_enforcement_method(const data_collection_model_dynamic_policy_t *obj_dynamic_policy)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_dynamic_policy_get_enforcement_method(const data_collection_model_dynamic_policy_t *obj_dynamic_policy)
 {
     if (!obj_dynamic_policy) {
         const char *result = NULL;
@@ -568,7 +568,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_dy
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_enforcement_method(data_collection_model_dynamic_policy_t *obj_dynamic_policy, const char* p_enforcement_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_enforcement_method(data_collection_model_dynamic_policy_t *obj_dynamic_policy, const char* p_enforcement_method)
 {
     if (!obj_dynamic_policy) return NULL;
 
@@ -584,7 +584,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return obj_dynamic_policy;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_enforcement_method_move(data_collection_model_dynamic_policy_t *obj_dynamic_policy, char* p_enforcement_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_enforcement_method_move(data_collection_model_dynamic_policy_t *obj_dynamic_policy, char* p_enforcement_method)
 {
     if (!obj_dynamic_policy) return NULL;
 
@@ -601,7 +601,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return obj_dynamic_policy;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_dynamic_policy_get_enforcement_bit_rate(const data_collection_model_dynamic_policy_t *obj_dynamic_policy)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_dynamic_policy_get_enforcement_bit_rate(const data_collection_model_dynamic_policy_t *obj_dynamic_policy)
 {
     if (!obj_dynamic_policy) {
         const int32_t result = 0;
@@ -620,7 +620,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_enforcement_bit_rate(data_collection_model_dynamic_policy_t *obj_dynamic_policy, const int32_t p_enforcement_bit_rate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_enforcement_bit_rate(data_collection_model_dynamic_policy_t *obj_dynamic_policy, const int32_t p_enforcement_bit_rate)
 {
     if (!obj_dynamic_policy) return NULL;
 
@@ -636,7 +636,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return obj_dynamic_policy;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_enforcement_bit_rate_move(data_collection_model_dynamic_policy_t *obj_dynamic_policy, int32_t p_enforcement_bit_rate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_enforcement_bit_rate_move(data_collection_model_dynamic_policy_t *obj_dynamic_policy, int32_t p_enforcement_bit_rate)
 {
     if (!obj_dynamic_policy) return NULL;
 
@@ -654,7 +654,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_dynamic_policy_make_lnode(data_collection_model_dynamic_policy_t *p_dynamic_policy)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_dynamic_policy_make_lnode(data_collection_model_dynamic_policy_t *p_dynamic_policy)
 {
     return data_collection_lnode_create(p_dynamic_policy, reinterpret_cast<void(*)(void*)>(data_collection_model_dynamic_policy_free));
 }

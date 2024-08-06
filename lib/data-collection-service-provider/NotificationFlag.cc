@@ -22,12 +22,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_flag_t *data_collection_model_notification_flag_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_flag_t *data_collection_model_notification_flag_create()
 {
     return reinterpret_cast<data_collection_model_notification_flag_t*>(new std::shared_ptr<NotificationFlag>(new NotificationFlag()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_flag_t *data_collection_model_notification_flag_create_copy(const data_collection_model_notification_flag_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_flag_t *data_collection_model_notification_flag_create_copy(const data_collection_model_notification_flag_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<NotificationFlag > &obj = *reinterpret_cast<const std::shared_ptr<NotificationFlag >*>(other);
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_f
     return reinterpret_cast<data_collection_model_notification_flag_t*>(new std::shared_ptr<NotificationFlag >(new NotificationFlag(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_flag_t *data_collection_model_notification_flag_create_move(data_collection_model_notification_flag_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_flag_t *data_collection_model_notification_flag_create_move(data_collection_model_notification_flag_t *other)
 {
     if (!other) return NULL;
 
@@ -48,7 +48,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_f
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_flag_t *data_collection_model_notification_flag_copy(data_collection_model_notification_flag_t *notification_flag, const data_collection_model_notification_flag_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_flag_t *data_collection_model_notification_flag_copy(data_collection_model_notification_flag_t *notification_flag, const data_collection_model_notification_flag_t *other)
 {
     if (notification_flag) {
         std::shared_ptr<NotificationFlag > &obj = *reinterpret_cast<std::shared_ptr<NotificationFlag >*>(notification_flag);
@@ -77,7 +77,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_f
     return notification_flag;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_flag_t *data_collection_model_notification_flag_move(data_collection_model_notification_flag_t *notification_flag, data_collection_model_notification_flag_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_flag_t *data_collection_model_notification_flag_move(data_collection_model_notification_flag_t *notification_flag, data_collection_model_notification_flag_t *other)
 {
     std::shared_ptr<NotificationFlag > *other_ptr = reinterpret_cast<std::shared_ptr<NotificationFlag >*>(other);
 
@@ -101,13 +101,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_f
     return notification_flag;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_notification_flag_free(data_collection_model_notification_flag_t *notification_flag)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_notification_flag_free(data_collection_model_notification_flag_t *notification_flag)
 {
     if (!notification_flag) return;
     delete reinterpret_cast<std::shared_ptr<NotificationFlag >*>(notification_flag);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_notification_flag_toJSON(const data_collection_model_notification_flag_t *notification_flag, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_notification_flag_toJSON(const data_collection_model_notification_flag_t *notification_flag, bool as_request)
 {
     if (!notification_flag) return NULL;
     const std::shared_ptr<NotificationFlag > &obj = *reinterpret_cast<const std::shared_ptr<NotificationFlag >*>(notification_flag);
@@ -116,7 +116,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_notific
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_flag_t *data_collection_model_notification_flag_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_flag_t *data_collection_model_notification_flag_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -129,7 +129,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_f
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_notification_flag_is_equal_to(const data_collection_model_notification_flag_t *first, const data_collection_model_notification_flag_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_flag_is_equal_to(const data_collection_model_notification_flag_t *first, const data_collection_model_notification_flag_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -154,7 +154,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_notificat
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_flag_is_not_set(const data_collection_model_notification_flag_t *obj_notification_flag)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_flag_is_not_set(const data_collection_model_notification_flag_t *obj_notification_flag)
 {
     if (!obj_notification_flag) return true;
     const std::shared_ptr<NotificationFlag > &obj = *reinterpret_cast<const std::shared_ptr<NotificationFlag >*>(obj_notification_flag);
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_flag_is
     return obj->getValue() == NotificationFlag::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_flag_is_non_standard(const data_collection_model_notification_flag_t *obj_notification_flag)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_flag_is_non_standard(const data_collection_model_notification_flag_t *obj_notification_flag)
 {
     if (!obj_notification_flag) return false;
     const std::shared_ptr<NotificationFlag > &obj = *reinterpret_cast<const std::shared_ptr<NotificationFlag >*>(obj_notification_flag);
@@ -170,7 +170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_flag_is
     return obj->getValue() == NotificationFlag::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_flag_e data_collection_model_notification_flag_get_enum(const data_collection_model_notification_flag_t *obj_notification_flag)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_flag_e data_collection_model_notification_flag_get_enum(const data_collection_model_notification_flag_t *obj_notification_flag)
 {
     if (!obj_notification_flag)
         return DCM_NOTIFICATION_FLAG_NO_VAL;
@@ -191,7 +191,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_flag_e data_
     return DCM_NOTIFICATION_FLAG_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_notification_flag_get_string(const data_collection_model_notification_flag_t *obj_notification_flag)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_notification_flag_get_string(const data_collection_model_notification_flag_t *obj_notification_flag)
 {
     if (!obj_notification_flag) return NULL;
     const std::shared_ptr<NotificationFlag > &obj = *reinterpret_cast<const std::shared_ptr<NotificationFlag >*>(obj_notification_flag);
@@ -199,7 +199,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_notification_
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_flag_set_enum(data_collection_model_notification_flag_t *obj_notification_flag, data_collection_model_notification_flag_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_flag_set_enum(data_collection_model_notification_flag_t *obj_notification_flag, data_collection_model_notification_flag_e p_value)
 {
     if (!obj_notification_flag) return false;
     std::shared_ptr<NotificationFlag > &obj = *reinterpret_cast<std::shared_ptr<NotificationFlag >*>(obj_notification_flag);
@@ -223,7 +223,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_flag_se
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_flag_set_string(data_collection_model_notification_flag_t *obj_notification_flag, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_flag_set_string(data_collection_model_notification_flag_t *obj_notification_flag, const char *p_value)
 {
     if (!obj_notification_flag) return false;
     std::shared_ptr<NotificationFlag > &obj = *reinterpret_cast<std::shared_ptr<NotificationFlag >*>(obj_notification_flag);
@@ -238,7 +238,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_flag_se
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_notification_flag_make_lnode(data_collection_model_notification_flag_t *p_notification_flag)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_notification_flag_make_lnode(data_collection_model_notification_flag_t *p_notification_flag)
 {
     return data_collection_lnode_create(p_notification_flag, reinterpret_cast<void(*)(void*)>(data_collection_model_notification_flag_free));
 }

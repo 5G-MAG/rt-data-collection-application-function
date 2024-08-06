@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_create(
 
 )
 {
@@ -31,7 +31,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_prot
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_create_copy(const data_collection_model_integrity_protection_level_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_create_copy(const data_collection_model_integrity_protection_level_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<IntegrityProtectionLevel > &obj = *reinterpret_cast<const std::shared_ptr<IntegrityProtectionLevel >*>(other);
@@ -39,7 +39,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_prot
     return reinterpret_cast<data_collection_model_integrity_protection_level_t*>(new std::shared_ptr<IntegrityProtectionLevel >(new IntegrityProtectionLevel(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_create_move(data_collection_model_integrity_protection_level_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_create_move(data_collection_model_integrity_protection_level_t *other)
 {
     if (!other) return NULL;
 
@@ -52,7 +52,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_prot
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_copy(data_collection_model_integrity_protection_level_t *integrity_protection_level, const data_collection_model_integrity_protection_level_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_copy(data_collection_model_integrity_protection_level_t *integrity_protection_level, const data_collection_model_integrity_protection_level_t *other)
 {
     if (integrity_protection_level) {
         std::shared_ptr<IntegrityProtectionLevel > &obj = *reinterpret_cast<std::shared_ptr<IntegrityProtectionLevel >*>(integrity_protection_level);
@@ -81,7 +81,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_prot
     return integrity_protection_level;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_move(data_collection_model_integrity_protection_level_t *integrity_protection_level, data_collection_model_integrity_protection_level_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_move(data_collection_model_integrity_protection_level_t *integrity_protection_level, data_collection_model_integrity_protection_level_t *other)
 {
     std::shared_ptr<IntegrityProtectionLevel > *other_ptr = reinterpret_cast<std::shared_ptr<IntegrityProtectionLevel >*>(other);
 
@@ -105,13 +105,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_prot
     return integrity_protection_level;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_integrity_protection_level_free(data_collection_model_integrity_protection_level_t *integrity_protection_level)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_integrity_protection_level_free(data_collection_model_integrity_protection_level_t *integrity_protection_level)
 {
     if (!integrity_protection_level) return;
     delete reinterpret_cast<std::shared_ptr<IntegrityProtectionLevel >*>(integrity_protection_level);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_integrity_protection_level_toJSON(const data_collection_model_integrity_protection_level_t *integrity_protection_level, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_integrity_protection_level_toJSON(const data_collection_model_integrity_protection_level_t *integrity_protection_level, bool as_request)
 {
     if (!integrity_protection_level) return NULL;
     const std::shared_ptr<IntegrityProtectionLevel > &obj = *reinterpret_cast<const std::shared_ptr<IntegrityProtectionLevel >*>(integrity_protection_level);
@@ -120,7 +120,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_integri
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -133,7 +133,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_prot
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_integrity_protection_level_is_equal_to(const data_collection_model_integrity_protection_level_t *first, const data_collection_model_integrity_protection_level_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_integrity_protection_level_is_equal_to(const data_collection_model_integrity_protection_level_t *first, const data_collection_model_integrity_protection_level_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -158,7 +158,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_integrity
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_integrity_protection_level_get_horizontal_protection_level(const data_collection_model_integrity_protection_level_t *obj_integrity_protection_level)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_integrity_protection_level_get_horizontal_protection_level(const data_collection_model_integrity_protection_level_t *obj_integrity_protection_level)
 {
     if (!obj_integrity_protection_level) {
         const int32_t result = 0;
@@ -177,7 +177,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_set_horizontal_protection_level(data_collection_model_integrity_protection_level_t *obj_integrity_protection_level, const int32_t p_horizontal_protection_level)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_set_horizontal_protection_level(data_collection_model_integrity_protection_level_t *obj_integrity_protection_level, const int32_t p_horizontal_protection_level)
 {
     if (!obj_integrity_protection_level) return NULL;
 
@@ -193,7 +193,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_prot
     return obj_integrity_protection_level;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_set_horizontal_protection_level_move(data_collection_model_integrity_protection_level_t *obj_integrity_protection_level, int32_t p_horizontal_protection_level)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_set_horizontal_protection_level_move(data_collection_model_integrity_protection_level_t *obj_integrity_protection_level, int32_t p_horizontal_protection_level)
 {
     if (!obj_integrity_protection_level) return NULL;
 
@@ -210,7 +210,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_prot
     return obj_integrity_protection_level;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_integrity_protection_level_get_vertical_protection_level(const data_collection_model_integrity_protection_level_t *obj_integrity_protection_level)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_integrity_protection_level_get_vertical_protection_level(const data_collection_model_integrity_protection_level_t *obj_integrity_protection_level)
 {
     if (!obj_integrity_protection_level) {
         const int32_t result = 0;
@@ -229,7 +229,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_set_vertical_protection_level(data_collection_model_integrity_protection_level_t *obj_integrity_protection_level, const int32_t p_vertical_protection_level)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_set_vertical_protection_level(data_collection_model_integrity_protection_level_t *obj_integrity_protection_level, const int32_t p_vertical_protection_level)
 {
     if (!obj_integrity_protection_level) return NULL;
 
@@ -245,7 +245,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_prot
     return obj_integrity_protection_level;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_set_vertical_protection_level_move(data_collection_model_integrity_protection_level_t *obj_integrity_protection_level, int32_t p_vertical_protection_level)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_set_vertical_protection_level_move(data_collection_model_integrity_protection_level_t *obj_integrity_protection_level, int32_t p_vertical_protection_level)
 {
     if (!obj_integrity_protection_level) return NULL;
 
@@ -263,7 +263,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_prot
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_integrity_protection_level_make_lnode(data_collection_model_integrity_protection_level_t *p_integrity_protection_level)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_integrity_protection_level_make_lnode(data_collection_model_integrity_protection_level_t *p_integrity_protection_level)
 {
     return data_collection_lnode_create(p_integrity_protection_level, reinterpret_cast<void(*)(void*)>(data_collection_model_integrity_protection_level_free));
 }

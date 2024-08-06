@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_create(
 
 
 )
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_create_copy(const data_collection_model_uncertainty_ellipse_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_create_copy(const data_collection_model_uncertainty_ellipse_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<UncertaintyEllipse > &obj = *reinterpret_cast<const std::shared_ptr<UncertaintyEllipse >*>(other);
@@ -43,7 +43,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
     return reinterpret_cast<data_collection_model_uncertainty_ellipse_t*>(new std::shared_ptr<UncertaintyEllipse >(new UncertaintyEllipse(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_create_move(data_collection_model_uncertainty_ellipse_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_create_move(data_collection_model_uncertainty_ellipse_t *other)
 {
     if (!other) return NULL;
 
@@ -56,7 +56,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_copy(data_collection_model_uncertainty_ellipse_t *uncertainty_ellipse, const data_collection_model_uncertainty_ellipse_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_copy(data_collection_model_uncertainty_ellipse_t *uncertainty_ellipse, const data_collection_model_uncertainty_ellipse_t *other)
 {
     if (uncertainty_ellipse) {
         std::shared_ptr<UncertaintyEllipse > &obj = *reinterpret_cast<std::shared_ptr<UncertaintyEllipse >*>(uncertainty_ellipse);
@@ -85,7 +85,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
     return uncertainty_ellipse;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_move(data_collection_model_uncertainty_ellipse_t *uncertainty_ellipse, data_collection_model_uncertainty_ellipse_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_move(data_collection_model_uncertainty_ellipse_t *uncertainty_ellipse, data_collection_model_uncertainty_ellipse_t *other)
 {
     std::shared_ptr<UncertaintyEllipse > *other_ptr = reinterpret_cast<std::shared_ptr<UncertaintyEllipse >*>(other);
 
@@ -109,13 +109,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
     return uncertainty_ellipse;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_uncertainty_ellipse_free(data_collection_model_uncertainty_ellipse_t *uncertainty_ellipse)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_uncertainty_ellipse_free(data_collection_model_uncertainty_ellipse_t *uncertainty_ellipse)
 {
     if (!uncertainty_ellipse) return;
     delete reinterpret_cast<std::shared_ptr<UncertaintyEllipse >*>(uncertainty_ellipse);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_uncertainty_ellipse_toJSON(const data_collection_model_uncertainty_ellipse_t *uncertainty_ellipse, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_uncertainty_ellipse_toJSON(const data_collection_model_uncertainty_ellipse_t *uncertainty_ellipse, bool as_request)
 {
     if (!uncertainty_ellipse) return NULL;
     const std::shared_ptr<UncertaintyEllipse > &obj = *reinterpret_cast<const std::shared_ptr<UncertaintyEllipse >*>(uncertainty_ellipse);
@@ -124,7 +124,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_uncerta
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -137,7 +137,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_uncertainty_ellipse_is_equal_to(const data_collection_model_uncertainty_ellipse_t *first, const data_collection_model_uncertainty_ellipse_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_uncertainty_ellipse_is_equal_to(const data_collection_model_uncertainty_ellipse_t *first, const data_collection_model_uncertainty_ellipse_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_uncertain
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_uncertainty_ellipse_get_semi_major(const data_collection_model_uncertainty_ellipse_t *obj_uncertainty_ellipse)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_uncertainty_ellipse_get_semi_major(const data_collection_model_uncertainty_ellipse_t *obj_uncertainty_ellipse)
 {
     if (!obj_uncertainty_ellipse) {
         const float result = 0;
@@ -181,7 +181,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_un
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_set_semi_major(data_collection_model_uncertainty_ellipse_t *obj_uncertainty_ellipse, const float p_semi_major)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_set_semi_major(data_collection_model_uncertainty_ellipse_t *obj_uncertainty_ellipse, const float p_semi_major)
 {
     if (!obj_uncertainty_ellipse) return NULL;
 
@@ -197,7 +197,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
     return obj_uncertainty_ellipse;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_set_semi_major_move(data_collection_model_uncertainty_ellipse_t *obj_uncertainty_ellipse, float p_semi_major)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_set_semi_major_move(data_collection_model_uncertainty_ellipse_t *obj_uncertainty_ellipse, float p_semi_major)
 {
     if (!obj_uncertainty_ellipse) return NULL;
 
@@ -214,7 +214,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
     return obj_uncertainty_ellipse;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_uncertainty_ellipse_get_semi_minor(const data_collection_model_uncertainty_ellipse_t *obj_uncertainty_ellipse)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_uncertainty_ellipse_get_semi_minor(const data_collection_model_uncertainty_ellipse_t *obj_uncertainty_ellipse)
 {
     if (!obj_uncertainty_ellipse) {
         const float result = 0;
@@ -233,7 +233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_un
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_set_semi_minor(data_collection_model_uncertainty_ellipse_t *obj_uncertainty_ellipse, const float p_semi_minor)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_set_semi_minor(data_collection_model_uncertainty_ellipse_t *obj_uncertainty_ellipse, const float p_semi_minor)
 {
     if (!obj_uncertainty_ellipse) return NULL;
 
@@ -249,7 +249,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
     return obj_uncertainty_ellipse;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_set_semi_minor_move(data_collection_model_uncertainty_ellipse_t *obj_uncertainty_ellipse, float p_semi_minor)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_set_semi_minor_move(data_collection_model_uncertainty_ellipse_t *obj_uncertainty_ellipse, float p_semi_minor)
 {
     if (!obj_uncertainty_ellipse) return NULL;
 
@@ -266,7 +266,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
     return obj_uncertainty_ellipse;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_uncertainty_ellipse_get_orientation_major(const data_collection_model_uncertainty_ellipse_t *obj_uncertainty_ellipse)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_uncertainty_ellipse_get_orientation_major(const data_collection_model_uncertainty_ellipse_t *obj_uncertainty_ellipse)
 {
     if (!obj_uncertainty_ellipse) {
         const int32_t result = 0;
@@ -285,7 +285,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_set_orientation_major(data_collection_model_uncertainty_ellipse_t *obj_uncertainty_ellipse, const int32_t p_orientation_major)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_set_orientation_major(data_collection_model_uncertainty_ellipse_t *obj_uncertainty_ellipse, const int32_t p_orientation_major)
 {
     if (!obj_uncertainty_ellipse) return NULL;
 
@@ -301,7 +301,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
     return obj_uncertainty_ellipse;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_set_orientation_major_move(data_collection_model_uncertainty_ellipse_t *obj_uncertainty_ellipse, int32_t p_orientation_major)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_set_orientation_major_move(data_collection_model_uncertainty_ellipse_t *obj_uncertainty_ellipse, int32_t p_orientation_major)
 {
     if (!obj_uncertainty_ellipse) return NULL;
 
@@ -319,7 +319,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_uncertainty_ellipse_make_lnode(data_collection_model_uncertainty_ellipse_t *p_uncertainty_ellipse)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_uncertainty_ellipse_make_lnode(data_collection_model_uncertainty_ellipse_t *p_uncertainty_ellipse)
 {
     return data_collection_lnode_create(p_uncertainty_ellipse, reinterpret_cast<void(*)(void*)>(data_collection_model_uncertainty_ellipse_free));
 }

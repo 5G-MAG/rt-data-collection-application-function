@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_create(
 
 
 
@@ -37,7 +37,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_create_copy(const data_collection_model_network_area_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_create_copy(const data_collection_model_network_area_info_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<NetworkAreaInfo > &obj = *reinterpret_cast<const std::shared_ptr<NetworkAreaInfo >*>(other);
@@ -45,7 +45,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return reinterpret_cast<data_collection_model_network_area_info_t*>(new std::shared_ptr<NetworkAreaInfo >(new NetworkAreaInfo(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_create_move(data_collection_model_network_area_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_create_move(data_collection_model_network_area_info_t *other)
 {
     if (!other) return NULL;
 
@@ -58,7 +58,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_copy(data_collection_model_network_area_info_t *network_area_info, const data_collection_model_network_area_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_copy(data_collection_model_network_area_info_t *network_area_info, const data_collection_model_network_area_info_t *other)
 {
     if (network_area_info) {
         std::shared_ptr<NetworkAreaInfo > &obj = *reinterpret_cast<std::shared_ptr<NetworkAreaInfo >*>(network_area_info);
@@ -87,7 +87,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return network_area_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_move(data_collection_model_network_area_info_t *network_area_info, data_collection_model_network_area_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_move(data_collection_model_network_area_info_t *network_area_info, data_collection_model_network_area_info_t *other)
 {
     std::shared_ptr<NetworkAreaInfo > *other_ptr = reinterpret_cast<std::shared_ptr<NetworkAreaInfo >*>(other);
 
@@ -111,13 +111,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return network_area_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_network_area_info_free(data_collection_model_network_area_info_t *network_area_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_network_area_info_free(data_collection_model_network_area_info_t *network_area_info)
 {
     if (!network_area_info) return;
     delete reinterpret_cast<std::shared_ptr<NetworkAreaInfo >*>(network_area_info);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_network_area_info_toJSON(const data_collection_model_network_area_info_t *network_area_info, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_network_area_info_toJSON(const data_collection_model_network_area_info_t *network_area_info, bool as_request)
 {
     if (!network_area_info) return NULL;
     const std::shared_ptr<NetworkAreaInfo > &obj = *reinterpret_cast<const std::shared_ptr<NetworkAreaInfo >*>(network_area_info);
@@ -126,7 +126,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_network
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -139,7 +139,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_network_area_info_is_equal_to(const data_collection_model_network_area_info_t *first, const data_collection_model_network_area_info_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_area_info_is_equal_to(const data_collection_model_network_area_info_t *first, const data_collection_model_network_area_info_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -164,7 +164,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_network_a
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_network_area_info_get_ecgis(const data_collection_model_network_area_info_t *obj_network_area_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_network_area_info_get_ecgis(const data_collection_model_network_area_info_t *obj_network_area_info)
 {
     if (!obj_network_area_info) {
         ogs_list_t *result = NULL;
@@ -191,7 +191,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ne
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_set_ecgis(data_collection_model_network_area_info_t *obj_network_area_info, const ogs_list_t* p_ecgis)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_set_ecgis(data_collection_model_network_area_info_t *obj_network_area_info, const ogs_list_t* p_ecgis)
 {
     if (!obj_network_area_info) return NULL;
 
@@ -215,7 +215,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return obj_network_area_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_set_ecgis_move(data_collection_model_network_area_info_t *obj_network_area_info, ogs_list_t* p_ecgis)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_set_ecgis_move(data_collection_model_network_area_info_t *obj_network_area_info, ogs_list_t* p_ecgis)
 {
     if (!obj_network_area_info) return NULL;
 
@@ -240,7 +240,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return obj_network_area_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_add_ecgis(data_collection_model_network_area_info_t *obj_network_area_info, data_collection_model_ecgi_t* p_ecgis)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_add_ecgis(data_collection_model_network_area_info_t *obj_network_area_info, data_collection_model_ecgi_t* p_ecgis)
 {
     if (!obj_network_area_info) return NULL;
 
@@ -257,7 +257,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return obj_network_area_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_remove_ecgis(data_collection_model_network_area_info_t *obj_network_area_info, const data_collection_model_ecgi_t* p_ecgis)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_remove_ecgis(data_collection_model_network_area_info_t *obj_network_area_info, const data_collection_model_ecgi_t* p_ecgis)
 {
     if (!obj_network_area_info) return NULL;
 
@@ -272,7 +272,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return obj_network_area_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_clear_ecgis(data_collection_model_network_area_info_t *obj_network_area_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_clear_ecgis(data_collection_model_network_area_info_t *obj_network_area_info)
 {
     if (!obj_network_area_info) return NULL;
 
@@ -283,7 +283,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return obj_network_area_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_network_area_info_get_ncgis(const data_collection_model_network_area_info_t *obj_network_area_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_network_area_info_get_ncgis(const data_collection_model_network_area_info_t *obj_network_area_info)
 {
     if (!obj_network_area_info) {
         ogs_list_t *result = NULL;
@@ -310,7 +310,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ne
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_set_ncgis(data_collection_model_network_area_info_t *obj_network_area_info, const ogs_list_t* p_ncgis)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_set_ncgis(data_collection_model_network_area_info_t *obj_network_area_info, const ogs_list_t* p_ncgis)
 {
     if (!obj_network_area_info) return NULL;
 
@@ -334,7 +334,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return obj_network_area_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_set_ncgis_move(data_collection_model_network_area_info_t *obj_network_area_info, ogs_list_t* p_ncgis)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_set_ncgis_move(data_collection_model_network_area_info_t *obj_network_area_info, ogs_list_t* p_ncgis)
 {
     if (!obj_network_area_info) return NULL;
 
@@ -359,7 +359,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return obj_network_area_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_add_ncgis(data_collection_model_network_area_info_t *obj_network_area_info, data_collection_model_ncgi_t* p_ncgis)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_add_ncgis(data_collection_model_network_area_info_t *obj_network_area_info, data_collection_model_ncgi_t* p_ncgis)
 {
     if (!obj_network_area_info) return NULL;
 
@@ -376,7 +376,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return obj_network_area_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_remove_ncgis(data_collection_model_network_area_info_t *obj_network_area_info, const data_collection_model_ncgi_t* p_ncgis)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_remove_ncgis(data_collection_model_network_area_info_t *obj_network_area_info, const data_collection_model_ncgi_t* p_ncgis)
 {
     if (!obj_network_area_info) return NULL;
 
@@ -391,7 +391,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return obj_network_area_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_clear_ncgis(data_collection_model_network_area_info_t *obj_network_area_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_clear_ncgis(data_collection_model_network_area_info_t *obj_network_area_info)
 {
     if (!obj_network_area_info) return NULL;
 
@@ -402,7 +402,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return obj_network_area_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_network_area_info_get_g_ran_node_ids(const data_collection_model_network_area_info_t *obj_network_area_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_network_area_info_get_g_ran_node_ids(const data_collection_model_network_area_info_t *obj_network_area_info)
 {
     if (!obj_network_area_info) {
         ogs_list_t *result = NULL;
@@ -429,7 +429,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ne
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_set_g_ran_node_ids(data_collection_model_network_area_info_t *obj_network_area_info, const ogs_list_t* p_g_ran_node_ids)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_set_g_ran_node_ids(data_collection_model_network_area_info_t *obj_network_area_info, const ogs_list_t* p_g_ran_node_ids)
 {
     if (!obj_network_area_info) return NULL;
 
@@ -453,7 +453,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return obj_network_area_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_set_g_ran_node_ids_move(data_collection_model_network_area_info_t *obj_network_area_info, ogs_list_t* p_g_ran_node_ids)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_set_g_ran_node_ids_move(data_collection_model_network_area_info_t *obj_network_area_info, ogs_list_t* p_g_ran_node_ids)
 {
     if (!obj_network_area_info) return NULL;
 
@@ -478,7 +478,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return obj_network_area_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_add_g_ran_node_ids(data_collection_model_network_area_info_t *obj_network_area_info, data_collection_model_global_ran_node_id_t* p_g_ran_node_ids)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_add_g_ran_node_ids(data_collection_model_network_area_info_t *obj_network_area_info, data_collection_model_global_ran_node_id_t* p_g_ran_node_ids)
 {
     if (!obj_network_area_info) return NULL;
 
@@ -495,7 +495,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return obj_network_area_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_remove_g_ran_node_ids(data_collection_model_network_area_info_t *obj_network_area_info, const data_collection_model_global_ran_node_id_t* p_g_ran_node_ids)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_remove_g_ran_node_ids(data_collection_model_network_area_info_t *obj_network_area_info, const data_collection_model_global_ran_node_id_t* p_g_ran_node_ids)
 {
     if (!obj_network_area_info) return NULL;
 
@@ -510,7 +510,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return obj_network_area_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_clear_g_ran_node_ids(data_collection_model_network_area_info_t *obj_network_area_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_clear_g_ran_node_ids(data_collection_model_network_area_info_t *obj_network_area_info)
 {
     if (!obj_network_area_info) return NULL;
 
@@ -521,7 +521,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return obj_network_area_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_network_area_info_get_tais(const data_collection_model_network_area_info_t *obj_network_area_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_network_area_info_get_tais(const data_collection_model_network_area_info_t *obj_network_area_info)
 {
     if (!obj_network_area_info) {
         ogs_list_t *result = NULL;
@@ -548,7 +548,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ne
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_set_tais(data_collection_model_network_area_info_t *obj_network_area_info, const ogs_list_t* p_tais)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_set_tais(data_collection_model_network_area_info_t *obj_network_area_info, const ogs_list_t* p_tais)
 {
     if (!obj_network_area_info) return NULL;
 
@@ -572,7 +572,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return obj_network_area_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_set_tais_move(data_collection_model_network_area_info_t *obj_network_area_info, ogs_list_t* p_tais)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_set_tais_move(data_collection_model_network_area_info_t *obj_network_area_info, ogs_list_t* p_tais)
 {
     if (!obj_network_area_info) return NULL;
 
@@ -597,7 +597,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return obj_network_area_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_add_tais(data_collection_model_network_area_info_t *obj_network_area_info, data_collection_model_tai_t* p_tais)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_add_tais(data_collection_model_network_area_info_t *obj_network_area_info, data_collection_model_tai_t* p_tais)
 {
     if (!obj_network_area_info) return NULL;
 
@@ -614,7 +614,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return obj_network_area_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_remove_tais(data_collection_model_network_area_info_t *obj_network_area_info, const data_collection_model_tai_t* p_tais)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_remove_tais(data_collection_model_network_area_info_t *obj_network_area_info, const data_collection_model_tai_t* p_tais)
 {
     if (!obj_network_area_info) return NULL;
 
@@ -629,7 +629,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
     return obj_network_area_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_info_t *data_collection_model_network_area_info_clear_tais(data_collection_model_network_area_info_t *obj_network_area_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_clear_tais(data_collection_model_network_area_info_t *obj_network_area_info)
 {
     if (!obj_network_area_info) return NULL;
 
@@ -641,7 +641,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_area_i
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_network_area_info_make_lnode(data_collection_model_network_area_info_t *p_network_area_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_network_area_info_make_lnode(data_collection_model_network_area_info_t *p_network_area_info)
 {
     return data_collection_lnode_create(p_network_area_info, reinterpret_cast<void(*)(void*)>(data_collection_model_network_area_info_free));
 }

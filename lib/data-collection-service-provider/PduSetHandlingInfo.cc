@@ -22,12 +22,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_handling_info_t *data_collection_model_pdu_set_handling_info_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_handling_info_t *data_collection_model_pdu_set_handling_info_create()
 {
     return reinterpret_cast<data_collection_model_pdu_set_handling_info_t*>(new std::shared_ptr<PduSetHandlingInfo>(new PduSetHandlingInfo()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_handling_info_t *data_collection_model_pdu_set_handling_info_create_copy(const data_collection_model_pdu_set_handling_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_handling_info_t *data_collection_model_pdu_set_handling_info_create_copy(const data_collection_model_pdu_set_handling_info_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<PduSetHandlingInfo > &obj = *reinterpret_cast<const std::shared_ptr<PduSetHandlingInfo >*>(other);
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_handli
     return reinterpret_cast<data_collection_model_pdu_set_handling_info_t*>(new std::shared_ptr<PduSetHandlingInfo >(new PduSetHandlingInfo(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_handling_info_t *data_collection_model_pdu_set_handling_info_create_move(data_collection_model_pdu_set_handling_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_handling_info_t *data_collection_model_pdu_set_handling_info_create_move(data_collection_model_pdu_set_handling_info_t *other)
 {
     if (!other) return NULL;
 
@@ -48,7 +48,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_handli
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_handling_info_t *data_collection_model_pdu_set_handling_info_copy(data_collection_model_pdu_set_handling_info_t *pdu_set_handling_info, const data_collection_model_pdu_set_handling_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_handling_info_t *data_collection_model_pdu_set_handling_info_copy(data_collection_model_pdu_set_handling_info_t *pdu_set_handling_info, const data_collection_model_pdu_set_handling_info_t *other)
 {
     if (pdu_set_handling_info) {
         std::shared_ptr<PduSetHandlingInfo > &obj = *reinterpret_cast<std::shared_ptr<PduSetHandlingInfo >*>(pdu_set_handling_info);
@@ -77,7 +77,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_handli
     return pdu_set_handling_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_handling_info_t *data_collection_model_pdu_set_handling_info_move(data_collection_model_pdu_set_handling_info_t *pdu_set_handling_info, data_collection_model_pdu_set_handling_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_handling_info_t *data_collection_model_pdu_set_handling_info_move(data_collection_model_pdu_set_handling_info_t *pdu_set_handling_info, data_collection_model_pdu_set_handling_info_t *other)
 {
     std::shared_ptr<PduSetHandlingInfo > *other_ptr = reinterpret_cast<std::shared_ptr<PduSetHandlingInfo >*>(other);
 
@@ -101,13 +101,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_handli
     return pdu_set_handling_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_pdu_set_handling_info_free(data_collection_model_pdu_set_handling_info_t *pdu_set_handling_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_pdu_set_handling_info_free(data_collection_model_pdu_set_handling_info_t *pdu_set_handling_info)
 {
     if (!pdu_set_handling_info) return;
     delete reinterpret_cast<std::shared_ptr<PduSetHandlingInfo >*>(pdu_set_handling_info);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_pdu_set_handling_info_toJSON(const data_collection_model_pdu_set_handling_info_t *pdu_set_handling_info, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_pdu_set_handling_info_toJSON(const data_collection_model_pdu_set_handling_info_t *pdu_set_handling_info, bool as_request)
 {
     if (!pdu_set_handling_info) return NULL;
     const std::shared_ptr<PduSetHandlingInfo > &obj = *reinterpret_cast<const std::shared_ptr<PduSetHandlingInfo >*>(pdu_set_handling_info);
@@ -116,7 +116,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_pdu_set
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_handling_info_t *data_collection_model_pdu_set_handling_info_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_handling_info_t *data_collection_model_pdu_set_handling_info_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -129,7 +129,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_handli
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_pdu_set_handling_info_is_equal_to(const data_collection_model_pdu_set_handling_info_t *first, const data_collection_model_pdu_set_handling_info_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_handling_info_is_equal_to(const data_collection_model_pdu_set_handling_info_t *first, const data_collection_model_pdu_set_handling_info_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -154,7 +154,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_pdu_set_h
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_handling_info_is_not_set(const data_collection_model_pdu_set_handling_info_t *obj_pdu_set_handling_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_handling_info_is_not_set(const data_collection_model_pdu_set_handling_info_t *obj_pdu_set_handling_info)
 {
     if (!obj_pdu_set_handling_info) return true;
     const std::shared_ptr<PduSetHandlingInfo > &obj = *reinterpret_cast<const std::shared_ptr<PduSetHandlingInfo >*>(obj_pdu_set_handling_info);
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_handling_inf
     return obj->getValue() == PduSetHandlingInfo::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_handling_info_is_non_standard(const data_collection_model_pdu_set_handling_info_t *obj_pdu_set_handling_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_handling_info_is_non_standard(const data_collection_model_pdu_set_handling_info_t *obj_pdu_set_handling_info)
 {
     if (!obj_pdu_set_handling_info) return false;
     const std::shared_ptr<PduSetHandlingInfo > &obj = *reinterpret_cast<const std::shared_ptr<PduSetHandlingInfo >*>(obj_pdu_set_handling_info);
@@ -170,7 +170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_handling_inf
     return obj->getValue() == PduSetHandlingInfo::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_handling_info_e data_collection_model_pdu_set_handling_info_get_enum(const data_collection_model_pdu_set_handling_info_t *obj_pdu_set_handling_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_handling_info_e data_collection_model_pdu_set_handling_info_get_enum(const data_collection_model_pdu_set_handling_info_t *obj_pdu_set_handling_info)
 {
     if (!obj_pdu_set_handling_info)
         return DCM_PDU_SET_HANDLING_INFO_NO_VAL;
@@ -189,7 +189,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_handling_info_e d
     return DCM_PDU_SET_HANDLING_INFO_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_pdu_set_handling_info_get_string(const data_collection_model_pdu_set_handling_info_t *obj_pdu_set_handling_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_pdu_set_handling_info_get_string(const data_collection_model_pdu_set_handling_info_t *obj_pdu_set_handling_info)
 {
     if (!obj_pdu_set_handling_info) return NULL;
     const std::shared_ptr<PduSetHandlingInfo > &obj = *reinterpret_cast<const std::shared_ptr<PduSetHandlingInfo >*>(obj_pdu_set_handling_info);
@@ -197,7 +197,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_pdu_set_handl
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_handling_info_set_enum(data_collection_model_pdu_set_handling_info_t *obj_pdu_set_handling_info, data_collection_model_pdu_set_handling_info_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_handling_info_set_enum(data_collection_model_pdu_set_handling_info_t *obj_pdu_set_handling_info, data_collection_model_pdu_set_handling_info_e p_value)
 {
     if (!obj_pdu_set_handling_info) return false;
     std::shared_ptr<PduSetHandlingInfo > &obj = *reinterpret_cast<std::shared_ptr<PduSetHandlingInfo >*>(obj_pdu_set_handling_info);
@@ -218,7 +218,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_handling_inf
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_handling_info_set_string(data_collection_model_pdu_set_handling_info_t *obj_pdu_set_handling_info, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_handling_info_set_string(data_collection_model_pdu_set_handling_info_t *obj_pdu_set_handling_info, const char *p_value)
 {
     if (!obj_pdu_set_handling_info) return false;
     std::shared_ptr<PduSetHandlingInfo > &obj = *reinterpret_cast<std::shared_ptr<PduSetHandlingInfo >*>(obj_pdu_set_handling_info);
@@ -233,7 +233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_handling_inf
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_pdu_set_handling_info_make_lnode(data_collection_model_pdu_set_handling_info_t *p_pdu_set_handling_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_pdu_set_handling_info_make_lnode(data_collection_model_pdu_set_handling_info_t *p_pdu_set_handling_info)
 {
     return data_collection_lnode_create(p_pdu_set_handling_info, reinterpret_cast<void(*)(void*)>(data_collection_model_pdu_set_handling_info_free));
 }

@@ -24,14 +24,14 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_create(
 )
 {
     return reinterpret_cast<data_collection_model_query_param_combination_t*>(new std::shared_ptr<QueryParamCombination>(new QueryParamCombination(
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_create_copy(const data_collection_model_query_param_combination_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_create_copy(const data_collection_model_query_param_combination_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<QueryParamCombination > &obj = *reinterpret_cast<const std::shared_ptr<QueryParamCombination >*>(other);
@@ -39,7 +39,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_param_co
     return reinterpret_cast<data_collection_model_query_param_combination_t*>(new std::shared_ptr<QueryParamCombination >(new QueryParamCombination(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_create_move(data_collection_model_query_param_combination_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_create_move(data_collection_model_query_param_combination_t *other)
 {
     if (!other) return NULL;
 
@@ -52,7 +52,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_param_co
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_copy(data_collection_model_query_param_combination_t *query_param_combination, const data_collection_model_query_param_combination_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_copy(data_collection_model_query_param_combination_t *query_param_combination, const data_collection_model_query_param_combination_t *other)
 {
     if (query_param_combination) {
         std::shared_ptr<QueryParamCombination > &obj = *reinterpret_cast<std::shared_ptr<QueryParamCombination >*>(query_param_combination);
@@ -81,7 +81,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_param_co
     return query_param_combination;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_move(data_collection_model_query_param_combination_t *query_param_combination, data_collection_model_query_param_combination_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_move(data_collection_model_query_param_combination_t *query_param_combination, data_collection_model_query_param_combination_t *other)
 {
     std::shared_ptr<QueryParamCombination > *other_ptr = reinterpret_cast<std::shared_ptr<QueryParamCombination >*>(other);
 
@@ -105,13 +105,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_param_co
     return query_param_combination;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_query_param_combination_free(data_collection_model_query_param_combination_t *query_param_combination)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_query_param_combination_free(data_collection_model_query_param_combination_t *query_param_combination)
 {
     if (!query_param_combination) return;
     delete reinterpret_cast<std::shared_ptr<QueryParamCombination >*>(query_param_combination);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_query_param_combination_toJSON(const data_collection_model_query_param_combination_t *query_param_combination, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_query_param_combination_toJSON(const data_collection_model_query_param_combination_t *query_param_combination, bool as_request)
 {
     if (!query_param_combination) return NULL;
     const std::shared_ptr<QueryParamCombination > &obj = *reinterpret_cast<const std::shared_ptr<QueryParamCombination >*>(query_param_combination);
@@ -120,7 +120,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_query_p
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -133,7 +133,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_param_co
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_query_param_combination_is_equal_to(const data_collection_model_query_param_combination_t *first, const data_collection_model_query_param_combination_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_query_param_combination_is_equal_to(const data_collection_model_query_param_combination_t *first, const data_collection_model_query_param_combination_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -158,7 +158,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_query_par
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_query_param_combination_get_query_params(const data_collection_model_query_param_combination_t *obj_query_param_combination)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_query_param_combination_get_query_params(const data_collection_model_query_param_combination_t *obj_query_param_combination)
 {
     if (!obj_query_param_combination) {
         ogs_list_t *result = NULL;
@@ -185,7 +185,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_qu
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_set_query_params(data_collection_model_query_param_combination_t *obj_query_param_combination, const ogs_list_t* p_query_params)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_set_query_params(data_collection_model_query_param_combination_t *obj_query_param_combination, const ogs_list_t* p_query_params)
 {
     if (!obj_query_param_combination) return NULL;
 
@@ -209,7 +209,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_param_co
     return obj_query_param_combination;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_set_query_params_move(data_collection_model_query_param_combination_t *obj_query_param_combination, ogs_list_t* p_query_params)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_set_query_params_move(data_collection_model_query_param_combination_t *obj_query_param_combination, ogs_list_t* p_query_params)
 {
     if (!obj_query_param_combination) return NULL;
 
@@ -234,7 +234,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_param_co
     return obj_query_param_combination;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_add_query_params(data_collection_model_query_param_combination_t *obj_query_param_combination, data_collection_model_query_parameter_t* p_query_params)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_add_query_params(data_collection_model_query_param_combination_t *obj_query_param_combination, data_collection_model_query_parameter_t* p_query_params)
 {
     if (!obj_query_param_combination) return NULL;
 
@@ -251,7 +251,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_param_co
     return obj_query_param_combination;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_remove_query_params(data_collection_model_query_param_combination_t *obj_query_param_combination, const data_collection_model_query_parameter_t* p_query_params)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_remove_query_params(data_collection_model_query_param_combination_t *obj_query_param_combination, const data_collection_model_query_parameter_t* p_query_params)
 {
     if (!obj_query_param_combination) return NULL;
 
@@ -266,7 +266,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_param_co
     return obj_query_param_combination;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_clear_query_params(data_collection_model_query_param_combination_t *obj_query_param_combination)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_clear_query_params(data_collection_model_query_param_combination_t *obj_query_param_combination)
 {
     if (!obj_query_param_combination) return NULL;
 
@@ -278,7 +278,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_query_param_co
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_query_param_combination_make_lnode(data_collection_model_query_param_combination_t *p_query_param_combination)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_query_param_combination_make_lnode(data_collection_model_query_param_combination_t *p_query_param_combination)
 {
     return data_collection_lnode_create(p_query_param_combination, reinterpret_cast<void(*)(void*)>(data_collection_model_query_param_combination_free));
 }

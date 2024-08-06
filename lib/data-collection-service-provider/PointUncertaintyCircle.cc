@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_create(
 
 
 )
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertai
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_create_copy(const data_collection_model_point_uncertainty_circle_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_create_copy(const data_collection_model_point_uncertainty_circle_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<PointUncertaintyCircle > &obj = *reinterpret_cast<const std::shared_ptr<PointUncertaintyCircle >*>(other);
@@ -43,7 +43,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertai
     return reinterpret_cast<data_collection_model_point_uncertainty_circle_t*>(new std::shared_ptr<PointUncertaintyCircle >(new PointUncertaintyCircle(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_create_move(data_collection_model_point_uncertainty_circle_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_create_move(data_collection_model_point_uncertainty_circle_t *other)
 {
     if (!other) return NULL;
 
@@ -56,7 +56,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertai
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_copy(data_collection_model_point_uncertainty_circle_t *point_uncertainty_circle, const data_collection_model_point_uncertainty_circle_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_copy(data_collection_model_point_uncertainty_circle_t *point_uncertainty_circle, const data_collection_model_point_uncertainty_circle_t *other)
 {
     if (point_uncertainty_circle) {
         std::shared_ptr<PointUncertaintyCircle > &obj = *reinterpret_cast<std::shared_ptr<PointUncertaintyCircle >*>(point_uncertainty_circle);
@@ -85,7 +85,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertai
     return point_uncertainty_circle;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_move(data_collection_model_point_uncertainty_circle_t *point_uncertainty_circle, data_collection_model_point_uncertainty_circle_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_move(data_collection_model_point_uncertainty_circle_t *point_uncertainty_circle, data_collection_model_point_uncertainty_circle_t *other)
 {
     std::shared_ptr<PointUncertaintyCircle > *other_ptr = reinterpret_cast<std::shared_ptr<PointUncertaintyCircle >*>(other);
 
@@ -109,13 +109,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertai
     return point_uncertainty_circle;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_point_uncertainty_circle_free(data_collection_model_point_uncertainty_circle_t *point_uncertainty_circle)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_point_uncertainty_circle_free(data_collection_model_point_uncertainty_circle_t *point_uncertainty_circle)
 {
     if (!point_uncertainty_circle) return;
     delete reinterpret_cast<std::shared_ptr<PointUncertaintyCircle >*>(point_uncertainty_circle);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_point_uncertainty_circle_toJSON(const data_collection_model_point_uncertainty_circle_t *point_uncertainty_circle, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_point_uncertainty_circle_toJSON(const data_collection_model_point_uncertainty_circle_t *point_uncertainty_circle, bool as_request)
 {
     if (!point_uncertainty_circle) return NULL;
     const std::shared_ptr<PointUncertaintyCircle > &obj = *reinterpret_cast<const std::shared_ptr<PointUncertaintyCircle >*>(point_uncertainty_circle);
@@ -124,7 +124,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_point_u
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -137,7 +137,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertai
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_point_uncertainty_circle_is_equal_to(const data_collection_model_point_uncertainty_circle_t *first, const data_collection_model_point_uncertainty_circle_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_point_uncertainty_circle_is_equal_to(const data_collection_model_point_uncertainty_circle_t *first, const data_collection_model_point_uncertainty_circle_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_point_unc
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_supported_gad_shapes_t* data_collection_model_point_uncertainty_circle_get_shape(const data_collection_model_point_uncertainty_circle_t *obj_point_uncertainty_circle)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supported_gad_shapes_t* data_collection_model_point_uncertainty_circle_get_shape(const data_collection_model_point_uncertainty_circle_t *obj_point_uncertainty_circle)
 {
     if (!obj_point_uncertainty_circle) {
         const data_collection_model_supported_gad_shapes_t *result = NULL;
@@ -181,7 +181,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_supporte
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_set_shape(data_collection_model_point_uncertainty_circle_t *obj_point_uncertainty_circle, const data_collection_model_supported_gad_shapes_t* p_shape)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_set_shape(data_collection_model_point_uncertainty_circle_t *obj_point_uncertainty_circle, const data_collection_model_supported_gad_shapes_t* p_shape)
 {
     if (!obj_point_uncertainty_circle) return NULL;
 
@@ -197,7 +197,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertai
     return obj_point_uncertainty_circle;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_set_shape_move(data_collection_model_point_uncertainty_circle_t *obj_point_uncertainty_circle, data_collection_model_supported_gad_shapes_t* p_shape)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_set_shape_move(data_collection_model_point_uncertainty_circle_t *obj_point_uncertainty_circle, data_collection_model_supported_gad_shapes_t* p_shape)
 {
     if (!obj_point_uncertainty_circle) return NULL;
 
@@ -214,7 +214,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertai
     return obj_point_uncertainty_circle;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geographical_coordinates_t* data_collection_model_point_uncertainty_circle_get_point(const data_collection_model_point_uncertainty_circle_t *obj_point_uncertainty_circle)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geographical_coordinates_t* data_collection_model_point_uncertainty_circle_get_point(const data_collection_model_point_uncertainty_circle_t *obj_point_uncertainty_circle)
 {
     if (!obj_point_uncertainty_circle) {
         const data_collection_model_geographical_coordinates_t *result = NULL;
@@ -233,7 +233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geograph
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_set_point(data_collection_model_point_uncertainty_circle_t *obj_point_uncertainty_circle, const data_collection_model_geographical_coordinates_t* p_point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_set_point(data_collection_model_point_uncertainty_circle_t *obj_point_uncertainty_circle, const data_collection_model_geographical_coordinates_t* p_point)
 {
     if (!obj_point_uncertainty_circle) return NULL;
 
@@ -249,7 +249,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertai
     return obj_point_uncertainty_circle;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_set_point_move(data_collection_model_point_uncertainty_circle_t *obj_point_uncertainty_circle, data_collection_model_geographical_coordinates_t* p_point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_set_point_move(data_collection_model_point_uncertainty_circle_t *obj_point_uncertainty_circle, data_collection_model_geographical_coordinates_t* p_point)
 {
     if (!obj_point_uncertainty_circle) return NULL;
 
@@ -266,7 +266,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertai
     return obj_point_uncertainty_circle;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_point_uncertainty_circle_get_uncertainty(const data_collection_model_point_uncertainty_circle_t *obj_point_uncertainty_circle)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_point_uncertainty_circle_get_uncertainty(const data_collection_model_point_uncertainty_circle_t *obj_point_uncertainty_circle)
 {
     if (!obj_point_uncertainty_circle) {
         const float result = 0;
@@ -285,7 +285,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_po
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_set_uncertainty(data_collection_model_point_uncertainty_circle_t *obj_point_uncertainty_circle, const float p_uncertainty)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_set_uncertainty(data_collection_model_point_uncertainty_circle_t *obj_point_uncertainty_circle, const float p_uncertainty)
 {
     if (!obj_point_uncertainty_circle) return NULL;
 
@@ -301,7 +301,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertai
     return obj_point_uncertainty_circle;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_set_uncertainty_move(data_collection_model_point_uncertainty_circle_t *obj_point_uncertainty_circle, float p_uncertainty)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_set_uncertainty_move(data_collection_model_point_uncertainty_circle_t *obj_point_uncertainty_circle, float p_uncertainty)
 {
     if (!obj_point_uncertainty_circle) return NULL;
 
@@ -319,7 +319,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_uncertai
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_point_uncertainty_circle_make_lnode(data_collection_model_point_uncertainty_circle_t *p_point_uncertainty_circle)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_point_uncertainty_circle_make_lnode(data_collection_model_point_uncertainty_circle_t *p_point_uncertainty_circle)
 {
     return data_collection_lnode_create(p_point_uncertainty_circle, reinterpret_cast<void(*)(void*)>(data_collection_model_point_uncertainty_circle_free));
 }

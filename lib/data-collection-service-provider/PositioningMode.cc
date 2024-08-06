@@ -22,12 +22,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_mode_t *data_collection_model_positioning_mode_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_mode_t *data_collection_model_positioning_mode_create()
 {
     return reinterpret_cast<data_collection_model_positioning_mode_t*>(new std::shared_ptr<PositioningMode>(new PositioningMode()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_mode_t *data_collection_model_positioning_mode_create_copy(const data_collection_model_positioning_mode_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_mode_t *data_collection_model_positioning_mode_create_copy(const data_collection_model_positioning_mode_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<PositioningMode > &obj = *reinterpret_cast<const std::shared_ptr<PositioningMode >*>(other);
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_mo
     return reinterpret_cast<data_collection_model_positioning_mode_t*>(new std::shared_ptr<PositioningMode >(new PositioningMode(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_mode_t *data_collection_model_positioning_mode_create_move(data_collection_model_positioning_mode_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_mode_t *data_collection_model_positioning_mode_create_move(data_collection_model_positioning_mode_t *other)
 {
     if (!other) return NULL;
 
@@ -48,7 +48,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_mo
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_mode_t *data_collection_model_positioning_mode_copy(data_collection_model_positioning_mode_t *positioning_mode, const data_collection_model_positioning_mode_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_mode_t *data_collection_model_positioning_mode_copy(data_collection_model_positioning_mode_t *positioning_mode, const data_collection_model_positioning_mode_t *other)
 {
     if (positioning_mode) {
         std::shared_ptr<PositioningMode > &obj = *reinterpret_cast<std::shared_ptr<PositioningMode >*>(positioning_mode);
@@ -77,7 +77,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_mo
     return positioning_mode;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_mode_t *data_collection_model_positioning_mode_move(data_collection_model_positioning_mode_t *positioning_mode, data_collection_model_positioning_mode_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_mode_t *data_collection_model_positioning_mode_move(data_collection_model_positioning_mode_t *positioning_mode, data_collection_model_positioning_mode_t *other)
 {
     std::shared_ptr<PositioningMode > *other_ptr = reinterpret_cast<std::shared_ptr<PositioningMode >*>(other);
 
@@ -101,13 +101,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_mo
     return positioning_mode;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_positioning_mode_free(data_collection_model_positioning_mode_t *positioning_mode)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_positioning_mode_free(data_collection_model_positioning_mode_t *positioning_mode)
 {
     if (!positioning_mode) return;
     delete reinterpret_cast<std::shared_ptr<PositioningMode >*>(positioning_mode);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_positioning_mode_toJSON(const data_collection_model_positioning_mode_t *positioning_mode, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_positioning_mode_toJSON(const data_collection_model_positioning_mode_t *positioning_mode, bool as_request)
 {
     if (!positioning_mode) return NULL;
     const std::shared_ptr<PositioningMode > &obj = *reinterpret_cast<const std::shared_ptr<PositioningMode >*>(positioning_mode);
@@ -116,7 +116,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_positio
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_mode_t *data_collection_model_positioning_mode_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_mode_t *data_collection_model_positioning_mode_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -129,7 +129,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_mo
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_positioning_mode_is_equal_to(const data_collection_model_positioning_mode_t *first, const data_collection_model_positioning_mode_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_mode_is_equal_to(const data_collection_model_positioning_mode_t *first, const data_collection_model_positioning_mode_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -154,7 +154,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_positioni
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_mode_is_not_set(const data_collection_model_positioning_mode_t *obj_positioning_mode)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_mode_is_not_set(const data_collection_model_positioning_mode_t *obj_positioning_mode)
 {
     if (!obj_positioning_mode) return true;
     const std::shared_ptr<PositioningMode > &obj = *reinterpret_cast<const std::shared_ptr<PositioningMode >*>(obj_positioning_mode);
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_mode_is_
     return obj->getValue() == PositioningMode::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_mode_is_non_standard(const data_collection_model_positioning_mode_t *obj_positioning_mode)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_mode_is_non_standard(const data_collection_model_positioning_mode_t *obj_positioning_mode)
 {
     if (!obj_positioning_mode) return false;
     const std::shared_ptr<PositioningMode > &obj = *reinterpret_cast<const std::shared_ptr<PositioningMode >*>(obj_positioning_mode);
@@ -170,7 +170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_mode_is_
     return obj->getValue() == PositioningMode::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_mode_e data_collection_model_positioning_mode_get_enum(const data_collection_model_positioning_mode_t *obj_positioning_mode)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_mode_e data_collection_model_positioning_mode_get_enum(const data_collection_model_positioning_mode_t *obj_positioning_mode)
 {
     if (!obj_positioning_mode)
         return DCM_POSITIONING_MODE_NO_VAL;
@@ -191,7 +191,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_mode_e data_c
     return DCM_POSITIONING_MODE_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_positioning_mode_get_string(const data_collection_model_positioning_mode_t *obj_positioning_mode)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_positioning_mode_get_string(const data_collection_model_positioning_mode_t *obj_positioning_mode)
 {
     if (!obj_positioning_mode) return NULL;
     const std::shared_ptr<PositioningMode > &obj = *reinterpret_cast<const std::shared_ptr<PositioningMode >*>(obj_positioning_mode);
@@ -199,7 +199,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_positioning_m
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_mode_set_enum(data_collection_model_positioning_mode_t *obj_positioning_mode, data_collection_model_positioning_mode_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_mode_set_enum(data_collection_model_positioning_mode_t *obj_positioning_mode, data_collection_model_positioning_mode_e p_value)
 {
     if (!obj_positioning_mode) return false;
     std::shared_ptr<PositioningMode > &obj = *reinterpret_cast<std::shared_ptr<PositioningMode >*>(obj_positioning_mode);
@@ -223,7 +223,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_mode_set
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_mode_set_string(data_collection_model_positioning_mode_t *obj_positioning_mode, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_mode_set_string(data_collection_model_positioning_mode_t *obj_positioning_mode, const char *p_value)
 {
     if (!obj_positioning_mode) return false;
     std::shared_ptr<PositioningMode > &obj = *reinterpret_cast<std::shared_ptr<PositioningMode >*>(obj_positioning_mode);
@@ -238,7 +238,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_mode_set
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_positioning_mode_make_lnode(data_collection_model_positioning_mode_t *p_positioning_mode)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_positioning_mode_make_lnode(data_collection_model_positioning_mode_t *p_positioning_mode)
 {
     return data_collection_lnode_create(p_positioning_mode, reinterpret_cast<void(*)(void*)>(data_collection_model_positioning_mode_free));
 }

@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_create(
 
 
 
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshol
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_create_copy(const data_collection_model_usage_threshold_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_create_copy(const data_collection_model_usage_threshold_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<UsageThreshold > &obj = *reinterpret_cast<const std::shared_ptr<UsageThreshold >*>(other);
@@ -43,7 +43,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshol
     return reinterpret_cast<data_collection_model_usage_threshold_t*>(new std::shared_ptr<UsageThreshold >(new UsageThreshold(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_create_move(data_collection_model_usage_threshold_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_create_move(data_collection_model_usage_threshold_t *other)
 {
     if (!other) return NULL;
 
@@ -56,7 +56,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshol
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_copy(data_collection_model_usage_threshold_t *usage_threshold, const data_collection_model_usage_threshold_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_copy(data_collection_model_usage_threshold_t *usage_threshold, const data_collection_model_usage_threshold_t *other)
 {
     if (usage_threshold) {
         std::shared_ptr<UsageThreshold > &obj = *reinterpret_cast<std::shared_ptr<UsageThreshold >*>(usage_threshold);
@@ -85,7 +85,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshol
     return usage_threshold;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_move(data_collection_model_usage_threshold_t *usage_threshold, data_collection_model_usage_threshold_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_move(data_collection_model_usage_threshold_t *usage_threshold, data_collection_model_usage_threshold_t *other)
 {
     std::shared_ptr<UsageThreshold > *other_ptr = reinterpret_cast<std::shared_ptr<UsageThreshold >*>(other);
 
@@ -109,13 +109,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshol
     return usage_threshold;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_usage_threshold_free(data_collection_model_usage_threshold_t *usage_threshold)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_usage_threshold_free(data_collection_model_usage_threshold_t *usage_threshold)
 {
     if (!usage_threshold) return;
     delete reinterpret_cast<std::shared_ptr<UsageThreshold >*>(usage_threshold);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_usage_threshold_toJSON(const data_collection_model_usage_threshold_t *usage_threshold, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_usage_threshold_toJSON(const data_collection_model_usage_threshold_t *usage_threshold, bool as_request)
 {
     if (!usage_threshold) return NULL;
     const std::shared_ptr<UsageThreshold > &obj = *reinterpret_cast<const std::shared_ptr<UsageThreshold >*>(usage_threshold);
@@ -124,7 +124,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_usage_t
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -137,7 +137,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshol
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_usage_threshold_is_equal_to(const data_collection_model_usage_threshold_t *first, const data_collection_model_usage_threshold_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_usage_threshold_is_equal_to(const data_collection_model_usage_threshold_t *first, const data_collection_model_usage_threshold_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_usage_thr
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_usage_threshold_get_duration(const data_collection_model_usage_threshold_t *obj_usage_threshold)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_usage_threshold_get_duration(const data_collection_model_usage_threshold_t *obj_usage_threshold)
 {
     if (!obj_usage_threshold) {
         const int32_t result = 0;
@@ -181,7 +181,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_set_duration(data_collection_model_usage_threshold_t *obj_usage_threshold, const int32_t p_duration)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_set_duration(data_collection_model_usage_threshold_t *obj_usage_threshold, const int32_t p_duration)
 {
     if (!obj_usage_threshold) return NULL;
 
@@ -197,7 +197,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshol
     return obj_usage_threshold;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_set_duration_move(data_collection_model_usage_threshold_t *obj_usage_threshold, int32_t p_duration)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_set_duration_move(data_collection_model_usage_threshold_t *obj_usage_threshold, int32_t p_duration)
 {
     if (!obj_usage_threshold) return NULL;
 
@@ -214,7 +214,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshol
     return obj_usage_threshold;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int64_t data_collection_model_usage_threshold_get_total_volume(const data_collection_model_usage_threshold_t *obj_usage_threshold)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_usage_threshold_get_total_volume(const data_collection_model_usage_threshold_t *obj_usage_threshold)
 {
     if (!obj_usage_threshold) {
         const int64_t result = 0;
@@ -233,7 +233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int64_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_set_total_volume(data_collection_model_usage_threshold_t *obj_usage_threshold, const int64_t p_total_volume)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_set_total_volume(data_collection_model_usage_threshold_t *obj_usage_threshold, const int64_t p_total_volume)
 {
     if (!obj_usage_threshold) return NULL;
 
@@ -249,7 +249,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshol
     return obj_usage_threshold;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_set_total_volume_move(data_collection_model_usage_threshold_t *obj_usage_threshold, int64_t p_total_volume)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_set_total_volume_move(data_collection_model_usage_threshold_t *obj_usage_threshold, int64_t p_total_volume)
 {
     if (!obj_usage_threshold) return NULL;
 
@@ -266,7 +266,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshol
     return obj_usage_threshold;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int64_t data_collection_model_usage_threshold_get_downlink_volume(const data_collection_model_usage_threshold_t *obj_usage_threshold)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_usage_threshold_get_downlink_volume(const data_collection_model_usage_threshold_t *obj_usage_threshold)
 {
     if (!obj_usage_threshold) {
         const int64_t result = 0;
@@ -285,7 +285,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int64_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_set_downlink_volume(data_collection_model_usage_threshold_t *obj_usage_threshold, const int64_t p_downlink_volume)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_set_downlink_volume(data_collection_model_usage_threshold_t *obj_usage_threshold, const int64_t p_downlink_volume)
 {
     if (!obj_usage_threshold) return NULL;
 
@@ -301,7 +301,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshol
     return obj_usage_threshold;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_set_downlink_volume_move(data_collection_model_usage_threshold_t *obj_usage_threshold, int64_t p_downlink_volume)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_set_downlink_volume_move(data_collection_model_usage_threshold_t *obj_usage_threshold, int64_t p_downlink_volume)
 {
     if (!obj_usage_threshold) return NULL;
 
@@ -318,7 +318,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshol
     return obj_usage_threshold;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int64_t data_collection_model_usage_threshold_get_uplink_volume(const data_collection_model_usage_threshold_t *obj_usage_threshold)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_usage_threshold_get_uplink_volume(const data_collection_model_usage_threshold_t *obj_usage_threshold)
 {
     if (!obj_usage_threshold) {
         const int64_t result = 0;
@@ -337,7 +337,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int64_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_set_uplink_volume(data_collection_model_usage_threshold_t *obj_usage_threshold, const int64_t p_uplink_volume)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_set_uplink_volume(data_collection_model_usage_threshold_t *obj_usage_threshold, const int64_t p_uplink_volume)
 {
     if (!obj_usage_threshold) return NULL;
 
@@ -353,7 +353,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshol
     return obj_usage_threshold;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_set_uplink_volume_move(data_collection_model_usage_threshold_t *obj_usage_threshold, int64_t p_uplink_volume)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_set_uplink_volume_move(data_collection_model_usage_threshold_t *obj_usage_threshold, int64_t p_uplink_volume)
 {
     if (!obj_usage_threshold) return NULL;
 
@@ -371,7 +371,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_usage_threshol
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_usage_threshold_make_lnode(data_collection_model_usage_threshold_t *p_usage_threshold)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_usage_threshold_make_lnode(data_collection_model_usage_threshold_t *p_usage_threshold)
 {
     return data_collection_lnode_create(p_usage_threshold, reinterpret_cast<void(*)(void*)>(data_collection_model_usage_threshold_free));
 }

@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_collection_model_point_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_t *data_collection_model_point_create(
 
 )
 {
@@ -33,7 +33,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_collection_model_point_create_copy(const data_collection_model_point_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_t *data_collection_model_point_create_copy(const data_collection_model_point_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<Point > &obj = *reinterpret_cast<const std::shared_ptr<Point >*>(other);
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_
     return reinterpret_cast<data_collection_model_point_t*>(new std::shared_ptr<Point >(new Point(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_collection_model_point_create_move(data_collection_model_point_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_t *data_collection_model_point_create_move(data_collection_model_point_t *other)
 {
     if (!other) return NULL;
 
@@ -54,7 +54,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_collection_model_point_copy(data_collection_model_point_t *point, const data_collection_model_point_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_t *data_collection_model_point_copy(data_collection_model_point_t *point, const data_collection_model_point_t *other)
 {
     if (point) {
         std::shared_ptr<Point > &obj = *reinterpret_cast<std::shared_ptr<Point >*>(point);
@@ -83,7 +83,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_
     return point;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_collection_model_point_move(data_collection_model_point_t *point, data_collection_model_point_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_t *data_collection_model_point_move(data_collection_model_point_t *point, data_collection_model_point_t *other)
 {
     std::shared_ptr<Point > *other_ptr = reinterpret_cast<std::shared_ptr<Point >*>(other);
 
@@ -107,13 +107,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_
     return point;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_point_free(data_collection_model_point_t *point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_point_free(data_collection_model_point_t *point)
 {
     if (!point) return;
     delete reinterpret_cast<std::shared_ptr<Point >*>(point);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_point_toJSON(const data_collection_model_point_t *point, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_point_toJSON(const data_collection_model_point_t *point, bool as_request)
 {
     if (!point) return NULL;
     const std::shared_ptr<Point > &obj = *reinterpret_cast<const std::shared_ptr<Point >*>(point);
@@ -122,7 +122,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_point_t
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_collection_model_point_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_t *data_collection_model_point_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -135,7 +135,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_point_is_equal_to(const data_collection_model_point_t *first, const data_collection_model_point_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_point_is_equal_to(const data_collection_model_point_t *first, const data_collection_model_point_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -160,7 +160,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_point_is_
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_supported_gad_shapes_t* data_collection_model_point_get_shape(const data_collection_model_point_t *obj_point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supported_gad_shapes_t* data_collection_model_point_get_shape(const data_collection_model_point_t *obj_point)
 {
     if (!obj_point) {
         const data_collection_model_supported_gad_shapes_t *result = NULL;
@@ -179,7 +179,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_supporte
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_collection_model_point_set_shape(data_collection_model_point_t *obj_point, const data_collection_model_supported_gad_shapes_t* p_shape)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_t *data_collection_model_point_set_shape(data_collection_model_point_t *obj_point, const data_collection_model_supported_gad_shapes_t* p_shape)
 {
     if (!obj_point) return NULL;
 
@@ -195,7 +195,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_
     return obj_point;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_collection_model_point_set_shape_move(data_collection_model_point_t *obj_point, data_collection_model_supported_gad_shapes_t* p_shape)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_t *data_collection_model_point_set_shape_move(data_collection_model_point_t *obj_point, data_collection_model_supported_gad_shapes_t* p_shape)
 {
     if (!obj_point) return NULL;
 
@@ -212,7 +212,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_
     return obj_point;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geographical_coordinates_t* data_collection_model_point_get_point(const data_collection_model_point_t *obj_point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geographical_coordinates_t* data_collection_model_point_get_point(const data_collection_model_point_t *obj_point)
 {
     if (!obj_point) {
         const data_collection_model_geographical_coordinates_t *result = NULL;
@@ -231,7 +231,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geograph
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_collection_model_point_set_point(data_collection_model_point_t *obj_point, const data_collection_model_geographical_coordinates_t* p_point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_t *data_collection_model_point_set_point(data_collection_model_point_t *obj_point, const data_collection_model_geographical_coordinates_t* p_point)
 {
     if (!obj_point) return NULL;
 
@@ -247,7 +247,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_
     return obj_point;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_collection_model_point_set_point_move(data_collection_model_point_t *obj_point, data_collection_model_geographical_coordinates_t* p_point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_t *data_collection_model_point_set_point_move(data_collection_model_point_t *obj_point, data_collection_model_geographical_coordinates_t* p_point)
 {
     if (!obj_point) return NULL;
 
@@ -265,7 +265,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_t *data_
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_point_make_lnode(data_collection_model_point_t *p_point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_point_make_lnode(data_collection_model_point_t *p_point)
 {
     return data_collection_lnode_create(p_point, reinterpret_cast<void(*)(void*)>(data_collection_model_point_free));
 }

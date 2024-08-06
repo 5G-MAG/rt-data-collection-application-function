@@ -22,12 +22,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_id_any_of_t *data_collection_model_gnss_id_any_of_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_id_any_of_t *data_collection_model_gnss_id_any_of_create()
 {
     return reinterpret_cast<data_collection_model_gnss_id_any_of_t*>(new std::shared_ptr<GnssId_anyOf>(new GnssId_anyOf()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_id_any_of_t *data_collection_model_gnss_id_any_of_create_copy(const data_collection_model_gnss_id_any_of_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_id_any_of_t *data_collection_model_gnss_id_any_of_create_copy(const data_collection_model_gnss_id_any_of_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<GnssId_anyOf > &obj = *reinterpret_cast<const std::shared_ptr<GnssId_anyOf >*>(other);
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_id_any_of
     return reinterpret_cast<data_collection_model_gnss_id_any_of_t*>(new std::shared_ptr<GnssId_anyOf >(new GnssId_anyOf(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_id_any_of_t *data_collection_model_gnss_id_any_of_create_move(data_collection_model_gnss_id_any_of_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_id_any_of_t *data_collection_model_gnss_id_any_of_create_move(data_collection_model_gnss_id_any_of_t *other)
 {
     if (!other) return NULL;
 
@@ -48,7 +48,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_id_any_of
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_id_any_of_t *data_collection_model_gnss_id_any_of_copy(data_collection_model_gnss_id_any_of_t *gnss_id_any_of, const data_collection_model_gnss_id_any_of_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_id_any_of_t *data_collection_model_gnss_id_any_of_copy(data_collection_model_gnss_id_any_of_t *gnss_id_any_of, const data_collection_model_gnss_id_any_of_t *other)
 {
     if (gnss_id_any_of) {
         std::shared_ptr<GnssId_anyOf > &obj = *reinterpret_cast<std::shared_ptr<GnssId_anyOf >*>(gnss_id_any_of);
@@ -77,7 +77,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_id_any_of
     return gnss_id_any_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_id_any_of_t *data_collection_model_gnss_id_any_of_move(data_collection_model_gnss_id_any_of_t *gnss_id_any_of, data_collection_model_gnss_id_any_of_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_id_any_of_t *data_collection_model_gnss_id_any_of_move(data_collection_model_gnss_id_any_of_t *gnss_id_any_of, data_collection_model_gnss_id_any_of_t *other)
 {
     std::shared_ptr<GnssId_anyOf > *other_ptr = reinterpret_cast<std::shared_ptr<GnssId_anyOf >*>(other);
 
@@ -101,13 +101,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_id_any_of
     return gnss_id_any_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_gnss_id_any_of_free(data_collection_model_gnss_id_any_of_t *gnss_id_any_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_gnss_id_any_of_free(data_collection_model_gnss_id_any_of_t *gnss_id_any_of)
 {
     if (!gnss_id_any_of) return;
     delete reinterpret_cast<std::shared_ptr<GnssId_anyOf >*>(gnss_id_any_of);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_gnss_id_any_of_toJSON(const data_collection_model_gnss_id_any_of_t *gnss_id_any_of, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_gnss_id_any_of_toJSON(const data_collection_model_gnss_id_any_of_t *gnss_id_any_of, bool as_request)
 {
     if (!gnss_id_any_of) return NULL;
     const std::shared_ptr<GnssId_anyOf > &obj = *reinterpret_cast<const std::shared_ptr<GnssId_anyOf >*>(gnss_id_any_of);
@@ -116,7 +116,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_gnss_id
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_id_any_of_t *data_collection_model_gnss_id_any_of_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_id_any_of_t *data_collection_model_gnss_id_any_of_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -129,7 +129,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_id_any_of
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_gnss_id_any_of_is_equal_to(const data_collection_model_gnss_id_any_of_t *first, const data_collection_model_gnss_id_any_of_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_gnss_id_any_of_is_equal_to(const data_collection_model_gnss_id_any_of_t *first, const data_collection_model_gnss_id_any_of_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -154,7 +154,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_gnss_id_a
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_gnss_id_any_of_is_not_set(const data_collection_model_gnss_id_any_of_t *gnss_id_any_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_gnss_id_any_of_is_not_set(const data_collection_model_gnss_id_any_of_t *gnss_id_any_of)
 {
     if (!gnss_id_any_of) return true;
     const std::shared_ptr<GnssId_anyOf > &obj = *reinterpret_cast<const std::shared_ptr<GnssId_anyOf >*>(gnss_id_any_of);
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_gnss_id_any_of_is_no
     return obj->getValue() == GnssId_anyOf::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_id_any_of_e data_collection_model_gnss_id_any_of_get_enum(const data_collection_model_gnss_id_any_of_t *obj_gnss_id_any_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_id_any_of_e data_collection_model_gnss_id_any_of_get_enum(const data_collection_model_gnss_id_any_of_t *obj_gnss_id_any_of)
 {
     if (!obj_gnss_id_any_of)
         return DCM_GNSS_ID_ANY_OF_NO_VAL;
@@ -193,7 +193,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_id_any_of_e data_col
     return (data_collection_model_gnss_id_any_of_e)-1;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_gnss_id_any_of_get_string(const data_collection_model_gnss_id_any_of_t *obj_gnss_id_any_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_gnss_id_any_of_get_string(const data_collection_model_gnss_id_any_of_t *obj_gnss_id_any_of)
 {
     if (!obj_gnss_id_any_of) return NULL;
     const std::shared_ptr<GnssId_anyOf > &obj = *reinterpret_cast<const std::shared_ptr<GnssId_anyOf >*>(obj_gnss_id_any_of);
@@ -201,7 +201,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_gnss_id_any_o
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_gnss_id_any_of_set_enum(data_collection_model_gnss_id_any_of_t *obj_gnss_id_any_of, data_collection_model_gnss_id_any_of_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_gnss_id_any_of_set_enum(data_collection_model_gnss_id_any_of_t *obj_gnss_id_any_of, data_collection_model_gnss_id_any_of_e p_value)
 {
     if (!obj_gnss_id_any_of) return false;
     std::shared_ptr<GnssId_anyOf > &obj = *reinterpret_cast<std::shared_ptr<GnssId_anyOf >*>(obj_gnss_id_any_of);
@@ -240,7 +240,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_gnss_id_any_of_set_e
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_gnss_id_any_of_set_string(data_collection_model_gnss_id_any_of_t *obj_gnss_id_any_of, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_gnss_id_any_of_set_string(data_collection_model_gnss_id_any_of_t *obj_gnss_id_any_of, const char *p_value)
 {
     if (!obj_gnss_id_any_of) return false;
     std::shared_ptr<GnssId_anyOf > &obj = *reinterpret_cast<std::shared_ptr<GnssId_anyOf >*>(obj_gnss_id_any_of);
@@ -255,7 +255,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_gnss_id_any_of_set_s
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_gnss_id_any_of_make_lnode(data_collection_model_gnss_id_any_of_t *p_gnss_id_any_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_gnss_id_any_of_make_lnode(data_collection_model_gnss_id_any_of_t *p_gnss_id_any_of)
 {
     return data_collection_lnode_create(p_gnss_id_any_of, reinterpret_cast<void(*)(void*)>(data_collection_model_gnss_id_any_of_free));
 }

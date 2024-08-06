@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_create(
 
 
 
@@ -49,7 +49,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_create_copy(const data_collection_model_media_streaming_access_request_message_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_create_copy(const data_collection_model_media_streaming_access_request_message_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<MediaStreamingAccess_requestMessage > &obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccess_requestMessage >*>(other);
@@ -57,7 +57,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return reinterpret_cast<data_collection_model_media_streaming_access_request_message_t*>(new std::shared_ptr<MediaStreamingAccess_requestMessage >(new MediaStreamingAccess_requestMessage(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_create_move(data_collection_model_media_streaming_access_request_message_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_create_move(data_collection_model_media_streaming_access_request_message_t *other)
 {
     if (!other) return NULL;
 
@@ -70,7 +70,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_copy(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, const data_collection_model_media_streaming_access_request_message_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_copy(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, const data_collection_model_media_streaming_access_request_message_t *other)
 {
     if (media_streaming_access_request_message) {
         std::shared_ptr<MediaStreamingAccess_requestMessage > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccess_requestMessage >*>(media_streaming_access_request_message);
@@ -99,7 +99,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return media_streaming_access_request_message;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_move(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, data_collection_model_media_streaming_access_request_message_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_move(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, data_collection_model_media_streaming_access_request_message_t *other)
 {
     std::shared_ptr<MediaStreamingAccess_requestMessage > *other_ptr = reinterpret_cast<std::shared_ptr<MediaStreamingAccess_requestMessage >*>(other);
 
@@ -123,13 +123,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return media_streaming_access_request_message;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_media_streaming_access_request_message_free(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_media_streaming_access_request_message_free(data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message)
 {
     if (!media_streaming_access_request_message) return;
     delete reinterpret_cast<std::shared_ptr<MediaStreamingAccess_requestMessage >*>(media_streaming_access_request_message);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_media_streaming_access_request_message_toJSON(const data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_media_streaming_access_request_message_toJSON(const data_collection_model_media_streaming_access_request_message_t *media_streaming_access_request_message, bool as_request)
 {
     if (!media_streaming_access_request_message) return NULL;
     const std::shared_ptr<MediaStreamingAccess_requestMessage > &obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccess_requestMessage >*>(media_streaming_access_request_message);
@@ -138,7 +138,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_media_s
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -151,7 +151,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_media_streaming_access_request_message_is_equal_to(const data_collection_model_media_streaming_access_request_message_t *first, const data_collection_model_media_streaming_access_request_message_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_streaming_access_request_message_is_equal_to(const data_collection_model_media_streaming_access_request_message_t *first, const data_collection_model_media_streaming_access_request_message_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -176,7 +176,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_media_str
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_media_streaming_access_request_message_get_method(const data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_media_streaming_access_request_message_get_method(const data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message)
 {
     if (!obj_media_streaming_access_request_message) {
         const char *result = NULL;
@@ -195,7 +195,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_me
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_method(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, const char* p_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_method(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, const char* p_method)
 {
     if (!obj_media_streaming_access_request_message) return NULL;
 
@@ -211,7 +211,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_request_message;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_method_move(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, char* p_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_method_move(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, char* p_method)
 {
     if (!obj_media_streaming_access_request_message) return NULL;
 
@@ -228,7 +228,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_request_message;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_media_streaming_access_request_message_get_url(const data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_media_streaming_access_request_message_get_url(const data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message)
 {
     if (!obj_media_streaming_access_request_message) {
         const char *result = NULL;
@@ -247,7 +247,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_me
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_url(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, const char* p_url)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_url(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, const char* p_url)
 {
     if (!obj_media_streaming_access_request_message) return NULL;
 
@@ -263,7 +263,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_request_message;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_url_move(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, char* p_url)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_url_move(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, char* p_url)
 {
     if (!obj_media_streaming_access_request_message) return NULL;
 
@@ -280,7 +280,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_request_message;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_media_streaming_access_request_message_get_protocol_version(const data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_media_streaming_access_request_message_get_protocol_version(const data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message)
 {
     if (!obj_media_streaming_access_request_message) {
         const char *result = NULL;
@@ -299,7 +299,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_me
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_protocol_version(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, const char* p_protocol_version)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_protocol_version(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, const char* p_protocol_version)
 {
     if (!obj_media_streaming_access_request_message) return NULL;
 
@@ -315,7 +315,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_request_message;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_protocol_version_move(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, char* p_protocol_version)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_protocol_version_move(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, char* p_protocol_version)
 {
     if (!obj_media_streaming_access_request_message) return NULL;
 
@@ -332,7 +332,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_request_message;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_media_streaming_access_request_message_get_range(const data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_media_streaming_access_request_message_get_range(const data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message)
 {
     if (!obj_media_streaming_access_request_message) {
         const char *result = NULL;
@@ -351,7 +351,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_me
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_range(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, const char* p_range)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_range(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, const char* p_range)
 {
     if (!obj_media_streaming_access_request_message) return NULL;
 
@@ -367,7 +367,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_request_message;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_range_move(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, char* p_range)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_range_move(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, char* p_range)
 {
     if (!obj_media_streaming_access_request_message) return NULL;
 
@@ -384,7 +384,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_request_message;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_media_streaming_access_request_message_get_size(const data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_media_streaming_access_request_message_get_size(const data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message)
 {
     if (!obj_media_streaming_access_request_message) {
         const int32_t result = 0;
@@ -403,7 +403,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_size(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, const int32_t p_size)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_size(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, const int32_t p_size)
 {
     if (!obj_media_streaming_access_request_message) return NULL;
 
@@ -419,7 +419,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_request_message;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_size_move(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, int32_t p_size)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_size_move(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, int32_t p_size)
 {
     if (!obj_media_streaming_access_request_message) return NULL;
 
@@ -436,7 +436,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_request_message;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_media_streaming_access_request_message_get_body_size(const data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_media_streaming_access_request_message_get_body_size(const data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message)
 {
     if (!obj_media_streaming_access_request_message) {
         const int32_t result = 0;
@@ -455,7 +455,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_body_size(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, const int32_t p_body_size)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_body_size(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, const int32_t p_body_size)
 {
     if (!obj_media_streaming_access_request_message) return NULL;
 
@@ -471,7 +471,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_request_message;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_body_size_move(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, int32_t p_body_size)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_body_size_move(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, int32_t p_body_size)
 {
     if (!obj_media_streaming_access_request_message) return NULL;
 
@@ -488,7 +488,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_request_message;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_media_streaming_access_request_message_get_content_type(const data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_media_streaming_access_request_message_get_content_type(const data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message)
 {
     if (!obj_media_streaming_access_request_message) {
         const char *result = NULL;
@@ -507,7 +507,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_me
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_content_type(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, const char* p_content_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_content_type(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, const char* p_content_type)
 {
     if (!obj_media_streaming_access_request_message) return NULL;
 
@@ -523,7 +523,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_request_message;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_content_type_move(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, char* p_content_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_content_type_move(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, char* p_content_type)
 {
     if (!obj_media_streaming_access_request_message) return NULL;
 
@@ -540,7 +540,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_request_message;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_media_streaming_access_request_message_get_user_agent(const data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_media_streaming_access_request_message_get_user_agent(const data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message)
 {
     if (!obj_media_streaming_access_request_message) {
         const char *result = NULL;
@@ -559,7 +559,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_me
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_user_agent(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, const char* p_user_agent)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_user_agent(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, const char* p_user_agent)
 {
     if (!obj_media_streaming_access_request_message) return NULL;
 
@@ -575,7 +575,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_request_message;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_user_agent_move(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, char* p_user_agent)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_user_agent_move(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, char* p_user_agent)
 {
     if (!obj_media_streaming_access_request_message) return NULL;
 
@@ -592,7 +592,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_request_message;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_media_streaming_access_request_message_get_user_identity(const data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_media_streaming_access_request_message_get_user_identity(const data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message)
 {
     if (!obj_media_streaming_access_request_message) {
         const char *result = NULL;
@@ -611,7 +611,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_me
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_user_identity(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, const char* p_user_identity)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_user_identity(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, const char* p_user_identity)
 {
     if (!obj_media_streaming_access_request_message) return NULL;
 
@@ -627,7 +627,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_request_message;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_user_identity_move(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, char* p_user_identity)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_user_identity_move(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, char* p_user_identity)
 {
     if (!obj_media_streaming_access_request_message) return NULL;
 
@@ -644,7 +644,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_request_message;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_media_streaming_access_request_message_get_referer(const data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_media_streaming_access_request_message_get_referer(const data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message)
 {
     if (!obj_media_streaming_access_request_message) {
         const char *result = NULL;
@@ -663,7 +663,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_me
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_referer(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, const char* p_referer)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_referer(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, const char* p_referer)
 {
     if (!obj_media_streaming_access_request_message) return NULL;
 
@@ -679,7 +679,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_request_message;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_referer_move(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, char* p_referer)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_request_message_t *data_collection_model_media_streaming_access_request_message_set_referer_move(data_collection_model_media_streaming_access_request_message_t *obj_media_streaming_access_request_message, char* p_referer)
 {
     if (!obj_media_streaming_access_request_message) return NULL;
 
@@ -697,7 +697,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_media_streaming_access_request_message_make_lnode(data_collection_model_media_streaming_access_request_message_t *p_media_streaming_access_request_message)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_media_streaming_access_request_message_make_lnode(data_collection_model_media_streaming_access_request_message_t *p_media_streaming_access_request_message)
 {
     return data_collection_lnode_create(p_media_streaming_access_request_message, reinterpret_cast<void(*)(void*)>(data_collection_model_media_streaming_access_request_message_free));
 }

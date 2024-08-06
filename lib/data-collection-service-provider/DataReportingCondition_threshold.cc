@@ -24,12 +24,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_condition_threshold_t *data_collection_model_data_reporting_condition_threshold_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_condition_threshold_t *data_collection_model_data_reporting_condition_threshold_create()
 {
     return reinterpret_cast<data_collection_model_data_reporting_condition_threshold_t*>(new std::shared_ptr<DataReportingCondition_threshold>(new DataReportingCondition_threshold()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_condition_threshold_t *data_collection_model_data_reporting_condition_threshold_create_copy(const data_collection_model_data_reporting_condition_threshold_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_condition_threshold_t *data_collection_model_data_reporting_condition_threshold_create_copy(const data_collection_model_data_reporting_condition_threshold_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<DataReportingCondition_threshold > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingCondition_threshold >*>(other);
@@ -37,7 +37,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return reinterpret_cast<data_collection_model_data_reporting_condition_threshold_t*>(new std::shared_ptr<DataReportingCondition_threshold >(new DataReportingCondition_threshold(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_condition_threshold_t *data_collection_model_data_reporting_condition_threshold_create_move(data_collection_model_data_reporting_condition_threshold_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_condition_threshold_t *data_collection_model_data_reporting_condition_threshold_create_move(data_collection_model_data_reporting_condition_threshold_t *other)
 {
     if (!other) return NULL;
 
@@ -50,7 +50,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_condition_threshold_t *data_collection_model_data_reporting_condition_threshold_copy(data_collection_model_data_reporting_condition_threshold_t *data_reporting_condition_threshold, const data_collection_model_data_reporting_condition_threshold_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_condition_threshold_t *data_collection_model_data_reporting_condition_threshold_copy(data_collection_model_data_reporting_condition_threshold_t *data_reporting_condition_threshold, const data_collection_model_data_reporting_condition_threshold_t *other)
 {
     if (data_reporting_condition_threshold) {
         std::shared_ptr<DataReportingCondition_threshold > &obj = *reinterpret_cast<std::shared_ptr<DataReportingCondition_threshold >*>(data_reporting_condition_threshold);
@@ -79,7 +79,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return data_reporting_condition_threshold;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_condition_threshold_t *data_collection_model_data_reporting_condition_threshold_move(data_collection_model_data_reporting_condition_threshold_t *data_reporting_condition_threshold, data_collection_model_data_reporting_condition_threshold_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_condition_threshold_t *data_collection_model_data_reporting_condition_threshold_move(data_collection_model_data_reporting_condition_threshold_t *data_reporting_condition_threshold, data_collection_model_data_reporting_condition_threshold_t *other)
 {
     std::shared_ptr<DataReportingCondition_threshold > *other_ptr = reinterpret_cast<std::shared_ptr<DataReportingCondition_threshold >*>(other);
 
@@ -103,13 +103,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return data_reporting_condition_threshold;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_data_reporting_condition_threshold_free(data_collection_model_data_reporting_condition_threshold_t *data_reporting_condition_threshold)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_data_reporting_condition_threshold_free(data_collection_model_data_reporting_condition_threshold_t *data_reporting_condition_threshold)
 {
     if (!data_reporting_condition_threshold) return;
     delete reinterpret_cast<std::shared_ptr<DataReportingCondition_threshold >*>(data_reporting_condition_threshold);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_data_reporting_condition_threshold_toJSON(const data_collection_model_data_reporting_condition_threshold_t *data_reporting_condition_threshold, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_data_reporting_condition_threshold_toJSON(const data_collection_model_data_reporting_condition_threshold_t *data_reporting_condition_threshold, bool as_request)
 {
     if (!data_reporting_condition_threshold) return NULL;
     const std::shared_ptr<DataReportingCondition_threshold > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingCondition_threshold >*>(data_reporting_condition_threshold);
@@ -118,7 +118,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_data_re
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_condition_threshold_t *data_collection_model_data_reporting_condition_threshold_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_condition_threshold_t *data_collection_model_data_reporting_condition_threshold_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -131,7 +131,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_data_reporting_condition_threshold_is_equal_to(const data_collection_model_data_reporting_condition_threshold_t *first, const data_collection_model_data_reporting_condition_threshold_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_condition_threshold_is_equal_to(const data_collection_model_data_reporting_condition_threshold_t *first, const data_collection_model_data_reporting_condition_threshold_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -157,7 +157,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_data_repo
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_data_reporting_condition_threshold_make_lnode(data_collection_model_data_reporting_condition_threshold_t *p_data_reporting_condition_threshold)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_data_reporting_condition_threshold_make_lnode(data_collection_model_data_reporting_condition_threshold_t *p_data_reporting_condition_threshold)
 {
     return data_collection_lnode_create(p_data_reporting_condition_threshold, reinterpret_cast<void(*)(void*)>(data_collection_model_data_reporting_condition_threshold_free));
 }

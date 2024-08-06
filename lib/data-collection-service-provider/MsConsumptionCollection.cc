@@ -22,14 +22,14 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_create(
 )
 {
     return reinterpret_cast<data_collection_model_ms_consumption_collection_t*>(new std::shared_ptr<MsConsumptionCollection>(new MsConsumptionCollection(
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_create_copy(const data_collection_model_ms_consumption_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_create_copy(const data_collection_model_ms_consumption_collection_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<MsConsumptionCollection > &obj = *reinterpret_cast<const std::shared_ptr<MsConsumptionCollection >*>(other);
@@ -37,7 +37,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption
     return reinterpret_cast<data_collection_model_ms_consumption_collection_t*>(new std::shared_ptr<MsConsumptionCollection >(new MsConsumptionCollection(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_create_move(data_collection_model_ms_consumption_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_create_move(data_collection_model_ms_consumption_collection_t *other)
 {
     if (!other) return NULL;
 
@@ -50,7 +50,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_copy(data_collection_model_ms_consumption_collection_t *ms_consumption_collection, const data_collection_model_ms_consumption_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_copy(data_collection_model_ms_consumption_collection_t *ms_consumption_collection, const data_collection_model_ms_consumption_collection_t *other)
 {
     if (ms_consumption_collection) {
         std::shared_ptr<MsConsumptionCollection > &obj = *reinterpret_cast<std::shared_ptr<MsConsumptionCollection >*>(ms_consumption_collection);
@@ -79,7 +79,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption
     return ms_consumption_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_move(data_collection_model_ms_consumption_collection_t *ms_consumption_collection, data_collection_model_ms_consumption_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_move(data_collection_model_ms_consumption_collection_t *ms_consumption_collection, data_collection_model_ms_consumption_collection_t *other)
 {
     std::shared_ptr<MsConsumptionCollection > *other_ptr = reinterpret_cast<std::shared_ptr<MsConsumptionCollection >*>(other);
 
@@ -103,13 +103,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption
     return ms_consumption_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_ms_consumption_collection_free(data_collection_model_ms_consumption_collection_t *ms_consumption_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_ms_consumption_collection_free(data_collection_model_ms_consumption_collection_t *ms_consumption_collection)
 {
     if (!ms_consumption_collection) return;
     delete reinterpret_cast<std::shared_ptr<MsConsumptionCollection >*>(ms_consumption_collection);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_ms_consumption_collection_toJSON(const data_collection_model_ms_consumption_collection_t *ms_consumption_collection, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_ms_consumption_collection_toJSON(const data_collection_model_ms_consumption_collection_t *ms_consumption_collection, bool as_request)
 {
     if (!ms_consumption_collection) return NULL;
     const std::shared_ptr<MsConsumptionCollection > &obj = *reinterpret_cast<const std::shared_ptr<MsConsumptionCollection >*>(ms_consumption_collection);
@@ -118,7 +118,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_ms_cons
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -131,7 +131,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ms_consumption_collection_is_equal_to(const data_collection_model_ms_consumption_collection_t *first, const data_collection_model_ms_consumption_collection_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ms_consumption_collection_is_equal_to(const data_collection_model_ms_consumption_collection_t *first, const data_collection_model_ms_consumption_collection_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -156,7 +156,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ms_consum
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ms_consumption_collection_get_ms_consumps(const data_collection_model_ms_consumption_collection_t *obj_ms_consumption_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ms_consumption_collection_get_ms_consumps(const data_collection_model_ms_consumption_collection_t *obj_ms_consumption_collection)
 {
     if (!obj_ms_consumption_collection) {
         ogs_list_t *result = NULL;
@@ -182,7 +182,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ms
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_set_ms_consumps(data_collection_model_ms_consumption_collection_t *obj_ms_consumption_collection, const ogs_list_t* p_ms_consumps)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_set_ms_consumps(data_collection_model_ms_consumption_collection_t *obj_ms_consumption_collection, const ogs_list_t* p_ms_consumps)
 {
     if (!obj_ms_consumption_collection) return NULL;
 
@@ -206,7 +206,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption
     return obj_ms_consumption_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_set_ms_consumps_move(data_collection_model_ms_consumption_collection_t *obj_ms_consumption_collection, ogs_list_t* p_ms_consumps)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_set_ms_consumps_move(data_collection_model_ms_consumption_collection_t *obj_ms_consumption_collection, ogs_list_t* p_ms_consumps)
 {
     if (!obj_ms_consumption_collection) return NULL;
 
@@ -231,7 +231,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption
     return obj_ms_consumption_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_add_ms_consumps(data_collection_model_ms_consumption_collection_t *obj_ms_consumption_collection, char* p_ms_consumps)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_add_ms_consumps(data_collection_model_ms_consumption_collection_t *obj_ms_consumption_collection, char* p_ms_consumps)
 {
     if (!obj_ms_consumption_collection) return NULL;
 
@@ -248,7 +248,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption
     return obj_ms_consumption_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_remove_ms_consumps(data_collection_model_ms_consumption_collection_t *obj_ms_consumption_collection, const char* p_ms_consumps)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_remove_ms_consumps(data_collection_model_ms_consumption_collection_t *obj_ms_consumption_collection, const char* p_ms_consumps)
 {
     if (!obj_ms_consumption_collection) return NULL;
 
@@ -263,7 +263,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption
     return obj_ms_consumption_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_clear_ms_consumps(data_collection_model_ms_consumption_collection_t *obj_ms_consumption_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_clear_ms_consumps(data_collection_model_ms_consumption_collection_t *obj_ms_consumption_collection)
 {
     if (!obj_ms_consumption_collection) return NULL;
 
@@ -275,7 +275,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_consumption
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_ms_consumption_collection_make_lnode(data_collection_model_ms_consumption_collection_t *p_ms_consumption_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_ms_consumption_collection_make_lnode(data_collection_model_ms_consumption_collection_t *p_ms_consumption_collection)
 {
     return data_collection_lnode_create(p_ms_consumption_collection, reinterpret_cast<void(*)(void*)>(data_collection_model_ms_consumption_collection_free));
 }

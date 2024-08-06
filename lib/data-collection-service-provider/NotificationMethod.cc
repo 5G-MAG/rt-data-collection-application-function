@@ -22,12 +22,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_method_t *data_collection_model_notification_method_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_method_t *data_collection_model_notification_method_create()
 {
     return reinterpret_cast<data_collection_model_notification_method_t*>(new std::shared_ptr<NotificationMethod>(new NotificationMethod()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_method_t *data_collection_model_notification_method_create_copy(const data_collection_model_notification_method_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_method_t *data_collection_model_notification_method_create_copy(const data_collection_model_notification_method_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<NotificationMethod > &obj = *reinterpret_cast<const std::shared_ptr<NotificationMethod >*>(other);
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_m
     return reinterpret_cast<data_collection_model_notification_method_t*>(new std::shared_ptr<NotificationMethod >(new NotificationMethod(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_method_t *data_collection_model_notification_method_create_move(data_collection_model_notification_method_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_method_t *data_collection_model_notification_method_create_move(data_collection_model_notification_method_t *other)
 {
     if (!other) return NULL;
 
@@ -48,7 +48,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_m
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_method_t *data_collection_model_notification_method_copy(data_collection_model_notification_method_t *notification_method, const data_collection_model_notification_method_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_method_t *data_collection_model_notification_method_copy(data_collection_model_notification_method_t *notification_method, const data_collection_model_notification_method_t *other)
 {
     if (notification_method) {
         std::shared_ptr<NotificationMethod > &obj = *reinterpret_cast<std::shared_ptr<NotificationMethod >*>(notification_method);
@@ -77,7 +77,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_m
     return notification_method;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_method_t *data_collection_model_notification_method_move(data_collection_model_notification_method_t *notification_method, data_collection_model_notification_method_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_method_t *data_collection_model_notification_method_move(data_collection_model_notification_method_t *notification_method, data_collection_model_notification_method_t *other)
 {
     std::shared_ptr<NotificationMethod > *other_ptr = reinterpret_cast<std::shared_ptr<NotificationMethod >*>(other);
 
@@ -101,13 +101,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_m
     return notification_method;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_notification_method_free(data_collection_model_notification_method_t *notification_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_notification_method_free(data_collection_model_notification_method_t *notification_method)
 {
     if (!notification_method) return;
     delete reinterpret_cast<std::shared_ptr<NotificationMethod >*>(notification_method);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_notification_method_toJSON(const data_collection_model_notification_method_t *notification_method, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_notification_method_toJSON(const data_collection_model_notification_method_t *notification_method, bool as_request)
 {
     if (!notification_method) return NULL;
     const std::shared_ptr<NotificationMethod > &obj = *reinterpret_cast<const std::shared_ptr<NotificationMethod >*>(notification_method);
@@ -116,7 +116,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_notific
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_method_t *data_collection_model_notification_method_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_method_t *data_collection_model_notification_method_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -129,7 +129,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_notification_m
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_notification_method_is_equal_to(const data_collection_model_notification_method_t *first, const data_collection_model_notification_method_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_method_is_equal_to(const data_collection_model_notification_method_t *first, const data_collection_model_notification_method_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -154,7 +154,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_notificat
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_method_is_not_set(const data_collection_model_notification_method_t *obj_notification_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_method_is_not_set(const data_collection_model_notification_method_t *obj_notification_method)
 {
     if (!obj_notification_method) return true;
     const std::shared_ptr<NotificationMethod > &obj = *reinterpret_cast<const std::shared_ptr<NotificationMethod >*>(obj_notification_method);
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_method_
     return obj->getValue() == NotificationMethod::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_method_is_non_standard(const data_collection_model_notification_method_t *obj_notification_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_method_is_non_standard(const data_collection_model_notification_method_t *obj_notification_method)
 {
     if (!obj_notification_method) return false;
     const std::shared_ptr<NotificationMethod > &obj = *reinterpret_cast<const std::shared_ptr<NotificationMethod >*>(obj_notification_method);
@@ -170,7 +170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_method_
     return obj->getValue() == NotificationMethod::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_method_e data_collection_model_notification_method_get_enum(const data_collection_model_notification_method_t *obj_notification_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_method_e data_collection_model_notification_method_get_enum(const data_collection_model_notification_method_t *obj_notification_method)
 {
     if (!obj_notification_method)
         return DCM_NOTIFICATION_METHOD_NO_VAL;
@@ -191,7 +191,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_method_e dat
     return DCM_NOTIFICATION_METHOD_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_notification_method_get_string(const data_collection_model_notification_method_t *obj_notification_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_notification_method_get_string(const data_collection_model_notification_method_t *obj_notification_method)
 {
     if (!obj_notification_method) return NULL;
     const std::shared_ptr<NotificationMethod > &obj = *reinterpret_cast<const std::shared_ptr<NotificationMethod >*>(obj_notification_method);
@@ -199,7 +199,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_notification_
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_method_set_enum(data_collection_model_notification_method_t *obj_notification_method, data_collection_model_notification_method_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_method_set_enum(data_collection_model_notification_method_t *obj_notification_method, data_collection_model_notification_method_e p_value)
 {
     if (!obj_notification_method) return false;
     std::shared_ptr<NotificationMethod > &obj = *reinterpret_cast<std::shared_ptr<NotificationMethod >*>(obj_notification_method);
@@ -223,7 +223,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_method_
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_method_set_string(data_collection_model_notification_method_t *obj_notification_method, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_method_set_string(data_collection_model_notification_method_t *obj_notification_method, const char *p_value)
 {
     if (!obj_notification_method) return false;
     std::shared_ptr<NotificationMethod > &obj = *reinterpret_cast<std::shared_ptr<NotificationMethod >*>(obj_notification_method);
@@ -238,7 +238,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_notification_method_
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_notification_method_make_lnode(data_collection_model_notification_method_t *p_notification_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_notification_method_make_lnode(data_collection_model_notification_method_t *p_notification_method)
 {
     return data_collection_lnode_create(p_notification_method, reinterpret_cast<void(*)(void*)>(data_collection_model_notification_method_free));
 }

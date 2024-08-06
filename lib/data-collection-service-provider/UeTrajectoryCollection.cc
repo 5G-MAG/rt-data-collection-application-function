@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_trajectory_collection_t *data_collection_model_ue_trajectory_collection_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_trajectory_collection_t *data_collection_model_ue_trajectory_collection_create(
 
 )
 {
@@ -31,7 +31,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_trajectory_
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_trajectory_collection_t *data_collection_model_ue_trajectory_collection_create_copy(const data_collection_model_ue_trajectory_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_trajectory_collection_t *data_collection_model_ue_trajectory_collection_create_copy(const data_collection_model_ue_trajectory_collection_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<UeTrajectoryCollection > &obj = *reinterpret_cast<const std::shared_ptr<UeTrajectoryCollection >*>(other);
@@ -39,7 +39,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_trajectory_
     return reinterpret_cast<data_collection_model_ue_trajectory_collection_t*>(new std::shared_ptr<UeTrajectoryCollection >(new UeTrajectoryCollection(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_trajectory_collection_t *data_collection_model_ue_trajectory_collection_create_move(data_collection_model_ue_trajectory_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_trajectory_collection_t *data_collection_model_ue_trajectory_collection_create_move(data_collection_model_ue_trajectory_collection_t *other)
 {
     if (!other) return NULL;
 
@@ -52,7 +52,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_trajectory_
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_trajectory_collection_t *data_collection_model_ue_trajectory_collection_copy(data_collection_model_ue_trajectory_collection_t *ue_trajectory_collection, const data_collection_model_ue_trajectory_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_trajectory_collection_t *data_collection_model_ue_trajectory_collection_copy(data_collection_model_ue_trajectory_collection_t *ue_trajectory_collection, const data_collection_model_ue_trajectory_collection_t *other)
 {
     if (ue_trajectory_collection) {
         std::shared_ptr<UeTrajectoryCollection > &obj = *reinterpret_cast<std::shared_ptr<UeTrajectoryCollection >*>(ue_trajectory_collection);
@@ -81,7 +81,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_trajectory_
     return ue_trajectory_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_trajectory_collection_t *data_collection_model_ue_trajectory_collection_move(data_collection_model_ue_trajectory_collection_t *ue_trajectory_collection, data_collection_model_ue_trajectory_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_trajectory_collection_t *data_collection_model_ue_trajectory_collection_move(data_collection_model_ue_trajectory_collection_t *ue_trajectory_collection, data_collection_model_ue_trajectory_collection_t *other)
 {
     std::shared_ptr<UeTrajectoryCollection > *other_ptr = reinterpret_cast<std::shared_ptr<UeTrajectoryCollection >*>(other);
 
@@ -105,13 +105,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_trajectory_
     return ue_trajectory_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_ue_trajectory_collection_free(data_collection_model_ue_trajectory_collection_t *ue_trajectory_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_ue_trajectory_collection_free(data_collection_model_ue_trajectory_collection_t *ue_trajectory_collection)
 {
     if (!ue_trajectory_collection) return;
     delete reinterpret_cast<std::shared_ptr<UeTrajectoryCollection >*>(ue_trajectory_collection);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_ue_trajectory_collection_toJSON(const data_collection_model_ue_trajectory_collection_t *ue_trajectory_collection, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_ue_trajectory_collection_toJSON(const data_collection_model_ue_trajectory_collection_t *ue_trajectory_collection, bool as_request)
 {
     if (!ue_trajectory_collection) return NULL;
     const std::shared_ptr<UeTrajectoryCollection > &obj = *reinterpret_cast<const std::shared_ptr<UeTrajectoryCollection >*>(ue_trajectory_collection);
@@ -120,7 +120,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_ue_traj
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_trajectory_collection_t *data_collection_model_ue_trajectory_collection_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_trajectory_collection_t *data_collection_model_ue_trajectory_collection_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -133,7 +133,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_trajectory_
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ue_trajectory_collection_is_equal_to(const data_collection_model_ue_trajectory_collection_t *first, const data_collection_model_ue_trajectory_collection_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ue_trajectory_collection_is_equal_to(const data_collection_model_ue_trajectory_collection_t *first, const data_collection_model_ue_trajectory_collection_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -158,7 +158,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ue_trajec
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ue_trajectory_collection_get_ts(const data_collection_model_ue_trajectory_collection_t *obj_ue_trajectory_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue_trajectory_collection_get_ts(const data_collection_model_ue_trajectory_collection_t *obj_ue_trajectory_collection)
 {
     if (!obj_ue_trajectory_collection) {
         const char *result = NULL;
@@ -177,7 +177,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ue
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_trajectory_collection_t *data_collection_model_ue_trajectory_collection_set_ts(data_collection_model_ue_trajectory_collection_t *obj_ue_trajectory_collection, const char* p_ts)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_trajectory_collection_t *data_collection_model_ue_trajectory_collection_set_ts(data_collection_model_ue_trajectory_collection_t *obj_ue_trajectory_collection, const char* p_ts)
 {
     if (!obj_ue_trajectory_collection) return NULL;
 
@@ -193,7 +193,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_trajectory_
     return obj_ue_trajectory_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_trajectory_collection_t *data_collection_model_ue_trajectory_collection_set_ts_move(data_collection_model_ue_trajectory_collection_t *obj_ue_trajectory_collection, char* p_ts)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_trajectory_collection_t *data_collection_model_ue_trajectory_collection_set_ts_move(data_collection_model_ue_trajectory_collection_t *obj_ue_trajectory_collection, char* p_ts)
 {
     if (!obj_ue_trajectory_collection) return NULL;
 
@@ -210,7 +210,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_trajectory_
     return obj_ue_trajectory_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_location_area5_g_t* data_collection_model_ue_trajectory_collection_get_loc_area(const data_collection_model_ue_trajectory_collection_t *obj_ue_trajectory_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location_area5_g_t* data_collection_model_ue_trajectory_collection_get_loc_area(const data_collection_model_ue_trajectory_collection_t *obj_ue_trajectory_collection)
 {
     if (!obj_ue_trajectory_collection) {
         const data_collection_model_location_area5_g_t *result = NULL;
@@ -229,7 +229,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_location
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_trajectory_collection_t *data_collection_model_ue_trajectory_collection_set_loc_area(data_collection_model_ue_trajectory_collection_t *obj_ue_trajectory_collection, const data_collection_model_location_area5_g_t* p_loc_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_trajectory_collection_t *data_collection_model_ue_trajectory_collection_set_loc_area(data_collection_model_ue_trajectory_collection_t *obj_ue_trajectory_collection, const data_collection_model_location_area5_g_t* p_loc_area)
 {
     if (!obj_ue_trajectory_collection) return NULL;
 
@@ -245,7 +245,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_trajectory_
     return obj_ue_trajectory_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_trajectory_collection_t *data_collection_model_ue_trajectory_collection_set_loc_area_move(data_collection_model_ue_trajectory_collection_t *obj_ue_trajectory_collection, data_collection_model_location_area5_g_t* p_loc_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_trajectory_collection_t *data_collection_model_ue_trajectory_collection_set_loc_area_move(data_collection_model_ue_trajectory_collection_t *obj_ue_trajectory_collection, data_collection_model_location_area5_g_t* p_loc_area)
 {
     if (!obj_ue_trajectory_collection) return NULL;
 
@@ -263,7 +263,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_trajectory_
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_ue_trajectory_collection_make_lnode(data_collection_model_ue_trajectory_collection_t *p_ue_trajectory_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_ue_trajectory_collection_make_lnode(data_collection_model_ue_trajectory_collection_t *p_ue_trajectory_collection)
 {
     return data_collection_lnode_create(p_ue_trajectory_collection, reinterpret_cast<void(*)(void*)>(data_collection_model_ue_trajectory_collection_free));
 }

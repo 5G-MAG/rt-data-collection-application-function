@@ -22,12 +22,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_subscription_action_t *data_collection_model_subscription_action_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_subscription_action_t *data_collection_model_subscription_action_create()
 {
     return reinterpret_cast<data_collection_model_subscription_action_t*>(new std::shared_ptr<SubscriptionAction>(new SubscriptionAction()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_subscription_action_t *data_collection_model_subscription_action_create_copy(const data_collection_model_subscription_action_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_subscription_action_t *data_collection_model_subscription_action_create_copy(const data_collection_model_subscription_action_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<SubscriptionAction > &obj = *reinterpret_cast<const std::shared_ptr<SubscriptionAction >*>(other);
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_subscription_a
     return reinterpret_cast<data_collection_model_subscription_action_t*>(new std::shared_ptr<SubscriptionAction >(new SubscriptionAction(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_subscription_action_t *data_collection_model_subscription_action_create_move(data_collection_model_subscription_action_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_subscription_action_t *data_collection_model_subscription_action_create_move(data_collection_model_subscription_action_t *other)
 {
     if (!other) return NULL;
 
@@ -48,7 +48,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_subscription_a
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_subscription_action_t *data_collection_model_subscription_action_copy(data_collection_model_subscription_action_t *subscription_action, const data_collection_model_subscription_action_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_subscription_action_t *data_collection_model_subscription_action_copy(data_collection_model_subscription_action_t *subscription_action, const data_collection_model_subscription_action_t *other)
 {
     if (subscription_action) {
         std::shared_ptr<SubscriptionAction > &obj = *reinterpret_cast<std::shared_ptr<SubscriptionAction >*>(subscription_action);
@@ -77,7 +77,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_subscription_a
     return subscription_action;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_subscription_action_t *data_collection_model_subscription_action_move(data_collection_model_subscription_action_t *subscription_action, data_collection_model_subscription_action_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_subscription_action_t *data_collection_model_subscription_action_move(data_collection_model_subscription_action_t *subscription_action, data_collection_model_subscription_action_t *other)
 {
     std::shared_ptr<SubscriptionAction > *other_ptr = reinterpret_cast<std::shared_ptr<SubscriptionAction >*>(other);
 
@@ -101,13 +101,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_subscription_a
     return subscription_action;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_subscription_action_free(data_collection_model_subscription_action_t *subscription_action)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_subscription_action_free(data_collection_model_subscription_action_t *subscription_action)
 {
     if (!subscription_action) return;
     delete reinterpret_cast<std::shared_ptr<SubscriptionAction >*>(subscription_action);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_subscription_action_toJSON(const data_collection_model_subscription_action_t *subscription_action, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_subscription_action_toJSON(const data_collection_model_subscription_action_t *subscription_action, bool as_request)
 {
     if (!subscription_action) return NULL;
     const std::shared_ptr<SubscriptionAction > &obj = *reinterpret_cast<const std::shared_ptr<SubscriptionAction >*>(subscription_action);
@@ -116,7 +116,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_subscri
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_subscription_action_t *data_collection_model_subscription_action_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_subscription_action_t *data_collection_model_subscription_action_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -129,7 +129,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_subscription_a
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_subscription_action_is_equal_to(const data_collection_model_subscription_action_t *first, const data_collection_model_subscription_action_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_subscription_action_is_equal_to(const data_collection_model_subscription_action_t *first, const data_collection_model_subscription_action_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -154,7 +154,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_subscript
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_subscription_action_is_not_set(const data_collection_model_subscription_action_t *obj_subscription_action)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_subscription_action_is_not_set(const data_collection_model_subscription_action_t *obj_subscription_action)
 {
     if (!obj_subscription_action) return true;
     const std::shared_ptr<SubscriptionAction > &obj = *reinterpret_cast<const std::shared_ptr<SubscriptionAction >*>(obj_subscription_action);
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_subscription_action_
     return obj->getValue() == SubscriptionAction::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_subscription_action_is_non_standard(const data_collection_model_subscription_action_t *obj_subscription_action)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_subscription_action_is_non_standard(const data_collection_model_subscription_action_t *obj_subscription_action)
 {
     if (!obj_subscription_action) return false;
     const std::shared_ptr<SubscriptionAction > &obj = *reinterpret_cast<const std::shared_ptr<SubscriptionAction >*>(obj_subscription_action);
@@ -170,7 +170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_subscription_action_
     return obj->getValue() == SubscriptionAction::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_subscription_action_e data_collection_model_subscription_action_get_enum(const data_collection_model_subscription_action_t *obj_subscription_action)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_subscription_action_e data_collection_model_subscription_action_get_enum(const data_collection_model_subscription_action_t *obj_subscription_action)
 {
     if (!obj_subscription_action)
         return DCM_SUBSCRIPTION_ACTION_NO_VAL;
@@ -191,7 +191,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_subscription_action_e dat
     return DCM_SUBSCRIPTION_ACTION_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_subscription_action_get_string(const data_collection_model_subscription_action_t *obj_subscription_action)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_subscription_action_get_string(const data_collection_model_subscription_action_t *obj_subscription_action)
 {
     if (!obj_subscription_action) return NULL;
     const std::shared_ptr<SubscriptionAction > &obj = *reinterpret_cast<const std::shared_ptr<SubscriptionAction >*>(obj_subscription_action);
@@ -199,7 +199,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_subscription_
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_subscription_action_set_enum(data_collection_model_subscription_action_t *obj_subscription_action, data_collection_model_subscription_action_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_subscription_action_set_enum(data_collection_model_subscription_action_t *obj_subscription_action, data_collection_model_subscription_action_e p_value)
 {
     if (!obj_subscription_action) return false;
     std::shared_ptr<SubscriptionAction > &obj = *reinterpret_cast<std::shared_ptr<SubscriptionAction >*>(obj_subscription_action);
@@ -223,7 +223,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_subscription_action_
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_subscription_action_set_string(data_collection_model_subscription_action_t *obj_subscription_action, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_subscription_action_set_string(data_collection_model_subscription_action_t *obj_subscription_action, const char *p_value)
 {
     if (!obj_subscription_action) return false;
     std::shared_ptr<SubscriptionAction > &obj = *reinterpret_cast<std::shared_ptr<SubscriptionAction >*>(obj_subscription_action);
@@ -238,7 +238,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_subscription_action_
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_subscription_action_make_lnode(data_collection_model_subscription_action_t *p_subscription_action)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_subscription_action_make_lnode(data_collection_model_subscription_action_t *p_subscription_action)
 {
     return data_collection_lnode_create(p_subscription_action, reinterpret_cast<void(*)(void*)>(data_collection_model_subscription_action_free));
 }

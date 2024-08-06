@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_create(
 
 
 
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_create_copy(const data_collection_model_local3d_point_uncertainty_ellipsoid_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_create_copy(const data_collection_model_local3d_point_uncertainty_ellipsoid_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<Local3dPointUncertaintyEllipsoid > &obj = *reinterpret_cast<const std::shared_ptr<Local3dPointUncertaintyEllipsoid >*>(other);
@@ -49,7 +49,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_
     return reinterpret_cast<data_collection_model_local3d_point_uncertainty_ellipsoid_t*>(new std::shared_ptr<Local3dPointUncertaintyEllipsoid >(new Local3dPointUncertaintyEllipsoid(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_create_move(data_collection_model_local3d_point_uncertainty_ellipsoid_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_create_move(data_collection_model_local3d_point_uncertainty_ellipsoid_t *other)
 {
     if (!other) return NULL;
 
@@ -62,7 +62,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_copy(data_collection_model_local3d_point_uncertainty_ellipsoid_t *local3d_point_uncertainty_ellipsoid, const data_collection_model_local3d_point_uncertainty_ellipsoid_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_copy(data_collection_model_local3d_point_uncertainty_ellipsoid_t *local3d_point_uncertainty_ellipsoid, const data_collection_model_local3d_point_uncertainty_ellipsoid_t *other)
 {
     if (local3d_point_uncertainty_ellipsoid) {
         std::shared_ptr<Local3dPointUncertaintyEllipsoid > &obj = *reinterpret_cast<std::shared_ptr<Local3dPointUncertaintyEllipsoid >*>(local3d_point_uncertainty_ellipsoid);
@@ -91,7 +91,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_
     return local3d_point_uncertainty_ellipsoid;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_move(data_collection_model_local3d_point_uncertainty_ellipsoid_t *local3d_point_uncertainty_ellipsoid, data_collection_model_local3d_point_uncertainty_ellipsoid_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_move(data_collection_model_local3d_point_uncertainty_ellipsoid_t *local3d_point_uncertainty_ellipsoid, data_collection_model_local3d_point_uncertainty_ellipsoid_t *other)
 {
     std::shared_ptr<Local3dPointUncertaintyEllipsoid > *other_ptr = reinterpret_cast<std::shared_ptr<Local3dPointUncertaintyEllipsoid >*>(other);
 
@@ -115,13 +115,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_
     return local3d_point_uncertainty_ellipsoid;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_local3d_point_uncertainty_ellipsoid_free(data_collection_model_local3d_point_uncertainty_ellipsoid_t *local3d_point_uncertainty_ellipsoid)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_local3d_point_uncertainty_ellipsoid_free(data_collection_model_local3d_point_uncertainty_ellipsoid_t *local3d_point_uncertainty_ellipsoid)
 {
     if (!local3d_point_uncertainty_ellipsoid) return;
     delete reinterpret_cast<std::shared_ptr<Local3dPointUncertaintyEllipsoid >*>(local3d_point_uncertainty_ellipsoid);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_local3d_point_uncertainty_ellipsoid_toJSON(const data_collection_model_local3d_point_uncertainty_ellipsoid_t *local3d_point_uncertainty_ellipsoid, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_local3d_point_uncertainty_ellipsoid_toJSON(const data_collection_model_local3d_point_uncertainty_ellipsoid_t *local3d_point_uncertainty_ellipsoid, bool as_request)
 {
     if (!local3d_point_uncertainty_ellipsoid) return NULL;
     const std::shared_ptr<Local3dPointUncertaintyEllipsoid > &obj = *reinterpret_cast<const std::shared_ptr<Local3dPointUncertaintyEllipsoid >*>(local3d_point_uncertainty_ellipsoid);
@@ -130,7 +130,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_local3d
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -143,7 +143,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_local3d_point_uncertainty_ellipsoid_is_equal_to(const data_collection_model_local3d_point_uncertainty_ellipsoid_t *first, const data_collection_model_local3d_point_uncertainty_ellipsoid_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_local3d_point_uncertainty_ellipsoid_is_equal_to(const data_collection_model_local3d_point_uncertainty_ellipsoid_t *first, const data_collection_model_local3d_point_uncertainty_ellipsoid_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -168,7 +168,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_local3d_p
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_supported_gad_shapes_t* data_collection_model_local3d_point_uncertainty_ellipsoid_get_shape(const data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supported_gad_shapes_t* data_collection_model_local3d_point_uncertainty_ellipsoid_get_shape(const data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid)
 {
     if (!obj_local3d_point_uncertainty_ellipsoid) {
         const data_collection_model_supported_gad_shapes_t *result = NULL;
@@ -187,7 +187,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_supporte
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_shape(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, const data_collection_model_supported_gad_shapes_t* p_shape)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_shape(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, const data_collection_model_supported_gad_shapes_t* p_shape)
 {
     if (!obj_local3d_point_uncertainty_ellipsoid) return NULL;
 
@@ -203,7 +203,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_
     return obj_local3d_point_uncertainty_ellipsoid;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_shape_move(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, data_collection_model_supported_gad_shapes_t* p_shape)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_shape_move(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, data_collection_model_supported_gad_shapes_t* p_shape)
 {
     if (!obj_local3d_point_uncertainty_ellipsoid) return NULL;
 
@@ -220,7 +220,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_
     return obj_local3d_point_uncertainty_ellipsoid;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_local_origin_t* data_collection_model_local3d_point_uncertainty_ellipsoid_get_local_origin(const data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_local_origin_t* data_collection_model_local3d_point_uncertainty_ellipsoid_get_local_origin(const data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid)
 {
     if (!obj_local3d_point_uncertainty_ellipsoid) {
         const data_collection_model_local_origin_t *result = NULL;
@@ -239,7 +239,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_local_or
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_local_origin(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, const data_collection_model_local_origin_t* p_local_origin)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_local_origin(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, const data_collection_model_local_origin_t* p_local_origin)
 {
     if (!obj_local3d_point_uncertainty_ellipsoid) return NULL;
 
@@ -255,7 +255,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_
     return obj_local3d_point_uncertainty_ellipsoid;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_local_origin_move(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, data_collection_model_local_origin_t* p_local_origin)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_local_origin_move(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, data_collection_model_local_origin_t* p_local_origin)
 {
     if (!obj_local3d_point_uncertainty_ellipsoid) return NULL;
 
@@ -272,7 +272,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_
     return obj_local3d_point_uncertainty_ellipsoid;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_relative_cartesian_location_t* data_collection_model_local3d_point_uncertainty_ellipsoid_get_point(const data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_relative_cartesian_location_t* data_collection_model_local3d_point_uncertainty_ellipsoid_get_point(const data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid)
 {
     if (!obj_local3d_point_uncertainty_ellipsoid) {
         const data_collection_model_relative_cartesian_location_t *result = NULL;
@@ -291,7 +291,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_relative
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_point(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, const data_collection_model_relative_cartesian_location_t* p_point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_point(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, const data_collection_model_relative_cartesian_location_t* p_point)
 {
     if (!obj_local3d_point_uncertainty_ellipsoid) return NULL;
 
@@ -307,7 +307,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_
     return obj_local3d_point_uncertainty_ellipsoid;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_point_move(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, data_collection_model_relative_cartesian_location_t* p_point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_point_move(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, data_collection_model_relative_cartesian_location_t* p_point)
 {
     if (!obj_local3d_point_uncertainty_ellipsoid) return NULL;
 
@@ -324,7 +324,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_
     return obj_local3d_point_uncertainty_ellipsoid;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_uncertainty_ellipsoid_t* data_collection_model_local3d_point_uncertainty_ellipsoid_get_uncertainty_ellipsoid(const data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_uncertainty_ellipsoid_t* data_collection_model_local3d_point_uncertainty_ellipsoid_get_uncertainty_ellipsoid(const data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid)
 {
     if (!obj_local3d_point_uncertainty_ellipsoid) {
         const data_collection_model_uncertainty_ellipsoid_t *result = NULL;
@@ -343,7 +343,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_uncertai
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_uncertainty_ellipsoid(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, const data_collection_model_uncertainty_ellipsoid_t* p_uncertainty_ellipsoid)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_uncertainty_ellipsoid(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, const data_collection_model_uncertainty_ellipsoid_t* p_uncertainty_ellipsoid)
 {
     if (!obj_local3d_point_uncertainty_ellipsoid) return NULL;
 
@@ -359,7 +359,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_
     return obj_local3d_point_uncertainty_ellipsoid;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_uncertainty_ellipsoid_move(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, data_collection_model_uncertainty_ellipsoid_t* p_uncertainty_ellipsoid)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_uncertainty_ellipsoid_move(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, data_collection_model_uncertainty_ellipsoid_t* p_uncertainty_ellipsoid)
 {
     if (!obj_local3d_point_uncertainty_ellipsoid) return NULL;
 
@@ -376,7 +376,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_
     return obj_local3d_point_uncertainty_ellipsoid;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_local3d_point_uncertainty_ellipsoid_get_confidence(const data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_local3d_point_uncertainty_ellipsoid_get_confidence(const data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid)
 {
     if (!obj_local3d_point_uncertainty_ellipsoid) {
         const int32_t result = 0;
@@ -395,7 +395,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_confidence(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, const int32_t p_confidence)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_confidence(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, const int32_t p_confidence)
 {
     if (!obj_local3d_point_uncertainty_ellipsoid) return NULL;
 
@@ -411,7 +411,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_
     return obj_local3d_point_uncertainty_ellipsoid;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_confidence_move(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, int32_t p_confidence)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_confidence_move(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, int32_t p_confidence)
 {
     if (!obj_local3d_point_uncertainty_ellipsoid) return NULL;
 
@@ -428,7 +428,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_
     return obj_local3d_point_uncertainty_ellipsoid;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_local3d_point_uncertainty_ellipsoid_get_v_confidence(const data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_local3d_point_uncertainty_ellipsoid_get_v_confidence(const data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid)
 {
     if (!obj_local3d_point_uncertainty_ellipsoid) {
         const int32_t result = 0;
@@ -447,7 +447,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_v_confidence(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, const int32_t p_v_confidence)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_v_confidence(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, const int32_t p_v_confidence)
 {
     if (!obj_local3d_point_uncertainty_ellipsoid) return NULL;
 
@@ -463,7 +463,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_
     return obj_local3d_point_uncertainty_ellipsoid;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_v_confidence_move(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, int32_t p_v_confidence)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local3d_point_uncertainty_ellipsoid_t *data_collection_model_local3d_point_uncertainty_ellipsoid_set_v_confidence_move(data_collection_model_local3d_point_uncertainty_ellipsoid_t *obj_local3d_point_uncertainty_ellipsoid, int32_t p_v_confidence)
 {
     if (!obj_local3d_point_uncertainty_ellipsoid) return NULL;
 
@@ -481,7 +481,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local3d_point_
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_local3d_point_uncertainty_ellipsoid_make_lnode(data_collection_model_local3d_point_uncertainty_ellipsoid_t *p_local3d_point_uncertainty_ellipsoid)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_local3d_point_uncertainty_ellipsoid_make_lnode(data_collection_model_local3d_point_uncertainty_ellipsoid_t *p_local3d_point_uncertainty_ellipsoid)
 {
     return data_collection_lnode_create(p_local3d_point_uncertainty_ellipsoid, reinterpret_cast<void(*)(void*)>(data_collection_model_local3d_point_uncertainty_ellipsoid_free));
 }

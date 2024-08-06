@@ -85,7 +85,7 @@ typedef struct data_collection_data_report_handler_s {
     data_collection_data_report_property_e data_report_property;
     const char *data_domain;      /* derived from data_report_property if NULL */
     const char *event_type;       /* afEvent enumeration string value or any other string for custom events */
-    void *(* const parse_report_data)(const data_collection_reporting_session_t *session, cJSON *json, const char **error_return);
+    void *(* const parse_report_data)(const data_collection_reporting_session_t *session, cJSON *json, char **error_return, char **error_classname, char **error_parameter);
     void *(* const clone_report_data)(const void *report_data);
     void (* const free_report_data)(void *report_data);
     cJSON *(* const json_for_report_data)(const void *report_data);
@@ -131,7 +131,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_data_report_get_app
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_session_get_id(const data_collection_reporting_session_t *session);
 
 /** Process a data report from HTTP */
-DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report(data_collection_reporting_session_t *session, const char *mime_type, const void *data, size_t data_length, const char **error_return, const char **error_code, const char **error_parameter);
+DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report(data_collection_reporting_session_t *session, const char *mime_type, const void *data, size_t data_length, char **error_return, char **error_classname, char **error_parameter, const char **error_code);
 
 /** Mark a data report as having been used */
 DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report_used(data_collection_data_report_record_t *, const data_collection_event_subscription_t *);

@@ -22,14 +22,14 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_invocations_collection_all_of_t *data_collection_model_dynamic_policy_invocations_collection_all_of_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_invocations_collection_all_of_t *data_collection_model_dynamic_policy_invocations_collection_all_of_create(
 )
 {
     return reinterpret_cast<data_collection_model_dynamic_policy_invocations_collection_all_of_t*>(new std::shared_ptr<DynamicPolicyInvocationsCollection_allOf>(new DynamicPolicyInvocationsCollection_allOf(
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_invocations_collection_all_of_t *data_collection_model_dynamic_policy_invocations_collection_all_of_create_copy(const data_collection_model_dynamic_policy_invocations_collection_all_of_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_invocations_collection_all_of_t *data_collection_model_dynamic_policy_invocations_collection_all_of_create_copy(const data_collection_model_dynamic_policy_invocations_collection_all_of_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<DynamicPolicyInvocationsCollection_allOf > &obj = *reinterpret_cast<const std::shared_ptr<DynamicPolicyInvocationsCollection_allOf >*>(other);
@@ -37,7 +37,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return reinterpret_cast<data_collection_model_dynamic_policy_invocations_collection_all_of_t*>(new std::shared_ptr<DynamicPolicyInvocationsCollection_allOf >(new DynamicPolicyInvocationsCollection_allOf(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_invocations_collection_all_of_t *data_collection_model_dynamic_policy_invocations_collection_all_of_create_move(data_collection_model_dynamic_policy_invocations_collection_all_of_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_invocations_collection_all_of_t *data_collection_model_dynamic_policy_invocations_collection_all_of_create_move(data_collection_model_dynamic_policy_invocations_collection_all_of_t *other)
 {
     if (!other) return NULL;
 
@@ -50,7 +50,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_invocations_collection_all_of_t *data_collection_model_dynamic_policy_invocations_collection_all_of_copy(data_collection_model_dynamic_policy_invocations_collection_all_of_t *dynamic_policy_invocations_collection_all_of, const data_collection_model_dynamic_policy_invocations_collection_all_of_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_invocations_collection_all_of_t *data_collection_model_dynamic_policy_invocations_collection_all_of_copy(data_collection_model_dynamic_policy_invocations_collection_all_of_t *dynamic_policy_invocations_collection_all_of, const data_collection_model_dynamic_policy_invocations_collection_all_of_t *other)
 {
     if (dynamic_policy_invocations_collection_all_of) {
         std::shared_ptr<DynamicPolicyInvocationsCollection_allOf > &obj = *reinterpret_cast<std::shared_ptr<DynamicPolicyInvocationsCollection_allOf >*>(dynamic_policy_invocations_collection_all_of);
@@ -79,7 +79,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return dynamic_policy_invocations_collection_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_invocations_collection_all_of_t *data_collection_model_dynamic_policy_invocations_collection_all_of_move(data_collection_model_dynamic_policy_invocations_collection_all_of_t *dynamic_policy_invocations_collection_all_of, data_collection_model_dynamic_policy_invocations_collection_all_of_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_invocations_collection_all_of_t *data_collection_model_dynamic_policy_invocations_collection_all_of_move(data_collection_model_dynamic_policy_invocations_collection_all_of_t *dynamic_policy_invocations_collection_all_of, data_collection_model_dynamic_policy_invocations_collection_all_of_t *other)
 {
     std::shared_ptr<DynamicPolicyInvocationsCollection_allOf > *other_ptr = reinterpret_cast<std::shared_ptr<DynamicPolicyInvocationsCollection_allOf >*>(other);
 
@@ -103,13 +103,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return dynamic_policy_invocations_collection_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_dynamic_policy_invocations_collection_all_of_free(data_collection_model_dynamic_policy_invocations_collection_all_of_t *dynamic_policy_invocations_collection_all_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_dynamic_policy_invocations_collection_all_of_free(data_collection_model_dynamic_policy_invocations_collection_all_of_t *dynamic_policy_invocations_collection_all_of)
 {
     if (!dynamic_policy_invocations_collection_all_of) return;
     delete reinterpret_cast<std::shared_ptr<DynamicPolicyInvocationsCollection_allOf >*>(dynamic_policy_invocations_collection_all_of);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_dynamic_policy_invocations_collection_all_of_toJSON(const data_collection_model_dynamic_policy_invocations_collection_all_of_t *dynamic_policy_invocations_collection_all_of, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_dynamic_policy_invocations_collection_all_of_toJSON(const data_collection_model_dynamic_policy_invocations_collection_all_of_t *dynamic_policy_invocations_collection_all_of, bool as_request)
 {
     if (!dynamic_policy_invocations_collection_all_of) return NULL;
     const std::shared_ptr<DynamicPolicyInvocationsCollection_allOf > &obj = *reinterpret_cast<const std::shared_ptr<DynamicPolicyInvocationsCollection_allOf >*>(dynamic_policy_invocations_collection_all_of);
@@ -118,7 +118,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_dynamic
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_invocations_collection_all_of_t *data_collection_model_dynamic_policy_invocations_collection_all_of_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_invocations_collection_all_of_t *data_collection_model_dynamic_policy_invocations_collection_all_of_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -131,7 +131,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_dynamic_policy_invocations_collection_all_of_is_equal_to(const data_collection_model_dynamic_policy_invocations_collection_all_of_t *first, const data_collection_model_dynamic_policy_invocations_collection_all_of_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_dynamic_policy_invocations_collection_all_of_is_equal_to(const data_collection_model_dynamic_policy_invocations_collection_all_of_t *first, const data_collection_model_dynamic_policy_invocations_collection_all_of_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -156,7 +156,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_dynamic_p
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_dynamic_policy_invocations_collection_all_of_get_records(const data_collection_model_dynamic_policy_invocations_collection_all_of_t *obj_dynamic_policy_invocations_collection_all_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_dynamic_policy_invocations_collection_all_of_get_records(const data_collection_model_dynamic_policy_invocations_collection_all_of_t *obj_dynamic_policy_invocations_collection_all_of)
 {
     if (!obj_dynamic_policy_invocations_collection_all_of) {
         ogs_list_t *result = NULL;
@@ -183,7 +183,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_dy
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_invocations_collection_all_of_t *data_collection_model_dynamic_policy_invocations_collection_all_of_set_records(data_collection_model_dynamic_policy_invocations_collection_all_of_t *obj_dynamic_policy_invocations_collection_all_of, const ogs_list_t* p_records)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_invocations_collection_all_of_t *data_collection_model_dynamic_policy_invocations_collection_all_of_set_records(data_collection_model_dynamic_policy_invocations_collection_all_of_t *obj_dynamic_policy_invocations_collection_all_of, const ogs_list_t* p_records)
 {
     if (!obj_dynamic_policy_invocations_collection_all_of) return NULL;
 
@@ -207,7 +207,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return obj_dynamic_policy_invocations_collection_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_invocations_collection_all_of_t *data_collection_model_dynamic_policy_invocations_collection_all_of_set_records_move(data_collection_model_dynamic_policy_invocations_collection_all_of_t *obj_dynamic_policy_invocations_collection_all_of, ogs_list_t* p_records)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_invocations_collection_all_of_t *data_collection_model_dynamic_policy_invocations_collection_all_of_set_records_move(data_collection_model_dynamic_policy_invocations_collection_all_of_t *obj_dynamic_policy_invocations_collection_all_of, ogs_list_t* p_records)
 {
     if (!obj_dynamic_policy_invocations_collection_all_of) return NULL;
 
@@ -232,7 +232,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return obj_dynamic_policy_invocations_collection_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_invocations_collection_all_of_t *data_collection_model_dynamic_policy_invocations_collection_all_of_add_records(data_collection_model_dynamic_policy_invocations_collection_all_of_t *obj_dynamic_policy_invocations_collection_all_of, data_collection_model_dynamic_policy_invocation_event_t* p_records)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_invocations_collection_all_of_t *data_collection_model_dynamic_policy_invocations_collection_all_of_add_records(data_collection_model_dynamic_policy_invocations_collection_all_of_t *obj_dynamic_policy_invocations_collection_all_of, data_collection_model_dynamic_policy_invocation_event_t* p_records)
 {
     if (!obj_dynamic_policy_invocations_collection_all_of) return NULL;
 
@@ -249,7 +249,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return obj_dynamic_policy_invocations_collection_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_invocations_collection_all_of_t *data_collection_model_dynamic_policy_invocations_collection_all_of_remove_records(data_collection_model_dynamic_policy_invocations_collection_all_of_t *obj_dynamic_policy_invocations_collection_all_of, const data_collection_model_dynamic_policy_invocation_event_t* p_records)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_invocations_collection_all_of_t *data_collection_model_dynamic_policy_invocations_collection_all_of_remove_records(data_collection_model_dynamic_policy_invocations_collection_all_of_t *obj_dynamic_policy_invocations_collection_all_of, const data_collection_model_dynamic_policy_invocation_event_t* p_records)
 {
     if (!obj_dynamic_policy_invocations_collection_all_of) return NULL;
 
@@ -264,7 +264,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
     return obj_dynamic_policy_invocations_collection_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy_invocations_collection_all_of_t *data_collection_model_dynamic_policy_invocations_collection_all_of_clear_records(data_collection_model_dynamic_policy_invocations_collection_all_of_t *obj_dynamic_policy_invocations_collection_all_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_invocations_collection_all_of_t *data_collection_model_dynamic_policy_invocations_collection_all_of_clear_records(data_collection_model_dynamic_policy_invocations_collection_all_of_t *obj_dynamic_policy_invocations_collection_all_of)
 {
     if (!obj_dynamic_policy_invocations_collection_all_of) return NULL;
 
@@ -276,7 +276,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_dynamic_policy
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_dynamic_policy_invocations_collection_all_of_make_lnode(data_collection_model_dynamic_policy_invocations_collection_all_of_t *p_dynamic_policy_invocations_collection_all_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_dynamic_policy_invocations_collection_all_of_make_lnode(data_collection_model_dynamic_policy_invocations_collection_all_of_t *p_dynamic_policy_invocations_collection_all_of)
 {
     return data_collection_lnode_create(p_dynamic_policy_invocations_collection_all_of, reinterpret_cast<void(*)(void*)>(data_collection_model_dynamic_policy_invocations_collection_all_of_free));
 }

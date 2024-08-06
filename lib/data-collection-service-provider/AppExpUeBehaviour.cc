@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_create(
 
 
 
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_beh
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_create_copy(const data_collection_model_app_exp_ue_behaviour_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_create_copy(const data_collection_model_app_exp_ue_behaviour_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<AppExpUeBehaviour > &obj = *reinterpret_cast<const std::shared_ptr<AppExpUeBehaviour >*>(other);
@@ -49,7 +49,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_beh
     return reinterpret_cast<data_collection_model_app_exp_ue_behaviour_t*>(new std::shared_ptr<AppExpUeBehaviour >(new AppExpUeBehaviour(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_create_move(data_collection_model_app_exp_ue_behaviour_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_create_move(data_collection_model_app_exp_ue_behaviour_t *other)
 {
     if (!other) return NULL;
 
@@ -62,7 +62,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_beh
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_copy(data_collection_model_app_exp_ue_behaviour_t *app_exp_ue_behaviour, const data_collection_model_app_exp_ue_behaviour_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_copy(data_collection_model_app_exp_ue_behaviour_t *app_exp_ue_behaviour, const data_collection_model_app_exp_ue_behaviour_t *other)
 {
     if (app_exp_ue_behaviour) {
         std::shared_ptr<AppExpUeBehaviour > &obj = *reinterpret_cast<std::shared_ptr<AppExpUeBehaviour >*>(app_exp_ue_behaviour);
@@ -91,7 +91,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_beh
     return app_exp_ue_behaviour;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_move(data_collection_model_app_exp_ue_behaviour_t *app_exp_ue_behaviour, data_collection_model_app_exp_ue_behaviour_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_move(data_collection_model_app_exp_ue_behaviour_t *app_exp_ue_behaviour, data_collection_model_app_exp_ue_behaviour_t *other)
 {
     std::shared_ptr<AppExpUeBehaviour > *other_ptr = reinterpret_cast<std::shared_ptr<AppExpUeBehaviour >*>(other);
 
@@ -115,13 +115,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_beh
     return app_exp_ue_behaviour;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_app_exp_ue_behaviour_free(data_collection_model_app_exp_ue_behaviour_t *app_exp_ue_behaviour)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_app_exp_ue_behaviour_free(data_collection_model_app_exp_ue_behaviour_t *app_exp_ue_behaviour)
 {
     if (!app_exp_ue_behaviour) return;
     delete reinterpret_cast<std::shared_ptr<AppExpUeBehaviour >*>(app_exp_ue_behaviour);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_app_exp_ue_behaviour_toJSON(const data_collection_model_app_exp_ue_behaviour_t *app_exp_ue_behaviour, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_app_exp_ue_behaviour_toJSON(const data_collection_model_app_exp_ue_behaviour_t *app_exp_ue_behaviour, bool as_request)
 {
     if (!app_exp_ue_behaviour) return NULL;
     const std::shared_ptr<AppExpUeBehaviour > &obj = *reinterpret_cast<const std::shared_ptr<AppExpUeBehaviour >*>(app_exp_ue_behaviour);
@@ -130,7 +130,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_app_exp
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -143,7 +143,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_beh
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_app_exp_ue_behaviour_is_equal_to(const data_collection_model_app_exp_ue_behaviour_t *first, const data_collection_model_app_exp_ue_behaviour_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_app_exp_ue_behaviour_is_equal_to(const data_collection_model_app_exp_ue_behaviour_t *first, const data_collection_model_app_exp_ue_behaviour_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -168,7 +168,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_app_exp_u
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_app_exp_ue_behaviour_get_app_id(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_app_exp_ue_behaviour_get_app_id(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
 {
     if (!obj_app_exp_ue_behaviour) {
         const char *result = NULL;
@@ -187,7 +187,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ap
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_app_id(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, const char* p_app_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_app_id(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, const char* p_app_id)
 {
     if (!obj_app_exp_ue_behaviour) return NULL;
 
@@ -203,7 +203,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_beh
     return obj_app_exp_ue_behaviour;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_app_id_move(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, char* p_app_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_app_id_move(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, char* p_app_id)
 {
     if (!obj_app_exp_ue_behaviour) return NULL;
 
@@ -220,7 +220,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_beh
     return obj_app_exp_ue_behaviour;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_time_window_t* data_collection_model_app_exp_ue_behaviour_get_exp_pdu_ses_inac_tm(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_time_window_t* data_collection_model_app_exp_ue_behaviour_get_exp_pdu_ses_inac_tm(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
 {
     if (!obj_app_exp_ue_behaviour) {
         const data_collection_model_time_window_t *result = NULL;
@@ -239,7 +239,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_time_win
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_exp_pdu_ses_inac_tm(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, const data_collection_model_time_window_t* p_exp_pdu_ses_inac_tm)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_exp_pdu_ses_inac_tm(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, const data_collection_model_time_window_t* p_exp_pdu_ses_inac_tm)
 {
     if (!obj_app_exp_ue_behaviour) return NULL;
 
@@ -255,7 +255,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_beh
     return obj_app_exp_ue_behaviour;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_exp_pdu_ses_inac_tm_move(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, data_collection_model_time_window_t* p_exp_pdu_ses_inac_tm)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_exp_pdu_ses_inac_tm_move(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, data_collection_model_time_window_t* p_exp_pdu_ses_inac_tm)
 {
     if (!obj_app_exp_ue_behaviour) return NULL;
 
@@ -272,7 +272,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_beh
     return obj_app_exp_ue_behaviour;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_app_exp_ue_behaviour_get_flow_descriptions(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_app_exp_ue_behaviour_get_flow_descriptions(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
 {
     if (!obj_app_exp_ue_behaviour) {
         ogs_list_t *result = NULL;
@@ -298,7 +298,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ap
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_flow_descriptions(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, const ogs_list_t* p_flow_descriptions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_flow_descriptions(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, const ogs_list_t* p_flow_descriptions)
 {
     if (!obj_app_exp_ue_behaviour) return NULL;
 
@@ -322,7 +322,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_beh
     return obj_app_exp_ue_behaviour;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_flow_descriptions_move(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, ogs_list_t* p_flow_descriptions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_flow_descriptions_move(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, ogs_list_t* p_flow_descriptions)
 {
     if (!obj_app_exp_ue_behaviour) return NULL;
 
@@ -347,7 +347,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_beh
     return obj_app_exp_ue_behaviour;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_add_flow_descriptions(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, char* p_flow_descriptions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_add_flow_descriptions(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, char* p_flow_descriptions)
 {
     if (!obj_app_exp_ue_behaviour) return NULL;
 
@@ -364,7 +364,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_beh
     return obj_app_exp_ue_behaviour;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_remove_flow_descriptions(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, const char* p_flow_descriptions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_remove_flow_descriptions(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, const char* p_flow_descriptions)
 {
     if (!obj_app_exp_ue_behaviour) return NULL;
 
@@ -379,7 +379,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_beh
     return obj_app_exp_ue_behaviour;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_clear_flow_descriptions(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_clear_flow_descriptions(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
 {
     if (!obj_app_exp_ue_behaviour) return NULL;
 
@@ -390,7 +390,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_beh
     return obj_app_exp_ue_behaviour;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_app_exp_ue_behaviour_get_confidence_level(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_app_exp_ue_behaviour_get_confidence_level(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
 {
     if (!obj_app_exp_ue_behaviour) {
         const char *result = NULL;
@@ -409,7 +409,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ap
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_confidence_level(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, const char* p_confidence_level)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_confidence_level(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, const char* p_confidence_level)
 {
     if (!obj_app_exp_ue_behaviour) return NULL;
 
@@ -425,7 +425,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_beh
     return obj_app_exp_ue_behaviour;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_confidence_level_move(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, char* p_confidence_level)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_confidence_level_move(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, char* p_confidence_level)
 {
     if (!obj_app_exp_ue_behaviour) return NULL;
 
@@ -442,7 +442,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_beh
     return obj_app_exp_ue_behaviour;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_app_exp_ue_behaviour_get_accuracy_level(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_app_exp_ue_behaviour_get_accuracy_level(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
 {
     if (!obj_app_exp_ue_behaviour) {
         const char *result = NULL;
@@ -461,7 +461,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ap
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_accuracy_level(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, const char* p_accuracy_level)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_accuracy_level(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, const char* p_accuracy_level)
 {
     if (!obj_app_exp_ue_behaviour) return NULL;
 
@@ -477,7 +477,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_beh
     return obj_app_exp_ue_behaviour;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_accuracy_level_move(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, char* p_accuracy_level)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_accuracy_level_move(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, char* p_accuracy_level)
 {
     if (!obj_app_exp_ue_behaviour) return NULL;
 
@@ -494,7 +494,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_beh
     return obj_app_exp_ue_behaviour;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_cp_failure_code_t* data_collection_model_app_exp_ue_behaviour_get_failure_code(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_cp_failure_code_t* data_collection_model_app_exp_ue_behaviour_get_failure_code(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
 {
     if (!obj_app_exp_ue_behaviour) {
         const data_collection_model_cp_failure_code_t *result = NULL;
@@ -513,7 +513,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_cp_failu
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_failure_code(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, const data_collection_model_cp_failure_code_t* p_failure_code)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_failure_code(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, const data_collection_model_cp_failure_code_t* p_failure_code)
 {
     if (!obj_app_exp_ue_behaviour) return NULL;
 
@@ -529,7 +529,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_beh
     return obj_app_exp_ue_behaviour;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_failure_code_move(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, data_collection_model_cp_failure_code_t* p_failure_code)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_failure_code_move(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, data_collection_model_cp_failure_code_t* p_failure_code)
 {
     if (!obj_app_exp_ue_behaviour) return NULL;
 
@@ -546,7 +546,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_beh
     return obj_app_exp_ue_behaviour;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_app_exp_ue_behaviour_get_validity_time(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_app_exp_ue_behaviour_get_validity_time(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
 {
     if (!obj_app_exp_ue_behaviour) {
         const char *result = NULL;
@@ -565,7 +565,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ap
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_validity_time(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, const char* p_validity_time)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_validity_time(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, const char* p_validity_time)
 {
     if (!obj_app_exp_ue_behaviour) return NULL;
 
@@ -581,7 +581,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_beh
     return obj_app_exp_ue_behaviour;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_validity_time_move(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, char* p_validity_time)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_set_validity_time_move(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, char* p_validity_time)
 {
     if (!obj_app_exp_ue_behaviour) return NULL;
 
@@ -599,7 +599,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_app_exp_ue_beh
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_app_exp_ue_behaviour_make_lnode(data_collection_model_app_exp_ue_behaviour_t *p_app_exp_ue_behaviour)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_app_exp_ue_behaviour_make_lnode(data_collection_model_app_exp_ue_behaviour_t *p_app_exp_ue_behaviour)
 {
     return data_collection_lnode_create(p_app_exp_ue_behaviour, reinterpret_cast<void(*)(void*)>(data_collection_model_app_exp_ue_behaviour_free));
 }

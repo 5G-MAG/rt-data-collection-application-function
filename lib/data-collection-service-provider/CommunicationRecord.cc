@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_create(
 
 
 
@@ -43,7 +43,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_create_copy(const data_collection_model_communication_record_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_create_copy(const data_collection_model_communication_record_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<CommunicationRecord > &obj = *reinterpret_cast<const std::shared_ptr<CommunicationRecord >*>(other);
@@ -51,7 +51,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return reinterpret_cast<data_collection_model_communication_record_t*>(new std::shared_ptr<CommunicationRecord >(new CommunicationRecord(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_create_move(data_collection_model_communication_record_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_create_move(data_collection_model_communication_record_t *other)
 {
     if (!other) return NULL;
 
@@ -64,7 +64,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_copy(data_collection_model_communication_record_t *communication_record, const data_collection_model_communication_record_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_copy(data_collection_model_communication_record_t *communication_record, const data_collection_model_communication_record_t *other)
 {
     if (communication_record) {
         std::shared_ptr<CommunicationRecord > &obj = *reinterpret_cast<std::shared_ptr<CommunicationRecord >*>(communication_record);
@@ -93,7 +93,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return communication_record;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_move(data_collection_model_communication_record_t *communication_record, data_collection_model_communication_record_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_move(data_collection_model_communication_record_t *communication_record, data_collection_model_communication_record_t *other)
 {
     std::shared_ptr<CommunicationRecord > *other_ptr = reinterpret_cast<std::shared_ptr<CommunicationRecord >*>(other);
 
@@ -117,13 +117,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return communication_record;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_communication_record_free(data_collection_model_communication_record_t *communication_record)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_communication_record_free(data_collection_model_communication_record_t *communication_record)
 {
     if (!communication_record) return;
     delete reinterpret_cast<std::shared_ptr<CommunicationRecord >*>(communication_record);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_communication_record_toJSON(const data_collection_model_communication_record_t *communication_record, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_communication_record_toJSON(const data_collection_model_communication_record_t *communication_record, bool as_request)
 {
     if (!communication_record) return NULL;
     const std::shared_ptr<CommunicationRecord > &obj = *reinterpret_cast<const std::shared_ptr<CommunicationRecord >*>(communication_record);
@@ -132,7 +132,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_communi
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -145,7 +145,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_communication_record_is_equal_to(const data_collection_model_communication_record_t *first, const data_collection_model_communication_record_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_communication_record_is_equal_to(const data_collection_model_communication_record_t *first, const data_collection_model_communication_record_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -170,7 +170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_communica
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_communication_record_get_timestamp(const data_collection_model_communication_record_t *obj_communication_record)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_communication_record_get_timestamp(const data_collection_model_communication_record_t *obj_communication_record)
 {
     if (!obj_communication_record) {
         const char *result = NULL;
@@ -189,7 +189,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_co
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_set_timestamp(data_collection_model_communication_record_t *obj_communication_record, const char* p_timestamp)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_set_timestamp(data_collection_model_communication_record_t *obj_communication_record, const char* p_timestamp)
 {
     if (!obj_communication_record) return NULL;
 
@@ -205,7 +205,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return obj_communication_record;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_set_timestamp_move(data_collection_model_communication_record_t *obj_communication_record, char* p_timestamp)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_set_timestamp_move(data_collection_model_communication_record_t *obj_communication_record, char* p_timestamp)
 {
     if (!obj_communication_record) return NULL;
 
@@ -222,7 +222,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return obj_communication_record;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_communication_record_get_context_ids(const data_collection_model_communication_record_t *obj_communication_record)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_communication_record_get_context_ids(const data_collection_model_communication_record_t *obj_communication_record)
 {
     if (!obj_communication_record) {
         ogs_list_t *result = NULL;
@@ -248,7 +248,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_co
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_set_context_ids(data_collection_model_communication_record_t *obj_communication_record, const ogs_list_t* p_context_ids)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_set_context_ids(data_collection_model_communication_record_t *obj_communication_record, const ogs_list_t* p_context_ids)
 {
     if (!obj_communication_record) return NULL;
 
@@ -272,7 +272,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return obj_communication_record;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_set_context_ids_move(data_collection_model_communication_record_t *obj_communication_record, ogs_list_t* p_context_ids)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_set_context_ids_move(data_collection_model_communication_record_t *obj_communication_record, ogs_list_t* p_context_ids)
 {
     if (!obj_communication_record) return NULL;
 
@@ -297,7 +297,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return obj_communication_record;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_add_context_ids(data_collection_model_communication_record_t *obj_communication_record, char* p_context_ids)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_add_context_ids(data_collection_model_communication_record_t *obj_communication_record, char* p_context_ids)
 {
     if (!obj_communication_record) return NULL;
 
@@ -314,7 +314,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return obj_communication_record;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_remove_context_ids(data_collection_model_communication_record_t *obj_communication_record, const char* p_context_ids)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_remove_context_ids(data_collection_model_communication_record_t *obj_communication_record, const char* p_context_ids)
 {
     if (!obj_communication_record) return NULL;
 
@@ -329,7 +329,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return obj_communication_record;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_clear_context_ids(data_collection_model_communication_record_t *obj_communication_record)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_clear_context_ids(data_collection_model_communication_record_t *obj_communication_record)
 {
     if (!obj_communication_record) return NULL;
 
@@ -340,7 +340,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return obj_communication_record;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_time_window_t* data_collection_model_communication_record_get_time_interval(const data_collection_model_communication_record_t *obj_communication_record)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_time_window_t* data_collection_model_communication_record_get_time_interval(const data_collection_model_communication_record_t *obj_communication_record)
 {
     if (!obj_communication_record) {
         const data_collection_model_time_window_t *result = NULL;
@@ -359,7 +359,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_time_win
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_set_time_interval(data_collection_model_communication_record_t *obj_communication_record, const data_collection_model_time_window_t* p_time_interval)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_set_time_interval(data_collection_model_communication_record_t *obj_communication_record, const data_collection_model_time_window_t* p_time_interval)
 {
     if (!obj_communication_record) return NULL;
 
@@ -375,7 +375,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return obj_communication_record;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_set_time_interval_move(data_collection_model_communication_record_t *obj_communication_record, data_collection_model_time_window_t* p_time_interval)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_set_time_interval_move(data_collection_model_communication_record_t *obj_communication_record, data_collection_model_time_window_t* p_time_interval)
 {
     if (!obj_communication_record) return NULL;
 
@@ -392,7 +392,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return obj_communication_record;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_snssai_t* data_collection_model_communication_record_get_slice_info(const data_collection_model_communication_record_t *obj_communication_record)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_snssai_t* data_collection_model_communication_record_get_slice_info(const data_collection_model_communication_record_t *obj_communication_record)
 {
     if (!obj_communication_record) {
         const data_collection_model_snssai_t *result = NULL;
@@ -411,7 +411,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_snssai_t
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_set_slice_info(data_collection_model_communication_record_t *obj_communication_record, const data_collection_model_snssai_t* p_slice_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_set_slice_info(data_collection_model_communication_record_t *obj_communication_record, const data_collection_model_snssai_t* p_slice_info)
 {
     if (!obj_communication_record) return NULL;
 
@@ -427,7 +427,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return obj_communication_record;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_set_slice_info_move(data_collection_model_communication_record_t *obj_communication_record, data_collection_model_snssai_t* p_slice_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_set_slice_info_move(data_collection_model_communication_record_t *obj_communication_record, data_collection_model_snssai_t* p_slice_info)
 {
     if (!obj_communication_record) return NULL;
 
@@ -444,7 +444,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return obj_communication_record;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_communication_record_get_data_network_name(const data_collection_model_communication_record_t *obj_communication_record)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_communication_record_get_data_network_name(const data_collection_model_communication_record_t *obj_communication_record)
 {
     if (!obj_communication_record) {
         const char *result = NULL;
@@ -463,7 +463,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_co
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_set_data_network_name(data_collection_model_communication_record_t *obj_communication_record, const char* p_data_network_name)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_set_data_network_name(data_collection_model_communication_record_t *obj_communication_record, const char* p_data_network_name)
 {
     if (!obj_communication_record) return NULL;
 
@@ -479,7 +479,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return obj_communication_record;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_set_data_network_name_move(data_collection_model_communication_record_t *obj_communication_record, char* p_data_network_name)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_set_data_network_name_move(data_collection_model_communication_record_t *obj_communication_record, char* p_data_network_name)
 {
     if (!obj_communication_record) return NULL;
 
@@ -496,7 +496,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return obj_communication_record;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_communication_record_get_location(const data_collection_model_communication_record_t *obj_communication_record)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_communication_record_get_location(const data_collection_model_communication_record_t *obj_communication_record)
 {
     if (!obj_communication_record) {
         ogs_list_t *result = NULL;
@@ -523,7 +523,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_co
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_set_location(data_collection_model_communication_record_t *obj_communication_record, const ogs_list_t* p_location)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_set_location(data_collection_model_communication_record_t *obj_communication_record, const ogs_list_t* p_location)
 {
     if (!obj_communication_record) return NULL;
 
@@ -547,7 +547,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return obj_communication_record;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_set_location_move(data_collection_model_communication_record_t *obj_communication_record, ogs_list_t* p_location)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_set_location_move(data_collection_model_communication_record_t *obj_communication_record, ogs_list_t* p_location)
 {
     if (!obj_communication_record) return NULL;
 
@@ -572,7 +572,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return obj_communication_record;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_add_location(data_collection_model_communication_record_t *obj_communication_record, data_collection_model_location_area5_g_t* p_location)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_add_location(data_collection_model_communication_record_t *obj_communication_record, data_collection_model_location_area5_g_t* p_location)
 {
     if (!obj_communication_record) return NULL;
 
@@ -589,7 +589,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return obj_communication_record;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_remove_location(data_collection_model_communication_record_t *obj_communication_record, const data_collection_model_location_area5_g_t* p_location)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_remove_location(data_collection_model_communication_record_t *obj_communication_record, const data_collection_model_location_area5_g_t* p_location)
 {
     if (!obj_communication_record) return NULL;
 
@@ -604,7 +604,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return obj_communication_record;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_clear_location(data_collection_model_communication_record_t *obj_communication_record)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_clear_location(data_collection_model_communication_record_t *obj_communication_record)
 {
     if (!obj_communication_record) return NULL;
 
@@ -615,7 +615,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return obj_communication_record;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int64_t data_collection_model_communication_record_get_uplink_volume(const data_collection_model_communication_record_t *obj_communication_record)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_communication_record_get_uplink_volume(const data_collection_model_communication_record_t *obj_communication_record)
 {
     if (!obj_communication_record) {
         const int64_t result = 0;
@@ -634,7 +634,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int64_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_set_uplink_volume(data_collection_model_communication_record_t *obj_communication_record, const int64_t p_uplink_volume)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_set_uplink_volume(data_collection_model_communication_record_t *obj_communication_record, const int64_t p_uplink_volume)
 {
     if (!obj_communication_record) return NULL;
 
@@ -650,7 +650,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return obj_communication_record;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_set_uplink_volume_move(data_collection_model_communication_record_t *obj_communication_record, int64_t p_uplink_volume)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_set_uplink_volume_move(data_collection_model_communication_record_t *obj_communication_record, int64_t p_uplink_volume)
 {
     if (!obj_communication_record) return NULL;
 
@@ -667,7 +667,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return obj_communication_record;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int64_t data_collection_model_communication_record_get_downlink_volume(const data_collection_model_communication_record_t *obj_communication_record)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_communication_record_get_downlink_volume(const data_collection_model_communication_record_t *obj_communication_record)
 {
     if (!obj_communication_record) {
         const int64_t result = 0;
@@ -686,7 +686,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int64_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_set_downlink_volume(data_collection_model_communication_record_t *obj_communication_record, const int64_t p_downlink_volume)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_set_downlink_volume(data_collection_model_communication_record_t *obj_communication_record, const int64_t p_downlink_volume)
 {
     if (!obj_communication_record) return NULL;
 
@@ -702,7 +702,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return obj_communication_record;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_record_t *data_collection_model_communication_record_set_downlink_volume_move(data_collection_model_communication_record_t *obj_communication_record, int64_t p_downlink_volume)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_record_t *data_collection_model_communication_record_set_downlink_volume_move(data_collection_model_communication_record_t *obj_communication_record, int64_t p_downlink_volume)
 {
     if (!obj_communication_record) return NULL;
 
@@ -720,7 +720,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_communication_record_make_lnode(data_collection_model_communication_record_t *p_communication_record)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_communication_record_make_lnode(data_collection_model_communication_record_t *p_communication_record)
 {
     return data_collection_lnode_create(p_communication_record, reinterpret_cast<void(*)(void*)>(data_collection_model_communication_record_free));
 }

@@ -49,8 +49,7 @@ static int __data_collection_report_destroy_expired(ogs_list_t *data_reports);
 /******** Public API ********/
 
 DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report(data_collection_reporting_session_t *session, const char *mime_type, const void *data, 
-		size_t data_length, const char **error_return, const char **error_code, const char **error_parameter) {
-    char *err_reason=NULL, *err_class=NULL, *err_param=NULL;
+		size_t data_length, char **error_return, char **error_classname, char **error_parameter, const char **error_code) {
     cJSON *data_report;
     data_collection_model_data_report_t *report;
     int i = 0;
@@ -59,8 +58,9 @@ DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report(data_colle
     char *external_application_id;
 
     if (error_return) *error_return = NULL;
-    if (error_code) *error_code = NULL;
+    if (error_classname) *error_classname = NULL;
     if (error_parameter) *error_parameter = NULL;
+    if (error_code) *error_code = NULL;
 
     if(strcmp(mime_type,"application/json")){
         if (error_return) *error_return = "MIME type is not JSON";
@@ -86,25 +86,18 @@ DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report(data_colle
     cJSON *external_application_id_node = cJSON_GetObjectItemCaseSensitive(data_report, "externalApplicationId");
     if (external_application_id_node) {
         if (!cJSON_IsString(external_application_id_node)) {
-            if (error_return) *error_return = "Field \"externalApplicationId\" is not an enumeration string";
-            if (error_parameter) *error_parameter = "externalApplicationId";
+            if (error_return) *error_return = dcaf_strdup("Field \"externalApplicationId\" is not a string");
+            if (error_parameter) *error_parameter = dcaf_strdup("externalApplicationId");
+            if (error_code) *error_code = "400";
             return OGS_ERROR;
         }
         external_application_id = data_collection_strdup(external_application_id_node->valuestring);
     }
 
     
-    report = data_collection_model_data_report_fromJSON(data_report, true, &err_reason, &err_class, &err_param);
+    report = data_collection_model_data_report_fromJSON(data_report, true, error_return, error_classname, error_parameter);
     if (!report) {
-        char *err = ogs_msprintf("%s: %s (%s)", err_class, err_reason, err_param);
-        ogs_error("%s", err);
-        if (error_return) {
-            static char err_string[512];
-            strncpy(err_string, err, sizeof(err_string));
-            err_string[sizeof(err_string)-1] = '\0';
-            *error_return = err_string;
-        }
-        ogs_free(err);
+        ogs_error("%s: %s (%s)", error_classname, error_return, error_parameter);
         if (error_code) *error_code = "400";
         return OGS_ERROR;
     }
@@ -114,7 +107,7 @@ DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report(data_colle
 
     data_collection_data_report_handler_t **handlers = (data_collection_data_report_handler_t **)data_collection_self()->config.data_collection_configuration->data_report_handlers;
     
-    if(!handlers[i]) {
+    if (!handlers[i]) {
         ogs_error("Report not understood");
         if (error_return) *error_return = "Report not understood";
         return OGS_ERROR;
@@ -124,12 +117,11 @@ DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report(data_colle
         if(__data_report_handler_report_property(handlers[i])  == found_property) {
             data_report_t *rep;
             ogs_list_for_each(&data_reports, rep) {
-                void *parsed_data = handlers[i]->parse_report_data(session, rep->data_report /* cJSON * to the actual report */, error_return);
+                void *parsed_data = handlers[i]->parse_report_data(session, rep->data_report /* cJSON * to the actual report */, error_return, error_classname, error_parameter);
                 if(parsed_data) {
                     __data_collection_report_create(session, handlers[i], parsed_data, external_application_id);
                 } else {
-                    ogs_error("Report not understood");
-                    if (error_return) *error_return = "Report not understood";
+                    ogs_error("Report not understood at %s.%s: %s", error_classname, error_parameter, error_return);
                     if (error_code) *error_code = "400";
                     return OGS_ERROR;
                 }
@@ -137,7 +129,6 @@ DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report(data_colle
 
         }
     }
-
 
     cJSON_Delete(data_report);
     

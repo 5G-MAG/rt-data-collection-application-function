@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience_t *data_collection_model_svc_experience_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience_t *data_collection_model_svc_experience_create(
 
 
 )
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience_t *data_collection_model_svc_experience_create_copy(const data_collection_model_svc_experience_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience_t *data_collection_model_svc_experience_create_copy(const data_collection_model_svc_experience_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<SvcExperience > &obj = *reinterpret_cast<const std::shared_ptr<SvcExperience >*>(other);
@@ -43,7 +43,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience
     return reinterpret_cast<data_collection_model_svc_experience_t*>(new std::shared_ptr<SvcExperience >(new SvcExperience(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience_t *data_collection_model_svc_experience_create_move(data_collection_model_svc_experience_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience_t *data_collection_model_svc_experience_create_move(data_collection_model_svc_experience_t *other)
 {
     if (!other) return NULL;
 
@@ -56,7 +56,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience_t *data_collection_model_svc_experience_copy(data_collection_model_svc_experience_t *svc_experience, const data_collection_model_svc_experience_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience_t *data_collection_model_svc_experience_copy(data_collection_model_svc_experience_t *svc_experience, const data_collection_model_svc_experience_t *other)
 {
     if (svc_experience) {
         std::shared_ptr<SvcExperience > &obj = *reinterpret_cast<std::shared_ptr<SvcExperience >*>(svc_experience);
@@ -85,7 +85,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience
     return svc_experience;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience_t *data_collection_model_svc_experience_move(data_collection_model_svc_experience_t *svc_experience, data_collection_model_svc_experience_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience_t *data_collection_model_svc_experience_move(data_collection_model_svc_experience_t *svc_experience, data_collection_model_svc_experience_t *other)
 {
     std::shared_ptr<SvcExperience > *other_ptr = reinterpret_cast<std::shared_ptr<SvcExperience >*>(other);
 
@@ -109,13 +109,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience
     return svc_experience;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_svc_experience_free(data_collection_model_svc_experience_t *svc_experience)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_svc_experience_free(data_collection_model_svc_experience_t *svc_experience)
 {
     if (!svc_experience) return;
     delete reinterpret_cast<std::shared_ptr<SvcExperience >*>(svc_experience);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_svc_experience_toJSON(const data_collection_model_svc_experience_t *svc_experience, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_svc_experience_toJSON(const data_collection_model_svc_experience_t *svc_experience, bool as_request)
 {
     if (!svc_experience) return NULL;
     const std::shared_ptr<SvcExperience > &obj = *reinterpret_cast<const std::shared_ptr<SvcExperience >*>(svc_experience);
@@ -124,7 +124,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_svc_exp
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience_t *data_collection_model_svc_experience_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience_t *data_collection_model_svc_experience_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -137,7 +137,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_svc_experience_is_equal_to(const data_collection_model_svc_experience_t *first, const data_collection_model_svc_experience_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_svc_experience_is_equal_to(const data_collection_model_svc_experience_t *first, const data_collection_model_svc_experience_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_svc_exper
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_svc_experience_get_mos(const data_collection_model_svc_experience_t *obj_svc_experience)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_svc_experience_get_mos(const data_collection_model_svc_experience_t *obj_svc_experience)
 {
     if (!obj_svc_experience) {
         const float result = 0;
@@ -181,7 +181,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_sv
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience_t *data_collection_model_svc_experience_set_mos(data_collection_model_svc_experience_t *obj_svc_experience, const float p_mos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience_t *data_collection_model_svc_experience_set_mos(data_collection_model_svc_experience_t *obj_svc_experience, const float p_mos)
 {
     if (!obj_svc_experience) return NULL;
 
@@ -197,7 +197,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience
     return obj_svc_experience;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience_t *data_collection_model_svc_experience_set_mos_move(data_collection_model_svc_experience_t *obj_svc_experience, float p_mos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience_t *data_collection_model_svc_experience_set_mos_move(data_collection_model_svc_experience_t *obj_svc_experience, float p_mos)
 {
     if (!obj_svc_experience) return NULL;
 
@@ -214,7 +214,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience
     return obj_svc_experience;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_svc_experience_get_upper_range(const data_collection_model_svc_experience_t *obj_svc_experience)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_svc_experience_get_upper_range(const data_collection_model_svc_experience_t *obj_svc_experience)
 {
     if (!obj_svc_experience) {
         const float result = 0;
@@ -233,7 +233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_sv
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience_t *data_collection_model_svc_experience_set_upper_range(data_collection_model_svc_experience_t *obj_svc_experience, const float p_upper_range)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience_t *data_collection_model_svc_experience_set_upper_range(data_collection_model_svc_experience_t *obj_svc_experience, const float p_upper_range)
 {
     if (!obj_svc_experience) return NULL;
 
@@ -249,7 +249,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience
     return obj_svc_experience;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience_t *data_collection_model_svc_experience_set_upper_range_move(data_collection_model_svc_experience_t *obj_svc_experience, float p_upper_range)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience_t *data_collection_model_svc_experience_set_upper_range_move(data_collection_model_svc_experience_t *obj_svc_experience, float p_upper_range)
 {
     if (!obj_svc_experience) return NULL;
 
@@ -266,7 +266,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience
     return obj_svc_experience;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_svc_experience_get_lower_range(const data_collection_model_svc_experience_t *obj_svc_experience)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_svc_experience_get_lower_range(const data_collection_model_svc_experience_t *obj_svc_experience)
 {
     if (!obj_svc_experience) {
         const float result = 0;
@@ -285,7 +285,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_sv
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience_t *data_collection_model_svc_experience_set_lower_range(data_collection_model_svc_experience_t *obj_svc_experience, const float p_lower_range)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience_t *data_collection_model_svc_experience_set_lower_range(data_collection_model_svc_experience_t *obj_svc_experience, const float p_lower_range)
 {
     if (!obj_svc_experience) return NULL;
 
@@ -301,7 +301,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience
     return obj_svc_experience;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience_t *data_collection_model_svc_experience_set_lower_range_move(data_collection_model_svc_experience_t *obj_svc_experience, float p_lower_range)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience_t *data_collection_model_svc_experience_set_lower_range_move(data_collection_model_svc_experience_t *obj_svc_experience, float p_lower_range)
 {
     if (!obj_svc_experience) return NULL;
 
@@ -319,7 +319,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_svc_experience
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_svc_experience_make_lnode(data_collection_model_svc_experience_t *p_svc_experience)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_svc_experience_make_lnode(data_collection_model_svc_experience_t *p_svc_experience)
 {
     return data_collection_lnode_create(p_svc_experience, reinterpret_cast<void(*)(void*)>(data_collection_model_svc_experience_free));
 }

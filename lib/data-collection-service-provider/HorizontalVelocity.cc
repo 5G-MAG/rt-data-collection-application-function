@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_create(
 
 )
 {
@@ -31,7 +31,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_horizontal_vel
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_create_copy(const data_collection_model_horizontal_velocity_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_create_copy(const data_collection_model_horizontal_velocity_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<HorizontalVelocity > &obj = *reinterpret_cast<const std::shared_ptr<HorizontalVelocity >*>(other);
@@ -39,7 +39,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_horizontal_vel
     return reinterpret_cast<data_collection_model_horizontal_velocity_t*>(new std::shared_ptr<HorizontalVelocity >(new HorizontalVelocity(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_create_move(data_collection_model_horizontal_velocity_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_create_move(data_collection_model_horizontal_velocity_t *other)
 {
     if (!other) return NULL;
 
@@ -52,7 +52,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_horizontal_vel
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_copy(data_collection_model_horizontal_velocity_t *horizontal_velocity, const data_collection_model_horizontal_velocity_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_copy(data_collection_model_horizontal_velocity_t *horizontal_velocity, const data_collection_model_horizontal_velocity_t *other)
 {
     if (horizontal_velocity) {
         std::shared_ptr<HorizontalVelocity > &obj = *reinterpret_cast<std::shared_ptr<HorizontalVelocity >*>(horizontal_velocity);
@@ -81,7 +81,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_horizontal_vel
     return horizontal_velocity;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_move(data_collection_model_horizontal_velocity_t *horizontal_velocity, data_collection_model_horizontal_velocity_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_move(data_collection_model_horizontal_velocity_t *horizontal_velocity, data_collection_model_horizontal_velocity_t *other)
 {
     std::shared_ptr<HorizontalVelocity > *other_ptr = reinterpret_cast<std::shared_ptr<HorizontalVelocity >*>(other);
 
@@ -105,13 +105,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_horizontal_vel
     return horizontal_velocity;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_horizontal_velocity_free(data_collection_model_horizontal_velocity_t *horizontal_velocity)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_horizontal_velocity_free(data_collection_model_horizontal_velocity_t *horizontal_velocity)
 {
     if (!horizontal_velocity) return;
     delete reinterpret_cast<std::shared_ptr<HorizontalVelocity >*>(horizontal_velocity);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_horizontal_velocity_toJSON(const data_collection_model_horizontal_velocity_t *horizontal_velocity, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_horizontal_velocity_toJSON(const data_collection_model_horizontal_velocity_t *horizontal_velocity, bool as_request)
 {
     if (!horizontal_velocity) return NULL;
     const std::shared_ptr<HorizontalVelocity > &obj = *reinterpret_cast<const std::shared_ptr<HorizontalVelocity >*>(horizontal_velocity);
@@ -120,7 +120,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_horizon
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -133,7 +133,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_horizontal_vel
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_horizontal_velocity_is_equal_to(const data_collection_model_horizontal_velocity_t *first, const data_collection_model_horizontal_velocity_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_horizontal_velocity_is_equal_to(const data_collection_model_horizontal_velocity_t *first, const data_collection_model_horizontal_velocity_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -158,7 +158,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_horizonta
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_horizontal_velocity_get_h_speed(const data_collection_model_horizontal_velocity_t *obj_horizontal_velocity)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_horizontal_velocity_get_h_speed(const data_collection_model_horizontal_velocity_t *obj_horizontal_velocity)
 {
     if (!obj_horizontal_velocity) {
         const float result = 0;
@@ -177,7 +177,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_ho
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_set_h_speed(data_collection_model_horizontal_velocity_t *obj_horizontal_velocity, const float p_h_speed)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_set_h_speed(data_collection_model_horizontal_velocity_t *obj_horizontal_velocity, const float p_h_speed)
 {
     if (!obj_horizontal_velocity) return NULL;
 
@@ -193,7 +193,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_horizontal_vel
     return obj_horizontal_velocity;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_set_h_speed_move(data_collection_model_horizontal_velocity_t *obj_horizontal_velocity, float p_h_speed)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_set_h_speed_move(data_collection_model_horizontal_velocity_t *obj_horizontal_velocity, float p_h_speed)
 {
     if (!obj_horizontal_velocity) return NULL;
 
@@ -210,7 +210,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_horizontal_vel
     return obj_horizontal_velocity;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_horizontal_velocity_get_bearing(const data_collection_model_horizontal_velocity_t *obj_horizontal_velocity)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_horizontal_velocity_get_bearing(const data_collection_model_horizontal_velocity_t *obj_horizontal_velocity)
 {
     if (!obj_horizontal_velocity) {
         const int32_t result = 0;
@@ -229,7 +229,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_set_bearing(data_collection_model_horizontal_velocity_t *obj_horizontal_velocity, const int32_t p_bearing)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_set_bearing(data_collection_model_horizontal_velocity_t *obj_horizontal_velocity, const int32_t p_bearing)
 {
     if (!obj_horizontal_velocity) return NULL;
 
@@ -245,7 +245,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_horizontal_vel
     return obj_horizontal_velocity;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_set_bearing_move(data_collection_model_horizontal_velocity_t *obj_horizontal_velocity, int32_t p_bearing)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_set_bearing_move(data_collection_model_horizontal_velocity_t *obj_horizontal_velocity, int32_t p_bearing)
 {
     if (!obj_horizontal_velocity) return NULL;
 
@@ -263,7 +263,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_horizontal_vel
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_horizontal_velocity_make_lnode(data_collection_model_horizontal_velocity_t *p_horizontal_velocity)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_horizontal_velocity_make_lnode(data_collection_model_horizontal_velocity_t *p_horizontal_velocity)
 {
     return data_collection_lnode_create(p_horizontal_velocity, reinterpret_cast<void(*)(void*)>(data_collection_model_horizontal_velocity_free));
 }

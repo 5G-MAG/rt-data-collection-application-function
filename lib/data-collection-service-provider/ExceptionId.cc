@@ -22,12 +22,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_id_t *data_collection_model_exception_id_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_id_t *data_collection_model_exception_id_create()
 {
     return reinterpret_cast<data_collection_model_exception_id_t*>(new std::shared_ptr<ExceptionId>(new ExceptionId()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_id_t *data_collection_model_exception_id_create_copy(const data_collection_model_exception_id_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_id_t *data_collection_model_exception_id_create_copy(const data_collection_model_exception_id_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<ExceptionId > &obj = *reinterpret_cast<const std::shared_ptr<ExceptionId >*>(other);
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_id_t
     return reinterpret_cast<data_collection_model_exception_id_t*>(new std::shared_ptr<ExceptionId >(new ExceptionId(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_id_t *data_collection_model_exception_id_create_move(data_collection_model_exception_id_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_id_t *data_collection_model_exception_id_create_move(data_collection_model_exception_id_t *other)
 {
     if (!other) return NULL;
 
@@ -48,7 +48,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_id_t
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_id_t *data_collection_model_exception_id_copy(data_collection_model_exception_id_t *exception_id, const data_collection_model_exception_id_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_id_t *data_collection_model_exception_id_copy(data_collection_model_exception_id_t *exception_id, const data_collection_model_exception_id_t *other)
 {
     if (exception_id) {
         std::shared_ptr<ExceptionId > &obj = *reinterpret_cast<std::shared_ptr<ExceptionId >*>(exception_id);
@@ -77,7 +77,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_id_t
     return exception_id;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_id_t *data_collection_model_exception_id_move(data_collection_model_exception_id_t *exception_id, data_collection_model_exception_id_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_id_t *data_collection_model_exception_id_move(data_collection_model_exception_id_t *exception_id, data_collection_model_exception_id_t *other)
 {
     std::shared_ptr<ExceptionId > *other_ptr = reinterpret_cast<std::shared_ptr<ExceptionId >*>(other);
 
@@ -101,13 +101,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_id_t
     return exception_id;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_exception_id_free(data_collection_model_exception_id_t *exception_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_exception_id_free(data_collection_model_exception_id_t *exception_id)
 {
     if (!exception_id) return;
     delete reinterpret_cast<std::shared_ptr<ExceptionId >*>(exception_id);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_exception_id_toJSON(const data_collection_model_exception_id_t *exception_id, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_exception_id_toJSON(const data_collection_model_exception_id_t *exception_id, bool as_request)
 {
     if (!exception_id) return NULL;
     const std::shared_ptr<ExceptionId > &obj = *reinterpret_cast<const std::shared_ptr<ExceptionId >*>(exception_id);
@@ -116,7 +116,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_excepti
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_id_t *data_collection_model_exception_id_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_id_t *data_collection_model_exception_id_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -129,7 +129,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_id_t
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_exception_id_is_equal_to(const data_collection_model_exception_id_t *first, const data_collection_model_exception_id_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_id_is_equal_to(const data_collection_model_exception_id_t *first, const data_collection_model_exception_id_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -154,7 +154,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_exception
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_id_is_not_set(const data_collection_model_exception_id_t *obj_exception_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_id_is_not_set(const data_collection_model_exception_id_t *obj_exception_id)
 {
     if (!obj_exception_id) return true;
     const std::shared_ptr<ExceptionId > &obj = *reinterpret_cast<const std::shared_ptr<ExceptionId >*>(obj_exception_id);
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_id_is_not_
     return obj->getValue() == ExceptionId::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_id_is_non_standard(const data_collection_model_exception_id_t *obj_exception_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_id_is_non_standard(const data_collection_model_exception_id_t *obj_exception_id)
 {
     if (!obj_exception_id) return false;
     const std::shared_ptr<ExceptionId > &obj = *reinterpret_cast<const std::shared_ptr<ExceptionId >*>(obj_exception_id);
@@ -170,7 +170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_id_is_non_
     return obj->getValue() == ExceptionId::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_id_e data_collection_model_exception_id_get_enum(const data_collection_model_exception_id_t *obj_exception_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_id_e data_collection_model_exception_id_get_enum(const data_collection_model_exception_id_t *obj_exception_id)
 {
     if (!obj_exception_id)
         return DCM_EXCEPTION_ID_NO_VAL;
@@ -203,7 +203,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_id_e data_colle
     return DCM_EXCEPTION_ID_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_exception_id_get_string(const data_collection_model_exception_id_t *obj_exception_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_exception_id_get_string(const data_collection_model_exception_id_t *obj_exception_id)
 {
     if (!obj_exception_id) return NULL;
     const std::shared_ptr<ExceptionId > &obj = *reinterpret_cast<const std::shared_ptr<ExceptionId >*>(obj_exception_id);
@@ -211,7 +211,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_exception_id_
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_id_set_enum(data_collection_model_exception_id_t *obj_exception_id, data_collection_model_exception_id_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_id_set_enum(data_collection_model_exception_id_t *obj_exception_id, data_collection_model_exception_id_e p_value)
 {
     if (!obj_exception_id) return false;
     std::shared_ptr<ExceptionId > &obj = *reinterpret_cast<std::shared_ptr<ExceptionId >*>(obj_exception_id);
@@ -253,7 +253,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_id_set_enu
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_id_set_string(data_collection_model_exception_id_t *obj_exception_id, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_id_set_string(data_collection_model_exception_id_t *obj_exception_id, const char *p_value)
 {
     if (!obj_exception_id) return false;
     std::shared_ptr<ExceptionId > &obj = *reinterpret_cast<std::shared_ptr<ExceptionId >*>(obj_exception_id);
@@ -268,7 +268,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_id_set_str
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_exception_id_make_lnode(data_collection_model_exception_id_t *p_exception_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_exception_id_make_lnode(data_collection_model_exception_id_t *p_exception_id)
 {
     return data_collection_lnode_create(p_exception_id, reinterpret_cast<void(*)(void*)>(data_collection_model_exception_id_free));
 }

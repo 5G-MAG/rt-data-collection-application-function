@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_create(
 
 
 
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_create_copy(const data_collection_model_performance_data_record_all_of_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_create_copy(const data_collection_model_performance_data_record_all_of_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<PerformanceDataRecord_allOf > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceDataRecord_allOf >*>(other);
@@ -49,7 +49,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
     return reinterpret_cast<data_collection_model_performance_data_record_all_of_t*>(new std::shared_ptr<PerformanceDataRecord_allOf >(new PerformanceDataRecord_allOf(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_create_move(data_collection_model_performance_data_record_all_of_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_create_move(data_collection_model_performance_data_record_all_of_t *other)
 {
     if (!other) return NULL;
 
@@ -62,7 +62,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_copy(data_collection_model_performance_data_record_all_of_t *performance_data_record_all_of, const data_collection_model_performance_data_record_all_of_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_copy(data_collection_model_performance_data_record_all_of_t *performance_data_record_all_of, const data_collection_model_performance_data_record_all_of_t *other)
 {
     if (performance_data_record_all_of) {
         std::shared_ptr<PerformanceDataRecord_allOf > &obj = *reinterpret_cast<std::shared_ptr<PerformanceDataRecord_allOf >*>(performance_data_record_all_of);
@@ -91,7 +91,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
     return performance_data_record_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_move(data_collection_model_performance_data_record_all_of_t *performance_data_record_all_of, data_collection_model_performance_data_record_all_of_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_move(data_collection_model_performance_data_record_all_of_t *performance_data_record_all_of, data_collection_model_performance_data_record_all_of_t *other)
 {
     std::shared_ptr<PerformanceDataRecord_allOf > *other_ptr = reinterpret_cast<std::shared_ptr<PerformanceDataRecord_allOf >*>(other);
 
@@ -115,13 +115,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
     return performance_data_record_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_performance_data_record_all_of_free(data_collection_model_performance_data_record_all_of_t *performance_data_record_all_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_performance_data_record_all_of_free(data_collection_model_performance_data_record_all_of_t *performance_data_record_all_of)
 {
     if (!performance_data_record_all_of) return;
     delete reinterpret_cast<std::shared_ptr<PerformanceDataRecord_allOf >*>(performance_data_record_all_of);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_performance_data_record_all_of_toJSON(const data_collection_model_performance_data_record_all_of_t *performance_data_record_all_of, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_performance_data_record_all_of_toJSON(const data_collection_model_performance_data_record_all_of_t *performance_data_record_all_of, bool as_request)
 {
     if (!performance_data_record_all_of) return NULL;
     const std::shared_ptr<PerformanceDataRecord_allOf > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceDataRecord_allOf >*>(performance_data_record_all_of);
@@ -130,7 +130,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_perform
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -143,7 +143,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_performance_data_record_all_of_is_equal_to(const data_collection_model_performance_data_record_all_of_t *first, const data_collection_model_performance_data_record_all_of_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_record_all_of_is_equal_to(const data_collection_model_performance_data_record_all_of_t *first, const data_collection_model_performance_data_record_all_of_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -168,7 +168,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_performan
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_time_window_t* data_collection_model_performance_data_record_all_of_get_time_interval(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_time_window_t* data_collection_model_performance_data_record_all_of_get_time_interval(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
 {
     if (!obj_performance_data_record_all_of) {
         const data_collection_model_time_window_t *result = NULL;
@@ -187,7 +187,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_time_win
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_time_interval(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, const data_collection_model_time_window_t* p_time_interval)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_time_interval(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, const data_collection_model_time_window_t* p_time_interval)
 {
     if (!obj_performance_data_record_all_of) return NULL;
 
@@ -203,7 +203,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
     return obj_performance_data_record_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_time_interval_move(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, data_collection_model_time_window_t* p_time_interval)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_time_interval_move(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, data_collection_model_time_window_t* p_time_interval)
 {
     if (!obj_performance_data_record_all_of) return NULL;
 
@@ -220,7 +220,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
     return obj_performance_data_record_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_location_area5_g_t* data_collection_model_performance_data_record_all_of_get_location(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location_area5_g_t* data_collection_model_performance_data_record_all_of_get_location(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
 {
     if (!obj_performance_data_record_all_of) {
         const data_collection_model_location_area5_g_t *result = NULL;
@@ -239,7 +239,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_location
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_location(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, const data_collection_model_location_area5_g_t* p_location)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_location(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, const data_collection_model_location_area5_g_t* p_location)
 {
     if (!obj_performance_data_record_all_of) return NULL;
 
@@ -255,7 +255,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
     return obj_performance_data_record_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_location_move(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, data_collection_model_location_area5_g_t* p_location)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_location_move(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, data_collection_model_location_area5_g_t* p_location)
 {
     if (!obj_performance_data_record_all_of) return NULL;
 
@@ -272,7 +272,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
     return obj_performance_data_record_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_addr_fqdn_t* data_collection_model_performance_data_record_all_of_get_remote_endpoint(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_addr_fqdn_t* data_collection_model_performance_data_record_all_of_get_remote_endpoint(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
 {
     if (!obj_performance_data_record_all_of) {
         const data_collection_model_addr_fqdn_t *result = NULL;
@@ -291,7 +291,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_addr_fqd
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_remote_endpoint(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, const data_collection_model_addr_fqdn_t* p_remote_endpoint)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_remote_endpoint(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, const data_collection_model_addr_fqdn_t* p_remote_endpoint)
 {
     if (!obj_performance_data_record_all_of) return NULL;
 
@@ -307,7 +307,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
     return obj_performance_data_record_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_remote_endpoint_move(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, data_collection_model_addr_fqdn_t* p_remote_endpoint)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_remote_endpoint_move(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, data_collection_model_addr_fqdn_t* p_remote_endpoint)
 {
     if (!obj_performance_data_record_all_of) return NULL;
 
@@ -324,7 +324,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
     return obj_performance_data_record_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_performance_data_record_all_of_get_packet_delay_budget(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_performance_data_record_all_of_get_packet_delay_budget(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
 {
     if (!obj_performance_data_record_all_of) {
         const int32_t result = 0;
@@ -343,7 +343,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_packet_delay_budget(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, const int32_t p_packet_delay_budget)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_packet_delay_budget(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, const int32_t p_packet_delay_budget)
 {
     if (!obj_performance_data_record_all_of) return NULL;
 
@@ -359,7 +359,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
     return obj_performance_data_record_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_packet_delay_budget_move(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, int32_t p_packet_delay_budget)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_packet_delay_budget_move(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, int32_t p_packet_delay_budget)
 {
     if (!obj_performance_data_record_all_of) return NULL;
 
@@ -376,7 +376,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
     return obj_performance_data_record_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_performance_data_record_all_of_get_packet_loss_rate(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_performance_data_record_all_of_get_packet_loss_rate(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
 {
     if (!obj_performance_data_record_all_of) {
         const int32_t result = 0;
@@ -395,7 +395,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_packet_loss_rate(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, const int32_t p_packet_loss_rate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_packet_loss_rate(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, const int32_t p_packet_loss_rate)
 {
     if (!obj_performance_data_record_all_of) return NULL;
 
@@ -411,7 +411,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
     return obj_performance_data_record_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_packet_loss_rate_move(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, int32_t p_packet_loss_rate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_packet_loss_rate_move(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, int32_t p_packet_loss_rate)
 {
     if (!obj_performance_data_record_all_of) return NULL;
 
@@ -428,7 +428,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
     return obj_performance_data_record_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_performance_data_record_all_of_get_uplink_throughput(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_performance_data_record_all_of_get_uplink_throughput(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
 {
     if (!obj_performance_data_record_all_of) {
         const char *result = NULL;
@@ -447,7 +447,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pe
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_uplink_throughput(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, const char* p_uplink_throughput)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_uplink_throughput(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, const char* p_uplink_throughput)
 {
     if (!obj_performance_data_record_all_of) return NULL;
 
@@ -463,7 +463,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
     return obj_performance_data_record_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_uplink_throughput_move(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, char* p_uplink_throughput)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_uplink_throughput_move(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, char* p_uplink_throughput)
 {
     if (!obj_performance_data_record_all_of) return NULL;
 
@@ -480,7 +480,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
     return obj_performance_data_record_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_performance_data_record_all_of_get_downlink_througput(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_performance_data_record_all_of_get_downlink_througput(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
 {
     if (!obj_performance_data_record_all_of) {
         const char *result = NULL;
@@ -499,7 +499,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pe
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_downlink_througput(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, const char* p_downlink_througput)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_downlink_througput(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, const char* p_downlink_througput)
 {
     if (!obj_performance_data_record_all_of) return NULL;
 
@@ -515,7 +515,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
     return obj_performance_data_record_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_downlink_througput_move(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, char* p_downlink_througput)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_record_all_of_t *data_collection_model_performance_data_record_all_of_set_downlink_througput_move(data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of, char* p_downlink_througput)
 {
     if (!obj_performance_data_record_all_of) return NULL;
 
@@ -533,7 +533,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_performance_da
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_performance_data_record_all_of_make_lnode(data_collection_model_performance_data_record_all_of_t *p_performance_data_record_all_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_performance_data_record_all_of_make_lnode(data_collection_model_performance_data_record_all_of_t *p_performance_data_record_all_of)
 {
     return data_collection_lnode_create(p_performance_data_record_all_of, reinterpret_cast<void(*)(void*)>(data_collection_model_performance_data_record_all_of_free));
 }

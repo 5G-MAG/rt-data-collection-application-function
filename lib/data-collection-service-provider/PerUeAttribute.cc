@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_create(
 
 
 
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribu
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_create_copy(const data_collection_model_per_ue_attribute_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_create_copy(const data_collection_model_per_ue_attribute_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<const std::shared_ptr<PerUeAttribute >*>(other);
@@ -43,7 +43,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribu
     return reinterpret_cast<data_collection_model_per_ue_attribute_t*>(new std::shared_ptr<PerUeAttribute >(new PerUeAttribute(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_create_move(data_collection_model_per_ue_attribute_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_create_move(data_collection_model_per_ue_attribute_t *other)
 {
     if (!other) return NULL;
 
@@ -56,7 +56,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribu
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_copy(data_collection_model_per_ue_attribute_t *per_ue_attribute, const data_collection_model_per_ue_attribute_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_copy(data_collection_model_per_ue_attribute_t *per_ue_attribute, const data_collection_model_per_ue_attribute_t *other)
 {
     if (per_ue_attribute) {
         std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<std::shared_ptr<PerUeAttribute >*>(per_ue_attribute);
@@ -85,7 +85,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribu
     return per_ue_attribute;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_move(data_collection_model_per_ue_attribute_t *per_ue_attribute, data_collection_model_per_ue_attribute_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_move(data_collection_model_per_ue_attribute_t *per_ue_attribute, data_collection_model_per_ue_attribute_t *other)
 {
     std::shared_ptr<PerUeAttribute > *other_ptr = reinterpret_cast<std::shared_ptr<PerUeAttribute >*>(other);
 
@@ -109,13 +109,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribu
     return per_ue_attribute;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_per_ue_attribute_free(data_collection_model_per_ue_attribute_t *per_ue_attribute)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_per_ue_attribute_free(data_collection_model_per_ue_attribute_t *per_ue_attribute)
 {
     if (!per_ue_attribute) return;
     delete reinterpret_cast<std::shared_ptr<PerUeAttribute >*>(per_ue_attribute);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_per_ue_attribute_toJSON(const data_collection_model_per_ue_attribute_t *per_ue_attribute, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_per_ue_attribute_toJSON(const data_collection_model_per_ue_attribute_t *per_ue_attribute, bool as_request)
 {
     if (!per_ue_attribute) return NULL;
     const std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<const std::shared_ptr<PerUeAttribute >*>(per_ue_attribute);
@@ -124,7 +124,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_per_ue_
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -137,7 +137,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribu
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_per_ue_attribute_is_equal_to(const data_collection_model_per_ue_attribute_t *first, const data_collection_model_per_ue_attribute_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_per_ue_attribute_is_equal_to(const data_collection_model_per_ue_attribute_t *first, const data_collection_model_per_ue_attribute_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_per_ue_at
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_location_area5_g_t* data_collection_model_per_ue_attribute_get_ue_dest(const data_collection_model_per_ue_attribute_t *obj_per_ue_attribute)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location_area5_g_t* data_collection_model_per_ue_attribute_get_ue_dest(const data_collection_model_per_ue_attribute_t *obj_per_ue_attribute)
 {
     if (!obj_per_ue_attribute) {
         const data_collection_model_location_area5_g_t *result = NULL;
@@ -181,7 +181,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_location
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_ue_dest(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, const data_collection_model_location_area5_g_t* p_ue_dest)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_ue_dest(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, const data_collection_model_location_area5_g_t* p_ue_dest)
 {
     if (!obj_per_ue_attribute) return NULL;
 
@@ -197,7 +197,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribu
     return obj_per_ue_attribute;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_ue_dest_move(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, data_collection_model_location_area5_g_t* p_ue_dest)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_ue_dest_move(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, data_collection_model_location_area5_g_t* p_ue_dest)
 {
     if (!obj_per_ue_attribute) return NULL;
 
@@ -214,7 +214,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribu
     return obj_per_ue_attribute;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_per_ue_attribute_get_route(const data_collection_model_per_ue_attribute_t *obj_per_ue_attribute)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_per_ue_attribute_get_route(const data_collection_model_per_ue_attribute_t *obj_per_ue_attribute)
 {
     if (!obj_per_ue_attribute) {
         const char *result = NULL;
@@ -233,7 +233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pe
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_route(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, const char* p_route)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_route(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, const char* p_route)
 {
     if (!obj_per_ue_attribute) return NULL;
 
@@ -249,7 +249,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribu
     return obj_per_ue_attribute;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_route_move(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, char* p_route)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_route_move(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, char* p_route)
 {
     if (!obj_per_ue_attribute) return NULL;
 
@@ -266,7 +266,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribu
     return obj_per_ue_attribute;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_per_ue_attribute_get_avg_speed(const data_collection_model_per_ue_attribute_t *obj_per_ue_attribute)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_per_ue_attribute_get_avg_speed(const data_collection_model_per_ue_attribute_t *obj_per_ue_attribute)
 {
     if (!obj_per_ue_attribute) {
         const char *result = NULL;
@@ -285,7 +285,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pe
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_avg_speed(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, const char* p_avg_speed)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_avg_speed(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, const char* p_avg_speed)
 {
     if (!obj_per_ue_attribute) return NULL;
 
@@ -301,7 +301,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribu
     return obj_per_ue_attribute;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_avg_speed_move(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, char* p_avg_speed)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_avg_speed_move(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, char* p_avg_speed)
 {
     if (!obj_per_ue_attribute) return NULL;
 
@@ -318,7 +318,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribu
     return obj_per_ue_attribute;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_per_ue_attribute_get_time_of_arrival(const data_collection_model_per_ue_attribute_t *obj_per_ue_attribute)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_per_ue_attribute_get_time_of_arrival(const data_collection_model_per_ue_attribute_t *obj_per_ue_attribute)
 {
     if (!obj_per_ue_attribute) {
         const char *result = NULL;
@@ -337,7 +337,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pe
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_time_of_arrival(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, const char* p_time_of_arrival)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_time_of_arrival(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, const char* p_time_of_arrival)
 {
     if (!obj_per_ue_attribute) return NULL;
 
@@ -353,7 +353,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribu
     return obj_per_ue_attribute;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_time_of_arrival_move(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, char* p_time_of_arrival)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_set_time_of_arrival_move(data_collection_model_per_ue_attribute_t *obj_per_ue_attribute, char* p_time_of_arrival)
 {
     if (!obj_per_ue_attribute) return NULL;
 
@@ -371,7 +371,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_per_ue_attribu
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_per_ue_attribute_make_lnode(data_collection_model_per_ue_attribute_t *p_per_ue_attribute)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_per_ue_attribute_make_lnode(data_collection_model_per_ue_attribute_t *p_per_ue_attribute)
 {
     return data_collection_lnode_create(p_per_ue_attribute, reinterpret_cast<void(*)(void*)>(data_collection_model_per_ue_attribute_free));
 }

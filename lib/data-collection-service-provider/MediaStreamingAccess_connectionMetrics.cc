@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_create(
 
 
 )
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_create_copy(const data_collection_model_media_streaming_access_connection_metrics_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_create_copy(const data_collection_model_media_streaming_access_connection_metrics_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<MediaStreamingAccess_connectionMetrics > &obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccess_connectionMetrics >*>(other);
@@ -43,7 +43,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return reinterpret_cast<data_collection_model_media_streaming_access_connection_metrics_t*>(new std::shared_ptr<MediaStreamingAccess_connectionMetrics >(new MediaStreamingAccess_connectionMetrics(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_create_move(data_collection_model_media_streaming_access_connection_metrics_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_create_move(data_collection_model_media_streaming_access_connection_metrics_t *other)
 {
     if (!other) return NULL;
 
@@ -56,7 +56,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_copy(data_collection_model_media_streaming_access_connection_metrics_t *media_streaming_access_connection_metrics, const data_collection_model_media_streaming_access_connection_metrics_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_copy(data_collection_model_media_streaming_access_connection_metrics_t *media_streaming_access_connection_metrics, const data_collection_model_media_streaming_access_connection_metrics_t *other)
 {
     if (media_streaming_access_connection_metrics) {
         std::shared_ptr<MediaStreamingAccess_connectionMetrics > &obj = *reinterpret_cast<std::shared_ptr<MediaStreamingAccess_connectionMetrics >*>(media_streaming_access_connection_metrics);
@@ -85,7 +85,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return media_streaming_access_connection_metrics;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_move(data_collection_model_media_streaming_access_connection_metrics_t *media_streaming_access_connection_metrics, data_collection_model_media_streaming_access_connection_metrics_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_move(data_collection_model_media_streaming_access_connection_metrics_t *media_streaming_access_connection_metrics, data_collection_model_media_streaming_access_connection_metrics_t *other)
 {
     std::shared_ptr<MediaStreamingAccess_connectionMetrics > *other_ptr = reinterpret_cast<std::shared_ptr<MediaStreamingAccess_connectionMetrics >*>(other);
 
@@ -109,13 +109,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return media_streaming_access_connection_metrics;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_media_streaming_access_connection_metrics_free(data_collection_model_media_streaming_access_connection_metrics_t *media_streaming_access_connection_metrics)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_media_streaming_access_connection_metrics_free(data_collection_model_media_streaming_access_connection_metrics_t *media_streaming_access_connection_metrics)
 {
     if (!media_streaming_access_connection_metrics) return;
     delete reinterpret_cast<std::shared_ptr<MediaStreamingAccess_connectionMetrics >*>(media_streaming_access_connection_metrics);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_media_streaming_access_connection_metrics_toJSON(const data_collection_model_media_streaming_access_connection_metrics_t *media_streaming_access_connection_metrics, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_media_streaming_access_connection_metrics_toJSON(const data_collection_model_media_streaming_access_connection_metrics_t *media_streaming_access_connection_metrics, bool as_request)
 {
     if (!media_streaming_access_connection_metrics) return NULL;
     const std::shared_ptr<MediaStreamingAccess_connectionMetrics > &obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccess_connectionMetrics >*>(media_streaming_access_connection_metrics);
@@ -124,7 +124,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_media_s
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -137,7 +137,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_media_streaming_access_connection_metrics_is_equal_to(const data_collection_model_media_streaming_access_connection_metrics_t *first, const data_collection_model_media_streaming_access_connection_metrics_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_streaming_access_connection_metrics_is_equal_to(const data_collection_model_media_streaming_access_connection_metrics_t *first, const data_collection_model_media_streaming_access_connection_metrics_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_media_str
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_media_streaming_access_connection_metrics_get_mean_network_round_trip_time(const data_collection_model_media_streaming_access_connection_metrics_t *obj_media_streaming_access_connection_metrics)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_media_streaming_access_connection_metrics_get_mean_network_round_trip_time(const data_collection_model_media_streaming_access_connection_metrics_t *obj_media_streaming_access_connection_metrics)
 {
     if (!obj_media_streaming_access_connection_metrics) {
         const float result = 0;
@@ -181,7 +181,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_me
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_set_mean_network_round_trip_time(data_collection_model_media_streaming_access_connection_metrics_t *obj_media_streaming_access_connection_metrics, const float p_mean_network_round_trip_time)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_set_mean_network_round_trip_time(data_collection_model_media_streaming_access_connection_metrics_t *obj_media_streaming_access_connection_metrics, const float p_mean_network_round_trip_time)
 {
     if (!obj_media_streaming_access_connection_metrics) return NULL;
 
@@ -197,7 +197,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_connection_metrics;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_set_mean_network_round_trip_time_move(data_collection_model_media_streaming_access_connection_metrics_t *obj_media_streaming_access_connection_metrics, float p_mean_network_round_trip_time)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_set_mean_network_round_trip_time_move(data_collection_model_media_streaming_access_connection_metrics_t *obj_media_streaming_access_connection_metrics, float p_mean_network_round_trip_time)
 {
     if (!obj_media_streaming_access_connection_metrics) return NULL;
 
@@ -214,7 +214,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_connection_metrics;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_media_streaming_access_connection_metrics_get_network_round_trip_time_variation(const data_collection_model_media_streaming_access_connection_metrics_t *obj_media_streaming_access_connection_metrics)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_media_streaming_access_connection_metrics_get_network_round_trip_time_variation(const data_collection_model_media_streaming_access_connection_metrics_t *obj_media_streaming_access_connection_metrics)
 {
     if (!obj_media_streaming_access_connection_metrics) {
         const float result = 0;
@@ -233,7 +233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_me
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_set_network_round_trip_time_variation(data_collection_model_media_streaming_access_connection_metrics_t *obj_media_streaming_access_connection_metrics, const float p_network_round_trip_time_variation)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_set_network_round_trip_time_variation(data_collection_model_media_streaming_access_connection_metrics_t *obj_media_streaming_access_connection_metrics, const float p_network_round_trip_time_variation)
 {
     if (!obj_media_streaming_access_connection_metrics) return NULL;
 
@@ -249,7 +249,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_connection_metrics;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_set_network_round_trip_time_variation_move(data_collection_model_media_streaming_access_connection_metrics_t *obj_media_streaming_access_connection_metrics, float p_network_round_trip_time_variation)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_set_network_round_trip_time_variation_move(data_collection_model_media_streaming_access_connection_metrics_t *obj_media_streaming_access_connection_metrics, float p_network_round_trip_time_variation)
 {
     if (!obj_media_streaming_access_connection_metrics) return NULL;
 
@@ -266,7 +266,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_connection_metrics;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_media_streaming_access_connection_metrics_get_congestion_window_size(const data_collection_model_media_streaming_access_connection_metrics_t *obj_media_streaming_access_connection_metrics)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_media_streaming_access_connection_metrics_get_congestion_window_size(const data_collection_model_media_streaming_access_connection_metrics_t *obj_media_streaming_access_connection_metrics)
 {
     if (!obj_media_streaming_access_connection_metrics) {
         const int32_t result = 0;
@@ -285,7 +285,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_set_congestion_window_size(data_collection_model_media_streaming_access_connection_metrics_t *obj_media_streaming_access_connection_metrics, const int32_t p_congestion_window_size)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_set_congestion_window_size(data_collection_model_media_streaming_access_connection_metrics_t *obj_media_streaming_access_connection_metrics, const int32_t p_congestion_window_size)
 {
     if (!obj_media_streaming_access_connection_metrics) return NULL;
 
@@ -301,7 +301,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
     return obj_media_streaming_access_connection_metrics;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_set_congestion_window_size_move(data_collection_model_media_streaming_access_connection_metrics_t *obj_media_streaming_access_connection_metrics, int32_t p_congestion_window_size)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_set_congestion_window_size_move(data_collection_model_media_streaming_access_connection_metrics_t *obj_media_streaming_access_connection_metrics, int32_t p_congestion_window_size)
 {
     if (!obj_media_streaming_access_connection_metrics) return NULL;
 
@@ -319,7 +319,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_streamin
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_media_streaming_access_connection_metrics_make_lnode(data_collection_model_media_streaming_access_connection_metrics_t *p_media_streaming_access_connection_metrics)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_media_streaming_access_connection_metrics_make_lnode(data_collection_model_media_streaming_access_connection_metrics_t *p_media_streaming_access_connection_metrics)
 {
     return data_collection_lnode_create(p_media_streaming_access_connection_metrics, reinterpret_cast<void(*)(void*)>(data_collection_model_media_streaming_access_connection_metrics_free));
 }

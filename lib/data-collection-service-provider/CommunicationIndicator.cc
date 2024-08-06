@@ -22,12 +22,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_indicator_t *data_collection_model_communication_indicator_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_indicator_t *data_collection_model_communication_indicator_create()
 {
     return reinterpret_cast<data_collection_model_communication_indicator_t*>(new std::shared_ptr<CommunicationIndicator>(new CommunicationIndicator()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_indicator_t *data_collection_model_communication_indicator_create_copy(const data_collection_model_communication_indicator_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_indicator_t *data_collection_model_communication_indicator_create_copy(const data_collection_model_communication_indicator_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<CommunicationIndicator > &obj = *reinterpret_cast<const std::shared_ptr<CommunicationIndicator >*>(other);
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return reinterpret_cast<data_collection_model_communication_indicator_t*>(new std::shared_ptr<CommunicationIndicator >(new CommunicationIndicator(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_indicator_t *data_collection_model_communication_indicator_create_move(data_collection_model_communication_indicator_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_indicator_t *data_collection_model_communication_indicator_create_move(data_collection_model_communication_indicator_t *other)
 {
     if (!other) return NULL;
 
@@ -48,7 +48,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_indicator_t *data_collection_model_communication_indicator_copy(data_collection_model_communication_indicator_t *communication_indicator, const data_collection_model_communication_indicator_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_indicator_t *data_collection_model_communication_indicator_copy(data_collection_model_communication_indicator_t *communication_indicator, const data_collection_model_communication_indicator_t *other)
 {
     if (communication_indicator) {
         std::shared_ptr<CommunicationIndicator > &obj = *reinterpret_cast<std::shared_ptr<CommunicationIndicator >*>(communication_indicator);
@@ -77,7 +77,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return communication_indicator;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_indicator_t *data_collection_model_communication_indicator_move(data_collection_model_communication_indicator_t *communication_indicator, data_collection_model_communication_indicator_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_indicator_t *data_collection_model_communication_indicator_move(data_collection_model_communication_indicator_t *communication_indicator, data_collection_model_communication_indicator_t *other)
 {
     std::shared_ptr<CommunicationIndicator > *other_ptr = reinterpret_cast<std::shared_ptr<CommunicationIndicator >*>(other);
 
@@ -101,13 +101,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return communication_indicator;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_communication_indicator_free(data_collection_model_communication_indicator_t *communication_indicator)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_communication_indicator_free(data_collection_model_communication_indicator_t *communication_indicator)
 {
     if (!communication_indicator) return;
     delete reinterpret_cast<std::shared_ptr<CommunicationIndicator >*>(communication_indicator);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_communication_indicator_toJSON(const data_collection_model_communication_indicator_t *communication_indicator, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_communication_indicator_toJSON(const data_collection_model_communication_indicator_t *communication_indicator, bool as_request)
 {
     if (!communication_indicator) return NULL;
     const std::shared_ptr<CommunicationIndicator > &obj = *reinterpret_cast<const std::shared_ptr<CommunicationIndicator >*>(communication_indicator);
@@ -116,7 +116,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_communi
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_indicator_t *data_collection_model_communication_indicator_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_indicator_t *data_collection_model_communication_indicator_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -129,7 +129,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_communication_
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_communication_indicator_is_equal_to(const data_collection_model_communication_indicator_t *first, const data_collection_model_communication_indicator_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_communication_indicator_is_equal_to(const data_collection_model_communication_indicator_t *first, const data_collection_model_communication_indicator_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -154,7 +154,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_communica
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_communication_indicator_is_not_set(const data_collection_model_communication_indicator_t *obj_communication_indicator)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_communication_indicator_is_not_set(const data_collection_model_communication_indicator_t *obj_communication_indicator)
 {
     if (!obj_communication_indicator) return true;
     const std::shared_ptr<CommunicationIndicator > &obj = *reinterpret_cast<const std::shared_ptr<CommunicationIndicator >*>(obj_communication_indicator);
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_communication_indica
     return obj->getValue() == CommunicationIndicator::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_communication_indicator_is_non_standard(const data_collection_model_communication_indicator_t *obj_communication_indicator)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_communication_indicator_is_non_standard(const data_collection_model_communication_indicator_t *obj_communication_indicator)
 {
     if (!obj_communication_indicator) return false;
     const std::shared_ptr<CommunicationIndicator > &obj = *reinterpret_cast<const std::shared_ptr<CommunicationIndicator >*>(obj_communication_indicator);
@@ -170,7 +170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_communication_indica
     return obj->getValue() == CommunicationIndicator::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_indicator_e data_collection_model_communication_indicator_get_enum(const data_collection_model_communication_indicator_t *obj_communication_indicator)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_indicator_e data_collection_model_communication_indicator_get_enum(const data_collection_model_communication_indicator_t *obj_communication_indicator)
 {
     if (!obj_communication_indicator)
         return DCM_COMMUNICATION_INDICATOR_NO_VAL;
@@ -189,7 +189,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_indicator_e
     return DCM_COMMUNICATION_INDICATOR_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_communication_indicator_get_string(const data_collection_model_communication_indicator_t *obj_communication_indicator)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_communication_indicator_get_string(const data_collection_model_communication_indicator_t *obj_communication_indicator)
 {
     if (!obj_communication_indicator) return NULL;
     const std::shared_ptr<CommunicationIndicator > &obj = *reinterpret_cast<const std::shared_ptr<CommunicationIndicator >*>(obj_communication_indicator);
@@ -197,7 +197,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_communication
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_communication_indicator_set_enum(data_collection_model_communication_indicator_t *obj_communication_indicator, data_collection_model_communication_indicator_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_communication_indicator_set_enum(data_collection_model_communication_indicator_t *obj_communication_indicator, data_collection_model_communication_indicator_e p_value)
 {
     if (!obj_communication_indicator) return false;
     std::shared_ptr<CommunicationIndicator > &obj = *reinterpret_cast<std::shared_ptr<CommunicationIndicator >*>(obj_communication_indicator);
@@ -218,7 +218,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_communication_indica
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_communication_indicator_set_string(data_collection_model_communication_indicator_t *obj_communication_indicator, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_communication_indicator_set_string(data_collection_model_communication_indicator_t *obj_communication_indicator, const char *p_value)
 {
     if (!obj_communication_indicator) return false;
     std::shared_ptr<CommunicationIndicator > &obj = *reinterpret_cast<std::shared_ptr<CommunicationIndicator >*>(obj_communication_indicator);
@@ -233,7 +233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_communication_indica
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_communication_indicator_make_lnode(data_collection_model_communication_indicator_t *p_communication_indicator)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_communication_indicator_make_lnode(data_collection_model_communication_indicator_t *p_communication_indicator)
 {
     return data_collection_lnode_create(p_communication_indicator, reinterpret_cast<void(*)(void*)>(data_collection_model_communication_indicator_free));
 }

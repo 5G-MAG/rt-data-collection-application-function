@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_result_t *data_collection_model_integrity_result_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_result_t *data_collection_model_integrity_result_create(
 
 
 
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_resu
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_result_t *data_collection_model_integrity_result_create_copy(const data_collection_model_integrity_result_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_result_t *data_collection_model_integrity_result_create_copy(const data_collection_model_integrity_result_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<IntegrityResult > &obj = *reinterpret_cast<const std::shared_ptr<IntegrityResult >*>(other);
@@ -43,7 +43,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_resu
     return reinterpret_cast<data_collection_model_integrity_result_t*>(new std::shared_ptr<IntegrityResult >(new IntegrityResult(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_result_t *data_collection_model_integrity_result_create_move(data_collection_model_integrity_result_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_result_t *data_collection_model_integrity_result_create_move(data_collection_model_integrity_result_t *other)
 {
     if (!other) return NULL;
 
@@ -56,7 +56,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_resu
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_result_t *data_collection_model_integrity_result_copy(data_collection_model_integrity_result_t *integrity_result, const data_collection_model_integrity_result_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_result_t *data_collection_model_integrity_result_copy(data_collection_model_integrity_result_t *integrity_result, const data_collection_model_integrity_result_t *other)
 {
     if (integrity_result) {
         std::shared_ptr<IntegrityResult > &obj = *reinterpret_cast<std::shared_ptr<IntegrityResult >*>(integrity_result);
@@ -85,7 +85,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_resu
     return integrity_result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_result_t *data_collection_model_integrity_result_move(data_collection_model_integrity_result_t *integrity_result, data_collection_model_integrity_result_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_result_t *data_collection_model_integrity_result_move(data_collection_model_integrity_result_t *integrity_result, data_collection_model_integrity_result_t *other)
 {
     std::shared_ptr<IntegrityResult > *other_ptr = reinterpret_cast<std::shared_ptr<IntegrityResult >*>(other);
 
@@ -109,13 +109,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_resu
     return integrity_result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_integrity_result_free(data_collection_model_integrity_result_t *integrity_result)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_integrity_result_free(data_collection_model_integrity_result_t *integrity_result)
 {
     if (!integrity_result) return;
     delete reinterpret_cast<std::shared_ptr<IntegrityResult >*>(integrity_result);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_integrity_result_toJSON(const data_collection_model_integrity_result_t *integrity_result, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_integrity_result_toJSON(const data_collection_model_integrity_result_t *integrity_result, bool as_request)
 {
     if (!integrity_result) return NULL;
     const std::shared_ptr<IntegrityResult > &obj = *reinterpret_cast<const std::shared_ptr<IntegrityResult >*>(integrity_result);
@@ -124,7 +124,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_integri
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_result_t *data_collection_model_integrity_result_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_result_t *data_collection_model_integrity_result_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -137,7 +137,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_resu
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_integrity_result_is_equal_to(const data_collection_model_integrity_result_t *first, const data_collection_model_integrity_result_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_integrity_result_is_equal_to(const data_collection_model_integrity_result_t *first, const data_collection_model_integrity_result_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_integrity
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_integrity_computing_entity_t* data_collection_model_integrity_result_get_computing_entity(const data_collection_model_integrity_result_t *obj_integrity_result)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_integrity_computing_entity_t* data_collection_model_integrity_result_get_computing_entity(const data_collection_model_integrity_result_t *obj_integrity_result)
 {
     if (!obj_integrity_result) {
         const data_collection_model_integrity_computing_entity_t *result = NULL;
@@ -181,7 +181,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_integrit
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_result_t *data_collection_model_integrity_result_set_computing_entity(data_collection_model_integrity_result_t *obj_integrity_result, const data_collection_model_integrity_computing_entity_t* p_computing_entity)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_result_t *data_collection_model_integrity_result_set_computing_entity(data_collection_model_integrity_result_t *obj_integrity_result, const data_collection_model_integrity_computing_entity_t* p_computing_entity)
 {
     if (!obj_integrity_result) return NULL;
 
@@ -197,7 +197,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_resu
     return obj_integrity_result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_result_t *data_collection_model_integrity_result_set_computing_entity_move(data_collection_model_integrity_result_t *obj_integrity_result, data_collection_model_integrity_computing_entity_t* p_computing_entity)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_result_t *data_collection_model_integrity_result_set_computing_entity_move(data_collection_model_integrity_result_t *obj_integrity_result, data_collection_model_integrity_computing_entity_t* p_computing_entity)
 {
     if (!obj_integrity_result) return NULL;
 
@@ -214,7 +214,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_resu
     return obj_integrity_result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_integrity_protection_level_t* data_collection_model_integrity_result_get_protection_level(const data_collection_model_integrity_result_t *obj_integrity_result)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_integrity_protection_level_t* data_collection_model_integrity_result_get_protection_level(const data_collection_model_integrity_result_t *obj_integrity_result)
 {
     if (!obj_integrity_result) {
         const data_collection_model_integrity_protection_level_t *result = NULL;
@@ -233,7 +233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_integrit
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_result_t *data_collection_model_integrity_result_set_protection_level(data_collection_model_integrity_result_t *obj_integrity_result, const data_collection_model_integrity_protection_level_t* p_protection_level)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_result_t *data_collection_model_integrity_result_set_protection_level(data_collection_model_integrity_result_t *obj_integrity_result, const data_collection_model_integrity_protection_level_t* p_protection_level)
 {
     if (!obj_integrity_result) return NULL;
 
@@ -249,7 +249,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_resu
     return obj_integrity_result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_result_t *data_collection_model_integrity_result_set_protection_level_move(data_collection_model_integrity_result_t *obj_integrity_result, data_collection_model_integrity_protection_level_t* p_protection_level)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_result_t *data_collection_model_integrity_result_set_protection_level_move(data_collection_model_integrity_result_t *obj_integrity_result, data_collection_model_integrity_protection_level_t* p_protection_level)
 {
     if (!obj_integrity_result) return NULL;
 
@@ -266,7 +266,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_resu
     return obj_integrity_result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const bool data_collection_model_integrity_result_is_integrity_req_met_ind(const data_collection_model_integrity_result_t *obj_integrity_result)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_integrity_result_is_integrity_req_met_ind(const data_collection_model_integrity_result_t *obj_integrity_result)
 {
     if (!obj_integrity_result) {
         const bool result = 0;
@@ -285,7 +285,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const bool data_collection_model_int
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_result_t *data_collection_model_integrity_result_set_integrity_req_met_ind(data_collection_model_integrity_result_t *obj_integrity_result, const bool p_integrity_req_met_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_result_t *data_collection_model_integrity_result_set_integrity_req_met_ind(data_collection_model_integrity_result_t *obj_integrity_result, const bool p_integrity_req_met_ind)
 {
     if (!obj_integrity_result) return NULL;
 
@@ -301,7 +301,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_resu
     return obj_integrity_result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_result_t *data_collection_model_integrity_result_set_integrity_req_met_ind_move(data_collection_model_integrity_result_t *obj_integrity_result, bool p_integrity_req_met_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_result_t *data_collection_model_integrity_result_set_integrity_req_met_ind_move(data_collection_model_integrity_result_t *obj_integrity_result, bool p_integrity_req_met_ind)
 {
     if (!obj_integrity_result) return NULL;
 
@@ -318,7 +318,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_resu
     return obj_integrity_result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_integrity_result_get_achieved_tir(const data_collection_model_integrity_result_t *obj_integrity_result)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_integrity_result_get_achieved_tir(const data_collection_model_integrity_result_t *obj_integrity_result)
 {
     if (!obj_integrity_result) {
         const int32_t result = 0;
@@ -337,7 +337,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_result_t *data_collection_model_integrity_result_set_achieved_tir(data_collection_model_integrity_result_t *obj_integrity_result, const int32_t p_achieved_tir)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_result_t *data_collection_model_integrity_result_set_achieved_tir(data_collection_model_integrity_result_t *obj_integrity_result, const int32_t p_achieved_tir)
 {
     if (!obj_integrity_result) return NULL;
 
@@ -353,7 +353,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_resu
     return obj_integrity_result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_result_t *data_collection_model_integrity_result_set_achieved_tir_move(data_collection_model_integrity_result_t *obj_integrity_result, int32_t p_achieved_tir)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_result_t *data_collection_model_integrity_result_set_achieved_tir_move(data_collection_model_integrity_result_t *obj_integrity_result, int32_t p_achieved_tir)
 {
     if (!obj_integrity_result) return NULL;
 
@@ -371,7 +371,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_integrity_resu
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_integrity_result_make_lnode(data_collection_model_integrity_result_t *p_integrity_result)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_integrity_result_make_lnode(data_collection_model_integrity_result_t *p_integrity_result)
 {
     return data_collection_lnode_create(p_integrity_result, reinterpret_cast<void(*)(void*)>(data_collection_model_integrity_result_free));
 }

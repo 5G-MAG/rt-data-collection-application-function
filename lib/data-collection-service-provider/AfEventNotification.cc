@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_create(
 
 
 
@@ -71,7 +71,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_create_copy(const data_collection_model_af_event_notification_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_create_copy(const data_collection_model_af_event_notification_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(other);
@@ -79,7 +79,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return reinterpret_cast<data_collection_model_af_event_notification_t*>(new std::shared_ptr<AfEventNotification >(new AfEventNotification(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_create_move(data_collection_model_af_event_notification_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_create_move(data_collection_model_af_event_notification_t *other)
 {
     if (!other) return NULL;
 
@@ -92,7 +92,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_copy(data_collection_model_af_event_notification_t *af_event_notification, const data_collection_model_af_event_notification_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_copy(data_collection_model_af_event_notification_t *af_event_notification, const data_collection_model_af_event_notification_t *other)
 {
     if (af_event_notification) {
         std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(af_event_notification);
@@ -121,7 +121,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_move(data_collection_model_af_event_notification_t *af_event_notification, data_collection_model_af_event_notification_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_move(data_collection_model_af_event_notification_t *af_event_notification, data_collection_model_af_event_notification_t *other)
 {
     std::shared_ptr<AfEventNotification > *other_ptr = reinterpret_cast<std::shared_ptr<AfEventNotification >*>(other);
 
@@ -145,13 +145,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_af_event_notification_free(data_collection_model_af_event_notification_t *af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_af_event_notification_free(data_collection_model_af_event_notification_t *af_event_notification)
 {
     if (!af_event_notification) return;
     delete reinterpret_cast<std::shared_ptr<AfEventNotification >*>(af_event_notification);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_af_event_notification_toJSON(const data_collection_model_af_event_notification_t *af_event_notification, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_af_event_notification_toJSON(const data_collection_model_af_event_notification_t *af_event_notification, bool as_request)
 {
     if (!af_event_notification) return NULL;
     const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(af_event_notification);
@@ -160,7 +160,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_af_even
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -173,7 +173,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_af_event_notification_is_equal_to(const data_collection_model_af_event_notification_t *first, const data_collection_model_af_event_notification_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_notification_is_equal_to(const data_collection_model_af_event_notification_t *first, const data_collection_model_af_event_notification_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -198,7 +198,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_af_event_
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_af_event_t* data_collection_model_af_event_notification_get_event(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_af_event_t* data_collection_model_af_event_notification_get_event(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) {
         const data_collection_model_af_event_t *result = NULL;
@@ -217,7 +217,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_af_event
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_event(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_af_event_t* p_event)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_event(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_af_event_t* p_event)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -233,7 +233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_event_move(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_af_event_t* p_event)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_event_move(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_af_event_t* p_event)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -250,7 +250,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_af_event_notification_get_time_stamp(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_af_event_notification_get_time_stamp(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) {
         const char *result = NULL;
@@ -269,7 +269,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_af
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_time_stamp(data_collection_model_af_event_notification_t *obj_af_event_notification, const char* p_time_stamp)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_time_stamp(data_collection_model_af_event_notification_t *obj_af_event_notification, const char* p_time_stamp)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -285,7 +285,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_time_stamp_move(data_collection_model_af_event_notification_t *obj_af_event_notification, char* p_time_stamp)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_time_stamp_move(data_collection_model_af_event_notification_t *obj_af_event_notification, char* p_time_stamp)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -302,7 +302,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af_event_notification_get_svc_exprc_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_svc_exprc_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) {
         ogs_list_t *result = NULL;
@@ -329,7 +329,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_svc_exprc_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_svc_exprc_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_svc_exprc_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_svc_exprc_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -353,7 +353,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_svc_exprc_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_svc_exprc_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_svc_exprc_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_svc_exprc_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -378,7 +378,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_svc_exprc_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_service_experience_info_per_app_t* p_svc_exprc_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_svc_exprc_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_service_experience_info_per_app_t* p_svc_exprc_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -395,7 +395,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_svc_exprc_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_service_experience_info_per_app_t* p_svc_exprc_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_svc_exprc_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_service_experience_info_per_app_t* p_svc_exprc_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -410,7 +410,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_svc_exprc_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_svc_exprc_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -421,7 +421,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af_event_notification_get_ue_mobility_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ue_mobility_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) {
         ogs_list_t *result = NULL;
@@ -448,7 +448,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ue_mobility_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ue_mobility_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ue_mobility_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ue_mobility_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -472,7 +472,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ue_mobility_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ue_mobility_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ue_mobility_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ue_mobility_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -497,7 +497,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ue_mobility_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_ue_mobility_collection_t* p_ue_mobility_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ue_mobility_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_ue_mobility_collection_t* p_ue_mobility_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -514,7 +514,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ue_mobility_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_ue_mobility_collection_t* p_ue_mobility_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ue_mobility_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_ue_mobility_collection_t* p_ue_mobility_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -529,7 +529,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ue_mobility_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ue_mobility_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -540,7 +540,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af_event_notification_get_ue_comm_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ue_comm_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) {
         ogs_list_t *result = NULL;
@@ -567,7 +567,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ue_comm_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ue_comm_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ue_comm_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ue_comm_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -591,7 +591,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ue_comm_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ue_comm_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ue_comm_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ue_comm_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -616,7 +616,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ue_comm_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_ue_communication_collection_t* p_ue_comm_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ue_comm_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_ue_communication_collection_t* p_ue_comm_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -633,7 +633,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ue_comm_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_ue_communication_collection_t* p_ue_comm_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ue_comm_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_ue_communication_collection_t* p_ue_comm_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -648,7 +648,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ue_comm_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ue_comm_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -659,7 +659,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af_event_notification_get_excep_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_excep_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) {
         ogs_list_t *result = NULL;
@@ -686,7 +686,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_excep_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_excep_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_excep_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_excep_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -710,7 +710,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_excep_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_excep_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_excep_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_excep_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -735,7 +735,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_excep_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_exception_info_t* p_excep_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_excep_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_exception_info_t* p_excep_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -752,7 +752,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_excep_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_exception_info_t* p_excep_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_excep_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_exception_info_t* p_excep_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -767,7 +767,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_excep_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_excep_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -778,7 +778,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af_event_notification_get_congestion_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_congestion_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) {
         ogs_list_t *result = NULL;
@@ -805,7 +805,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_congestion_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_congestion_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_congestion_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_congestion_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -829,7 +829,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_congestion_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_congestion_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_congestion_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_congestion_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -854,7 +854,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_congestion_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_user_data_congestion_collection_t* p_congestion_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_congestion_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_user_data_congestion_collection_t* p_congestion_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -871,7 +871,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_congestion_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_user_data_congestion_collection_t* p_congestion_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_congestion_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_user_data_congestion_collection_t* p_congestion_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -886,7 +886,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_congestion_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_congestion_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -897,7 +897,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af_event_notification_get_perf_data_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_perf_data_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) {
         ogs_list_t *result = NULL;
@@ -924,7 +924,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_perf_data_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_perf_data_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_perf_data_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_perf_data_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -948,7 +948,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_perf_data_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_perf_data_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_perf_data_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_perf_data_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -973,7 +973,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_perf_data_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_performance_data_collection_t* p_perf_data_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_perf_data_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_performance_data_collection_t* p_perf_data_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -990,7 +990,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_perf_data_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_performance_data_collection_t* p_perf_data_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_perf_data_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_performance_data_collection_t* p_perf_data_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1005,7 +1005,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_perf_data_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_perf_data_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1016,7 +1016,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af_event_notification_get_dispersion_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_dispersion_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) {
         ogs_list_t *result = NULL;
@@ -1043,7 +1043,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_dispersion_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_dispersion_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_dispersion_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_dispersion_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1067,7 +1067,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_dispersion_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_dispersion_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_dispersion_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_dispersion_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1092,7 +1092,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_dispersion_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_dispersion_collection_t* p_dispersion_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_dispersion_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_dispersion_collection_t* p_dispersion_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1109,7 +1109,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_dispersion_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_dispersion_collection_t* p_dispersion_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_dispersion_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_dispersion_collection_t* p_dispersion_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1124,7 +1124,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_dispersion_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_dispersion_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1135,7 +1135,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af_event_notification_get_coll_bhvr_infs(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_coll_bhvr_infs(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) {
         ogs_list_t *result = NULL;
@@ -1162,7 +1162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_coll_bhvr_infs(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_coll_bhvr_infs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_coll_bhvr_infs(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_coll_bhvr_infs)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1186,7 +1186,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_coll_bhvr_infs_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_coll_bhvr_infs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_coll_bhvr_infs_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_coll_bhvr_infs)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1211,7 +1211,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_coll_bhvr_infs(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_collective_behaviour_info_t* p_coll_bhvr_infs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_coll_bhvr_infs(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_collective_behaviour_info_t* p_coll_bhvr_infs)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1228,7 +1228,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_coll_bhvr_infs(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_collective_behaviour_info_t* p_coll_bhvr_infs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_coll_bhvr_infs(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_collective_behaviour_info_t* p_coll_bhvr_infs)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1243,7 +1243,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_coll_bhvr_infs(data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_coll_bhvr_infs(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1254,7 +1254,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af_event_notification_get_ms_qoe_metr_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ms_qoe_metr_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) {
         ogs_list_t *result = NULL;
@@ -1281,7 +1281,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_qoe_metr_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ms_qoe_metr_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_qoe_metr_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ms_qoe_metr_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1305,7 +1305,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_qoe_metr_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ms_qoe_metr_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_qoe_metr_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ms_qoe_metr_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1330,7 +1330,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ms_qoe_metr_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_ms_qoe_metrics_collection_t* p_ms_qoe_metr_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ms_qoe_metr_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_ms_qoe_metrics_collection_t* p_ms_qoe_metr_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1347,7 +1347,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ms_qoe_metr_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_ms_qoe_metrics_collection_t* p_ms_qoe_metr_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ms_qoe_metr_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_ms_qoe_metrics_collection_t* p_ms_qoe_metr_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1362,7 +1362,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_qoe_metr_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_qoe_metr_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1373,7 +1373,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af_event_notification_get_ms_qoe_metrics(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ms_qoe_metrics(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) {
         ogs_list_t *result = NULL;
@@ -1400,7 +1400,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_qoe_metrics(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ms_qoe_metrics)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_qoe_metrics(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ms_qoe_metrics)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1424,7 +1424,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_qoe_metrics_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ms_qoe_metrics)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_qoe_metrics_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ms_qoe_metrics)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1449,7 +1449,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ms_qoe_metrics(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_qo_e_metrics_collection_t* p_ms_qoe_metrics)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ms_qoe_metrics(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_qo_e_metrics_collection_t* p_ms_qoe_metrics)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1466,7 +1466,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ms_qoe_metrics(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_qo_e_metrics_collection_t* p_ms_qoe_metrics)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ms_qoe_metrics(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_qo_e_metrics_collection_t* p_ms_qoe_metrics)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1481,7 +1481,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_qoe_metrics(data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_qoe_metrics(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1492,7 +1492,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af_event_notification_get_ms_consump_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ms_consump_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) {
         ogs_list_t *result = NULL;
@@ -1519,7 +1519,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_consump_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ms_consump_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_consump_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ms_consump_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1543,7 +1543,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_consump_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ms_consump_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_consump_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ms_consump_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1568,7 +1568,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ms_consump_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_ms_consumption_collection_t* p_ms_consump_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ms_consump_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_ms_consumption_collection_t* p_ms_consump_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1585,7 +1585,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ms_consump_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_ms_consumption_collection_t* p_ms_consump_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ms_consump_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_ms_consumption_collection_t* p_ms_consump_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1600,7 +1600,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_consump_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_consump_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1611,7 +1611,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af_event_notification_get_ms_consump_rpts(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ms_consump_rpts(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) {
         ogs_list_t *result = NULL;
@@ -1638,7 +1638,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_consump_rpts(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ms_consump_rpts)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_consump_rpts(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ms_consump_rpts)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1662,7 +1662,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_consump_rpts_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ms_consump_rpts)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_consump_rpts_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ms_consump_rpts)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1687,7 +1687,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ms_consump_rpts(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_consumption_reporting_units_collection_t* p_ms_consump_rpts)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ms_consump_rpts(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_consumption_reporting_units_collection_t* p_ms_consump_rpts)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1704,7 +1704,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ms_consump_rpts(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_consumption_reporting_units_collection_t* p_ms_consump_rpts)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ms_consump_rpts(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_consumption_reporting_units_collection_t* p_ms_consump_rpts)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1719,7 +1719,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_consump_rpts(data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_consump_rpts(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1730,7 +1730,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af_event_notification_get_ms_net_ass_inv_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ms_net_ass_inv_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) {
         ogs_list_t *result = NULL;
@@ -1757,7 +1757,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_net_ass_inv_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ms_net_ass_inv_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_net_ass_inv_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ms_net_ass_inv_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1781,7 +1781,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_net_ass_inv_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ms_net_ass_inv_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_net_ass_inv_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ms_net_ass_inv_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1806,7 +1806,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ms_net_ass_inv_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_ms_net_ass_invocation_collection_t* p_ms_net_ass_inv_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ms_net_ass_inv_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_ms_net_ass_invocation_collection_t* p_ms_net_ass_inv_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1823,7 +1823,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ms_net_ass_inv_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_ms_net_ass_invocation_collection_t* p_ms_net_ass_inv_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ms_net_ass_inv_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_ms_net_ass_invocation_collection_t* p_ms_net_ass_inv_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1838,7 +1838,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_net_ass_inv_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_net_ass_inv_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1849,7 +1849,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af_event_notification_get_ms_net_assist_invs(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ms_net_assist_invs(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) {
         ogs_list_t *result = NULL;
@@ -1876,7 +1876,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_net_assist_invs(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ms_net_assist_invs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_net_assist_invs(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ms_net_assist_invs)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1900,7 +1900,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_net_assist_invs_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ms_net_assist_invs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_net_assist_invs_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ms_net_assist_invs)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1925,7 +1925,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ms_net_assist_invs(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_network_assistance_invocations_collection_t* p_ms_net_assist_invs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ms_net_assist_invs(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_network_assistance_invocations_collection_t* p_ms_net_assist_invs)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1942,7 +1942,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ms_net_assist_invs(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_network_assistance_invocations_collection_t* p_ms_net_assist_invs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ms_net_assist_invs(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_network_assistance_invocations_collection_t* p_ms_net_assist_invs)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1957,7 +1957,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_net_assist_invs(data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_net_assist_invs(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -1968,7 +1968,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af_event_notification_get_ms_dyn_ply_inv_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ms_dyn_ply_inv_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) {
         ogs_list_t *result = NULL;
@@ -1995,7 +1995,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_dyn_ply_inv_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ms_dyn_ply_inv_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_dyn_ply_inv_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ms_dyn_ply_inv_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2019,7 +2019,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_dyn_ply_inv_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ms_dyn_ply_inv_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_dyn_ply_inv_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ms_dyn_ply_inv_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2044,7 +2044,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ms_dyn_ply_inv_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_ms_dyn_policy_invocation_collection_t* p_ms_dyn_ply_inv_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ms_dyn_ply_inv_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_ms_dyn_policy_invocation_collection_t* p_ms_dyn_ply_inv_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2061,7 +2061,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ms_dyn_ply_inv_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_ms_dyn_policy_invocation_collection_t* p_ms_dyn_ply_inv_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ms_dyn_ply_inv_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_ms_dyn_policy_invocation_collection_t* p_ms_dyn_ply_inv_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2076,7 +2076,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_dyn_ply_inv_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_dyn_ply_inv_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2087,7 +2087,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af_event_notification_get_ms_dyn_ply_invs(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ms_dyn_ply_invs(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) {
         ogs_list_t *result = NULL;
@@ -2114,7 +2114,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_dyn_ply_invs(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ms_dyn_ply_invs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_dyn_ply_invs(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ms_dyn_ply_invs)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2138,7 +2138,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_dyn_ply_invs_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ms_dyn_ply_invs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_dyn_ply_invs_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ms_dyn_ply_invs)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2163,7 +2163,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ms_dyn_ply_invs(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_dynamic_policy_invocations_collection_t* p_ms_dyn_ply_invs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ms_dyn_ply_invs(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_dynamic_policy_invocations_collection_t* p_ms_dyn_ply_invs)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2180,7 +2180,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ms_dyn_ply_invs(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_dynamic_policy_invocations_collection_t* p_ms_dyn_ply_invs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ms_dyn_ply_invs(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_dynamic_policy_invocations_collection_t* p_ms_dyn_ply_invs)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2195,7 +2195,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_dyn_ply_invs(data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_dyn_ply_invs(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2206,7 +2206,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af_event_notification_get_ms_acc_act_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ms_acc_act_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) {
         ogs_list_t *result = NULL;
@@ -2233,7 +2233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_acc_act_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ms_acc_act_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_acc_act_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ms_acc_act_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2257,7 +2257,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_acc_act_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ms_acc_act_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_acc_act_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ms_acc_act_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2282,7 +2282,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ms_acc_act_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_ms_access_activity_collection_t* p_ms_acc_act_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ms_acc_act_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_ms_access_activity_collection_t* p_ms_acc_act_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2299,7 +2299,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ms_acc_act_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_ms_access_activity_collection_t* p_ms_acc_act_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ms_acc_act_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_ms_access_activity_collection_t* p_ms_acc_act_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2314,7 +2314,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_acc_act_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_acc_act_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2325,7 +2325,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af_event_notification_get_ms_accesses(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ms_accesses(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) {
         ogs_list_t *result = NULL;
@@ -2352,7 +2352,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_accesses(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ms_accesses)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_accesses(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_ms_accesses)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2376,7 +2376,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_accesses_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ms_accesses)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_ms_accesses_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_ms_accesses)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2401,7 +2401,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ms_accesses(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_media_streaming_accesses_collection_t* p_ms_accesses)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_ms_accesses(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_media_streaming_accesses_collection_t* p_ms_accesses)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2418,7 +2418,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ms_accesses(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_media_streaming_accesses_collection_t* p_ms_accesses)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_ms_accesses(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_media_streaming_accesses_collection_t* p_ms_accesses)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2433,7 +2433,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_accesses(data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_accesses(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2444,7 +2444,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_gnss_assist_data_info_t* data_collection_model_af_event_notification_get_gnss_assist_data_info(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_gnss_assist_data_info_t* data_collection_model_af_event_notification_get_gnss_assist_data_info(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) {
         const data_collection_model_gnss_assist_data_info_t *result = NULL;
@@ -2463,7 +2463,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_gnss_ass
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_gnss_assist_data_info(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_gnss_assist_data_info_t* p_gnss_assist_data_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_gnss_assist_data_info(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_gnss_assist_data_info_t* p_gnss_assist_data_info)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2479,7 +2479,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_gnss_assist_data_info_move(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_gnss_assist_data_info_t* p_gnss_assist_data_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_gnss_assist_data_info_move(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_gnss_assist_data_info_t* p_gnss_assist_data_info)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2496,7 +2496,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af_event_notification_get_dat_vol_trans_time_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_dat_vol_trans_time_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) {
         ogs_list_t *result = NULL;
@@ -2523,7 +2523,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_dat_vol_trans_time_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_dat_vol_trans_time_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_dat_vol_trans_time_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const ogs_list_t* p_dat_vol_trans_time_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2547,7 +2547,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_dat_vol_trans_time_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_dat_vol_trans_time_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_set_dat_vol_trans_time_infos_move(data_collection_model_af_event_notification_t *obj_af_event_notification, ogs_list_t* p_dat_vol_trans_time_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2572,7 +2572,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_dat_vol_trans_time_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_dat_vol_trans_time_collection_t* p_dat_vol_trans_time_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_add_dat_vol_trans_time_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, data_collection_model_dat_vol_trans_time_collection_t* p_dat_vol_trans_time_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2589,7 +2589,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_dat_vol_trans_time_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_dat_vol_trans_time_collection_t* p_dat_vol_trans_time_infos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_remove_dat_vol_trans_time_infos(data_collection_model_af_event_notification_t *obj_af_event_notification, const data_collection_model_dat_vol_trans_time_collection_t* p_dat_vol_trans_time_infos)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2604,7 +2604,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_dat_vol_trans_time_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_dat_vol_trans_time_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
 
@@ -2616,7 +2616,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_notif
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_af_event_notification_make_lnode(data_collection_model_af_event_notification_t *p_af_event_notification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_af_event_notification_make_lnode(data_collection_model_af_event_notification_t *p_af_event_notification)
 {
     return data_collection_lnode_create(p_af_event_notification, reinterpret_cast<void(*)(void*)>(data_collection_model_af_event_notification_free));
 }

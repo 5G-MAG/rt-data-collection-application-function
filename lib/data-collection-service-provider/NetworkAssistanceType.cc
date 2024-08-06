@@ -22,12 +22,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_type_t *data_collection_model_network_assistance_type_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_type_t *data_collection_model_network_assistance_type_create()
 {
     return reinterpret_cast<data_collection_model_network_assistance_type_t*>(new std::shared_ptr<NetworkAssistanceType>(new NetworkAssistanceType()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_type_t *data_collection_model_network_assistance_type_create_copy(const data_collection_model_network_assistance_type_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_type_t *data_collection_model_network_assistance_type_create_copy(const data_collection_model_network_assistance_type_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<NetworkAssistanceType > &obj = *reinterpret_cast<const std::shared_ptr<NetworkAssistanceType >*>(other);
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return reinterpret_cast<data_collection_model_network_assistance_type_t*>(new std::shared_ptr<NetworkAssistanceType >(new NetworkAssistanceType(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_type_t *data_collection_model_network_assistance_type_create_move(data_collection_model_network_assistance_type_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_type_t *data_collection_model_network_assistance_type_create_move(data_collection_model_network_assistance_type_t *other)
 {
     if (!other) return NULL;
 
@@ -48,7 +48,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_type_t *data_collection_model_network_assistance_type_copy(data_collection_model_network_assistance_type_t *network_assistance_type, const data_collection_model_network_assistance_type_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_type_t *data_collection_model_network_assistance_type_copy(data_collection_model_network_assistance_type_t *network_assistance_type, const data_collection_model_network_assistance_type_t *other)
 {
     if (network_assistance_type) {
         std::shared_ptr<NetworkAssistanceType > &obj = *reinterpret_cast<std::shared_ptr<NetworkAssistanceType >*>(network_assistance_type);
@@ -77,7 +77,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return network_assistance_type;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_type_t *data_collection_model_network_assistance_type_move(data_collection_model_network_assistance_type_t *network_assistance_type, data_collection_model_network_assistance_type_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_type_t *data_collection_model_network_assistance_type_move(data_collection_model_network_assistance_type_t *network_assistance_type, data_collection_model_network_assistance_type_t *other)
 {
     std::shared_ptr<NetworkAssistanceType > *other_ptr = reinterpret_cast<std::shared_ptr<NetworkAssistanceType >*>(other);
 
@@ -101,13 +101,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return network_assistance_type;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_network_assistance_type_free(data_collection_model_network_assistance_type_t *network_assistance_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_network_assistance_type_free(data_collection_model_network_assistance_type_t *network_assistance_type)
 {
     if (!network_assistance_type) return;
     delete reinterpret_cast<std::shared_ptr<NetworkAssistanceType >*>(network_assistance_type);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_network_assistance_type_toJSON(const data_collection_model_network_assistance_type_t *network_assistance_type, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_network_assistance_type_toJSON(const data_collection_model_network_assistance_type_t *network_assistance_type, bool as_request)
 {
     if (!network_assistance_type) return NULL;
     const std::shared_ptr<NetworkAssistanceType > &obj = *reinterpret_cast<const std::shared_ptr<NetworkAssistanceType >*>(network_assistance_type);
@@ -116,7 +116,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_network
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_type_t *data_collection_model_network_assistance_type_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_type_t *data_collection_model_network_assistance_type_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -129,7 +129,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_network_assistance_type_is_equal_to(const data_collection_model_network_assistance_type_t *first, const data_collection_model_network_assistance_type_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_assistance_type_is_equal_to(const data_collection_model_network_assistance_type_t *first, const data_collection_model_network_assistance_type_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -154,7 +154,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_network_a
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_assistance_type_is_not_set(const data_collection_model_network_assistance_type_t *obj_network_assistance_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_assistance_type_is_not_set(const data_collection_model_network_assistance_type_t *obj_network_assistance_type)
 {
     if (!obj_network_assistance_type) return true;
     const std::shared_ptr<NetworkAssistanceType > &obj = *reinterpret_cast<const std::shared_ptr<NetworkAssistanceType >*>(obj_network_assistance_type);
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_assistance_t
     return obj->getValue() == NetworkAssistanceType::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_assistance_type_is_non_standard(const data_collection_model_network_assistance_type_t *obj_network_assistance_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_assistance_type_is_non_standard(const data_collection_model_network_assistance_type_t *obj_network_assistance_type)
 {
     if (!obj_network_assistance_type) return false;
     const std::shared_ptr<NetworkAssistanceType > &obj = *reinterpret_cast<const std::shared_ptr<NetworkAssistanceType >*>(obj_network_assistance_type);
@@ -170,7 +170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_assistance_t
     return obj->getValue() == NetworkAssistanceType::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_type_e data_collection_model_network_assistance_type_get_enum(const data_collection_model_network_assistance_type_t *obj_network_assistance_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_type_e data_collection_model_network_assistance_type_get_enum(const data_collection_model_network_assistance_type_t *obj_network_assistance_type)
 {
     if (!obj_network_assistance_type)
         return DCM_NETWORK_ASSISTANCE_TYPE_NO_VAL;
@@ -193,7 +193,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_type_e
     return DCM_NETWORK_ASSISTANCE_TYPE_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_network_assistance_type_get_string(const data_collection_model_network_assistance_type_t *obj_network_assistance_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_network_assistance_type_get_string(const data_collection_model_network_assistance_type_t *obj_network_assistance_type)
 {
     if (!obj_network_assistance_type) return NULL;
     const std::shared_ptr<NetworkAssistanceType > &obj = *reinterpret_cast<const std::shared_ptr<NetworkAssistanceType >*>(obj_network_assistance_type);
@@ -201,7 +201,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_network_assis
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_assistance_type_set_enum(data_collection_model_network_assistance_type_t *obj_network_assistance_type, data_collection_model_network_assistance_type_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_assistance_type_set_enum(data_collection_model_network_assistance_type_t *obj_network_assistance_type, data_collection_model_network_assistance_type_e p_value)
 {
     if (!obj_network_assistance_type) return false;
     std::shared_ptr<NetworkAssistanceType > &obj = *reinterpret_cast<std::shared_ptr<NetworkAssistanceType >*>(obj_network_assistance_type);
@@ -228,7 +228,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_assistance_t
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_assistance_type_set_string(data_collection_model_network_assistance_type_t *obj_network_assistance_type, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_assistance_type_set_string(data_collection_model_network_assistance_type_t *obj_network_assistance_type, const char *p_value)
 {
     if (!obj_network_assistance_type) return false;
     std::shared_ptr<NetworkAssistanceType > &obj = *reinterpret_cast<std::shared_ptr<NetworkAssistanceType >*>(obj_network_assistance_type);
@@ -243,7 +243,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_assistance_t
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_network_assistance_type_make_lnode(data_collection_model_network_assistance_type_t *p_network_assistance_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_network_assistance_type_make_lnode(data_collection_model_network_assistance_type_t *p_network_assistance_type)
 {
     return data_collection_lnode_create(p_network_assistance_type, reinterpret_cast<void(*)(void*)>(data_collection_model_network_assistance_type_free));
 }

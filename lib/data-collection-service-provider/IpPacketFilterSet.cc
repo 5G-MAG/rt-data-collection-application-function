@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_create(
 
 
 
@@ -47,7 +47,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_create_copy(const data_collection_model_ip_packet_filter_set_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_create_copy(const data_collection_model_ip_packet_filter_set_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<const std::shared_ptr<IpPacketFilterSet >*>(other);
@@ -55,7 +55,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
     return reinterpret_cast<data_collection_model_ip_packet_filter_set_t*>(new std::shared_ptr<IpPacketFilterSet >(new IpPacketFilterSet(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_create_move(data_collection_model_ip_packet_filter_set_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_create_move(data_collection_model_ip_packet_filter_set_t *other)
 {
     if (!other) return NULL;
 
@@ -68,7 +68,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_copy(data_collection_model_ip_packet_filter_set_t *ip_packet_filter_set, const data_collection_model_ip_packet_filter_set_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_copy(data_collection_model_ip_packet_filter_set_t *ip_packet_filter_set, const data_collection_model_ip_packet_filter_set_t *other)
 {
     if (ip_packet_filter_set) {
         std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(ip_packet_filter_set);
@@ -97,7 +97,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
     return ip_packet_filter_set;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_move(data_collection_model_ip_packet_filter_set_t *ip_packet_filter_set, data_collection_model_ip_packet_filter_set_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_move(data_collection_model_ip_packet_filter_set_t *ip_packet_filter_set, data_collection_model_ip_packet_filter_set_t *other)
 {
     std::shared_ptr<IpPacketFilterSet > *other_ptr = reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(other);
 
@@ -121,13 +121,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
     return ip_packet_filter_set;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_ip_packet_filter_set_free(data_collection_model_ip_packet_filter_set_t *ip_packet_filter_set)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_ip_packet_filter_set_free(data_collection_model_ip_packet_filter_set_t *ip_packet_filter_set)
 {
     if (!ip_packet_filter_set) return;
     delete reinterpret_cast<std::shared_ptr<IpPacketFilterSet >*>(ip_packet_filter_set);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_ip_packet_filter_set_toJSON(const data_collection_model_ip_packet_filter_set_t *ip_packet_filter_set, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_ip_packet_filter_set_toJSON(const data_collection_model_ip_packet_filter_set_t *ip_packet_filter_set, bool as_request)
 {
     if (!ip_packet_filter_set) return NULL;
     const std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<const std::shared_ptr<IpPacketFilterSet >*>(ip_packet_filter_set);
@@ -136,7 +136,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_ip_pack
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -149,7 +149,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ip_packet_filter_set_is_equal_to(const data_collection_model_ip_packet_filter_set_t *first, const data_collection_model_ip_packet_filter_set_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ip_packet_filter_set_is_equal_to(const data_collection_model_ip_packet_filter_set_t *first, const data_collection_model_ip_packet_filter_set_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -174,7 +174,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ip_packet
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ip_packet_filter_set_get_direction(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ip_packet_filter_set_get_direction(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
 {
     if (!obj_ip_packet_filter_set) {
         const char *result = NULL;
@@ -193,7 +193,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ip
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_direction(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const char* p_direction)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_direction(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const char* p_direction)
 {
     if (!obj_ip_packet_filter_set) return NULL;
 
@@ -209,7 +209,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
     return obj_ip_packet_filter_set;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_direction_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, char* p_direction)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_direction_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, char* p_direction)
 {
     if (!obj_ip_packet_filter_set) return NULL;
 
@@ -226,7 +226,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
     return obj_ip_packet_filter_set;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ip_addr_t* data_collection_model_ip_packet_filter_set_get_source_address(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ip_addr_t* data_collection_model_ip_packet_filter_set_get_source_address(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
 {
     if (!obj_ip_packet_filter_set) {
         const data_collection_model_ip_addr_t *result = NULL;
@@ -245,7 +245,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ip_addr_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_source_address(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const data_collection_model_ip_addr_t* p_source_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_source_address(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const data_collection_model_ip_addr_t* p_source_address)
 {
     if (!obj_ip_packet_filter_set) return NULL;
 
@@ -261,7 +261,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
     return obj_ip_packet_filter_set;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_source_address_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, data_collection_model_ip_addr_t* p_source_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_source_address_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, data_collection_model_ip_addr_t* p_source_address)
 {
     if (!obj_ip_packet_filter_set) return NULL;
 
@@ -278,7 +278,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
     return obj_ip_packet_filter_set;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ip_addr_t* data_collection_model_ip_packet_filter_set_get_destination_address(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ip_addr_t* data_collection_model_ip_packet_filter_set_get_destination_address(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
 {
     if (!obj_ip_packet_filter_set) {
         const data_collection_model_ip_addr_t *result = NULL;
@@ -297,7 +297,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ip_addr_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_destination_address(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const data_collection_model_ip_addr_t* p_destination_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_destination_address(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const data_collection_model_ip_addr_t* p_destination_address)
 {
     if (!obj_ip_packet_filter_set) return NULL;
 
@@ -313,7 +313,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
     return obj_ip_packet_filter_set;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_destination_address_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, data_collection_model_ip_addr_t* p_destination_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_destination_address_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, data_collection_model_ip_addr_t* p_destination_address)
 {
     if (!obj_ip_packet_filter_set) return NULL;
 
@@ -330,7 +330,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
     return obj_ip_packet_filter_set;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_ip_packet_filter_set_get_protocol_number(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_ip_packet_filter_set_get_protocol_number(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
 {
     if (!obj_ip_packet_filter_set) {
         const int32_t result = 0;
@@ -349,7 +349,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_protocol_number(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const int32_t p_protocol_number)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_protocol_number(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const int32_t p_protocol_number)
 {
     if (!obj_ip_packet_filter_set) return NULL;
 
@@ -365,7 +365,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
     return obj_ip_packet_filter_set;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_protocol_number_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, int32_t p_protocol_number)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_protocol_number_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, int32_t p_protocol_number)
 {
     if (!obj_ip_packet_filter_set) return NULL;
 
@@ -382,7 +382,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
     return obj_ip_packet_filter_set;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_ip_packet_filter_set_get_source_port(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_ip_packet_filter_set_get_source_port(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
 {
     if (!obj_ip_packet_filter_set) {
         const int32_t result = 0;
@@ -401,7 +401,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_source_port(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const int32_t p_source_port)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_source_port(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const int32_t p_source_port)
 {
     if (!obj_ip_packet_filter_set) return NULL;
 
@@ -417,7 +417,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
     return obj_ip_packet_filter_set;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_source_port_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, int32_t p_source_port)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_source_port_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, int32_t p_source_port)
 {
     if (!obj_ip_packet_filter_set) return NULL;
 
@@ -434,7 +434,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
     return obj_ip_packet_filter_set;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_ip_packet_filter_set_get_destination_port(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_ip_packet_filter_set_get_destination_port(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
 {
     if (!obj_ip_packet_filter_set) {
         const int32_t result = 0;
@@ -453,7 +453,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_destination_port(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const int32_t p_destination_port)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_destination_port(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const int32_t p_destination_port)
 {
     if (!obj_ip_packet_filter_set) return NULL;
 
@@ -469,7 +469,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
     return obj_ip_packet_filter_set;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_destination_port_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, int32_t p_destination_port)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_destination_port_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, int32_t p_destination_port)
 {
     if (!obj_ip_packet_filter_set) return NULL;
 
@@ -486,7 +486,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
     return obj_ip_packet_filter_set;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_ip_packet_filter_set_get_differentiated_services_code_point(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_ip_packet_filter_set_get_differentiated_services_code_point(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
 {
     if (!obj_ip_packet_filter_set) {
         const int32_t result = 0;
@@ -505,7 +505,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_differentiated_services_code_point(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const int32_t p_differentiated_services_code_point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_differentiated_services_code_point(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const int32_t p_differentiated_services_code_point)
 {
     if (!obj_ip_packet_filter_set) return NULL;
 
@@ -521,7 +521,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
     return obj_ip_packet_filter_set;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_differentiated_services_code_point_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, int32_t p_differentiated_services_code_point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_differentiated_services_code_point_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, int32_t p_differentiated_services_code_point)
 {
     if (!obj_ip_packet_filter_set) return NULL;
 
@@ -538,7 +538,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
     return obj_ip_packet_filter_set;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_ip_packet_filter_set_get_flow_label(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_ip_packet_filter_set_get_flow_label(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
 {
     if (!obj_ip_packet_filter_set) {
         const int32_t result = 0;
@@ -557,7 +557,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_flow_label(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const int32_t p_flow_label)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_flow_label(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const int32_t p_flow_label)
 {
     if (!obj_ip_packet_filter_set) return NULL;
 
@@ -573,7 +573,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
     return obj_ip_packet_filter_set;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_flow_label_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, int32_t p_flow_label)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_flow_label_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, int32_t p_flow_label)
 {
     if (!obj_ip_packet_filter_set) return NULL;
 
@@ -590,7 +590,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
     return obj_ip_packet_filter_set;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_ip_packet_filter_set_get_security_parameters_index(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_ip_packet_filter_set_get_security_parameters_index(const data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set)
 {
     if (!obj_ip_packet_filter_set) {
         const int32_t result = 0;
@@ -609,7 +609,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_security_parameters_index(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const int32_t p_security_parameters_index)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_security_parameters_index(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, const int32_t p_security_parameters_index)
 {
     if (!obj_ip_packet_filter_set) return NULL;
 
@@ -625,7 +625,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
     return obj_ip_packet_filter_set;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_security_parameters_index_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, int32_t p_security_parameters_index)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_set_security_parameters_index_move(data_collection_model_ip_packet_filter_set_t *obj_ip_packet_filter_set, int32_t p_security_parameters_index)
 {
     if (!obj_ip_packet_filter_set) return NULL;
 
@@ -643,7 +643,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ip_packet_filt
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_ip_packet_filter_set_make_lnode(data_collection_model_ip_packet_filter_set_t *p_ip_packet_filter_set)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_ip_packet_filter_set_make_lnode(data_collection_model_ip_packet_filter_set_t *p_ip_packet_filter_set)
 {
     return data_collection_lnode_create(p_ip_packet_filter_set, reinterpret_cast<void(*)(void*)>(data_collection_model_ip_packet_filter_set_free));
 }

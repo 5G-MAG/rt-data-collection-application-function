@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_create(
 
 
 
@@ -55,7 +55,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_create_copy(const data_collection_model_geographic_area_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_create_copy(const data_collection_model_geographic_area_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<GeographicArea > &obj = *reinterpret_cast<const std::shared_ptr<GeographicArea >*>(other);
@@ -63,7 +63,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return reinterpret_cast<data_collection_model_geographic_area_t*>(new std::shared_ptr<GeographicArea >(new GeographicArea(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_create_move(data_collection_model_geographic_area_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_create_move(data_collection_model_geographic_area_t *other)
 {
     if (!other) return NULL;
 
@@ -76,7 +76,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_copy(data_collection_model_geographic_area_t *geographic_area, const data_collection_model_geographic_area_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_copy(data_collection_model_geographic_area_t *geographic_area, const data_collection_model_geographic_area_t *other)
 {
     if (geographic_area) {
         std::shared_ptr<GeographicArea > &obj = *reinterpret_cast<std::shared_ptr<GeographicArea >*>(geographic_area);
@@ -105,7 +105,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_move(data_collection_model_geographic_area_t *geographic_area, data_collection_model_geographic_area_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_move(data_collection_model_geographic_area_t *geographic_area, data_collection_model_geographic_area_t *other)
 {
     std::shared_ptr<GeographicArea > *other_ptr = reinterpret_cast<std::shared_ptr<GeographicArea >*>(other);
 
@@ -129,13 +129,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_geographic_area_free(data_collection_model_geographic_area_t *geographic_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_geographic_area_free(data_collection_model_geographic_area_t *geographic_area)
 {
     if (!geographic_area) return;
     delete reinterpret_cast<std::shared_ptr<GeographicArea >*>(geographic_area);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_geographic_area_toJSON(const data_collection_model_geographic_area_t *geographic_area, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_geographic_area_toJSON(const data_collection_model_geographic_area_t *geographic_area, bool as_request)
 {
     if (!geographic_area) return NULL;
     const std::shared_ptr<GeographicArea > &obj = *reinterpret_cast<const std::shared_ptr<GeographicArea >*>(geographic_area);
@@ -144,7 +144,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_geograp
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -157,7 +157,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_geographic_area_is_equal_to(const data_collection_model_geographic_area_t *first, const data_collection_model_geographic_area_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_geographic_area_is_equal_to(const data_collection_model_geographic_area_t *first, const data_collection_model_geographic_area_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -182,7 +182,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_geographi
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_supported_gad_shapes_t* data_collection_model_geographic_area_get_shape(const data_collection_model_geographic_area_t *obj_geographic_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supported_gad_shapes_t* data_collection_model_geographic_area_get_shape(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
     if (!obj_geographic_area) {
         const data_collection_model_supported_gad_shapes_t *result = NULL;
@@ -201,7 +201,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_supporte
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_shape(data_collection_model_geographic_area_t *obj_geographic_area, const data_collection_model_supported_gad_shapes_t* p_shape)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_shape(data_collection_model_geographic_area_t *obj_geographic_area, const data_collection_model_supported_gad_shapes_t* p_shape)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -217,7 +217,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_shape_move(data_collection_model_geographic_area_t *obj_geographic_area, data_collection_model_supported_gad_shapes_t* p_shape)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_shape_move(data_collection_model_geographic_area_t *obj_geographic_area, data_collection_model_supported_gad_shapes_t* p_shape)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -234,7 +234,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geographical_coordinates_t* data_collection_model_geographic_area_get_point(const data_collection_model_geographic_area_t *obj_geographic_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geographical_coordinates_t* data_collection_model_geographic_area_get_point(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
     if (!obj_geographic_area) {
         const data_collection_model_geographical_coordinates_t *result = NULL;
@@ -253,7 +253,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geograph
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_point(data_collection_model_geographic_area_t *obj_geographic_area, const data_collection_model_geographical_coordinates_t* p_point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_point(data_collection_model_geographic_area_t *obj_geographic_area, const data_collection_model_geographical_coordinates_t* p_point)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -269,7 +269,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_point_move(data_collection_model_geographic_area_t *obj_geographic_area, data_collection_model_geographical_coordinates_t* p_point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_point_move(data_collection_model_geographic_area_t *obj_geographic_area, data_collection_model_geographical_coordinates_t* p_point)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -286,7 +286,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_geographic_area_get_uncertainty(const data_collection_model_geographic_area_t *obj_geographic_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_geographic_area_get_uncertainty(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
     if (!obj_geographic_area) {
         const float result = 0;
@@ -305,7 +305,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_ge
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_uncertainty(data_collection_model_geographic_area_t *obj_geographic_area, const float p_uncertainty)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_uncertainty(data_collection_model_geographic_area_t *obj_geographic_area, const float p_uncertainty)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -321,7 +321,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_uncertainty_move(data_collection_model_geographic_area_t *obj_geographic_area, float p_uncertainty)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_uncertainty_move(data_collection_model_geographic_area_t *obj_geographic_area, float p_uncertainty)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -338,7 +338,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_uncertainty_ellipse_t* data_collection_model_geographic_area_get_uncertainty_ellipse(const data_collection_model_geographic_area_t *obj_geographic_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_uncertainty_ellipse_t* data_collection_model_geographic_area_get_uncertainty_ellipse(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
     if (!obj_geographic_area) {
         const data_collection_model_uncertainty_ellipse_t *result = NULL;
@@ -357,7 +357,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_uncertai
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_uncertainty_ellipse(data_collection_model_geographic_area_t *obj_geographic_area, const data_collection_model_uncertainty_ellipse_t* p_uncertainty_ellipse)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_uncertainty_ellipse(data_collection_model_geographic_area_t *obj_geographic_area, const data_collection_model_uncertainty_ellipse_t* p_uncertainty_ellipse)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -373,7 +373,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_uncertainty_ellipse_move(data_collection_model_geographic_area_t *obj_geographic_area, data_collection_model_uncertainty_ellipse_t* p_uncertainty_ellipse)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_uncertainty_ellipse_move(data_collection_model_geographic_area_t *obj_geographic_area, data_collection_model_uncertainty_ellipse_t* p_uncertainty_ellipse)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -390,7 +390,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_geographic_area_get_confidence(const data_collection_model_geographic_area_t *obj_geographic_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_geographic_area_get_confidence(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
     if (!obj_geographic_area) {
         const int32_t result = 0;
@@ -409,7 +409,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_confidence(data_collection_model_geographic_area_t *obj_geographic_area, const int32_t p_confidence)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_confidence(data_collection_model_geographic_area_t *obj_geographic_area, const int32_t p_confidence)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -425,7 +425,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_confidence_move(data_collection_model_geographic_area_t *obj_geographic_area, int32_t p_confidence)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_confidence_move(data_collection_model_geographic_area_t *obj_geographic_area, int32_t p_confidence)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -442,7 +442,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_geographic_area_get_point_list(const data_collection_model_geographic_area_t *obj_geographic_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_geographic_area_get_point_list(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
     if (!obj_geographic_area) {
         ogs_list_t *result = NULL;
@@ -469,7 +469,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ge
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_point_list(data_collection_model_geographic_area_t *obj_geographic_area, const ogs_list_t* p_point_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_point_list(data_collection_model_geographic_area_t *obj_geographic_area, const ogs_list_t* p_point_list)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -493,7 +493,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_point_list_move(data_collection_model_geographic_area_t *obj_geographic_area, ogs_list_t* p_point_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_point_list_move(data_collection_model_geographic_area_t *obj_geographic_area, ogs_list_t* p_point_list)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -518,7 +518,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_add_point_list(data_collection_model_geographic_area_t *obj_geographic_area, data_collection_model_geographical_coordinates_t* p_point_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_add_point_list(data_collection_model_geographic_area_t *obj_geographic_area, data_collection_model_geographical_coordinates_t* p_point_list)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -535,7 +535,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_remove_point_list(data_collection_model_geographic_area_t *obj_geographic_area, const data_collection_model_geographical_coordinates_t* p_point_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_remove_point_list(data_collection_model_geographic_area_t *obj_geographic_area, const data_collection_model_geographical_coordinates_t* p_point_list)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -550,7 +550,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_clear_point_list(data_collection_model_geographic_area_t *obj_geographic_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_clear_point_list(data_collection_model_geographic_area_t *obj_geographic_area)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -561,7 +561,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_geographic_area_get_altitude(const data_collection_model_geographic_area_t *obj_geographic_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const double data_collection_model_geographic_area_get_altitude(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
     if (!obj_geographic_area) {
         const double result = 0;
@@ -580,7 +580,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_g
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_altitude(data_collection_model_geographic_area_t *obj_geographic_area, const double p_altitude)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_altitude(data_collection_model_geographic_area_t *obj_geographic_area, const double p_altitude)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -596,7 +596,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_altitude_move(data_collection_model_geographic_area_t *obj_geographic_area, double p_altitude)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_altitude_move(data_collection_model_geographic_area_t *obj_geographic_area, double p_altitude)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -613,7 +613,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_geographic_area_get_uncertainty_altitude(const data_collection_model_geographic_area_t *obj_geographic_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_geographic_area_get_uncertainty_altitude(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
     if (!obj_geographic_area) {
         const float result = 0;
@@ -632,7 +632,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_ge
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_uncertainty_altitude(data_collection_model_geographic_area_t *obj_geographic_area, const float p_uncertainty_altitude)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_uncertainty_altitude(data_collection_model_geographic_area_t *obj_geographic_area, const float p_uncertainty_altitude)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -648,7 +648,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_uncertainty_altitude_move(data_collection_model_geographic_area_t *obj_geographic_area, float p_uncertainty_altitude)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_uncertainty_altitude_move(data_collection_model_geographic_area_t *obj_geographic_area, float p_uncertainty_altitude)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -665,7 +665,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_geographic_area_get_v_confidence(const data_collection_model_geographic_area_t *obj_geographic_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_geographic_area_get_v_confidence(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
     if (!obj_geographic_area) {
         const int32_t result = 0;
@@ -684,7 +684,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_v_confidence(data_collection_model_geographic_area_t *obj_geographic_area, const int32_t p_v_confidence)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_v_confidence(data_collection_model_geographic_area_t *obj_geographic_area, const int32_t p_v_confidence)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -700,7 +700,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_v_confidence_move(data_collection_model_geographic_area_t *obj_geographic_area, int32_t p_v_confidence)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_v_confidence_move(data_collection_model_geographic_area_t *obj_geographic_area, int32_t p_v_confidence)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -717,7 +717,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_geographic_area_get_inner_radius(const data_collection_model_geographic_area_t *obj_geographic_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_geographic_area_get_inner_radius(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
     if (!obj_geographic_area) {
         const int32_t result = 0;
@@ -736,7 +736,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_inner_radius(data_collection_model_geographic_area_t *obj_geographic_area, const int32_t p_inner_radius)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_inner_radius(data_collection_model_geographic_area_t *obj_geographic_area, const int32_t p_inner_radius)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -752,7 +752,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_inner_radius_move(data_collection_model_geographic_area_t *obj_geographic_area, int32_t p_inner_radius)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_inner_radius_move(data_collection_model_geographic_area_t *obj_geographic_area, int32_t p_inner_radius)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -769,7 +769,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_geographic_area_get_uncertainty_radius(const data_collection_model_geographic_area_t *obj_geographic_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_geographic_area_get_uncertainty_radius(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
     if (!obj_geographic_area) {
         const float result = 0;
@@ -788,7 +788,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_ge
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_uncertainty_radius(data_collection_model_geographic_area_t *obj_geographic_area, const float p_uncertainty_radius)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_uncertainty_radius(data_collection_model_geographic_area_t *obj_geographic_area, const float p_uncertainty_radius)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -804,7 +804,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_uncertainty_radius_move(data_collection_model_geographic_area_t *obj_geographic_area, float p_uncertainty_radius)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_uncertainty_radius_move(data_collection_model_geographic_area_t *obj_geographic_area, float p_uncertainty_radius)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -821,7 +821,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_geographic_area_get_offset_angle(const data_collection_model_geographic_area_t *obj_geographic_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_geographic_area_get_offset_angle(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
     if (!obj_geographic_area) {
         const int32_t result = 0;
@@ -840,7 +840,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_offset_angle(data_collection_model_geographic_area_t *obj_geographic_area, const int32_t p_offset_angle)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_offset_angle(data_collection_model_geographic_area_t *obj_geographic_area, const int32_t p_offset_angle)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -856,7 +856,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_offset_angle_move(data_collection_model_geographic_area_t *obj_geographic_area, int32_t p_offset_angle)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_offset_angle_move(data_collection_model_geographic_area_t *obj_geographic_area, int32_t p_offset_angle)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -873,7 +873,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_geographic_area_get_included_angle(const data_collection_model_geographic_area_t *obj_geographic_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_geographic_area_get_included_angle(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
     if (!obj_geographic_area) {
         const int32_t result = 0;
@@ -892,7 +892,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_included_angle(data_collection_model_geographic_area_t *obj_geographic_area, const int32_t p_included_angle)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_included_angle(data_collection_model_geographic_area_t *obj_geographic_area, const int32_t p_included_angle)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -908,7 +908,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
     return obj_geographic_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_included_angle_move(data_collection_model_geographic_area_t *obj_geographic_area, int32_t p_included_angle)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_set_included_angle_move(data_collection_model_geographic_area_t *obj_geographic_area, int32_t p_included_angle)
 {
     if (!obj_geographic_area) return NULL;
 
@@ -926,7 +926,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographic_are
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_geographic_area_make_lnode(data_collection_model_geographic_area_t *p_geographic_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_geographic_area_make_lnode(data_collection_model_geographic_area_t *p_geographic_area)
 {
     return data_collection_lnode_create(p_geographic_area, reinterpret_cast<void(*)(void*)>(data_collection_model_geographic_area_free));
 }

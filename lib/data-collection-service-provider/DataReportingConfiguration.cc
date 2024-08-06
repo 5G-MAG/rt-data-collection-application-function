@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_create(
 
 
 
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_create_copy(const data_collection_model_data_reporting_configuration_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_create_copy(const data_collection_model_data_reporting_configuration_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<DataReportingConfiguration > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingConfiguration >*>(other);
@@ -49,7 +49,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return reinterpret_cast<data_collection_model_data_reporting_configuration_t*>(new std::shared_ptr<DataReportingConfiguration >(new DataReportingConfiguration(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_create_move(data_collection_model_data_reporting_configuration_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_create_move(data_collection_model_data_reporting_configuration_t *other)
 {
     if (!other) return NULL;
 
@@ -62,7 +62,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_copy(data_collection_model_data_reporting_configuration_t *data_reporting_configuration, const data_collection_model_data_reporting_configuration_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_copy(data_collection_model_data_reporting_configuration_t *data_reporting_configuration, const data_collection_model_data_reporting_configuration_t *other)
 {
     if (data_reporting_configuration) {
         std::shared_ptr<DataReportingConfiguration > &obj = *reinterpret_cast<std::shared_ptr<DataReportingConfiguration >*>(data_reporting_configuration);
@@ -91,7 +91,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_move(data_collection_model_data_reporting_configuration_t *data_reporting_configuration, data_collection_model_data_reporting_configuration_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_move(data_collection_model_data_reporting_configuration_t *data_reporting_configuration, data_collection_model_data_reporting_configuration_t *other)
 {
     std::shared_ptr<DataReportingConfiguration > *other_ptr = reinterpret_cast<std::shared_ptr<DataReportingConfiguration >*>(other);
 
@@ -115,13 +115,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_data_reporting_configuration_free(data_collection_model_data_reporting_configuration_t *data_reporting_configuration)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_data_reporting_configuration_free(data_collection_model_data_reporting_configuration_t *data_reporting_configuration)
 {
     if (!data_reporting_configuration) return;
     delete reinterpret_cast<std::shared_ptr<DataReportingConfiguration >*>(data_reporting_configuration);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_data_reporting_configuration_toJSON(const data_collection_model_data_reporting_configuration_t *data_reporting_configuration, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_data_reporting_configuration_toJSON(const data_collection_model_data_reporting_configuration_t *data_reporting_configuration, bool as_request)
 {
     if (!data_reporting_configuration) return NULL;
     const std::shared_ptr<DataReportingConfiguration > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingConfiguration >*>(data_reporting_configuration);
@@ -130,7 +130,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_data_re
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -143,7 +143,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_data_reporting_configuration_is_equal_to(const data_collection_model_data_reporting_configuration_t *first, const data_collection_model_data_reporting_configuration_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_configuration_is_equal_to(const data_collection_model_data_reporting_configuration_t *first, const data_collection_model_data_reporting_configuration_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -168,7 +168,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_data_repo
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_data_reporting_configuration_get_data_reporting_configuration_id(const data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_data_reporting_configuration_get_data_reporting_configuration_id(const data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration)
 {
     if (!obj_data_reporting_configuration) {
         const char *result = NULL;
@@ -189,7 +189,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_da
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_reporting_configuration_id(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, const char* p_data_reporting_configuration_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_reporting_configuration_id(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, const char* p_data_reporting_configuration_id)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -205,7 +205,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_reporting_configuration_id_move(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, char* p_data_reporting_configuration_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_reporting_configuration_id_move(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, char* p_data_reporting_configuration_id)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -222,7 +222,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_data_collection_client_type_t* data_collection_model_data_reporting_configuration_get_data_collection_client_type(const data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_collection_client_type_t* data_collection_model_data_reporting_configuration_get_data_collection_client_type(const data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration)
 {
     if (!obj_data_reporting_configuration) {
         const data_collection_model_data_collection_client_type_t *result = NULL;
@@ -241,7 +241,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_data_col
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_collection_client_type(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, const data_collection_model_data_collection_client_type_t* p_data_collection_client_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_collection_client_type(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, const data_collection_model_data_collection_client_type_t* p_data_collection_client_type)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -257,7 +257,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_collection_client_type_move(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, data_collection_model_data_collection_client_type_t* p_data_collection_client_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_collection_client_type_move(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, data_collection_model_data_collection_client_type_t* p_data_collection_client_type)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -274,7 +274,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_data_reporting_configuration_get_authorization_url(const data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_data_reporting_configuration_get_authorization_url(const data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration)
 {
     if (!obj_data_reporting_configuration) {
         const char *result = NULL;
@@ -293,7 +293,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_da
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_authorization_url(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, const char* p_authorization_url)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_authorization_url(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, const char* p_authorization_url)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -309,7 +309,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_authorization_url_move(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, char* p_authorization_url)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_authorization_url_move(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, char* p_authorization_url)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -326,7 +326,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_data_reporting_configuration_get_data_sampling_rules(const data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_reporting_configuration_get_data_sampling_rules(const data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration)
 {
     if (!obj_data_reporting_configuration) {
         ogs_list_t *result = NULL;
@@ -353,7 +353,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_da
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_sampling_rules(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, const ogs_list_t* p_data_sampling_rules)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_sampling_rules(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, const ogs_list_t* p_data_sampling_rules)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -377,7 +377,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_sampling_rules_move(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, ogs_list_t* p_data_sampling_rules)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_sampling_rules_move(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, ogs_list_t* p_data_sampling_rules)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -402,7 +402,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_add_data_sampling_rules(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, data_collection_model_data_sampling_rule_t* p_data_sampling_rules)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_add_data_sampling_rules(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, data_collection_model_data_sampling_rule_t* p_data_sampling_rules)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -419,7 +419,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_remove_data_sampling_rules(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, const data_collection_model_data_sampling_rule_t* p_data_sampling_rules)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_remove_data_sampling_rules(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, const data_collection_model_data_sampling_rule_t* p_data_sampling_rules)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -434,7 +434,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_clear_data_sampling_rules(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_clear_data_sampling_rules(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -445,7 +445,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_data_reporting_configuration_get_data_reporting_conditions(const data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_reporting_configuration_get_data_reporting_conditions(const data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration)
 {
     if (!obj_data_reporting_configuration) {
         ogs_list_t *result = NULL;
@@ -472,7 +472,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_da
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_reporting_conditions(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, const ogs_list_t* p_data_reporting_conditions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_reporting_conditions(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, const ogs_list_t* p_data_reporting_conditions)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -496,7 +496,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_reporting_conditions_move(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, ogs_list_t* p_data_reporting_conditions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_reporting_conditions_move(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, ogs_list_t* p_data_reporting_conditions)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -521,7 +521,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_add_data_reporting_conditions(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, data_collection_model_data_reporting_condition_t* p_data_reporting_conditions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_add_data_reporting_conditions(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, data_collection_model_data_reporting_condition_t* p_data_reporting_conditions)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -538,7 +538,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_remove_data_reporting_conditions(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, const data_collection_model_data_reporting_condition_t* p_data_reporting_conditions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_remove_data_reporting_conditions(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, const data_collection_model_data_reporting_condition_t* p_data_reporting_conditions)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -553,7 +553,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_clear_data_reporting_conditions(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_clear_data_reporting_conditions(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -564,7 +564,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_data_reporting_configuration_get_data_reporting_rules(const data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_reporting_configuration_get_data_reporting_rules(const data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration)
 {
     if (!obj_data_reporting_configuration) {
         ogs_list_t *result = NULL;
@@ -591,7 +591,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_da
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_reporting_rules(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, const ogs_list_t* p_data_reporting_rules)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_reporting_rules(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, const ogs_list_t* p_data_reporting_rules)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -615,7 +615,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_reporting_rules_move(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, ogs_list_t* p_data_reporting_rules)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_reporting_rules_move(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, ogs_list_t* p_data_reporting_rules)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -640,7 +640,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_add_data_reporting_rules(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, data_collection_model_data_reporting_rule_t* p_data_reporting_rules)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_add_data_reporting_rules(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, data_collection_model_data_reporting_rule_t* p_data_reporting_rules)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -657,7 +657,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_remove_data_reporting_rules(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, const data_collection_model_data_reporting_rule_t* p_data_reporting_rules)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_remove_data_reporting_rules(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, const data_collection_model_data_reporting_rule_t* p_data_reporting_rules)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -672,7 +672,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_clear_data_reporting_rules(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_clear_data_reporting_rules(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -683,7 +683,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_data_reporting_configuration_get_data_access_profiles(const data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_reporting_configuration_get_data_access_profiles(const data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration)
 {
     if (!obj_data_reporting_configuration) {
         ogs_list_t *result = NULL;
@@ -710,7 +710,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_da
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_access_profiles(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, const ogs_list_t* p_data_access_profiles)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_access_profiles(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, const ogs_list_t* p_data_access_profiles)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -734,7 +734,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_access_profiles_move(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, ogs_list_t* p_data_access_profiles)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_set_data_access_profiles_move(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, ogs_list_t* p_data_access_profiles)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -759,7 +759,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_add_data_access_profiles(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, data_collection_model_data_access_profile_t* p_data_access_profiles)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_add_data_access_profiles(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, data_collection_model_data_access_profile_t* p_data_access_profiles)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -776,7 +776,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_remove_data_access_profiles(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, const data_collection_model_data_access_profile_t* p_data_access_profiles)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_remove_data_access_profiles(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration, const data_collection_model_data_access_profile_t* p_data_access_profiles)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -791,7 +791,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return obj_data_reporting_configuration;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_clear_data_access_profiles(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_t *data_collection_model_data_reporting_configuration_clear_data_access_profiles(data_collection_model_data_reporting_configuration_t *obj_data_reporting_configuration)
 {
     if (!obj_data_reporting_configuration) return NULL;
 
@@ -803,7 +803,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_data_reporting_configuration_make_lnode(data_collection_model_data_reporting_configuration_t *p_data_reporting_configuration)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_data_reporting_configuration_make_lnode(data_collection_model_data_reporting_configuration_t *p_data_reporting_configuration)
 {
     return data_collection_lnode_create(p_data_reporting_configuration, reinterpret_cast<void(*)(void*)>(data_collection_model_data_reporting_configuration_free));
 }

@@ -22,12 +22,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_trend_t *data_collection_model_exception_trend_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_trend_t *data_collection_model_exception_trend_create()
 {
     return reinterpret_cast<data_collection_model_exception_trend_t*>(new std::shared_ptr<ExceptionTrend>(new ExceptionTrend()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_trend_t *data_collection_model_exception_trend_create_copy(const data_collection_model_exception_trend_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_trend_t *data_collection_model_exception_trend_create_copy(const data_collection_model_exception_trend_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<ExceptionTrend > &obj = *reinterpret_cast<const std::shared_ptr<ExceptionTrend >*>(other);
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_tren
     return reinterpret_cast<data_collection_model_exception_trend_t*>(new std::shared_ptr<ExceptionTrend >(new ExceptionTrend(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_trend_t *data_collection_model_exception_trend_create_move(data_collection_model_exception_trend_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_trend_t *data_collection_model_exception_trend_create_move(data_collection_model_exception_trend_t *other)
 {
     if (!other) return NULL;
 
@@ -48,7 +48,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_tren
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_trend_t *data_collection_model_exception_trend_copy(data_collection_model_exception_trend_t *exception_trend, const data_collection_model_exception_trend_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_trend_t *data_collection_model_exception_trend_copy(data_collection_model_exception_trend_t *exception_trend, const data_collection_model_exception_trend_t *other)
 {
     if (exception_trend) {
         std::shared_ptr<ExceptionTrend > &obj = *reinterpret_cast<std::shared_ptr<ExceptionTrend >*>(exception_trend);
@@ -77,7 +77,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_tren
     return exception_trend;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_trend_t *data_collection_model_exception_trend_move(data_collection_model_exception_trend_t *exception_trend, data_collection_model_exception_trend_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_trend_t *data_collection_model_exception_trend_move(data_collection_model_exception_trend_t *exception_trend, data_collection_model_exception_trend_t *other)
 {
     std::shared_ptr<ExceptionTrend > *other_ptr = reinterpret_cast<std::shared_ptr<ExceptionTrend >*>(other);
 
@@ -101,13 +101,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_tren
     return exception_trend;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_exception_trend_free(data_collection_model_exception_trend_t *exception_trend)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_exception_trend_free(data_collection_model_exception_trend_t *exception_trend)
 {
     if (!exception_trend) return;
     delete reinterpret_cast<std::shared_ptr<ExceptionTrend >*>(exception_trend);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_exception_trend_toJSON(const data_collection_model_exception_trend_t *exception_trend, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_exception_trend_toJSON(const data_collection_model_exception_trend_t *exception_trend, bool as_request)
 {
     if (!exception_trend) return NULL;
     const std::shared_ptr<ExceptionTrend > &obj = *reinterpret_cast<const std::shared_ptr<ExceptionTrend >*>(exception_trend);
@@ -116,7 +116,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_excepti
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_trend_t *data_collection_model_exception_trend_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_trend_t *data_collection_model_exception_trend_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -129,7 +129,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_exception_tren
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_exception_trend_is_equal_to(const data_collection_model_exception_trend_t *first, const data_collection_model_exception_trend_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_trend_is_equal_to(const data_collection_model_exception_trend_t *first, const data_collection_model_exception_trend_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -154,7 +154,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_exception
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_trend_is_not_set(const data_collection_model_exception_trend_t *obj_exception_trend)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_trend_is_not_set(const data_collection_model_exception_trend_t *obj_exception_trend)
 {
     if (!obj_exception_trend) return true;
     const std::shared_ptr<ExceptionTrend > &obj = *reinterpret_cast<const std::shared_ptr<ExceptionTrend >*>(obj_exception_trend);
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_trend_is_n
     return obj->getValue() == ExceptionTrend::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_trend_is_non_standard(const data_collection_model_exception_trend_t *obj_exception_trend)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_trend_is_non_standard(const data_collection_model_exception_trend_t *obj_exception_trend)
 {
     if (!obj_exception_trend) return false;
     const std::shared_ptr<ExceptionTrend > &obj = *reinterpret_cast<const std::shared_ptr<ExceptionTrend >*>(obj_exception_trend);
@@ -170,7 +170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_trend_is_n
     return obj->getValue() == ExceptionTrend::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_trend_e data_collection_model_exception_trend_get_enum(const data_collection_model_exception_trend_t *obj_exception_trend)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_trend_e data_collection_model_exception_trend_get_enum(const data_collection_model_exception_trend_t *obj_exception_trend)
 {
     if (!obj_exception_trend)
         return DCM_EXCEPTION_TREND_NO_VAL;
@@ -193,7 +193,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_trend_e data_co
     return DCM_EXCEPTION_TREND_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_exception_trend_get_string(const data_collection_model_exception_trend_t *obj_exception_trend)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_exception_trend_get_string(const data_collection_model_exception_trend_t *obj_exception_trend)
 {
     if (!obj_exception_trend) return NULL;
     const std::shared_ptr<ExceptionTrend > &obj = *reinterpret_cast<const std::shared_ptr<ExceptionTrend >*>(obj_exception_trend);
@@ -201,7 +201,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_exception_tre
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_trend_set_enum(data_collection_model_exception_trend_t *obj_exception_trend, data_collection_model_exception_trend_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_trend_set_enum(data_collection_model_exception_trend_t *obj_exception_trend, data_collection_model_exception_trend_e p_value)
 {
     if (!obj_exception_trend) return false;
     std::shared_ptr<ExceptionTrend > &obj = *reinterpret_cast<std::shared_ptr<ExceptionTrend >*>(obj_exception_trend);
@@ -228,7 +228,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_trend_set_
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_trend_set_string(data_collection_model_exception_trend_t *obj_exception_trend, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_trend_set_string(data_collection_model_exception_trend_t *obj_exception_trend, const char *p_value)
 {
     if (!obj_exception_trend) return false;
     std::shared_ptr<ExceptionTrend > &obj = *reinterpret_cast<std::shared_ptr<ExceptionTrend >*>(obj_exception_trend);
@@ -243,7 +243,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_trend_set_
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_exception_trend_make_lnode(data_collection_model_exception_trend_t *p_exception_trend)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_exception_trend_make_lnode(data_collection_model_exception_trend_t *p_exception_trend)
 {
     return data_collection_lnode_create(p_exception_trend, reinterpret_cast<void(*)(void*)>(data_collection_model_exception_trend_free));
 }

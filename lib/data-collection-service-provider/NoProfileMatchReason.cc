@@ -24,12 +24,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_match_reason_t *data_collection_model_no_profile_match_reason_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_reason_t *data_collection_model_no_profile_match_reason_create()
 {
     return reinterpret_cast<data_collection_model_no_profile_match_reason_t*>(new std::shared_ptr<NoProfileMatchReason>(new NoProfileMatchReason()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_match_reason_t *data_collection_model_no_profile_match_reason_create_copy(const data_collection_model_no_profile_match_reason_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_reason_t *data_collection_model_no_profile_match_reason_create_copy(const data_collection_model_no_profile_match_reason_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<NoProfileMatchReason > &obj = *reinterpret_cast<const std::shared_ptr<NoProfileMatchReason >*>(other);
@@ -37,7 +37,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_mat
     return reinterpret_cast<data_collection_model_no_profile_match_reason_t*>(new std::shared_ptr<NoProfileMatchReason >(new NoProfileMatchReason(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_match_reason_t *data_collection_model_no_profile_match_reason_create_move(data_collection_model_no_profile_match_reason_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_reason_t *data_collection_model_no_profile_match_reason_create_move(data_collection_model_no_profile_match_reason_t *other)
 {
     if (!other) return NULL;
 
@@ -50,7 +50,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_mat
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_match_reason_t *data_collection_model_no_profile_match_reason_copy(data_collection_model_no_profile_match_reason_t *no_profile_match_reason, const data_collection_model_no_profile_match_reason_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_reason_t *data_collection_model_no_profile_match_reason_copy(data_collection_model_no_profile_match_reason_t *no_profile_match_reason, const data_collection_model_no_profile_match_reason_t *other)
 {
     if (no_profile_match_reason) {
         std::shared_ptr<NoProfileMatchReason > &obj = *reinterpret_cast<std::shared_ptr<NoProfileMatchReason >*>(no_profile_match_reason);
@@ -79,7 +79,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_mat
     return no_profile_match_reason;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_match_reason_t *data_collection_model_no_profile_match_reason_move(data_collection_model_no_profile_match_reason_t *no_profile_match_reason, data_collection_model_no_profile_match_reason_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_reason_t *data_collection_model_no_profile_match_reason_move(data_collection_model_no_profile_match_reason_t *no_profile_match_reason, data_collection_model_no_profile_match_reason_t *other)
 {
     std::shared_ptr<NoProfileMatchReason > *other_ptr = reinterpret_cast<std::shared_ptr<NoProfileMatchReason >*>(other);
 
@@ -103,13 +103,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_mat
     return no_profile_match_reason;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_no_profile_match_reason_free(data_collection_model_no_profile_match_reason_t *no_profile_match_reason)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_no_profile_match_reason_free(data_collection_model_no_profile_match_reason_t *no_profile_match_reason)
 {
     if (!no_profile_match_reason) return;
     delete reinterpret_cast<std::shared_ptr<NoProfileMatchReason >*>(no_profile_match_reason);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_no_profile_match_reason_toJSON(const data_collection_model_no_profile_match_reason_t *no_profile_match_reason, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_no_profile_match_reason_toJSON(const data_collection_model_no_profile_match_reason_t *no_profile_match_reason, bool as_request)
 {
     if (!no_profile_match_reason) return NULL;
     const std::shared_ptr<NoProfileMatchReason > &obj = *reinterpret_cast<const std::shared_ptr<NoProfileMatchReason >*>(no_profile_match_reason);
@@ -118,7 +118,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_no_prof
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_match_reason_t *data_collection_model_no_profile_match_reason_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_reason_t *data_collection_model_no_profile_match_reason_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -131,7 +131,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_mat
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_no_profile_match_reason_is_equal_to(const data_collection_model_no_profile_match_reason_t *first, const data_collection_model_no_profile_match_reason_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profile_match_reason_is_equal_to(const data_collection_model_no_profile_match_reason_t *first, const data_collection_model_no_profile_match_reason_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -156,7 +156,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_no_profil
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profile_match_reason_is_not_set(const data_collection_model_no_profile_match_reason_t *obj_no_profile_match_reason)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profile_match_reason_is_not_set(const data_collection_model_no_profile_match_reason_t *obj_no_profile_match_reason)
 {
     if (!obj_no_profile_match_reason) return true;
     const std::shared_ptr<NoProfileMatchReason > &obj = *reinterpret_cast<const std::shared_ptr<NoProfileMatchReason >*>(obj_no_profile_match_reason);
@@ -164,7 +164,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profile_match_rea
     return obj->getValue() == NoProfileMatchReason::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profile_match_reason_is_non_standard(const data_collection_model_no_profile_match_reason_t *obj_no_profile_match_reason)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profile_match_reason_is_non_standard(const data_collection_model_no_profile_match_reason_t *obj_no_profile_match_reason)
 {
     if (!obj_no_profile_match_reason) return false;
     const std::shared_ptr<NoProfileMatchReason > &obj = *reinterpret_cast<const std::shared_ptr<NoProfileMatchReason >*>(obj_no_profile_match_reason);
@@ -172,7 +172,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profile_match_rea
     return obj->getValue() == NoProfileMatchReason::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_reason_e data_collection_model_no_profile_match_reason_get_enum(const data_collection_model_no_profile_match_reason_t *obj_no_profile_match_reason)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_reason_e data_collection_model_no_profile_match_reason_get_enum(const data_collection_model_no_profile_match_reason_t *obj_no_profile_match_reason)
 {
     if (!obj_no_profile_match_reason)
         return DCM_NO_PROFILE_MATCH_REASON_NO_VAL;
@@ -199,7 +199,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_reason_e
     return DCM_NO_PROFILE_MATCH_REASON_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_no_profile_match_reason_get_string(const data_collection_model_no_profile_match_reason_t *obj_no_profile_match_reason)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_no_profile_match_reason_get_string(const data_collection_model_no_profile_match_reason_t *obj_no_profile_match_reason)
 {
     if (!obj_no_profile_match_reason) return NULL;
     const std::shared_ptr<NoProfileMatchReason > &obj = *reinterpret_cast<const std::shared_ptr<NoProfileMatchReason >*>(obj_no_profile_match_reason);
@@ -207,7 +207,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_no_profile_ma
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profile_match_reason_set_enum(data_collection_model_no_profile_match_reason_t *obj_no_profile_match_reason, data_collection_model_no_profile_match_reason_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profile_match_reason_set_enum(data_collection_model_no_profile_match_reason_t *obj_no_profile_match_reason, data_collection_model_no_profile_match_reason_e p_value)
 {
     if (!obj_no_profile_match_reason) return false;
     std::shared_ptr<NoProfileMatchReason > &obj = *reinterpret_cast<std::shared_ptr<NoProfileMatchReason >*>(obj_no_profile_match_reason);
@@ -240,7 +240,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profile_match_rea
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profile_match_reason_set_string(data_collection_model_no_profile_match_reason_t *obj_no_profile_match_reason, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profile_match_reason_set_string(data_collection_model_no_profile_match_reason_t *obj_no_profile_match_reason, const char *p_value)
 {
     if (!obj_no_profile_match_reason) return false;
     std::shared_ptr<NoProfileMatchReason > &obj = *reinterpret_cast<std::shared_ptr<NoProfileMatchReason >*>(obj_no_profile_match_reason);
@@ -255,7 +255,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profile_match_rea
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_no_profile_match_reason_make_lnode(data_collection_model_no_profile_match_reason_t *p_no_profile_match_reason)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_no_profile_match_reason_make_lnode(data_collection_model_no_profile_match_reason_t *p_no_profile_match_reason)
 {
     return data_collection_lnode_create(p_no_profile_match_reason, reinterpret_cast<void(*)(void*)>(data_collection_model_no_profile_match_reason_free));
 }

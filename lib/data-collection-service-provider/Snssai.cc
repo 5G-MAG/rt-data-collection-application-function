@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_snssai_t *data_collection_model_snssai_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_snssai_t *data_collection_model_snssai_create(
 
 )
 {
@@ -33,7 +33,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_snssai_t *data
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_snssai_t *data_collection_model_snssai_create_copy(const data_collection_model_snssai_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_snssai_t *data_collection_model_snssai_create_copy(const data_collection_model_snssai_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<Snssai > &obj = *reinterpret_cast<const std::shared_ptr<Snssai >*>(other);
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_snssai_t *data
     return reinterpret_cast<data_collection_model_snssai_t*>(new std::shared_ptr<Snssai >(new Snssai(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_snssai_t *data_collection_model_snssai_create_move(data_collection_model_snssai_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_snssai_t *data_collection_model_snssai_create_move(data_collection_model_snssai_t *other)
 {
     if (!other) return NULL;
 
@@ -54,7 +54,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_snssai_t *data
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_snssai_t *data_collection_model_snssai_copy(data_collection_model_snssai_t *snssai, const data_collection_model_snssai_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_snssai_t *data_collection_model_snssai_copy(data_collection_model_snssai_t *snssai, const data_collection_model_snssai_t *other)
 {
     if (snssai) {
         std::shared_ptr<Snssai > &obj = *reinterpret_cast<std::shared_ptr<Snssai >*>(snssai);
@@ -83,7 +83,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_snssai_t *data
     return snssai;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_snssai_t *data_collection_model_snssai_move(data_collection_model_snssai_t *snssai, data_collection_model_snssai_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_snssai_t *data_collection_model_snssai_move(data_collection_model_snssai_t *snssai, data_collection_model_snssai_t *other)
 {
     std::shared_ptr<Snssai > *other_ptr = reinterpret_cast<std::shared_ptr<Snssai >*>(other);
 
@@ -107,13 +107,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_snssai_t *data
     return snssai;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_snssai_free(data_collection_model_snssai_t *snssai)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_snssai_free(data_collection_model_snssai_t *snssai)
 {
     if (!snssai) return;
     delete reinterpret_cast<std::shared_ptr<Snssai >*>(snssai);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_snssai_toJSON(const data_collection_model_snssai_t *snssai, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_snssai_toJSON(const data_collection_model_snssai_t *snssai, bool as_request)
 {
     if (!snssai) return NULL;
     const std::shared_ptr<Snssai > &obj = *reinterpret_cast<const std::shared_ptr<Snssai >*>(snssai);
@@ -122,7 +122,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_snssai_
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_snssai_t *data_collection_model_snssai_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_snssai_t *data_collection_model_snssai_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -135,7 +135,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_snssai_t *data
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_snssai_is_equal_to(const data_collection_model_snssai_t *first, const data_collection_model_snssai_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_snssai_is_equal_to(const data_collection_model_snssai_t *first, const data_collection_model_snssai_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -160,7 +160,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_snssai_is
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_snssai_get_sst(const data_collection_model_snssai_t *obj_snssai)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_snssai_get_sst(const data_collection_model_snssai_t *obj_snssai)
 {
     if (!obj_snssai) {
         const int32_t result = 0;
@@ -179,7 +179,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_snssai_t *data_collection_model_snssai_set_sst(data_collection_model_snssai_t *obj_snssai, const int32_t p_sst)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_snssai_t *data_collection_model_snssai_set_sst(data_collection_model_snssai_t *obj_snssai, const int32_t p_sst)
 {
     if (!obj_snssai) return NULL;
 
@@ -195,7 +195,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_snssai_t *data
     return obj_snssai;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_snssai_t *data_collection_model_snssai_set_sst_move(data_collection_model_snssai_t *obj_snssai, int32_t p_sst)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_snssai_t *data_collection_model_snssai_set_sst_move(data_collection_model_snssai_t *obj_snssai, int32_t p_sst)
 {
     if (!obj_snssai) return NULL;
 
@@ -212,7 +212,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_snssai_t *data
     return obj_snssai;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_snssai_get_sd(const data_collection_model_snssai_t *obj_snssai)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_snssai_get_sd(const data_collection_model_snssai_t *obj_snssai)
 {
     if (!obj_snssai) {
         const char *result = NULL;
@@ -231,7 +231,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_sn
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_snssai_t *data_collection_model_snssai_set_sd(data_collection_model_snssai_t *obj_snssai, const char* p_sd)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_snssai_t *data_collection_model_snssai_set_sd(data_collection_model_snssai_t *obj_snssai, const char* p_sd)
 {
     if (!obj_snssai) return NULL;
 
@@ -247,7 +247,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_snssai_t *data
     return obj_snssai;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_snssai_t *data_collection_model_snssai_set_sd_move(data_collection_model_snssai_t *obj_snssai, char* p_sd)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_snssai_t *data_collection_model_snssai_set_sd_move(data_collection_model_snssai_t *obj_snssai, char* p_sd)
 {
     if (!obj_snssai) return NULL;
 
@@ -265,7 +265,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_snssai_t *data
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_snssai_make_lnode(data_collection_model_snssai_t *p_snssai)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_snssai_make_lnode(data_collection_model_snssai_t *p_snssai)
 {
     return data_collection_lnode_create(p_snssai, reinterpret_cast<void(*)(void*)>(data_collection_model_snssai_free));
 }

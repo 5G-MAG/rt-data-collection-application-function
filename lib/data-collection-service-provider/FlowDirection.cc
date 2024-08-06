@@ -22,12 +22,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_direction_t *data_collection_model_flow_direction_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_direction_t *data_collection_model_flow_direction_create()
 {
     return reinterpret_cast<data_collection_model_flow_direction_t*>(new std::shared_ptr<FlowDirection>(new FlowDirection()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_direction_t *data_collection_model_flow_direction_create_copy(const data_collection_model_flow_direction_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_direction_t *data_collection_model_flow_direction_create_copy(const data_collection_model_flow_direction_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<FlowDirection > &obj = *reinterpret_cast<const std::shared_ptr<FlowDirection >*>(other);
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_direction
     return reinterpret_cast<data_collection_model_flow_direction_t*>(new std::shared_ptr<FlowDirection >(new FlowDirection(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_direction_t *data_collection_model_flow_direction_create_move(data_collection_model_flow_direction_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_direction_t *data_collection_model_flow_direction_create_move(data_collection_model_flow_direction_t *other)
 {
     if (!other) return NULL;
 
@@ -48,7 +48,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_direction
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_direction_t *data_collection_model_flow_direction_copy(data_collection_model_flow_direction_t *flow_direction, const data_collection_model_flow_direction_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_direction_t *data_collection_model_flow_direction_copy(data_collection_model_flow_direction_t *flow_direction, const data_collection_model_flow_direction_t *other)
 {
     if (flow_direction) {
         std::shared_ptr<FlowDirection > &obj = *reinterpret_cast<std::shared_ptr<FlowDirection >*>(flow_direction);
@@ -77,7 +77,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_direction
     return flow_direction;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_direction_t *data_collection_model_flow_direction_move(data_collection_model_flow_direction_t *flow_direction, data_collection_model_flow_direction_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_direction_t *data_collection_model_flow_direction_move(data_collection_model_flow_direction_t *flow_direction, data_collection_model_flow_direction_t *other)
 {
     std::shared_ptr<FlowDirection > *other_ptr = reinterpret_cast<std::shared_ptr<FlowDirection >*>(other);
 
@@ -101,13 +101,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_direction
     return flow_direction;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_flow_direction_free(data_collection_model_flow_direction_t *flow_direction)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_flow_direction_free(data_collection_model_flow_direction_t *flow_direction)
 {
     if (!flow_direction) return;
     delete reinterpret_cast<std::shared_ptr<FlowDirection >*>(flow_direction);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_flow_direction_toJSON(const data_collection_model_flow_direction_t *flow_direction, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_flow_direction_toJSON(const data_collection_model_flow_direction_t *flow_direction, bool as_request)
 {
     if (!flow_direction) return NULL;
     const std::shared_ptr<FlowDirection > &obj = *reinterpret_cast<const std::shared_ptr<FlowDirection >*>(flow_direction);
@@ -116,7 +116,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_flow_di
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_direction_t *data_collection_model_flow_direction_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_direction_t *data_collection_model_flow_direction_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -129,7 +129,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_direction
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_flow_direction_is_equal_to(const data_collection_model_flow_direction_t *first, const data_collection_model_flow_direction_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_flow_direction_is_equal_to(const data_collection_model_flow_direction_t *first, const data_collection_model_flow_direction_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -154,7 +154,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_flow_dire
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_flow_direction_is_not_set(const data_collection_model_flow_direction_t *obj_flow_direction)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_flow_direction_is_not_set(const data_collection_model_flow_direction_t *obj_flow_direction)
 {
     if (!obj_flow_direction) return true;
     const std::shared_ptr<FlowDirection > &obj = *reinterpret_cast<const std::shared_ptr<FlowDirection >*>(obj_flow_direction);
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_flow_direction_is_no
     return obj->getValue() == FlowDirection::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_flow_direction_is_non_standard(const data_collection_model_flow_direction_t *obj_flow_direction)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_flow_direction_is_non_standard(const data_collection_model_flow_direction_t *obj_flow_direction)
 {
     if (!obj_flow_direction) return false;
     const std::shared_ptr<FlowDirection > &obj = *reinterpret_cast<const std::shared_ptr<FlowDirection >*>(obj_flow_direction);
@@ -170,7 +170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_flow_direction_is_no
     return obj->getValue() == FlowDirection::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_direction_e data_collection_model_flow_direction_get_enum(const data_collection_model_flow_direction_t *obj_flow_direction)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_direction_e data_collection_model_flow_direction_get_enum(const data_collection_model_flow_direction_t *obj_flow_direction)
 {
     if (!obj_flow_direction)
         return DCM_FLOW_DIRECTION_NO_VAL;
@@ -193,7 +193,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_direction_e data_col
     return DCM_FLOW_DIRECTION_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_flow_direction_get_string(const data_collection_model_flow_direction_t *obj_flow_direction)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_flow_direction_get_string(const data_collection_model_flow_direction_t *obj_flow_direction)
 {
     if (!obj_flow_direction) return NULL;
     const std::shared_ptr<FlowDirection > &obj = *reinterpret_cast<const std::shared_ptr<FlowDirection >*>(obj_flow_direction);
@@ -201,7 +201,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_flow_directio
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_flow_direction_set_enum(data_collection_model_flow_direction_t *obj_flow_direction, data_collection_model_flow_direction_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_flow_direction_set_enum(data_collection_model_flow_direction_t *obj_flow_direction, data_collection_model_flow_direction_e p_value)
 {
     if (!obj_flow_direction) return false;
     std::shared_ptr<FlowDirection > &obj = *reinterpret_cast<std::shared_ptr<FlowDirection >*>(obj_flow_direction);
@@ -228,7 +228,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_flow_direction_set_e
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_flow_direction_set_string(data_collection_model_flow_direction_t *obj_flow_direction, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_flow_direction_set_string(data_collection_model_flow_direction_t *obj_flow_direction, const char *p_value)
 {
     if (!obj_flow_direction) return false;
     std::shared_ptr<FlowDirection > &obj = *reinterpret_cast<std::shared_ptr<FlowDirection >*>(obj_flow_direction);
@@ -243,7 +243,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_flow_direction_set_s
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_flow_direction_make_lnode(data_collection_model_flow_direction_t *p_flow_direction)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_flow_direction_make_lnode(data_collection_model_flow_direction_t *p_flow_direction)
 {
     return data_collection_lnode_create(p_flow_direction, reinterpret_cast<void(*)(void*)>(data_collection_model_flow_direction_free));
 }

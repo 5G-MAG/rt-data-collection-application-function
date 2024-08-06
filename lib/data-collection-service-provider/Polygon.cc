@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *data_collection_model_polygon_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_polygon_t *data_collection_model_polygon_create(
 
 )
 {
@@ -33,7 +33,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *dat
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *data_collection_model_polygon_create_copy(const data_collection_model_polygon_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_polygon_t *data_collection_model_polygon_create_copy(const data_collection_model_polygon_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<Polygon > &obj = *reinterpret_cast<const std::shared_ptr<Polygon >*>(other);
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *dat
     return reinterpret_cast<data_collection_model_polygon_t*>(new std::shared_ptr<Polygon >(new Polygon(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *data_collection_model_polygon_create_move(data_collection_model_polygon_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_polygon_t *data_collection_model_polygon_create_move(data_collection_model_polygon_t *other)
 {
     if (!other) return NULL;
 
@@ -54,7 +54,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *dat
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *data_collection_model_polygon_copy(data_collection_model_polygon_t *polygon, const data_collection_model_polygon_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_polygon_t *data_collection_model_polygon_copy(data_collection_model_polygon_t *polygon, const data_collection_model_polygon_t *other)
 {
     if (polygon) {
         std::shared_ptr<Polygon > &obj = *reinterpret_cast<std::shared_ptr<Polygon >*>(polygon);
@@ -83,7 +83,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *dat
     return polygon;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *data_collection_model_polygon_move(data_collection_model_polygon_t *polygon, data_collection_model_polygon_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_polygon_t *data_collection_model_polygon_move(data_collection_model_polygon_t *polygon, data_collection_model_polygon_t *other)
 {
     std::shared_ptr<Polygon > *other_ptr = reinterpret_cast<std::shared_ptr<Polygon >*>(other);
 
@@ -107,13 +107,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *dat
     return polygon;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_polygon_free(data_collection_model_polygon_t *polygon)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_polygon_free(data_collection_model_polygon_t *polygon)
 {
     if (!polygon) return;
     delete reinterpret_cast<std::shared_ptr<Polygon >*>(polygon);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_polygon_toJSON(const data_collection_model_polygon_t *polygon, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_polygon_toJSON(const data_collection_model_polygon_t *polygon, bool as_request)
 {
     if (!polygon) return NULL;
     const std::shared_ptr<Polygon > &obj = *reinterpret_cast<const std::shared_ptr<Polygon >*>(polygon);
@@ -122,7 +122,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_polygon
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *data_collection_model_polygon_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_polygon_t *data_collection_model_polygon_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -135,7 +135,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *dat
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_polygon_is_equal_to(const data_collection_model_polygon_t *first, const data_collection_model_polygon_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_polygon_is_equal_to(const data_collection_model_polygon_t *first, const data_collection_model_polygon_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -160,7 +160,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_polygon_i
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_supported_gad_shapes_t* data_collection_model_polygon_get_shape(const data_collection_model_polygon_t *obj_polygon)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supported_gad_shapes_t* data_collection_model_polygon_get_shape(const data_collection_model_polygon_t *obj_polygon)
 {
     if (!obj_polygon) {
         const data_collection_model_supported_gad_shapes_t *result = NULL;
@@ -179,7 +179,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_supporte
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *data_collection_model_polygon_set_shape(data_collection_model_polygon_t *obj_polygon, const data_collection_model_supported_gad_shapes_t* p_shape)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_polygon_t *data_collection_model_polygon_set_shape(data_collection_model_polygon_t *obj_polygon, const data_collection_model_supported_gad_shapes_t* p_shape)
 {
     if (!obj_polygon) return NULL;
 
@@ -195,7 +195,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *dat
     return obj_polygon;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *data_collection_model_polygon_set_shape_move(data_collection_model_polygon_t *obj_polygon, data_collection_model_supported_gad_shapes_t* p_shape)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_polygon_t *data_collection_model_polygon_set_shape_move(data_collection_model_polygon_t *obj_polygon, data_collection_model_supported_gad_shapes_t* p_shape)
 {
     if (!obj_polygon) return NULL;
 
@@ -212,7 +212,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *dat
     return obj_polygon;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_polygon_get_point_list(const data_collection_model_polygon_t *obj_polygon)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_polygon_get_point_list(const data_collection_model_polygon_t *obj_polygon)
 {
     if (!obj_polygon) {
         ogs_list_t *result = NULL;
@@ -239,7 +239,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_po
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *data_collection_model_polygon_set_point_list(data_collection_model_polygon_t *obj_polygon, const ogs_list_t* p_point_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_polygon_t *data_collection_model_polygon_set_point_list(data_collection_model_polygon_t *obj_polygon, const ogs_list_t* p_point_list)
 {
     if (!obj_polygon) return NULL;
 
@@ -263,7 +263,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *dat
     return obj_polygon;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *data_collection_model_polygon_set_point_list_move(data_collection_model_polygon_t *obj_polygon, ogs_list_t* p_point_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_polygon_t *data_collection_model_polygon_set_point_list_move(data_collection_model_polygon_t *obj_polygon, ogs_list_t* p_point_list)
 {
     if (!obj_polygon) return NULL;
 
@@ -288,7 +288,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *dat
     return obj_polygon;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *data_collection_model_polygon_add_point_list(data_collection_model_polygon_t *obj_polygon, data_collection_model_geographical_coordinates_t* p_point_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_polygon_t *data_collection_model_polygon_add_point_list(data_collection_model_polygon_t *obj_polygon, data_collection_model_geographical_coordinates_t* p_point_list)
 {
     if (!obj_polygon) return NULL;
 
@@ -305,7 +305,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *dat
     return obj_polygon;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *data_collection_model_polygon_remove_point_list(data_collection_model_polygon_t *obj_polygon, const data_collection_model_geographical_coordinates_t* p_point_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_polygon_t *data_collection_model_polygon_remove_point_list(data_collection_model_polygon_t *obj_polygon, const data_collection_model_geographical_coordinates_t* p_point_list)
 {
     if (!obj_polygon) return NULL;
 
@@ -320,7 +320,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *dat
     return obj_polygon;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *data_collection_model_polygon_clear_point_list(data_collection_model_polygon_t *obj_polygon)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_polygon_t *data_collection_model_polygon_clear_point_list(data_collection_model_polygon_t *obj_polygon)
 {
     if (!obj_polygon) return NULL;
 
@@ -332,7 +332,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_polygon_t *dat
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_polygon_make_lnode(data_collection_model_polygon_t *p_polygon)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_polygon_make_lnode(data_collection_model_polygon_t *p_polygon)
 {
     return data_collection_lnode_create(p_polygon, reinterpret_cast<void(*)(void*)>(data_collection_model_polygon_free));
 }

@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_recommended_qo_s_t *data_collection_model_network_assistance_invocation_recommended_qo_s_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_recommended_qo_s_t *data_collection_model_network_assistance_invocation_recommended_qo_s_create(
 
 )
 {
@@ -33,7 +33,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_recommended_qo_s_t *data_collection_model_network_assistance_invocation_recommended_qo_s_create_copy(const data_collection_model_network_assistance_invocation_recommended_qo_s_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_recommended_qo_s_t *data_collection_model_network_assistance_invocation_recommended_qo_s_create_copy(const data_collection_model_network_assistance_invocation_recommended_qo_s_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<NetworkAssistanceInvocation_recommendedQoS > &obj = *reinterpret_cast<const std::shared_ptr<NetworkAssistanceInvocation_recommendedQoS >*>(other);
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return reinterpret_cast<data_collection_model_network_assistance_invocation_recommended_qo_s_t*>(new std::shared_ptr<NetworkAssistanceInvocation_recommendedQoS >(new NetworkAssistanceInvocation_recommendedQoS(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_recommended_qo_s_t *data_collection_model_network_assistance_invocation_recommended_qo_s_create_move(data_collection_model_network_assistance_invocation_recommended_qo_s_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_recommended_qo_s_t *data_collection_model_network_assistance_invocation_recommended_qo_s_create_move(data_collection_model_network_assistance_invocation_recommended_qo_s_t *other)
 {
     if (!other) return NULL;
 
@@ -54,7 +54,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_recommended_qo_s_t *data_collection_model_network_assistance_invocation_recommended_qo_s_copy(data_collection_model_network_assistance_invocation_recommended_qo_s_t *network_assistance_invocation_recommended_qo_s, const data_collection_model_network_assistance_invocation_recommended_qo_s_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_recommended_qo_s_t *data_collection_model_network_assistance_invocation_recommended_qo_s_copy(data_collection_model_network_assistance_invocation_recommended_qo_s_t *network_assistance_invocation_recommended_qo_s, const data_collection_model_network_assistance_invocation_recommended_qo_s_t *other)
 {
     if (network_assistance_invocation_recommended_qo_s) {
         std::shared_ptr<NetworkAssistanceInvocation_recommendedQoS > &obj = *reinterpret_cast<std::shared_ptr<NetworkAssistanceInvocation_recommendedQoS >*>(network_assistance_invocation_recommended_qo_s);
@@ -83,7 +83,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return network_assistance_invocation_recommended_qo_s;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_recommended_qo_s_t *data_collection_model_network_assistance_invocation_recommended_qo_s_move(data_collection_model_network_assistance_invocation_recommended_qo_s_t *network_assistance_invocation_recommended_qo_s, data_collection_model_network_assistance_invocation_recommended_qo_s_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_recommended_qo_s_t *data_collection_model_network_assistance_invocation_recommended_qo_s_move(data_collection_model_network_assistance_invocation_recommended_qo_s_t *network_assistance_invocation_recommended_qo_s, data_collection_model_network_assistance_invocation_recommended_qo_s_t *other)
 {
     std::shared_ptr<NetworkAssistanceInvocation_recommendedQoS > *other_ptr = reinterpret_cast<std::shared_ptr<NetworkAssistanceInvocation_recommendedQoS >*>(other);
 
@@ -107,13 +107,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return network_assistance_invocation_recommended_qo_s;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_network_assistance_invocation_recommended_qo_s_free(data_collection_model_network_assistance_invocation_recommended_qo_s_t *network_assistance_invocation_recommended_qo_s)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_network_assistance_invocation_recommended_qo_s_free(data_collection_model_network_assistance_invocation_recommended_qo_s_t *network_assistance_invocation_recommended_qo_s)
 {
     if (!network_assistance_invocation_recommended_qo_s) return;
     delete reinterpret_cast<std::shared_ptr<NetworkAssistanceInvocation_recommendedQoS >*>(network_assistance_invocation_recommended_qo_s);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_network_assistance_invocation_recommended_qo_s_toJSON(const data_collection_model_network_assistance_invocation_recommended_qo_s_t *network_assistance_invocation_recommended_qo_s, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_network_assistance_invocation_recommended_qo_s_toJSON(const data_collection_model_network_assistance_invocation_recommended_qo_s_t *network_assistance_invocation_recommended_qo_s, bool as_request)
 {
     if (!network_assistance_invocation_recommended_qo_s) return NULL;
     const std::shared_ptr<NetworkAssistanceInvocation_recommendedQoS > &obj = *reinterpret_cast<const std::shared_ptr<NetworkAssistanceInvocation_recommendedQoS >*>(network_assistance_invocation_recommended_qo_s);
@@ -122,7 +122,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_network
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_recommended_qo_s_t *data_collection_model_network_assistance_invocation_recommended_qo_s_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_recommended_qo_s_t *data_collection_model_network_assistance_invocation_recommended_qo_s_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -135,7 +135,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_network_assistance_invocation_recommended_qo_s_is_equal_to(const data_collection_model_network_assistance_invocation_recommended_qo_s_t *first, const data_collection_model_network_assistance_invocation_recommended_qo_s_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_assistance_invocation_recommended_qo_s_is_equal_to(const data_collection_model_network_assistance_invocation_recommended_qo_s_t *first, const data_collection_model_network_assistance_invocation_recommended_qo_s_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -160,7 +160,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_network_a
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_network_assistance_invocation_recommended_qo_s_get_maximum_bit_rate(const data_collection_model_network_assistance_invocation_recommended_qo_s_t *obj_network_assistance_invocation_recommended_qo_s)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_network_assistance_invocation_recommended_qo_s_get_maximum_bit_rate(const data_collection_model_network_assistance_invocation_recommended_qo_s_t *obj_network_assistance_invocation_recommended_qo_s)
 {
     if (!obj_network_assistance_invocation_recommended_qo_s) {
         const char *result = NULL;
@@ -179,7 +179,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ne
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_recommended_qo_s_t *data_collection_model_network_assistance_invocation_recommended_qo_s_set_maximum_bit_rate(data_collection_model_network_assistance_invocation_recommended_qo_s_t *obj_network_assistance_invocation_recommended_qo_s, const char* p_maximum_bit_rate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_recommended_qo_s_t *data_collection_model_network_assistance_invocation_recommended_qo_s_set_maximum_bit_rate(data_collection_model_network_assistance_invocation_recommended_qo_s_t *obj_network_assistance_invocation_recommended_qo_s, const char* p_maximum_bit_rate)
 {
     if (!obj_network_assistance_invocation_recommended_qo_s) return NULL;
 
@@ -195,7 +195,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return obj_network_assistance_invocation_recommended_qo_s;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_recommended_qo_s_t *data_collection_model_network_assistance_invocation_recommended_qo_s_set_maximum_bit_rate_move(data_collection_model_network_assistance_invocation_recommended_qo_s_t *obj_network_assistance_invocation_recommended_qo_s, char* p_maximum_bit_rate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_recommended_qo_s_t *data_collection_model_network_assistance_invocation_recommended_qo_s_set_maximum_bit_rate_move(data_collection_model_network_assistance_invocation_recommended_qo_s_t *obj_network_assistance_invocation_recommended_qo_s, char* p_maximum_bit_rate)
 {
     if (!obj_network_assistance_invocation_recommended_qo_s) return NULL;
 
@@ -212,7 +212,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return obj_network_assistance_invocation_recommended_qo_s;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_network_assistance_invocation_recommended_qo_s_get_minimum_bit_rate(const data_collection_model_network_assistance_invocation_recommended_qo_s_t *obj_network_assistance_invocation_recommended_qo_s)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_network_assistance_invocation_recommended_qo_s_get_minimum_bit_rate(const data_collection_model_network_assistance_invocation_recommended_qo_s_t *obj_network_assistance_invocation_recommended_qo_s)
 {
     if (!obj_network_assistance_invocation_recommended_qo_s) {
         const char *result = NULL;
@@ -231,7 +231,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ne
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_recommended_qo_s_t *data_collection_model_network_assistance_invocation_recommended_qo_s_set_minimum_bit_rate(data_collection_model_network_assistance_invocation_recommended_qo_s_t *obj_network_assistance_invocation_recommended_qo_s, const char* p_minimum_bit_rate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_recommended_qo_s_t *data_collection_model_network_assistance_invocation_recommended_qo_s_set_minimum_bit_rate(data_collection_model_network_assistance_invocation_recommended_qo_s_t *obj_network_assistance_invocation_recommended_qo_s, const char* p_minimum_bit_rate)
 {
     if (!obj_network_assistance_invocation_recommended_qo_s) return NULL;
 
@@ -247,7 +247,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return obj_network_assistance_invocation_recommended_qo_s;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_recommended_qo_s_t *data_collection_model_network_assistance_invocation_recommended_qo_s_set_minimum_bit_rate_move(data_collection_model_network_assistance_invocation_recommended_qo_s_t *obj_network_assistance_invocation_recommended_qo_s, char* p_minimum_bit_rate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_recommended_qo_s_t *data_collection_model_network_assistance_invocation_recommended_qo_s_set_minimum_bit_rate_move(data_collection_model_network_assistance_invocation_recommended_qo_s_t *obj_network_assistance_invocation_recommended_qo_s, char* p_minimum_bit_rate)
 {
     if (!obj_network_assistance_invocation_recommended_qo_s) return NULL;
 
@@ -265,7 +265,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_network_assistance_invocation_recommended_qo_s_make_lnode(data_collection_model_network_assistance_invocation_recommended_qo_s_t *p_network_assistance_invocation_recommended_qo_s)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_network_assistance_invocation_recommended_qo_s_make_lnode(data_collection_model_network_assistance_invocation_recommended_qo_s_t *p_network_assistance_invocation_recommended_qo_s)
 {
     return data_collection_lnode_create(p_network_assistance_invocation_recommended_qo_s, reinterpret_cast<void(*)(void*)>(data_collection_model_network_assistance_invocation_recommended_qo_s_free));
 }

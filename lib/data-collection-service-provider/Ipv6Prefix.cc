@@ -24,12 +24,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ipv6_prefix_t *data_collection_model_ipv6_prefix_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ipv6_prefix_t *data_collection_model_ipv6_prefix_create()
 {
     return reinterpret_cast<data_collection_model_ipv6_prefix_t*>(new std::shared_ptr<Ipv6Prefix>(new Ipv6Prefix()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ipv6_prefix_t *data_collection_model_ipv6_prefix_create_copy(const data_collection_model_ipv6_prefix_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ipv6_prefix_t *data_collection_model_ipv6_prefix_create_copy(const data_collection_model_ipv6_prefix_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<Ipv6Prefix > &obj = *reinterpret_cast<const std::shared_ptr<Ipv6Prefix >*>(other);
@@ -37,7 +37,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ipv6_prefix_t 
     return reinterpret_cast<data_collection_model_ipv6_prefix_t*>(new std::shared_ptr<Ipv6Prefix >(new Ipv6Prefix(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ipv6_prefix_t *data_collection_model_ipv6_prefix_create_move(data_collection_model_ipv6_prefix_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ipv6_prefix_t *data_collection_model_ipv6_prefix_create_move(data_collection_model_ipv6_prefix_t *other)
 {
     if (!other) return NULL;
 
@@ -50,7 +50,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ipv6_prefix_t 
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ipv6_prefix_t *data_collection_model_ipv6_prefix_copy(data_collection_model_ipv6_prefix_t *ipv6_prefix, const data_collection_model_ipv6_prefix_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ipv6_prefix_t *data_collection_model_ipv6_prefix_copy(data_collection_model_ipv6_prefix_t *ipv6_prefix, const data_collection_model_ipv6_prefix_t *other)
 {
     if (ipv6_prefix) {
         std::shared_ptr<Ipv6Prefix > &obj = *reinterpret_cast<std::shared_ptr<Ipv6Prefix >*>(ipv6_prefix);
@@ -79,7 +79,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ipv6_prefix_t 
     return ipv6_prefix;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ipv6_prefix_t *data_collection_model_ipv6_prefix_move(data_collection_model_ipv6_prefix_t *ipv6_prefix, data_collection_model_ipv6_prefix_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ipv6_prefix_t *data_collection_model_ipv6_prefix_move(data_collection_model_ipv6_prefix_t *ipv6_prefix, data_collection_model_ipv6_prefix_t *other)
 {
     std::shared_ptr<Ipv6Prefix > *other_ptr = reinterpret_cast<std::shared_ptr<Ipv6Prefix >*>(other);
 
@@ -103,13 +103,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ipv6_prefix_t 
     return ipv6_prefix;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_ipv6_prefix_free(data_collection_model_ipv6_prefix_t *ipv6_prefix)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_ipv6_prefix_free(data_collection_model_ipv6_prefix_t *ipv6_prefix)
 {
     if (!ipv6_prefix) return;
     delete reinterpret_cast<std::shared_ptr<Ipv6Prefix >*>(ipv6_prefix);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_ipv6_prefix_toJSON(const data_collection_model_ipv6_prefix_t *ipv6_prefix, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_ipv6_prefix_toJSON(const data_collection_model_ipv6_prefix_t *ipv6_prefix, bool as_request)
 {
     if (!ipv6_prefix) return NULL;
     const std::shared_ptr<Ipv6Prefix > &obj = *reinterpret_cast<const std::shared_ptr<Ipv6Prefix >*>(ipv6_prefix);
@@ -118,7 +118,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_ipv6_pr
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ipv6_prefix_t *data_collection_model_ipv6_prefix_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ipv6_prefix_t *data_collection_model_ipv6_prefix_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -131,7 +131,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ipv6_prefix_t 
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ipv6_prefix_is_equal_to(const data_collection_model_ipv6_prefix_t *first, const data_collection_model_ipv6_prefix_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ipv6_prefix_is_equal_to(const data_collection_model_ipv6_prefix_t *first, const data_collection_model_ipv6_prefix_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -157,7 +157,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ipv6_pref
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_ipv6_prefix_make_lnode(data_collection_model_ipv6_prefix_t *p_ipv6_prefix)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_ipv6_prefix_make_lnode(data_collection_model_ipv6_prefix_t *p_ipv6_prefix)
 {
     return data_collection_lnode_create(p_ipv6_prefix, reinterpret_cast<void(*)(void*)>(data_collection_model_ipv6_prefix_free));
 }

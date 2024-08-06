@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_create(
 
 
 
@@ -37,7 +37,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_create_copy(const data_collection_model_service_experience_info_per_flow_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_create_copy(const data_collection_model_service_experience_info_per_flow_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<ServiceExperienceInfoPerFlow > &obj = *reinterpret_cast<const std::shared_ptr<ServiceExperienceInfoPerFlow >*>(other);
@@ -45,7 +45,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return reinterpret_cast<data_collection_model_service_experience_info_per_flow_t*>(new std::shared_ptr<ServiceExperienceInfoPerFlow >(new ServiceExperienceInfoPerFlow(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_create_move(data_collection_model_service_experience_info_per_flow_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_create_move(data_collection_model_service_experience_info_per_flow_t *other)
 {
     if (!other) return NULL;
 
@@ -58,7 +58,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_copy(data_collection_model_service_experience_info_per_flow_t *service_experience_info_per_flow, const data_collection_model_service_experience_info_per_flow_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_copy(data_collection_model_service_experience_info_per_flow_t *service_experience_info_per_flow, const data_collection_model_service_experience_info_per_flow_t *other)
 {
     if (service_experience_info_per_flow) {
         std::shared_ptr<ServiceExperienceInfoPerFlow > &obj = *reinterpret_cast<std::shared_ptr<ServiceExperienceInfoPerFlow >*>(service_experience_info_per_flow);
@@ -87,7 +87,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return service_experience_info_per_flow;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_move(data_collection_model_service_experience_info_per_flow_t *service_experience_info_per_flow, data_collection_model_service_experience_info_per_flow_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_move(data_collection_model_service_experience_info_per_flow_t *service_experience_info_per_flow, data_collection_model_service_experience_info_per_flow_t *other)
 {
     std::shared_ptr<ServiceExperienceInfoPerFlow > *other_ptr = reinterpret_cast<std::shared_ptr<ServiceExperienceInfoPerFlow >*>(other);
 
@@ -111,13 +111,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return service_experience_info_per_flow;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_service_experience_info_per_flow_free(data_collection_model_service_experience_info_per_flow_t *service_experience_info_per_flow)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_service_experience_info_per_flow_free(data_collection_model_service_experience_info_per_flow_t *service_experience_info_per_flow)
 {
     if (!service_experience_info_per_flow) return;
     delete reinterpret_cast<std::shared_ptr<ServiceExperienceInfoPerFlow >*>(service_experience_info_per_flow);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_service_experience_info_per_flow_toJSON(const data_collection_model_service_experience_info_per_flow_t *service_experience_info_per_flow, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_service_experience_info_per_flow_toJSON(const data_collection_model_service_experience_info_per_flow_t *service_experience_info_per_flow, bool as_request)
 {
     if (!service_experience_info_per_flow) return NULL;
     const std::shared_ptr<ServiceExperienceInfoPerFlow > &obj = *reinterpret_cast<const std::shared_ptr<ServiceExperienceInfoPerFlow >*>(service_experience_info_per_flow);
@@ -126,7 +126,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_service
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -139,7 +139,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_service_experience_info_per_flow_is_equal_to(const data_collection_model_service_experience_info_per_flow_t *first, const data_collection_model_service_experience_info_per_flow_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_service_experience_info_per_flow_is_equal_to(const data_collection_model_service_experience_info_per_flow_t *first, const data_collection_model_service_experience_info_per_flow_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -164,7 +164,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_service_e
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_svc_experience_t* data_collection_model_service_experience_info_per_flow_get_svc_exprc(const data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_svc_experience_t* data_collection_model_service_experience_info_per_flow_get_svc_exprc(const data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow)
 {
     if (!obj_service_experience_info_per_flow) {
         const data_collection_model_svc_experience_t *result = NULL;
@@ -183,7 +183,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_svc_expe
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_set_svc_exprc(data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow, const data_collection_model_svc_experience_t* p_svc_exprc)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_set_svc_exprc(data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow, const data_collection_model_svc_experience_t* p_svc_exprc)
 {
     if (!obj_service_experience_info_per_flow) return NULL;
 
@@ -199,7 +199,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_flow;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_set_svc_exprc_move(data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow, data_collection_model_svc_experience_t* p_svc_exprc)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_set_svc_exprc_move(data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow, data_collection_model_svc_experience_t* p_svc_exprc)
 {
     if (!obj_service_experience_info_per_flow) return NULL;
 
@@ -216,7 +216,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_flow;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_time_window_t* data_collection_model_service_experience_info_per_flow_get_time_intev(const data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_time_window_t* data_collection_model_service_experience_info_per_flow_get_time_intev(const data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow)
 {
     if (!obj_service_experience_info_per_flow) {
         const data_collection_model_time_window_t *result = NULL;
@@ -235,7 +235,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_time_win
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_set_time_intev(data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow, const data_collection_model_time_window_t* p_time_intev)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_set_time_intev(data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow, const data_collection_model_time_window_t* p_time_intev)
 {
     if (!obj_service_experience_info_per_flow) return NULL;
 
@@ -251,7 +251,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_flow;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_set_time_intev_move(data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow, data_collection_model_time_window_t* p_time_intev)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_set_time_intev_move(data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow, data_collection_model_time_window_t* p_time_intev)
 {
     if (!obj_service_experience_info_per_flow) return NULL;
 
@@ -268,7 +268,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_flow;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_service_experience_info_per_flow_get_dnai(const data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_service_experience_info_per_flow_get_dnai(const data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow)
 {
     if (!obj_service_experience_info_per_flow) {
         const char *result = NULL;
@@ -287,7 +287,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_se
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_set_dnai(data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow, const char* p_dnai)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_set_dnai(data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow, const char* p_dnai)
 {
     if (!obj_service_experience_info_per_flow) return NULL;
 
@@ -303,7 +303,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_flow;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_set_dnai_move(data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow, char* p_dnai)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_set_dnai_move(data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow, char* p_dnai)
 {
     if (!obj_service_experience_info_per_flow) return NULL;
 
@@ -320,7 +320,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_flow;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_flow_info_t* data_collection_model_service_experience_info_per_flow_get_ip_traffic_filter(const data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_flow_info_t* data_collection_model_service_experience_info_per_flow_get_ip_traffic_filter(const data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow)
 {
     if (!obj_service_experience_info_per_flow) {
         const data_collection_model_flow_info_t *result = NULL;
@@ -339,7 +339,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_flow_inf
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_set_ip_traffic_filter(data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow, const data_collection_model_flow_info_t* p_ip_traffic_filter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_set_ip_traffic_filter(data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow, const data_collection_model_flow_info_t* p_ip_traffic_filter)
 {
     if (!obj_service_experience_info_per_flow) return NULL;
 
@@ -355,7 +355,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_flow;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_set_ip_traffic_filter_move(data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow, data_collection_model_flow_info_t* p_ip_traffic_filter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_set_ip_traffic_filter_move(data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow, data_collection_model_flow_info_t* p_ip_traffic_filter)
 {
     if (!obj_service_experience_info_per_flow) return NULL;
 
@@ -372,7 +372,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_flow;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_eth_flow_description_t* data_collection_model_service_experience_info_per_flow_get_eth_traffic_filter(const data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_eth_flow_description_t* data_collection_model_service_experience_info_per_flow_get_eth_traffic_filter(const data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow)
 {
     if (!obj_service_experience_info_per_flow) {
         const data_collection_model_eth_flow_description_t *result = NULL;
@@ -391,7 +391,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_eth_flow
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_set_eth_traffic_filter(data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow, const data_collection_model_eth_flow_description_t* p_eth_traffic_filter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_set_eth_traffic_filter(data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow, const data_collection_model_eth_flow_description_t* p_eth_traffic_filter)
 {
     if (!obj_service_experience_info_per_flow) return NULL;
 
@@ -407,7 +407,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_flow;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_set_eth_traffic_filter_move(data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow, data_collection_model_eth_flow_description_t* p_eth_traffic_filter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_set_eth_traffic_filter_move(data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow, data_collection_model_eth_flow_description_t* p_eth_traffic_filter)
 {
     if (!obj_service_experience_info_per_flow) return NULL;
 
@@ -425,7 +425,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_service_experience_info_per_flow_make_lnode(data_collection_model_service_experience_info_per_flow_t *p_service_experience_info_per_flow)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_service_experience_info_per_flow_make_lnode(data_collection_model_service_experience_info_per_flow_t *p_service_experience_info_per_flow)
 {
     return data_collection_lnode_create(p_service_experience_info_per_flow, reinterpret_cast<void(*)(void*)>(data_collection_model_service_experience_info_per_flow_free));
 }

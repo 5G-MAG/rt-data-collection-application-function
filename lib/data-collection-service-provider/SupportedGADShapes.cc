@@ -24,12 +24,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_supported_gad_shapes_t *data_collection_model_supported_gad_shapes_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_supported_gad_shapes_t *data_collection_model_supported_gad_shapes_create()
 {
     return reinterpret_cast<data_collection_model_supported_gad_shapes_t*>(new std::shared_ptr<SupportedGADShapes>(new SupportedGADShapes()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_supported_gad_shapes_t *data_collection_model_supported_gad_shapes_create_copy(const data_collection_model_supported_gad_shapes_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_supported_gad_shapes_t *data_collection_model_supported_gad_shapes_create_copy(const data_collection_model_supported_gad_shapes_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<SupportedGADShapes > &obj = *reinterpret_cast<const std::shared_ptr<SupportedGADShapes >*>(other);
@@ -37,7 +37,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_supported_gad_
     return reinterpret_cast<data_collection_model_supported_gad_shapes_t*>(new std::shared_ptr<SupportedGADShapes >(new SupportedGADShapes(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_supported_gad_shapes_t *data_collection_model_supported_gad_shapes_create_move(data_collection_model_supported_gad_shapes_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_supported_gad_shapes_t *data_collection_model_supported_gad_shapes_create_move(data_collection_model_supported_gad_shapes_t *other)
 {
     if (!other) return NULL;
 
@@ -50,7 +50,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_supported_gad_
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_supported_gad_shapes_t *data_collection_model_supported_gad_shapes_copy(data_collection_model_supported_gad_shapes_t *supported_gad_shapes, const data_collection_model_supported_gad_shapes_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_supported_gad_shapes_t *data_collection_model_supported_gad_shapes_copy(data_collection_model_supported_gad_shapes_t *supported_gad_shapes, const data_collection_model_supported_gad_shapes_t *other)
 {
     if (supported_gad_shapes) {
         std::shared_ptr<SupportedGADShapes > &obj = *reinterpret_cast<std::shared_ptr<SupportedGADShapes >*>(supported_gad_shapes);
@@ -79,7 +79,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_supported_gad_
     return supported_gad_shapes;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_supported_gad_shapes_t *data_collection_model_supported_gad_shapes_move(data_collection_model_supported_gad_shapes_t *supported_gad_shapes, data_collection_model_supported_gad_shapes_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_supported_gad_shapes_t *data_collection_model_supported_gad_shapes_move(data_collection_model_supported_gad_shapes_t *supported_gad_shapes, data_collection_model_supported_gad_shapes_t *other)
 {
     std::shared_ptr<SupportedGADShapes > *other_ptr = reinterpret_cast<std::shared_ptr<SupportedGADShapes >*>(other);
 
@@ -103,13 +103,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_supported_gad_
     return supported_gad_shapes;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_supported_gad_shapes_free(data_collection_model_supported_gad_shapes_t *supported_gad_shapes)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_supported_gad_shapes_free(data_collection_model_supported_gad_shapes_t *supported_gad_shapes)
 {
     if (!supported_gad_shapes) return;
     delete reinterpret_cast<std::shared_ptr<SupportedGADShapes >*>(supported_gad_shapes);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_supported_gad_shapes_toJSON(const data_collection_model_supported_gad_shapes_t *supported_gad_shapes, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_supported_gad_shapes_toJSON(const data_collection_model_supported_gad_shapes_t *supported_gad_shapes, bool as_request)
 {
     if (!supported_gad_shapes) return NULL;
     const std::shared_ptr<SupportedGADShapes > &obj = *reinterpret_cast<const std::shared_ptr<SupportedGADShapes >*>(supported_gad_shapes);
@@ -118,7 +118,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_support
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_supported_gad_shapes_t *data_collection_model_supported_gad_shapes_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_supported_gad_shapes_t *data_collection_model_supported_gad_shapes_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -131,7 +131,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_supported_gad_
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_supported_gad_shapes_is_equal_to(const data_collection_model_supported_gad_shapes_t *first, const data_collection_model_supported_gad_shapes_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_supported_gad_shapes_is_equal_to(const data_collection_model_supported_gad_shapes_t *first, const data_collection_model_supported_gad_shapes_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -156,7 +156,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_supported
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_supported_gad_shapes_is_not_set(const data_collection_model_supported_gad_shapes_t *obj_supported_gad_shapes)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_supported_gad_shapes_is_not_set(const data_collection_model_supported_gad_shapes_t *obj_supported_gad_shapes)
 {
     if (!obj_supported_gad_shapes) return true;
     const std::shared_ptr<SupportedGADShapes > &obj = *reinterpret_cast<const std::shared_ptr<SupportedGADShapes >*>(obj_supported_gad_shapes);
@@ -164,7 +164,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_supported_gad_shapes
     return obj->getValue() == SupportedGADShapes::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_supported_gad_shapes_is_non_standard(const data_collection_model_supported_gad_shapes_t *obj_supported_gad_shapes)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_supported_gad_shapes_is_non_standard(const data_collection_model_supported_gad_shapes_t *obj_supported_gad_shapes)
 {
     if (!obj_supported_gad_shapes) return false;
     const std::shared_ptr<SupportedGADShapes > &obj = *reinterpret_cast<const std::shared_ptr<SupportedGADShapes >*>(obj_supported_gad_shapes);
@@ -172,7 +172,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_supported_gad_shapes
     return obj->getValue() == SupportedGADShapes::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_supported_gad_shapes_e data_collection_model_supported_gad_shapes_get_enum(const data_collection_model_supported_gad_shapes_t *obj_supported_gad_shapes)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_supported_gad_shapes_e data_collection_model_supported_gad_shapes_get_enum(const data_collection_model_supported_gad_shapes_t *obj_supported_gad_shapes)
 {
     if (!obj_supported_gad_shapes)
         return DCM_SUPPORTED_GAD_SHAPES_NO_VAL;
@@ -211,7 +211,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_supported_gad_shapes_e da
     return DCM_SUPPORTED_GAD_SHAPES_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_supported_gad_shapes_get_string(const data_collection_model_supported_gad_shapes_t *obj_supported_gad_shapes)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_supported_gad_shapes_get_string(const data_collection_model_supported_gad_shapes_t *obj_supported_gad_shapes)
 {
     if (!obj_supported_gad_shapes) return NULL;
     const std::shared_ptr<SupportedGADShapes > &obj = *reinterpret_cast<const std::shared_ptr<SupportedGADShapes >*>(obj_supported_gad_shapes);
@@ -219,7 +219,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_supported_gad
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_supported_gad_shapes_set_enum(data_collection_model_supported_gad_shapes_t *obj_supported_gad_shapes, data_collection_model_supported_gad_shapes_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_supported_gad_shapes_set_enum(data_collection_model_supported_gad_shapes_t *obj_supported_gad_shapes, data_collection_model_supported_gad_shapes_e p_value)
 {
     if (!obj_supported_gad_shapes) return false;
     std::shared_ptr<SupportedGADShapes > &obj = *reinterpret_cast<std::shared_ptr<SupportedGADShapes >*>(obj_supported_gad_shapes);
@@ -270,7 +270,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_supported_gad_shapes
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_supported_gad_shapes_set_string(data_collection_model_supported_gad_shapes_t *obj_supported_gad_shapes, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_supported_gad_shapes_set_string(data_collection_model_supported_gad_shapes_t *obj_supported_gad_shapes, const char *p_value)
 {
     if (!obj_supported_gad_shapes) return false;
     std::shared_ptr<SupportedGADShapes > &obj = *reinterpret_cast<std::shared_ptr<SupportedGADShapes >*>(obj_supported_gad_shapes);
@@ -285,7 +285,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_supported_gad_shapes
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_supported_gad_shapes_make_lnode(data_collection_model_supported_gad_shapes_t *p_supported_gad_shapes)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_supported_gad_shapes_make_lnode(data_collection_model_supported_gad_shapes_t *p_supported_gad_shapes)
 {
     return data_collection_lnode_create(p_supported_gad_shapes, reinterpret_cast<void(*)(void*)>(data_collection_model_supported_gad_shapes_free));
 }

@@ -24,12 +24,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_sdf_method_t *data_collection_model_sdf_method_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_sdf_method_t *data_collection_model_sdf_method_create()
 {
     return reinterpret_cast<data_collection_model_sdf_method_t*>(new std::shared_ptr<SdfMethod>(new SdfMethod()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_sdf_method_t *data_collection_model_sdf_method_create_copy(const data_collection_model_sdf_method_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_sdf_method_t *data_collection_model_sdf_method_create_copy(const data_collection_model_sdf_method_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<SdfMethod > &obj = *reinterpret_cast<const std::shared_ptr<SdfMethod >*>(other);
@@ -37,7 +37,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_sdf_method_t *
     return reinterpret_cast<data_collection_model_sdf_method_t*>(new std::shared_ptr<SdfMethod >(new SdfMethod(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_sdf_method_t *data_collection_model_sdf_method_create_move(data_collection_model_sdf_method_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_sdf_method_t *data_collection_model_sdf_method_create_move(data_collection_model_sdf_method_t *other)
 {
     if (!other) return NULL;
 
@@ -50,7 +50,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_sdf_method_t *
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_sdf_method_t *data_collection_model_sdf_method_copy(data_collection_model_sdf_method_t *sdf_method, const data_collection_model_sdf_method_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_sdf_method_t *data_collection_model_sdf_method_copy(data_collection_model_sdf_method_t *sdf_method, const data_collection_model_sdf_method_t *other)
 {
     if (sdf_method) {
         std::shared_ptr<SdfMethod > &obj = *reinterpret_cast<std::shared_ptr<SdfMethod >*>(sdf_method);
@@ -79,7 +79,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_sdf_method_t *
     return sdf_method;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_sdf_method_t *data_collection_model_sdf_method_move(data_collection_model_sdf_method_t *sdf_method, data_collection_model_sdf_method_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_sdf_method_t *data_collection_model_sdf_method_move(data_collection_model_sdf_method_t *sdf_method, data_collection_model_sdf_method_t *other)
 {
     std::shared_ptr<SdfMethod > *other_ptr = reinterpret_cast<std::shared_ptr<SdfMethod >*>(other);
 
@@ -103,13 +103,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_sdf_method_t *
     return sdf_method;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_sdf_method_free(data_collection_model_sdf_method_t *sdf_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_sdf_method_free(data_collection_model_sdf_method_t *sdf_method)
 {
     if (!sdf_method) return;
     delete reinterpret_cast<std::shared_ptr<SdfMethod >*>(sdf_method);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_sdf_method_toJSON(const data_collection_model_sdf_method_t *sdf_method, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_sdf_method_toJSON(const data_collection_model_sdf_method_t *sdf_method, bool as_request)
 {
     if (!sdf_method) return NULL;
     const std::shared_ptr<SdfMethod > &obj = *reinterpret_cast<const std::shared_ptr<SdfMethod >*>(sdf_method);
@@ -118,7 +118,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_sdf_met
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_sdf_method_t *data_collection_model_sdf_method_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_sdf_method_t *data_collection_model_sdf_method_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -131,7 +131,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_sdf_method_t *
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_sdf_method_is_equal_to(const data_collection_model_sdf_method_t *first, const data_collection_model_sdf_method_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_sdf_method_is_equal_to(const data_collection_model_sdf_method_t *first, const data_collection_model_sdf_method_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -156,7 +156,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_sdf_metho
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_sdf_method_is_not_set(const data_collection_model_sdf_method_t *obj_sdf_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_sdf_method_is_not_set(const data_collection_model_sdf_method_t *obj_sdf_method)
 {
     if (!obj_sdf_method) return true;
     const std::shared_ptr<SdfMethod > &obj = *reinterpret_cast<const std::shared_ptr<SdfMethod >*>(obj_sdf_method);
@@ -164,7 +164,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_sdf_method_is_not_se
     return obj->getValue() == SdfMethod::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_sdf_method_is_non_standard(const data_collection_model_sdf_method_t *obj_sdf_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_sdf_method_is_non_standard(const data_collection_model_sdf_method_t *obj_sdf_method)
 {
     if (!obj_sdf_method) return false;
     const std::shared_ptr<SdfMethod > &obj = *reinterpret_cast<const std::shared_ptr<SdfMethod >*>(obj_sdf_method);
@@ -172,7 +172,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_sdf_method_is_non_st
     return obj->getValue() == SdfMethod::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_sdf_method_e data_collection_model_sdf_method_get_enum(const data_collection_model_sdf_method_t *obj_sdf_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_sdf_method_e data_collection_model_sdf_method_get_enum(const data_collection_model_sdf_method_t *obj_sdf_method)
 {
     if (!obj_sdf_method)
         return DCM_SDF_METHOD_NO_VAL;
@@ -197,7 +197,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_sdf_method_e data_collect
     return DCM_SDF_METHOD_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_sdf_method_get_string(const data_collection_model_sdf_method_t *obj_sdf_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_sdf_method_get_string(const data_collection_model_sdf_method_t *obj_sdf_method)
 {
     if (!obj_sdf_method) return NULL;
     const std::shared_ptr<SdfMethod > &obj = *reinterpret_cast<const std::shared_ptr<SdfMethod >*>(obj_sdf_method);
@@ -205,7 +205,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_sdf_method_ge
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_sdf_method_set_enum(data_collection_model_sdf_method_t *obj_sdf_method, data_collection_model_sdf_method_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_sdf_method_set_enum(data_collection_model_sdf_method_t *obj_sdf_method, data_collection_model_sdf_method_e p_value)
 {
     if (!obj_sdf_method) return false;
     std::shared_ptr<SdfMethod > &obj = *reinterpret_cast<std::shared_ptr<SdfMethod >*>(obj_sdf_method);
@@ -235,7 +235,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_sdf_method_set_enum(
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_sdf_method_set_string(data_collection_model_sdf_method_t *obj_sdf_method, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_sdf_method_set_string(data_collection_model_sdf_method_t *obj_sdf_method, const char *p_value)
 {
     if (!obj_sdf_method) return false;
     std::shared_ptr<SdfMethod > &obj = *reinterpret_cast<std::shared_ptr<SdfMethod >*>(obj_sdf_method);
@@ -250,7 +250,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_sdf_method_set_strin
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_sdf_method_make_lnode(data_collection_model_sdf_method_t *p_sdf_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_sdf_method_make_lnode(data_collection_model_sdf_method_t *p_sdf_method)
 {
     return data_collection_lnode_create(p_sdf_method, reinterpret_cast<void(*)(void*)>(data_collection_model_sdf_method_free));
 }

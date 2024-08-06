@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_all_of_t *data_collection_model_point_altitude_all_of_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_all_of_t *data_collection_model_point_altitude_all_of_create(
 
 )
 {
@@ -33,7 +33,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_all_of_t *data_collection_model_point_altitude_all_of_create_copy(const data_collection_model_point_altitude_all_of_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_all_of_t *data_collection_model_point_altitude_all_of_create_copy(const data_collection_model_point_altitude_all_of_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<PointAltitude_allOf > &obj = *reinterpret_cast<const std::shared_ptr<PointAltitude_allOf >*>(other);
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return reinterpret_cast<data_collection_model_point_altitude_all_of_t*>(new std::shared_ptr<PointAltitude_allOf >(new PointAltitude_allOf(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_all_of_t *data_collection_model_point_altitude_all_of_create_move(data_collection_model_point_altitude_all_of_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_all_of_t *data_collection_model_point_altitude_all_of_create_move(data_collection_model_point_altitude_all_of_t *other)
 {
     if (!other) return NULL;
 
@@ -54,7 +54,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_all_of_t *data_collection_model_point_altitude_all_of_copy(data_collection_model_point_altitude_all_of_t *point_altitude_all_of, const data_collection_model_point_altitude_all_of_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_all_of_t *data_collection_model_point_altitude_all_of_copy(data_collection_model_point_altitude_all_of_t *point_altitude_all_of, const data_collection_model_point_altitude_all_of_t *other)
 {
     if (point_altitude_all_of) {
         std::shared_ptr<PointAltitude_allOf > &obj = *reinterpret_cast<std::shared_ptr<PointAltitude_allOf >*>(point_altitude_all_of);
@@ -83,7 +83,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return point_altitude_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_all_of_t *data_collection_model_point_altitude_all_of_move(data_collection_model_point_altitude_all_of_t *point_altitude_all_of, data_collection_model_point_altitude_all_of_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_all_of_t *data_collection_model_point_altitude_all_of_move(data_collection_model_point_altitude_all_of_t *point_altitude_all_of, data_collection_model_point_altitude_all_of_t *other)
 {
     std::shared_ptr<PointAltitude_allOf > *other_ptr = reinterpret_cast<std::shared_ptr<PointAltitude_allOf >*>(other);
 
@@ -107,13 +107,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return point_altitude_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_point_altitude_all_of_free(data_collection_model_point_altitude_all_of_t *point_altitude_all_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_point_altitude_all_of_free(data_collection_model_point_altitude_all_of_t *point_altitude_all_of)
 {
     if (!point_altitude_all_of) return;
     delete reinterpret_cast<std::shared_ptr<PointAltitude_allOf >*>(point_altitude_all_of);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_point_altitude_all_of_toJSON(const data_collection_model_point_altitude_all_of_t *point_altitude_all_of, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_point_altitude_all_of_toJSON(const data_collection_model_point_altitude_all_of_t *point_altitude_all_of, bool as_request)
 {
     if (!point_altitude_all_of) return NULL;
     const std::shared_ptr<PointAltitude_allOf > &obj = *reinterpret_cast<const std::shared_ptr<PointAltitude_allOf >*>(point_altitude_all_of);
@@ -122,7 +122,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_point_a
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_all_of_t *data_collection_model_point_altitude_all_of_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_all_of_t *data_collection_model_point_altitude_all_of_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -135,7 +135,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_point_altitude_all_of_is_equal_to(const data_collection_model_point_altitude_all_of_t *first, const data_collection_model_point_altitude_all_of_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_point_altitude_all_of_is_equal_to(const data_collection_model_point_altitude_all_of_t *first, const data_collection_model_point_altitude_all_of_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -160,7 +160,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_point_alt
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geographical_coordinates_t* data_collection_model_point_altitude_all_of_get_point(const data_collection_model_point_altitude_all_of_t *obj_point_altitude_all_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geographical_coordinates_t* data_collection_model_point_altitude_all_of_get_point(const data_collection_model_point_altitude_all_of_t *obj_point_altitude_all_of)
 {
     if (!obj_point_altitude_all_of) {
         const data_collection_model_geographical_coordinates_t *result = NULL;
@@ -179,7 +179,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geograph
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_all_of_t *data_collection_model_point_altitude_all_of_set_point(data_collection_model_point_altitude_all_of_t *obj_point_altitude_all_of, const data_collection_model_geographical_coordinates_t* p_point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_all_of_t *data_collection_model_point_altitude_all_of_set_point(data_collection_model_point_altitude_all_of_t *obj_point_altitude_all_of, const data_collection_model_geographical_coordinates_t* p_point)
 {
     if (!obj_point_altitude_all_of) return NULL;
 
@@ -195,7 +195,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return obj_point_altitude_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_all_of_t *data_collection_model_point_altitude_all_of_set_point_move(data_collection_model_point_altitude_all_of_t *obj_point_altitude_all_of, data_collection_model_geographical_coordinates_t* p_point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_all_of_t *data_collection_model_point_altitude_all_of_set_point_move(data_collection_model_point_altitude_all_of_t *obj_point_altitude_all_of, data_collection_model_geographical_coordinates_t* p_point)
 {
     if (!obj_point_altitude_all_of) return NULL;
 
@@ -212,7 +212,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return obj_point_altitude_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_point_altitude_all_of_get_altitude(const data_collection_model_point_altitude_all_of_t *obj_point_altitude_all_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const double data_collection_model_point_altitude_all_of_get_altitude(const data_collection_model_point_altitude_all_of_t *obj_point_altitude_all_of)
 {
     if (!obj_point_altitude_all_of) {
         const double result = 0;
@@ -231,7 +231,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_p
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_all_of_t *data_collection_model_point_altitude_all_of_set_altitude(data_collection_model_point_altitude_all_of_t *obj_point_altitude_all_of, const double p_altitude)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_all_of_t *data_collection_model_point_altitude_all_of_set_altitude(data_collection_model_point_altitude_all_of_t *obj_point_altitude_all_of, const double p_altitude)
 {
     if (!obj_point_altitude_all_of) return NULL;
 
@@ -247,7 +247,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return obj_point_altitude_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_all_of_t *data_collection_model_point_altitude_all_of_set_altitude_move(data_collection_model_point_altitude_all_of_t *obj_point_altitude_all_of, double p_altitude)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_all_of_t *data_collection_model_point_altitude_all_of_set_altitude_move(data_collection_model_point_altitude_all_of_t *obj_point_altitude_all_of, double p_altitude)
 {
     if (!obj_point_altitude_all_of) return NULL;
 
@@ -265,7 +265,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_point_altitude_all_of_make_lnode(data_collection_model_point_altitude_all_of_t *p_point_altitude_all_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_point_altitude_all_of_make_lnode(data_collection_model_point_altitude_all_of_t *p_point_altitude_all_of)
 {
     return data_collection_lnode_create(p_point_altitude_all_of, reinterpret_cast<void(*)(void*)>(data_collection_model_point_altitude_all_of_free));
 }

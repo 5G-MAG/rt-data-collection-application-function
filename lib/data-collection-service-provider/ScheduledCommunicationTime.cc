@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_create(
 
 
 )
@@ -33,7 +33,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_create_copy(const data_collection_model_scheduled_communication_time_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_create_copy(const data_collection_model_scheduled_communication_time_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<ScheduledCommunicationTime > &obj = *reinterpret_cast<const std::shared_ptr<ScheduledCommunicationTime >*>(other);
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
     return reinterpret_cast<data_collection_model_scheduled_communication_time_t*>(new std::shared_ptr<ScheduledCommunicationTime >(new ScheduledCommunicationTime(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_create_move(data_collection_model_scheduled_communication_time_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_create_move(data_collection_model_scheduled_communication_time_t *other)
 {
     if (!other) return NULL;
 
@@ -54,7 +54,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_copy(data_collection_model_scheduled_communication_time_t *scheduled_communication_time, const data_collection_model_scheduled_communication_time_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_copy(data_collection_model_scheduled_communication_time_t *scheduled_communication_time, const data_collection_model_scheduled_communication_time_t *other)
 {
     if (scheduled_communication_time) {
         std::shared_ptr<ScheduledCommunicationTime > &obj = *reinterpret_cast<std::shared_ptr<ScheduledCommunicationTime >*>(scheduled_communication_time);
@@ -83,7 +83,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
     return scheduled_communication_time;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_move(data_collection_model_scheduled_communication_time_t *scheduled_communication_time, data_collection_model_scheduled_communication_time_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_move(data_collection_model_scheduled_communication_time_t *scheduled_communication_time, data_collection_model_scheduled_communication_time_t *other)
 {
     std::shared_ptr<ScheduledCommunicationTime > *other_ptr = reinterpret_cast<std::shared_ptr<ScheduledCommunicationTime >*>(other);
 
@@ -107,13 +107,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
     return scheduled_communication_time;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_scheduled_communication_time_free(data_collection_model_scheduled_communication_time_t *scheduled_communication_time)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_scheduled_communication_time_free(data_collection_model_scheduled_communication_time_t *scheduled_communication_time)
 {
     if (!scheduled_communication_time) return;
     delete reinterpret_cast<std::shared_ptr<ScheduledCommunicationTime >*>(scheduled_communication_time);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_scheduled_communication_time_toJSON(const data_collection_model_scheduled_communication_time_t *scheduled_communication_time, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_scheduled_communication_time_toJSON(const data_collection_model_scheduled_communication_time_t *scheduled_communication_time, bool as_request)
 {
     if (!scheduled_communication_time) return NULL;
     const std::shared_ptr<ScheduledCommunicationTime > &obj = *reinterpret_cast<const std::shared_ptr<ScheduledCommunicationTime >*>(scheduled_communication_time);
@@ -122,7 +122,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_schedul
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -135,7 +135,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_scheduled_communication_time_is_equal_to(const data_collection_model_scheduled_communication_time_t *first, const data_collection_model_scheduled_communication_time_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_scheduled_communication_time_is_equal_to(const data_collection_model_scheduled_communication_time_t *first, const data_collection_model_scheduled_communication_time_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -160,7 +160,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_scheduled
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_scheduled_communication_time_get_days_of_week(const data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_scheduled_communication_time_get_days_of_week(const data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time)
 {
     if (!obj_scheduled_communication_time) {
         ogs_list_t *result = NULL;
@@ -188,7 +188,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_sc
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_set_days_of_week(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, const ogs_list_t* p_days_of_week)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_set_days_of_week(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, const ogs_list_t* p_days_of_week)
 {
     if (!obj_scheduled_communication_time) return NULL;
 
@@ -212,7 +212,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
     return obj_scheduled_communication_time;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_set_days_of_week_move(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, ogs_list_t* p_days_of_week)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_set_days_of_week_move(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, ogs_list_t* p_days_of_week)
 {
     if (!obj_scheduled_communication_time) return NULL;
 
@@ -237,7 +237,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
     return obj_scheduled_communication_time;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_add_days_of_week(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, int32_t p_days_of_week)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_add_days_of_week(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, int32_t p_days_of_week)
 {
     if (!obj_scheduled_communication_time) return NULL;
 
@@ -254,7 +254,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
     return obj_scheduled_communication_time;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_remove_days_of_week(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, const int32_t p_days_of_week)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_remove_days_of_week(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, const int32_t p_days_of_week)
 {
     if (!obj_scheduled_communication_time) return NULL;
 
@@ -269,7 +269,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
     return obj_scheduled_communication_time;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_clear_days_of_week(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_clear_days_of_week(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time)
 {
     if (!obj_scheduled_communication_time) return NULL;
 
@@ -280,7 +280,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
     return obj_scheduled_communication_time;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_scheduled_communication_time_get_time_of_day_start(const data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_scheduled_communication_time_get_time_of_day_start(const data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time)
 {
     if (!obj_scheduled_communication_time) {
         const char *result = NULL;
@@ -299,7 +299,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_sc
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_set_time_of_day_start(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, const char* p_time_of_day_start)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_set_time_of_day_start(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, const char* p_time_of_day_start)
 {
     if (!obj_scheduled_communication_time) return NULL;
 
@@ -315,7 +315,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
     return obj_scheduled_communication_time;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_set_time_of_day_start_move(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, char* p_time_of_day_start)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_set_time_of_day_start_move(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, char* p_time_of_day_start)
 {
     if (!obj_scheduled_communication_time) return NULL;
 
@@ -332,7 +332,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
     return obj_scheduled_communication_time;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_scheduled_communication_time_get_time_of_day_end(const data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_scheduled_communication_time_get_time_of_day_end(const data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time)
 {
     if (!obj_scheduled_communication_time) {
         const char *result = NULL;
@@ -351,7 +351,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_sc
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_set_time_of_day_end(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, const char* p_time_of_day_end)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_set_time_of_day_end(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, const char* p_time_of_day_end)
 {
     if (!obj_scheduled_communication_time) return NULL;
 
@@ -367,7 +367,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
     return obj_scheduled_communication_time;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_set_time_of_day_end_move(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, char* p_time_of_day_end)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_set_time_of_day_end_move(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, char* p_time_of_day_end)
 {
     if (!obj_scheduled_communication_time) return NULL;
 
@@ -385,7 +385,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_scheduled_communication_time_make_lnode(data_collection_model_scheduled_communication_time_t *p_scheduled_communication_time)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_scheduled_communication_time_make_lnode(data_collection_model_scheduled_communication_time_t *p_scheduled_communication_time)
 {
     return data_collection_lnode_create(p_scheduled_communication_time, reinterpret_cast<void(*)(void*)>(data_collection_model_scheduled_communication_time_free));
 }

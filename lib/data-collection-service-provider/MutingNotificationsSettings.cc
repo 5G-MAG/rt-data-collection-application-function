@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_notifications_settings_t *data_collection_model_muting_notifications_settings_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_notifications_settings_t *data_collection_model_muting_notifications_settings_create(
 
 )
 {
@@ -31,7 +31,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_notific
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_notifications_settings_t *data_collection_model_muting_notifications_settings_create_copy(const data_collection_model_muting_notifications_settings_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_notifications_settings_t *data_collection_model_muting_notifications_settings_create_copy(const data_collection_model_muting_notifications_settings_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<MutingNotificationsSettings > &obj = *reinterpret_cast<const std::shared_ptr<MutingNotificationsSettings >*>(other);
@@ -39,7 +39,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_notific
     return reinterpret_cast<data_collection_model_muting_notifications_settings_t*>(new std::shared_ptr<MutingNotificationsSettings >(new MutingNotificationsSettings(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_notifications_settings_t *data_collection_model_muting_notifications_settings_create_move(data_collection_model_muting_notifications_settings_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_notifications_settings_t *data_collection_model_muting_notifications_settings_create_move(data_collection_model_muting_notifications_settings_t *other)
 {
     if (!other) return NULL;
 
@@ -52,7 +52,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_notific
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_notifications_settings_t *data_collection_model_muting_notifications_settings_copy(data_collection_model_muting_notifications_settings_t *muting_notifications_settings, const data_collection_model_muting_notifications_settings_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_notifications_settings_t *data_collection_model_muting_notifications_settings_copy(data_collection_model_muting_notifications_settings_t *muting_notifications_settings, const data_collection_model_muting_notifications_settings_t *other)
 {
     if (muting_notifications_settings) {
         std::shared_ptr<MutingNotificationsSettings > &obj = *reinterpret_cast<std::shared_ptr<MutingNotificationsSettings >*>(muting_notifications_settings);
@@ -81,7 +81,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_notific
     return muting_notifications_settings;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_notifications_settings_t *data_collection_model_muting_notifications_settings_move(data_collection_model_muting_notifications_settings_t *muting_notifications_settings, data_collection_model_muting_notifications_settings_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_notifications_settings_t *data_collection_model_muting_notifications_settings_move(data_collection_model_muting_notifications_settings_t *muting_notifications_settings, data_collection_model_muting_notifications_settings_t *other)
 {
     std::shared_ptr<MutingNotificationsSettings > *other_ptr = reinterpret_cast<std::shared_ptr<MutingNotificationsSettings >*>(other);
 
@@ -105,13 +105,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_notific
     return muting_notifications_settings;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_muting_notifications_settings_free(data_collection_model_muting_notifications_settings_t *muting_notifications_settings)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_muting_notifications_settings_free(data_collection_model_muting_notifications_settings_t *muting_notifications_settings)
 {
     if (!muting_notifications_settings) return;
     delete reinterpret_cast<std::shared_ptr<MutingNotificationsSettings >*>(muting_notifications_settings);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_muting_notifications_settings_toJSON(const data_collection_model_muting_notifications_settings_t *muting_notifications_settings, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_muting_notifications_settings_toJSON(const data_collection_model_muting_notifications_settings_t *muting_notifications_settings, bool as_request)
 {
     if (!muting_notifications_settings) return NULL;
     const std::shared_ptr<MutingNotificationsSettings > &obj = *reinterpret_cast<const std::shared_ptr<MutingNotificationsSettings >*>(muting_notifications_settings);
@@ -120,7 +120,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_muting_
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_notifications_settings_t *data_collection_model_muting_notifications_settings_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_notifications_settings_t *data_collection_model_muting_notifications_settings_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -133,7 +133,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_notific
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_muting_notifications_settings_is_equal_to(const data_collection_model_muting_notifications_settings_t *first, const data_collection_model_muting_notifications_settings_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_muting_notifications_settings_is_equal_to(const data_collection_model_muting_notifications_settings_t *first, const data_collection_model_muting_notifications_settings_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -158,7 +158,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_muting_no
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_muting_notifications_settings_get_max_no_of_notif(const data_collection_model_muting_notifications_settings_t *obj_muting_notifications_settings)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_muting_notifications_settings_get_max_no_of_notif(const data_collection_model_muting_notifications_settings_t *obj_muting_notifications_settings)
 {
     if (!obj_muting_notifications_settings) {
         const int32_t result = 0;
@@ -177,7 +177,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_notifications_settings_t *data_collection_model_muting_notifications_settings_set_max_no_of_notif(data_collection_model_muting_notifications_settings_t *obj_muting_notifications_settings, const int32_t p_max_no_of_notif)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_notifications_settings_t *data_collection_model_muting_notifications_settings_set_max_no_of_notif(data_collection_model_muting_notifications_settings_t *obj_muting_notifications_settings, const int32_t p_max_no_of_notif)
 {
     if (!obj_muting_notifications_settings) return NULL;
 
@@ -193,7 +193,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_notific
     return obj_muting_notifications_settings;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_notifications_settings_t *data_collection_model_muting_notifications_settings_set_max_no_of_notif_move(data_collection_model_muting_notifications_settings_t *obj_muting_notifications_settings, int32_t p_max_no_of_notif)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_notifications_settings_t *data_collection_model_muting_notifications_settings_set_max_no_of_notif_move(data_collection_model_muting_notifications_settings_t *obj_muting_notifications_settings, int32_t p_max_no_of_notif)
 {
     if (!obj_muting_notifications_settings) return NULL;
 
@@ -210,7 +210,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_notific
     return obj_muting_notifications_settings;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_muting_notifications_settings_get_duration_buffered_notif(const data_collection_model_muting_notifications_settings_t *obj_muting_notifications_settings)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_muting_notifications_settings_get_duration_buffered_notif(const data_collection_model_muting_notifications_settings_t *obj_muting_notifications_settings)
 {
     if (!obj_muting_notifications_settings) {
         const int32_t result = 0;
@@ -229,7 +229,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_notifications_settings_t *data_collection_model_muting_notifications_settings_set_duration_buffered_notif(data_collection_model_muting_notifications_settings_t *obj_muting_notifications_settings, const int32_t p_duration_buffered_notif)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_notifications_settings_t *data_collection_model_muting_notifications_settings_set_duration_buffered_notif(data_collection_model_muting_notifications_settings_t *obj_muting_notifications_settings, const int32_t p_duration_buffered_notif)
 {
     if (!obj_muting_notifications_settings) return NULL;
 
@@ -245,7 +245,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_notific
     return obj_muting_notifications_settings;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_notifications_settings_t *data_collection_model_muting_notifications_settings_set_duration_buffered_notif_move(data_collection_model_muting_notifications_settings_t *obj_muting_notifications_settings, int32_t p_duration_buffered_notif)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_notifications_settings_t *data_collection_model_muting_notifications_settings_set_duration_buffered_notif_move(data_collection_model_muting_notifications_settings_t *obj_muting_notifications_settings, int32_t p_duration_buffered_notif)
 {
     if (!obj_muting_notifications_settings) return NULL;
 
@@ -263,7 +263,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_notific
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_muting_notifications_settings_make_lnode(data_collection_model_muting_notifications_settings_t *p_muting_notifications_settings)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_muting_notifications_settings_make_lnode(data_collection_model_muting_notifications_settings_t *p_muting_notifications_settings)
 {
     return data_collection_lnode_create(p_muting_notifications_settings, reinterpret_cast<void(*)(void*)>(data_collection_model_muting_notifications_settings_free));
 }

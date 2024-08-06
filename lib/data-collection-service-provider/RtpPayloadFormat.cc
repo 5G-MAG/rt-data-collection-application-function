@@ -24,12 +24,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_format_t *data_collection_model_rtp_payload_format_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_format_t *data_collection_model_rtp_payload_format_create()
 {
     return reinterpret_cast<data_collection_model_rtp_payload_format_t*>(new std::shared_ptr<RtpPayloadFormat>(new RtpPayloadFormat()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_format_t *data_collection_model_rtp_payload_format_create_copy(const data_collection_model_rtp_payload_format_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_format_t *data_collection_model_rtp_payload_format_create_copy(const data_collection_model_rtp_payload_format_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<RtpPayloadFormat > &obj = *reinterpret_cast<const std::shared_ptr<RtpPayloadFormat >*>(other);
@@ -37,7 +37,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_fo
     return reinterpret_cast<data_collection_model_rtp_payload_format_t*>(new std::shared_ptr<RtpPayloadFormat >(new RtpPayloadFormat(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_format_t *data_collection_model_rtp_payload_format_create_move(data_collection_model_rtp_payload_format_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_format_t *data_collection_model_rtp_payload_format_create_move(data_collection_model_rtp_payload_format_t *other)
 {
     if (!other) return NULL;
 
@@ -50,7 +50,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_fo
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_format_t *data_collection_model_rtp_payload_format_copy(data_collection_model_rtp_payload_format_t *rtp_payload_format, const data_collection_model_rtp_payload_format_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_format_t *data_collection_model_rtp_payload_format_copy(data_collection_model_rtp_payload_format_t *rtp_payload_format, const data_collection_model_rtp_payload_format_t *other)
 {
     if (rtp_payload_format) {
         std::shared_ptr<RtpPayloadFormat > &obj = *reinterpret_cast<std::shared_ptr<RtpPayloadFormat >*>(rtp_payload_format);
@@ -79,7 +79,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_fo
     return rtp_payload_format;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_format_t *data_collection_model_rtp_payload_format_move(data_collection_model_rtp_payload_format_t *rtp_payload_format, data_collection_model_rtp_payload_format_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_format_t *data_collection_model_rtp_payload_format_move(data_collection_model_rtp_payload_format_t *rtp_payload_format, data_collection_model_rtp_payload_format_t *other)
 {
     std::shared_ptr<RtpPayloadFormat > *other_ptr = reinterpret_cast<std::shared_ptr<RtpPayloadFormat >*>(other);
 
@@ -103,13 +103,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_fo
     return rtp_payload_format;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_rtp_payload_format_free(data_collection_model_rtp_payload_format_t *rtp_payload_format)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_rtp_payload_format_free(data_collection_model_rtp_payload_format_t *rtp_payload_format)
 {
     if (!rtp_payload_format) return;
     delete reinterpret_cast<std::shared_ptr<RtpPayloadFormat >*>(rtp_payload_format);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_rtp_payload_format_toJSON(const data_collection_model_rtp_payload_format_t *rtp_payload_format, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_rtp_payload_format_toJSON(const data_collection_model_rtp_payload_format_t *rtp_payload_format, bool as_request)
 {
     if (!rtp_payload_format) return NULL;
     const std::shared_ptr<RtpPayloadFormat > &obj = *reinterpret_cast<const std::shared_ptr<RtpPayloadFormat >*>(rtp_payload_format);
@@ -118,7 +118,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_rtp_pay
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_format_t *data_collection_model_rtp_payload_format_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_format_t *data_collection_model_rtp_payload_format_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -131,7 +131,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_fo
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_rtp_payload_format_is_equal_to(const data_collection_model_rtp_payload_format_t *first, const data_collection_model_rtp_payload_format_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_payload_format_is_equal_to(const data_collection_model_rtp_payload_format_t *first, const data_collection_model_rtp_payload_format_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -156,7 +156,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_rtp_paylo
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_payload_format_is_not_set(const data_collection_model_rtp_payload_format_t *obj_rtp_payload_format)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_payload_format_is_not_set(const data_collection_model_rtp_payload_format_t *obj_rtp_payload_format)
 {
     if (!obj_rtp_payload_format) return true;
     const std::shared_ptr<RtpPayloadFormat > &obj = *reinterpret_cast<const std::shared_ptr<RtpPayloadFormat >*>(obj_rtp_payload_format);
@@ -164,7 +164,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_payload_format_i
     return obj->getValue() == RtpPayloadFormat::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_payload_format_is_non_standard(const data_collection_model_rtp_payload_format_t *obj_rtp_payload_format)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_payload_format_is_non_standard(const data_collection_model_rtp_payload_format_t *obj_rtp_payload_format)
 {
     if (!obj_rtp_payload_format) return false;
     const std::shared_ptr<RtpPayloadFormat > &obj = *reinterpret_cast<const std::shared_ptr<RtpPayloadFormat >*>(obj_rtp_payload_format);
@@ -172,7 +172,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_payload_format_i
     return obj->getValue() == RtpPayloadFormat::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_format_e data_collection_model_rtp_payload_format_get_enum(const data_collection_model_rtp_payload_format_t *obj_rtp_payload_format)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_format_e data_collection_model_rtp_payload_format_get_enum(const data_collection_model_rtp_payload_format_t *obj_rtp_payload_format)
 {
     if (!obj_rtp_payload_format)
         return DCM_RTP_PAYLOAD_FORMAT_NO_VAL;
@@ -191,7 +191,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_format_e data
     return DCM_RTP_PAYLOAD_FORMAT_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_rtp_payload_format_get_string(const data_collection_model_rtp_payload_format_t *obj_rtp_payload_format)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_rtp_payload_format_get_string(const data_collection_model_rtp_payload_format_t *obj_rtp_payload_format)
 {
     if (!obj_rtp_payload_format) return NULL;
     const std::shared_ptr<RtpPayloadFormat > &obj = *reinterpret_cast<const std::shared_ptr<RtpPayloadFormat >*>(obj_rtp_payload_format);
@@ -199,7 +199,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_rtp_payload_f
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_payload_format_set_enum(data_collection_model_rtp_payload_format_t *obj_rtp_payload_format, data_collection_model_rtp_payload_format_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_payload_format_set_enum(data_collection_model_rtp_payload_format_t *obj_rtp_payload_format, data_collection_model_rtp_payload_format_e p_value)
 {
     if (!obj_rtp_payload_format) return false;
     std::shared_ptr<RtpPayloadFormat > &obj = *reinterpret_cast<std::shared_ptr<RtpPayloadFormat >*>(obj_rtp_payload_format);
@@ -220,7 +220,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_payload_format_s
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_payload_format_set_string(data_collection_model_rtp_payload_format_t *obj_rtp_payload_format, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_payload_format_set_string(data_collection_model_rtp_payload_format_t *obj_rtp_payload_format, const char *p_value)
 {
     if (!obj_rtp_payload_format) return false;
     std::shared_ptr<RtpPayloadFormat > &obj = *reinterpret_cast<std::shared_ptr<RtpPayloadFormat >*>(obj_rtp_payload_format);
@@ -235,7 +235,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_payload_format_s
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_rtp_payload_format_make_lnode(data_collection_model_rtp_payload_format_t *p_rtp_payload_format)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_rtp_payload_format_make_lnode(data_collection_model_rtp_payload_format_t *p_rtp_payload_format)
 {
     return data_collection_lnode_create(p_rtp_payload_format, reinterpret_cast<void(*)(void*)>(data_collection_model_rtp_payload_format_free));
 }

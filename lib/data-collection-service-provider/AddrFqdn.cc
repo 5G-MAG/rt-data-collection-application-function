@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_create(
 
 )
 {
@@ -33,7 +33,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *d
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_create_copy(const data_collection_model_addr_fqdn_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_create_copy(const data_collection_model_addr_fqdn_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<AddrFqdn > &obj = *reinterpret_cast<const std::shared_ptr<AddrFqdn >*>(other);
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *d
     return reinterpret_cast<data_collection_model_addr_fqdn_t*>(new std::shared_ptr<AddrFqdn >(new AddrFqdn(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_create_move(data_collection_model_addr_fqdn_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_create_move(data_collection_model_addr_fqdn_t *other)
 {
     if (!other) return NULL;
 
@@ -54,7 +54,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *d
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_copy(data_collection_model_addr_fqdn_t *addr_fqdn, const data_collection_model_addr_fqdn_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_copy(data_collection_model_addr_fqdn_t *addr_fqdn, const data_collection_model_addr_fqdn_t *other)
 {
     if (addr_fqdn) {
         std::shared_ptr<AddrFqdn > &obj = *reinterpret_cast<std::shared_ptr<AddrFqdn >*>(addr_fqdn);
@@ -83,7 +83,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *d
     return addr_fqdn;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_move(data_collection_model_addr_fqdn_t *addr_fqdn, data_collection_model_addr_fqdn_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_move(data_collection_model_addr_fqdn_t *addr_fqdn, data_collection_model_addr_fqdn_t *other)
 {
     std::shared_ptr<AddrFqdn > *other_ptr = reinterpret_cast<std::shared_ptr<AddrFqdn >*>(other);
 
@@ -107,13 +107,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *d
     return addr_fqdn;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_addr_fqdn_free(data_collection_model_addr_fqdn_t *addr_fqdn)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_addr_fqdn_free(data_collection_model_addr_fqdn_t *addr_fqdn)
 {
     if (!addr_fqdn) return;
     delete reinterpret_cast<std::shared_ptr<AddrFqdn >*>(addr_fqdn);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_addr_fqdn_toJSON(const data_collection_model_addr_fqdn_t *addr_fqdn, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_addr_fqdn_toJSON(const data_collection_model_addr_fqdn_t *addr_fqdn, bool as_request)
 {
     if (!addr_fqdn) return NULL;
     const std::shared_ptr<AddrFqdn > &obj = *reinterpret_cast<const std::shared_ptr<AddrFqdn >*>(addr_fqdn);
@@ -122,7 +122,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_addr_fq
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -135,7 +135,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *d
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_addr_fqdn_is_equal_to(const data_collection_model_addr_fqdn_t *first, const data_collection_model_addr_fqdn_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_addr_fqdn_is_equal_to(const data_collection_model_addr_fqdn_t *first, const data_collection_model_addr_fqdn_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -160,7 +160,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_addr_fqdn
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ip_addr_t* data_collection_model_addr_fqdn_get_ip_addr(const data_collection_model_addr_fqdn_t *obj_addr_fqdn)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ip_addr_t* data_collection_model_addr_fqdn_get_ip_addr(const data_collection_model_addr_fqdn_t *obj_addr_fqdn)
 {
     if (!obj_addr_fqdn) {
         const data_collection_model_ip_addr_t *result = NULL;
@@ -179,7 +179,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ip_addr_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_set_ip_addr(data_collection_model_addr_fqdn_t *obj_addr_fqdn, const data_collection_model_ip_addr_t* p_ip_addr)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_set_ip_addr(data_collection_model_addr_fqdn_t *obj_addr_fqdn, const data_collection_model_ip_addr_t* p_ip_addr)
 {
     if (!obj_addr_fqdn) return NULL;
 
@@ -195,7 +195,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *d
     return obj_addr_fqdn;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_set_ip_addr_move(data_collection_model_addr_fqdn_t *obj_addr_fqdn, data_collection_model_ip_addr_t* p_ip_addr)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_set_ip_addr_move(data_collection_model_addr_fqdn_t *obj_addr_fqdn, data_collection_model_ip_addr_t* p_ip_addr)
 {
     if (!obj_addr_fqdn) return NULL;
 
@@ -212,7 +212,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *d
     return obj_addr_fqdn;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_addr_fqdn_get_fqdn(const data_collection_model_addr_fqdn_t *obj_addr_fqdn)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_addr_fqdn_get_fqdn(const data_collection_model_addr_fqdn_t *obj_addr_fqdn)
 {
     if (!obj_addr_fqdn) {
         const char *result = NULL;
@@ -231,7 +231,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ad
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_set_fqdn(data_collection_model_addr_fqdn_t *obj_addr_fqdn, const char* p_fqdn)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_set_fqdn(data_collection_model_addr_fqdn_t *obj_addr_fqdn, const char* p_fqdn)
 {
     if (!obj_addr_fqdn) return NULL;
 
@@ -247,7 +247,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *d
     return obj_addr_fqdn;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_set_fqdn_move(data_collection_model_addr_fqdn_t *obj_addr_fqdn, char* p_fqdn)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_set_fqdn_move(data_collection_model_addr_fqdn_t *obj_addr_fqdn, char* p_fqdn)
 {
     if (!obj_addr_fqdn) return NULL;
 
@@ -265,7 +265,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_addr_fqdn_t *d
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_addr_fqdn_make_lnode(data_collection_model_addr_fqdn_t *p_addr_fqdn)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_addr_fqdn_make_lnode(data_collection_model_addr_fqdn_t *p_addr_fqdn)
 {
     return data_collection_lnode_create(p_addr_fqdn, reinterpret_cast<void(*)(void*)>(data_collection_model_addr_fqdn_free));
 }

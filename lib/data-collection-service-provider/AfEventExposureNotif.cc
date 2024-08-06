@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_create(
 
 )
 {
@@ -31,7 +31,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_create_copy(const data_collection_model_af_event_exposure_notif_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_create_copy(const data_collection_model_af_event_exposure_notif_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<AfEventExposureNotif > &obj = *reinterpret_cast<const std::shared_ptr<AfEventExposureNotif >*>(other);
@@ -39,7 +39,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
     return reinterpret_cast<data_collection_model_af_event_exposure_notif_t*>(new std::shared_ptr<AfEventExposureNotif >(new AfEventExposureNotif(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_create_move(data_collection_model_af_event_exposure_notif_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_create_move(data_collection_model_af_event_exposure_notif_t *other)
 {
     if (!other) return NULL;
 
@@ -52,7 +52,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_copy(data_collection_model_af_event_exposure_notif_t *af_event_exposure_notif, const data_collection_model_af_event_exposure_notif_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_copy(data_collection_model_af_event_exposure_notif_t *af_event_exposure_notif, const data_collection_model_af_event_exposure_notif_t *other)
 {
     if (af_event_exposure_notif) {
         std::shared_ptr<AfEventExposureNotif > &obj = *reinterpret_cast<std::shared_ptr<AfEventExposureNotif >*>(af_event_exposure_notif);
@@ -81,7 +81,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
     return af_event_exposure_notif;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_move(data_collection_model_af_event_exposure_notif_t *af_event_exposure_notif, data_collection_model_af_event_exposure_notif_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_move(data_collection_model_af_event_exposure_notif_t *af_event_exposure_notif, data_collection_model_af_event_exposure_notif_t *other)
 {
     std::shared_ptr<AfEventExposureNotif > *other_ptr = reinterpret_cast<std::shared_ptr<AfEventExposureNotif >*>(other);
 
@@ -105,13 +105,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
     return af_event_exposure_notif;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_af_event_exposure_notif_free(data_collection_model_af_event_exposure_notif_t *af_event_exposure_notif)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_af_event_exposure_notif_free(data_collection_model_af_event_exposure_notif_t *af_event_exposure_notif)
 {
     if (!af_event_exposure_notif) return;
     delete reinterpret_cast<std::shared_ptr<AfEventExposureNotif >*>(af_event_exposure_notif);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_af_event_exposure_notif_toJSON(const data_collection_model_af_event_exposure_notif_t *af_event_exposure_notif, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_af_event_exposure_notif_toJSON(const data_collection_model_af_event_exposure_notif_t *af_event_exposure_notif, bool as_request)
 {
     if (!af_event_exposure_notif) return NULL;
     const std::shared_ptr<AfEventExposureNotif > &obj = *reinterpret_cast<const std::shared_ptr<AfEventExposureNotif >*>(af_event_exposure_notif);
@@ -120,7 +120,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_af_even
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -133,7 +133,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_af_event_exposure_notif_is_equal_to(const data_collection_model_af_event_exposure_notif_t *first, const data_collection_model_af_event_exposure_notif_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_exposure_notif_is_equal_to(const data_collection_model_af_event_exposure_notif_t *first, const data_collection_model_af_event_exposure_notif_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -158,7 +158,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_af_event_
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_af_event_exposure_notif_get_notif_id(const data_collection_model_af_event_exposure_notif_t *obj_af_event_exposure_notif)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_af_event_exposure_notif_get_notif_id(const data_collection_model_af_event_exposure_notif_t *obj_af_event_exposure_notif)
 {
     if (!obj_af_event_exposure_notif) {
         const char *result = NULL;
@@ -177,7 +177,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_af
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_set_notif_id(data_collection_model_af_event_exposure_notif_t *obj_af_event_exposure_notif, const char* p_notif_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_set_notif_id(data_collection_model_af_event_exposure_notif_t *obj_af_event_exposure_notif, const char* p_notif_id)
 {
     if (!obj_af_event_exposure_notif) return NULL;
 
@@ -193,7 +193,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
     return obj_af_event_exposure_notif;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_set_notif_id_move(data_collection_model_af_event_exposure_notif_t *obj_af_event_exposure_notif, char* p_notif_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_set_notif_id_move(data_collection_model_af_event_exposure_notif_t *obj_af_event_exposure_notif, char* p_notif_id)
 {
     if (!obj_af_event_exposure_notif) return NULL;
 
@@ -210,7 +210,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
     return obj_af_event_exposure_notif;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af_event_exposure_notif_get_event_notifs(const data_collection_model_af_event_exposure_notif_t *obj_af_event_exposure_notif)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_exposure_notif_get_event_notifs(const data_collection_model_af_event_exposure_notif_t *obj_af_event_exposure_notif)
 {
     if (!obj_af_event_exposure_notif) {
         ogs_list_t *result = NULL;
@@ -237,7 +237,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_af
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_set_event_notifs(data_collection_model_af_event_exposure_notif_t *obj_af_event_exposure_notif, const ogs_list_t* p_event_notifs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_set_event_notifs(data_collection_model_af_event_exposure_notif_t *obj_af_event_exposure_notif, const ogs_list_t* p_event_notifs)
 {
     if (!obj_af_event_exposure_notif) return NULL;
 
@@ -261,7 +261,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
     return obj_af_event_exposure_notif;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_set_event_notifs_move(data_collection_model_af_event_exposure_notif_t *obj_af_event_exposure_notif, ogs_list_t* p_event_notifs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_set_event_notifs_move(data_collection_model_af_event_exposure_notif_t *obj_af_event_exposure_notif, ogs_list_t* p_event_notifs)
 {
     if (!obj_af_event_exposure_notif) return NULL;
 
@@ -286,7 +286,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
     return obj_af_event_exposure_notif;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_add_event_notifs(data_collection_model_af_event_exposure_notif_t *obj_af_event_exposure_notif, data_collection_model_af_event_notification_t* p_event_notifs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_add_event_notifs(data_collection_model_af_event_exposure_notif_t *obj_af_event_exposure_notif, data_collection_model_af_event_notification_t* p_event_notifs)
 {
     if (!obj_af_event_exposure_notif) return NULL;
 
@@ -303,7 +303,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
     return obj_af_event_exposure_notif;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_remove_event_notifs(data_collection_model_af_event_exposure_notif_t *obj_af_event_exposure_notif, const data_collection_model_af_event_notification_t* p_event_notifs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_remove_event_notifs(data_collection_model_af_event_exposure_notif_t *obj_af_event_exposure_notif, const data_collection_model_af_event_notification_t* p_event_notifs)
 {
     if (!obj_af_event_exposure_notif) return NULL;
 
@@ -318,7 +318,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
     return obj_af_event_exposure_notif;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_clear_event_notifs(data_collection_model_af_event_exposure_notif_t *obj_af_event_exposure_notif)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_clear_event_notifs(data_collection_model_af_event_exposure_notif_t *obj_af_event_exposure_notif)
 {
     if (!obj_af_event_exposure_notif) return NULL;
 
@@ -330,7 +330,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_expos
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_af_event_exposure_notif_make_lnode(data_collection_model_af_event_exposure_notif_t *p_af_event_exposure_notif)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_af_event_exposure_notif_make_lnode(data_collection_model_af_event_exposure_notif_t *p_af_event_exposure_notif)
 {
     return data_collection_lnode_create(p_af_event_exposure_notif, reinterpret_cast<void(*)(void*)>(data_collection_model_af_event_exposure_notif_free));
 }

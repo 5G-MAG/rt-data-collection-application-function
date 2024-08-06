@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_create(
 
 
 
@@ -55,7 +55,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_create_copy(const data_collection_model_problem_details_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_create_copy(const data_collection_model_problem_details_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(other);
@@ -63,7 +63,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return reinterpret_cast<data_collection_model_problem_details_t*>(new std::shared_ptr<ProblemDetails >(new ProblemDetails(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_create_move(data_collection_model_problem_details_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_create_move(data_collection_model_problem_details_t *other)
 {
     if (!other) return NULL;
 
@@ -76,7 +76,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_copy(data_collection_model_problem_details_t *problem_details, const data_collection_model_problem_details_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_copy(data_collection_model_problem_details_t *problem_details, const data_collection_model_problem_details_t *other)
 {
     if (problem_details) {
         std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(problem_details);
@@ -105,7 +105,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_move(data_collection_model_problem_details_t *problem_details, data_collection_model_problem_details_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_move(data_collection_model_problem_details_t *problem_details, data_collection_model_problem_details_t *other)
 {
     std::shared_ptr<ProblemDetails > *other_ptr = reinterpret_cast<std::shared_ptr<ProblemDetails >*>(other);
 
@@ -129,13 +129,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_problem_details_free(data_collection_model_problem_details_t *problem_details)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_problem_details_free(data_collection_model_problem_details_t *problem_details)
 {
     if (!problem_details) return;
     delete reinterpret_cast<std::shared_ptr<ProblemDetails >*>(problem_details);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_problem_details_toJSON(const data_collection_model_problem_details_t *problem_details, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_problem_details_toJSON(const data_collection_model_problem_details_t *problem_details, bool as_request)
 {
     if (!problem_details) return NULL;
     const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(problem_details);
@@ -144,7 +144,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_problem
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -157,7 +157,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_problem_details_is_equal_to(const data_collection_model_problem_details_t *first, const data_collection_model_problem_details_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_problem_details_is_equal_to(const data_collection_model_problem_details_t *first, const data_collection_model_problem_details_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -182,7 +182,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_problem_d
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_problem_details_get_type(const data_collection_model_problem_details_t *obj_problem_details)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_problem_details_get_type(const data_collection_model_problem_details_t *obj_problem_details)
 {
     if (!obj_problem_details) {
         const char *result = NULL;
@@ -201,7 +201,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pr
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_type(data_collection_model_problem_details_t *obj_problem_details, const char* p_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_type(data_collection_model_problem_details_t *obj_problem_details, const char* p_type)
 {
     if (!obj_problem_details) return NULL;
 
@@ -217,7 +217,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_type_move(data_collection_model_problem_details_t *obj_problem_details, char* p_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_type_move(data_collection_model_problem_details_t *obj_problem_details, char* p_type)
 {
     if (!obj_problem_details) return NULL;
 
@@ -234,7 +234,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_problem_details_get_title(const data_collection_model_problem_details_t *obj_problem_details)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_problem_details_get_title(const data_collection_model_problem_details_t *obj_problem_details)
 {
     if (!obj_problem_details) {
         const char *result = NULL;
@@ -253,7 +253,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pr
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_title(data_collection_model_problem_details_t *obj_problem_details, const char* p_title)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_title(data_collection_model_problem_details_t *obj_problem_details, const char* p_title)
 {
     if (!obj_problem_details) return NULL;
 
@@ -269,7 +269,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_title_move(data_collection_model_problem_details_t *obj_problem_details, char* p_title)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_title_move(data_collection_model_problem_details_t *obj_problem_details, char* p_title)
 {
     if (!obj_problem_details) return NULL;
 
@@ -286,7 +286,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_problem_details_get_status(const data_collection_model_problem_details_t *obj_problem_details)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_problem_details_get_status(const data_collection_model_problem_details_t *obj_problem_details)
 {
     if (!obj_problem_details) {
         const int32_t result = 0;
@@ -305,7 +305,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_status(data_collection_model_problem_details_t *obj_problem_details, const int32_t p_status)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_status(data_collection_model_problem_details_t *obj_problem_details, const int32_t p_status)
 {
     if (!obj_problem_details) return NULL;
 
@@ -321,7 +321,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_status_move(data_collection_model_problem_details_t *obj_problem_details, int32_t p_status)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_status_move(data_collection_model_problem_details_t *obj_problem_details, int32_t p_status)
 {
     if (!obj_problem_details) return NULL;
 
@@ -338,7 +338,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_problem_details_get_detail(const data_collection_model_problem_details_t *obj_problem_details)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_problem_details_get_detail(const data_collection_model_problem_details_t *obj_problem_details)
 {
     if (!obj_problem_details) {
         const char *result = NULL;
@@ -357,7 +357,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pr
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_detail(data_collection_model_problem_details_t *obj_problem_details, const char* p_detail)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_detail(data_collection_model_problem_details_t *obj_problem_details, const char* p_detail)
 {
     if (!obj_problem_details) return NULL;
 
@@ -373,7 +373,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_detail_move(data_collection_model_problem_details_t *obj_problem_details, char* p_detail)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_detail_move(data_collection_model_problem_details_t *obj_problem_details, char* p_detail)
 {
     if (!obj_problem_details) return NULL;
 
@@ -390,7 +390,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_problem_details_get_instance(const data_collection_model_problem_details_t *obj_problem_details)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_problem_details_get_instance(const data_collection_model_problem_details_t *obj_problem_details)
 {
     if (!obj_problem_details) {
         const char *result = NULL;
@@ -409,7 +409,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pr
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_instance(data_collection_model_problem_details_t *obj_problem_details, const char* p_instance)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_instance(data_collection_model_problem_details_t *obj_problem_details, const char* p_instance)
 {
     if (!obj_problem_details) return NULL;
 
@@ -425,7 +425,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_instance_move(data_collection_model_problem_details_t *obj_problem_details, char* p_instance)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_instance_move(data_collection_model_problem_details_t *obj_problem_details, char* p_instance)
 {
     if (!obj_problem_details) return NULL;
 
@@ -442,7 +442,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_problem_details_get_cause(const data_collection_model_problem_details_t *obj_problem_details)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_problem_details_get_cause(const data_collection_model_problem_details_t *obj_problem_details)
 {
     if (!obj_problem_details) {
         const char *result = NULL;
@@ -461,7 +461,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pr
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_cause(data_collection_model_problem_details_t *obj_problem_details, const char* p_cause)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_cause(data_collection_model_problem_details_t *obj_problem_details, const char* p_cause)
 {
     if (!obj_problem_details) return NULL;
 
@@ -477,7 +477,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_cause_move(data_collection_model_problem_details_t *obj_problem_details, char* p_cause)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_cause_move(data_collection_model_problem_details_t *obj_problem_details, char* p_cause)
 {
     if (!obj_problem_details) return NULL;
 
@@ -494,7 +494,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_problem_details_get_invalid_params(const data_collection_model_problem_details_t *obj_problem_details)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_problem_details_get_invalid_params(const data_collection_model_problem_details_t *obj_problem_details)
 {
     if (!obj_problem_details) {
         ogs_list_t *result = NULL;
@@ -521,7 +521,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_pr
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_invalid_params(data_collection_model_problem_details_t *obj_problem_details, const ogs_list_t* p_invalid_params)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_invalid_params(data_collection_model_problem_details_t *obj_problem_details, const ogs_list_t* p_invalid_params)
 {
     if (!obj_problem_details) return NULL;
 
@@ -545,7 +545,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_invalid_params_move(data_collection_model_problem_details_t *obj_problem_details, ogs_list_t* p_invalid_params)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_invalid_params_move(data_collection_model_problem_details_t *obj_problem_details, ogs_list_t* p_invalid_params)
 {
     if (!obj_problem_details) return NULL;
 
@@ -570,7 +570,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_add_invalid_params(data_collection_model_problem_details_t *obj_problem_details, data_collection_model_invalid_param_t* p_invalid_params)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_add_invalid_params(data_collection_model_problem_details_t *obj_problem_details, data_collection_model_invalid_param_t* p_invalid_params)
 {
     if (!obj_problem_details) return NULL;
 
@@ -587,7 +587,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_remove_invalid_params(data_collection_model_problem_details_t *obj_problem_details, const data_collection_model_invalid_param_t* p_invalid_params)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_remove_invalid_params(data_collection_model_problem_details_t *obj_problem_details, const data_collection_model_invalid_param_t* p_invalid_params)
 {
     if (!obj_problem_details) return NULL;
 
@@ -602,7 +602,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_clear_invalid_params(data_collection_model_problem_details_t *obj_problem_details)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_clear_invalid_params(data_collection_model_problem_details_t *obj_problem_details)
 {
     if (!obj_problem_details) return NULL;
 
@@ -613,7 +613,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_problem_details_get_supported_features(const data_collection_model_problem_details_t *obj_problem_details)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_problem_details_get_supported_features(const data_collection_model_problem_details_t *obj_problem_details)
 {
     if (!obj_problem_details) {
         const char *result = NULL;
@@ -632,7 +632,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pr
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_supported_features(data_collection_model_problem_details_t *obj_problem_details, const char* p_supported_features)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_supported_features(data_collection_model_problem_details_t *obj_problem_details, const char* p_supported_features)
 {
     if (!obj_problem_details) return NULL;
 
@@ -648,7 +648,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_supported_features_move(data_collection_model_problem_details_t *obj_problem_details, char* p_supported_features)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_supported_features_move(data_collection_model_problem_details_t *obj_problem_details, char* p_supported_features)
 {
     if (!obj_problem_details) return NULL;
 
@@ -665,7 +665,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_access_token_err_t* data_collection_model_problem_details_get_access_token_error(const data_collection_model_problem_details_t *obj_problem_details)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_access_token_err_t* data_collection_model_problem_details_get_access_token_error(const data_collection_model_problem_details_t *obj_problem_details)
 {
     if (!obj_problem_details) {
         const data_collection_model_access_token_err_t *result = NULL;
@@ -684,7 +684,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_access_t
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_access_token_error(data_collection_model_problem_details_t *obj_problem_details, const data_collection_model_access_token_err_t* p_access_token_error)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_access_token_error(data_collection_model_problem_details_t *obj_problem_details, const data_collection_model_access_token_err_t* p_access_token_error)
 {
     if (!obj_problem_details) return NULL;
 
@@ -700,7 +700,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_access_token_error_move(data_collection_model_problem_details_t *obj_problem_details, data_collection_model_access_token_err_t* p_access_token_error)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_access_token_error_move(data_collection_model_problem_details_t *obj_problem_details, data_collection_model_access_token_err_t* p_access_token_error)
 {
     if (!obj_problem_details) return NULL;
 
@@ -717,7 +717,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_access_token_req_t* data_collection_model_problem_details_get_access_token_request(const data_collection_model_problem_details_t *obj_problem_details)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_access_token_req_t* data_collection_model_problem_details_get_access_token_request(const data_collection_model_problem_details_t *obj_problem_details)
 {
     if (!obj_problem_details) {
         const data_collection_model_access_token_req_t *result = NULL;
@@ -736,7 +736,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_access_t
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_access_token_request(data_collection_model_problem_details_t *obj_problem_details, const data_collection_model_access_token_req_t* p_access_token_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_access_token_request(data_collection_model_problem_details_t *obj_problem_details, const data_collection_model_access_token_req_t* p_access_token_request)
 {
     if (!obj_problem_details) return NULL;
 
@@ -752,7 +752,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_access_token_request_move(data_collection_model_problem_details_t *obj_problem_details, data_collection_model_access_token_req_t* p_access_token_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_access_token_request_move(data_collection_model_problem_details_t *obj_problem_details, data_collection_model_access_token_req_t* p_access_token_request)
 {
     if (!obj_problem_details) return NULL;
 
@@ -769,7 +769,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_problem_details_get_nrf_id(const data_collection_model_problem_details_t *obj_problem_details)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_problem_details_get_nrf_id(const data_collection_model_problem_details_t *obj_problem_details)
 {
     if (!obj_problem_details) {
         const char *result = NULL;
@@ -788,7 +788,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pr
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_nrf_id(data_collection_model_problem_details_t *obj_problem_details, const char* p_nrf_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_nrf_id(data_collection_model_problem_details_t *obj_problem_details, const char* p_nrf_id)
 {
     if (!obj_problem_details) return NULL;
 
@@ -804,7 +804,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_nrf_id_move(data_collection_model_problem_details_t *obj_problem_details, char* p_nrf_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_nrf_id_move(data_collection_model_problem_details_t *obj_problem_details, char* p_nrf_id)
 {
     if (!obj_problem_details) return NULL;
 
@@ -821,7 +821,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_problem_details_get_supported_api_versions(const data_collection_model_problem_details_t *obj_problem_details)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_problem_details_get_supported_api_versions(const data_collection_model_problem_details_t *obj_problem_details)
 {
     if (!obj_problem_details) {
         ogs_list_t *result = NULL;
@@ -847,7 +847,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_pr
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_supported_api_versions(data_collection_model_problem_details_t *obj_problem_details, const ogs_list_t* p_supported_api_versions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_supported_api_versions(data_collection_model_problem_details_t *obj_problem_details, const ogs_list_t* p_supported_api_versions)
 {
     if (!obj_problem_details) return NULL;
 
@@ -871,7 +871,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_supported_api_versions_move(data_collection_model_problem_details_t *obj_problem_details, ogs_list_t* p_supported_api_versions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_supported_api_versions_move(data_collection_model_problem_details_t *obj_problem_details, ogs_list_t* p_supported_api_versions)
 {
     if (!obj_problem_details) return NULL;
 
@@ -896,7 +896,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_add_supported_api_versions(data_collection_model_problem_details_t *obj_problem_details, char* p_supported_api_versions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_add_supported_api_versions(data_collection_model_problem_details_t *obj_problem_details, char* p_supported_api_versions)
 {
     if (!obj_problem_details) return NULL;
 
@@ -913,7 +913,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_remove_supported_api_versions(data_collection_model_problem_details_t *obj_problem_details, const char* p_supported_api_versions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_remove_supported_api_versions(data_collection_model_problem_details_t *obj_problem_details, const char* p_supported_api_versions)
 {
     if (!obj_problem_details) return NULL;
 
@@ -928,7 +928,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_clear_supported_api_versions(data_collection_model_problem_details_t *obj_problem_details)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_clear_supported_api_versions(data_collection_model_problem_details_t *obj_problem_details)
 {
     if (!obj_problem_details) return NULL;
 
@@ -939,7 +939,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_no_profile_match_info_t* data_collection_model_problem_details_get_no_profile_match_info(const data_collection_model_problem_details_t *obj_problem_details)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_no_profile_match_info_t* data_collection_model_problem_details_get_no_profile_match_info(const data_collection_model_problem_details_t *obj_problem_details)
 {
     if (!obj_problem_details) {
         const data_collection_model_no_profile_match_info_t *result = NULL;
@@ -958,7 +958,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_no_profi
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_no_profile_match_info(data_collection_model_problem_details_t *obj_problem_details, const data_collection_model_no_profile_match_info_t* p_no_profile_match_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_no_profile_match_info(data_collection_model_problem_details_t *obj_problem_details, const data_collection_model_no_profile_match_info_t* p_no_profile_match_info)
 {
     if (!obj_problem_details) return NULL;
 
@@ -974,7 +974,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
     return obj_problem_details;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_details_t *data_collection_model_problem_details_set_no_profile_match_info_move(data_collection_model_problem_details_t *obj_problem_details, data_collection_model_no_profile_match_info_t* p_no_profile_match_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_set_no_profile_match_info_move(data_collection_model_problem_details_t *obj_problem_details, data_collection_model_no_profile_match_info_t* p_no_profile_match_info)
 {
     if (!obj_problem_details) return NULL;
 
@@ -992,7 +992,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_problem_detail
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_problem_details_make_lnode(data_collection_model_problem_details_t *p_problem_details)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_problem_details_make_lnode(data_collection_model_problem_details_t *p_problem_details)
 {
     return data_collection_lnode_create(p_problem_details, reinterpret_cast<void(*)(void*)>(data_collection_model_problem_details_free));
 }

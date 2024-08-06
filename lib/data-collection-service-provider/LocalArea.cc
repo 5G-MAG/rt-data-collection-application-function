@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *data_collection_model_local_area_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *data_collection_model_local_area_create(
 
 
 
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *data_collection_model_local_area_create_copy(const data_collection_model_local_area_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *data_collection_model_local_area_create_copy(const data_collection_model_local_area_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<LocalArea > &obj = *reinterpret_cast<const std::shared_ptr<LocalArea >*>(other);
@@ -49,7 +49,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *
     return reinterpret_cast<data_collection_model_local_area_t*>(new std::shared_ptr<LocalArea >(new LocalArea(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *data_collection_model_local_area_create_move(data_collection_model_local_area_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *data_collection_model_local_area_create_move(data_collection_model_local_area_t *other)
 {
     if (!other) return NULL;
 
@@ -62,7 +62,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *data_collection_model_local_area_copy(data_collection_model_local_area_t *local_area, const data_collection_model_local_area_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *data_collection_model_local_area_copy(data_collection_model_local_area_t *local_area, const data_collection_model_local_area_t *other)
 {
     if (local_area) {
         std::shared_ptr<LocalArea > &obj = *reinterpret_cast<std::shared_ptr<LocalArea >*>(local_area);
@@ -91,7 +91,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *
     return local_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *data_collection_model_local_area_move(data_collection_model_local_area_t *local_area, data_collection_model_local_area_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *data_collection_model_local_area_move(data_collection_model_local_area_t *local_area, data_collection_model_local_area_t *other)
 {
     std::shared_ptr<LocalArea > *other_ptr = reinterpret_cast<std::shared_ptr<LocalArea >*>(other);
 
@@ -115,13 +115,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *
     return local_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_local_area_free(data_collection_model_local_area_t *local_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_local_area_free(data_collection_model_local_area_t *local_area)
 {
     if (!local_area) return;
     delete reinterpret_cast<std::shared_ptr<LocalArea >*>(local_area);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_local_area_toJSON(const data_collection_model_local_area_t *local_area, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_local_area_toJSON(const data_collection_model_local_area_t *local_area, bool as_request)
 {
     if (!local_area) return NULL;
     const std::shared_ptr<LocalArea > &obj = *reinterpret_cast<const std::shared_ptr<LocalArea >*>(local_area);
@@ -130,7 +130,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_local_a
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *data_collection_model_local_area_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *data_collection_model_local_area_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -143,7 +143,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_local_area_is_equal_to(const data_collection_model_local_area_t *first, const data_collection_model_local_area_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_local_area_is_equal_to(const data_collection_model_local_area_t *first, const data_collection_model_local_area_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -168,7 +168,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_local_are
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_supported_gad_shapes_t* data_collection_model_local_area_get_shape(const data_collection_model_local_area_t *obj_local_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supported_gad_shapes_t* data_collection_model_local_area_get_shape(const data_collection_model_local_area_t *obj_local_area)
 {
     if (!obj_local_area) {
         const data_collection_model_supported_gad_shapes_t *result = NULL;
@@ -187,7 +187,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_supporte
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *data_collection_model_local_area_set_shape(data_collection_model_local_area_t *obj_local_area, const data_collection_model_supported_gad_shapes_t* p_shape)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *data_collection_model_local_area_set_shape(data_collection_model_local_area_t *obj_local_area, const data_collection_model_supported_gad_shapes_t* p_shape)
 {
     if (!obj_local_area) return NULL;
 
@@ -203,7 +203,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *
     return obj_local_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *data_collection_model_local_area_set_shape_move(data_collection_model_local_area_t *obj_local_area, data_collection_model_supported_gad_shapes_t* p_shape)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *data_collection_model_local_area_set_shape_move(data_collection_model_local_area_t *obj_local_area, data_collection_model_supported_gad_shapes_t* p_shape)
 {
     if (!obj_local_area) return NULL;
 
@@ -220,7 +220,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *
     return obj_local_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_local_origin_t* data_collection_model_local_area_get_local_origin(const data_collection_model_local_area_t *obj_local_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_local_origin_t* data_collection_model_local_area_get_local_origin(const data_collection_model_local_area_t *obj_local_area)
 {
     if (!obj_local_area) {
         const data_collection_model_local_origin_t *result = NULL;
@@ -239,7 +239,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_local_or
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *data_collection_model_local_area_set_local_origin(data_collection_model_local_area_t *obj_local_area, const data_collection_model_local_origin_t* p_local_origin)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *data_collection_model_local_area_set_local_origin(data_collection_model_local_area_t *obj_local_area, const data_collection_model_local_origin_t* p_local_origin)
 {
     if (!obj_local_area) return NULL;
 
@@ -255,7 +255,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *
     return obj_local_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *data_collection_model_local_area_set_local_origin_move(data_collection_model_local_area_t *obj_local_area, data_collection_model_local_origin_t* p_local_origin)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *data_collection_model_local_area_set_local_origin_move(data_collection_model_local_area_t *obj_local_area, data_collection_model_local_origin_t* p_local_origin)
 {
     if (!obj_local_area) return NULL;
 
@@ -272,7 +272,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *
     return obj_local_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_relative_cartesian_location_t* data_collection_model_local_area_get_point(const data_collection_model_local_area_t *obj_local_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_relative_cartesian_location_t* data_collection_model_local_area_get_point(const data_collection_model_local_area_t *obj_local_area)
 {
     if (!obj_local_area) {
         const data_collection_model_relative_cartesian_location_t *result = NULL;
@@ -291,7 +291,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_relative
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *data_collection_model_local_area_set_point(data_collection_model_local_area_t *obj_local_area, const data_collection_model_relative_cartesian_location_t* p_point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *data_collection_model_local_area_set_point(data_collection_model_local_area_t *obj_local_area, const data_collection_model_relative_cartesian_location_t* p_point)
 {
     if (!obj_local_area) return NULL;
 
@@ -307,7 +307,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *
     return obj_local_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *data_collection_model_local_area_set_point_move(data_collection_model_local_area_t *obj_local_area, data_collection_model_relative_cartesian_location_t* p_point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *data_collection_model_local_area_set_point_move(data_collection_model_local_area_t *obj_local_area, data_collection_model_relative_cartesian_location_t* p_point)
 {
     if (!obj_local_area) return NULL;
 
@@ -324,7 +324,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *
     return obj_local_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_uncertainty_ellipse_t* data_collection_model_local_area_get_uncertainty_ellipse(const data_collection_model_local_area_t *obj_local_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_uncertainty_ellipse_t* data_collection_model_local_area_get_uncertainty_ellipse(const data_collection_model_local_area_t *obj_local_area)
 {
     if (!obj_local_area) {
         const data_collection_model_uncertainty_ellipse_t *result = NULL;
@@ -343,7 +343,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_uncertai
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *data_collection_model_local_area_set_uncertainty_ellipse(data_collection_model_local_area_t *obj_local_area, const data_collection_model_uncertainty_ellipse_t* p_uncertainty_ellipse)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *data_collection_model_local_area_set_uncertainty_ellipse(data_collection_model_local_area_t *obj_local_area, const data_collection_model_uncertainty_ellipse_t* p_uncertainty_ellipse)
 {
     if (!obj_local_area) return NULL;
 
@@ -359,7 +359,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *
     return obj_local_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *data_collection_model_local_area_set_uncertainty_ellipse_move(data_collection_model_local_area_t *obj_local_area, data_collection_model_uncertainty_ellipse_t* p_uncertainty_ellipse)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *data_collection_model_local_area_set_uncertainty_ellipse_move(data_collection_model_local_area_t *obj_local_area, data_collection_model_uncertainty_ellipse_t* p_uncertainty_ellipse)
 {
     if (!obj_local_area) return NULL;
 
@@ -376,7 +376,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *
     return obj_local_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_local_area_get_confidence(const data_collection_model_local_area_t *obj_local_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_local_area_get_confidence(const data_collection_model_local_area_t *obj_local_area)
 {
     if (!obj_local_area) {
         const int32_t result = 0;
@@ -395,7 +395,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *data_collection_model_local_area_set_confidence(data_collection_model_local_area_t *obj_local_area, const int32_t p_confidence)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *data_collection_model_local_area_set_confidence(data_collection_model_local_area_t *obj_local_area, const int32_t p_confidence)
 {
     if (!obj_local_area) return NULL;
 
@@ -411,7 +411,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *
     return obj_local_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *data_collection_model_local_area_set_confidence_move(data_collection_model_local_area_t *obj_local_area, int32_t p_confidence)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *data_collection_model_local_area_set_confidence_move(data_collection_model_local_area_t *obj_local_area, int32_t p_confidence)
 {
     if (!obj_local_area) return NULL;
 
@@ -428,7 +428,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *
     return obj_local_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_uncertainty_ellipsoid_t* data_collection_model_local_area_get_uncertainty_ellipsoid(const data_collection_model_local_area_t *obj_local_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_uncertainty_ellipsoid_t* data_collection_model_local_area_get_uncertainty_ellipsoid(const data_collection_model_local_area_t *obj_local_area)
 {
     if (!obj_local_area) {
         const data_collection_model_uncertainty_ellipsoid_t *result = NULL;
@@ -447,7 +447,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_uncertai
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *data_collection_model_local_area_set_uncertainty_ellipsoid(data_collection_model_local_area_t *obj_local_area, const data_collection_model_uncertainty_ellipsoid_t* p_uncertainty_ellipsoid)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *data_collection_model_local_area_set_uncertainty_ellipsoid(data_collection_model_local_area_t *obj_local_area, const data_collection_model_uncertainty_ellipsoid_t* p_uncertainty_ellipsoid)
 {
     if (!obj_local_area) return NULL;
 
@@ -463,7 +463,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *
     return obj_local_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *data_collection_model_local_area_set_uncertainty_ellipsoid_move(data_collection_model_local_area_t *obj_local_area, data_collection_model_uncertainty_ellipsoid_t* p_uncertainty_ellipsoid)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *data_collection_model_local_area_set_uncertainty_ellipsoid_move(data_collection_model_local_area_t *obj_local_area, data_collection_model_uncertainty_ellipsoid_t* p_uncertainty_ellipsoid)
 {
     if (!obj_local_area) return NULL;
 
@@ -480,7 +480,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *
     return obj_local_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_local_area_get_v_confidence(const data_collection_model_local_area_t *obj_local_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_local_area_get_v_confidence(const data_collection_model_local_area_t *obj_local_area)
 {
     if (!obj_local_area) {
         const int32_t result = 0;
@@ -499,7 +499,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *data_collection_model_local_area_set_v_confidence(data_collection_model_local_area_t *obj_local_area, const int32_t p_v_confidence)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *data_collection_model_local_area_set_v_confidence(data_collection_model_local_area_t *obj_local_area, const int32_t p_v_confidence)
 {
     if (!obj_local_area) return NULL;
 
@@ -515,7 +515,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *
     return obj_local_area;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *data_collection_model_local_area_set_v_confidence_move(data_collection_model_local_area_t *obj_local_area, int32_t p_v_confidence)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *data_collection_model_local_area_set_v_confidence_move(data_collection_model_local_area_t *obj_local_area, int32_t p_v_confidence)
 {
     if (!obj_local_area) return NULL;
 
@@ -533,7 +533,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local_area_t *
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_local_area_make_lnode(data_collection_model_local_area_t *p_local_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_local_area_make_lnode(data_collection_model_local_area_t *p_local_area)
 {
     return data_collection_lnode_create(p_local_area, reinterpret_cast<void(*)(void*)>(data_collection_model_local_area_free));
 }

@@ -213,10 +213,11 @@ bool _data_report_process_event(ogs_event_t *e)
 					int rv;
                                         data_collection_reporting_session_t *data_collection_reporting_session;
 					//cJSON *data_report;
-					const char *error_return = NULL;
+					char *error_return = NULL;
+					char *error_classname = NULL;
+					char *error_parameter = NULL;
 					const char *mime_type = NULL;
 					const char *error_code = NULL;
-					const char *error_parameter = NULL;
 					ogs_sbi_response_t *response;
 
                                         ogs_debug("Request body: %s", request->http.content);
@@ -247,14 +248,13 @@ bool _data_report_process_event(ogs_event_t *e)
                                             break;
                                         }
 
-					rv = data_collection_reporting_report(data_collection_reporting_session,mime_type?(const char *)data_collection_strdup(mime_type): NULL, (const void *)data_collection_strdup(request->http.content), strlen(request->http.content), &error_return, &error_code, &error_parameter);
+					rv = data_collection_reporting_report(data_collection_reporting_session,mime_type?(const char *)data_collection_strdup(mime_type): NULL, (const void *)data_collection_strdup(request->http.content), strlen(request->http.content), &error_return, &error_classname, &error_parameter, &error_code);
 
 					if(rv == OGS_ERROR) {
 
 				            if (error_parameter) {
 						OpenAPI_list_t *invalid_params;
-					        char *err = NULL;
-                                                err = ogs_msprintf("Unable to parse Data Report as JSON.");
+					        static const char err[] = "Unable to parse Data Report as JSON.";
                                                 ogs_error("%s", err);
 
                                                 invalid_params = nf_server_make_invalid_params(error_parameter, error_return);
@@ -262,25 +262,29 @@ bool _data_report_process_event(ogs_event_t *e)
                                                 ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_BAD_REQUEST, 0,
                                                                         &message, "Bad Request", err, NULL, invalid_params, NULL,
                                                                         api, app_meta));
-                                                ogs_free(err);
+                                                if (error_return) ogs_free(error_return);
+                                                if (error_classname) ogs_free(error_classname);
+                                                ogs_free(error_parameter);
                                                 break;
                                             }
 
                                             if (!strcmp(error_code, "400")) {
-                                                char *err = NULL;
-                                                err = ogs_msprintf("Unable to parse Data Report as JSON.");
+                                                const char *err = "Unable to parse Data Report as JSON.";
                                                 ogs_error("%s", err);
                                                 ogs_assert(true == nf_server_send_error(stream, 400, 1, &message, "Bad Data Report.", err, NULL, NULL, NULL, ndcaf_datareporting_api, app_meta));
-                                                ogs_free(err);
+                                                if (error_return) ogs_free(error_return);
+                                                if (error_classname) ogs_free(error_classname);
+                                                if (error_parameter) ogs_free(error_parameter);
                                                 break;
                                             }
 
 					    if (!strcmp(error_code, "415")) {
 					        ogs_assert(true == nf_server_send_error(stream, 415, 1, &message, "Unsupported Media Type.", "Expected content type: application/json", NULL, NULL, NULL, ndcaf_datareporting_api, app_meta));
+                                                if (error_return) ogs_free(error_return);
+                                                if (error_classname) ogs_free(error_classname);
+                                                if (error_parameter) ogs_free(error_parameter);
                                                 break;
-
 					    }
-
 					}
 					response = nf_server_new_response(NULL, NULL, 0, NULL, 0, NULL, ndcaf_datareporting_api, app_meta);
                                         nf_server_populate_response(response, 0, NULL, 204);

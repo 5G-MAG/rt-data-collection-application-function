@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_create(
 
 
 
@@ -37,7 +37,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_create_copy(const data_collection_model_network_assistance_invocation_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_create_copy(const data_collection_model_network_assistance_invocation_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<NetworkAssistanceInvocation > &obj = *reinterpret_cast<const std::shared_ptr<NetworkAssistanceInvocation >*>(other);
@@ -45,7 +45,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return reinterpret_cast<data_collection_model_network_assistance_invocation_t*>(new std::shared_ptr<NetworkAssistanceInvocation >(new NetworkAssistanceInvocation(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_create_move(data_collection_model_network_assistance_invocation_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_create_move(data_collection_model_network_assistance_invocation_t *other)
 {
     if (!other) return NULL;
 
@@ -58,7 +58,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_copy(data_collection_model_network_assistance_invocation_t *network_assistance_invocation, const data_collection_model_network_assistance_invocation_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_copy(data_collection_model_network_assistance_invocation_t *network_assistance_invocation, const data_collection_model_network_assistance_invocation_t *other)
 {
     if (network_assistance_invocation) {
         std::shared_ptr<NetworkAssistanceInvocation > &obj = *reinterpret_cast<std::shared_ptr<NetworkAssistanceInvocation >*>(network_assistance_invocation);
@@ -87,7 +87,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return network_assistance_invocation;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_move(data_collection_model_network_assistance_invocation_t *network_assistance_invocation, data_collection_model_network_assistance_invocation_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_move(data_collection_model_network_assistance_invocation_t *network_assistance_invocation, data_collection_model_network_assistance_invocation_t *other)
 {
     std::shared_ptr<NetworkAssistanceInvocation > *other_ptr = reinterpret_cast<std::shared_ptr<NetworkAssistanceInvocation >*>(other);
 
@@ -111,13 +111,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return network_assistance_invocation;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_network_assistance_invocation_free(data_collection_model_network_assistance_invocation_t *network_assistance_invocation)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_network_assistance_invocation_free(data_collection_model_network_assistance_invocation_t *network_assistance_invocation)
 {
     if (!network_assistance_invocation) return;
     delete reinterpret_cast<std::shared_ptr<NetworkAssistanceInvocation >*>(network_assistance_invocation);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_network_assistance_invocation_toJSON(const data_collection_model_network_assistance_invocation_t *network_assistance_invocation, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_network_assistance_invocation_toJSON(const data_collection_model_network_assistance_invocation_t *network_assistance_invocation, bool as_request)
 {
     if (!network_assistance_invocation) return NULL;
     const std::shared_ptr<NetworkAssistanceInvocation > &obj = *reinterpret_cast<const std::shared_ptr<NetworkAssistanceInvocation >*>(network_assistance_invocation);
@@ -126,7 +126,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_network
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -139,7 +139,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_network_assistance_invocation_is_equal_to(const data_collection_model_network_assistance_invocation_t *first, const data_collection_model_network_assistance_invocation_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_assistance_invocation_is_equal_to(const data_collection_model_network_assistance_invocation_t *first, const data_collection_model_network_assistance_invocation_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -164,7 +164,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_network_a
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_network_assistance_invocation_get_policy_template_id(const data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_network_assistance_invocation_get_policy_template_id(const data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation)
 {
     if (!obj_network_assistance_invocation) {
         const char *result = NULL;
@@ -183,7 +183,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ne
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_set_policy_template_id(data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation, const char* p_policy_template_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_set_policy_template_id(data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation, const char* p_policy_template_id)
 {
     if (!obj_network_assistance_invocation) return NULL;
 
@@ -199,7 +199,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return obj_network_assistance_invocation;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_set_policy_template_id_move(data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation, char* p_policy_template_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_set_policy_template_id_move(data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation, char* p_policy_template_id)
 {
     if (!obj_network_assistance_invocation) return NULL;
 
@@ -216,7 +216,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return obj_network_assistance_invocation;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_network_assistance_invocation_get_application_flow_descriptions(const data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_network_assistance_invocation_get_application_flow_descriptions(const data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation)
 {
     if (!obj_network_assistance_invocation) {
         ogs_list_t *result = NULL;
@@ -243,7 +243,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ne
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_set_application_flow_descriptions(data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation, const ogs_list_t* p_application_flow_descriptions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_set_application_flow_descriptions(data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation, const ogs_list_t* p_application_flow_descriptions)
 {
     if (!obj_network_assistance_invocation) return NULL;
 
@@ -267,7 +267,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return obj_network_assistance_invocation;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_set_application_flow_descriptions_move(data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation, ogs_list_t* p_application_flow_descriptions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_set_application_flow_descriptions_move(data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation, ogs_list_t* p_application_flow_descriptions)
 {
     if (!obj_network_assistance_invocation) return NULL;
 
@@ -292,7 +292,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return obj_network_assistance_invocation;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_add_application_flow_descriptions(data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation, data_collection_model_application_flow_description_t* p_application_flow_descriptions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_add_application_flow_descriptions(data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation, data_collection_model_application_flow_description_t* p_application_flow_descriptions)
 {
     if (!obj_network_assistance_invocation) return NULL;
 
@@ -309,7 +309,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return obj_network_assistance_invocation;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_remove_application_flow_descriptions(data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation, const data_collection_model_application_flow_description_t* p_application_flow_descriptions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_remove_application_flow_descriptions(data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation, const data_collection_model_application_flow_description_t* p_application_flow_descriptions)
 {
     if (!obj_network_assistance_invocation) return NULL;
 
@@ -324,7 +324,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return obj_network_assistance_invocation;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_clear_application_flow_descriptions(data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_clear_application_flow_descriptions(data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation)
 {
     if (!obj_network_assistance_invocation) return NULL;
 
@@ -335,7 +335,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return obj_network_assistance_invocation;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_unidirectional_qo_s_specification_t* data_collection_model_network_assistance_invocation_get_requested_qo_s(const data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_unidirectional_qo_s_specification_t* data_collection_model_network_assistance_invocation_get_requested_qo_s(const data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation)
 {
     if (!obj_network_assistance_invocation) {
         const data_collection_model_unidirectional_qo_s_specification_t *result = NULL;
@@ -354,7 +354,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_unidirec
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_set_requested_qo_s(data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation, const data_collection_model_unidirectional_qo_s_specification_t* p_requested_qo_s)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_set_requested_qo_s(data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation, const data_collection_model_unidirectional_qo_s_specification_t* p_requested_qo_s)
 {
     if (!obj_network_assistance_invocation) return NULL;
 
@@ -370,7 +370,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return obj_network_assistance_invocation;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_set_requested_qo_s_move(data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation, data_collection_model_unidirectional_qo_s_specification_t* p_requested_qo_s)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_set_requested_qo_s_move(data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation, data_collection_model_unidirectional_qo_s_specification_t* p_requested_qo_s)
 {
     if (!obj_network_assistance_invocation) return NULL;
 
@@ -387,7 +387,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return obj_network_assistance_invocation;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_network_assistance_invocation_recommended_qo_s_t* data_collection_model_network_assistance_invocation_get_recommended_qo_s(const data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_network_assistance_invocation_recommended_qo_s_t* data_collection_model_network_assistance_invocation_get_recommended_qo_s(const data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation)
 {
     if (!obj_network_assistance_invocation) {
         const data_collection_model_network_assistance_invocation_recommended_qo_s_t *result = NULL;
@@ -406,7 +406,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_network_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_set_recommended_qo_s(data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation, const data_collection_model_network_assistance_invocation_recommended_qo_s_t* p_recommended_qo_s)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_set_recommended_qo_s(data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation, const data_collection_model_network_assistance_invocation_recommended_qo_s_t* p_recommended_qo_s)
 {
     if (!obj_network_assistance_invocation) return NULL;
 
@@ -422,7 +422,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
     return obj_network_assistance_invocation;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_set_recommended_qo_s_move(data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation, data_collection_model_network_assistance_invocation_recommended_qo_s_t* p_recommended_qo_s)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_set_recommended_qo_s_move(data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation, data_collection_model_network_assistance_invocation_recommended_qo_s_t* p_recommended_qo_s)
 {
     if (!obj_network_assistance_invocation) return NULL;
 
@@ -440,7 +440,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_network_assist
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_network_assistance_invocation_make_lnode(data_collection_model_network_assistance_invocation_t *p_network_assistance_invocation)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_network_assistance_invocation_make_lnode(data_collection_model_network_assistance_invocation_t *p_network_assistance_invocation)
 {
     return data_collection_lnode_create(p_network_assistance_invocation, reinterpret_cast<void(*)(void*)>(data_collection_model_network_assistance_invocation_free));
 }

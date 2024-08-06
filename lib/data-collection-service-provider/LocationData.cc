@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_create(
 
 
 
@@ -89,7 +89,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_create_copy(const data_collection_model_location_data_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_create_copy(const data_collection_model_location_data_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<LocationData > &obj = *reinterpret_cast<const std::shared_ptr<LocationData >*>(other);
@@ -97,7 +97,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return reinterpret_cast<data_collection_model_location_data_t*>(new std::shared_ptr<LocationData >(new LocationData(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_create_move(data_collection_model_location_data_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_create_move(data_collection_model_location_data_t *other)
 {
     if (!other) return NULL;
 
@@ -110,7 +110,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_copy(data_collection_model_location_data_t *location_data, const data_collection_model_location_data_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_copy(data_collection_model_location_data_t *location_data, const data_collection_model_location_data_t *other)
 {
     if (location_data) {
         std::shared_ptr<LocationData > &obj = *reinterpret_cast<std::shared_ptr<LocationData >*>(location_data);
@@ -139,7 +139,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_move(data_collection_model_location_data_t *location_data, data_collection_model_location_data_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_move(data_collection_model_location_data_t *location_data, data_collection_model_location_data_t *other)
 {
     std::shared_ptr<LocationData > *other_ptr = reinterpret_cast<std::shared_ptr<LocationData >*>(other);
 
@@ -163,13 +163,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_location_data_free(data_collection_model_location_data_t *location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_location_data_free(data_collection_model_location_data_t *location_data)
 {
     if (!location_data) return;
     delete reinterpret_cast<std::shared_ptr<LocationData >*>(location_data);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_location_data_toJSON(const data_collection_model_location_data_t *location_data, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_location_data_toJSON(const data_collection_model_location_data_t *location_data, bool as_request)
 {
     if (!location_data) return NULL;
     const std::shared_ptr<LocationData > &obj = *reinterpret_cast<const std::shared_ptr<LocationData >*>(location_data);
@@ -178,7 +178,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_locatio
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -191,7 +191,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_location_data_is_equal_to(const data_collection_model_location_data_t *first, const data_collection_model_location_data_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_location_data_is_equal_to(const data_collection_model_location_data_t *first, const data_collection_model_location_data_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -216,7 +216,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_location_
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geographic_area_t* data_collection_model_location_data_get_location_estimate(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geographic_area_t* data_collection_model_location_data_get_location_estimate(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const data_collection_model_geographic_area_t *result = NULL;
@@ -235,7 +235,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geograph
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_location_estimate(data_collection_model_location_data_t *obj_location_data, const data_collection_model_geographic_area_t* p_location_estimate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_location_estimate(data_collection_model_location_data_t *obj_location_data, const data_collection_model_geographic_area_t* p_location_estimate)
 {
     if (!obj_location_data) return NULL;
 
@@ -251,7 +251,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_location_estimate_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_geographic_area_t* p_location_estimate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_location_estimate_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_geographic_area_t* p_location_estimate)
 {
     if (!obj_location_data) return NULL;
 
@@ -268,7 +268,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_accuracy_fulfilment_indicator_t* data_collection_model_location_data_get_accuracy_fulfilment_indicator(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_accuracy_fulfilment_indicator_t* data_collection_model_location_data_get_accuracy_fulfilment_indicator(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const data_collection_model_accuracy_fulfilment_indicator_t *result = NULL;
@@ -287,7 +287,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_accuracy
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_accuracy_fulfilment_indicator(data_collection_model_location_data_t *obj_location_data, const data_collection_model_accuracy_fulfilment_indicator_t* p_accuracy_fulfilment_indicator)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_accuracy_fulfilment_indicator(data_collection_model_location_data_t *obj_location_data, const data_collection_model_accuracy_fulfilment_indicator_t* p_accuracy_fulfilment_indicator)
 {
     if (!obj_location_data) return NULL;
 
@@ -303,7 +303,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_accuracy_fulfilment_indicator_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_accuracy_fulfilment_indicator_t* p_accuracy_fulfilment_indicator)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_accuracy_fulfilment_indicator_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_accuracy_fulfilment_indicator_t* p_accuracy_fulfilment_indicator)
 {
     if (!obj_location_data) return NULL;
 
@@ -320,7 +320,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_location_data_get_age_of_location_estimate(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_location_data_get_age_of_location_estimate(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const int32_t result = 0;
@@ -339,7 +339,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_age_of_location_estimate(data_collection_model_location_data_t *obj_location_data, const int32_t p_age_of_location_estimate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_age_of_location_estimate(data_collection_model_location_data_t *obj_location_data, const int32_t p_age_of_location_estimate)
 {
     if (!obj_location_data) return NULL;
 
@@ -355,7 +355,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_age_of_location_estimate_move(data_collection_model_location_data_t *obj_location_data, int32_t p_age_of_location_estimate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_age_of_location_estimate_move(data_collection_model_location_data_t *obj_location_data, int32_t p_age_of_location_estimate)
 {
     if (!obj_location_data) return NULL;
 
@@ -372,7 +372,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_location_data_get_timestamp_of_location_estimate(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_location_data_get_timestamp_of_location_estimate(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const char *result = NULL;
@@ -391,7 +391,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_lo
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_timestamp_of_location_estimate(data_collection_model_location_data_t *obj_location_data, const char* p_timestamp_of_location_estimate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_timestamp_of_location_estimate(data_collection_model_location_data_t *obj_location_data, const char* p_timestamp_of_location_estimate)
 {
     if (!obj_location_data) return NULL;
 
@@ -407,7 +407,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_timestamp_of_location_estimate_move(data_collection_model_location_data_t *obj_location_data, char* p_timestamp_of_location_estimate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_timestamp_of_location_estimate_move(data_collection_model_location_data_t *obj_location_data, char* p_timestamp_of_location_estimate)
 {
     if (!obj_location_data) return NULL;
 
@@ -424,7 +424,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_velocity_estimate_t* data_collection_model_location_data_get_velocity_estimate(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_velocity_estimate_t* data_collection_model_location_data_get_velocity_estimate(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const data_collection_model_velocity_estimate_t *result = NULL;
@@ -443,7 +443,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_velocity
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_velocity_estimate(data_collection_model_location_data_t *obj_location_data, const data_collection_model_velocity_estimate_t* p_velocity_estimate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_velocity_estimate(data_collection_model_location_data_t *obj_location_data, const data_collection_model_velocity_estimate_t* p_velocity_estimate)
 {
     if (!obj_location_data) return NULL;
 
@@ -459,7 +459,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_velocity_estimate_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_velocity_estimate_t* p_velocity_estimate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_velocity_estimate_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_velocity_estimate_t* p_velocity_estimate)
 {
     if (!obj_location_data) return NULL;
 
@@ -476,7 +476,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_civic_address_t* data_collection_model_location_data_get_civic_address(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_civic_address_t* data_collection_model_location_data_get_civic_address(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const data_collection_model_civic_address_t *result = NULL;
@@ -495,7 +495,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_civic_ad
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_civic_address(data_collection_model_location_data_t *obj_location_data, const data_collection_model_civic_address_t* p_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_civic_address(data_collection_model_location_data_t *obj_location_data, const data_collection_model_civic_address_t* p_civic_address)
 {
     if (!obj_location_data) return NULL;
 
@@ -511,7 +511,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_civic_address_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_civic_address_t* p_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_civic_address_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_civic_address_t* p_civic_address)
 {
     if (!obj_location_data) return NULL;
 
@@ -528,7 +528,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_local_area_t* data_collection_model_location_data_get_local_location_estimate(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_local_area_t* data_collection_model_location_data_get_local_location_estimate(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const data_collection_model_local_area_t *result = NULL;
@@ -547,7 +547,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_local_ar
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_local_location_estimate(data_collection_model_location_data_t *obj_location_data, const data_collection_model_local_area_t* p_local_location_estimate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_local_location_estimate(data_collection_model_location_data_t *obj_location_data, const data_collection_model_local_area_t* p_local_location_estimate)
 {
     if (!obj_location_data) return NULL;
 
@@ -563,7 +563,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_local_location_estimate_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_local_area_t* p_local_location_estimate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_local_location_estimate_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_local_area_t* p_local_location_estimate)
 {
     if (!obj_location_data) return NULL;
 
@@ -580,7 +580,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_location_data_get_positioning_data_list(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_location_data_get_positioning_data_list(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         ogs_list_t *result = NULL;
@@ -607,7 +607,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_lo
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_positioning_data_list(data_collection_model_location_data_t *obj_location_data, const ogs_list_t* p_positioning_data_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_positioning_data_list(data_collection_model_location_data_t *obj_location_data, const ogs_list_t* p_positioning_data_list)
 {
     if (!obj_location_data) return NULL;
 
@@ -631,7 +631,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_positioning_data_list_move(data_collection_model_location_data_t *obj_location_data, ogs_list_t* p_positioning_data_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_positioning_data_list_move(data_collection_model_location_data_t *obj_location_data, ogs_list_t* p_positioning_data_list)
 {
     if (!obj_location_data) return NULL;
 
@@ -656,7 +656,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_add_positioning_data_list(data_collection_model_location_data_t *obj_location_data, data_collection_model_positioning_method_and_usage_t* p_positioning_data_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_add_positioning_data_list(data_collection_model_location_data_t *obj_location_data, data_collection_model_positioning_method_and_usage_t* p_positioning_data_list)
 {
     if (!obj_location_data) return NULL;
 
@@ -673,7 +673,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_remove_positioning_data_list(data_collection_model_location_data_t *obj_location_data, const data_collection_model_positioning_method_and_usage_t* p_positioning_data_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_remove_positioning_data_list(data_collection_model_location_data_t *obj_location_data, const data_collection_model_positioning_method_and_usage_t* p_positioning_data_list)
 {
     if (!obj_location_data) return NULL;
 
@@ -688,7 +688,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_clear_positioning_data_list(data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_clear_positioning_data_list(data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) return NULL;
 
@@ -699,7 +699,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_location_data_get_gnss_positioning_data_list(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_location_data_get_gnss_positioning_data_list(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         ogs_list_t *result = NULL;
@@ -726,7 +726,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_lo
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_gnss_positioning_data_list(data_collection_model_location_data_t *obj_location_data, const ogs_list_t* p_gnss_positioning_data_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_gnss_positioning_data_list(data_collection_model_location_data_t *obj_location_data, const ogs_list_t* p_gnss_positioning_data_list)
 {
     if (!obj_location_data) return NULL;
 
@@ -750,7 +750,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_gnss_positioning_data_list_move(data_collection_model_location_data_t *obj_location_data, ogs_list_t* p_gnss_positioning_data_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_gnss_positioning_data_list_move(data_collection_model_location_data_t *obj_location_data, ogs_list_t* p_gnss_positioning_data_list)
 {
     if (!obj_location_data) return NULL;
 
@@ -775,7 +775,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_add_gnss_positioning_data_list(data_collection_model_location_data_t *obj_location_data, data_collection_model_gnss_positioning_method_and_usage_t* p_gnss_positioning_data_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_add_gnss_positioning_data_list(data_collection_model_location_data_t *obj_location_data, data_collection_model_gnss_positioning_method_and_usage_t* p_gnss_positioning_data_list)
 {
     if (!obj_location_data) return NULL;
 
@@ -792,7 +792,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_remove_gnss_positioning_data_list(data_collection_model_location_data_t *obj_location_data, const data_collection_model_gnss_positioning_method_and_usage_t* p_gnss_positioning_data_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_remove_gnss_positioning_data_list(data_collection_model_location_data_t *obj_location_data, const data_collection_model_gnss_positioning_method_and_usage_t* p_gnss_positioning_data_list)
 {
     if (!obj_location_data) return NULL;
 
@@ -807,7 +807,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_clear_gnss_positioning_data_list(data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_clear_gnss_positioning_data_list(data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) return NULL;
 
@@ -818,7 +818,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ecgi_t* data_collection_model_location_data_get_ecgi(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ecgi_t* data_collection_model_location_data_get_ecgi(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const data_collection_model_ecgi_t *result = NULL;
@@ -837,7 +837,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ecgi_t* 
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_ecgi(data_collection_model_location_data_t *obj_location_data, const data_collection_model_ecgi_t* p_ecgi)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_ecgi(data_collection_model_location_data_t *obj_location_data, const data_collection_model_ecgi_t* p_ecgi)
 {
     if (!obj_location_data) return NULL;
 
@@ -853,7 +853,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_ecgi_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_ecgi_t* p_ecgi)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_ecgi_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_ecgi_t* p_ecgi)
 {
     if (!obj_location_data) return NULL;
 
@@ -870,7 +870,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ncgi_t* data_collection_model_location_data_get_ncgi(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ncgi_t* data_collection_model_location_data_get_ncgi(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const data_collection_model_ncgi_t *result = NULL;
@@ -889,7 +889,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ncgi_t* 
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_ncgi(data_collection_model_location_data_t *obj_location_data, const data_collection_model_ncgi_t* p_ncgi)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_ncgi(data_collection_model_location_data_t *obj_location_data, const data_collection_model_ncgi_t* p_ncgi)
 {
     if (!obj_location_data) return NULL;
 
@@ -905,7 +905,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_ncgi_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_ncgi_t* p_ncgi)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_ncgi_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_ncgi_t* p_ncgi)
 {
     if (!obj_location_data) return NULL;
 
@@ -922,7 +922,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const bool data_collection_model_location_data_is_remote_ue_ind(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_location_data_is_remote_ue_ind(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const bool result = 0;
@@ -941,7 +941,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const bool data_collection_model_loc
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_remote_ue_ind(data_collection_model_location_data_t *obj_location_data, const bool p_remote_ue_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_remote_ue_ind(data_collection_model_location_data_t *obj_location_data, const bool p_remote_ue_ind)
 {
     if (!obj_location_data) return NULL;
 
@@ -957,7 +957,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_remote_ue_ind_move(data_collection_model_location_data_t *obj_location_data, bool p_remote_ue_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_remote_ue_ind_move(data_collection_model_location_data_t *obj_location_data, bool p_remote_ue_ind)
 {
     if (!obj_location_data) return NULL;
 
@@ -974,7 +974,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_location_data_get_altitude(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const double data_collection_model_location_data_get_altitude(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const double result = 0;
@@ -993,7 +993,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_l
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_altitude(data_collection_model_location_data_t *obj_location_data, const double p_altitude)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_altitude(data_collection_model_location_data_t *obj_location_data, const double p_altitude)
 {
     if (!obj_location_data) return NULL;
 
@@ -1009,7 +1009,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_altitude_move(data_collection_model_location_data_t *obj_location_data, double p_altitude)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_altitude_move(data_collection_model_location_data_t *obj_location_data, double p_altitude)
 {
     if (!obj_location_data) return NULL;
 
@@ -1026,7 +1026,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_location_data_get_barometric_pressure(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_location_data_get_barometric_pressure(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const int32_t result = 0;
@@ -1045,7 +1045,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_barometric_pressure(data_collection_model_location_data_t *obj_location_data, const int32_t p_barometric_pressure)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_barometric_pressure(data_collection_model_location_data_t *obj_location_data, const int32_t p_barometric_pressure)
 {
     if (!obj_location_data) return NULL;
 
@@ -1061,7 +1061,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_barometric_pressure_move(data_collection_model_location_data_t *obj_location_data, int32_t p_barometric_pressure)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_barometric_pressure_move(data_collection_model_location_data_t *obj_location_data, int32_t p_barometric_pressure)
 {
     if (!obj_location_data) return NULL;
 
@@ -1078,7 +1078,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_location_data_get_serving_lmf_identification(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_location_data_get_serving_lmf_identification(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const char *result = NULL;
@@ -1097,7 +1097,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_lo
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_serving_lmf_identification(data_collection_model_location_data_t *obj_location_data, const char* p_serving_lmf_identification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_serving_lmf_identification(data_collection_model_location_data_t *obj_location_data, const char* p_serving_lmf_identification)
 {
     if (!obj_location_data) return NULL;
 
@@ -1113,7 +1113,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_serving_lmf_identification_move(data_collection_model_location_data_t *obj_location_data, char* p_serving_lmf_identification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_serving_lmf_identification_move(data_collection_model_location_data_t *obj_location_data, char* p_serving_lmf_identification)
 {
     if (!obj_location_data) return NULL;
 
@@ -1130,7 +1130,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const unsigned char* data_collection_model_location_data_get_ue_positioning_cap(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const unsigned char* data_collection_model_location_data_get_ue_positioning_cap(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const unsigned char *result = NULL;
@@ -1149,7 +1149,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const unsigned char* data_collection
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_ue_positioning_cap(data_collection_model_location_data_t *obj_location_data, const unsigned char* p_ue_positioning_cap)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_ue_positioning_cap(data_collection_model_location_data_t *obj_location_data, const unsigned char* p_ue_positioning_cap)
 {
     if (!obj_location_data) return NULL;
 
@@ -1165,7 +1165,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_ue_positioning_cap_move(data_collection_model_location_data_t *obj_location_data, unsigned char* p_ue_positioning_cap)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_ue_positioning_cap_move(data_collection_model_location_data_t *obj_location_data, unsigned char* p_ue_positioning_cap)
 {
     if (!obj_location_data) return NULL;
 
@@ -1182,7 +1182,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ue_area_indication_t* data_collection_model_location_data_get_ue_area_ind(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ue_area_indication_t* data_collection_model_location_data_get_ue_area_ind(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const data_collection_model_ue_area_indication_t *result = NULL;
@@ -1201,7 +1201,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_ue_area_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_ue_area_ind(data_collection_model_location_data_t *obj_location_data, const data_collection_model_ue_area_indication_t* p_ue_area_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_ue_area_ind(data_collection_model_location_data_t *obj_location_data, const data_collection_model_ue_area_indication_t* p_ue_area_ind)
 {
     if (!obj_location_data) return NULL;
 
@@ -1217,7 +1217,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_ue_area_ind_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_ue_area_indication_t* p_ue_area_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_ue_area_ind_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_ue_area_indication_t* p_ue_area_ind)
 {
     if (!obj_location_data) return NULL;
 
@@ -1234,7 +1234,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_location_data_get_supported_features(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_location_data_get_supported_features(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const char *result = NULL;
@@ -1253,7 +1253,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_lo
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_supported_features(data_collection_model_location_data_t *obj_location_data, const char* p_supported_features)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_supported_features(data_collection_model_location_data_t *obj_location_data, const char* p_supported_features)
 {
     if (!obj_location_data) return NULL;
 
@@ -1269,7 +1269,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_supported_features_move(data_collection_model_location_data_t *obj_location_data, char* p_supported_features)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_supported_features_move(data_collection_model_location_data_t *obj_location_data, char* p_supported_features)
 {
     if (!obj_location_data) return NULL;
 
@@ -1286,7 +1286,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_minor_location_qo_s_t* data_collection_model_location_data_get_achieved_qos(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_minor_location_qo_s_t* data_collection_model_location_data_get_achieved_qos(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const data_collection_model_minor_location_qo_s_t *result = NULL;
@@ -1305,7 +1305,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_minor_lo
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_achieved_qos(data_collection_model_location_data_t *obj_location_data, const data_collection_model_minor_location_qo_s_t* p_achieved_qos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_achieved_qos(data_collection_model_location_data_t *obj_location_data, const data_collection_model_minor_location_qo_s_t* p_achieved_qos)
 {
     if (!obj_location_data) return NULL;
 
@@ -1321,7 +1321,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_achieved_qos_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_minor_location_qo_s_t* p_achieved_qos)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_achieved_qos_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_minor_location_qo_s_t* p_achieved_qos)
 {
     if (!obj_location_data) return NULL;
 
@@ -1338,7 +1338,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const bool data_collection_model_location_data_is_direct_report_ind(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_location_data_is_direct_report_ind(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const bool result = 0;
@@ -1357,7 +1357,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const bool data_collection_model_loc
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_direct_report_ind(data_collection_model_location_data_t *obj_location_data, const bool p_direct_report_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_direct_report_ind(data_collection_model_location_data_t *obj_location_data, const bool p_direct_report_ind)
 {
     if (!obj_location_data) return NULL;
 
@@ -1373,7 +1373,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_direct_report_ind_move(data_collection_model_location_data_t *obj_location_data, bool p_direct_report_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_direct_report_ind_move(data_collection_model_location_data_t *obj_location_data, bool p_direct_report_ind)
 {
     if (!obj_location_data) return NULL;
 
@@ -1390,7 +1390,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_indoor_outdoor_ind_t* data_collection_model_location_data_get_indoor_outdoor_ind(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_indoor_outdoor_ind_t* data_collection_model_location_data_get_indoor_outdoor_ind(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const data_collection_model_indoor_outdoor_ind_t *result = NULL;
@@ -1409,7 +1409,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_indoor_o
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_indoor_outdoor_ind(data_collection_model_location_data_t *obj_location_data, const data_collection_model_indoor_outdoor_ind_t* p_indoor_outdoor_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_indoor_outdoor_ind(data_collection_model_location_data_t *obj_location_data, const data_collection_model_indoor_outdoor_ind_t* p_indoor_outdoor_ind)
 {
     if (!obj_location_data) return NULL;
 
@@ -1425,7 +1425,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_indoor_outdoor_ind_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_indoor_outdoor_ind_t* p_indoor_outdoor_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_indoor_outdoor_ind_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_indoor_outdoor_ind_t* p_indoor_outdoor_ind)
 {
     if (!obj_location_data) return NULL;
 
@@ -1442,7 +1442,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_periodic_event_info_t* data_collection_model_location_data_get_accepted_periodic_event_info(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_periodic_event_info_t* data_collection_model_location_data_get_accepted_periodic_event_info(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const data_collection_model_periodic_event_info_t *result = NULL;
@@ -1461,7 +1461,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_periodic
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_accepted_periodic_event_info(data_collection_model_location_data_t *obj_location_data, const data_collection_model_periodic_event_info_t* p_accepted_periodic_event_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_accepted_periodic_event_info(data_collection_model_location_data_t *obj_location_data, const data_collection_model_periodic_event_info_t* p_accepted_periodic_event_info)
 {
     if (!obj_location_data) return NULL;
 
@@ -1477,7 +1477,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_accepted_periodic_event_info_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_periodic_event_info_t* p_accepted_periodic_event_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_accepted_periodic_event_info_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_periodic_event_info_t* p_accepted_periodic_event_info)
 {
     if (!obj_location_data) return NULL;
 
@@ -1494,7 +1494,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_high_accuracy_gnss_metrics_t* data_collection_model_location_data_get_ha_gnss_metrics(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_high_accuracy_gnss_metrics_t* data_collection_model_location_data_get_ha_gnss_metrics(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const data_collection_model_high_accuracy_gnss_metrics_t *result = NULL;
@@ -1513,7 +1513,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_high_acc
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_ha_gnss_metrics(data_collection_model_location_data_t *obj_location_data, const data_collection_model_high_accuracy_gnss_metrics_t* p_ha_gnss_metrics)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_ha_gnss_metrics(data_collection_model_location_data_t *obj_location_data, const data_collection_model_high_accuracy_gnss_metrics_t* p_ha_gnss_metrics)
 {
     if (!obj_location_data) return NULL;
 
@@ -1529,7 +1529,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_ha_gnss_metrics_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_high_accuracy_gnss_metrics_t* p_ha_gnss_metrics)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_ha_gnss_metrics_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_high_accuracy_gnss_metrics_t* p_ha_gnss_metrics)
 {
     if (!obj_location_data) return NULL;
 
@@ -1546,7 +1546,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_los_nlos_measure_ind_t* data_collection_model_location_data_get_los_nlos_measure_ind(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_los_nlos_measure_ind_t* data_collection_model_location_data_get_los_nlos_measure_ind(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const data_collection_model_los_nlos_measure_ind_t *result = NULL;
@@ -1565,7 +1565,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_los_nlos
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_los_nlos_measure_ind(data_collection_model_location_data_t *obj_location_data, const data_collection_model_los_nlos_measure_ind_t* p_los_nlos_measure_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_los_nlos_measure_ind(data_collection_model_location_data_t *obj_location_data, const data_collection_model_los_nlos_measure_ind_t* p_los_nlos_measure_ind)
 {
     if (!obj_location_data) return NULL;
 
@@ -1581,7 +1581,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_los_nlos_measure_ind_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_los_nlos_measure_ind_t* p_los_nlos_measure_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_los_nlos_measure_ind_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_los_nlos_measure_ind_t* p_los_nlos_measure_ind)
 {
     if (!obj_location_data) return NULL;
 
@@ -1598,7 +1598,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_location_data_get_related_applicationlayer_id(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_location_data_get_related_applicationlayer_id(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const char *result = NULL;
@@ -1617,7 +1617,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_lo
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_related_applicationlayer_id(data_collection_model_location_data_t *obj_location_data, const char* p_related_applicationlayer_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_related_applicationlayer_id(data_collection_model_location_data_t *obj_location_data, const char* p_related_applicationlayer_id)
 {
     if (!obj_location_data) return NULL;
 
@@ -1633,7 +1633,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_related_applicationlayer_id_move(data_collection_model_location_data_t *obj_location_data, char* p_related_applicationlayer_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_related_applicationlayer_id_move(data_collection_model_location_data_t *obj_location_data, char* p_related_applicationlayer_id)
 {
     if (!obj_location_data) return NULL;
 
@@ -1650,7 +1650,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_range_direction_t* data_collection_model_location_data_get_distance_direction(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_range_direction_t* data_collection_model_location_data_get_distance_direction(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const data_collection_model_range_direction_t *result = NULL;
@@ -1669,7 +1669,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_range_di
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_distance_direction(data_collection_model_location_data_t *obj_location_data, const data_collection_model_range_direction_t* p_distance_direction)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_distance_direction(data_collection_model_location_data_t *obj_location_data, const data_collection_model_range_direction_t* p_distance_direction)
 {
     if (!obj_location_data) return NULL;
 
@@ -1685,7 +1685,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_distance_direction_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_range_direction_t* p_distance_direction)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_distance_direction_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_range_direction_t* p_distance_direction)
 {
     if (!obj_location_data) return NULL;
 
@@ -1702,7 +1702,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_r_2_d_relative_location_t* data_collection_model_location_data_get_r2d_relative_location(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_r_2_d_relative_location_t* data_collection_model_location_data_get_r2d_relative_location(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const data_collection_model_r_2_d_relative_location_t *result = NULL;
@@ -1721,7 +1721,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_r_2_d_re
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_r2d_relative_location(data_collection_model_location_data_t *obj_location_data, const data_collection_model_r_2_d_relative_location_t* p_r_2d_relative_location)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_r2d_relative_location(data_collection_model_location_data_t *obj_location_data, const data_collection_model_r_2_d_relative_location_t* p_r_2d_relative_location)
 {
     if (!obj_location_data) return NULL;
 
@@ -1737,7 +1737,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_r2d_relative_location_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_r_2_d_relative_location_t* p_r_2d_relative_location)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_r2d_relative_location_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_r_2_d_relative_location_t* p_r_2d_relative_location)
 {
     if (!obj_location_data) return NULL;
 
@@ -1754,7 +1754,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_r_3_d_relative_location_t* data_collection_model_location_data_get_r3d_relative_location(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_r_3_d_relative_location_t* data_collection_model_location_data_get_r3d_relative_location(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const data_collection_model_r_3_d_relative_location_t *result = NULL;
@@ -1773,7 +1773,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_r_3_d_re
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_r3d_relative_location(data_collection_model_location_data_t *obj_location_data, const data_collection_model_r_3_d_relative_location_t* p_r_3d_relative_location)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_r3d_relative_location(data_collection_model_location_data_t *obj_location_data, const data_collection_model_r_3_d_relative_location_t* p_r_3d_relative_location)
 {
     if (!obj_location_data) return NULL;
 
@@ -1789,7 +1789,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_r3d_relative_location_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_r_3_d_relative_location_t* p_r_3d_relative_location)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_r3d_relative_location_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_r_3_d_relative_location_t* p_r_3d_relative_location)
 {
     if (!obj_location_data) return NULL;
 
@@ -1806,7 +1806,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_velocity_estimate_t* data_collection_model_location_data_get_relative_velocity(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_velocity_estimate_t* data_collection_model_location_data_get_relative_velocity(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const data_collection_model_velocity_estimate_t *result = NULL;
@@ -1825,7 +1825,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_velocity
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_relative_velocity(data_collection_model_location_data_t *obj_location_data, const data_collection_model_velocity_estimate_t* p_relative_velocity)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_relative_velocity(data_collection_model_location_data_t *obj_location_data, const data_collection_model_velocity_estimate_t* p_relative_velocity)
 {
     if (!obj_location_data) return NULL;
 
@@ -1841,7 +1841,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_relative_velocity_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_velocity_estimate_t* p_relative_velocity)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_relative_velocity_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_velocity_estimate_t* p_relative_velocity)
 {
     if (!obj_location_data) return NULL;
 
@@ -1858,7 +1858,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const unsigned char* data_collection_model_location_data_get_ranging_sl_capability(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const unsigned char* data_collection_model_location_data_get_ranging_sl_capability(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const unsigned char *result = NULL;
@@ -1877,7 +1877,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const unsigned char* data_collection
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_ranging_sl_capability(data_collection_model_location_data_t *obj_location_data, const unsigned char* p_ranging_sl_capability)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_ranging_sl_capability(data_collection_model_location_data_t *obj_location_data, const unsigned char* p_ranging_sl_capability)
 {
     if (!obj_location_data) return NULL;
 
@@ -1893,7 +1893,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_ranging_sl_capability_move(data_collection_model_location_data_t *obj_location_data, unsigned char* p_ranging_sl_capability)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_ranging_sl_capability_move(data_collection_model_location_data_t *obj_location_data, unsigned char* p_ranging_sl_capability)
 {
     if (!obj_location_data) return NULL;
 
@@ -1910,7 +1910,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_integrity_result_t* data_collection_model_location_data_get_integrity_result(const data_collection_model_location_data_t *obj_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_integrity_result_t* data_collection_model_location_data_get_integrity_result(const data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) {
         const data_collection_model_integrity_result_t *result = NULL;
@@ -1929,7 +1929,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_integrit
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_integrity_result(data_collection_model_location_data_t *obj_location_data, const data_collection_model_integrity_result_t* p_integrity_result)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_integrity_result(data_collection_model_location_data_t *obj_location_data, const data_collection_model_integrity_result_t* p_integrity_result)
 {
     if (!obj_location_data) return NULL;
 
@@ -1945,7 +1945,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
     return obj_location_data;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_t *data_collection_model_location_data_set_integrity_result_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_integrity_result_t* p_integrity_result)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_set_integrity_result_move(data_collection_model_location_data_t *obj_location_data, data_collection_model_integrity_result_t* p_integrity_result)
 {
     if (!obj_location_data) return NULL;
 
@@ -1963,7 +1963,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_location_data_
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_location_data_make_lnode(data_collection_model_location_data_t *p_location_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_location_data_make_lnode(data_collection_model_location_data_t *p_location_data)
 {
     return data_collection_lnode_create(p_location_data, reinterpret_cast<void(*)(void*)>(data_collection_model_location_data_free));
 }

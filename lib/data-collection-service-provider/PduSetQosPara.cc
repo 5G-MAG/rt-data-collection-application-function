@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_create(
 
 
 )
@@ -33,7 +33,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_pa
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_create_copy(const data_collection_model_pdu_set_qos_para_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_create_copy(const data_collection_model_pdu_set_qos_para_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<PduSetQosPara > &obj = *reinterpret_cast<const std::shared_ptr<PduSetQosPara >*>(other);
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_pa
     return reinterpret_cast<data_collection_model_pdu_set_qos_para_t*>(new std::shared_ptr<PduSetQosPara >(new PduSetQosPara(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_create_move(data_collection_model_pdu_set_qos_para_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_create_move(data_collection_model_pdu_set_qos_para_t *other)
 {
     if (!other) return NULL;
 
@@ -54,7 +54,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_pa
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_copy(data_collection_model_pdu_set_qos_para_t *pdu_set_qos_para, const data_collection_model_pdu_set_qos_para_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_copy(data_collection_model_pdu_set_qos_para_t *pdu_set_qos_para, const data_collection_model_pdu_set_qos_para_t *other)
 {
     if (pdu_set_qos_para) {
         std::shared_ptr<PduSetQosPara > &obj = *reinterpret_cast<std::shared_ptr<PduSetQosPara >*>(pdu_set_qos_para);
@@ -83,7 +83,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_pa
     return pdu_set_qos_para;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_move(data_collection_model_pdu_set_qos_para_t *pdu_set_qos_para, data_collection_model_pdu_set_qos_para_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_move(data_collection_model_pdu_set_qos_para_t *pdu_set_qos_para, data_collection_model_pdu_set_qos_para_t *other)
 {
     std::shared_ptr<PduSetQosPara > *other_ptr = reinterpret_cast<std::shared_ptr<PduSetQosPara >*>(other);
 
@@ -107,13 +107,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_pa
     return pdu_set_qos_para;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_pdu_set_qos_para_free(data_collection_model_pdu_set_qos_para_t *pdu_set_qos_para)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_pdu_set_qos_para_free(data_collection_model_pdu_set_qos_para_t *pdu_set_qos_para)
 {
     if (!pdu_set_qos_para) return;
     delete reinterpret_cast<std::shared_ptr<PduSetQosPara >*>(pdu_set_qos_para);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_pdu_set_qos_para_toJSON(const data_collection_model_pdu_set_qos_para_t *pdu_set_qos_para, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_pdu_set_qos_para_toJSON(const data_collection_model_pdu_set_qos_para_t *pdu_set_qos_para, bool as_request)
 {
     if (!pdu_set_qos_para) return NULL;
     const std::shared_ptr<PduSetQosPara > &obj = *reinterpret_cast<const std::shared_ptr<PduSetQosPara >*>(pdu_set_qos_para);
@@ -122,7 +122,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_pdu_set
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -135,7 +135,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_pa
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_pdu_set_qos_para_is_equal_to(const data_collection_model_pdu_set_qos_para_t *first, const data_collection_model_pdu_set_qos_para_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_qos_para_is_equal_to(const data_collection_model_pdu_set_qos_para_t *first, const data_collection_model_pdu_set_qos_para_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -160,7 +160,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_pdu_set_q
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_pdu_set_qos_para_get_pdu_set_delay_budget(const data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_pdu_set_qos_para_get_pdu_set_delay_budget(const data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para)
 {
     if (!obj_pdu_set_qos_para) {
         const int32_t result = 0;
@@ -179,7 +179,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_set_pdu_set_delay_budget(data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para, const int32_t p_pdu_set_delay_budget)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_set_pdu_set_delay_budget(data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para, const int32_t p_pdu_set_delay_budget)
 {
     if (!obj_pdu_set_qos_para) return NULL;
 
@@ -195,7 +195,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_pa
     return obj_pdu_set_qos_para;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_set_pdu_set_delay_budget_move(data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para, int32_t p_pdu_set_delay_budget)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_set_pdu_set_delay_budget_move(data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para, int32_t p_pdu_set_delay_budget)
 {
     if (!obj_pdu_set_qos_para) return NULL;
 
@@ -212,7 +212,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_pa
     return obj_pdu_set_qos_para;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pdu_set_qos_para_get_pdu_set_err_rate(const data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pdu_set_qos_para_get_pdu_set_err_rate(const data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para)
 {
     if (!obj_pdu_set_qos_para) {
         const char *result = NULL;
@@ -231,7 +231,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_pd
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_set_pdu_set_err_rate(data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para, const char* p_pdu_set_err_rate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_set_pdu_set_err_rate(data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para, const char* p_pdu_set_err_rate)
 {
     if (!obj_pdu_set_qos_para) return NULL;
 
@@ -247,7 +247,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_pa
     return obj_pdu_set_qos_para;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_set_pdu_set_err_rate_move(data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para, char* p_pdu_set_err_rate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_set_pdu_set_err_rate_move(data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para, char* p_pdu_set_err_rate)
 {
     if (!obj_pdu_set_qos_para) return NULL;
 
@@ -264,7 +264,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_pa
     return obj_pdu_set_qos_para;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_pdu_set_handling_info_t* data_collection_model_pdu_set_qos_para_get_pdu_set_handling_info(const data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_pdu_set_handling_info_t* data_collection_model_pdu_set_qos_para_get_pdu_set_handling_info(const data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para)
 {
     if (!obj_pdu_set_qos_para) {
         const data_collection_model_pdu_set_handling_info_t *result = NULL;
@@ -283,7 +283,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_pdu_set_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_set_pdu_set_handling_info(data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para, const data_collection_model_pdu_set_handling_info_t* p_pdu_set_handling_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_set_pdu_set_handling_info(data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para, const data_collection_model_pdu_set_handling_info_t* p_pdu_set_handling_info)
 {
     if (!obj_pdu_set_qos_para) return NULL;
 
@@ -299,7 +299,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_pa
     return obj_pdu_set_qos_para;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_set_pdu_set_handling_info_move(data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para, data_collection_model_pdu_set_handling_info_t* p_pdu_set_handling_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_qos_para_t *data_collection_model_pdu_set_qos_para_set_pdu_set_handling_info_move(data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para, data_collection_model_pdu_set_handling_info_t* p_pdu_set_handling_info)
 {
     if (!obj_pdu_set_qos_para) return NULL;
 
@@ -317,7 +317,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_pdu_set_qos_pa
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_pdu_set_qos_para_make_lnode(data_collection_model_pdu_set_qos_para_t *p_pdu_set_qos_para)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_pdu_set_qos_para_make_lnode(data_collection_model_pdu_set_qos_para_t *p_pdu_set_qos_para)
 {
     return data_collection_lnode_create(p_pdu_set_qos_para, reinterpret_cast<void(*)(void*)>(data_collection_model_pdu_set_qos_para_free));
 }

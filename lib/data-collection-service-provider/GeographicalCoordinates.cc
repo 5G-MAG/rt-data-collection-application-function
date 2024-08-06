@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_create(
 
 )
 {
@@ -33,7 +33,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_c
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_create_copy(const data_collection_model_geographical_coordinates_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_create_copy(const data_collection_model_geographical_coordinates_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<GeographicalCoordinates > &obj = *reinterpret_cast<const std::shared_ptr<GeographicalCoordinates >*>(other);
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_c
     return reinterpret_cast<data_collection_model_geographical_coordinates_t*>(new std::shared_ptr<GeographicalCoordinates >(new GeographicalCoordinates(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_create_move(data_collection_model_geographical_coordinates_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_create_move(data_collection_model_geographical_coordinates_t *other)
 {
     if (!other) return NULL;
 
@@ -54,7 +54,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_c
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_copy(data_collection_model_geographical_coordinates_t *geographical_coordinates, const data_collection_model_geographical_coordinates_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_copy(data_collection_model_geographical_coordinates_t *geographical_coordinates, const data_collection_model_geographical_coordinates_t *other)
 {
     if (geographical_coordinates) {
         std::shared_ptr<GeographicalCoordinates > &obj = *reinterpret_cast<std::shared_ptr<GeographicalCoordinates >*>(geographical_coordinates);
@@ -83,7 +83,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_c
     return geographical_coordinates;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_move(data_collection_model_geographical_coordinates_t *geographical_coordinates, data_collection_model_geographical_coordinates_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_move(data_collection_model_geographical_coordinates_t *geographical_coordinates, data_collection_model_geographical_coordinates_t *other)
 {
     std::shared_ptr<GeographicalCoordinates > *other_ptr = reinterpret_cast<std::shared_ptr<GeographicalCoordinates >*>(other);
 
@@ -107,13 +107,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_c
     return geographical_coordinates;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_geographical_coordinates_free(data_collection_model_geographical_coordinates_t *geographical_coordinates)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_geographical_coordinates_free(data_collection_model_geographical_coordinates_t *geographical_coordinates)
 {
     if (!geographical_coordinates) return;
     delete reinterpret_cast<std::shared_ptr<GeographicalCoordinates >*>(geographical_coordinates);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_geographical_coordinates_toJSON(const data_collection_model_geographical_coordinates_t *geographical_coordinates, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_geographical_coordinates_toJSON(const data_collection_model_geographical_coordinates_t *geographical_coordinates, bool as_request)
 {
     if (!geographical_coordinates) return NULL;
     const std::shared_ptr<GeographicalCoordinates > &obj = *reinterpret_cast<const std::shared_ptr<GeographicalCoordinates >*>(geographical_coordinates);
@@ -122,7 +122,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_geograp
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -135,7 +135,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_c
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_geographical_coordinates_is_equal_to(const data_collection_model_geographical_coordinates_t *first, const data_collection_model_geographical_coordinates_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_geographical_coordinates_is_equal_to(const data_collection_model_geographical_coordinates_t *first, const data_collection_model_geographical_coordinates_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -160,7 +160,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_geographi
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_geographical_coordinates_get_lon(const data_collection_model_geographical_coordinates_t *obj_geographical_coordinates)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const double data_collection_model_geographical_coordinates_get_lon(const data_collection_model_geographical_coordinates_t *obj_geographical_coordinates)
 {
     if (!obj_geographical_coordinates) {
         const double result = 0;
@@ -179,7 +179,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_g
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_set_lon(data_collection_model_geographical_coordinates_t *obj_geographical_coordinates, const double p_lon)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_set_lon(data_collection_model_geographical_coordinates_t *obj_geographical_coordinates, const double p_lon)
 {
     if (!obj_geographical_coordinates) return NULL;
 
@@ -195,7 +195,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_c
     return obj_geographical_coordinates;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_set_lon_move(data_collection_model_geographical_coordinates_t *obj_geographical_coordinates, double p_lon)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_set_lon_move(data_collection_model_geographical_coordinates_t *obj_geographical_coordinates, double p_lon)
 {
     if (!obj_geographical_coordinates) return NULL;
 
@@ -212,7 +212,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_c
     return obj_geographical_coordinates;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_geographical_coordinates_get_lat(const data_collection_model_geographical_coordinates_t *obj_geographical_coordinates)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const double data_collection_model_geographical_coordinates_get_lat(const data_collection_model_geographical_coordinates_t *obj_geographical_coordinates)
 {
     if (!obj_geographical_coordinates) {
         const double result = 0;
@@ -231,7 +231,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_g
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_set_lat(data_collection_model_geographical_coordinates_t *obj_geographical_coordinates, const double p_lat)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_set_lat(data_collection_model_geographical_coordinates_t *obj_geographical_coordinates, const double p_lat)
 {
     if (!obj_geographical_coordinates) return NULL;
 
@@ -247,7 +247,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_c
     return obj_geographical_coordinates;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_set_lat_move(data_collection_model_geographical_coordinates_t *obj_geographical_coordinates, double p_lat)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographical_coordinates_t *data_collection_model_geographical_coordinates_set_lat_move(data_collection_model_geographical_coordinates_t *obj_geographical_coordinates, double p_lat)
 {
     if (!obj_geographical_coordinates) return NULL;
 
@@ -265,7 +265,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_geographical_c
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_geographical_coordinates_make_lnode(data_collection_model_geographical_coordinates_t *p_geographical_coordinates)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_geographical_coordinates_make_lnode(data_collection_model_geographical_coordinates_t *p_geographical_coordinates)
 {
     return data_collection_lnode_create(p_geographical_coordinates, reinterpret_cast<void(*)(void*)>(data_collection_model_geographical_coordinates_free));
 }

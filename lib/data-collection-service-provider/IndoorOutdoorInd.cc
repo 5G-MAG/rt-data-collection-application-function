@@ -22,12 +22,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_indoor_outdoor_ind_t *data_collection_model_indoor_outdoor_ind_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_indoor_outdoor_ind_t *data_collection_model_indoor_outdoor_ind_create()
 {
     return reinterpret_cast<data_collection_model_indoor_outdoor_ind_t*>(new std::shared_ptr<IndoorOutdoorInd>(new IndoorOutdoorInd()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_indoor_outdoor_ind_t *data_collection_model_indoor_outdoor_ind_create_copy(const data_collection_model_indoor_outdoor_ind_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_indoor_outdoor_ind_t *data_collection_model_indoor_outdoor_ind_create_copy(const data_collection_model_indoor_outdoor_ind_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<IndoorOutdoorInd > &obj = *reinterpret_cast<const std::shared_ptr<IndoorOutdoorInd >*>(other);
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_indoor_outdoor
     return reinterpret_cast<data_collection_model_indoor_outdoor_ind_t*>(new std::shared_ptr<IndoorOutdoorInd >(new IndoorOutdoorInd(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_indoor_outdoor_ind_t *data_collection_model_indoor_outdoor_ind_create_move(data_collection_model_indoor_outdoor_ind_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_indoor_outdoor_ind_t *data_collection_model_indoor_outdoor_ind_create_move(data_collection_model_indoor_outdoor_ind_t *other)
 {
     if (!other) return NULL;
 
@@ -48,7 +48,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_indoor_outdoor
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_indoor_outdoor_ind_t *data_collection_model_indoor_outdoor_ind_copy(data_collection_model_indoor_outdoor_ind_t *indoor_outdoor_ind, const data_collection_model_indoor_outdoor_ind_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_indoor_outdoor_ind_t *data_collection_model_indoor_outdoor_ind_copy(data_collection_model_indoor_outdoor_ind_t *indoor_outdoor_ind, const data_collection_model_indoor_outdoor_ind_t *other)
 {
     if (indoor_outdoor_ind) {
         std::shared_ptr<IndoorOutdoorInd > &obj = *reinterpret_cast<std::shared_ptr<IndoorOutdoorInd >*>(indoor_outdoor_ind);
@@ -77,7 +77,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_indoor_outdoor
     return indoor_outdoor_ind;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_indoor_outdoor_ind_t *data_collection_model_indoor_outdoor_ind_move(data_collection_model_indoor_outdoor_ind_t *indoor_outdoor_ind, data_collection_model_indoor_outdoor_ind_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_indoor_outdoor_ind_t *data_collection_model_indoor_outdoor_ind_move(data_collection_model_indoor_outdoor_ind_t *indoor_outdoor_ind, data_collection_model_indoor_outdoor_ind_t *other)
 {
     std::shared_ptr<IndoorOutdoorInd > *other_ptr = reinterpret_cast<std::shared_ptr<IndoorOutdoorInd >*>(other);
 
@@ -101,13 +101,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_indoor_outdoor
     return indoor_outdoor_ind;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_indoor_outdoor_ind_free(data_collection_model_indoor_outdoor_ind_t *indoor_outdoor_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_indoor_outdoor_ind_free(data_collection_model_indoor_outdoor_ind_t *indoor_outdoor_ind)
 {
     if (!indoor_outdoor_ind) return;
     delete reinterpret_cast<std::shared_ptr<IndoorOutdoorInd >*>(indoor_outdoor_ind);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_indoor_outdoor_ind_toJSON(const data_collection_model_indoor_outdoor_ind_t *indoor_outdoor_ind, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_indoor_outdoor_ind_toJSON(const data_collection_model_indoor_outdoor_ind_t *indoor_outdoor_ind, bool as_request)
 {
     if (!indoor_outdoor_ind) return NULL;
     const std::shared_ptr<IndoorOutdoorInd > &obj = *reinterpret_cast<const std::shared_ptr<IndoorOutdoorInd >*>(indoor_outdoor_ind);
@@ -116,7 +116,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_indoor_
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_indoor_outdoor_ind_t *data_collection_model_indoor_outdoor_ind_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_indoor_outdoor_ind_t *data_collection_model_indoor_outdoor_ind_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -129,7 +129,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_indoor_outdoor
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_indoor_outdoor_ind_is_equal_to(const data_collection_model_indoor_outdoor_ind_t *first, const data_collection_model_indoor_outdoor_ind_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_indoor_outdoor_ind_is_equal_to(const data_collection_model_indoor_outdoor_ind_t *first, const data_collection_model_indoor_outdoor_ind_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -154,7 +154,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_indoor_ou
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_indoor_outdoor_ind_is_not_set(const data_collection_model_indoor_outdoor_ind_t *obj_indoor_outdoor_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_indoor_outdoor_ind_is_not_set(const data_collection_model_indoor_outdoor_ind_t *obj_indoor_outdoor_ind)
 {
     if (!obj_indoor_outdoor_ind) return true;
     const std::shared_ptr<IndoorOutdoorInd > &obj = *reinterpret_cast<const std::shared_ptr<IndoorOutdoorInd >*>(obj_indoor_outdoor_ind);
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_indoor_outdoor_ind_i
     return obj->getValue() == IndoorOutdoorInd::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_indoor_outdoor_ind_is_non_standard(const data_collection_model_indoor_outdoor_ind_t *obj_indoor_outdoor_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_indoor_outdoor_ind_is_non_standard(const data_collection_model_indoor_outdoor_ind_t *obj_indoor_outdoor_ind)
 {
     if (!obj_indoor_outdoor_ind) return false;
     const std::shared_ptr<IndoorOutdoorInd > &obj = *reinterpret_cast<const std::shared_ptr<IndoorOutdoorInd >*>(obj_indoor_outdoor_ind);
@@ -170,7 +170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_indoor_outdoor_ind_i
     return obj->getValue() == IndoorOutdoorInd::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_indoor_outdoor_ind_e data_collection_model_indoor_outdoor_ind_get_enum(const data_collection_model_indoor_outdoor_ind_t *obj_indoor_outdoor_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_indoor_outdoor_ind_e data_collection_model_indoor_outdoor_ind_get_enum(const data_collection_model_indoor_outdoor_ind_t *obj_indoor_outdoor_ind)
 {
     if (!obj_indoor_outdoor_ind)
         return DCM_INDOOR_OUTDOOR_IND_NO_VAL;
@@ -189,7 +189,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_indoor_outdoor_ind_e data
     return DCM_INDOOR_OUTDOOR_IND_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_indoor_outdoor_ind_get_string(const data_collection_model_indoor_outdoor_ind_t *obj_indoor_outdoor_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_indoor_outdoor_ind_get_string(const data_collection_model_indoor_outdoor_ind_t *obj_indoor_outdoor_ind)
 {
     if (!obj_indoor_outdoor_ind) return NULL;
     const std::shared_ptr<IndoorOutdoorInd > &obj = *reinterpret_cast<const std::shared_ptr<IndoorOutdoorInd >*>(obj_indoor_outdoor_ind);
@@ -197,7 +197,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_indoor_outdoo
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_indoor_outdoor_ind_set_enum(data_collection_model_indoor_outdoor_ind_t *obj_indoor_outdoor_ind, data_collection_model_indoor_outdoor_ind_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_indoor_outdoor_ind_set_enum(data_collection_model_indoor_outdoor_ind_t *obj_indoor_outdoor_ind, data_collection_model_indoor_outdoor_ind_e p_value)
 {
     if (!obj_indoor_outdoor_ind) return false;
     std::shared_ptr<IndoorOutdoorInd > &obj = *reinterpret_cast<std::shared_ptr<IndoorOutdoorInd >*>(obj_indoor_outdoor_ind);
@@ -218,7 +218,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_indoor_outdoor_ind_s
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_indoor_outdoor_ind_set_string(data_collection_model_indoor_outdoor_ind_t *obj_indoor_outdoor_ind, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_indoor_outdoor_ind_set_string(data_collection_model_indoor_outdoor_ind_t *obj_indoor_outdoor_ind, const char *p_value)
 {
     if (!obj_indoor_outdoor_ind) return false;
     std::shared_ptr<IndoorOutdoorInd > &obj = *reinterpret_cast<std::shared_ptr<IndoorOutdoorInd >*>(obj_indoor_outdoor_ind);
@@ -233,7 +233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_indoor_outdoor_ind_s
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_indoor_outdoor_ind_make_lnode(data_collection_model_indoor_outdoor_ind_t *p_indoor_outdoor_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_indoor_outdoor_ind_make_lnode(data_collection_model_indoor_outdoor_ind_t *p_indoor_outdoor_ind)
 {
     return data_collection_lnode_create(p_indoor_outdoor_ind, reinterpret_cast<void(*)(void*)>(data_collection_model_indoor_outdoor_ind_free));
 }

@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_create(
 
 
 
@@ -37,7 +37,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_create_copy(const data_collection_model_rtp_header_ext_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_create_copy(const data_collection_model_rtp_header_ext_info_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<RtpHeaderExtInfo > &obj = *reinterpret_cast<const std::shared_ptr<RtpHeaderExtInfo >*>(other);
@@ -45,7 +45,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext
     return reinterpret_cast<data_collection_model_rtp_header_ext_info_t*>(new std::shared_ptr<RtpHeaderExtInfo >(new RtpHeaderExtInfo(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_create_move(data_collection_model_rtp_header_ext_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_create_move(data_collection_model_rtp_header_ext_info_t *other)
 {
     if (!other) return NULL;
 
@@ -58,7 +58,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_copy(data_collection_model_rtp_header_ext_info_t *rtp_header_ext_info, const data_collection_model_rtp_header_ext_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_copy(data_collection_model_rtp_header_ext_info_t *rtp_header_ext_info, const data_collection_model_rtp_header_ext_info_t *other)
 {
     if (rtp_header_ext_info) {
         std::shared_ptr<RtpHeaderExtInfo > &obj = *reinterpret_cast<std::shared_ptr<RtpHeaderExtInfo >*>(rtp_header_ext_info);
@@ -87,7 +87,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext
     return rtp_header_ext_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_move(data_collection_model_rtp_header_ext_info_t *rtp_header_ext_info, data_collection_model_rtp_header_ext_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_move(data_collection_model_rtp_header_ext_info_t *rtp_header_ext_info, data_collection_model_rtp_header_ext_info_t *other)
 {
     std::shared_ptr<RtpHeaderExtInfo > *other_ptr = reinterpret_cast<std::shared_ptr<RtpHeaderExtInfo >*>(other);
 
@@ -111,13 +111,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext
     return rtp_header_ext_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_rtp_header_ext_info_free(data_collection_model_rtp_header_ext_info_t *rtp_header_ext_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_rtp_header_ext_info_free(data_collection_model_rtp_header_ext_info_t *rtp_header_ext_info)
 {
     if (!rtp_header_ext_info) return;
     delete reinterpret_cast<std::shared_ptr<RtpHeaderExtInfo >*>(rtp_header_ext_info);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_rtp_header_ext_info_toJSON(const data_collection_model_rtp_header_ext_info_t *rtp_header_ext_info, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_rtp_header_ext_info_toJSON(const data_collection_model_rtp_header_ext_info_t *rtp_header_ext_info, bool as_request)
 {
     if (!rtp_header_ext_info) return NULL;
     const std::shared_ptr<RtpHeaderExtInfo > &obj = *reinterpret_cast<const std::shared_ptr<RtpHeaderExtInfo >*>(rtp_header_ext_info);
@@ -126,7 +126,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_rtp_hea
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -139,7 +139,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_rtp_header_ext_info_is_equal_to(const data_collection_model_rtp_header_ext_info_t *first, const data_collection_model_rtp_header_ext_info_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_header_ext_info_is_equal_to(const data_collection_model_rtp_header_ext_info_t *first, const data_collection_model_rtp_header_ext_info_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -164,7 +164,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_rtp_heade
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_rtp_header_ext_type_t* data_collection_model_rtp_header_ext_info_get_rtp_header_ext_type(const data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_rtp_header_ext_type_t* data_collection_model_rtp_header_ext_info_get_rtp_header_ext_type(const data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info)
 {
     if (!obj_rtp_header_ext_info) {
         const data_collection_model_rtp_header_ext_type_t *result = NULL;
@@ -183,7 +183,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_rtp_head
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_set_rtp_header_ext_type(data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info, const data_collection_model_rtp_header_ext_type_t* p_rtp_header_ext_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_set_rtp_header_ext_type(data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info, const data_collection_model_rtp_header_ext_type_t* p_rtp_header_ext_type)
 {
     if (!obj_rtp_header_ext_info) return NULL;
 
@@ -199,7 +199,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext
     return obj_rtp_header_ext_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_set_rtp_header_ext_type_move(data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info, data_collection_model_rtp_header_ext_type_t* p_rtp_header_ext_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_set_rtp_header_ext_type_move(data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info, data_collection_model_rtp_header_ext_type_t* p_rtp_header_ext_type)
 {
     if (!obj_rtp_header_ext_info) return NULL;
 
@@ -216,7 +216,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext
     return obj_rtp_header_ext_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_rtp_header_ext_info_get_rtp_header_ext_id(const data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_rtp_header_ext_info_get_rtp_header_ext_id(const data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info)
 {
     if (!obj_rtp_header_ext_info) {
         const int32_t result = 0;
@@ -235,7 +235,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_set_rtp_header_ext_id(data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info, const int32_t p_rtp_header_ext_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_set_rtp_header_ext_id(data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info, const int32_t p_rtp_header_ext_id)
 {
     if (!obj_rtp_header_ext_info) return NULL;
 
@@ -251,7 +251,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext
     return obj_rtp_header_ext_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_set_rtp_header_ext_id_move(data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info, int32_t p_rtp_header_ext_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_set_rtp_header_ext_id_move(data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info, int32_t p_rtp_header_ext_id)
 {
     if (!obj_rtp_header_ext_info) return NULL;
 
@@ -268,7 +268,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext
     return obj_rtp_header_ext_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const bool data_collection_model_rtp_header_ext_info_is_long_format(const data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_rtp_header_ext_info_is_long_format(const data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info)
 {
     if (!obj_rtp_header_ext_info) {
         const bool result = 0;
@@ -287,7 +287,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const bool data_collection_model_rtp
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_set_long_format(data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info, const bool p_long_format)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_set_long_format(data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info, const bool p_long_format)
 {
     if (!obj_rtp_header_ext_info) return NULL;
 
@@ -303,7 +303,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext
     return obj_rtp_header_ext_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_set_long_format_move(data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info, bool p_long_format)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_set_long_format_move(data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info, bool p_long_format)
 {
     if (!obj_rtp_header_ext_info) return NULL;
 
@@ -320,7 +320,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext
     return obj_rtp_header_ext_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const bool data_collection_model_rtp_header_ext_info_is_pdu_set_size_active(const data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_rtp_header_ext_info_is_pdu_set_size_active(const data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info)
 {
     if (!obj_rtp_header_ext_info) {
         const bool result = 0;
@@ -339,7 +339,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const bool data_collection_model_rtp
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_set_pdu_set_size_active(data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info, const bool p_pdu_set_size_active)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_set_pdu_set_size_active(data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info, const bool p_pdu_set_size_active)
 {
     if (!obj_rtp_header_ext_info) return NULL;
 
@@ -355,7 +355,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext
     return obj_rtp_header_ext_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_set_pdu_set_size_active_move(data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info, bool p_pdu_set_size_active)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_set_pdu_set_size_active_move(data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info, bool p_pdu_set_size_active)
 {
     if (!obj_rtp_header_ext_info) return NULL;
 
@@ -373,7 +373,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_header_ext
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_rtp_header_ext_info_make_lnode(data_collection_model_rtp_header_ext_info_t *p_rtp_header_ext_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_rtp_header_ext_info_make_lnode(data_collection_model_rtp_header_ext_info_t *p_rtp_header_ext_info)
 {
     return data_collection_lnode_create(p_rtp_header_ext_info, reinterpret_cast<void(*)(void*)>(data_collection_model_rtp_header_ext_info_free));
 }

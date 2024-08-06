@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_create(
 
 
 
@@ -39,7 +39,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_create_copy(const data_collection_model_ue_mobility_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_create_copy(const data_collection_model_ue_mobility_collection_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<UeMobilityCollection > &obj = *reinterpret_cast<const std::shared_ptr<UeMobilityCollection >*>(other);
@@ -47,7 +47,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
     return reinterpret_cast<data_collection_model_ue_mobility_collection_t*>(new std::shared_ptr<UeMobilityCollection >(new UeMobilityCollection(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_create_move(data_collection_model_ue_mobility_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_create_move(data_collection_model_ue_mobility_collection_t *other)
 {
     if (!other) return NULL;
 
@@ -60,7 +60,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_copy(data_collection_model_ue_mobility_collection_t *ue_mobility_collection, const data_collection_model_ue_mobility_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_copy(data_collection_model_ue_mobility_collection_t *ue_mobility_collection, const data_collection_model_ue_mobility_collection_t *other)
 {
     if (ue_mobility_collection) {
         std::shared_ptr<UeMobilityCollection > &obj = *reinterpret_cast<std::shared_ptr<UeMobilityCollection >*>(ue_mobility_collection);
@@ -89,7 +89,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
     return ue_mobility_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_move(data_collection_model_ue_mobility_collection_t *ue_mobility_collection, data_collection_model_ue_mobility_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_move(data_collection_model_ue_mobility_collection_t *ue_mobility_collection, data_collection_model_ue_mobility_collection_t *other)
 {
     std::shared_ptr<UeMobilityCollection > *other_ptr = reinterpret_cast<std::shared_ptr<UeMobilityCollection >*>(other);
 
@@ -113,13 +113,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
     return ue_mobility_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_ue_mobility_collection_free(data_collection_model_ue_mobility_collection_t *ue_mobility_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_ue_mobility_collection_free(data_collection_model_ue_mobility_collection_t *ue_mobility_collection)
 {
     if (!ue_mobility_collection) return;
     delete reinterpret_cast<std::shared_ptr<UeMobilityCollection >*>(ue_mobility_collection);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_ue_mobility_collection_toJSON(const data_collection_model_ue_mobility_collection_t *ue_mobility_collection, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_ue_mobility_collection_toJSON(const data_collection_model_ue_mobility_collection_t *ue_mobility_collection, bool as_request)
 {
     if (!ue_mobility_collection) return NULL;
     const std::shared_ptr<UeMobilityCollection > &obj = *reinterpret_cast<const std::shared_ptr<UeMobilityCollection >*>(ue_mobility_collection);
@@ -128,7 +128,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_ue_mobi
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -141,7 +141,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ue_mobility_collection_is_equal_to(const data_collection_model_ue_mobility_collection_t *first, const data_collection_model_ue_mobility_collection_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ue_mobility_collection_is_equal_to(const data_collection_model_ue_mobility_collection_t *first, const data_collection_model_ue_mobility_collection_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -166,7 +166,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ue_mobili
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ue_mobility_collection_get_gpsi(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue_mobility_collection_get_gpsi(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
 {
     if (!obj_ue_mobility_collection) {
         const char *result = NULL;
@@ -185,7 +185,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ue
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_gpsi(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, const char* p_gpsi)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_gpsi(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, const char* p_gpsi)
 {
     if (!obj_ue_mobility_collection) return NULL;
 
@@ -201,7 +201,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
     return obj_ue_mobility_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_gpsi_move(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, char* p_gpsi)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_gpsi_move(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, char* p_gpsi)
 {
     if (!obj_ue_mobility_collection) return NULL;
 
@@ -218,7 +218,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
     return obj_ue_mobility_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ue_mobility_collection_get_supi(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue_mobility_collection_get_supi(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
 {
     if (!obj_ue_mobility_collection) {
         const char *result = NULL;
@@ -237,7 +237,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ue
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_supi(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, const char* p_supi)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_supi(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, const char* p_supi)
 {
     if (!obj_ue_mobility_collection) return NULL;
 
@@ -253,7 +253,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
     return obj_ue_mobility_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_supi_move(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, char* p_supi)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_supi_move(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, char* p_supi)
 {
     if (!obj_ue_mobility_collection) return NULL;
 
@@ -270,7 +270,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
     return obj_ue_mobility_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ue_mobility_collection_get_app_id(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue_mobility_collection_get_app_id(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
 {
     if (!obj_ue_mobility_collection) {
         const char *result = NULL;
@@ -289,7 +289,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ue
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_app_id(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, const char* p_app_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_app_id(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, const char* p_app_id)
 {
     if (!obj_ue_mobility_collection) return NULL;
 
@@ -305,7 +305,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
     return obj_ue_mobility_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_app_id_move(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, char* p_app_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_app_id_move(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, char* p_app_id)
 {
     if (!obj_ue_mobility_collection) return NULL;
 
@@ -322,7 +322,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
     return obj_ue_mobility_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const bool data_collection_model_ue_mobility_collection_is_all_app_ind(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_ue_mobility_collection_is_all_app_ind(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
 {
     if (!obj_ue_mobility_collection) {
         const bool result = 0;
@@ -341,7 +341,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const bool data_collection_model_ue_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_all_app_ind(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, const bool p_all_app_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_all_app_ind(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, const bool p_all_app_ind)
 {
     if (!obj_ue_mobility_collection) return NULL;
 
@@ -357,7 +357,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
     return obj_ue_mobility_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_all_app_ind_move(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, bool p_all_app_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_all_app_ind_move(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, bool p_all_app_ind)
 {
     if (!obj_ue_mobility_collection) return NULL;
 
@@ -374,7 +374,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
     return obj_ue_mobility_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ue_mobility_collection_get_ue_trajs(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ue_mobility_collection_get_ue_trajs(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
 {
     if (!obj_ue_mobility_collection) {
         ogs_list_t *result = NULL;
@@ -401,7 +401,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ue
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_ue_trajs(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, const ogs_list_t* p_ue_trajs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_ue_trajs(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, const ogs_list_t* p_ue_trajs)
 {
     if (!obj_ue_mobility_collection) return NULL;
 
@@ -425,7 +425,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
     return obj_ue_mobility_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_ue_trajs_move(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, ogs_list_t* p_ue_trajs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_ue_trajs_move(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, ogs_list_t* p_ue_trajs)
 {
     if (!obj_ue_mobility_collection) return NULL;
 
@@ -450,7 +450,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
     return obj_ue_mobility_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_add_ue_trajs(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, data_collection_model_ue_trajectory_collection_t* p_ue_trajs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_add_ue_trajs(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, data_collection_model_ue_trajectory_collection_t* p_ue_trajs)
 {
     if (!obj_ue_mobility_collection) return NULL;
 
@@ -467,7 +467,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
     return obj_ue_mobility_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_remove_ue_trajs(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, const data_collection_model_ue_trajectory_collection_t* p_ue_trajs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_remove_ue_trajs(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, const data_collection_model_ue_trajectory_collection_t* p_ue_trajs)
 {
     if (!obj_ue_mobility_collection) return NULL;
 
@@ -482,7 +482,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
     return obj_ue_mobility_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_clear_ue_trajs(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_clear_ue_trajs(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
 {
     if (!obj_ue_mobility_collection) return NULL;
 
@@ -493,7 +493,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
     return obj_ue_mobility_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ue_mobility_collection_get_areas(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ue_mobility_collection_get_areas(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
 {
     if (!obj_ue_mobility_collection) {
         ogs_list_t *result = NULL;
@@ -520,7 +520,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ue
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_areas(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, const ogs_list_t* p_areas)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_areas(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, const ogs_list_t* p_areas)
 {
     if (!obj_ue_mobility_collection) return NULL;
 
@@ -544,7 +544,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
     return obj_ue_mobility_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_areas_move(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, ogs_list_t* p_areas)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_set_areas_move(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, ogs_list_t* p_areas)
 {
     if (!obj_ue_mobility_collection) return NULL;
 
@@ -569,7 +569,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
     return obj_ue_mobility_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_add_areas(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, data_collection_model_location_area5_g_t* p_areas)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_add_areas(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, data_collection_model_location_area5_g_t* p_areas)
 {
     if (!obj_ue_mobility_collection) return NULL;
 
@@ -586,7 +586,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
     return obj_ue_mobility_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_remove_areas(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, const data_collection_model_location_area5_g_t* p_areas)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_remove_areas(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, const data_collection_model_location_area5_g_t* p_areas)
 {
     if (!obj_ue_mobility_collection) return NULL;
 
@@ -601,7 +601,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
     return obj_ue_mobility_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_clear_areas(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_clear_areas(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
 {
     if (!obj_ue_mobility_collection) return NULL;
 
@@ -613,7 +613,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ue_mobility_co
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_ue_mobility_collection_make_lnode(data_collection_model_ue_mobility_collection_t *p_ue_mobility_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_ue_mobility_collection_make_lnode(data_collection_model_ue_mobility_collection_t *p_ue_mobility_collection)
 {
     return data_collection_lnode_create(p_ue_mobility_collection, reinterpret_cast<void(*)(void*)>(data_collection_model_ue_mobility_collection_free));
 }

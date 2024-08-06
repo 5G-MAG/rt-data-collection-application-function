@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *data_collection_model_flow_info_create(
 
 
 )
@@ -33,7 +33,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *d
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_create_copy(const data_collection_model_flow_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *data_collection_model_flow_info_create_copy(const data_collection_model_flow_info_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<const std::shared_ptr<FlowInfo >*>(other);
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *d
     return reinterpret_cast<data_collection_model_flow_info_t*>(new std::shared_ptr<FlowInfo >(new FlowInfo(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_create_move(data_collection_model_flow_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *data_collection_model_flow_info_create_move(data_collection_model_flow_info_t *other)
 {
     if (!other) return NULL;
 
@@ -54,7 +54,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *d
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_copy(data_collection_model_flow_info_t *flow_info, const data_collection_model_flow_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *data_collection_model_flow_info_copy(data_collection_model_flow_info_t *flow_info, const data_collection_model_flow_info_t *other)
 {
     if (flow_info) {
         std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<std::shared_ptr<FlowInfo >*>(flow_info);
@@ -83,7 +83,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *d
     return flow_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_move(data_collection_model_flow_info_t *flow_info, data_collection_model_flow_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *data_collection_model_flow_info_move(data_collection_model_flow_info_t *flow_info, data_collection_model_flow_info_t *other)
 {
     std::shared_ptr<FlowInfo > *other_ptr = reinterpret_cast<std::shared_ptr<FlowInfo >*>(other);
 
@@ -107,13 +107,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *d
     return flow_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_flow_info_free(data_collection_model_flow_info_t *flow_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_flow_info_free(data_collection_model_flow_info_t *flow_info)
 {
     if (!flow_info) return;
     delete reinterpret_cast<std::shared_ptr<FlowInfo >*>(flow_info);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_flow_info_toJSON(const data_collection_model_flow_info_t *flow_info, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_flow_info_toJSON(const data_collection_model_flow_info_t *flow_info, bool as_request)
 {
     if (!flow_info) return NULL;
     const std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<const std::shared_ptr<FlowInfo >*>(flow_info);
@@ -122,7 +122,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_flow_in
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *data_collection_model_flow_info_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -135,7 +135,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *d
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_flow_info_is_equal_to(const data_collection_model_flow_info_t *first, const data_collection_model_flow_info_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_flow_info_is_equal_to(const data_collection_model_flow_info_t *first, const data_collection_model_flow_info_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -160,7 +160,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_flow_info
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_flow_info_get_flow_id(const data_collection_model_flow_info_t *obj_flow_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_flow_info_get_flow_id(const data_collection_model_flow_info_t *obj_flow_info)
 {
     if (!obj_flow_info) {
         const int32_t result = 0;
@@ -179,7 +179,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_set_flow_id(data_collection_model_flow_info_t *obj_flow_info, const int32_t p_flow_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *data_collection_model_flow_info_set_flow_id(data_collection_model_flow_info_t *obj_flow_info, const int32_t p_flow_id)
 {
     if (!obj_flow_info) return NULL;
 
@@ -195,7 +195,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *d
     return obj_flow_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_set_flow_id_move(data_collection_model_flow_info_t *obj_flow_info, int32_t p_flow_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *data_collection_model_flow_info_set_flow_id_move(data_collection_model_flow_info_t *obj_flow_info, int32_t p_flow_id)
 {
     if (!obj_flow_info) return NULL;
 
@@ -212,7 +212,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *d
     return obj_flow_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_flow_info_get_flow_descriptions(const data_collection_model_flow_info_t *obj_flow_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_flow_info_get_flow_descriptions(const data_collection_model_flow_info_t *obj_flow_info)
 {
     if (!obj_flow_info) {
         ogs_list_t *result = NULL;
@@ -238,7 +238,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_fl
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_set_flow_descriptions(data_collection_model_flow_info_t *obj_flow_info, const ogs_list_t* p_flow_descriptions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *data_collection_model_flow_info_set_flow_descriptions(data_collection_model_flow_info_t *obj_flow_info, const ogs_list_t* p_flow_descriptions)
 {
     if (!obj_flow_info) return NULL;
 
@@ -262,7 +262,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *d
     return obj_flow_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_set_flow_descriptions_move(data_collection_model_flow_info_t *obj_flow_info, ogs_list_t* p_flow_descriptions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *data_collection_model_flow_info_set_flow_descriptions_move(data_collection_model_flow_info_t *obj_flow_info, ogs_list_t* p_flow_descriptions)
 {
     if (!obj_flow_info) return NULL;
 
@@ -287,7 +287,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *d
     return obj_flow_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_add_flow_descriptions(data_collection_model_flow_info_t *obj_flow_info, char* p_flow_descriptions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *data_collection_model_flow_info_add_flow_descriptions(data_collection_model_flow_info_t *obj_flow_info, char* p_flow_descriptions)
 {
     if (!obj_flow_info) return NULL;
 
@@ -304,7 +304,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *d
     return obj_flow_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_remove_flow_descriptions(data_collection_model_flow_info_t *obj_flow_info, const char* p_flow_descriptions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *data_collection_model_flow_info_remove_flow_descriptions(data_collection_model_flow_info_t *obj_flow_info, const char* p_flow_descriptions)
 {
     if (!obj_flow_info) return NULL;
 
@@ -319,7 +319,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *d
     return obj_flow_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_clear_flow_descriptions(data_collection_model_flow_info_t *obj_flow_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *data_collection_model_flow_info_clear_flow_descriptions(data_collection_model_flow_info_t *obj_flow_info)
 {
     if (!obj_flow_info) return NULL;
 
@@ -330,7 +330,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *d
     return obj_flow_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_flow_info_get_tos_tc(const data_collection_model_flow_info_t *obj_flow_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_flow_info_get_tos_tc(const data_collection_model_flow_info_t *obj_flow_info)
 {
     if (!obj_flow_info) {
         const char *result = NULL;
@@ -349,7 +349,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_fl
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_set_tos_tc(data_collection_model_flow_info_t *obj_flow_info, const char* p_tos_tc)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *data_collection_model_flow_info_set_tos_tc(data_collection_model_flow_info_t *obj_flow_info, const char* p_tos_tc)
 {
     if (!obj_flow_info) return NULL;
 
@@ -365,7 +365,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *d
     return obj_flow_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *data_collection_model_flow_info_set_tos_tc_move(data_collection_model_flow_info_t *obj_flow_info, char* p_tos_tc)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *data_collection_model_flow_info_set_tos_tc_move(data_collection_model_flow_info_t *obj_flow_info, char* p_tos_tc)
 {
     if (!obj_flow_info) return NULL;
 
@@ -383,7 +383,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_flow_info_t *d
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_flow_info_make_lnode(data_collection_model_flow_info_t *p_flow_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_flow_info_make_lnode(data_collection_model_flow_info_t *p_flow_info)
 {
     return data_collection_lnode_create(p_flow_info, reinterpret_cast<void(*)(void*)>(data_collection_model_flow_info_free));
 }

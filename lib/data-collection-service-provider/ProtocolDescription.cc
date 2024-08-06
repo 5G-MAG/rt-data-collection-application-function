@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_description_t *data_collection_model_protocol_description_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_description_t *data_collection_model_protocol_description_create(
 
 
 )
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_descr
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_description_t *data_collection_model_protocol_description_create_copy(const data_collection_model_protocol_description_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_description_t *data_collection_model_protocol_description_create_copy(const data_collection_model_protocol_description_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<ProtocolDescription > &obj = *reinterpret_cast<const std::shared_ptr<ProtocolDescription >*>(other);
@@ -43,7 +43,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_descr
     return reinterpret_cast<data_collection_model_protocol_description_t*>(new std::shared_ptr<ProtocolDescription >(new ProtocolDescription(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_description_t *data_collection_model_protocol_description_create_move(data_collection_model_protocol_description_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_description_t *data_collection_model_protocol_description_create_move(data_collection_model_protocol_description_t *other)
 {
     if (!other) return NULL;
 
@@ -56,7 +56,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_descr
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_description_t *data_collection_model_protocol_description_copy(data_collection_model_protocol_description_t *protocol_description, const data_collection_model_protocol_description_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_description_t *data_collection_model_protocol_description_copy(data_collection_model_protocol_description_t *protocol_description, const data_collection_model_protocol_description_t *other)
 {
     if (protocol_description) {
         std::shared_ptr<ProtocolDescription > &obj = *reinterpret_cast<std::shared_ptr<ProtocolDescription >*>(protocol_description);
@@ -85,7 +85,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_descr
     return protocol_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_description_t *data_collection_model_protocol_description_move(data_collection_model_protocol_description_t *protocol_description, data_collection_model_protocol_description_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_description_t *data_collection_model_protocol_description_move(data_collection_model_protocol_description_t *protocol_description, data_collection_model_protocol_description_t *other)
 {
     std::shared_ptr<ProtocolDescription > *other_ptr = reinterpret_cast<std::shared_ptr<ProtocolDescription >*>(other);
 
@@ -109,13 +109,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_descr
     return protocol_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_protocol_description_free(data_collection_model_protocol_description_t *protocol_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_protocol_description_free(data_collection_model_protocol_description_t *protocol_description)
 {
     if (!protocol_description) return;
     delete reinterpret_cast<std::shared_ptr<ProtocolDescription >*>(protocol_description);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_protocol_description_toJSON(const data_collection_model_protocol_description_t *protocol_description, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_protocol_description_toJSON(const data_collection_model_protocol_description_t *protocol_description, bool as_request)
 {
     if (!protocol_description) return NULL;
     const std::shared_ptr<ProtocolDescription > &obj = *reinterpret_cast<const std::shared_ptr<ProtocolDescription >*>(protocol_description);
@@ -124,7 +124,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_protoco
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_description_t *data_collection_model_protocol_description_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_description_t *data_collection_model_protocol_description_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -137,7 +137,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_descr
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_protocol_description_is_equal_to(const data_collection_model_protocol_description_t *first, const data_collection_model_protocol_description_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_protocol_description_is_equal_to(const data_collection_model_protocol_description_t *first, const data_collection_model_protocol_description_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_protocol_
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_media_transport_proto_t* data_collection_model_protocol_description_get_transport_proto(const data_collection_model_protocol_description_t *obj_protocol_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_media_transport_proto_t* data_collection_model_protocol_description_get_transport_proto(const data_collection_model_protocol_description_t *obj_protocol_description)
 {
     if (!obj_protocol_description) {
         const data_collection_model_media_transport_proto_t *result = NULL;
@@ -181,7 +181,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_media_tr
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_description_t *data_collection_model_protocol_description_set_transport_proto(data_collection_model_protocol_description_t *obj_protocol_description, const data_collection_model_media_transport_proto_t* p_transport_proto)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_description_t *data_collection_model_protocol_description_set_transport_proto(data_collection_model_protocol_description_t *obj_protocol_description, const data_collection_model_media_transport_proto_t* p_transport_proto)
 {
     if (!obj_protocol_description) return NULL;
 
@@ -197,7 +197,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_descr
     return obj_protocol_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_description_t *data_collection_model_protocol_description_set_transport_proto_move(data_collection_model_protocol_description_t *obj_protocol_description, data_collection_model_media_transport_proto_t* p_transport_proto)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_description_t *data_collection_model_protocol_description_set_transport_proto_move(data_collection_model_protocol_description_t *obj_protocol_description, data_collection_model_media_transport_proto_t* p_transport_proto)
 {
     if (!obj_protocol_description) return NULL;
 
@@ -214,7 +214,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_descr
     return obj_protocol_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_rtp_header_ext_info_t* data_collection_model_protocol_description_get_rtp_header_ext_info(const data_collection_model_protocol_description_t *obj_protocol_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_rtp_header_ext_info_t* data_collection_model_protocol_description_get_rtp_header_ext_info(const data_collection_model_protocol_description_t *obj_protocol_description)
 {
     if (!obj_protocol_description) {
         const data_collection_model_rtp_header_ext_info_t *result = NULL;
@@ -233,7 +233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_rtp_head
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_description_t *data_collection_model_protocol_description_set_rtp_header_ext_info(data_collection_model_protocol_description_t *obj_protocol_description, const data_collection_model_rtp_header_ext_info_t* p_rtp_header_ext_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_description_t *data_collection_model_protocol_description_set_rtp_header_ext_info(data_collection_model_protocol_description_t *obj_protocol_description, const data_collection_model_rtp_header_ext_info_t* p_rtp_header_ext_info)
 {
     if (!obj_protocol_description) return NULL;
 
@@ -249,7 +249,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_descr
     return obj_protocol_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_description_t *data_collection_model_protocol_description_set_rtp_header_ext_info_move(data_collection_model_protocol_description_t *obj_protocol_description, data_collection_model_rtp_header_ext_info_t* p_rtp_header_ext_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_description_t *data_collection_model_protocol_description_set_rtp_header_ext_info_move(data_collection_model_protocol_description_t *obj_protocol_description, data_collection_model_rtp_header_ext_info_t* p_rtp_header_ext_info)
 {
     if (!obj_protocol_description) return NULL;
 
@@ -266,7 +266,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_descr
     return obj_protocol_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_protocol_description_get_rtp_payload_info_list(const data_collection_model_protocol_description_t *obj_protocol_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_protocol_description_get_rtp_payload_info_list(const data_collection_model_protocol_description_t *obj_protocol_description)
 {
     if (!obj_protocol_description) {
         ogs_list_t *result = NULL;
@@ -293,7 +293,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_pr
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_description_t *data_collection_model_protocol_description_set_rtp_payload_info_list(data_collection_model_protocol_description_t *obj_protocol_description, const ogs_list_t* p_rtp_payload_info_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_description_t *data_collection_model_protocol_description_set_rtp_payload_info_list(data_collection_model_protocol_description_t *obj_protocol_description, const ogs_list_t* p_rtp_payload_info_list)
 {
     if (!obj_protocol_description) return NULL;
 
@@ -317,7 +317,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_descr
     return obj_protocol_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_description_t *data_collection_model_protocol_description_set_rtp_payload_info_list_move(data_collection_model_protocol_description_t *obj_protocol_description, ogs_list_t* p_rtp_payload_info_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_description_t *data_collection_model_protocol_description_set_rtp_payload_info_list_move(data_collection_model_protocol_description_t *obj_protocol_description, ogs_list_t* p_rtp_payload_info_list)
 {
     if (!obj_protocol_description) return NULL;
 
@@ -342,7 +342,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_descr
     return obj_protocol_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_description_t *data_collection_model_protocol_description_add_rtp_payload_info_list(data_collection_model_protocol_description_t *obj_protocol_description, data_collection_model_rtp_payload_info_t* p_rtp_payload_info_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_description_t *data_collection_model_protocol_description_add_rtp_payload_info_list(data_collection_model_protocol_description_t *obj_protocol_description, data_collection_model_rtp_payload_info_t* p_rtp_payload_info_list)
 {
     if (!obj_protocol_description) return NULL;
 
@@ -359,7 +359,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_descr
     return obj_protocol_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_description_t *data_collection_model_protocol_description_remove_rtp_payload_info_list(data_collection_model_protocol_description_t *obj_protocol_description, const data_collection_model_rtp_payload_info_t* p_rtp_payload_info_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_description_t *data_collection_model_protocol_description_remove_rtp_payload_info_list(data_collection_model_protocol_description_t *obj_protocol_description, const data_collection_model_rtp_payload_info_t* p_rtp_payload_info_list)
 {
     if (!obj_protocol_description) return NULL;
 
@@ -374,7 +374,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_descr
     return obj_protocol_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_description_t *data_collection_model_protocol_description_clear_rtp_payload_info_list(data_collection_model_protocol_description_t *obj_protocol_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_description_t *data_collection_model_protocol_description_clear_rtp_payload_info_list(data_collection_model_protocol_description_t *obj_protocol_description)
 {
     if (!obj_protocol_description) return NULL;
 
@@ -386,7 +386,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_protocol_descr
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_protocol_description_make_lnode(data_collection_model_protocol_description_t *p_protocol_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_protocol_description_make_lnode(data_collection_model_protocol_description_t *p_protocol_description)
 {
     return data_collection_lnode_create(p_protocol_description, reinterpret_cast<void(*)(void*)>(data_collection_model_protocol_description_free));
 }

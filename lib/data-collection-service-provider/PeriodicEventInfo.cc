@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_create(
 
 
 
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_create_copy(const data_collection_model_periodic_event_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_create_copy(const data_collection_model_periodic_event_info_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<PeriodicEventInfo > &obj = *reinterpret_cast<const std::shared_ptr<PeriodicEventInfo >*>(other);
@@ -43,7 +43,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event
     return reinterpret_cast<data_collection_model_periodic_event_info_t*>(new std::shared_ptr<PeriodicEventInfo >(new PeriodicEventInfo(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_create_move(data_collection_model_periodic_event_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_create_move(data_collection_model_periodic_event_info_t *other)
 {
     if (!other) return NULL;
 
@@ -56,7 +56,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_copy(data_collection_model_periodic_event_info_t *periodic_event_info, const data_collection_model_periodic_event_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_copy(data_collection_model_periodic_event_info_t *periodic_event_info, const data_collection_model_periodic_event_info_t *other)
 {
     if (periodic_event_info) {
         std::shared_ptr<PeriodicEventInfo > &obj = *reinterpret_cast<std::shared_ptr<PeriodicEventInfo >*>(periodic_event_info);
@@ -85,7 +85,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event
     return periodic_event_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_move(data_collection_model_periodic_event_info_t *periodic_event_info, data_collection_model_periodic_event_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_move(data_collection_model_periodic_event_info_t *periodic_event_info, data_collection_model_periodic_event_info_t *other)
 {
     std::shared_ptr<PeriodicEventInfo > *other_ptr = reinterpret_cast<std::shared_ptr<PeriodicEventInfo >*>(other);
 
@@ -109,13 +109,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event
     return periodic_event_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_periodic_event_info_free(data_collection_model_periodic_event_info_t *periodic_event_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_periodic_event_info_free(data_collection_model_periodic_event_info_t *periodic_event_info)
 {
     if (!periodic_event_info) return;
     delete reinterpret_cast<std::shared_ptr<PeriodicEventInfo >*>(periodic_event_info);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_periodic_event_info_toJSON(const data_collection_model_periodic_event_info_t *periodic_event_info, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_periodic_event_info_toJSON(const data_collection_model_periodic_event_info_t *periodic_event_info, bool as_request)
 {
     if (!periodic_event_info) return NULL;
     const std::shared_ptr<PeriodicEventInfo > &obj = *reinterpret_cast<const std::shared_ptr<PeriodicEventInfo >*>(periodic_event_info);
@@ -124,7 +124,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_periodi
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -137,7 +137,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_periodic_event_info_is_equal_to(const data_collection_model_periodic_event_info_t *first, const data_collection_model_periodic_event_info_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_periodic_event_info_is_equal_to(const data_collection_model_periodic_event_info_t *first, const data_collection_model_periodic_event_info_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_periodic_
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_periodic_event_info_get_reporting_amount(const data_collection_model_periodic_event_info_t *obj_periodic_event_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_periodic_event_info_get_reporting_amount(const data_collection_model_periodic_event_info_t *obj_periodic_event_info)
 {
     if (!obj_periodic_event_info) {
         const int32_t result = 0;
@@ -181,7 +181,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_set_reporting_amount(data_collection_model_periodic_event_info_t *obj_periodic_event_info, const int32_t p_reporting_amount)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_set_reporting_amount(data_collection_model_periodic_event_info_t *obj_periodic_event_info, const int32_t p_reporting_amount)
 {
     if (!obj_periodic_event_info) return NULL;
 
@@ -197,7 +197,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event
     return obj_periodic_event_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_set_reporting_amount_move(data_collection_model_periodic_event_info_t *obj_periodic_event_info, int32_t p_reporting_amount)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_set_reporting_amount_move(data_collection_model_periodic_event_info_t *obj_periodic_event_info, int32_t p_reporting_amount)
 {
     if (!obj_periodic_event_info) return NULL;
 
@@ -214,7 +214,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event
     return obj_periodic_event_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_periodic_event_info_get_reporting_interval(const data_collection_model_periodic_event_info_t *obj_periodic_event_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_periodic_event_info_get_reporting_interval(const data_collection_model_periodic_event_info_t *obj_periodic_event_info)
 {
     if (!obj_periodic_event_info) {
         const int32_t result = 0;
@@ -233,7 +233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_set_reporting_interval(data_collection_model_periodic_event_info_t *obj_periodic_event_info, const int32_t p_reporting_interval)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_set_reporting_interval(data_collection_model_periodic_event_info_t *obj_periodic_event_info, const int32_t p_reporting_interval)
 {
     if (!obj_periodic_event_info) return NULL;
 
@@ -249,7 +249,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event
     return obj_periodic_event_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_set_reporting_interval_move(data_collection_model_periodic_event_info_t *obj_periodic_event_info, int32_t p_reporting_interval)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_set_reporting_interval_move(data_collection_model_periodic_event_info_t *obj_periodic_event_info, int32_t p_reporting_interval)
 {
     if (!obj_periodic_event_info) return NULL;
 
@@ -266,7 +266,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event
     return obj_periodic_event_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const bool data_collection_model_periodic_event_info_is_reporting_infinite_ind(const data_collection_model_periodic_event_info_t *obj_periodic_event_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_periodic_event_info_is_reporting_infinite_ind(const data_collection_model_periodic_event_info_t *obj_periodic_event_info)
 {
     if (!obj_periodic_event_info) {
         const bool result = 0;
@@ -285,7 +285,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const bool data_collection_model_per
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_set_reporting_infinite_ind(data_collection_model_periodic_event_info_t *obj_periodic_event_info, const bool p_reporting_infinite_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_set_reporting_infinite_ind(data_collection_model_periodic_event_info_t *obj_periodic_event_info, const bool p_reporting_infinite_ind)
 {
     if (!obj_periodic_event_info) return NULL;
 
@@ -301,7 +301,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event
     return obj_periodic_event_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_set_reporting_infinite_ind_move(data_collection_model_periodic_event_info_t *obj_periodic_event_info, bool p_reporting_infinite_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_set_reporting_infinite_ind_move(data_collection_model_periodic_event_info_t *obj_periodic_event_info, bool p_reporting_infinite_ind)
 {
     if (!obj_periodic_event_info) return NULL;
 
@@ -318,7 +318,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event
     return obj_periodic_event_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_periodic_event_info_get_reporting_interval_ms(const data_collection_model_periodic_event_info_t *obj_periodic_event_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_periodic_event_info_get_reporting_interval_ms(const data_collection_model_periodic_event_info_t *obj_periodic_event_info)
 {
     if (!obj_periodic_event_info) {
         const int32_t result = 0;
@@ -337,7 +337,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_set_reporting_interval_ms(data_collection_model_periodic_event_info_t *obj_periodic_event_info, const int32_t p_reporting_interval_ms)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_set_reporting_interval_ms(data_collection_model_periodic_event_info_t *obj_periodic_event_info, const int32_t p_reporting_interval_ms)
 {
     if (!obj_periodic_event_info) return NULL;
 
@@ -353,7 +353,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event
     return obj_periodic_event_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_set_reporting_interval_ms_move(data_collection_model_periodic_event_info_t *obj_periodic_event_info, int32_t p_reporting_interval_ms)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event_info_t *data_collection_model_periodic_event_info_set_reporting_interval_ms_move(data_collection_model_periodic_event_info_t *obj_periodic_event_info, int32_t p_reporting_interval_ms)
 {
     if (!obj_periodic_event_info) return NULL;
 
@@ -371,7 +371,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_periodic_event
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_periodic_event_info_make_lnode(data_collection_model_periodic_event_info_t *p_periodic_event_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_periodic_event_info_make_lnode(data_collection_model_periodic_event_info_t *p_periodic_event_info)
 {
     return data_collection_lnode_create(p_periodic_event_info, reinterpret_cast<void(*)(void*)>(data_collection_model_periodic_event_info_free));
 }

@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_create(
 
 
 
@@ -43,7 +43,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_create_copy(const data_collection_model_eth_flow_description_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_create_copy(const data_collection_model_eth_flow_description_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<EthFlowDescription > &obj = *reinterpret_cast<const std::shared_ptr<EthFlowDescription >*>(other);
@@ -51,7 +51,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return reinterpret_cast<data_collection_model_eth_flow_description_t*>(new std::shared_ptr<EthFlowDescription >(new EthFlowDescription(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_create_move(data_collection_model_eth_flow_description_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_create_move(data_collection_model_eth_flow_description_t *other)
 {
     if (!other) return NULL;
 
@@ -64,7 +64,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_copy(data_collection_model_eth_flow_description_t *eth_flow_description, const data_collection_model_eth_flow_description_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_copy(data_collection_model_eth_flow_description_t *eth_flow_description, const data_collection_model_eth_flow_description_t *other)
 {
     if (eth_flow_description) {
         std::shared_ptr<EthFlowDescription > &obj = *reinterpret_cast<std::shared_ptr<EthFlowDescription >*>(eth_flow_description);
@@ -93,7 +93,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return eth_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_move(data_collection_model_eth_flow_description_t *eth_flow_description, data_collection_model_eth_flow_description_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_move(data_collection_model_eth_flow_description_t *eth_flow_description, data_collection_model_eth_flow_description_t *other)
 {
     std::shared_ptr<EthFlowDescription > *other_ptr = reinterpret_cast<std::shared_ptr<EthFlowDescription >*>(other);
 
@@ -117,13 +117,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return eth_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_eth_flow_description_free(data_collection_model_eth_flow_description_t *eth_flow_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_eth_flow_description_free(data_collection_model_eth_flow_description_t *eth_flow_description)
 {
     if (!eth_flow_description) return;
     delete reinterpret_cast<std::shared_ptr<EthFlowDescription >*>(eth_flow_description);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_eth_flow_description_toJSON(const data_collection_model_eth_flow_description_t *eth_flow_description, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_eth_flow_description_toJSON(const data_collection_model_eth_flow_description_t *eth_flow_description, bool as_request)
 {
     if (!eth_flow_description) return NULL;
     const std::shared_ptr<EthFlowDescription > &obj = *reinterpret_cast<const std::shared_ptr<EthFlowDescription >*>(eth_flow_description);
@@ -132,7 +132,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_eth_flo
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -145,7 +145,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_eth_flow_description_is_equal_to(const data_collection_model_eth_flow_description_t *first, const data_collection_model_eth_flow_description_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_eth_flow_description_is_equal_to(const data_collection_model_eth_flow_description_t *first, const data_collection_model_eth_flow_description_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -170,7 +170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_eth_flow_
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_eth_flow_description_get_dest_mac_addr(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_eth_flow_description_get_dest_mac_addr(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
 {
     if (!obj_eth_flow_description) {
         const char *result = NULL;
@@ -189,7 +189,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_et
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_dest_mac_addr(data_collection_model_eth_flow_description_t *obj_eth_flow_description, const char* p_dest_mac_addr)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_dest_mac_addr(data_collection_model_eth_flow_description_t *obj_eth_flow_description, const char* p_dest_mac_addr)
 {
     if (!obj_eth_flow_description) return NULL;
 
@@ -205,7 +205,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return obj_eth_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_dest_mac_addr_move(data_collection_model_eth_flow_description_t *obj_eth_flow_description, char* p_dest_mac_addr)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_dest_mac_addr_move(data_collection_model_eth_flow_description_t *obj_eth_flow_description, char* p_dest_mac_addr)
 {
     if (!obj_eth_flow_description) return NULL;
 
@@ -222,7 +222,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return obj_eth_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_eth_flow_description_get_eth_type(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_eth_flow_description_get_eth_type(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
 {
     if (!obj_eth_flow_description) {
         const char *result = NULL;
@@ -241,7 +241,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_et
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_eth_type(data_collection_model_eth_flow_description_t *obj_eth_flow_description, const char* p_eth_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_eth_type(data_collection_model_eth_flow_description_t *obj_eth_flow_description, const char* p_eth_type)
 {
     if (!obj_eth_flow_description) return NULL;
 
@@ -257,7 +257,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return obj_eth_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_eth_type_move(data_collection_model_eth_flow_description_t *obj_eth_flow_description, char* p_eth_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_eth_type_move(data_collection_model_eth_flow_description_t *obj_eth_flow_description, char* p_eth_type)
 {
     if (!obj_eth_flow_description) return NULL;
 
@@ -274,7 +274,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return obj_eth_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_eth_flow_description_get_f_desc(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_eth_flow_description_get_f_desc(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
 {
     if (!obj_eth_flow_description) {
         const char *result = NULL;
@@ -293,7 +293,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_et
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_f_desc(data_collection_model_eth_flow_description_t *obj_eth_flow_description, const char* p_f_desc)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_f_desc(data_collection_model_eth_flow_description_t *obj_eth_flow_description, const char* p_f_desc)
 {
     if (!obj_eth_flow_description) return NULL;
 
@@ -309,7 +309,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return obj_eth_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_f_desc_move(data_collection_model_eth_flow_description_t *obj_eth_flow_description, char* p_f_desc)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_f_desc_move(data_collection_model_eth_flow_description_t *obj_eth_flow_description, char* p_f_desc)
 {
     if (!obj_eth_flow_description) return NULL;
 
@@ -326,7 +326,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return obj_eth_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_flow_direction_t* data_collection_model_eth_flow_description_get_f_dir(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_flow_direction_t* data_collection_model_eth_flow_description_get_f_dir(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
 {
     if (!obj_eth_flow_description) {
         const data_collection_model_flow_direction_t *result = NULL;
@@ -345,7 +345,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_flow_dir
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_f_dir(data_collection_model_eth_flow_description_t *obj_eth_flow_description, const data_collection_model_flow_direction_t* p_f_dir)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_f_dir(data_collection_model_eth_flow_description_t *obj_eth_flow_description, const data_collection_model_flow_direction_t* p_f_dir)
 {
     if (!obj_eth_flow_description) return NULL;
 
@@ -361,7 +361,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return obj_eth_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_f_dir_move(data_collection_model_eth_flow_description_t *obj_eth_flow_description, data_collection_model_flow_direction_t* p_f_dir)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_f_dir_move(data_collection_model_eth_flow_description_t *obj_eth_flow_description, data_collection_model_flow_direction_t* p_f_dir)
 {
     if (!obj_eth_flow_description) return NULL;
 
@@ -378,7 +378,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return obj_eth_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_eth_flow_description_get_source_mac_addr(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_eth_flow_description_get_source_mac_addr(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
 {
     if (!obj_eth_flow_description) {
         const char *result = NULL;
@@ -397,7 +397,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_et
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_source_mac_addr(data_collection_model_eth_flow_description_t *obj_eth_flow_description, const char* p_source_mac_addr)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_source_mac_addr(data_collection_model_eth_flow_description_t *obj_eth_flow_description, const char* p_source_mac_addr)
 {
     if (!obj_eth_flow_description) return NULL;
 
@@ -413,7 +413,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return obj_eth_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_source_mac_addr_move(data_collection_model_eth_flow_description_t *obj_eth_flow_description, char* p_source_mac_addr)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_source_mac_addr_move(data_collection_model_eth_flow_description_t *obj_eth_flow_description, char* p_source_mac_addr)
 {
     if (!obj_eth_flow_description) return NULL;
 
@@ -430,7 +430,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return obj_eth_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_eth_flow_description_get_vlan_tags(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_eth_flow_description_get_vlan_tags(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
 {
     if (!obj_eth_flow_description) {
         ogs_list_t *result = NULL;
@@ -456,7 +456,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_et
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_vlan_tags(data_collection_model_eth_flow_description_t *obj_eth_flow_description, const ogs_list_t* p_vlan_tags)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_vlan_tags(data_collection_model_eth_flow_description_t *obj_eth_flow_description, const ogs_list_t* p_vlan_tags)
 {
     if (!obj_eth_flow_description) return NULL;
 
@@ -480,7 +480,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return obj_eth_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_vlan_tags_move(data_collection_model_eth_flow_description_t *obj_eth_flow_description, ogs_list_t* p_vlan_tags)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_vlan_tags_move(data_collection_model_eth_flow_description_t *obj_eth_flow_description, ogs_list_t* p_vlan_tags)
 {
     if (!obj_eth_flow_description) return NULL;
 
@@ -505,7 +505,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return obj_eth_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_add_vlan_tags(data_collection_model_eth_flow_description_t *obj_eth_flow_description, char* p_vlan_tags)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_add_vlan_tags(data_collection_model_eth_flow_description_t *obj_eth_flow_description, char* p_vlan_tags)
 {
     if (!obj_eth_flow_description) return NULL;
 
@@ -522,7 +522,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return obj_eth_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_remove_vlan_tags(data_collection_model_eth_flow_description_t *obj_eth_flow_description, const char* p_vlan_tags)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_remove_vlan_tags(data_collection_model_eth_flow_description_t *obj_eth_flow_description, const char* p_vlan_tags)
 {
     if (!obj_eth_flow_description) return NULL;
 
@@ -537,7 +537,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return obj_eth_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_clear_vlan_tags(data_collection_model_eth_flow_description_t *obj_eth_flow_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_clear_vlan_tags(data_collection_model_eth_flow_description_t *obj_eth_flow_description)
 {
     if (!obj_eth_flow_description) return NULL;
 
@@ -548,7 +548,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return obj_eth_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_eth_flow_description_get_src_mac_addr_end(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_eth_flow_description_get_src_mac_addr_end(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
 {
     if (!obj_eth_flow_description) {
         const char *result = NULL;
@@ -567,7 +567,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_et
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_src_mac_addr_end(data_collection_model_eth_flow_description_t *obj_eth_flow_description, const char* p_src_mac_addr_end)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_src_mac_addr_end(data_collection_model_eth_flow_description_t *obj_eth_flow_description, const char* p_src_mac_addr_end)
 {
     if (!obj_eth_flow_description) return NULL;
 
@@ -583,7 +583,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return obj_eth_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_src_mac_addr_end_move(data_collection_model_eth_flow_description_t *obj_eth_flow_description, char* p_src_mac_addr_end)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_src_mac_addr_end_move(data_collection_model_eth_flow_description_t *obj_eth_flow_description, char* p_src_mac_addr_end)
 {
     if (!obj_eth_flow_description) return NULL;
 
@@ -600,7 +600,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return obj_eth_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_eth_flow_description_get_dest_mac_addr_end(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_eth_flow_description_get_dest_mac_addr_end(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
 {
     if (!obj_eth_flow_description) {
         const char *result = NULL;
@@ -619,7 +619,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_et
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_dest_mac_addr_end(data_collection_model_eth_flow_description_t *obj_eth_flow_description, const char* p_dest_mac_addr_end)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_dest_mac_addr_end(data_collection_model_eth_flow_description_t *obj_eth_flow_description, const char* p_dest_mac_addr_end)
 {
     if (!obj_eth_flow_description) return NULL;
 
@@ -635,7 +635,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
     return obj_eth_flow_description;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_dest_mac_addr_end_move(data_collection_model_eth_flow_description_t *obj_eth_flow_description, char* p_dest_mac_addr_end)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_description_t *data_collection_model_eth_flow_description_set_dest_mac_addr_end_move(data_collection_model_eth_flow_description_t *obj_eth_flow_description, char* p_dest_mac_addr_end)
 {
     if (!obj_eth_flow_description) return NULL;
 
@@ -653,7 +653,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_eth_flow_descr
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_eth_flow_description_make_lnode(data_collection_model_eth_flow_description_t *p_eth_flow_description)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_eth_flow_description_make_lnode(data_collection_model_eth_flow_description_t *p_eth_flow_description)
 {
     return data_collection_lnode_create(p_eth_flow_description, reinterpret_cast<void(*)(void*)>(data_collection_model_eth_flow_description_free));
 }

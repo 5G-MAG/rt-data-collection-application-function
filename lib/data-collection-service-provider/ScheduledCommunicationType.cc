@@ -22,12 +22,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_type_t *data_collection_model_scheduled_communication_type_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_type_t *data_collection_model_scheduled_communication_type_create()
 {
     return reinterpret_cast<data_collection_model_scheduled_communication_type_t*>(new std::shared_ptr<ScheduledCommunicationType>(new ScheduledCommunicationType()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_type_t *data_collection_model_scheduled_communication_type_create_copy(const data_collection_model_scheduled_communication_type_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_type_t *data_collection_model_scheduled_communication_type_create_copy(const data_collection_model_scheduled_communication_type_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<ScheduledCommunicationType > &obj = *reinterpret_cast<const std::shared_ptr<ScheduledCommunicationType >*>(other);
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
     return reinterpret_cast<data_collection_model_scheduled_communication_type_t*>(new std::shared_ptr<ScheduledCommunicationType >(new ScheduledCommunicationType(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_type_t *data_collection_model_scheduled_communication_type_create_move(data_collection_model_scheduled_communication_type_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_type_t *data_collection_model_scheduled_communication_type_create_move(data_collection_model_scheduled_communication_type_t *other)
 {
     if (!other) return NULL;
 
@@ -48,7 +48,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_type_t *data_collection_model_scheduled_communication_type_copy(data_collection_model_scheduled_communication_type_t *scheduled_communication_type, const data_collection_model_scheduled_communication_type_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_type_t *data_collection_model_scheduled_communication_type_copy(data_collection_model_scheduled_communication_type_t *scheduled_communication_type, const data_collection_model_scheduled_communication_type_t *other)
 {
     if (scheduled_communication_type) {
         std::shared_ptr<ScheduledCommunicationType > &obj = *reinterpret_cast<std::shared_ptr<ScheduledCommunicationType >*>(scheduled_communication_type);
@@ -77,7 +77,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
     return scheduled_communication_type;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_type_t *data_collection_model_scheduled_communication_type_move(data_collection_model_scheduled_communication_type_t *scheduled_communication_type, data_collection_model_scheduled_communication_type_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_type_t *data_collection_model_scheduled_communication_type_move(data_collection_model_scheduled_communication_type_t *scheduled_communication_type, data_collection_model_scheduled_communication_type_t *other)
 {
     std::shared_ptr<ScheduledCommunicationType > *other_ptr = reinterpret_cast<std::shared_ptr<ScheduledCommunicationType >*>(other);
 
@@ -101,13 +101,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
     return scheduled_communication_type;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_scheduled_communication_type_free(data_collection_model_scheduled_communication_type_t *scheduled_communication_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_scheduled_communication_type_free(data_collection_model_scheduled_communication_type_t *scheduled_communication_type)
 {
     if (!scheduled_communication_type) return;
     delete reinterpret_cast<std::shared_ptr<ScheduledCommunicationType >*>(scheduled_communication_type);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_scheduled_communication_type_toJSON(const data_collection_model_scheduled_communication_type_t *scheduled_communication_type, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_scheduled_communication_type_toJSON(const data_collection_model_scheduled_communication_type_t *scheduled_communication_type, bool as_request)
 {
     if (!scheduled_communication_type) return NULL;
     const std::shared_ptr<ScheduledCommunicationType > &obj = *reinterpret_cast<const std::shared_ptr<ScheduledCommunicationType >*>(scheduled_communication_type);
@@ -116,7 +116,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_schedul
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_communication_type_t *data_collection_model_scheduled_communication_type_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_type_t *data_collection_model_scheduled_communication_type_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -129,7 +129,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_scheduled_comm
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_scheduled_communication_type_is_equal_to(const data_collection_model_scheduled_communication_type_t *first, const data_collection_model_scheduled_communication_type_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_scheduled_communication_type_is_equal_to(const data_collection_model_scheduled_communication_type_t *first, const data_collection_model_scheduled_communication_type_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -154,7 +154,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_scheduled
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_scheduled_communication_type_is_not_set(const data_collection_model_scheduled_communication_type_t *obj_scheduled_communication_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_scheduled_communication_type_is_not_set(const data_collection_model_scheduled_communication_type_t *obj_scheduled_communication_type)
 {
     if (!obj_scheduled_communication_type) return true;
     const std::shared_ptr<ScheduledCommunicationType > &obj = *reinterpret_cast<const std::shared_ptr<ScheduledCommunicationType >*>(obj_scheduled_communication_type);
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_scheduled_communicat
     return obj->getValue() == ScheduledCommunicationType::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_scheduled_communication_type_is_non_standard(const data_collection_model_scheduled_communication_type_t *obj_scheduled_communication_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_scheduled_communication_type_is_non_standard(const data_collection_model_scheduled_communication_type_t *obj_scheduled_communication_type)
 {
     if (!obj_scheduled_communication_type) return false;
     const std::shared_ptr<ScheduledCommunicationType > &obj = *reinterpret_cast<const std::shared_ptr<ScheduledCommunicationType >*>(obj_scheduled_communication_type);
@@ -170,7 +170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_scheduled_communicat
     return obj->getValue() == ScheduledCommunicationType::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_type_e data_collection_model_scheduled_communication_type_get_enum(const data_collection_model_scheduled_communication_type_t *obj_scheduled_communication_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_type_e data_collection_model_scheduled_communication_type_get_enum(const data_collection_model_scheduled_communication_type_t *obj_scheduled_communication_type)
 {
     if (!obj_scheduled_communication_type)
         return DCM_SCHEDULED_COMMUNICATION_TYPE_NO_VAL;
@@ -191,7 +191,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_t
     return DCM_SCHEDULED_COMMUNICATION_TYPE_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_scheduled_communication_type_get_string(const data_collection_model_scheduled_communication_type_t *obj_scheduled_communication_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_scheduled_communication_type_get_string(const data_collection_model_scheduled_communication_type_t *obj_scheduled_communication_type)
 {
     if (!obj_scheduled_communication_type) return NULL;
     const std::shared_ptr<ScheduledCommunicationType > &obj = *reinterpret_cast<const std::shared_ptr<ScheduledCommunicationType >*>(obj_scheduled_communication_type);
@@ -199,7 +199,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_scheduled_com
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_scheduled_communication_type_set_enum(data_collection_model_scheduled_communication_type_t *obj_scheduled_communication_type, data_collection_model_scheduled_communication_type_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_scheduled_communication_type_set_enum(data_collection_model_scheduled_communication_type_t *obj_scheduled_communication_type, data_collection_model_scheduled_communication_type_e p_value)
 {
     if (!obj_scheduled_communication_type) return false;
     std::shared_ptr<ScheduledCommunicationType > &obj = *reinterpret_cast<std::shared_ptr<ScheduledCommunicationType >*>(obj_scheduled_communication_type);
@@ -223,7 +223,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_scheduled_communicat
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_scheduled_communication_type_set_string(data_collection_model_scheduled_communication_type_t *obj_scheduled_communication_type, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_scheduled_communication_type_set_string(data_collection_model_scheduled_communication_type_t *obj_scheduled_communication_type, const char *p_value)
 {
     if (!obj_scheduled_communication_type) return false;
     std::shared_ptr<ScheduledCommunicationType > &obj = *reinterpret_cast<std::shared_ptr<ScheduledCommunicationType >*>(obj_scheduled_communication_type);
@@ -238,7 +238,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_scheduled_communicat
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_scheduled_communication_type_make_lnode(data_collection_model_scheduled_communication_type_t *p_scheduled_communication_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_scheduled_communication_type_make_lnode(data_collection_model_scheduled_communication_type_t *p_scheduled_communication_type)
 {
     return data_collection_lnode_create(p_scheduled_communication_type, reinterpret_cast<void(*)(void*)>(data_collection_model_scheduled_communication_type_free));
 }

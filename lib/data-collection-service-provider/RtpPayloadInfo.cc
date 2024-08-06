@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_create(
 
 )
 {
@@ -33,7 +33,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_in
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_create_copy(const data_collection_model_rtp_payload_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_create_copy(const data_collection_model_rtp_payload_info_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<RtpPayloadInfo > &obj = *reinterpret_cast<const std::shared_ptr<RtpPayloadInfo >*>(other);
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_in
     return reinterpret_cast<data_collection_model_rtp_payload_info_t*>(new std::shared_ptr<RtpPayloadInfo >(new RtpPayloadInfo(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_create_move(data_collection_model_rtp_payload_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_create_move(data_collection_model_rtp_payload_info_t *other)
 {
     if (!other) return NULL;
 
@@ -54,7 +54,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_in
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_copy(data_collection_model_rtp_payload_info_t *rtp_payload_info, const data_collection_model_rtp_payload_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_copy(data_collection_model_rtp_payload_info_t *rtp_payload_info, const data_collection_model_rtp_payload_info_t *other)
 {
     if (rtp_payload_info) {
         std::shared_ptr<RtpPayloadInfo > &obj = *reinterpret_cast<std::shared_ptr<RtpPayloadInfo >*>(rtp_payload_info);
@@ -83,7 +83,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_in
     return rtp_payload_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_move(data_collection_model_rtp_payload_info_t *rtp_payload_info, data_collection_model_rtp_payload_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_move(data_collection_model_rtp_payload_info_t *rtp_payload_info, data_collection_model_rtp_payload_info_t *other)
 {
     std::shared_ptr<RtpPayloadInfo > *other_ptr = reinterpret_cast<std::shared_ptr<RtpPayloadInfo >*>(other);
 
@@ -107,13 +107,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_in
     return rtp_payload_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_rtp_payload_info_free(data_collection_model_rtp_payload_info_t *rtp_payload_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_rtp_payload_info_free(data_collection_model_rtp_payload_info_t *rtp_payload_info)
 {
     if (!rtp_payload_info) return;
     delete reinterpret_cast<std::shared_ptr<RtpPayloadInfo >*>(rtp_payload_info);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_rtp_payload_info_toJSON(const data_collection_model_rtp_payload_info_t *rtp_payload_info, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_rtp_payload_info_toJSON(const data_collection_model_rtp_payload_info_t *rtp_payload_info, bool as_request)
 {
     if (!rtp_payload_info) return NULL;
     const std::shared_ptr<RtpPayloadInfo > &obj = *reinterpret_cast<const std::shared_ptr<RtpPayloadInfo >*>(rtp_payload_info);
@@ -122,7 +122,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_rtp_pay
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -135,7 +135,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_in
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_rtp_payload_info_is_equal_to(const data_collection_model_rtp_payload_info_t *first, const data_collection_model_rtp_payload_info_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_payload_info_is_equal_to(const data_collection_model_rtp_payload_info_t *first, const data_collection_model_rtp_payload_info_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -160,7 +160,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_rtp_paylo
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_rtp_payload_info_get_rtp_payload_type_list(const data_collection_model_rtp_payload_info_t *obj_rtp_payload_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_rtp_payload_info_get_rtp_payload_type_list(const data_collection_model_rtp_payload_info_t *obj_rtp_payload_info)
 {
     if (!obj_rtp_payload_info) {
         ogs_list_t *result = NULL;
@@ -188,7 +188,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_rt
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_set_rtp_payload_type_list(data_collection_model_rtp_payload_info_t *obj_rtp_payload_info, const ogs_list_t* p_rtp_payload_type_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_set_rtp_payload_type_list(data_collection_model_rtp_payload_info_t *obj_rtp_payload_info, const ogs_list_t* p_rtp_payload_type_list)
 {
     if (!obj_rtp_payload_info) return NULL;
 
@@ -212,7 +212,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_in
     return obj_rtp_payload_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_set_rtp_payload_type_list_move(data_collection_model_rtp_payload_info_t *obj_rtp_payload_info, ogs_list_t* p_rtp_payload_type_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_set_rtp_payload_type_list_move(data_collection_model_rtp_payload_info_t *obj_rtp_payload_info, ogs_list_t* p_rtp_payload_type_list)
 {
     if (!obj_rtp_payload_info) return NULL;
 
@@ -237,7 +237,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_in
     return obj_rtp_payload_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_add_rtp_payload_type_list(data_collection_model_rtp_payload_info_t *obj_rtp_payload_info, int32_t p_rtp_payload_type_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_add_rtp_payload_type_list(data_collection_model_rtp_payload_info_t *obj_rtp_payload_info, int32_t p_rtp_payload_type_list)
 {
     if (!obj_rtp_payload_info) return NULL;
 
@@ -254,7 +254,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_in
     return obj_rtp_payload_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_remove_rtp_payload_type_list(data_collection_model_rtp_payload_info_t *obj_rtp_payload_info, const int32_t p_rtp_payload_type_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_remove_rtp_payload_type_list(data_collection_model_rtp_payload_info_t *obj_rtp_payload_info, const int32_t p_rtp_payload_type_list)
 {
     if (!obj_rtp_payload_info) return NULL;
 
@@ -269,7 +269,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_in
     return obj_rtp_payload_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_clear_rtp_payload_type_list(data_collection_model_rtp_payload_info_t *obj_rtp_payload_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_clear_rtp_payload_type_list(data_collection_model_rtp_payload_info_t *obj_rtp_payload_info)
 {
     if (!obj_rtp_payload_info) return NULL;
 
@@ -280,7 +280,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_in
     return obj_rtp_payload_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_rtp_payload_format_t* data_collection_model_rtp_payload_info_get_rtp_payload_format(const data_collection_model_rtp_payload_info_t *obj_rtp_payload_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_rtp_payload_format_t* data_collection_model_rtp_payload_info_get_rtp_payload_format(const data_collection_model_rtp_payload_info_t *obj_rtp_payload_info)
 {
     if (!obj_rtp_payload_info) {
         const data_collection_model_rtp_payload_format_t *result = NULL;
@@ -299,7 +299,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_rtp_payl
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_set_rtp_payload_format(data_collection_model_rtp_payload_info_t *obj_rtp_payload_info, const data_collection_model_rtp_payload_format_t* p_rtp_payload_format)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_set_rtp_payload_format(data_collection_model_rtp_payload_info_t *obj_rtp_payload_info, const data_collection_model_rtp_payload_format_t* p_rtp_payload_format)
 {
     if (!obj_rtp_payload_info) return NULL;
 
@@ -315,7 +315,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_in
     return obj_rtp_payload_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_set_rtp_payload_format_move(data_collection_model_rtp_payload_info_t *obj_rtp_payload_info, data_collection_model_rtp_payload_format_t* p_rtp_payload_format)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_set_rtp_payload_format_move(data_collection_model_rtp_payload_info_t *obj_rtp_payload_info, data_collection_model_rtp_payload_format_t* p_rtp_payload_format)
 {
     if (!obj_rtp_payload_info) return NULL;
 
@@ -333,7 +333,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_rtp_payload_in
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_rtp_payload_info_make_lnode(data_collection_model_rtp_payload_info_t *p_rtp_payload_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_rtp_payload_info_make_lnode(data_collection_model_rtp_payload_info_t *p_rtp_payload_info)
 {
     return data_collection_lnode_create(p_rtp_payload_info, reinterpret_cast<void(*)(void*)>(data_collection_model_rtp_payload_info_free));
 }

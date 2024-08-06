@@ -22,14 +22,14 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_create(
 )
 {
     return reinterpret_cast<data_collection_model_ms_dyn_policy_invocation_collection_t*>(new std::shared_ptr<MsDynPolicyInvocationCollection>(new MsDynPolicyInvocationCollection(
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_create_copy(const data_collection_model_ms_dyn_policy_invocation_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_create_copy(const data_collection_model_ms_dyn_policy_invocation_collection_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<MsDynPolicyInvocationCollection > &obj = *reinterpret_cast<const std::shared_ptr<MsDynPolicyInvocationCollection >*>(other);
@@ -37,7 +37,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_dyn_policy_
     return reinterpret_cast<data_collection_model_ms_dyn_policy_invocation_collection_t*>(new std::shared_ptr<MsDynPolicyInvocationCollection >(new MsDynPolicyInvocationCollection(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_create_move(data_collection_model_ms_dyn_policy_invocation_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_create_move(data_collection_model_ms_dyn_policy_invocation_collection_t *other)
 {
     if (!other) return NULL;
 
@@ -50,7 +50,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_dyn_policy_
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_copy(data_collection_model_ms_dyn_policy_invocation_collection_t *ms_dyn_policy_invocation_collection, const data_collection_model_ms_dyn_policy_invocation_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_copy(data_collection_model_ms_dyn_policy_invocation_collection_t *ms_dyn_policy_invocation_collection, const data_collection_model_ms_dyn_policy_invocation_collection_t *other)
 {
     if (ms_dyn_policy_invocation_collection) {
         std::shared_ptr<MsDynPolicyInvocationCollection > &obj = *reinterpret_cast<std::shared_ptr<MsDynPolicyInvocationCollection >*>(ms_dyn_policy_invocation_collection);
@@ -79,7 +79,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_dyn_policy_
     return ms_dyn_policy_invocation_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_move(data_collection_model_ms_dyn_policy_invocation_collection_t *ms_dyn_policy_invocation_collection, data_collection_model_ms_dyn_policy_invocation_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_move(data_collection_model_ms_dyn_policy_invocation_collection_t *ms_dyn_policy_invocation_collection, data_collection_model_ms_dyn_policy_invocation_collection_t *other)
 {
     std::shared_ptr<MsDynPolicyInvocationCollection > *other_ptr = reinterpret_cast<std::shared_ptr<MsDynPolicyInvocationCollection >*>(other);
 
@@ -103,13 +103,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_dyn_policy_
     return ms_dyn_policy_invocation_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_ms_dyn_policy_invocation_collection_free(data_collection_model_ms_dyn_policy_invocation_collection_t *ms_dyn_policy_invocation_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_ms_dyn_policy_invocation_collection_free(data_collection_model_ms_dyn_policy_invocation_collection_t *ms_dyn_policy_invocation_collection)
 {
     if (!ms_dyn_policy_invocation_collection) return;
     delete reinterpret_cast<std::shared_ptr<MsDynPolicyInvocationCollection >*>(ms_dyn_policy_invocation_collection);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_ms_dyn_policy_invocation_collection_toJSON(const data_collection_model_ms_dyn_policy_invocation_collection_t *ms_dyn_policy_invocation_collection, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_ms_dyn_policy_invocation_collection_toJSON(const data_collection_model_ms_dyn_policy_invocation_collection_t *ms_dyn_policy_invocation_collection, bool as_request)
 {
     if (!ms_dyn_policy_invocation_collection) return NULL;
     const std::shared_ptr<MsDynPolicyInvocationCollection > &obj = *reinterpret_cast<const std::shared_ptr<MsDynPolicyInvocationCollection >*>(ms_dyn_policy_invocation_collection);
@@ -118,7 +118,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_ms_dyn_
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -131,7 +131,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_dyn_policy_
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ms_dyn_policy_invocation_collection_is_equal_to(const data_collection_model_ms_dyn_policy_invocation_collection_t *first, const data_collection_model_ms_dyn_policy_invocation_collection_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ms_dyn_policy_invocation_collection_is_equal_to(const data_collection_model_ms_dyn_policy_invocation_collection_t *first, const data_collection_model_ms_dyn_policy_invocation_collection_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -156,7 +156,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ms_dyn_po
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ms_dyn_policy_invocation_collection_get_ms_dyn_ply_invocs(const data_collection_model_ms_dyn_policy_invocation_collection_t *obj_ms_dyn_policy_invocation_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ms_dyn_policy_invocation_collection_get_ms_dyn_ply_invocs(const data_collection_model_ms_dyn_policy_invocation_collection_t *obj_ms_dyn_policy_invocation_collection)
 {
     if (!obj_ms_dyn_policy_invocation_collection) {
         ogs_list_t *result = NULL;
@@ -183,7 +183,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ms
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_set_ms_dyn_ply_invocs(data_collection_model_ms_dyn_policy_invocation_collection_t *obj_ms_dyn_policy_invocation_collection, const ogs_list_t* p_ms_dyn_ply_invocs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_set_ms_dyn_ply_invocs(data_collection_model_ms_dyn_policy_invocation_collection_t *obj_ms_dyn_policy_invocation_collection, const ogs_list_t* p_ms_dyn_ply_invocs)
 {
     if (!obj_ms_dyn_policy_invocation_collection) return NULL;
 
@@ -207,7 +207,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_dyn_policy_
     return obj_ms_dyn_policy_invocation_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_set_ms_dyn_ply_invocs_move(data_collection_model_ms_dyn_policy_invocation_collection_t *obj_ms_dyn_policy_invocation_collection, ogs_list_t* p_ms_dyn_ply_invocs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_set_ms_dyn_ply_invocs_move(data_collection_model_ms_dyn_policy_invocation_collection_t *obj_ms_dyn_policy_invocation_collection, ogs_list_t* p_ms_dyn_ply_invocs)
 {
     if (!obj_ms_dyn_policy_invocation_collection) return NULL;
 
@@ -232,7 +232,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_dyn_policy_
     return obj_ms_dyn_policy_invocation_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_add_ms_dyn_ply_invocs(data_collection_model_ms_dyn_policy_invocation_collection_t *obj_ms_dyn_policy_invocation_collection, data_collection_model_dynamic_policy_t* p_ms_dyn_ply_invocs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_add_ms_dyn_ply_invocs(data_collection_model_ms_dyn_policy_invocation_collection_t *obj_ms_dyn_policy_invocation_collection, data_collection_model_dynamic_policy_t* p_ms_dyn_ply_invocs)
 {
     if (!obj_ms_dyn_policy_invocation_collection) return NULL;
 
@@ -249,7 +249,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_dyn_policy_
     return obj_ms_dyn_policy_invocation_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_remove_ms_dyn_ply_invocs(data_collection_model_ms_dyn_policy_invocation_collection_t *obj_ms_dyn_policy_invocation_collection, const data_collection_model_dynamic_policy_t* p_ms_dyn_ply_invocs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_remove_ms_dyn_ply_invocs(data_collection_model_ms_dyn_policy_invocation_collection_t *obj_ms_dyn_policy_invocation_collection, const data_collection_model_dynamic_policy_t* p_ms_dyn_ply_invocs)
 {
     if (!obj_ms_dyn_policy_invocation_collection) return NULL;
 
@@ -264,7 +264,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_dyn_policy_
     return obj_ms_dyn_policy_invocation_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_clear_ms_dyn_ply_invocs(data_collection_model_ms_dyn_policy_invocation_collection_t *obj_ms_dyn_policy_invocation_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_clear_ms_dyn_ply_invocs(data_collection_model_ms_dyn_policy_invocation_collection_t *obj_ms_dyn_policy_invocation_collection)
 {
     if (!obj_ms_dyn_policy_invocation_collection) return NULL;
 
@@ -276,7 +276,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_dyn_policy_
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_ms_dyn_policy_invocation_collection_make_lnode(data_collection_model_ms_dyn_policy_invocation_collection_t *p_ms_dyn_policy_invocation_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_ms_dyn_policy_invocation_collection_make_lnode(data_collection_model_ms_dyn_policy_invocation_collection_t *p_ms_dyn_policy_invocation_collection)
 {
     return data_collection_lnode_create(p_ms_dyn_policy_invocation_collection, reinterpret_cast<void(*)(void*)>(data_collection_model_ms_dyn_policy_invocation_collection_free));
 }

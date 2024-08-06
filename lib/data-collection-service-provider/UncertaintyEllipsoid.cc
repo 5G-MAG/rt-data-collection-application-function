@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_create(
 
 
 
@@ -37,7 +37,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_create_copy(const data_collection_model_uncertainty_ellipsoid_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_create_copy(const data_collection_model_uncertainty_ellipsoid_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<UncertaintyEllipsoid > &obj = *reinterpret_cast<const std::shared_ptr<UncertaintyEllipsoid >*>(other);
@@ -45,7 +45,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
     return reinterpret_cast<data_collection_model_uncertainty_ellipsoid_t*>(new std::shared_ptr<UncertaintyEllipsoid >(new UncertaintyEllipsoid(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_create_move(data_collection_model_uncertainty_ellipsoid_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_create_move(data_collection_model_uncertainty_ellipsoid_t *other)
 {
     if (!other) return NULL;
 
@@ -58,7 +58,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_copy(data_collection_model_uncertainty_ellipsoid_t *uncertainty_ellipsoid, const data_collection_model_uncertainty_ellipsoid_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_copy(data_collection_model_uncertainty_ellipsoid_t *uncertainty_ellipsoid, const data_collection_model_uncertainty_ellipsoid_t *other)
 {
     if (uncertainty_ellipsoid) {
         std::shared_ptr<UncertaintyEllipsoid > &obj = *reinterpret_cast<std::shared_ptr<UncertaintyEllipsoid >*>(uncertainty_ellipsoid);
@@ -87,7 +87,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
     return uncertainty_ellipsoid;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_move(data_collection_model_uncertainty_ellipsoid_t *uncertainty_ellipsoid, data_collection_model_uncertainty_ellipsoid_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_move(data_collection_model_uncertainty_ellipsoid_t *uncertainty_ellipsoid, data_collection_model_uncertainty_ellipsoid_t *other)
 {
     std::shared_ptr<UncertaintyEllipsoid > *other_ptr = reinterpret_cast<std::shared_ptr<UncertaintyEllipsoid >*>(other);
 
@@ -111,13 +111,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
     return uncertainty_ellipsoid;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_uncertainty_ellipsoid_free(data_collection_model_uncertainty_ellipsoid_t *uncertainty_ellipsoid)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_uncertainty_ellipsoid_free(data_collection_model_uncertainty_ellipsoid_t *uncertainty_ellipsoid)
 {
     if (!uncertainty_ellipsoid) return;
     delete reinterpret_cast<std::shared_ptr<UncertaintyEllipsoid >*>(uncertainty_ellipsoid);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_uncertainty_ellipsoid_toJSON(const data_collection_model_uncertainty_ellipsoid_t *uncertainty_ellipsoid, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_uncertainty_ellipsoid_toJSON(const data_collection_model_uncertainty_ellipsoid_t *uncertainty_ellipsoid, bool as_request)
 {
     if (!uncertainty_ellipsoid) return NULL;
     const std::shared_ptr<UncertaintyEllipsoid > &obj = *reinterpret_cast<const std::shared_ptr<UncertaintyEllipsoid >*>(uncertainty_ellipsoid);
@@ -126,7 +126,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_uncerta
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -139,7 +139,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_uncertainty_ellipsoid_is_equal_to(const data_collection_model_uncertainty_ellipsoid_t *first, const data_collection_model_uncertainty_ellipsoid_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_uncertainty_ellipsoid_is_equal_to(const data_collection_model_uncertainty_ellipsoid_t *first, const data_collection_model_uncertainty_ellipsoid_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -164,7 +164,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_uncertain
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_uncertainty_ellipsoid_get_semi_major(const data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_uncertainty_ellipsoid_get_semi_major(const data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid)
 {
     if (!obj_uncertainty_ellipsoid) {
         const float result = 0;
@@ -183,7 +183,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_un
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_set_semi_major(data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid, const float p_semi_major)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_set_semi_major(data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid, const float p_semi_major)
 {
     if (!obj_uncertainty_ellipsoid) return NULL;
 
@@ -199,7 +199,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
     return obj_uncertainty_ellipsoid;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_set_semi_major_move(data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid, float p_semi_major)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_set_semi_major_move(data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid, float p_semi_major)
 {
     if (!obj_uncertainty_ellipsoid) return NULL;
 
@@ -216,7 +216,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
     return obj_uncertainty_ellipsoid;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_uncertainty_ellipsoid_get_semi_minor(const data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_uncertainty_ellipsoid_get_semi_minor(const data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid)
 {
     if (!obj_uncertainty_ellipsoid) {
         const float result = 0;
@@ -235,7 +235,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_un
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_set_semi_minor(data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid, const float p_semi_minor)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_set_semi_minor(data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid, const float p_semi_minor)
 {
     if (!obj_uncertainty_ellipsoid) return NULL;
 
@@ -251,7 +251,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
     return obj_uncertainty_ellipsoid;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_set_semi_minor_move(data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid, float p_semi_minor)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_set_semi_minor_move(data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid, float p_semi_minor)
 {
     if (!obj_uncertainty_ellipsoid) return NULL;
 
@@ -268,7 +268,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
     return obj_uncertainty_ellipsoid;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_uncertainty_ellipsoid_get_vertical(const data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_uncertainty_ellipsoid_get_vertical(const data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid)
 {
     if (!obj_uncertainty_ellipsoid) {
         const float result = 0;
@@ -287,7 +287,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_un
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_set_vertical(data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid, const float p_vertical)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_set_vertical(data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid, const float p_vertical)
 {
     if (!obj_uncertainty_ellipsoid) return NULL;
 
@@ -303,7 +303,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
     return obj_uncertainty_ellipsoid;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_set_vertical_move(data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid, float p_vertical)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_set_vertical_move(data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid, float p_vertical)
 {
     if (!obj_uncertainty_ellipsoid) return NULL;
 
@@ -320,7 +320,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
     return obj_uncertainty_ellipsoid;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_uncertainty_ellipsoid_get_orientation_major(const data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_uncertainty_ellipsoid_get_orientation_major(const data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid)
 {
     if (!obj_uncertainty_ellipsoid) {
         const int32_t result = 0;
@@ -339,7 +339,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_set_orientation_major(data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid, const int32_t p_orientation_major)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_set_orientation_major(data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid, const int32_t p_orientation_major)
 {
     if (!obj_uncertainty_ellipsoid) return NULL;
 
@@ -355,7 +355,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
     return obj_uncertainty_ellipsoid;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_set_orientation_major_move(data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid, int32_t p_orientation_major)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_set_orientation_major_move(data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid, int32_t p_orientation_major)
 {
     if (!obj_uncertainty_ellipsoid) return NULL;
 
@@ -373,7 +373,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_uncertainty_el
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_uncertainty_ellipsoid_make_lnode(data_collection_model_uncertainty_ellipsoid_t *p_uncertainty_ellipsoid)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_uncertainty_ellipsoid_make_lnode(data_collection_model_uncertainty_ellipsoid_t *p_uncertainty_ellipsoid)
 {
     return data_collection_lnode_create(p_uncertainty_ellipsoid, reinterpret_cast<void(*)(void*)>(data_collection_model_uncertainty_ellipsoid_free));
 }

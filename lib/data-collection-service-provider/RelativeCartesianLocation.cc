@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_create(
 
 
 )
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_carte
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_create_copy(const data_collection_model_relative_cartesian_location_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_create_copy(const data_collection_model_relative_cartesian_location_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<RelativeCartesianLocation > &obj = *reinterpret_cast<const std::shared_ptr<RelativeCartesianLocation >*>(other);
@@ -43,7 +43,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_carte
     return reinterpret_cast<data_collection_model_relative_cartesian_location_t*>(new std::shared_ptr<RelativeCartesianLocation >(new RelativeCartesianLocation(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_create_move(data_collection_model_relative_cartesian_location_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_create_move(data_collection_model_relative_cartesian_location_t *other)
 {
     if (!other) return NULL;
 
@@ -56,7 +56,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_carte
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_copy(data_collection_model_relative_cartesian_location_t *relative_cartesian_location, const data_collection_model_relative_cartesian_location_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_copy(data_collection_model_relative_cartesian_location_t *relative_cartesian_location, const data_collection_model_relative_cartesian_location_t *other)
 {
     if (relative_cartesian_location) {
         std::shared_ptr<RelativeCartesianLocation > &obj = *reinterpret_cast<std::shared_ptr<RelativeCartesianLocation >*>(relative_cartesian_location);
@@ -85,7 +85,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_carte
     return relative_cartesian_location;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_move(data_collection_model_relative_cartesian_location_t *relative_cartesian_location, data_collection_model_relative_cartesian_location_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_move(data_collection_model_relative_cartesian_location_t *relative_cartesian_location, data_collection_model_relative_cartesian_location_t *other)
 {
     std::shared_ptr<RelativeCartesianLocation > *other_ptr = reinterpret_cast<std::shared_ptr<RelativeCartesianLocation >*>(other);
 
@@ -109,13 +109,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_carte
     return relative_cartesian_location;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_relative_cartesian_location_free(data_collection_model_relative_cartesian_location_t *relative_cartesian_location)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_relative_cartesian_location_free(data_collection_model_relative_cartesian_location_t *relative_cartesian_location)
 {
     if (!relative_cartesian_location) return;
     delete reinterpret_cast<std::shared_ptr<RelativeCartesianLocation >*>(relative_cartesian_location);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_relative_cartesian_location_toJSON(const data_collection_model_relative_cartesian_location_t *relative_cartesian_location, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_relative_cartesian_location_toJSON(const data_collection_model_relative_cartesian_location_t *relative_cartesian_location, bool as_request)
 {
     if (!relative_cartesian_location) return NULL;
     const std::shared_ptr<RelativeCartesianLocation > &obj = *reinterpret_cast<const std::shared_ptr<RelativeCartesianLocation >*>(relative_cartesian_location);
@@ -124,7 +124,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_relativ
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -137,7 +137,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_carte
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_relative_cartesian_location_is_equal_to(const data_collection_model_relative_cartesian_location_t *first, const data_collection_model_relative_cartesian_location_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_relative_cartesian_location_is_equal_to(const data_collection_model_relative_cartesian_location_t *first, const data_collection_model_relative_cartesian_location_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_relative_
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_relative_cartesian_location_get_x(const data_collection_model_relative_cartesian_location_t *obj_relative_cartesian_location)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_relative_cartesian_location_get_x(const data_collection_model_relative_cartesian_location_t *obj_relative_cartesian_location)
 {
     if (!obj_relative_cartesian_location) {
         const float result = 0;
@@ -181,7 +181,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_re
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_set_x(data_collection_model_relative_cartesian_location_t *obj_relative_cartesian_location, const float p_x)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_set_x(data_collection_model_relative_cartesian_location_t *obj_relative_cartesian_location, const float p_x)
 {
     if (!obj_relative_cartesian_location) return NULL;
 
@@ -197,7 +197,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_carte
     return obj_relative_cartesian_location;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_set_x_move(data_collection_model_relative_cartesian_location_t *obj_relative_cartesian_location, float p_x)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_set_x_move(data_collection_model_relative_cartesian_location_t *obj_relative_cartesian_location, float p_x)
 {
     if (!obj_relative_cartesian_location) return NULL;
 
@@ -214,7 +214,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_carte
     return obj_relative_cartesian_location;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_relative_cartesian_location_get_y(const data_collection_model_relative_cartesian_location_t *obj_relative_cartesian_location)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_relative_cartesian_location_get_y(const data_collection_model_relative_cartesian_location_t *obj_relative_cartesian_location)
 {
     if (!obj_relative_cartesian_location) {
         const float result = 0;
@@ -233,7 +233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_re
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_set_y(data_collection_model_relative_cartesian_location_t *obj_relative_cartesian_location, const float p_y)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_set_y(data_collection_model_relative_cartesian_location_t *obj_relative_cartesian_location, const float p_y)
 {
     if (!obj_relative_cartesian_location) return NULL;
 
@@ -249,7 +249,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_carte
     return obj_relative_cartesian_location;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_set_y_move(data_collection_model_relative_cartesian_location_t *obj_relative_cartesian_location, float p_y)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_set_y_move(data_collection_model_relative_cartesian_location_t *obj_relative_cartesian_location, float p_y)
 {
     if (!obj_relative_cartesian_location) return NULL;
 
@@ -266,7 +266,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_carte
     return obj_relative_cartesian_location;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_relative_cartesian_location_get_z(const data_collection_model_relative_cartesian_location_t *obj_relative_cartesian_location)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_relative_cartesian_location_get_z(const data_collection_model_relative_cartesian_location_t *obj_relative_cartesian_location)
 {
     if (!obj_relative_cartesian_location) {
         const float result = 0;
@@ -285,7 +285,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_re
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_set_z(data_collection_model_relative_cartesian_location_t *obj_relative_cartesian_location, const float p_z)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_set_z(data_collection_model_relative_cartesian_location_t *obj_relative_cartesian_location, const float p_z)
 {
     if (!obj_relative_cartesian_location) return NULL;
 
@@ -301,7 +301,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_carte
     return obj_relative_cartesian_location;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_set_z_move(data_collection_model_relative_cartesian_location_t *obj_relative_cartesian_location, float p_z)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_set_z_move(data_collection_model_relative_cartesian_location_t *obj_relative_cartesian_location, float p_z)
 {
     if (!obj_relative_cartesian_location) return NULL;
 
@@ -319,7 +319,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_relative_carte
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_relative_cartesian_location_make_lnode(data_collection_model_relative_cartesian_location_t *p_relative_cartesian_location)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_relative_cartesian_location_make_lnode(data_collection_model_relative_cartesian_location_t *p_relative_cartesian_location)
 {
     return data_collection_lnode_create(p_relative_cartesian_location, reinterpret_cast<void(*)(void*)>(data_collection_model_relative_cartesian_location_free));
 }

@@ -16,48 +16,48 @@
 
 using namespace fiveg_mag_reftools;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_any_type_t *data_collection_model_any_type_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_any_type_t *data_collection_model_any_type_create()
 {
     return reinterpret_cast<data_collection_model_any_type_t*>(new std::shared_ptr<AnyType>(new AnyType()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_any_type_t *data_collection_model_any_type_create_copy(const data_collection_model_any_type_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_any_type_t *data_collection_model_any_type_create_copy(const data_collection_model_any_type_t *other)
 {
     return reinterpret_cast<data_collection_model_any_type_t*>(new std::shared_ptr<AnyType>(new AnyType(**reinterpret_cast<const std::shared_ptr<AnyType>*>(other))));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_any_type_t *data_collection_model_any_type_create_move(data_collection_model_any_type_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_any_type_t *data_collection_model_any_type_create_move(data_collection_model_any_type_t *other)
 {
     return reinterpret_cast<data_collection_model_any_type_t*>(new std::shared_ptr<AnyType>(std::move(*reinterpret_cast<std::shared_ptr<AnyType>*>(other))));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_any_type_t *data_collection_model_any_type_copy(data_collection_model_any_type_t *any_type, const data_collection_model_any_type_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_any_type_t *data_collection_model_any_type_copy(data_collection_model_any_type_t *any_type, const data_collection_model_any_type_t *other)
 {
     std::shared_ptr<AnyType> &obj = *reinterpret_cast<std::shared_ptr<AnyType>*>(any_type);
     *obj = **reinterpret_cast<const std::shared_ptr<AnyType>*>(other);
     return any_type;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_any_type_t *data_collection_model_any_type_move(data_collection_model_any_type_t *any_type, data_collection_model_any_type_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_any_type_t *data_collection_model_any_type_move(data_collection_model_any_type_t *any_type, data_collection_model_any_type_t *other)
 {
     std::shared_ptr<AnyType> &obj = *reinterpret_cast<std::shared_ptr<AnyType>*>(any_type);
     obj = std::move(*reinterpret_cast<std::shared_ptr<AnyType>*>(other));
     return any_type;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_any_type_free(data_collection_model_any_type_t *any_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_any_type_free(data_collection_model_any_type_t *any_type)
 {
     delete reinterpret_cast<std::shared_ptr<AnyType>*>(any_type);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_any_type_toJSON(const data_collection_model_any_type_t *any_type, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_any_type_toJSON(const data_collection_model_any_type_t *any_type, bool as_request)
 {
     const std::shared_ptr<AnyType> &obj = *reinterpret_cast<const std::shared_ptr<AnyType>*>(any_type);
     fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_any_type_t *data_collection_model_any_type_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_any_type_t *data_collection_model_any_type_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -70,7 +70,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_any_type_t *da
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_any_type_is_equal_to(const data_collection_model_any_type_t *any_type, const data_collection_model_any_type_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_any_type_is_equal_to(const data_collection_model_any_type_t *any_type, const data_collection_model_any_type_t *other)
 {
     const std::shared_ptr<AnyType> &obj = *reinterpret_cast<const std::shared_ptr<AnyType>*>(any_type);
     const std::shared_ptr<AnyType> &other_obj = *reinterpret_cast<const std::shared_ptr<AnyType>*>(other);

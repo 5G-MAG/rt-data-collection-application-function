@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_create(
 
 
 
@@ -39,7 +39,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_create_copy(const data_collection_model_service_experience_info_per_app_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_create_copy(const data_collection_model_service_experience_info_per_app_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<ServiceExperienceInfoPerApp > &obj = *reinterpret_cast<const std::shared_ptr<ServiceExperienceInfoPerApp >*>(other);
@@ -47,7 +47,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return reinterpret_cast<data_collection_model_service_experience_info_per_app_t*>(new std::shared_ptr<ServiceExperienceInfoPerApp >(new ServiceExperienceInfoPerApp(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_create_move(data_collection_model_service_experience_info_per_app_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_create_move(data_collection_model_service_experience_info_per_app_t *other)
 {
     if (!other) return NULL;
 
@@ -60,7 +60,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_copy(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, const data_collection_model_service_experience_info_per_app_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_copy(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, const data_collection_model_service_experience_info_per_app_t *other)
 {
     if (service_experience_info_per_app) {
         std::shared_ptr<ServiceExperienceInfoPerApp > &obj = *reinterpret_cast<std::shared_ptr<ServiceExperienceInfoPerApp >*>(service_experience_info_per_app);
@@ -89,7 +89,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_move(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, data_collection_model_service_experience_info_per_app_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_move(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, data_collection_model_service_experience_info_per_app_t *other)
 {
     std::shared_ptr<ServiceExperienceInfoPerApp > *other_ptr = reinterpret_cast<std::shared_ptr<ServiceExperienceInfoPerApp >*>(other);
 
@@ -113,13 +113,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_service_experience_info_per_app_free(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_service_experience_info_per_app_free(data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app)
 {
     if (!service_experience_info_per_app) return;
     delete reinterpret_cast<std::shared_ptr<ServiceExperienceInfoPerApp >*>(service_experience_info_per_app);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_service_experience_info_per_app_toJSON(const data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_service_experience_info_per_app_toJSON(const data_collection_model_service_experience_info_per_app_t *service_experience_info_per_app, bool as_request)
 {
     if (!service_experience_info_per_app) return NULL;
     const std::shared_ptr<ServiceExperienceInfoPerApp > &obj = *reinterpret_cast<const std::shared_ptr<ServiceExperienceInfoPerApp >*>(service_experience_info_per_app);
@@ -128,7 +128,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_service
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -141,7 +141,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_service_experience_info_per_app_is_equal_to(const data_collection_model_service_experience_info_per_app_t *first, const data_collection_model_service_experience_info_per_app_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_service_experience_info_per_app_is_equal_to(const data_collection_model_service_experience_info_per_app_t *first, const data_collection_model_service_experience_info_per_app_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -166,7 +166,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_service_e
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_service_experience_info_per_app_get_app_id(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_service_experience_info_per_app_get_app_id(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
 {
     if (!obj_service_experience_info_per_app) {
         const char *result = NULL;
@@ -185,7 +185,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_se
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_app_id(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, const char* p_app_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_app_id(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, const char* p_app_id)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -201,7 +201,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_app_id_move(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, char* p_app_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_app_id_move(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, char* p_app_id)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -218,7 +218,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_addr_fqdn_t* data_collection_model_service_experience_info_per_app_get_app_server_ins(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_addr_fqdn_t* data_collection_model_service_experience_info_per_app_get_app_server_ins(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
 {
     if (!obj_service_experience_info_per_app) {
         const data_collection_model_addr_fqdn_t *result = NULL;
@@ -237,7 +237,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_addr_fqd
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_app_server_ins(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, const data_collection_model_addr_fqdn_t* p_app_server_ins)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_app_server_ins(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, const data_collection_model_addr_fqdn_t* p_app_server_ins)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -253,7 +253,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_app_server_ins_move(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, data_collection_model_addr_fqdn_t* p_app_server_ins)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_app_server_ins_move(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, data_collection_model_addr_fqdn_t* p_app_server_ins)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -270,7 +270,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_service_experience_info_per_app_get_svc_exp_per_flows(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_service_experience_info_per_app_get_svc_exp_per_flows(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
 {
     if (!obj_service_experience_info_per_app) {
         ogs_list_t *result = NULL;
@@ -297,7 +297,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_se
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_svc_exp_per_flows(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, const ogs_list_t* p_svc_exp_per_flows)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_svc_exp_per_flows(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, const ogs_list_t* p_svc_exp_per_flows)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -321,7 +321,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_svc_exp_per_flows_move(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, ogs_list_t* p_svc_exp_per_flows)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_svc_exp_per_flows_move(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, ogs_list_t* p_svc_exp_per_flows)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -346,7 +346,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_add_svc_exp_per_flows(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, data_collection_model_service_experience_info_per_flow_t* p_svc_exp_per_flows)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_add_svc_exp_per_flows(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, data_collection_model_service_experience_info_per_flow_t* p_svc_exp_per_flows)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -363,7 +363,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_remove_svc_exp_per_flows(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, const data_collection_model_service_experience_info_per_flow_t* p_svc_exp_per_flows)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_remove_svc_exp_per_flows(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, const data_collection_model_service_experience_info_per_flow_t* p_svc_exp_per_flows)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -378,7 +378,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_clear_svc_exp_per_flows(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_clear_svc_exp_per_flows(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -389,7 +389,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_service_experience_info_per_app_get_gpsis(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_service_experience_info_per_app_get_gpsis(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
 {
     if (!obj_service_experience_info_per_app) {
         ogs_list_t *result = NULL;
@@ -415,7 +415,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_se
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_gpsis(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, const ogs_list_t* p_gpsis)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_gpsis(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, const ogs_list_t* p_gpsis)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -439,7 +439,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_gpsis_move(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, ogs_list_t* p_gpsis)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_gpsis_move(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, ogs_list_t* p_gpsis)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -464,7 +464,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_add_gpsis(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, char* p_gpsis)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_add_gpsis(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, char* p_gpsis)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -481,7 +481,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_remove_gpsis(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, const char* p_gpsis)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_remove_gpsis(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, const char* p_gpsis)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -496,7 +496,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_clear_gpsis(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_clear_gpsis(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -507,7 +507,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_service_experience_info_per_app_get_supis(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_service_experience_info_per_app_get_supis(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
 {
     if (!obj_service_experience_info_per_app) {
         ogs_list_t *result = NULL;
@@ -533,7 +533,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_se
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_supis(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, const ogs_list_t* p_supis)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_supis(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, const ogs_list_t* p_supis)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -557,7 +557,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_supis_move(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, ogs_list_t* p_supis)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_supis_move(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, ogs_list_t* p_supis)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -582,7 +582,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_add_supis(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, char* p_supis)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_add_supis(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, char* p_supis)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -599,7 +599,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_remove_supis(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, const char* p_supis)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_remove_supis(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, const char* p_supis)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -614,7 +614,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_clear_supis(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_clear_supis(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -625,7 +625,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_service_experience_info_per_app_get_contr_weights(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_service_experience_info_per_app_get_contr_weights(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
 {
     if (!obj_service_experience_info_per_app) {
         ogs_list_t *result = NULL;
@@ -653,7 +653,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_se
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_contr_weights(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, const ogs_list_t* p_contr_weights)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_contr_weights(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, const ogs_list_t* p_contr_weights)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -677,7 +677,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_contr_weights_move(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, ogs_list_t* p_contr_weights)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_set_contr_weights_move(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, ogs_list_t* p_contr_weights)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -702,7 +702,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_add_contr_weights(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, int32_t p_contr_weights)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_add_contr_weights(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, int32_t p_contr_weights)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -719,7 +719,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_remove_contr_weights(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, const int32_t p_contr_weights)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_remove_contr_weights(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, const int32_t p_contr_weights)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -734,7 +734,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_clear_contr_weights(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_clear_contr_weights(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
 {
     if (!obj_service_experience_info_per_app) return NULL;
 
@@ -746,7 +746,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_service_experi
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_service_experience_info_per_app_make_lnode(data_collection_model_service_experience_info_per_app_t *p_service_experience_info_per_app)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_service_experience_info_per_app_make_lnode(data_collection_model_service_experience_info_per_app_t *p_service_experience_info_per_app)
 {
     return data_collection_lnode_create(p_service_experience_info_per_app, reinterpret_cast<void(*)(void*)>(data_collection_model_service_experience_info_per_app_free));
 }

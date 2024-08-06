@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_create(
 
 )
 {
@@ -33,7 +33,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_addre
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_create_copy(const data_collection_model_endpoint_address_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_create_copy(const data_collection_model_endpoint_address_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<EndpointAddress > &obj = *reinterpret_cast<const std::shared_ptr<EndpointAddress >*>(other);
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_addre
     return reinterpret_cast<data_collection_model_endpoint_address_t*>(new std::shared_ptr<EndpointAddress >(new EndpointAddress(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_create_move(data_collection_model_endpoint_address_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_create_move(data_collection_model_endpoint_address_t *other)
 {
     if (!other) return NULL;
 
@@ -54,7 +54,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_addre
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_copy(data_collection_model_endpoint_address_t *endpoint_address, const data_collection_model_endpoint_address_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_copy(data_collection_model_endpoint_address_t *endpoint_address, const data_collection_model_endpoint_address_t *other)
 {
     if (endpoint_address) {
         std::shared_ptr<EndpointAddress > &obj = *reinterpret_cast<std::shared_ptr<EndpointAddress >*>(endpoint_address);
@@ -83,7 +83,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_addre
     return endpoint_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_move(data_collection_model_endpoint_address_t *endpoint_address, data_collection_model_endpoint_address_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_move(data_collection_model_endpoint_address_t *endpoint_address, data_collection_model_endpoint_address_t *other)
 {
     std::shared_ptr<EndpointAddress > *other_ptr = reinterpret_cast<std::shared_ptr<EndpointAddress >*>(other);
 
@@ -107,13 +107,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_addre
     return endpoint_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_endpoint_address_free(data_collection_model_endpoint_address_t *endpoint_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_endpoint_address_free(data_collection_model_endpoint_address_t *endpoint_address)
 {
     if (!endpoint_address) return;
     delete reinterpret_cast<std::shared_ptr<EndpointAddress >*>(endpoint_address);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_endpoint_address_toJSON(const data_collection_model_endpoint_address_t *endpoint_address, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_endpoint_address_toJSON(const data_collection_model_endpoint_address_t *endpoint_address, bool as_request)
 {
     if (!endpoint_address) return NULL;
     const std::shared_ptr<EndpointAddress > &obj = *reinterpret_cast<const std::shared_ptr<EndpointAddress >*>(endpoint_address);
@@ -122,7 +122,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_endpoin
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -135,7 +135,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_addre
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_endpoint_address_is_equal_to(const data_collection_model_endpoint_address_t *first, const data_collection_model_endpoint_address_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_endpoint_address_is_equal_to(const data_collection_model_endpoint_address_t *first, const data_collection_model_endpoint_address_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -160,7 +160,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_endpoint_
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_endpoint_address_get_domain_name(const data_collection_model_endpoint_address_t *obj_endpoint_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_endpoint_address_get_domain_name(const data_collection_model_endpoint_address_t *obj_endpoint_address)
 {
     if (!obj_endpoint_address) {
         const char *result = NULL;
@@ -179,7 +179,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_en
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_set_domain_name(data_collection_model_endpoint_address_t *obj_endpoint_address, const char* p_domain_name)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_set_domain_name(data_collection_model_endpoint_address_t *obj_endpoint_address, const char* p_domain_name)
 {
     if (!obj_endpoint_address) return NULL;
 
@@ -195,7 +195,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_addre
     return obj_endpoint_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_set_domain_name_move(data_collection_model_endpoint_address_t *obj_endpoint_address, char* p_domain_name)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_set_domain_name_move(data_collection_model_endpoint_address_t *obj_endpoint_address, char* p_domain_name)
 {
     if (!obj_endpoint_address) return NULL;
 
@@ -212,7 +212,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_addre
     return obj_endpoint_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_endpoint_address_get_port_numbers(const data_collection_model_endpoint_address_t *obj_endpoint_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_endpoint_address_get_port_numbers(const data_collection_model_endpoint_address_t *obj_endpoint_address)
 {
     if (!obj_endpoint_address) {
         ogs_list_t *result = NULL;
@@ -240,7 +240,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_en
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_set_port_numbers(data_collection_model_endpoint_address_t *obj_endpoint_address, const ogs_list_t* p_port_numbers)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_set_port_numbers(data_collection_model_endpoint_address_t *obj_endpoint_address, const ogs_list_t* p_port_numbers)
 {
     if (!obj_endpoint_address) return NULL;
 
@@ -264,7 +264,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_addre
     return obj_endpoint_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_set_port_numbers_move(data_collection_model_endpoint_address_t *obj_endpoint_address, ogs_list_t* p_port_numbers)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_set_port_numbers_move(data_collection_model_endpoint_address_t *obj_endpoint_address, ogs_list_t* p_port_numbers)
 {
     if (!obj_endpoint_address) return NULL;
 
@@ -289,7 +289,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_addre
     return obj_endpoint_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_add_port_numbers(data_collection_model_endpoint_address_t *obj_endpoint_address, int32_t p_port_numbers)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_add_port_numbers(data_collection_model_endpoint_address_t *obj_endpoint_address, int32_t p_port_numbers)
 {
     if (!obj_endpoint_address) return NULL;
 
@@ -306,7 +306,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_addre
     return obj_endpoint_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_remove_port_numbers(data_collection_model_endpoint_address_t *obj_endpoint_address, const int32_t p_port_numbers)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_remove_port_numbers(data_collection_model_endpoint_address_t *obj_endpoint_address, const int32_t p_port_numbers)
 {
     if (!obj_endpoint_address) return NULL;
 
@@ -321,7 +321,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_addre
     return obj_endpoint_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_clear_port_numbers(data_collection_model_endpoint_address_t *obj_endpoint_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_clear_port_numbers(data_collection_model_endpoint_address_t *obj_endpoint_address)
 {
     if (!obj_endpoint_address) return NULL;
 
@@ -333,7 +333,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_endpoint_addre
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_endpoint_address_make_lnode(data_collection_model_endpoint_address_t *p_endpoint_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_endpoint_address_make_lnode(data_collection_model_endpoint_address_t *p_endpoint_address)
 {
     return data_collection_lnode_create(p_endpoint_address, reinterpret_cast<void(*)(void*)>(data_collection_model_endpoint_address_free));
 }

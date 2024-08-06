@@ -22,12 +22,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_event_record_type_t *data_collection_model_event_record_type_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_record_type_t *data_collection_model_event_record_type_create()
 {
     return reinterpret_cast<data_collection_model_event_record_type_t*>(new std::shared_ptr<EventRecordType>(new EventRecordType()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_event_record_type_t *data_collection_model_event_record_type_create_copy(const data_collection_model_event_record_type_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_record_type_t *data_collection_model_event_record_type_create_copy(const data_collection_model_event_record_type_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<EventRecordType > &obj = *reinterpret_cast<const std::shared_ptr<EventRecordType >*>(other);
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_event_record_t
     return reinterpret_cast<data_collection_model_event_record_type_t*>(new std::shared_ptr<EventRecordType >(new EventRecordType(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_event_record_type_t *data_collection_model_event_record_type_create_move(data_collection_model_event_record_type_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_record_type_t *data_collection_model_event_record_type_create_move(data_collection_model_event_record_type_t *other)
 {
     if (!other) return NULL;
 
@@ -48,7 +48,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_event_record_t
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_event_record_type_t *data_collection_model_event_record_type_copy(data_collection_model_event_record_type_t *event_record_type, const data_collection_model_event_record_type_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_record_type_t *data_collection_model_event_record_type_copy(data_collection_model_event_record_type_t *event_record_type, const data_collection_model_event_record_type_t *other)
 {
     if (event_record_type) {
         std::shared_ptr<EventRecordType > &obj = *reinterpret_cast<std::shared_ptr<EventRecordType >*>(event_record_type);
@@ -77,7 +77,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_event_record_t
     return event_record_type;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_event_record_type_t *data_collection_model_event_record_type_move(data_collection_model_event_record_type_t *event_record_type, data_collection_model_event_record_type_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_record_type_t *data_collection_model_event_record_type_move(data_collection_model_event_record_type_t *event_record_type, data_collection_model_event_record_type_t *other)
 {
     std::shared_ptr<EventRecordType > *other_ptr = reinterpret_cast<std::shared_ptr<EventRecordType >*>(other);
 
@@ -101,13 +101,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_event_record_t
     return event_record_type;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_event_record_type_free(data_collection_model_event_record_type_t *event_record_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_event_record_type_free(data_collection_model_event_record_type_t *event_record_type)
 {
     if (!event_record_type) return;
     delete reinterpret_cast<std::shared_ptr<EventRecordType >*>(event_record_type);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_event_record_type_toJSON(const data_collection_model_event_record_type_t *event_record_type, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_event_record_type_toJSON(const data_collection_model_event_record_type_t *event_record_type, bool as_request)
 {
     if (!event_record_type) return NULL;
     const std::shared_ptr<EventRecordType > &obj = *reinterpret_cast<const std::shared_ptr<EventRecordType >*>(event_record_type);
@@ -116,7 +116,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_event_r
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_event_record_type_t *data_collection_model_event_record_type_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_record_type_t *data_collection_model_event_record_type_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -129,7 +129,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_event_record_t
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_event_record_type_is_equal_to(const data_collection_model_event_record_type_t *first, const data_collection_model_event_record_type_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_record_type_is_equal_to(const data_collection_model_event_record_type_t *first, const data_collection_model_event_record_type_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -154,7 +154,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_event_rec
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_record_type_is_not_set(const data_collection_model_event_record_type_t *obj_event_record_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_record_type_is_not_set(const data_collection_model_event_record_type_t *obj_event_record_type)
 {
     if (!obj_event_record_type) return true;
     const std::shared_ptr<EventRecordType > &obj = *reinterpret_cast<const std::shared_ptr<EventRecordType >*>(obj_event_record_type);
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_record_type_is
     return obj->getValue() == EventRecordType::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_record_type_is_non_standard(const data_collection_model_event_record_type_t *obj_event_record_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_record_type_is_non_standard(const data_collection_model_event_record_type_t *obj_event_record_type)
 {
     if (!obj_event_record_type) return false;
     const std::shared_ptr<EventRecordType > &obj = *reinterpret_cast<const std::shared_ptr<EventRecordType >*>(obj_event_record_type);
@@ -170,7 +170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_record_type_is
     return obj->getValue() == EventRecordType::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_record_type_e data_collection_model_event_record_type_get_enum(const data_collection_model_event_record_type_t *obj_event_record_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_record_type_e data_collection_model_event_record_type_get_enum(const data_collection_model_event_record_type_t *obj_event_record_type)
 {
     if (!obj_event_record_type)
         return DCM_EVENT_RECORD_TYPE_NO_VAL;
@@ -195,7 +195,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_record_type_e data_
     return DCM_EVENT_RECORD_TYPE_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_event_record_type_get_string(const data_collection_model_event_record_type_t *obj_event_record_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_event_record_type_get_string(const data_collection_model_event_record_type_t *obj_event_record_type)
 {
     if (!obj_event_record_type) return NULL;
     const std::shared_ptr<EventRecordType > &obj = *reinterpret_cast<const std::shared_ptr<EventRecordType >*>(obj_event_record_type);
@@ -203,7 +203,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_event_record_
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_record_type_set_enum(data_collection_model_event_record_type_t *obj_event_record_type, data_collection_model_event_record_type_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_record_type_set_enum(data_collection_model_event_record_type_t *obj_event_record_type, data_collection_model_event_record_type_e p_value)
 {
     if (!obj_event_record_type) return false;
     std::shared_ptr<EventRecordType > &obj = *reinterpret_cast<std::shared_ptr<EventRecordType >*>(obj_event_record_type);
@@ -233,7 +233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_record_type_se
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_record_type_set_string(data_collection_model_event_record_type_t *obj_event_record_type, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_record_type_set_string(data_collection_model_event_record_type_t *obj_event_record_type, const char *p_value)
 {
     if (!obj_event_record_type) return false;
     std::shared_ptr<EventRecordType > &obj = *reinterpret_cast<std::shared_ptr<EventRecordType >*>(obj_event_record_type);
@@ -248,7 +248,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_record_type_se
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_event_record_type_make_lnode(data_collection_model_event_record_type_t *p_event_record_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_event_record_type_make_lnode(data_collection_model_event_record_type_t *p_event_record_type)
 {
     return data_collection_lnode_create(p_event_record_type, reinterpret_cast<void(*)(void*)>(data_collection_model_event_record_type_free));
 }

@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_create(
 
 
 
@@ -37,7 +37,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_create_copy(const data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_create_copy(const data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<Local2dPointUncertaintyEllipse_allOf > &obj = *reinterpret_cast<const std::shared_ptr<Local2dPointUncertaintyEllipse_allOf >*>(other);
@@ -45,7 +45,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_
     return reinterpret_cast<data_collection_model_local2d_point_uncertainty_ellipse_all_of_t*>(new std::shared_ptr<Local2dPointUncertaintyEllipse_allOf >(new Local2dPointUncertaintyEllipse_allOf(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_create_move(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_create_move(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *other)
 {
     if (!other) return NULL;
 
@@ -58,7 +58,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_copy(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *local2d_point_uncertainty_ellipse_all_of, const data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_copy(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *local2d_point_uncertainty_ellipse_all_of, const data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *other)
 {
     if (local2d_point_uncertainty_ellipse_all_of) {
         std::shared_ptr<Local2dPointUncertaintyEllipse_allOf > &obj = *reinterpret_cast<std::shared_ptr<Local2dPointUncertaintyEllipse_allOf >*>(local2d_point_uncertainty_ellipse_all_of);
@@ -87,7 +87,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_
     return local2d_point_uncertainty_ellipse_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_move(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *local2d_point_uncertainty_ellipse_all_of, data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_move(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *local2d_point_uncertainty_ellipse_all_of, data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *other)
 {
     std::shared_ptr<Local2dPointUncertaintyEllipse_allOf > *other_ptr = reinterpret_cast<std::shared_ptr<Local2dPointUncertaintyEllipse_allOf >*>(other);
 
@@ -111,13 +111,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_
     return local2d_point_uncertainty_ellipse_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_local2d_point_uncertainty_ellipse_all_of_free(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *local2d_point_uncertainty_ellipse_all_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_local2d_point_uncertainty_ellipse_all_of_free(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *local2d_point_uncertainty_ellipse_all_of)
 {
     if (!local2d_point_uncertainty_ellipse_all_of) return;
     delete reinterpret_cast<std::shared_ptr<Local2dPointUncertaintyEllipse_allOf >*>(local2d_point_uncertainty_ellipse_all_of);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_local2d_point_uncertainty_ellipse_all_of_toJSON(const data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *local2d_point_uncertainty_ellipse_all_of, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_local2d_point_uncertainty_ellipse_all_of_toJSON(const data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *local2d_point_uncertainty_ellipse_all_of, bool as_request)
 {
     if (!local2d_point_uncertainty_ellipse_all_of) return NULL;
     const std::shared_ptr<Local2dPointUncertaintyEllipse_allOf > &obj = *reinterpret_cast<const std::shared_ptr<Local2dPointUncertaintyEllipse_allOf >*>(local2d_point_uncertainty_ellipse_all_of);
@@ -126,7 +126,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_local2d
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -139,7 +139,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_local2d_point_uncertainty_ellipse_all_of_is_equal_to(const data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *first, const data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_local2d_point_uncertainty_ellipse_all_of_is_equal_to(const data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *first, const data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -164,7 +164,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_local2d_p
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_local_origin_t* data_collection_model_local2d_point_uncertainty_ellipse_all_of_get_local_origin(const data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_local_origin_t* data_collection_model_local2d_point_uncertainty_ellipse_all_of_get_local_origin(const data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of)
 {
     if (!obj_local2d_point_uncertainty_ellipse_all_of) {
         const data_collection_model_local_origin_t *result = NULL;
@@ -183,7 +183,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_local_or
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_set_local_origin(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of, const data_collection_model_local_origin_t* p_local_origin)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_set_local_origin(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of, const data_collection_model_local_origin_t* p_local_origin)
 {
     if (!obj_local2d_point_uncertainty_ellipse_all_of) return NULL;
 
@@ -199,7 +199,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_
     return obj_local2d_point_uncertainty_ellipse_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_set_local_origin_move(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of, data_collection_model_local_origin_t* p_local_origin)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_set_local_origin_move(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of, data_collection_model_local_origin_t* p_local_origin)
 {
     if (!obj_local2d_point_uncertainty_ellipse_all_of) return NULL;
 
@@ -216,7 +216,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_
     return obj_local2d_point_uncertainty_ellipse_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_relative_cartesian_location_t* data_collection_model_local2d_point_uncertainty_ellipse_all_of_get_point(const data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_relative_cartesian_location_t* data_collection_model_local2d_point_uncertainty_ellipse_all_of_get_point(const data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of)
 {
     if (!obj_local2d_point_uncertainty_ellipse_all_of) {
         const data_collection_model_relative_cartesian_location_t *result = NULL;
@@ -235,7 +235,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_relative
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_set_point(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of, const data_collection_model_relative_cartesian_location_t* p_point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_set_point(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of, const data_collection_model_relative_cartesian_location_t* p_point)
 {
     if (!obj_local2d_point_uncertainty_ellipse_all_of) return NULL;
 
@@ -251,7 +251,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_
     return obj_local2d_point_uncertainty_ellipse_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_set_point_move(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of, data_collection_model_relative_cartesian_location_t* p_point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_set_point_move(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of, data_collection_model_relative_cartesian_location_t* p_point)
 {
     if (!obj_local2d_point_uncertainty_ellipse_all_of) return NULL;
 
@@ -268,7 +268,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_
     return obj_local2d_point_uncertainty_ellipse_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_uncertainty_ellipse_t* data_collection_model_local2d_point_uncertainty_ellipse_all_of_get_uncertainty_ellipse(const data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_uncertainty_ellipse_t* data_collection_model_local2d_point_uncertainty_ellipse_all_of_get_uncertainty_ellipse(const data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of)
 {
     if (!obj_local2d_point_uncertainty_ellipse_all_of) {
         const data_collection_model_uncertainty_ellipse_t *result = NULL;
@@ -287,7 +287,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_uncertai
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_set_uncertainty_ellipse(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of, const data_collection_model_uncertainty_ellipse_t* p_uncertainty_ellipse)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_set_uncertainty_ellipse(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of, const data_collection_model_uncertainty_ellipse_t* p_uncertainty_ellipse)
 {
     if (!obj_local2d_point_uncertainty_ellipse_all_of) return NULL;
 
@@ -303,7 +303,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_
     return obj_local2d_point_uncertainty_ellipse_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_set_uncertainty_ellipse_move(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of, data_collection_model_uncertainty_ellipse_t* p_uncertainty_ellipse)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_set_uncertainty_ellipse_move(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of, data_collection_model_uncertainty_ellipse_t* p_uncertainty_ellipse)
 {
     if (!obj_local2d_point_uncertainty_ellipse_all_of) return NULL;
 
@@ -320,7 +320,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_
     return obj_local2d_point_uncertainty_ellipse_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_local2d_point_uncertainty_ellipse_all_of_get_confidence(const data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_local2d_point_uncertainty_ellipse_all_of_get_confidence(const data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of)
 {
     if (!obj_local2d_point_uncertainty_ellipse_all_of) {
         const int32_t result = 0;
@@ -339,7 +339,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_set_confidence(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of, const int32_t p_confidence)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_set_confidence(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of, const int32_t p_confidence)
 {
     if (!obj_local2d_point_uncertainty_ellipse_all_of) return NULL;
 
@@ -355,7 +355,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_
     return obj_local2d_point_uncertainty_ellipse_all_of;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_set_confidence_move(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of, int32_t p_confidence)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_set_confidence_move(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *obj_local2d_point_uncertainty_ellipse_all_of, int32_t p_confidence)
 {
     if (!obj_local2d_point_uncertainty_ellipse_all_of) return NULL;
 
@@ -373,7 +373,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_local2d_point_
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_make_lnode(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *p_local2d_point_uncertainty_ellipse_all_of)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_local2d_point_uncertainty_ellipse_all_of_make_lnode(data_collection_model_local2d_point_uncertainty_ellipse_all_of_t *p_local2d_point_uncertainty_ellipse_all_of)
 {
     return data_collection_lnode_create(p_local2d_point_uncertainty_ellipse_all_of, reinterpret_cast<void(*)(void*)>(data_collection_model_local2d_point_uncertainty_ellipse_all_of_free));
 }

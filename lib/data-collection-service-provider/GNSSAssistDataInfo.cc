@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_create(
 
 
 )
@@ -33,7 +33,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_da
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_create_copy(const data_collection_model_gnss_assist_data_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_create_copy(const data_collection_model_gnss_assist_data_info_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<GNSSAssistDataInfo > &obj = *reinterpret_cast<const std::shared_ptr<GNSSAssistDataInfo >*>(other);
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_da
     return reinterpret_cast<data_collection_model_gnss_assist_data_info_t*>(new std::shared_ptr<GNSSAssistDataInfo >(new GNSSAssistDataInfo(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_create_move(data_collection_model_gnss_assist_data_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_create_move(data_collection_model_gnss_assist_data_info_t *other)
 {
     if (!other) return NULL;
 
@@ -54,7 +54,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_da
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_copy(data_collection_model_gnss_assist_data_info_t *gnss_assist_data_info, const data_collection_model_gnss_assist_data_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_copy(data_collection_model_gnss_assist_data_info_t *gnss_assist_data_info, const data_collection_model_gnss_assist_data_info_t *other)
 {
     if (gnss_assist_data_info) {
         std::shared_ptr<GNSSAssistDataInfo > &obj = *reinterpret_cast<std::shared_ptr<GNSSAssistDataInfo >*>(gnss_assist_data_info);
@@ -83,7 +83,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_da
     return gnss_assist_data_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_move(data_collection_model_gnss_assist_data_info_t *gnss_assist_data_info, data_collection_model_gnss_assist_data_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_move(data_collection_model_gnss_assist_data_info_t *gnss_assist_data_info, data_collection_model_gnss_assist_data_info_t *other)
 {
     std::shared_ptr<GNSSAssistDataInfo > *other_ptr = reinterpret_cast<std::shared_ptr<GNSSAssistDataInfo >*>(other);
 
@@ -107,13 +107,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_da
     return gnss_assist_data_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_gnss_assist_data_info_free(data_collection_model_gnss_assist_data_info_t *gnss_assist_data_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_gnss_assist_data_info_free(data_collection_model_gnss_assist_data_info_t *gnss_assist_data_info)
 {
     if (!gnss_assist_data_info) return;
     delete reinterpret_cast<std::shared_ptr<GNSSAssistDataInfo >*>(gnss_assist_data_info);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_gnss_assist_data_info_toJSON(const data_collection_model_gnss_assist_data_info_t *gnss_assist_data_info, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_gnss_assist_data_info_toJSON(const data_collection_model_gnss_assist_data_info_t *gnss_assist_data_info, bool as_request)
 {
     if (!gnss_assist_data_info) return NULL;
     const std::shared_ptr<GNSSAssistDataInfo > &obj = *reinterpret_cast<const std::shared_ptr<GNSSAssistDataInfo >*>(gnss_assist_data_info);
@@ -122,7 +122,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_gnss_as
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -135,7 +135,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_da
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_gnss_assist_data_info_is_equal_to(const data_collection_model_gnss_assist_data_info_t *first, const data_collection_model_gnss_assist_data_info_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_gnss_assist_data_info_is_equal_to(const data_collection_model_gnss_assist_data_info_t *first, const data_collection_model_gnss_assist_data_info_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -160,7 +160,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_gnss_assi
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_gnss_assist_data_info_get_gnss_assist_data(const data_collection_model_gnss_assist_data_info_t *obj_gnss_assist_data_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_gnss_assist_data_info_get_gnss_assist_data(const data_collection_model_gnss_assist_data_info_t *obj_gnss_assist_data_info)
 {
     if (!obj_gnss_assist_data_info) {
         const char *result = NULL;
@@ -179,7 +179,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_gn
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_set_gnss_assist_data(data_collection_model_gnss_assist_data_info_t *obj_gnss_assist_data_info, const char* p_gnss_assist_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_set_gnss_assist_data(data_collection_model_gnss_assist_data_info_t *obj_gnss_assist_data_info, const char* p_gnss_assist_data)
 {
     if (!obj_gnss_assist_data_info) return NULL;
 
@@ -195,7 +195,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_da
     return obj_gnss_assist_data_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_set_gnss_assist_data_move(data_collection_model_gnss_assist_data_info_t *obj_gnss_assist_data_info, char* p_gnss_assist_data)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_set_gnss_assist_data_move(data_collection_model_gnss_assist_data_info_t *obj_gnss_assist_data_info, char* p_gnss_assist_data)
 {
     if (!obj_gnss_assist_data_info) return NULL;
 
@@ -212,7 +212,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_da
     return obj_gnss_assist_data_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_gnss_serv_area_t* data_collection_model_gnss_assist_data_info_get_serv_area(const data_collection_model_gnss_assist_data_info_t *obj_gnss_assist_data_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_gnss_serv_area_t* data_collection_model_gnss_assist_data_info_get_serv_area(const data_collection_model_gnss_assist_data_info_t *obj_gnss_assist_data_info)
 {
     if (!obj_gnss_assist_data_info) {
         const data_collection_model_gnss_serv_area_t *result = NULL;
@@ -231,7 +231,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_gnss_ser
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_set_serv_area(data_collection_model_gnss_assist_data_info_t *obj_gnss_assist_data_info, const data_collection_model_gnss_serv_area_t* p_serv_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_set_serv_area(data_collection_model_gnss_assist_data_info_t *obj_gnss_assist_data_info, const data_collection_model_gnss_serv_area_t* p_serv_area)
 {
     if (!obj_gnss_assist_data_info) return NULL;
 
@@ -247,7 +247,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_da
     return obj_gnss_assist_data_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_set_serv_area_move(data_collection_model_gnss_assist_data_info_t *obj_gnss_assist_data_info, data_collection_model_gnss_serv_area_t* p_serv_area)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_set_serv_area_move(data_collection_model_gnss_assist_data_info_t *obj_gnss_assist_data_info, data_collection_model_gnss_serv_area_t* p_serv_area)
 {
     if (!obj_gnss_assist_data_info) return NULL;
 
@@ -264,7 +264,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_da
     return obj_gnss_assist_data_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geographical_coordinates_t* data_collection_model_gnss_assist_data_info_get_source_info(const data_collection_model_gnss_assist_data_info_t *obj_gnss_assist_data_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geographical_coordinates_t* data_collection_model_gnss_assist_data_info_get_source_info(const data_collection_model_gnss_assist_data_info_t *obj_gnss_assist_data_info)
 {
     if (!obj_gnss_assist_data_info) {
         const data_collection_model_geographical_coordinates_t *result = NULL;
@@ -283,7 +283,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geograph
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_set_source_info(data_collection_model_gnss_assist_data_info_t *obj_gnss_assist_data_info, const data_collection_model_geographical_coordinates_t* p_source_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_set_source_info(data_collection_model_gnss_assist_data_info_t *obj_gnss_assist_data_info, const data_collection_model_geographical_coordinates_t* p_source_info)
 {
     if (!obj_gnss_assist_data_info) return NULL;
 
@@ -299,7 +299,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_da
     return obj_gnss_assist_data_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_set_source_info_move(data_collection_model_gnss_assist_data_info_t *obj_gnss_assist_data_info, data_collection_model_geographical_coordinates_t* p_source_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_assist_data_info_t *data_collection_model_gnss_assist_data_info_set_source_info_move(data_collection_model_gnss_assist_data_info_t *obj_gnss_assist_data_info, data_collection_model_geographical_coordinates_t* p_source_info)
 {
     if (!obj_gnss_assist_data_info) return NULL;
 
@@ -317,7 +317,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_assist_da
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_gnss_assist_data_info_make_lnode(data_collection_model_gnss_assist_data_info_t *p_gnss_assist_data_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_gnss_assist_data_info_make_lnode(data_collection_model_gnss_assist_data_info_t *p_gnss_assist_data_info)
 {
     return data_collection_lnode_create(p_gnss_assist_data_info, reinterpret_cast<void(*)(void*)>(data_collection_model_gnss_assist_data_info_free));
 }

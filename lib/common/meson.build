@@ -30,6 +30,7 @@ libdc_common_libinc = include_directories('.')
 libdccommon = static_library('common',
     sources : libdc_common_sources,
     include_directories : [libdc_common_libinc, libinc],
+    gnu_symbol_visibility : 'hidden',
     dependencies : [libapp_dep,
                     libcore_dep,
                     libcrypt_dep,

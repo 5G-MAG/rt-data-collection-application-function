@@ -24,12 +24,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_transport_proto_t *data_collection_model_media_transport_proto_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_transport_proto_t *data_collection_model_media_transport_proto_create()
 {
     return reinterpret_cast<data_collection_model_media_transport_proto_t*>(new std::shared_ptr<MediaTransportProto>(new MediaTransportProto()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_transport_proto_t *data_collection_model_media_transport_proto_create_copy(const data_collection_model_media_transport_proto_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_transport_proto_t *data_collection_model_media_transport_proto_create_copy(const data_collection_model_media_transport_proto_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<MediaTransportProto > &obj = *reinterpret_cast<const std::shared_ptr<MediaTransportProto >*>(other);
@@ -37,7 +37,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_transpor
     return reinterpret_cast<data_collection_model_media_transport_proto_t*>(new std::shared_ptr<MediaTransportProto >(new MediaTransportProto(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_transport_proto_t *data_collection_model_media_transport_proto_create_move(data_collection_model_media_transport_proto_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_transport_proto_t *data_collection_model_media_transport_proto_create_move(data_collection_model_media_transport_proto_t *other)
 {
     if (!other) return NULL;
 
@@ -50,7 +50,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_transpor
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_transport_proto_t *data_collection_model_media_transport_proto_copy(data_collection_model_media_transport_proto_t *media_transport_proto, const data_collection_model_media_transport_proto_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_transport_proto_t *data_collection_model_media_transport_proto_copy(data_collection_model_media_transport_proto_t *media_transport_proto, const data_collection_model_media_transport_proto_t *other)
 {
     if (media_transport_proto) {
         std::shared_ptr<MediaTransportProto > &obj = *reinterpret_cast<std::shared_ptr<MediaTransportProto >*>(media_transport_proto);
@@ -79,7 +79,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_transpor
     return media_transport_proto;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_transport_proto_t *data_collection_model_media_transport_proto_move(data_collection_model_media_transport_proto_t *media_transport_proto, data_collection_model_media_transport_proto_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_transport_proto_t *data_collection_model_media_transport_proto_move(data_collection_model_media_transport_proto_t *media_transport_proto, data_collection_model_media_transport_proto_t *other)
 {
     std::shared_ptr<MediaTransportProto > *other_ptr = reinterpret_cast<std::shared_ptr<MediaTransportProto >*>(other);
 
@@ -103,13 +103,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_transpor
     return media_transport_proto;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_media_transport_proto_free(data_collection_model_media_transport_proto_t *media_transport_proto)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_media_transport_proto_free(data_collection_model_media_transport_proto_t *media_transport_proto)
 {
     if (!media_transport_proto) return;
     delete reinterpret_cast<std::shared_ptr<MediaTransportProto >*>(media_transport_proto);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_media_transport_proto_toJSON(const data_collection_model_media_transport_proto_t *media_transport_proto, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_media_transport_proto_toJSON(const data_collection_model_media_transport_proto_t *media_transport_proto, bool as_request)
 {
     if (!media_transport_proto) return NULL;
     const std::shared_ptr<MediaTransportProto > &obj = *reinterpret_cast<const std::shared_ptr<MediaTransportProto >*>(media_transport_proto);
@@ -118,7 +118,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_media_t
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_transport_proto_t *data_collection_model_media_transport_proto_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_transport_proto_t *data_collection_model_media_transport_proto_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -131,7 +131,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_media_transpor
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_media_transport_proto_is_equal_to(const data_collection_model_media_transport_proto_t *first, const data_collection_model_media_transport_proto_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_transport_proto_is_equal_to(const data_collection_model_media_transport_proto_t *first, const data_collection_model_media_transport_proto_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -156,7 +156,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_media_tra
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_transport_proto_is_not_set(const data_collection_model_media_transport_proto_t *obj_media_transport_proto)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_transport_proto_is_not_set(const data_collection_model_media_transport_proto_t *obj_media_transport_proto)
 {
     if (!obj_media_transport_proto) return true;
     const std::shared_ptr<MediaTransportProto > &obj = *reinterpret_cast<const std::shared_ptr<MediaTransportProto >*>(obj_media_transport_proto);
@@ -164,7 +164,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_transport_prot
     return obj->getValue() == MediaTransportProto::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_transport_proto_is_non_standard(const data_collection_model_media_transport_proto_t *obj_media_transport_proto)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_transport_proto_is_non_standard(const data_collection_model_media_transport_proto_t *obj_media_transport_proto)
 {
     if (!obj_media_transport_proto) return false;
     const std::shared_ptr<MediaTransportProto > &obj = *reinterpret_cast<const std::shared_ptr<MediaTransportProto >*>(obj_media_transport_proto);
@@ -172,7 +172,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_transport_prot
     return obj->getValue() == MediaTransportProto::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_transport_proto_e data_collection_model_media_transport_proto_get_enum(const data_collection_model_media_transport_proto_t *obj_media_transport_proto)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_transport_proto_e data_collection_model_media_transport_proto_get_enum(const data_collection_model_media_transport_proto_t *obj_media_transport_proto)
 {
     if (!obj_media_transport_proto)
         return DCM_MEDIA_TRANSPORT_PROTO_NO_VAL;
@@ -191,7 +191,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_transport_proto_e d
     return DCM_MEDIA_TRANSPORT_PROTO_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_media_transport_proto_get_string(const data_collection_model_media_transport_proto_t *obj_media_transport_proto)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_media_transport_proto_get_string(const data_collection_model_media_transport_proto_t *obj_media_transport_proto)
 {
     if (!obj_media_transport_proto) return NULL;
     const std::shared_ptr<MediaTransportProto > &obj = *reinterpret_cast<const std::shared_ptr<MediaTransportProto >*>(obj_media_transport_proto);
@@ -199,7 +199,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_media_transpo
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_transport_proto_set_enum(data_collection_model_media_transport_proto_t *obj_media_transport_proto, data_collection_model_media_transport_proto_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_transport_proto_set_enum(data_collection_model_media_transport_proto_t *obj_media_transport_proto, data_collection_model_media_transport_proto_e p_value)
 {
     if (!obj_media_transport_proto) return false;
     std::shared_ptr<MediaTransportProto > &obj = *reinterpret_cast<std::shared_ptr<MediaTransportProto >*>(obj_media_transport_proto);
@@ -220,7 +220,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_transport_prot
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_transport_proto_set_string(data_collection_model_media_transport_proto_t *obj_media_transport_proto, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_transport_proto_set_string(data_collection_model_media_transport_proto_t *obj_media_transport_proto, const char *p_value)
 {
     if (!obj_media_transport_proto) return false;
     std::shared_ptr<MediaTransportProto > &obj = *reinterpret_cast<std::shared_ptr<MediaTransportProto >*>(obj_media_transport_proto);
@@ -235,7 +235,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_transport_prot
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_media_transport_proto_make_lnode(data_collection_model_media_transport_proto_t *p_media_transport_proto)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_media_transport_proto_make_lnode(data_collection_model_media_transport_proto_t *p_media_transport_proto)
 {
     return data_collection_lnode_create(p_media_transport_proto, reinterpret_cast<void(*)(void*)>(data_collection_model_media_transport_proto_free));
 }

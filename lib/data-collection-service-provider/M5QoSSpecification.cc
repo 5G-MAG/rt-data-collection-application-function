@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_create(
 
 
 
@@ -39,7 +39,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specif
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_create_copy(const data_collection_model_m5_qo_s_specification_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_create_copy(const data_collection_model_m5_qo_s_specification_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<M5QoSSpecification > &obj = *reinterpret_cast<const std::shared_ptr<M5QoSSpecification >*>(other);
@@ -47,7 +47,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specif
     return reinterpret_cast<data_collection_model_m5_qo_s_specification_t*>(new std::shared_ptr<M5QoSSpecification >(new M5QoSSpecification(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_create_move(data_collection_model_m5_qo_s_specification_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_create_move(data_collection_model_m5_qo_s_specification_t *other)
 {
     if (!other) return NULL;
 
@@ -60,7 +60,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specif
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_copy(data_collection_model_m5_qo_s_specification_t *m5_qo_s_specification, const data_collection_model_m5_qo_s_specification_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_copy(data_collection_model_m5_qo_s_specification_t *m5_qo_s_specification, const data_collection_model_m5_qo_s_specification_t *other)
 {
     if (m5_qo_s_specification) {
         std::shared_ptr<M5QoSSpecification > &obj = *reinterpret_cast<std::shared_ptr<M5QoSSpecification >*>(m5_qo_s_specification);
@@ -89,7 +89,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specif
     return m5_qo_s_specification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_move(data_collection_model_m5_qo_s_specification_t *m5_qo_s_specification, data_collection_model_m5_qo_s_specification_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_move(data_collection_model_m5_qo_s_specification_t *m5_qo_s_specification, data_collection_model_m5_qo_s_specification_t *other)
 {
     std::shared_ptr<M5QoSSpecification > *other_ptr = reinterpret_cast<std::shared_ptr<M5QoSSpecification >*>(other);
 
@@ -113,13 +113,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specif
     return m5_qo_s_specification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_m5_qo_s_specification_free(data_collection_model_m5_qo_s_specification_t *m5_qo_s_specification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_m5_qo_s_specification_free(data_collection_model_m5_qo_s_specification_t *m5_qo_s_specification)
 {
     if (!m5_qo_s_specification) return;
     delete reinterpret_cast<std::shared_ptr<M5QoSSpecification >*>(m5_qo_s_specification);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_m5_qo_s_specification_toJSON(const data_collection_model_m5_qo_s_specification_t *m5_qo_s_specification, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_m5_qo_s_specification_toJSON(const data_collection_model_m5_qo_s_specification_t *m5_qo_s_specification, bool as_request)
 {
     if (!m5_qo_s_specification) return NULL;
     const std::shared_ptr<M5QoSSpecification > &obj = *reinterpret_cast<const std::shared_ptr<M5QoSSpecification >*>(m5_qo_s_specification);
@@ -128,7 +128,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_m5_qo_s
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -141,7 +141,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specif
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_m5_qo_s_specification_is_equal_to(const data_collection_model_m5_qo_s_specification_t *first, const data_collection_model_m5_qo_s_specification_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_m5_qo_s_specification_is_equal_to(const data_collection_model_m5_qo_s_specification_t *first, const data_collection_model_m5_qo_s_specification_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -166,7 +166,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_m5_qo_s_s
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_m5_bit_rate_specification_t* data_collection_model_m5_qo_s_specification_get_downlink_bit_rates(const data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_m5_bit_rate_specification_t* data_collection_model_m5_qo_s_specification_get_downlink_bit_rates(const data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification)
 {
     if (!obj_m5_qo_s_specification) {
         const data_collection_model_m5_bit_rate_specification_t *result = NULL;
@@ -185,7 +185,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_m5_bit_r
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_downlink_bit_rates(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, const data_collection_model_m5_bit_rate_specification_t* p_downlink_bit_rates)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_downlink_bit_rates(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, const data_collection_model_m5_bit_rate_specification_t* p_downlink_bit_rates)
 {
     if (!obj_m5_qo_s_specification) return NULL;
 
@@ -201,7 +201,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specif
     return obj_m5_qo_s_specification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_downlink_bit_rates_move(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, data_collection_model_m5_bit_rate_specification_t* p_downlink_bit_rates)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_downlink_bit_rates_move(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, data_collection_model_m5_bit_rate_specification_t* p_downlink_bit_rates)
 {
     if (!obj_m5_qo_s_specification) return NULL;
 
@@ -218,7 +218,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specif
     return obj_m5_qo_s_specification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_m5_bit_rate_specification_t* data_collection_model_m5_qo_s_specification_get_uplink_bit_rates(const data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_m5_bit_rate_specification_t* data_collection_model_m5_qo_s_specification_get_uplink_bit_rates(const data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification)
 {
     if (!obj_m5_qo_s_specification) {
         const data_collection_model_m5_bit_rate_specification_t *result = NULL;
@@ -237,7 +237,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_m5_bit_r
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_uplink_bit_rates(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, const data_collection_model_m5_bit_rate_specification_t* p_uplink_bit_rates)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_uplink_bit_rates(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, const data_collection_model_m5_bit_rate_specification_t* p_uplink_bit_rates)
 {
     if (!obj_m5_qo_s_specification) return NULL;
 
@@ -253,7 +253,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specif
     return obj_m5_qo_s_specification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_uplink_bit_rates_move(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, data_collection_model_m5_bit_rate_specification_t* p_uplink_bit_rates)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_uplink_bit_rates_move(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, data_collection_model_m5_bit_rate_specification_t* p_uplink_bit_rates)
 {
     if (!obj_m5_qo_s_specification) return NULL;
 
@@ -270,7 +270,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specif
     return obj_m5_qo_s_specification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_m5_qo_s_specification_get_desired_packet_latency(const data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_m5_qo_s_specification_get_desired_packet_latency(const data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification)
 {
     if (!obj_m5_qo_s_specification) {
         const int32_t result = 0;
@@ -289,7 +289,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_desired_packet_latency(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, const int32_t p_desired_packet_latency)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_desired_packet_latency(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, const int32_t p_desired_packet_latency)
 {
     if (!obj_m5_qo_s_specification) return NULL;
 
@@ -305,7 +305,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specif
     return obj_m5_qo_s_specification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_desired_packet_latency_move(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, int32_t p_desired_packet_latency)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_desired_packet_latency_move(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, int32_t p_desired_packet_latency)
 {
     if (!obj_m5_qo_s_specification) return NULL;
 
@@ -322,7 +322,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specif
     return obj_m5_qo_s_specification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_m5_qo_s_specification_get_desired_packet_loss_rate(const data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_m5_qo_s_specification_get_desired_packet_loss_rate(const data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification)
 {
     if (!obj_m5_qo_s_specification) {
         const int32_t result = 0;
@@ -341,7 +341,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_desired_packet_loss_rate(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, const int32_t p_desired_packet_loss_rate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_desired_packet_loss_rate(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, const int32_t p_desired_packet_loss_rate)
 {
     if (!obj_m5_qo_s_specification) return NULL;
 
@@ -357,7 +357,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specif
     return obj_m5_qo_s_specification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_desired_packet_loss_rate_move(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, int32_t p_desired_packet_loss_rate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_desired_packet_loss_rate_move(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, int32_t p_desired_packet_loss_rate)
 {
     if (!obj_m5_qo_s_specification) return NULL;
 
@@ -374,7 +374,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specif
     return obj_m5_qo_s_specification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_pdu_set_qos_para_t* data_collection_model_m5_qo_s_specification_get_desired_downlink_pdu_set_qos_parameters(const data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_pdu_set_qos_para_t* data_collection_model_m5_qo_s_specification_get_desired_downlink_pdu_set_qos_parameters(const data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification)
 {
     if (!obj_m5_qo_s_specification) {
         const data_collection_model_pdu_set_qos_para_t *result = NULL;
@@ -393,7 +393,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_pdu_set_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_desired_downlink_pdu_set_qos_parameters(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, const data_collection_model_pdu_set_qos_para_t* p_desired_downlink_pdu_set_qos_parameters)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_desired_downlink_pdu_set_qos_parameters(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, const data_collection_model_pdu_set_qos_para_t* p_desired_downlink_pdu_set_qos_parameters)
 {
     if (!obj_m5_qo_s_specification) return NULL;
 
@@ -409,7 +409,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specif
     return obj_m5_qo_s_specification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_desired_downlink_pdu_set_qos_parameters_move(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, data_collection_model_pdu_set_qos_para_t* p_desired_downlink_pdu_set_qos_parameters)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_desired_downlink_pdu_set_qos_parameters_move(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, data_collection_model_pdu_set_qos_para_t* p_desired_downlink_pdu_set_qos_parameters)
 {
     if (!obj_m5_qo_s_specification) return NULL;
 
@@ -426,7 +426,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specif
     return obj_m5_qo_s_specification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_pdu_set_qos_para_t* data_collection_model_m5_qo_s_specification_get_desired_uplink_pdu_set_qos_parameters(const data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_pdu_set_qos_para_t* data_collection_model_m5_qo_s_specification_get_desired_uplink_pdu_set_qos_parameters(const data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification)
 {
     if (!obj_m5_qo_s_specification) {
         const data_collection_model_pdu_set_qos_para_t *result = NULL;
@@ -445,7 +445,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_pdu_set_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_desired_uplink_pdu_set_qos_parameters(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, const data_collection_model_pdu_set_qos_para_t* p_desired_uplink_pdu_set_qos_parameters)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_desired_uplink_pdu_set_qos_parameters(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, const data_collection_model_pdu_set_qos_para_t* p_desired_uplink_pdu_set_qos_parameters)
 {
     if (!obj_m5_qo_s_specification) return NULL;
 
@@ -461,7 +461,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specif
     return obj_m5_qo_s_specification;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_desired_uplink_pdu_set_qos_parameters_move(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, data_collection_model_pdu_set_qos_para_t* p_desired_uplink_pdu_set_qos_parameters)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specification_t *data_collection_model_m5_qo_s_specification_set_desired_uplink_pdu_set_qos_parameters_move(data_collection_model_m5_qo_s_specification_t *obj_m5_qo_s_specification, data_collection_model_pdu_set_qos_para_t* p_desired_uplink_pdu_set_qos_parameters)
 {
     if (!obj_m5_qo_s_specification) return NULL;
 
@@ -479,7 +479,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_m5_qo_s_specif
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_m5_qo_s_specification_make_lnode(data_collection_model_m5_qo_s_specification_t *p_m5_qo_s_specification)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_m5_qo_s_specification_make_lnode(data_collection_model_m5_qo_s_specification_t *p_m5_qo_s_specification)
 {
     return data_collection_lnode_create(p_m5_qo_s_specification, reinterpret_cast<void(*)(void*)>(data_collection_model_m5_qo_s_specification_free));
 }

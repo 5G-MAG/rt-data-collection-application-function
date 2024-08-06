@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_create(
 
 
 
@@ -39,7 +39,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estim
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_create_copy(const data_collection_model_velocity_estimate_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_create_copy(const data_collection_model_velocity_estimate_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<VelocityEstimate > &obj = *reinterpret_cast<const std::shared_ptr<VelocityEstimate >*>(other);
@@ -47,7 +47,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estim
     return reinterpret_cast<data_collection_model_velocity_estimate_t*>(new std::shared_ptr<VelocityEstimate >(new VelocityEstimate(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_create_move(data_collection_model_velocity_estimate_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_create_move(data_collection_model_velocity_estimate_t *other)
 {
     if (!other) return NULL;
 
@@ -60,7 +60,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estim
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_copy(data_collection_model_velocity_estimate_t *velocity_estimate, const data_collection_model_velocity_estimate_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_copy(data_collection_model_velocity_estimate_t *velocity_estimate, const data_collection_model_velocity_estimate_t *other)
 {
     if (velocity_estimate) {
         std::shared_ptr<VelocityEstimate > &obj = *reinterpret_cast<std::shared_ptr<VelocityEstimate >*>(velocity_estimate);
@@ -89,7 +89,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estim
     return velocity_estimate;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_move(data_collection_model_velocity_estimate_t *velocity_estimate, data_collection_model_velocity_estimate_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_move(data_collection_model_velocity_estimate_t *velocity_estimate, data_collection_model_velocity_estimate_t *other)
 {
     std::shared_ptr<VelocityEstimate > *other_ptr = reinterpret_cast<std::shared_ptr<VelocityEstimate >*>(other);
 
@@ -113,13 +113,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estim
     return velocity_estimate;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_velocity_estimate_free(data_collection_model_velocity_estimate_t *velocity_estimate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_velocity_estimate_free(data_collection_model_velocity_estimate_t *velocity_estimate)
 {
     if (!velocity_estimate) return;
     delete reinterpret_cast<std::shared_ptr<VelocityEstimate >*>(velocity_estimate);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_velocity_estimate_toJSON(const data_collection_model_velocity_estimate_t *velocity_estimate, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_velocity_estimate_toJSON(const data_collection_model_velocity_estimate_t *velocity_estimate, bool as_request)
 {
     if (!velocity_estimate) return NULL;
     const std::shared_ptr<VelocityEstimate > &obj = *reinterpret_cast<const std::shared_ptr<VelocityEstimate >*>(velocity_estimate);
@@ -128,7 +128,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_velocit
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -141,7 +141,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estim
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_velocity_estimate_is_equal_to(const data_collection_model_velocity_estimate_t *first, const data_collection_model_velocity_estimate_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_velocity_estimate_is_equal_to(const data_collection_model_velocity_estimate_t *first, const data_collection_model_velocity_estimate_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -166,7 +166,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_velocity_
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_velocity_estimate_get_h_speed(const data_collection_model_velocity_estimate_t *obj_velocity_estimate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_velocity_estimate_get_h_speed(const data_collection_model_velocity_estimate_t *obj_velocity_estimate)
 {
     if (!obj_velocity_estimate) {
         const float result = 0;
@@ -185,7 +185,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_ve
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_h_speed(data_collection_model_velocity_estimate_t *obj_velocity_estimate, const float p_h_speed)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_h_speed(data_collection_model_velocity_estimate_t *obj_velocity_estimate, const float p_h_speed)
 {
     if (!obj_velocity_estimate) return NULL;
 
@@ -201,7 +201,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estim
     return obj_velocity_estimate;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_h_speed_move(data_collection_model_velocity_estimate_t *obj_velocity_estimate, float p_h_speed)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_h_speed_move(data_collection_model_velocity_estimate_t *obj_velocity_estimate, float p_h_speed)
 {
     if (!obj_velocity_estimate) return NULL;
 
@@ -218,7 +218,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estim
     return obj_velocity_estimate;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_velocity_estimate_get_bearing(const data_collection_model_velocity_estimate_t *obj_velocity_estimate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_velocity_estimate_get_bearing(const data_collection_model_velocity_estimate_t *obj_velocity_estimate)
 {
     if (!obj_velocity_estimate) {
         const int32_t result = 0;
@@ -237,7 +237,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_bearing(data_collection_model_velocity_estimate_t *obj_velocity_estimate, const int32_t p_bearing)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_bearing(data_collection_model_velocity_estimate_t *obj_velocity_estimate, const int32_t p_bearing)
 {
     if (!obj_velocity_estimate) return NULL;
 
@@ -253,7 +253,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estim
     return obj_velocity_estimate;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_bearing_move(data_collection_model_velocity_estimate_t *obj_velocity_estimate, int32_t p_bearing)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_bearing_move(data_collection_model_velocity_estimate_t *obj_velocity_estimate, int32_t p_bearing)
 {
     if (!obj_velocity_estimate) return NULL;
 
@@ -270,7 +270,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estim
     return obj_velocity_estimate;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_velocity_estimate_get_v_speed(const data_collection_model_velocity_estimate_t *obj_velocity_estimate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_velocity_estimate_get_v_speed(const data_collection_model_velocity_estimate_t *obj_velocity_estimate)
 {
     if (!obj_velocity_estimate) {
         const float result = 0;
@@ -289,7 +289,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_ve
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_v_speed(data_collection_model_velocity_estimate_t *obj_velocity_estimate, const float p_v_speed)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_v_speed(data_collection_model_velocity_estimate_t *obj_velocity_estimate, const float p_v_speed)
 {
     if (!obj_velocity_estimate) return NULL;
 
@@ -305,7 +305,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estim
     return obj_velocity_estimate;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_v_speed_move(data_collection_model_velocity_estimate_t *obj_velocity_estimate, float p_v_speed)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_v_speed_move(data_collection_model_velocity_estimate_t *obj_velocity_estimate, float p_v_speed)
 {
     if (!obj_velocity_estimate) return NULL;
 
@@ -322,7 +322,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estim
     return obj_velocity_estimate;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_vertical_direction_t* data_collection_model_velocity_estimate_get_v_direction(const data_collection_model_velocity_estimate_t *obj_velocity_estimate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_vertical_direction_t* data_collection_model_velocity_estimate_get_v_direction(const data_collection_model_velocity_estimate_t *obj_velocity_estimate)
 {
     if (!obj_velocity_estimate) {
         const data_collection_model_vertical_direction_t *result = NULL;
@@ -341,7 +341,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_vertical
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_v_direction(data_collection_model_velocity_estimate_t *obj_velocity_estimate, const data_collection_model_vertical_direction_t* p_v_direction)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_v_direction(data_collection_model_velocity_estimate_t *obj_velocity_estimate, const data_collection_model_vertical_direction_t* p_v_direction)
 {
     if (!obj_velocity_estimate) return NULL;
 
@@ -357,7 +357,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estim
     return obj_velocity_estimate;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_v_direction_move(data_collection_model_velocity_estimate_t *obj_velocity_estimate, data_collection_model_vertical_direction_t* p_v_direction)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_v_direction_move(data_collection_model_velocity_estimate_t *obj_velocity_estimate, data_collection_model_vertical_direction_t* p_v_direction)
 {
     if (!obj_velocity_estimate) return NULL;
 
@@ -374,7 +374,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estim
     return obj_velocity_estimate;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_velocity_estimate_get_h_uncertainty(const data_collection_model_velocity_estimate_t *obj_velocity_estimate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_velocity_estimate_get_h_uncertainty(const data_collection_model_velocity_estimate_t *obj_velocity_estimate)
 {
     if (!obj_velocity_estimate) {
         const float result = 0;
@@ -393,7 +393,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_ve
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_h_uncertainty(data_collection_model_velocity_estimate_t *obj_velocity_estimate, const float p_h_uncertainty)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_h_uncertainty(data_collection_model_velocity_estimate_t *obj_velocity_estimate, const float p_h_uncertainty)
 {
     if (!obj_velocity_estimate) return NULL;
 
@@ -409,7 +409,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estim
     return obj_velocity_estimate;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_h_uncertainty_move(data_collection_model_velocity_estimate_t *obj_velocity_estimate, float p_h_uncertainty)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_h_uncertainty_move(data_collection_model_velocity_estimate_t *obj_velocity_estimate, float p_h_uncertainty)
 {
     if (!obj_velocity_estimate) return NULL;
 
@@ -426,7 +426,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estim
     return obj_velocity_estimate;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_velocity_estimate_get_v_uncertainty(const data_collection_model_velocity_estimate_t *obj_velocity_estimate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_velocity_estimate_get_v_uncertainty(const data_collection_model_velocity_estimate_t *obj_velocity_estimate)
 {
     if (!obj_velocity_estimate) {
         const float result = 0;
@@ -445,7 +445,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_ve
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_v_uncertainty(data_collection_model_velocity_estimate_t *obj_velocity_estimate, const float p_v_uncertainty)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_v_uncertainty(data_collection_model_velocity_estimate_t *obj_velocity_estimate, const float p_v_uncertainty)
 {
     if (!obj_velocity_estimate) return NULL;
 
@@ -461,7 +461,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estim
     return obj_velocity_estimate;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_v_uncertainty_move(data_collection_model_velocity_estimate_t *obj_velocity_estimate, float p_v_uncertainty)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_set_v_uncertainty_move(data_collection_model_velocity_estimate_t *obj_velocity_estimate, float p_v_uncertainty)
 {
     if (!obj_velocity_estimate) return NULL;
 
@@ -479,7 +479,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_velocity_estim
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_velocity_estimate_make_lnode(data_collection_model_velocity_estimate_t *p_velocity_estimate)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_velocity_estimate_make_lnode(data_collection_model_velocity_estimate_t *p_velocity_estimate)
 {
     return data_collection_lnode_create(p_velocity_estimate, reinterpret_cast<void(*)(void*)>(data_collection_model_velocity_estimate_free));
 }

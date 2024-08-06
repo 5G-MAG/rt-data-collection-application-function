@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_collection_model_ecgi_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_collection_model_ecgi_create(
 
 
 )
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_c
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_collection_model_ecgi_create_copy(const data_collection_model_ecgi_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_collection_model_ecgi_create_copy(const data_collection_model_ecgi_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<Ecgi > &obj = *reinterpret_cast<const std::shared_ptr<Ecgi >*>(other);
@@ -43,7 +43,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_c
     return reinterpret_cast<data_collection_model_ecgi_t*>(new std::shared_ptr<Ecgi >(new Ecgi(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_collection_model_ecgi_create_move(data_collection_model_ecgi_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_collection_model_ecgi_create_move(data_collection_model_ecgi_t *other)
 {
     if (!other) return NULL;
 
@@ -56,7 +56,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_c
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_collection_model_ecgi_copy(data_collection_model_ecgi_t *ecgi, const data_collection_model_ecgi_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_collection_model_ecgi_copy(data_collection_model_ecgi_t *ecgi, const data_collection_model_ecgi_t *other)
 {
     if (ecgi) {
         std::shared_ptr<Ecgi > &obj = *reinterpret_cast<std::shared_ptr<Ecgi >*>(ecgi);
@@ -85,7 +85,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_c
     return ecgi;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_collection_model_ecgi_move(data_collection_model_ecgi_t *ecgi, data_collection_model_ecgi_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_collection_model_ecgi_move(data_collection_model_ecgi_t *ecgi, data_collection_model_ecgi_t *other)
 {
     std::shared_ptr<Ecgi > *other_ptr = reinterpret_cast<std::shared_ptr<Ecgi >*>(other);
 
@@ -109,13 +109,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_c
     return ecgi;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_ecgi_free(data_collection_model_ecgi_t *ecgi)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_ecgi_free(data_collection_model_ecgi_t *ecgi)
 {
     if (!ecgi) return;
     delete reinterpret_cast<std::shared_ptr<Ecgi >*>(ecgi);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_ecgi_toJSON(const data_collection_model_ecgi_t *ecgi, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_ecgi_toJSON(const data_collection_model_ecgi_t *ecgi, bool as_request)
 {
     if (!ecgi) return NULL;
     const std::shared_ptr<Ecgi > &obj = *reinterpret_cast<const std::shared_ptr<Ecgi >*>(ecgi);
@@ -124,7 +124,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_ecgi_to
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_collection_model_ecgi_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_collection_model_ecgi_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -137,7 +137,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_c
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ecgi_is_equal_to(const data_collection_model_ecgi_t *first, const data_collection_model_ecgi_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ecgi_is_equal_to(const data_collection_model_ecgi_t *first, const data_collection_model_ecgi_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ecgi_is_e
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_plmn_id_t* data_collection_model_ecgi_get_plmn_id(const data_collection_model_ecgi_t *obj_ecgi)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_plmn_id_t* data_collection_model_ecgi_get_plmn_id(const data_collection_model_ecgi_t *obj_ecgi)
 {
     if (!obj_ecgi) {
         const data_collection_model_plmn_id_t *result = NULL;
@@ -181,7 +181,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_plmn_id_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_collection_model_ecgi_set_plmn_id(data_collection_model_ecgi_t *obj_ecgi, const data_collection_model_plmn_id_t* p_plmn_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_collection_model_ecgi_set_plmn_id(data_collection_model_ecgi_t *obj_ecgi, const data_collection_model_plmn_id_t* p_plmn_id)
 {
     if (!obj_ecgi) return NULL;
 
@@ -197,7 +197,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_c
     return obj_ecgi;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_collection_model_ecgi_set_plmn_id_move(data_collection_model_ecgi_t *obj_ecgi, data_collection_model_plmn_id_t* p_plmn_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_collection_model_ecgi_set_plmn_id_move(data_collection_model_ecgi_t *obj_ecgi, data_collection_model_plmn_id_t* p_plmn_id)
 {
     if (!obj_ecgi) return NULL;
 
@@ -214,7 +214,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_c
     return obj_ecgi;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ecgi_get_eutra_cell_id(const data_collection_model_ecgi_t *obj_ecgi)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ecgi_get_eutra_cell_id(const data_collection_model_ecgi_t *obj_ecgi)
 {
     if (!obj_ecgi) {
         const char *result = NULL;
@@ -233,7 +233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ec
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_collection_model_ecgi_set_eutra_cell_id(data_collection_model_ecgi_t *obj_ecgi, const char* p_eutra_cell_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_collection_model_ecgi_set_eutra_cell_id(data_collection_model_ecgi_t *obj_ecgi, const char* p_eutra_cell_id)
 {
     if (!obj_ecgi) return NULL;
 
@@ -249,7 +249,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_c
     return obj_ecgi;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_collection_model_ecgi_set_eutra_cell_id_move(data_collection_model_ecgi_t *obj_ecgi, char* p_eutra_cell_id)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_collection_model_ecgi_set_eutra_cell_id_move(data_collection_model_ecgi_t *obj_ecgi, char* p_eutra_cell_id)
 {
     if (!obj_ecgi) return NULL;
 
@@ -266,7 +266,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_c
     return obj_ecgi;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ecgi_get_nid(const data_collection_model_ecgi_t *obj_ecgi)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ecgi_get_nid(const data_collection_model_ecgi_t *obj_ecgi)
 {
     if (!obj_ecgi) {
         const char *result = NULL;
@@ -285,7 +285,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ec
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_collection_model_ecgi_set_nid(data_collection_model_ecgi_t *obj_ecgi, const char* p_nid)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_collection_model_ecgi_set_nid(data_collection_model_ecgi_t *obj_ecgi, const char* p_nid)
 {
     if (!obj_ecgi) return NULL;
 
@@ -301,7 +301,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_c
     return obj_ecgi;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_collection_model_ecgi_set_nid_move(data_collection_model_ecgi_t *obj_ecgi, char* p_nid)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_collection_model_ecgi_set_nid_move(data_collection_model_ecgi_t *obj_ecgi, char* p_nid)
 {
     if (!obj_ecgi) return NULL;
 
@@ -319,7 +319,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ecgi_t *data_c
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_ecgi_make_lnode(data_collection_model_ecgi_t *p_ecgi)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_ecgi_make_lnode(data_collection_model_ecgi_t *p_ecgi)
 {
     return data_collection_lnode_create(p_ecgi, reinterpret_cast<void(*)(void*)>(data_collection_model_ecgi_free));
 }

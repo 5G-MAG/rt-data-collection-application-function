@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t *data_collection_model_time_window_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_time_window_t *data_collection_model_time_window_create(
 
 )
 {
@@ -33,7 +33,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t 
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t *data_collection_model_time_window_create_copy(const data_collection_model_time_window_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_time_window_t *data_collection_model_time_window_create_copy(const data_collection_model_time_window_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<TimeWindow > &obj = *reinterpret_cast<const std::shared_ptr<TimeWindow >*>(other);
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t 
     return reinterpret_cast<data_collection_model_time_window_t*>(new std::shared_ptr<TimeWindow >(new TimeWindow(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t *data_collection_model_time_window_create_move(data_collection_model_time_window_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_time_window_t *data_collection_model_time_window_create_move(data_collection_model_time_window_t *other)
 {
     if (!other) return NULL;
 
@@ -54,7 +54,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t 
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t *data_collection_model_time_window_copy(data_collection_model_time_window_t *time_window, const data_collection_model_time_window_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_time_window_t *data_collection_model_time_window_copy(data_collection_model_time_window_t *time_window, const data_collection_model_time_window_t *other)
 {
     if (time_window) {
         std::shared_ptr<TimeWindow > &obj = *reinterpret_cast<std::shared_ptr<TimeWindow >*>(time_window);
@@ -83,7 +83,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t 
     return time_window;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t *data_collection_model_time_window_move(data_collection_model_time_window_t *time_window, data_collection_model_time_window_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_time_window_t *data_collection_model_time_window_move(data_collection_model_time_window_t *time_window, data_collection_model_time_window_t *other)
 {
     std::shared_ptr<TimeWindow > *other_ptr = reinterpret_cast<std::shared_ptr<TimeWindow >*>(other);
 
@@ -107,13 +107,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t 
     return time_window;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_time_window_free(data_collection_model_time_window_t *time_window)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_time_window_free(data_collection_model_time_window_t *time_window)
 {
     if (!time_window) return;
     delete reinterpret_cast<std::shared_ptr<TimeWindow >*>(time_window);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_time_window_toJSON(const data_collection_model_time_window_t *time_window, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_time_window_toJSON(const data_collection_model_time_window_t *time_window, bool as_request)
 {
     if (!time_window) return NULL;
     const std::shared_ptr<TimeWindow > &obj = *reinterpret_cast<const std::shared_ptr<TimeWindow >*>(time_window);
@@ -122,7 +122,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_time_wi
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t *data_collection_model_time_window_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_time_window_t *data_collection_model_time_window_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -135,7 +135,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t 
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_time_window_is_equal_to(const data_collection_model_time_window_t *first, const data_collection_model_time_window_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_time_window_is_equal_to(const data_collection_model_time_window_t *first, const data_collection_model_time_window_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -160,7 +160,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_time_wind
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_time_window_get_start_time(const data_collection_model_time_window_t *obj_time_window)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_time_window_get_start_time(const data_collection_model_time_window_t *obj_time_window)
 {
     if (!obj_time_window) {
         const char *result = NULL;
@@ -179,7 +179,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ti
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t *data_collection_model_time_window_set_start_time(data_collection_model_time_window_t *obj_time_window, const char* p_start_time)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_time_window_t *data_collection_model_time_window_set_start_time(data_collection_model_time_window_t *obj_time_window, const char* p_start_time)
 {
     if (!obj_time_window) return NULL;
 
@@ -195,7 +195,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t 
     return obj_time_window;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t *data_collection_model_time_window_set_start_time_move(data_collection_model_time_window_t *obj_time_window, char* p_start_time)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_time_window_t *data_collection_model_time_window_set_start_time_move(data_collection_model_time_window_t *obj_time_window, char* p_start_time)
 {
     if (!obj_time_window) return NULL;
 
@@ -212,7 +212,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t 
     return obj_time_window;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_time_window_get_stop_time(const data_collection_model_time_window_t *obj_time_window)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_time_window_get_stop_time(const data_collection_model_time_window_t *obj_time_window)
 {
     if (!obj_time_window) {
         const char *result = NULL;
@@ -231,7 +231,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ti
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t *data_collection_model_time_window_set_stop_time(data_collection_model_time_window_t *obj_time_window, const char* p_stop_time)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_time_window_t *data_collection_model_time_window_set_stop_time(data_collection_model_time_window_t *obj_time_window, const char* p_stop_time)
 {
     if (!obj_time_window) return NULL;
 
@@ -247,7 +247,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t 
     return obj_time_window;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t *data_collection_model_time_window_set_stop_time_move(data_collection_model_time_window_t *obj_time_window, char* p_stop_time)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_time_window_t *data_collection_model_time_window_set_stop_time_move(data_collection_model_time_window_t *obj_time_window, char* p_stop_time)
 {
     if (!obj_time_window) return NULL;
 
@@ -265,7 +265,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_time_window_t 
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_time_window_make_lnode(data_collection_model_time_window_t *p_time_window)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_time_window_make_lnode(data_collection_model_time_window_t *p_time_window)
 {
     return data_collection_lnode_create(p_time_window, reinterpret_cast<void(*)(void*)>(data_collection_model_time_window_free));
 }

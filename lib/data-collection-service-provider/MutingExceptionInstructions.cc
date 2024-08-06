@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_exception_instructions_t *data_collection_model_muting_exception_instructions_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_exception_instructions_t *data_collection_model_muting_exception_instructions_create(
 
 )
 {
@@ -31,7 +31,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_excepti
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_exception_instructions_t *data_collection_model_muting_exception_instructions_create_copy(const data_collection_model_muting_exception_instructions_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_exception_instructions_t *data_collection_model_muting_exception_instructions_create_copy(const data_collection_model_muting_exception_instructions_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<MutingExceptionInstructions > &obj = *reinterpret_cast<const std::shared_ptr<MutingExceptionInstructions >*>(other);
@@ -39,7 +39,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_excepti
     return reinterpret_cast<data_collection_model_muting_exception_instructions_t*>(new std::shared_ptr<MutingExceptionInstructions >(new MutingExceptionInstructions(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_exception_instructions_t *data_collection_model_muting_exception_instructions_create_move(data_collection_model_muting_exception_instructions_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_exception_instructions_t *data_collection_model_muting_exception_instructions_create_move(data_collection_model_muting_exception_instructions_t *other)
 {
     if (!other) return NULL;
 
@@ -52,7 +52,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_excepti
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_exception_instructions_t *data_collection_model_muting_exception_instructions_copy(data_collection_model_muting_exception_instructions_t *muting_exception_instructions, const data_collection_model_muting_exception_instructions_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_exception_instructions_t *data_collection_model_muting_exception_instructions_copy(data_collection_model_muting_exception_instructions_t *muting_exception_instructions, const data_collection_model_muting_exception_instructions_t *other)
 {
     if (muting_exception_instructions) {
         std::shared_ptr<MutingExceptionInstructions > &obj = *reinterpret_cast<std::shared_ptr<MutingExceptionInstructions >*>(muting_exception_instructions);
@@ -81,7 +81,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_excepti
     return muting_exception_instructions;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_exception_instructions_t *data_collection_model_muting_exception_instructions_move(data_collection_model_muting_exception_instructions_t *muting_exception_instructions, data_collection_model_muting_exception_instructions_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_exception_instructions_t *data_collection_model_muting_exception_instructions_move(data_collection_model_muting_exception_instructions_t *muting_exception_instructions, data_collection_model_muting_exception_instructions_t *other)
 {
     std::shared_ptr<MutingExceptionInstructions > *other_ptr = reinterpret_cast<std::shared_ptr<MutingExceptionInstructions >*>(other);
 
@@ -105,13 +105,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_excepti
     return muting_exception_instructions;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_muting_exception_instructions_free(data_collection_model_muting_exception_instructions_t *muting_exception_instructions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_muting_exception_instructions_free(data_collection_model_muting_exception_instructions_t *muting_exception_instructions)
 {
     if (!muting_exception_instructions) return;
     delete reinterpret_cast<std::shared_ptr<MutingExceptionInstructions >*>(muting_exception_instructions);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_muting_exception_instructions_toJSON(const data_collection_model_muting_exception_instructions_t *muting_exception_instructions, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_muting_exception_instructions_toJSON(const data_collection_model_muting_exception_instructions_t *muting_exception_instructions, bool as_request)
 {
     if (!muting_exception_instructions) return NULL;
     const std::shared_ptr<MutingExceptionInstructions > &obj = *reinterpret_cast<const std::shared_ptr<MutingExceptionInstructions >*>(muting_exception_instructions);
@@ -120,7 +120,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_muting_
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_exception_instructions_t *data_collection_model_muting_exception_instructions_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_exception_instructions_t *data_collection_model_muting_exception_instructions_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -133,7 +133,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_excepti
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_muting_exception_instructions_is_equal_to(const data_collection_model_muting_exception_instructions_t *first, const data_collection_model_muting_exception_instructions_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_muting_exception_instructions_is_equal_to(const data_collection_model_muting_exception_instructions_t *first, const data_collection_model_muting_exception_instructions_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -158,7 +158,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_muting_ex
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_buffered_notifications_action_t* data_collection_model_muting_exception_instructions_get_buffered_notifs(const data_collection_model_muting_exception_instructions_t *obj_muting_exception_instructions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_buffered_notifications_action_t* data_collection_model_muting_exception_instructions_get_buffered_notifs(const data_collection_model_muting_exception_instructions_t *obj_muting_exception_instructions)
 {
     if (!obj_muting_exception_instructions) {
         const data_collection_model_buffered_notifications_action_t *result = NULL;
@@ -177,7 +177,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_buffered
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_exception_instructions_t *data_collection_model_muting_exception_instructions_set_buffered_notifs(data_collection_model_muting_exception_instructions_t *obj_muting_exception_instructions, const data_collection_model_buffered_notifications_action_t* p_buffered_notifs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_exception_instructions_t *data_collection_model_muting_exception_instructions_set_buffered_notifs(data_collection_model_muting_exception_instructions_t *obj_muting_exception_instructions, const data_collection_model_buffered_notifications_action_t* p_buffered_notifs)
 {
     if (!obj_muting_exception_instructions) return NULL;
 
@@ -193,7 +193,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_excepti
     return obj_muting_exception_instructions;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_exception_instructions_t *data_collection_model_muting_exception_instructions_set_buffered_notifs_move(data_collection_model_muting_exception_instructions_t *obj_muting_exception_instructions, data_collection_model_buffered_notifications_action_t* p_buffered_notifs)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_exception_instructions_t *data_collection_model_muting_exception_instructions_set_buffered_notifs_move(data_collection_model_muting_exception_instructions_t *obj_muting_exception_instructions, data_collection_model_buffered_notifications_action_t* p_buffered_notifs)
 {
     if (!obj_muting_exception_instructions) return NULL;
 
@@ -210,7 +210,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_excepti
     return obj_muting_exception_instructions;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_subscription_action_t* data_collection_model_muting_exception_instructions_get_subscription(const data_collection_model_muting_exception_instructions_t *obj_muting_exception_instructions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_subscription_action_t* data_collection_model_muting_exception_instructions_get_subscription(const data_collection_model_muting_exception_instructions_t *obj_muting_exception_instructions)
 {
     if (!obj_muting_exception_instructions) {
         const data_collection_model_subscription_action_t *result = NULL;
@@ -229,7 +229,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_subscrip
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_exception_instructions_t *data_collection_model_muting_exception_instructions_set_subscription(data_collection_model_muting_exception_instructions_t *obj_muting_exception_instructions, const data_collection_model_subscription_action_t* p_subscription)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_exception_instructions_t *data_collection_model_muting_exception_instructions_set_subscription(data_collection_model_muting_exception_instructions_t *obj_muting_exception_instructions, const data_collection_model_subscription_action_t* p_subscription)
 {
     if (!obj_muting_exception_instructions) return NULL;
 
@@ -245,7 +245,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_excepti
     return obj_muting_exception_instructions;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_exception_instructions_t *data_collection_model_muting_exception_instructions_set_subscription_move(data_collection_model_muting_exception_instructions_t *obj_muting_exception_instructions, data_collection_model_subscription_action_t* p_subscription)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_exception_instructions_t *data_collection_model_muting_exception_instructions_set_subscription_move(data_collection_model_muting_exception_instructions_t *obj_muting_exception_instructions, data_collection_model_subscription_action_t* p_subscription)
 {
     if (!obj_muting_exception_instructions) return NULL;
 
@@ -263,7 +263,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_muting_excepti
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_muting_exception_instructions_make_lnode(data_collection_model_muting_exception_instructions_t *p_muting_exception_instructions)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_muting_exception_instructions_make_lnode(data_collection_model_muting_exception_instructions_t *p_muting_exception_instructions)
 {
     return data_collection_lnode_create(p_muting_exception_instructions, reinterpret_cast<void(*)(void*)>(data_collection_model_muting_exception_instructions_free));
 }

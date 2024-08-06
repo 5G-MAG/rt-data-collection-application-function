@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_create(
 
 
 
@@ -37,7 +37,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_create_copy(const data_collection_model_high_accuracy_gnss_metrics_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_create_copy(const data_collection_model_high_accuracy_gnss_metrics_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<HighAccuracyGnssMetrics > &obj = *reinterpret_cast<const std::shared_ptr<HighAccuracyGnssMetrics >*>(other);
@@ -45,7 +45,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_
     return reinterpret_cast<data_collection_model_high_accuracy_gnss_metrics_t*>(new std::shared_ptr<HighAccuracyGnssMetrics >(new HighAccuracyGnssMetrics(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_create_move(data_collection_model_high_accuracy_gnss_metrics_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_create_move(data_collection_model_high_accuracy_gnss_metrics_t *other)
 {
     if (!other) return NULL;
 
@@ -58,7 +58,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_copy(data_collection_model_high_accuracy_gnss_metrics_t *high_accuracy_gnss_metrics, const data_collection_model_high_accuracy_gnss_metrics_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_copy(data_collection_model_high_accuracy_gnss_metrics_t *high_accuracy_gnss_metrics, const data_collection_model_high_accuracy_gnss_metrics_t *other)
 {
     if (high_accuracy_gnss_metrics) {
         std::shared_ptr<HighAccuracyGnssMetrics > &obj = *reinterpret_cast<std::shared_ptr<HighAccuracyGnssMetrics >*>(high_accuracy_gnss_metrics);
@@ -87,7 +87,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_
     return high_accuracy_gnss_metrics;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_move(data_collection_model_high_accuracy_gnss_metrics_t *high_accuracy_gnss_metrics, data_collection_model_high_accuracy_gnss_metrics_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_move(data_collection_model_high_accuracy_gnss_metrics_t *high_accuracy_gnss_metrics, data_collection_model_high_accuracy_gnss_metrics_t *other)
 {
     std::shared_ptr<HighAccuracyGnssMetrics > *other_ptr = reinterpret_cast<std::shared_ptr<HighAccuracyGnssMetrics >*>(other);
 
@@ -111,13 +111,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_
     return high_accuracy_gnss_metrics;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_high_accuracy_gnss_metrics_free(data_collection_model_high_accuracy_gnss_metrics_t *high_accuracy_gnss_metrics)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_high_accuracy_gnss_metrics_free(data_collection_model_high_accuracy_gnss_metrics_t *high_accuracy_gnss_metrics)
 {
     if (!high_accuracy_gnss_metrics) return;
     delete reinterpret_cast<std::shared_ptr<HighAccuracyGnssMetrics >*>(high_accuracy_gnss_metrics);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_high_accuracy_gnss_metrics_toJSON(const data_collection_model_high_accuracy_gnss_metrics_t *high_accuracy_gnss_metrics, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_high_accuracy_gnss_metrics_toJSON(const data_collection_model_high_accuracy_gnss_metrics_t *high_accuracy_gnss_metrics, bool as_request)
 {
     if (!high_accuracy_gnss_metrics) return NULL;
     const std::shared_ptr<HighAccuracyGnssMetrics > &obj = *reinterpret_cast<const std::shared_ptr<HighAccuracyGnssMetrics >*>(high_accuracy_gnss_metrics);
@@ -126,7 +126,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_high_ac
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -139,7 +139,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_high_accuracy_gnss_metrics_is_equal_to(const data_collection_model_high_accuracy_gnss_metrics_t *first, const data_collection_model_high_accuracy_gnss_metrics_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_high_accuracy_gnss_metrics_is_equal_to(const data_collection_model_high_accuracy_gnss_metrics_t *first, const data_collection_model_high_accuracy_gnss_metrics_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -164,7 +164,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_high_accu
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_high_accuracy_gnss_metrics_get_nr_of_used_satellites(const data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_high_accuracy_gnss_metrics_get_nr_of_used_satellites(const data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics)
 {
     if (!obj_high_accuracy_gnss_metrics) {
         const int32_t result = 0;
@@ -183,7 +183,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_set_nr_of_used_satellites(data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics, const int32_t p_nr_of_used_satellites)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_set_nr_of_used_satellites(data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics, const int32_t p_nr_of_used_satellites)
 {
     if (!obj_high_accuracy_gnss_metrics) return NULL;
 
@@ -199,7 +199,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_
     return obj_high_accuracy_gnss_metrics;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_set_nr_of_used_satellites_move(data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics, int32_t p_nr_of_used_satellites)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_set_nr_of_used_satellites_move(data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics, int32_t p_nr_of_used_satellites)
 {
     if (!obj_high_accuracy_gnss_metrics) return NULL;
 
@@ -216,7 +216,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_
     return obj_high_accuracy_gnss_metrics;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_high_accuracy_gnss_metrics_get_hdopi(const data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_high_accuracy_gnss_metrics_get_hdopi(const data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics)
 {
     if (!obj_high_accuracy_gnss_metrics) {
         const int32_t result = 0;
@@ -235,7 +235,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_set_hdopi(data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics, const int32_t p_hdopi)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_set_hdopi(data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics, const int32_t p_hdopi)
 {
     if (!obj_high_accuracy_gnss_metrics) return NULL;
 
@@ -251,7 +251,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_
     return obj_high_accuracy_gnss_metrics;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_set_hdopi_move(data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics, int32_t p_hdopi)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_set_hdopi_move(data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics, int32_t p_hdopi)
 {
     if (!obj_high_accuracy_gnss_metrics) return NULL;
 
@@ -268,7 +268,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_
     return obj_high_accuracy_gnss_metrics;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_high_accuracy_gnss_metrics_get_pdopi(const data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_high_accuracy_gnss_metrics_get_pdopi(const data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics)
 {
     if (!obj_high_accuracy_gnss_metrics) {
         const int32_t result = 0;
@@ -287,7 +287,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_set_pdopi(data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics, const int32_t p_pdopi)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_set_pdopi(data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics, const int32_t p_pdopi)
 {
     if (!obj_high_accuracy_gnss_metrics) return NULL;
 
@@ -303,7 +303,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_
     return obj_high_accuracy_gnss_metrics;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_set_pdopi_move(data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics, int32_t p_pdopi)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_set_pdopi_move(data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics, int32_t p_pdopi)
 {
     if (!obj_high_accuracy_gnss_metrics) return NULL;
 
@@ -320,7 +320,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_
     return obj_high_accuracy_gnss_metrics;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_high_accuracy_gnss_metrics_get_age(const data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_high_accuracy_gnss_metrics_get_age(const data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics)
 {
     if (!obj_high_accuracy_gnss_metrics) {
         const int32_t result = 0;
@@ -339,7 +339,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_set_age(data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics, const int32_t p_age)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_set_age(data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics, const int32_t p_age)
 {
     if (!obj_high_accuracy_gnss_metrics) return NULL;
 
@@ -355,7 +355,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_
     return obj_high_accuracy_gnss_metrics;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_set_age_move(data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics, int32_t p_age)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_set_age_move(data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics, int32_t p_age)
 {
     if (!obj_high_accuracy_gnss_metrics) return NULL;
 
@@ -372,7 +372,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_
     return obj_high_accuracy_gnss_metrics;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_fix_type_t* data_collection_model_high_accuracy_gnss_metrics_get_fix_type(const data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_fix_type_t* data_collection_model_high_accuracy_gnss_metrics_get_fix_type(const data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics)
 {
     if (!obj_high_accuracy_gnss_metrics) {
         const data_collection_model_fix_type_t *result = NULL;
@@ -391,7 +391,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_fix_type
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_set_fix_type(data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics, const data_collection_model_fix_type_t* p_fix_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_set_fix_type(data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics, const data_collection_model_fix_type_t* p_fix_type)
 {
     if (!obj_high_accuracy_gnss_metrics) return NULL;
 
@@ -407,7 +407,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_
     return obj_high_accuracy_gnss_metrics;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_set_fix_type_move(data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics, data_collection_model_fix_type_t* p_fix_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_set_fix_type_move(data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics, data_collection_model_fix_type_t* p_fix_type)
 {
     if (!obj_high_accuracy_gnss_metrics) return NULL;
 
@@ -425,7 +425,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_high_accuracy_
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_high_accuracy_gnss_metrics_make_lnode(data_collection_model_high_accuracy_gnss_metrics_t *p_high_accuracy_gnss_metrics)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_high_accuracy_gnss_metrics_make_lnode(data_collection_model_high_accuracy_gnss_metrics_t *p_high_accuracy_gnss_metrics)
 {
     return data_collection_lnode_create(p_high_accuracy_gnss_metrics, reinterpret_cast<void(*)(void*)>(data_collection_model_high_accuracy_gnss_metrics_free));
 }

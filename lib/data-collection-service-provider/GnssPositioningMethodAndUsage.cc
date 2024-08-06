@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_create(
 
 
 )
@@ -33,7 +33,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioni
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_create_copy(const data_collection_model_gnss_positioning_method_and_usage_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_create_copy(const data_collection_model_gnss_positioning_method_and_usage_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<GnssPositioningMethodAndUsage > &obj = *reinterpret_cast<const std::shared_ptr<GnssPositioningMethodAndUsage >*>(other);
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioni
     return reinterpret_cast<data_collection_model_gnss_positioning_method_and_usage_t*>(new std::shared_ptr<GnssPositioningMethodAndUsage >(new GnssPositioningMethodAndUsage(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_create_move(data_collection_model_gnss_positioning_method_and_usage_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_create_move(data_collection_model_gnss_positioning_method_and_usage_t *other)
 {
     if (!other) return NULL;
 
@@ -54,7 +54,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioni
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_copy(data_collection_model_gnss_positioning_method_and_usage_t *gnss_positioning_method_and_usage, const data_collection_model_gnss_positioning_method_and_usage_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_copy(data_collection_model_gnss_positioning_method_and_usage_t *gnss_positioning_method_and_usage, const data_collection_model_gnss_positioning_method_and_usage_t *other)
 {
     if (gnss_positioning_method_and_usage) {
         std::shared_ptr<GnssPositioningMethodAndUsage > &obj = *reinterpret_cast<std::shared_ptr<GnssPositioningMethodAndUsage >*>(gnss_positioning_method_and_usage);
@@ -83,7 +83,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioni
     return gnss_positioning_method_and_usage;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_move(data_collection_model_gnss_positioning_method_and_usage_t *gnss_positioning_method_and_usage, data_collection_model_gnss_positioning_method_and_usage_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_move(data_collection_model_gnss_positioning_method_and_usage_t *gnss_positioning_method_and_usage, data_collection_model_gnss_positioning_method_and_usage_t *other)
 {
     std::shared_ptr<GnssPositioningMethodAndUsage > *other_ptr = reinterpret_cast<std::shared_ptr<GnssPositioningMethodAndUsage >*>(other);
 
@@ -107,13 +107,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioni
     return gnss_positioning_method_and_usage;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_gnss_positioning_method_and_usage_free(data_collection_model_gnss_positioning_method_and_usage_t *gnss_positioning_method_and_usage)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_gnss_positioning_method_and_usage_free(data_collection_model_gnss_positioning_method_and_usage_t *gnss_positioning_method_and_usage)
 {
     if (!gnss_positioning_method_and_usage) return;
     delete reinterpret_cast<std::shared_ptr<GnssPositioningMethodAndUsage >*>(gnss_positioning_method_and_usage);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_gnss_positioning_method_and_usage_toJSON(const data_collection_model_gnss_positioning_method_and_usage_t *gnss_positioning_method_and_usage, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_gnss_positioning_method_and_usage_toJSON(const data_collection_model_gnss_positioning_method_and_usage_t *gnss_positioning_method_and_usage, bool as_request)
 {
     if (!gnss_positioning_method_and_usage) return NULL;
     const std::shared_ptr<GnssPositioningMethodAndUsage > &obj = *reinterpret_cast<const std::shared_ptr<GnssPositioningMethodAndUsage >*>(gnss_positioning_method_and_usage);
@@ -122,7 +122,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_gnss_po
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -135,7 +135,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioni
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_gnss_positioning_method_and_usage_is_equal_to(const data_collection_model_gnss_positioning_method_and_usage_t *first, const data_collection_model_gnss_positioning_method_and_usage_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_gnss_positioning_method_and_usage_is_equal_to(const data_collection_model_gnss_positioning_method_and_usage_t *first, const data_collection_model_gnss_positioning_method_and_usage_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -160,7 +160,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_gnss_posi
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_positioning_mode_t* data_collection_model_gnss_positioning_method_and_usage_get_mode(const data_collection_model_gnss_positioning_method_and_usage_t *obj_gnss_positioning_method_and_usage)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_positioning_mode_t* data_collection_model_gnss_positioning_method_and_usage_get_mode(const data_collection_model_gnss_positioning_method_and_usage_t *obj_gnss_positioning_method_and_usage)
 {
     if (!obj_gnss_positioning_method_and_usage) {
         const data_collection_model_positioning_mode_t *result = NULL;
@@ -179,7 +179,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_position
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_set_mode(data_collection_model_gnss_positioning_method_and_usage_t *obj_gnss_positioning_method_and_usage, const data_collection_model_positioning_mode_t* p_mode)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_set_mode(data_collection_model_gnss_positioning_method_and_usage_t *obj_gnss_positioning_method_and_usage, const data_collection_model_positioning_mode_t* p_mode)
 {
     if (!obj_gnss_positioning_method_and_usage) return NULL;
 
@@ -195,7 +195,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioni
     return obj_gnss_positioning_method_and_usage;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_set_mode_move(data_collection_model_gnss_positioning_method_and_usage_t *obj_gnss_positioning_method_and_usage, data_collection_model_positioning_mode_t* p_mode)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_set_mode_move(data_collection_model_gnss_positioning_method_and_usage_t *obj_gnss_positioning_method_and_usage, data_collection_model_positioning_mode_t* p_mode)
 {
     if (!obj_gnss_positioning_method_and_usage) return NULL;
 
@@ -212,7 +212,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioni
     return obj_gnss_positioning_method_and_usage;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_gnss_id_t* data_collection_model_gnss_positioning_method_and_usage_get_gnss(const data_collection_model_gnss_positioning_method_and_usage_t *obj_gnss_positioning_method_and_usage)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_gnss_id_t* data_collection_model_gnss_positioning_method_and_usage_get_gnss(const data_collection_model_gnss_positioning_method_and_usage_t *obj_gnss_positioning_method_and_usage)
 {
     if (!obj_gnss_positioning_method_and_usage) {
         const data_collection_model_gnss_id_t *result = NULL;
@@ -231,7 +231,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_gnss_id_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_set_gnss(data_collection_model_gnss_positioning_method_and_usage_t *obj_gnss_positioning_method_and_usage, const data_collection_model_gnss_id_t* p_gnss)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_set_gnss(data_collection_model_gnss_positioning_method_and_usage_t *obj_gnss_positioning_method_and_usage, const data_collection_model_gnss_id_t* p_gnss)
 {
     if (!obj_gnss_positioning_method_and_usage) return NULL;
 
@@ -247,7 +247,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioni
     return obj_gnss_positioning_method_and_usage;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_set_gnss_move(data_collection_model_gnss_positioning_method_and_usage_t *obj_gnss_positioning_method_and_usage, data_collection_model_gnss_id_t* p_gnss)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_set_gnss_move(data_collection_model_gnss_positioning_method_and_usage_t *obj_gnss_positioning_method_and_usage, data_collection_model_gnss_id_t* p_gnss)
 {
     if (!obj_gnss_positioning_method_and_usage) return NULL;
 
@@ -264,7 +264,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioni
     return obj_gnss_positioning_method_and_usage;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_usage_t* data_collection_model_gnss_positioning_method_and_usage_get_usage(const data_collection_model_gnss_positioning_method_and_usage_t *obj_gnss_positioning_method_and_usage)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_usage_t* data_collection_model_gnss_positioning_method_and_usage_get_usage(const data_collection_model_gnss_positioning_method_and_usage_t *obj_gnss_positioning_method_and_usage)
 {
     if (!obj_gnss_positioning_method_and_usage) {
         const data_collection_model_usage_t *result = NULL;
@@ -283,7 +283,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_usage_t*
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_set_usage(data_collection_model_gnss_positioning_method_and_usage_t *obj_gnss_positioning_method_and_usage, const data_collection_model_usage_t* p_usage)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_set_usage(data_collection_model_gnss_positioning_method_and_usage_t *obj_gnss_positioning_method_and_usage, const data_collection_model_usage_t* p_usage)
 {
     if (!obj_gnss_positioning_method_and_usage) return NULL;
 
@@ -299,7 +299,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioni
     return obj_gnss_positioning_method_and_usage;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_set_usage_move(data_collection_model_gnss_positioning_method_and_usage_t *obj_gnss_positioning_method_and_usage, data_collection_model_usage_t* p_usage)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_set_usage_move(data_collection_model_gnss_positioning_method_and_usage_t *obj_gnss_positioning_method_and_usage, data_collection_model_usage_t* p_usage)
 {
     if (!obj_gnss_positioning_method_and_usage) return NULL;
 
@@ -317,7 +317,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_gnss_positioni
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_gnss_positioning_method_and_usage_make_lnode(data_collection_model_gnss_positioning_method_and_usage_t *p_gnss_positioning_method_and_usage)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_gnss_positioning_method_and_usage_make_lnode(data_collection_model_gnss_positioning_method_and_usage_t *p_gnss_positioning_method_and_usage)
 {
     return data_collection_lnode_create(p_gnss_positioning_method_and_usage, reinterpret_cast<void(*)(void*)>(data_collection_model_gnss_positioning_method_and_usage_free));
 }

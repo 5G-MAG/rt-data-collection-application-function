@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_create(
 
 
 
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_me
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_create_copy(const data_collection_model_positioning_method_and_usage_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_create_copy(const data_collection_model_positioning_method_and_usage_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<PositioningMethodAndUsage > &obj = *reinterpret_cast<const std::shared_ptr<PositioningMethodAndUsage >*>(other);
@@ -43,7 +43,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_me
     return reinterpret_cast<data_collection_model_positioning_method_and_usage_t*>(new std::shared_ptr<PositioningMethodAndUsage >(new PositioningMethodAndUsage(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_create_move(data_collection_model_positioning_method_and_usage_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_create_move(data_collection_model_positioning_method_and_usage_t *other)
 {
     if (!other) return NULL;
 
@@ -56,7 +56,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_me
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_copy(data_collection_model_positioning_method_and_usage_t *positioning_method_and_usage, const data_collection_model_positioning_method_and_usage_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_copy(data_collection_model_positioning_method_and_usage_t *positioning_method_and_usage, const data_collection_model_positioning_method_and_usage_t *other)
 {
     if (positioning_method_and_usage) {
         std::shared_ptr<PositioningMethodAndUsage > &obj = *reinterpret_cast<std::shared_ptr<PositioningMethodAndUsage >*>(positioning_method_and_usage);
@@ -85,7 +85,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_me
     return positioning_method_and_usage;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_move(data_collection_model_positioning_method_and_usage_t *positioning_method_and_usage, data_collection_model_positioning_method_and_usage_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_move(data_collection_model_positioning_method_and_usage_t *positioning_method_and_usage, data_collection_model_positioning_method_and_usage_t *other)
 {
     std::shared_ptr<PositioningMethodAndUsage > *other_ptr = reinterpret_cast<std::shared_ptr<PositioningMethodAndUsage >*>(other);
 
@@ -109,13 +109,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_me
     return positioning_method_and_usage;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_positioning_method_and_usage_free(data_collection_model_positioning_method_and_usage_t *positioning_method_and_usage)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_positioning_method_and_usage_free(data_collection_model_positioning_method_and_usage_t *positioning_method_and_usage)
 {
     if (!positioning_method_and_usage) return;
     delete reinterpret_cast<std::shared_ptr<PositioningMethodAndUsage >*>(positioning_method_and_usage);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_positioning_method_and_usage_toJSON(const data_collection_model_positioning_method_and_usage_t *positioning_method_and_usage, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_positioning_method_and_usage_toJSON(const data_collection_model_positioning_method_and_usage_t *positioning_method_and_usage, bool as_request)
 {
     if (!positioning_method_and_usage) return NULL;
     const std::shared_ptr<PositioningMethodAndUsage > &obj = *reinterpret_cast<const std::shared_ptr<PositioningMethodAndUsage >*>(positioning_method_and_usage);
@@ -124,7 +124,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_positio
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -137,7 +137,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_me
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_positioning_method_and_usage_is_equal_to(const data_collection_model_positioning_method_and_usage_t *first, const data_collection_model_positioning_method_and_usage_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_method_and_usage_is_equal_to(const data_collection_model_positioning_method_and_usage_t *first, const data_collection_model_positioning_method_and_usage_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_positioni
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_positioning_method_t* data_collection_model_positioning_method_and_usage_get_method(const data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_positioning_method_t* data_collection_model_positioning_method_and_usage_get_method(const data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage)
 {
     if (!obj_positioning_method_and_usage) {
         const data_collection_model_positioning_method_t *result = NULL;
@@ -181,7 +181,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_position
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_method(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, const data_collection_model_positioning_method_t* p_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_method(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, const data_collection_model_positioning_method_t* p_method)
 {
     if (!obj_positioning_method_and_usage) return NULL;
 
@@ -197,7 +197,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_me
     return obj_positioning_method_and_usage;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_method_move(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, data_collection_model_positioning_method_t* p_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_method_move(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, data_collection_model_positioning_method_t* p_method)
 {
     if (!obj_positioning_method_and_usage) return NULL;
 
@@ -214,7 +214,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_me
     return obj_positioning_method_and_usage;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_positioning_mode_t* data_collection_model_positioning_method_and_usage_get_mode(const data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_positioning_mode_t* data_collection_model_positioning_method_and_usage_get_mode(const data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage)
 {
     if (!obj_positioning_method_and_usage) {
         const data_collection_model_positioning_mode_t *result = NULL;
@@ -233,7 +233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_position
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_mode(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, const data_collection_model_positioning_mode_t* p_mode)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_mode(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, const data_collection_model_positioning_mode_t* p_mode)
 {
     if (!obj_positioning_method_and_usage) return NULL;
 
@@ -249,7 +249,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_me
     return obj_positioning_method_and_usage;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_mode_move(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, data_collection_model_positioning_mode_t* p_mode)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_mode_move(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, data_collection_model_positioning_mode_t* p_mode)
 {
     if (!obj_positioning_method_and_usage) return NULL;
 
@@ -266,7 +266,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_me
     return obj_positioning_method_and_usage;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_usage_t* data_collection_model_positioning_method_and_usage_get_usage(const data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_usage_t* data_collection_model_positioning_method_and_usage_get_usage(const data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage)
 {
     if (!obj_positioning_method_and_usage) {
         const data_collection_model_usage_t *result = NULL;
@@ -285,7 +285,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_usage_t*
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_usage(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, const data_collection_model_usage_t* p_usage)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_usage(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, const data_collection_model_usage_t* p_usage)
 {
     if (!obj_positioning_method_and_usage) return NULL;
 
@@ -301,7 +301,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_me
     return obj_positioning_method_and_usage;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_usage_move(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, data_collection_model_usage_t* p_usage)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_usage_move(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, data_collection_model_usage_t* p_usage)
 {
     if (!obj_positioning_method_and_usage) return NULL;
 
@@ -318,7 +318,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_me
     return obj_positioning_method_and_usage;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_positioning_method_and_usage_get_method_code(const data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_positioning_method_and_usage_get_method_code(const data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage)
 {
     if (!obj_positioning_method_and_usage) {
         const int32_t result = 0;
@@ -337,7 +337,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_method_code(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, const int32_t p_method_code)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_method_code(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, const int32_t p_method_code)
 {
     if (!obj_positioning_method_and_usage) return NULL;
 
@@ -353,7 +353,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_me
     return obj_positioning_method_and_usage;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_method_code_move(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, int32_t p_method_code)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_set_method_code_move(data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage, int32_t p_method_code)
 {
     if (!obj_positioning_method_and_usage) return NULL;
 
@@ -371,7 +371,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_me
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_positioning_method_and_usage_make_lnode(data_collection_model_positioning_method_and_usage_t *p_positioning_method_and_usage)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_positioning_method_and_usage_make_lnode(data_collection_model_positioning_method_and_usage_t *p_positioning_method_and_usage)
 {
     return data_collection_lnode_create(p_positioning_method_and_usage, reinterpret_cast<void(*)(void*)>(data_collection_model_positioning_method_and_usage_free));
 }

@@ -645,6 +645,7 @@ libspdc_lib_openapiinc = include_directories('openapi/model')
 libspdc = library(libspdc_name,
     sources : libspdc_sources,
     c_args : '-DBUILD_DATA_COLLECTION_LIB',
+    cpp_args : '-DBUILD_DATA_COLLECTION_LIB',
     include_directories : [libspdc_libinc, libspdc_lib_openapiinc, libspdc_inc, libdc_common_libinc, libinc],
     gnu_symbol_visibility : 'hidden',
     link_whole: [libdccommon],

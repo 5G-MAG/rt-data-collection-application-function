@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_create(
 
 
 
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_create_copy(const data_collection_model_consumption_reporting_units_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_create_copy(const data_collection_model_consumption_reporting_units_collection_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<ConsumptionReportingUnitsCollection > &obj = *reinterpret_cast<const std::shared_ptr<ConsumptionReportingUnitsCollection >*>(other);
@@ -49,7 +49,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return reinterpret_cast<data_collection_model_consumption_reporting_units_collection_t*>(new std::shared_ptr<ConsumptionReportingUnitsCollection >(new ConsumptionReportingUnitsCollection(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_create_move(data_collection_model_consumption_reporting_units_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_create_move(data_collection_model_consumption_reporting_units_collection_t *other)
 {
     if (!other) return NULL;
 
@@ -62,7 +62,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_copy(data_collection_model_consumption_reporting_units_collection_t *consumption_reporting_units_collection, const data_collection_model_consumption_reporting_units_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_copy(data_collection_model_consumption_reporting_units_collection_t *consumption_reporting_units_collection, const data_collection_model_consumption_reporting_units_collection_t *other)
 {
     if (consumption_reporting_units_collection) {
         std::shared_ptr<ConsumptionReportingUnitsCollection > &obj = *reinterpret_cast<std::shared_ptr<ConsumptionReportingUnitsCollection >*>(consumption_reporting_units_collection);
@@ -91,7 +91,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return consumption_reporting_units_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_move(data_collection_model_consumption_reporting_units_collection_t *consumption_reporting_units_collection, data_collection_model_consumption_reporting_units_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_move(data_collection_model_consumption_reporting_units_collection_t *consumption_reporting_units_collection, data_collection_model_consumption_reporting_units_collection_t *other)
 {
     std::shared_ptr<ConsumptionReportingUnitsCollection > *other_ptr = reinterpret_cast<std::shared_ptr<ConsumptionReportingUnitsCollection >*>(other);
 
@@ -115,13 +115,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return consumption_reporting_units_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_consumption_reporting_units_collection_free(data_collection_model_consumption_reporting_units_collection_t *consumption_reporting_units_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_consumption_reporting_units_collection_free(data_collection_model_consumption_reporting_units_collection_t *consumption_reporting_units_collection)
 {
     if (!consumption_reporting_units_collection) return;
     delete reinterpret_cast<std::shared_ptr<ConsumptionReportingUnitsCollection >*>(consumption_reporting_units_collection);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_consumption_reporting_units_collection_toJSON(const data_collection_model_consumption_reporting_units_collection_t *consumption_reporting_units_collection, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_consumption_reporting_units_collection_toJSON(const data_collection_model_consumption_reporting_units_collection_t *consumption_reporting_units_collection, bool as_request)
 {
     if (!consumption_reporting_units_collection) return NULL;
     const std::shared_ptr<ConsumptionReportingUnitsCollection > &obj = *reinterpret_cast<const std::shared_ptr<ConsumptionReportingUnitsCollection >*>(consumption_reporting_units_collection);
@@ -130,7 +130,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_consump
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -143,7 +143,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_consumption_reporting_units_collection_is_equal_to(const data_collection_model_consumption_reporting_units_collection_t *first, const data_collection_model_consumption_reporting_units_collection_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_consumption_reporting_units_collection_is_equal_to(const data_collection_model_consumption_reporting_units_collection_t *first, const data_collection_model_consumption_reporting_units_collection_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -168,7 +168,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_consumpti
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_consumption_reporting_units_collection_get_collection_timestamp(const data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_consumption_reporting_units_collection_get_collection_timestamp(const data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection)
 {
     if (!obj_consumption_reporting_units_collection) {
         const char *result = NULL;
@@ -187,7 +187,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_co
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_collection_timestamp(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, const char* p_collection_timestamp)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_collection_timestamp(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, const char* p_collection_timestamp)
 {
     if (!obj_consumption_reporting_units_collection) return NULL;
 
@@ -203,7 +203,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return obj_consumption_reporting_units_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_collection_timestamp_move(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, char* p_collection_timestamp)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_collection_timestamp_move(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, char* p_collection_timestamp)
 {
     if (!obj_consumption_reporting_units_collection) return NULL;
 
@@ -220,7 +220,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return obj_consumption_reporting_units_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_consumption_reporting_units_collection_get_start_timestamp(const data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_consumption_reporting_units_collection_get_start_timestamp(const data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection)
 {
     if (!obj_consumption_reporting_units_collection) {
         const char *result = NULL;
@@ -239,7 +239,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_co
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_start_timestamp(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, const char* p_start_timestamp)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_start_timestamp(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, const char* p_start_timestamp)
 {
     if (!obj_consumption_reporting_units_collection) return NULL;
 
@@ -255,7 +255,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return obj_consumption_reporting_units_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_start_timestamp_move(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, char* p_start_timestamp)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_start_timestamp_move(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, char* p_start_timestamp)
 {
     if (!obj_consumption_reporting_units_collection) return NULL;
 
@@ -272,7 +272,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return obj_consumption_reporting_units_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_consumption_reporting_units_collection_get_end_timestamp(const data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_consumption_reporting_units_collection_get_end_timestamp(const data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection)
 {
     if (!obj_consumption_reporting_units_collection) {
         const char *result = NULL;
@@ -291,7 +291,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_co
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_end_timestamp(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, const char* p_end_timestamp)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_end_timestamp(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, const char* p_end_timestamp)
 {
     if (!obj_consumption_reporting_units_collection) return NULL;
 
@@ -307,7 +307,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return obj_consumption_reporting_units_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_end_timestamp_move(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, char* p_end_timestamp)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_end_timestamp_move(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, char* p_end_timestamp)
 {
     if (!obj_consumption_reporting_units_collection) return NULL;
 
@@ -324,7 +324,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return obj_consumption_reporting_units_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_consumption_reporting_units_collection_get_sample_count(const data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_consumption_reporting_units_collection_get_sample_count(const data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection)
 {
     if (!obj_consumption_reporting_units_collection) {
         const int32_t result = 0;
@@ -343,7 +343,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_sample_count(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, const int32_t p_sample_count)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_sample_count(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, const int32_t p_sample_count)
 {
     if (!obj_consumption_reporting_units_collection) return NULL;
 
@@ -359,7 +359,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return obj_consumption_reporting_units_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_sample_count_move(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, int32_t p_sample_count)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_sample_count_move(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, int32_t p_sample_count)
 {
     if (!obj_consumption_reporting_units_collection) return NULL;
 
@@ -376,7 +376,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return obj_consumption_reporting_units_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_provisioning_session_type_t* data_collection_model_consumption_reporting_units_collection_get_streaming_direction(const data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_provisioning_session_type_t* data_collection_model_consumption_reporting_units_collection_get_streaming_direction(const data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection)
 {
     if (!obj_consumption_reporting_units_collection) {
         const data_collection_model_provisioning_session_type_t *result = NULL;
@@ -395,7 +395,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_provisio
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_streaming_direction(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, const data_collection_model_provisioning_session_type_t* p_streaming_direction)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_streaming_direction(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, const data_collection_model_provisioning_session_type_t* p_streaming_direction)
 {
     if (!obj_consumption_reporting_units_collection) return NULL;
 
@@ -411,7 +411,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return obj_consumption_reporting_units_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_streaming_direction_move(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, data_collection_model_provisioning_session_type_t* p_streaming_direction)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_streaming_direction_move(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, data_collection_model_provisioning_session_type_t* p_streaming_direction)
 {
     if (!obj_consumption_reporting_units_collection) return NULL;
 
@@ -428,7 +428,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return obj_consumption_reporting_units_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_consumption_reporting_units_collection_get_summarisations(const data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_consumption_reporting_units_collection_get_summarisations(const data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection)
 {
     if (!obj_consumption_reporting_units_collection) {
         ogs_list_t *result = NULL;
@@ -455,7 +455,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_co
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_summarisations(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, const ogs_list_t* p_summarisations)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_summarisations(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, const ogs_list_t* p_summarisations)
 {
     if (!obj_consumption_reporting_units_collection) return NULL;
 
@@ -479,7 +479,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return obj_consumption_reporting_units_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_summarisations_move(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, ogs_list_t* p_summarisations)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_summarisations_move(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, ogs_list_t* p_summarisations)
 {
     if (!obj_consumption_reporting_units_collection) return NULL;
 
@@ -504,7 +504,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return obj_consumption_reporting_units_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_add_summarisations(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, data_collection_model_data_aggregation_function_type_t* p_summarisations)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_add_summarisations(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, data_collection_model_data_aggregation_function_type_t* p_summarisations)
 {
     if (!obj_consumption_reporting_units_collection) return NULL;
 
@@ -521,7 +521,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return obj_consumption_reporting_units_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_remove_summarisations(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, const data_collection_model_data_aggregation_function_type_t* p_summarisations)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_remove_summarisations(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, const data_collection_model_data_aggregation_function_type_t* p_summarisations)
 {
     if (!obj_consumption_reporting_units_collection) return NULL;
 
@@ -536,7 +536,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return obj_consumption_reporting_units_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_clear_summarisations(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_clear_summarisations(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection)
 {
     if (!obj_consumption_reporting_units_collection) return NULL;
 
@@ -547,7 +547,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return obj_consumption_reporting_units_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_consumption_reporting_units_collection_get_records(const data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_consumption_reporting_units_collection_get_records(const data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection)
 {
     if (!obj_consumption_reporting_units_collection) {
         ogs_list_t *result = NULL;
@@ -574,7 +574,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_co
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_records(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, const ogs_list_t* p_records)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_records(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, const ogs_list_t* p_records)
 {
     if (!obj_consumption_reporting_units_collection) return NULL;
 
@@ -598,7 +598,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return obj_consumption_reporting_units_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_records_move(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, ogs_list_t* p_records)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_set_records_move(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, ogs_list_t* p_records)
 {
     if (!obj_consumption_reporting_units_collection) return NULL;
 
@@ -623,7 +623,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return obj_consumption_reporting_units_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_add_records(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, data_collection_model_consumption_reporting_event_t* p_records)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_add_records(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, data_collection_model_consumption_reporting_event_t* p_records)
 {
     if (!obj_consumption_reporting_units_collection) return NULL;
 
@@ -640,7 +640,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return obj_consumption_reporting_units_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_remove_records(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, const data_collection_model_consumption_reporting_event_t* p_records)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_remove_records(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection, const data_collection_model_consumption_reporting_event_t* p_records)
 {
     if (!obj_consumption_reporting_units_collection) return NULL;
 
@@ -655,7 +655,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
     return obj_consumption_reporting_units_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_clear_records(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_clear_records(data_collection_model_consumption_reporting_units_collection_t *obj_consumption_reporting_units_collection)
 {
     if (!obj_consumption_reporting_units_collection) return NULL;
 
@@ -667,7 +667,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_consumption_re
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_consumption_reporting_units_collection_make_lnode(data_collection_model_consumption_reporting_units_collection_t *p_consumption_reporting_units_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_consumption_reporting_units_collection_make_lnode(data_collection_model_consumption_reporting_units_collection_t *p_consumption_reporting_units_collection)
 {
     return data_collection_lnode_create(p_consumption_reporting_units_collection, reinterpret_cast<void(*)(void*)>(data_collection_model_consumption_reporting_units_collection_free));
 }

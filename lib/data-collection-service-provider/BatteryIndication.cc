@@ -22,12 +22,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_battery_indication_t *data_collection_model_battery_indication_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_battery_indication_t *data_collection_model_battery_indication_create()
 {
     return reinterpret_cast<data_collection_model_battery_indication_t*>(new std::shared_ptr<BatteryIndication>(new BatteryIndication()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_battery_indication_t *data_collection_model_battery_indication_create_copy(const data_collection_model_battery_indication_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_battery_indication_t *data_collection_model_battery_indication_create_copy(const data_collection_model_battery_indication_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<BatteryIndication > &obj = *reinterpret_cast<const std::shared_ptr<BatteryIndication >*>(other);
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_battery_indica
     return reinterpret_cast<data_collection_model_battery_indication_t*>(new std::shared_ptr<BatteryIndication >(new BatteryIndication(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_battery_indication_t *data_collection_model_battery_indication_create_move(data_collection_model_battery_indication_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_battery_indication_t *data_collection_model_battery_indication_create_move(data_collection_model_battery_indication_t *other)
 {
     if (!other) return NULL;
 
@@ -48,7 +48,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_battery_indica
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_battery_indication_t *data_collection_model_battery_indication_copy(data_collection_model_battery_indication_t *battery_indication, const data_collection_model_battery_indication_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_battery_indication_t *data_collection_model_battery_indication_copy(data_collection_model_battery_indication_t *battery_indication, const data_collection_model_battery_indication_t *other)
 {
     if (battery_indication) {
         std::shared_ptr<BatteryIndication > &obj = *reinterpret_cast<std::shared_ptr<BatteryIndication >*>(battery_indication);
@@ -77,7 +77,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_battery_indica
     return battery_indication;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_battery_indication_t *data_collection_model_battery_indication_move(data_collection_model_battery_indication_t *battery_indication, data_collection_model_battery_indication_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_battery_indication_t *data_collection_model_battery_indication_move(data_collection_model_battery_indication_t *battery_indication, data_collection_model_battery_indication_t *other)
 {
     std::shared_ptr<BatteryIndication > *other_ptr = reinterpret_cast<std::shared_ptr<BatteryIndication >*>(other);
 
@@ -101,13 +101,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_battery_indica
     return battery_indication;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_battery_indication_free(data_collection_model_battery_indication_t *battery_indication)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_battery_indication_free(data_collection_model_battery_indication_t *battery_indication)
 {
     if (!battery_indication) return;
     delete reinterpret_cast<std::shared_ptr<BatteryIndication >*>(battery_indication);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_battery_indication_toJSON(const data_collection_model_battery_indication_t *battery_indication, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_battery_indication_toJSON(const data_collection_model_battery_indication_t *battery_indication, bool as_request)
 {
     if (!battery_indication) return NULL;
     const std::shared_ptr<BatteryIndication > &obj = *reinterpret_cast<const std::shared_ptr<BatteryIndication >*>(battery_indication);
@@ -116,7 +116,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_battery
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_battery_indication_t *data_collection_model_battery_indication_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_battery_indication_t *data_collection_model_battery_indication_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -129,7 +129,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_battery_indica
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_battery_indication_is_equal_to(const data_collection_model_battery_indication_t *first, const data_collection_model_battery_indication_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_battery_indication_is_equal_to(const data_collection_model_battery_indication_t *first, const data_collection_model_battery_indication_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -154,7 +154,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_battery_i
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_battery_indication_is_not_set(const data_collection_model_battery_indication_t *obj_battery_indication)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_battery_indication_is_not_set(const data_collection_model_battery_indication_t *obj_battery_indication)
 {
     if (!obj_battery_indication) return true;
     const std::shared_ptr<BatteryIndication > &obj = *reinterpret_cast<const std::shared_ptr<BatteryIndication >*>(obj_battery_indication);
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_battery_indication_i
     return obj->getValue() == BatteryIndication::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_battery_indication_is_non_standard(const data_collection_model_battery_indication_t *obj_battery_indication)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_battery_indication_is_non_standard(const data_collection_model_battery_indication_t *obj_battery_indication)
 {
     if (!obj_battery_indication) return false;
     const std::shared_ptr<BatteryIndication > &obj = *reinterpret_cast<const std::shared_ptr<BatteryIndication >*>(obj_battery_indication);
@@ -170,7 +170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_battery_indication_i
     return obj->getValue() == BatteryIndication::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_battery_indication_e data_collection_model_battery_indication_get_enum(const data_collection_model_battery_indication_t *obj_battery_indication)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_battery_indication_e data_collection_model_battery_indication_get_enum(const data_collection_model_battery_indication_t *obj_battery_indication)
 {
     if (!obj_battery_indication)
         return DCM_BATTERY_INDICATION_NO_VAL;
@@ -195,7 +195,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_battery_indication_e data
     return DCM_BATTERY_INDICATION_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_battery_indication_get_string(const data_collection_model_battery_indication_t *obj_battery_indication)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_battery_indication_get_string(const data_collection_model_battery_indication_t *obj_battery_indication)
 {
     if (!obj_battery_indication) return NULL;
     const std::shared_ptr<BatteryIndication > &obj = *reinterpret_cast<const std::shared_ptr<BatteryIndication >*>(obj_battery_indication);
@@ -203,7 +203,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_battery_indic
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_battery_indication_set_enum(data_collection_model_battery_indication_t *obj_battery_indication, data_collection_model_battery_indication_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_battery_indication_set_enum(data_collection_model_battery_indication_t *obj_battery_indication, data_collection_model_battery_indication_e p_value)
 {
     if (!obj_battery_indication) return false;
     std::shared_ptr<BatteryIndication > &obj = *reinterpret_cast<std::shared_ptr<BatteryIndication >*>(obj_battery_indication);
@@ -233,7 +233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_battery_indication_s
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_battery_indication_set_string(data_collection_model_battery_indication_t *obj_battery_indication, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_battery_indication_set_string(data_collection_model_battery_indication_t *obj_battery_indication, const char *p_value)
 {
     if (!obj_battery_indication) return false;
     std::shared_ptr<BatteryIndication > &obj = *reinterpret_cast<std::shared_ptr<BatteryIndication >*>(obj_battery_indication);
@@ -248,7 +248,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_battery_indication_s
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_battery_indication_make_lnode(data_collection_model_battery_indication_t *p_battery_indication)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_battery_indication_make_lnode(data_collection_model_battery_indication_t *p_battery_indication)
 {
     return data_collection_lnode_create(p_battery_indication, reinterpret_cast<void(*)(void*)>(data_collection_model_battery_indication_free));
 }

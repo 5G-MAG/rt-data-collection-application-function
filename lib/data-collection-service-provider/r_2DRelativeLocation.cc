@@ -22,7 +22,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_create(
 
 
 )
@@ -33,7 +33,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_create_copy(const data_collection_model_r_2_d_relative_location_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_create_copy(const data_collection_model_r_2_d_relative_location_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<r_2DRelativeLocation > &obj = *reinterpret_cast<const std::shared_ptr<r_2DRelativeLocation >*>(other);
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative
     return reinterpret_cast<data_collection_model_r_2_d_relative_location_t*>(new std::shared_ptr<r_2DRelativeLocation >(new r_2DRelativeLocation(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_create_move(data_collection_model_r_2_d_relative_location_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_create_move(data_collection_model_r_2_d_relative_location_t *other)
 {
     if (!other) return NULL;
 
@@ -54,7 +54,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_copy(data_collection_model_r_2_d_relative_location_t *r_2_d_relative_location, const data_collection_model_r_2_d_relative_location_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_copy(data_collection_model_r_2_d_relative_location_t *r_2_d_relative_location, const data_collection_model_r_2_d_relative_location_t *other)
 {
     if (r_2_d_relative_location) {
         std::shared_ptr<r_2DRelativeLocation > &obj = *reinterpret_cast<std::shared_ptr<r_2DRelativeLocation >*>(r_2_d_relative_location);
@@ -83,7 +83,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative
     return r_2_d_relative_location;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_move(data_collection_model_r_2_d_relative_location_t *r_2_d_relative_location, data_collection_model_r_2_d_relative_location_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_move(data_collection_model_r_2_d_relative_location_t *r_2_d_relative_location, data_collection_model_r_2_d_relative_location_t *other)
 {
     std::shared_ptr<r_2DRelativeLocation > *other_ptr = reinterpret_cast<std::shared_ptr<r_2DRelativeLocation >*>(other);
 
@@ -107,13 +107,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative
     return r_2_d_relative_location;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_r_2_d_relative_location_free(data_collection_model_r_2_d_relative_location_t *r_2_d_relative_location)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_r_2_d_relative_location_free(data_collection_model_r_2_d_relative_location_t *r_2_d_relative_location)
 {
     if (!r_2_d_relative_location) return;
     delete reinterpret_cast<std::shared_ptr<r_2DRelativeLocation >*>(r_2_d_relative_location);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_r_2_d_relative_location_toJSON(const data_collection_model_r_2_d_relative_location_t *r_2_d_relative_location, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_r_2_d_relative_location_toJSON(const data_collection_model_r_2_d_relative_location_t *r_2_d_relative_location, bool as_request)
 {
     if (!r_2_d_relative_location) return NULL;
     const std::shared_ptr<r_2DRelativeLocation > &obj = *reinterpret_cast<const std::shared_ptr<r_2DRelativeLocation >*>(r_2_d_relative_location);
@@ -122,7 +122,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_r_2_d_r
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -135,7 +135,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_r_2_d_relative_location_is_equal_to(const data_collection_model_r_2_d_relative_location_t *first, const data_collection_model_r_2_d_relative_location_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_r_2_d_relative_location_is_equal_to(const data_collection_model_r_2_d_relative_location_t *first, const data_collection_model_r_2_d_relative_location_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -160,7 +160,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_r_2_d_rel
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_r_2_d_relative_location_get_semi_minor(const data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_r_2_d_relative_location_get_semi_minor(const data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location)
 {
     if (!obj_r_2_d_relative_location) {
         const float result = 0;
@@ -179,7 +179,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_r_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_set_semi_minor(data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location, const float p_semi_minor)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_set_semi_minor(data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location, const float p_semi_minor)
 {
     if (!obj_r_2_d_relative_location) return NULL;
 
@@ -195,7 +195,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative
     return obj_r_2_d_relative_location;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_set_semi_minor_move(data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location, float p_semi_minor)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_set_semi_minor_move(data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location, float p_semi_minor)
 {
     if (!obj_r_2_d_relative_location) return NULL;
 
@@ -212,7 +212,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative
     return obj_r_2_d_relative_location;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_r_2_d_relative_location_get_semi_major(const data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_r_2_d_relative_location_get_semi_major(const data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location)
 {
     if (!obj_r_2_d_relative_location) {
         const float result = 0;
@@ -231,7 +231,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const float data_collection_model_r_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_set_semi_major(data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location, const float p_semi_major)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_set_semi_major(data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location, const float p_semi_major)
 {
     if (!obj_r_2_d_relative_location) return NULL;
 
@@ -247,7 +247,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative
     return obj_r_2_d_relative_location;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_set_semi_major_move(data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location, float p_semi_major)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_set_semi_major_move(data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location, float p_semi_major)
 {
     if (!obj_r_2_d_relative_location) return NULL;
 
@@ -264,7 +264,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative
     return obj_r_2_d_relative_location;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_r_2_d_relative_location_get_orientation_angle(const data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_r_2_d_relative_location_get_orientation_angle(const data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location)
 {
     if (!obj_r_2_d_relative_location) {
         const int32_t result = 0;
@@ -283,7 +283,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const int32_t data_collection_model_
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_set_orientation_angle(data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location, const int32_t p_orientation_angle)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_set_orientation_angle(data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location, const int32_t p_orientation_angle)
 {
     if (!obj_r_2_d_relative_location) return NULL;
 
@@ -299,7 +299,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative
     return obj_r_2_d_relative_location;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_set_orientation_angle_move(data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location, int32_t p_orientation_angle)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_set_orientation_angle_move(data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location, int32_t p_orientation_angle)
 {
     if (!obj_r_2_d_relative_location) return NULL;
 
@@ -317,7 +317,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_r_2_d_relative
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_r_2_d_relative_location_make_lnode(data_collection_model_r_2_d_relative_location_t *p_r_2_d_relative_location)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_r_2_d_relative_location_make_lnode(data_collection_model_r_2_d_relative_location_t *p_r_2_d_relative_location)
 {
     return data_collection_lnode_create(p_r_2_d_relative_location, reinterpret_cast<void(*)(void*)>(data_collection_model_r_2_d_relative_location_free));
 }

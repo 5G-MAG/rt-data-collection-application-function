@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_create(
 
 
 
@@ -97,7 +97,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_create_copy(const data_collection_model_civic_address_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_create_copy(const data_collection_model_civic_address_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(other);
@@ -105,7 +105,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return reinterpret_cast<data_collection_model_civic_address_t*>(new std::shared_ptr<CivicAddress >(new CivicAddress(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_create_move(data_collection_model_civic_address_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_create_move(data_collection_model_civic_address_t *other)
 {
     if (!other) return NULL;
 
@@ -118,7 +118,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_copy(data_collection_model_civic_address_t *civic_address, const data_collection_model_civic_address_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_copy(data_collection_model_civic_address_t *civic_address, const data_collection_model_civic_address_t *other)
 {
     if (civic_address) {
         std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<std::shared_ptr<CivicAddress >*>(civic_address);
@@ -147,7 +147,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_move(data_collection_model_civic_address_t *civic_address, data_collection_model_civic_address_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_move(data_collection_model_civic_address_t *civic_address, data_collection_model_civic_address_t *other)
 {
     std::shared_ptr<CivicAddress > *other_ptr = reinterpret_cast<std::shared_ptr<CivicAddress >*>(other);
 
@@ -171,13 +171,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_civic_address_free(data_collection_model_civic_address_t *civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_civic_address_free(data_collection_model_civic_address_t *civic_address)
 {
     if (!civic_address) return;
     delete reinterpret_cast<std::shared_ptr<CivicAddress >*>(civic_address);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_civic_address_toJSON(const data_collection_model_civic_address_t *civic_address, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_civic_address_toJSON(const data_collection_model_civic_address_t *civic_address, bool as_request)
 {
     if (!civic_address) return NULL;
     const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(civic_address);
@@ -186,7 +186,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_civic_a
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -199,7 +199,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_civic_address_is_equal_to(const data_collection_model_civic_address_t *first, const data_collection_model_civic_address_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_is_equal_to(const data_collection_model_civic_address_t *first, const data_collection_model_civic_address_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -224,7 +224,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_civic_add
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_country(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_country(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -243,7 +243,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_country(data_collection_model_civic_address_t *obj_civic_address, const char* p_country)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_country(data_collection_model_civic_address_t *obj_civic_address, const char* p_country)
 {
     if (!obj_civic_address) return NULL;
 
@@ -259,7 +259,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_country_move(data_collection_model_civic_address_t *obj_civic_address, char* p_country)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_country_move(data_collection_model_civic_address_t *obj_civic_address, char* p_country)
 {
     if (!obj_civic_address) return NULL;
 
@@ -276,7 +276,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_a1(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_a1(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -295,7 +295,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_a1(data_collection_model_civic_address_t *obj_civic_address, const char* p_a1)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_a1(data_collection_model_civic_address_t *obj_civic_address, const char* p_a1)
 {
     if (!obj_civic_address) return NULL;
 
@@ -311,7 +311,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_a1_move(data_collection_model_civic_address_t *obj_civic_address, char* p_a1)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_a1_move(data_collection_model_civic_address_t *obj_civic_address, char* p_a1)
 {
     if (!obj_civic_address) return NULL;
 
@@ -328,7 +328,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_a2(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_a2(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -347,7 +347,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_a2(data_collection_model_civic_address_t *obj_civic_address, const char* p_a2)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_a2(data_collection_model_civic_address_t *obj_civic_address, const char* p_a2)
 {
     if (!obj_civic_address) return NULL;
 
@@ -363,7 +363,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_a2_move(data_collection_model_civic_address_t *obj_civic_address, char* p_a2)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_a2_move(data_collection_model_civic_address_t *obj_civic_address, char* p_a2)
 {
     if (!obj_civic_address) return NULL;
 
@@ -380,7 +380,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_a3(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_a3(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -399,7 +399,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_a3(data_collection_model_civic_address_t *obj_civic_address, const char* p_a3)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_a3(data_collection_model_civic_address_t *obj_civic_address, const char* p_a3)
 {
     if (!obj_civic_address) return NULL;
 
@@ -415,7 +415,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_a3_move(data_collection_model_civic_address_t *obj_civic_address, char* p_a3)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_a3_move(data_collection_model_civic_address_t *obj_civic_address, char* p_a3)
 {
     if (!obj_civic_address) return NULL;
 
@@ -432,7 +432,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_a4(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_a4(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -451,7 +451,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_a4(data_collection_model_civic_address_t *obj_civic_address, const char* p_a4)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_a4(data_collection_model_civic_address_t *obj_civic_address, const char* p_a4)
 {
     if (!obj_civic_address) return NULL;
 
@@ -467,7 +467,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_a4_move(data_collection_model_civic_address_t *obj_civic_address, char* p_a4)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_a4_move(data_collection_model_civic_address_t *obj_civic_address, char* p_a4)
 {
     if (!obj_civic_address) return NULL;
 
@@ -484,7 +484,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_a5(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_a5(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -503,7 +503,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_a5(data_collection_model_civic_address_t *obj_civic_address, const char* p_a5)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_a5(data_collection_model_civic_address_t *obj_civic_address, const char* p_a5)
 {
     if (!obj_civic_address) return NULL;
 
@@ -519,7 +519,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_a5_move(data_collection_model_civic_address_t *obj_civic_address, char* p_a5)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_a5_move(data_collection_model_civic_address_t *obj_civic_address, char* p_a5)
 {
     if (!obj_civic_address) return NULL;
 
@@ -536,7 +536,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_a6(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_a6(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -555,7 +555,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_a6(data_collection_model_civic_address_t *obj_civic_address, const char* p_a6)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_a6(data_collection_model_civic_address_t *obj_civic_address, const char* p_a6)
 {
     if (!obj_civic_address) return NULL;
 
@@ -571,7 +571,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_a6_move(data_collection_model_civic_address_t *obj_civic_address, char* p_a6)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_a6_move(data_collection_model_civic_address_t *obj_civic_address, char* p_a6)
 {
     if (!obj_civic_address) return NULL;
 
@@ -588,7 +588,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_prd(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_prd(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -607,7 +607,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_prd(data_collection_model_civic_address_t *obj_civic_address, const char* p_prd)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_prd(data_collection_model_civic_address_t *obj_civic_address, const char* p_prd)
 {
     if (!obj_civic_address) return NULL;
 
@@ -623,7 +623,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_prd_move(data_collection_model_civic_address_t *obj_civic_address, char* p_prd)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_prd_move(data_collection_model_civic_address_t *obj_civic_address, char* p_prd)
 {
     if (!obj_civic_address) return NULL;
 
@@ -640,7 +640,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_pod(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_pod(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -659,7 +659,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_pod(data_collection_model_civic_address_t *obj_civic_address, const char* p_pod)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_pod(data_collection_model_civic_address_t *obj_civic_address, const char* p_pod)
 {
     if (!obj_civic_address) return NULL;
 
@@ -675,7 +675,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_pod_move(data_collection_model_civic_address_t *obj_civic_address, char* p_pod)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_pod_move(data_collection_model_civic_address_t *obj_civic_address, char* p_pod)
 {
     if (!obj_civic_address) return NULL;
 
@@ -692,7 +692,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_sts(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_sts(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -711,7 +711,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_sts(data_collection_model_civic_address_t *obj_civic_address, const char* p_sts)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_sts(data_collection_model_civic_address_t *obj_civic_address, const char* p_sts)
 {
     if (!obj_civic_address) return NULL;
 
@@ -727,7 +727,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_sts_move(data_collection_model_civic_address_t *obj_civic_address, char* p_sts)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_sts_move(data_collection_model_civic_address_t *obj_civic_address, char* p_sts)
 {
     if (!obj_civic_address) return NULL;
 
@@ -744,7 +744,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_hno(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_hno(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -763,7 +763,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_hno(data_collection_model_civic_address_t *obj_civic_address, const char* p_hno)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_hno(data_collection_model_civic_address_t *obj_civic_address, const char* p_hno)
 {
     if (!obj_civic_address) return NULL;
 
@@ -779,7 +779,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_hno_move(data_collection_model_civic_address_t *obj_civic_address, char* p_hno)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_hno_move(data_collection_model_civic_address_t *obj_civic_address, char* p_hno)
 {
     if (!obj_civic_address) return NULL;
 
@@ -796,7 +796,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_hns(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_hns(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -815,7 +815,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_hns(data_collection_model_civic_address_t *obj_civic_address, const char* p_hns)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_hns(data_collection_model_civic_address_t *obj_civic_address, const char* p_hns)
 {
     if (!obj_civic_address) return NULL;
 
@@ -831,7 +831,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_hns_move(data_collection_model_civic_address_t *obj_civic_address, char* p_hns)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_hns_move(data_collection_model_civic_address_t *obj_civic_address, char* p_hns)
 {
     if (!obj_civic_address) return NULL;
 
@@ -848,7 +848,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_lmk(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_lmk(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -867,7 +867,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_lmk(data_collection_model_civic_address_t *obj_civic_address, const char* p_lmk)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_lmk(data_collection_model_civic_address_t *obj_civic_address, const char* p_lmk)
 {
     if (!obj_civic_address) return NULL;
 
@@ -883,7 +883,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_lmk_move(data_collection_model_civic_address_t *obj_civic_address, char* p_lmk)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_lmk_move(data_collection_model_civic_address_t *obj_civic_address, char* p_lmk)
 {
     if (!obj_civic_address) return NULL;
 
@@ -900,7 +900,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_loc(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_loc(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -919,7 +919,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_loc(data_collection_model_civic_address_t *obj_civic_address, const char* p_loc)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_loc(data_collection_model_civic_address_t *obj_civic_address, const char* p_loc)
 {
     if (!obj_civic_address) return NULL;
 
@@ -935,7 +935,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_loc_move(data_collection_model_civic_address_t *obj_civic_address, char* p_loc)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_loc_move(data_collection_model_civic_address_t *obj_civic_address, char* p_loc)
 {
     if (!obj_civic_address) return NULL;
 
@@ -952,7 +952,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_nam(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_nam(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -971,7 +971,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_nam(data_collection_model_civic_address_t *obj_civic_address, const char* p_nam)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_nam(data_collection_model_civic_address_t *obj_civic_address, const char* p_nam)
 {
     if (!obj_civic_address) return NULL;
 
@@ -987,7 +987,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_nam_move(data_collection_model_civic_address_t *obj_civic_address, char* p_nam)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_nam_move(data_collection_model_civic_address_t *obj_civic_address, char* p_nam)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1004,7 +1004,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_pc(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_pc(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -1023,7 +1023,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_pc(data_collection_model_civic_address_t *obj_civic_address, const char* p_pc)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_pc(data_collection_model_civic_address_t *obj_civic_address, const char* p_pc)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1039,7 +1039,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_pc_move(data_collection_model_civic_address_t *obj_civic_address, char* p_pc)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_pc_move(data_collection_model_civic_address_t *obj_civic_address, char* p_pc)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1056,7 +1056,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_bld(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_bld(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -1075,7 +1075,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_bld(data_collection_model_civic_address_t *obj_civic_address, const char* p_bld)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_bld(data_collection_model_civic_address_t *obj_civic_address, const char* p_bld)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1091,7 +1091,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_bld_move(data_collection_model_civic_address_t *obj_civic_address, char* p_bld)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_bld_move(data_collection_model_civic_address_t *obj_civic_address, char* p_bld)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1108,7 +1108,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_unit(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_unit(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -1127,7 +1127,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_unit(data_collection_model_civic_address_t *obj_civic_address, const char* p_unit)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_unit(data_collection_model_civic_address_t *obj_civic_address, const char* p_unit)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1143,7 +1143,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_unit_move(data_collection_model_civic_address_t *obj_civic_address, char* p_unit)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_unit_move(data_collection_model_civic_address_t *obj_civic_address, char* p_unit)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1160,7 +1160,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_flr(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_flr(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -1179,7 +1179,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_flr(data_collection_model_civic_address_t *obj_civic_address, const char* p_flr)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_flr(data_collection_model_civic_address_t *obj_civic_address, const char* p_flr)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1195,7 +1195,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_flr_move(data_collection_model_civic_address_t *obj_civic_address, char* p_flr)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_flr_move(data_collection_model_civic_address_t *obj_civic_address, char* p_flr)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1212,7 +1212,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_room(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_room(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -1231,7 +1231,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_room(data_collection_model_civic_address_t *obj_civic_address, const char* p_room)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_room(data_collection_model_civic_address_t *obj_civic_address, const char* p_room)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1247,7 +1247,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_room_move(data_collection_model_civic_address_t *obj_civic_address, char* p_room)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_room_move(data_collection_model_civic_address_t *obj_civic_address, char* p_room)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1264,7 +1264,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_plc(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_plc(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -1283,7 +1283,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_plc(data_collection_model_civic_address_t *obj_civic_address, const char* p_plc)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_plc(data_collection_model_civic_address_t *obj_civic_address, const char* p_plc)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1299,7 +1299,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_plc_move(data_collection_model_civic_address_t *obj_civic_address, char* p_plc)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_plc_move(data_collection_model_civic_address_t *obj_civic_address, char* p_plc)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1316,7 +1316,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_pcn(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_pcn(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -1335,7 +1335,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_pcn(data_collection_model_civic_address_t *obj_civic_address, const char* p_pcn)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_pcn(data_collection_model_civic_address_t *obj_civic_address, const char* p_pcn)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1351,7 +1351,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_pcn_move(data_collection_model_civic_address_t *obj_civic_address, char* p_pcn)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_pcn_move(data_collection_model_civic_address_t *obj_civic_address, char* p_pcn)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1368,7 +1368,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_pobox(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_pobox(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -1387,7 +1387,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_pobox(data_collection_model_civic_address_t *obj_civic_address, const char* p_pobox)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_pobox(data_collection_model_civic_address_t *obj_civic_address, const char* p_pobox)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1403,7 +1403,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_pobox_move(data_collection_model_civic_address_t *obj_civic_address, char* p_pobox)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_pobox_move(data_collection_model_civic_address_t *obj_civic_address, char* p_pobox)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1420,7 +1420,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_addcode(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_addcode(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -1439,7 +1439,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_addcode(data_collection_model_civic_address_t *obj_civic_address, const char* p_addcode)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_addcode(data_collection_model_civic_address_t *obj_civic_address, const char* p_addcode)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1455,7 +1455,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_addcode_move(data_collection_model_civic_address_t *obj_civic_address, char* p_addcode)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_addcode_move(data_collection_model_civic_address_t *obj_civic_address, char* p_addcode)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1472,7 +1472,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_seat(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_seat(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -1491,7 +1491,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_seat(data_collection_model_civic_address_t *obj_civic_address, const char* p_seat)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_seat(data_collection_model_civic_address_t *obj_civic_address, const char* p_seat)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1507,7 +1507,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_seat_move(data_collection_model_civic_address_t *obj_civic_address, char* p_seat)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_seat_move(data_collection_model_civic_address_t *obj_civic_address, char* p_seat)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1524,7 +1524,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_rd(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_rd(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -1543,7 +1543,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_rd(data_collection_model_civic_address_t *obj_civic_address, const char* p_rd)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_rd(data_collection_model_civic_address_t *obj_civic_address, const char* p_rd)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1559,7 +1559,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_rd_move(data_collection_model_civic_address_t *obj_civic_address, char* p_rd)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_rd_move(data_collection_model_civic_address_t *obj_civic_address, char* p_rd)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1576,7 +1576,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_rdsec(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_rdsec(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -1595,7 +1595,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_rdsec(data_collection_model_civic_address_t *obj_civic_address, const char* p_rdsec)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_rdsec(data_collection_model_civic_address_t *obj_civic_address, const char* p_rdsec)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1611,7 +1611,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_rdsec_move(data_collection_model_civic_address_t *obj_civic_address, char* p_rdsec)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_rdsec_move(data_collection_model_civic_address_t *obj_civic_address, char* p_rdsec)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1628,7 +1628,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_rdbr(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_rdbr(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -1647,7 +1647,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_rdbr(data_collection_model_civic_address_t *obj_civic_address, const char* p_rdbr)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_rdbr(data_collection_model_civic_address_t *obj_civic_address, const char* p_rdbr)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1663,7 +1663,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_rdbr_move(data_collection_model_civic_address_t *obj_civic_address, char* p_rdbr)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_rdbr_move(data_collection_model_civic_address_t *obj_civic_address, char* p_rdbr)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1680,7 +1680,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_rdsubbr(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_rdsubbr(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -1699,7 +1699,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_rdsubbr(data_collection_model_civic_address_t *obj_civic_address, const char* p_rdsubbr)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_rdsubbr(data_collection_model_civic_address_t *obj_civic_address, const char* p_rdsubbr)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1715,7 +1715,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_rdsubbr_move(data_collection_model_civic_address_t *obj_civic_address, char* p_rdsubbr)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_rdsubbr_move(data_collection_model_civic_address_t *obj_civic_address, char* p_rdsubbr)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1732,7 +1732,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_prm(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_prm(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -1751,7 +1751,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_prm(data_collection_model_civic_address_t *obj_civic_address, const char* p_prm)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_prm(data_collection_model_civic_address_t *obj_civic_address, const char* p_prm)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1767,7 +1767,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_prm_move(data_collection_model_civic_address_t *obj_civic_address, char* p_prm)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_prm_move(data_collection_model_civic_address_t *obj_civic_address, char* p_prm)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1784,7 +1784,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_pom(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_pom(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -1803,7 +1803,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_pom(data_collection_model_civic_address_t *obj_civic_address, const char* p_pom)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_pom(data_collection_model_civic_address_t *obj_civic_address, const char* p_pom)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1819,7 +1819,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_pom_move(data_collection_model_civic_address_t *obj_civic_address, char* p_pom)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_pom_move(data_collection_model_civic_address_t *obj_civic_address, char* p_pom)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1836,7 +1836,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_usage_rules(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_usage_rules(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -1855,7 +1855,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_usage_rules(data_collection_model_civic_address_t *obj_civic_address, const char* p_usage_rules)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_usage_rules(data_collection_model_civic_address_t *obj_civic_address, const char* p_usage_rules)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1871,7 +1871,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_usage_rules_move(data_collection_model_civic_address_t *obj_civic_address, char* p_usage_rules)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_usage_rules_move(data_collection_model_civic_address_t *obj_civic_address, char* p_usage_rules)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1888,7 +1888,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_method(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_method(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -1907,7 +1907,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_method(data_collection_model_civic_address_t *obj_civic_address, const char* p_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_method(data_collection_model_civic_address_t *obj_civic_address, const char* p_method)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1923,7 +1923,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_method_move(data_collection_model_civic_address_t *obj_civic_address, char* p_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_method_move(data_collection_model_civic_address_t *obj_civic_address, char* p_method)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1940,7 +1940,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_civic_address_get_provided_by(const data_collection_model_civic_address_t *obj_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_provided_by(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
         const char *result = NULL;
@@ -1959,7 +1959,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const char* data_collection_model_ci
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_provided_by(data_collection_model_civic_address_t *obj_civic_address, const char* p_provided_by)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_provided_by(data_collection_model_civic_address_t *obj_civic_address, const char* p_provided_by)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1975,7 +1975,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
     return obj_civic_address;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_t *data_collection_model_civic_address_set_provided_by_move(data_collection_model_civic_address_t *obj_civic_address, char* p_provided_by)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_set_provided_by_move(data_collection_model_civic_address_t *obj_civic_address, char* p_provided_by)
 {
     if (!obj_civic_address) return NULL;
 
@@ -1993,7 +1993,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_civic_address_
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_civic_address_make_lnode(data_collection_model_civic_address_t *p_civic_address)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_civic_address_make_lnode(data_collection_model_civic_address_t *p_civic_address)
 {
     return data_collection_lnode_create(p_civic_address, reinterpret_cast<void(*)(void*)>(data_collection_model_civic_address_free));
 }

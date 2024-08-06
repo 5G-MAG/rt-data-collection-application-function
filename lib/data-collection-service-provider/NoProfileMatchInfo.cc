@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_create(
 
 )
 {
@@ -33,7 +33,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_mat
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_create_copy(const data_collection_model_no_profile_match_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_create_copy(const data_collection_model_no_profile_match_info_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<NoProfileMatchInfo > &obj = *reinterpret_cast<const std::shared_ptr<NoProfileMatchInfo >*>(other);
@@ -41,7 +41,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_mat
     return reinterpret_cast<data_collection_model_no_profile_match_info_t*>(new std::shared_ptr<NoProfileMatchInfo >(new NoProfileMatchInfo(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_create_move(data_collection_model_no_profile_match_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_create_move(data_collection_model_no_profile_match_info_t *other)
 {
     if (!other) return NULL;
 
@@ -54,7 +54,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_mat
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_copy(data_collection_model_no_profile_match_info_t *no_profile_match_info, const data_collection_model_no_profile_match_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_copy(data_collection_model_no_profile_match_info_t *no_profile_match_info, const data_collection_model_no_profile_match_info_t *other)
 {
     if (no_profile_match_info) {
         std::shared_ptr<NoProfileMatchInfo > &obj = *reinterpret_cast<std::shared_ptr<NoProfileMatchInfo >*>(no_profile_match_info);
@@ -83,7 +83,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_mat
     return no_profile_match_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_move(data_collection_model_no_profile_match_info_t *no_profile_match_info, data_collection_model_no_profile_match_info_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_move(data_collection_model_no_profile_match_info_t *no_profile_match_info, data_collection_model_no_profile_match_info_t *other)
 {
     std::shared_ptr<NoProfileMatchInfo > *other_ptr = reinterpret_cast<std::shared_ptr<NoProfileMatchInfo >*>(other);
 
@@ -107,13 +107,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_mat
     return no_profile_match_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_no_profile_match_info_free(data_collection_model_no_profile_match_info_t *no_profile_match_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_no_profile_match_info_free(data_collection_model_no_profile_match_info_t *no_profile_match_info)
 {
     if (!no_profile_match_info) return;
     delete reinterpret_cast<std::shared_ptr<NoProfileMatchInfo >*>(no_profile_match_info);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_no_profile_match_info_toJSON(const data_collection_model_no_profile_match_info_t *no_profile_match_info, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_no_profile_match_info_toJSON(const data_collection_model_no_profile_match_info_t *no_profile_match_info, bool as_request)
 {
     if (!no_profile_match_info) return NULL;
     const std::shared_ptr<NoProfileMatchInfo > &obj = *reinterpret_cast<const std::shared_ptr<NoProfileMatchInfo >*>(no_profile_match_info);
@@ -122,7 +122,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_no_prof
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -135,7 +135,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_mat
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_no_profile_match_info_is_equal_to(const data_collection_model_no_profile_match_info_t *first, const data_collection_model_no_profile_match_info_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profile_match_info_is_equal_to(const data_collection_model_no_profile_match_info_t *first, const data_collection_model_no_profile_match_info_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -160,7 +160,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_no_profil
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_no_profile_match_reason_t* data_collection_model_no_profile_match_info_get_reason(const data_collection_model_no_profile_match_info_t *obj_no_profile_match_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_no_profile_match_reason_t* data_collection_model_no_profile_match_info_get_reason(const data_collection_model_no_profile_match_info_t *obj_no_profile_match_info)
 {
     if (!obj_no_profile_match_info) {
         const data_collection_model_no_profile_match_reason_t *result = NULL;
@@ -179,7 +179,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_no_profi
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_set_reason(data_collection_model_no_profile_match_info_t *obj_no_profile_match_info, const data_collection_model_no_profile_match_reason_t* p_reason)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_set_reason(data_collection_model_no_profile_match_info_t *obj_no_profile_match_info, const data_collection_model_no_profile_match_reason_t* p_reason)
 {
     if (!obj_no_profile_match_info) return NULL;
 
@@ -195,7 +195,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_mat
     return obj_no_profile_match_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_set_reason_move(data_collection_model_no_profile_match_info_t *obj_no_profile_match_info, data_collection_model_no_profile_match_reason_t* p_reason)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_set_reason_move(data_collection_model_no_profile_match_info_t *obj_no_profile_match_info, data_collection_model_no_profile_match_reason_t* p_reason)
 {
     if (!obj_no_profile_match_info) return NULL;
 
@@ -212,7 +212,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_mat
     return obj_no_profile_match_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_no_profile_match_info_get_query_param_combination_list(const data_collection_model_no_profile_match_info_t *obj_no_profile_match_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_no_profile_match_info_get_query_param_combination_list(const data_collection_model_no_profile_match_info_t *obj_no_profile_match_info)
 {
     if (!obj_no_profile_match_info) {
         ogs_list_t *result = NULL;
@@ -239,7 +239,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_no
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_set_query_param_combination_list(data_collection_model_no_profile_match_info_t *obj_no_profile_match_info, const ogs_list_t* p_query_param_combination_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_set_query_param_combination_list(data_collection_model_no_profile_match_info_t *obj_no_profile_match_info, const ogs_list_t* p_query_param_combination_list)
 {
     if (!obj_no_profile_match_info) return NULL;
 
@@ -263,7 +263,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_mat
     return obj_no_profile_match_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_set_query_param_combination_list_move(data_collection_model_no_profile_match_info_t *obj_no_profile_match_info, ogs_list_t* p_query_param_combination_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_set_query_param_combination_list_move(data_collection_model_no_profile_match_info_t *obj_no_profile_match_info, ogs_list_t* p_query_param_combination_list)
 {
     if (!obj_no_profile_match_info) return NULL;
 
@@ -288,7 +288,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_mat
     return obj_no_profile_match_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_add_query_param_combination_list(data_collection_model_no_profile_match_info_t *obj_no_profile_match_info, data_collection_model_query_param_combination_t* p_query_param_combination_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_add_query_param_combination_list(data_collection_model_no_profile_match_info_t *obj_no_profile_match_info, data_collection_model_query_param_combination_t* p_query_param_combination_list)
 {
     if (!obj_no_profile_match_info) return NULL;
 
@@ -305,7 +305,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_mat
     return obj_no_profile_match_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_remove_query_param_combination_list(data_collection_model_no_profile_match_info_t *obj_no_profile_match_info, const data_collection_model_query_param_combination_t* p_query_param_combination_list)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_remove_query_param_combination_list(data_collection_model_no_profile_match_info_t *obj_no_profile_match_info, const data_collection_model_query_param_combination_t* p_query_param_combination_list)
 {
     if (!obj_no_profile_match_info) return NULL;
 
@@ -320,7 +320,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_mat
     return obj_no_profile_match_info;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_clear_query_param_combination_list(data_collection_model_no_profile_match_info_t *obj_no_profile_match_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_clear_query_param_combination_list(data_collection_model_no_profile_match_info_t *obj_no_profile_match_info)
 {
     if (!obj_no_profile_match_info) return NULL;
 
@@ -332,7 +332,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_no_profile_mat
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_no_profile_match_info_make_lnode(data_collection_model_no_profile_match_info_t *p_no_profile_match_info)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_no_profile_match_info_make_lnode(data_collection_model_no_profile_match_info_t *p_no_profile_match_info)
 {
     return data_collection_lnode_create(p_no_profile_match_info, reinterpret_cast<void(*)(void*)>(data_collection_model_no_profile_match_info_free));
 }

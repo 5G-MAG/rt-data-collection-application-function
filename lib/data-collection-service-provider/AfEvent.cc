@@ -24,12 +24,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_t *data_collection_model_af_event_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_t *data_collection_model_af_event_create()
 {
     return reinterpret_cast<data_collection_model_af_event_t*>(new std::shared_ptr<AfEvent>(new AfEvent()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_t *data_collection_model_af_event_create_copy(const data_collection_model_af_event_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_t *data_collection_model_af_event_create_copy(const data_collection_model_af_event_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<AfEvent > &obj = *reinterpret_cast<const std::shared_ptr<AfEvent >*>(other);
@@ -37,7 +37,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_t *da
     return reinterpret_cast<data_collection_model_af_event_t*>(new std::shared_ptr<AfEvent >(new AfEvent(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_t *data_collection_model_af_event_create_move(data_collection_model_af_event_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_t *data_collection_model_af_event_create_move(data_collection_model_af_event_t *other)
 {
     if (!other) return NULL;
 
@@ -50,7 +50,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_t *da
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_t *data_collection_model_af_event_copy(data_collection_model_af_event_t *af_event, const data_collection_model_af_event_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_t *data_collection_model_af_event_copy(data_collection_model_af_event_t *af_event, const data_collection_model_af_event_t *other)
 {
     if (af_event) {
         std::shared_ptr<AfEvent > &obj = *reinterpret_cast<std::shared_ptr<AfEvent >*>(af_event);
@@ -79,7 +79,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_t *da
     return af_event;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_t *data_collection_model_af_event_move(data_collection_model_af_event_t *af_event, data_collection_model_af_event_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_t *data_collection_model_af_event_move(data_collection_model_af_event_t *af_event, data_collection_model_af_event_t *other)
 {
     std::shared_ptr<AfEvent > *other_ptr = reinterpret_cast<std::shared_ptr<AfEvent >*>(other);
 
@@ -103,13 +103,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_t *da
     return af_event;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_af_event_free(data_collection_model_af_event_t *af_event)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_af_event_free(data_collection_model_af_event_t *af_event)
 {
     if (!af_event) return;
     delete reinterpret_cast<std::shared_ptr<AfEvent >*>(af_event);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_af_event_toJSON(const data_collection_model_af_event_t *af_event, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_af_event_toJSON(const data_collection_model_af_event_t *af_event, bool as_request)
 {
     if (!af_event) return NULL;
     const std::shared_ptr<AfEvent > &obj = *reinterpret_cast<const std::shared_ptr<AfEvent >*>(af_event);
@@ -118,7 +118,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_af_even
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_t *data_collection_model_af_event_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_t *data_collection_model_af_event_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -131,7 +131,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_af_event_t *da
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_af_event_is_equal_to(const data_collection_model_af_event_t *first, const data_collection_model_af_event_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_is_equal_to(const data_collection_model_af_event_t *first, const data_collection_model_af_event_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -156,7 +156,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_af_event_
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_is_not_set(const data_collection_model_af_event_t *obj_af_event)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_is_not_set(const data_collection_model_af_event_t *obj_af_event)
 {
     if (!obj_af_event) return true;
     const std::shared_ptr<AfEvent > &obj = *reinterpret_cast<const std::shared_ptr<AfEvent >*>(obj_af_event);
@@ -164,7 +164,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_is_not_set(
     return obj->getValue() == AfEvent::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_is_non_standard(const data_collection_model_af_event_t *obj_af_event)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_is_non_standard(const data_collection_model_af_event_t *obj_af_event)
 {
     if (!obj_af_event) return false;
     const std::shared_ptr<AfEvent > &obj = *reinterpret_cast<const std::shared_ptr<AfEvent >*>(obj_af_event);
@@ -172,7 +172,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_is_non_stan
     return obj->getValue() == AfEvent::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_e data_collection_model_af_event_get_enum(const data_collection_model_af_event_t *obj_af_event)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_e data_collection_model_af_event_get_enum(const data_collection_model_af_event_t *obj_af_event)
 {
     if (!obj_af_event)
         return DCM_AF_EVENT_NO_VAL;
@@ -217,7 +217,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_e data_collectio
     return DCM_AF_EVENT_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_af_event_get_string(const data_collection_model_af_event_t *obj_af_event)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_af_event_get_string(const data_collection_model_af_event_t *obj_af_event)
 {
     if (!obj_af_event) return NULL;
     const std::shared_ptr<AfEvent > &obj = *reinterpret_cast<const std::shared_ptr<AfEvent >*>(obj_af_event);
@@ -225,7 +225,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_af_event_get_
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_set_enum(data_collection_model_af_event_t *obj_af_event, data_collection_model_af_event_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_set_enum(data_collection_model_af_event_t *obj_af_event, data_collection_model_af_event_e p_value)
 {
     if (!obj_af_event) return false;
     std::shared_ptr<AfEvent > &obj = *reinterpret_cast<std::shared_ptr<AfEvent >*>(obj_af_event);
@@ -285,7 +285,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_set_enum(da
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_set_string(data_collection_model_af_event_t *obj_af_event, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_set_string(data_collection_model_af_event_t *obj_af_event, const char *p_value)
 {
     if (!obj_af_event) return false;
     std::shared_ptr<AfEvent > &obj = *reinterpret_cast<std::shared_ptr<AfEvent >*>(obj_af_event);
@@ -300,7 +300,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_set_string(
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_af_event_make_lnode(data_collection_model_af_event_t *p_af_event)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_af_event_make_lnode(data_collection_model_af_event_t *p_af_event)
 {
     return data_collection_lnode_create(p_af_event, reinterpret_cast<void(*)(void*)>(data_collection_model_af_event_free));
 }

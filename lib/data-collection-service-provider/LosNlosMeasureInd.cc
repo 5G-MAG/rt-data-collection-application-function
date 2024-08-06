@@ -22,12 +22,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_los_nlos_measure_ind_t *data_collection_model_los_nlos_measure_ind_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_los_nlos_measure_ind_t *data_collection_model_los_nlos_measure_ind_create()
 {
     return reinterpret_cast<data_collection_model_los_nlos_measure_ind_t*>(new std::shared_ptr<LosNlosMeasureInd>(new LosNlosMeasureInd()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_los_nlos_measure_ind_t *data_collection_model_los_nlos_measure_ind_create_copy(const data_collection_model_los_nlos_measure_ind_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_los_nlos_measure_ind_t *data_collection_model_los_nlos_measure_ind_create_copy(const data_collection_model_los_nlos_measure_ind_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<LosNlosMeasureInd > &obj = *reinterpret_cast<const std::shared_ptr<LosNlosMeasureInd >*>(other);
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_los_nlos_measu
     return reinterpret_cast<data_collection_model_los_nlos_measure_ind_t*>(new std::shared_ptr<LosNlosMeasureInd >(new LosNlosMeasureInd(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_los_nlos_measure_ind_t *data_collection_model_los_nlos_measure_ind_create_move(data_collection_model_los_nlos_measure_ind_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_los_nlos_measure_ind_t *data_collection_model_los_nlos_measure_ind_create_move(data_collection_model_los_nlos_measure_ind_t *other)
 {
     if (!other) return NULL;
 
@@ -48,7 +48,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_los_nlos_measu
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_los_nlos_measure_ind_t *data_collection_model_los_nlos_measure_ind_copy(data_collection_model_los_nlos_measure_ind_t *los_nlos_measure_ind, const data_collection_model_los_nlos_measure_ind_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_los_nlos_measure_ind_t *data_collection_model_los_nlos_measure_ind_copy(data_collection_model_los_nlos_measure_ind_t *los_nlos_measure_ind, const data_collection_model_los_nlos_measure_ind_t *other)
 {
     if (los_nlos_measure_ind) {
         std::shared_ptr<LosNlosMeasureInd > &obj = *reinterpret_cast<std::shared_ptr<LosNlosMeasureInd >*>(los_nlos_measure_ind);
@@ -77,7 +77,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_los_nlos_measu
     return los_nlos_measure_ind;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_los_nlos_measure_ind_t *data_collection_model_los_nlos_measure_ind_move(data_collection_model_los_nlos_measure_ind_t *los_nlos_measure_ind, data_collection_model_los_nlos_measure_ind_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_los_nlos_measure_ind_t *data_collection_model_los_nlos_measure_ind_move(data_collection_model_los_nlos_measure_ind_t *los_nlos_measure_ind, data_collection_model_los_nlos_measure_ind_t *other)
 {
     std::shared_ptr<LosNlosMeasureInd > *other_ptr = reinterpret_cast<std::shared_ptr<LosNlosMeasureInd >*>(other);
 
@@ -101,13 +101,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_los_nlos_measu
     return los_nlos_measure_ind;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_los_nlos_measure_ind_free(data_collection_model_los_nlos_measure_ind_t *los_nlos_measure_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_los_nlos_measure_ind_free(data_collection_model_los_nlos_measure_ind_t *los_nlos_measure_ind)
 {
     if (!los_nlos_measure_ind) return;
     delete reinterpret_cast<std::shared_ptr<LosNlosMeasureInd >*>(los_nlos_measure_ind);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_los_nlos_measure_ind_toJSON(const data_collection_model_los_nlos_measure_ind_t *los_nlos_measure_ind, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_los_nlos_measure_ind_toJSON(const data_collection_model_los_nlos_measure_ind_t *los_nlos_measure_ind, bool as_request)
 {
     if (!los_nlos_measure_ind) return NULL;
     const std::shared_ptr<LosNlosMeasureInd > &obj = *reinterpret_cast<const std::shared_ptr<LosNlosMeasureInd >*>(los_nlos_measure_ind);
@@ -116,7 +116,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_los_nlo
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_los_nlos_measure_ind_t *data_collection_model_los_nlos_measure_ind_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_los_nlos_measure_ind_t *data_collection_model_los_nlos_measure_ind_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -129,7 +129,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_los_nlos_measu
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_los_nlos_measure_ind_is_equal_to(const data_collection_model_los_nlos_measure_ind_t *first, const data_collection_model_los_nlos_measure_ind_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_los_nlos_measure_ind_is_equal_to(const data_collection_model_los_nlos_measure_ind_t *first, const data_collection_model_los_nlos_measure_ind_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -154,7 +154,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_los_nlos_
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_los_nlos_measure_ind_is_not_set(const data_collection_model_los_nlos_measure_ind_t *obj_los_nlos_measure_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_los_nlos_measure_ind_is_not_set(const data_collection_model_los_nlos_measure_ind_t *obj_los_nlos_measure_ind)
 {
     if (!obj_los_nlos_measure_ind) return true;
     const std::shared_ptr<LosNlosMeasureInd > &obj = *reinterpret_cast<const std::shared_ptr<LosNlosMeasureInd >*>(obj_los_nlos_measure_ind);
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_los_nlos_measure_ind
     return obj->getValue() == LosNlosMeasureInd::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_los_nlos_measure_ind_is_non_standard(const data_collection_model_los_nlos_measure_ind_t *obj_los_nlos_measure_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_los_nlos_measure_ind_is_non_standard(const data_collection_model_los_nlos_measure_ind_t *obj_los_nlos_measure_ind)
 {
     if (!obj_los_nlos_measure_ind) return false;
     const std::shared_ptr<LosNlosMeasureInd > &obj = *reinterpret_cast<const std::shared_ptr<LosNlosMeasureInd >*>(obj_los_nlos_measure_ind);
@@ -170,7 +170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_los_nlos_measure_ind
     return obj->getValue() == LosNlosMeasureInd::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_los_nlos_measure_ind_e data_collection_model_los_nlos_measure_ind_get_enum(const data_collection_model_los_nlos_measure_ind_t *obj_los_nlos_measure_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_los_nlos_measure_ind_e data_collection_model_los_nlos_measure_ind_get_enum(const data_collection_model_los_nlos_measure_ind_t *obj_los_nlos_measure_ind)
 {
     if (!obj_los_nlos_measure_ind)
         return DCM_LOS_NLOS_MEASURE_IND_NO_VAL;
@@ -189,7 +189,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_los_nlos_measure_ind_e da
     return DCM_LOS_NLOS_MEASURE_IND_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_los_nlos_measure_ind_get_string(const data_collection_model_los_nlos_measure_ind_t *obj_los_nlos_measure_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_los_nlos_measure_ind_get_string(const data_collection_model_los_nlos_measure_ind_t *obj_los_nlos_measure_ind)
 {
     if (!obj_los_nlos_measure_ind) return NULL;
     const std::shared_ptr<LosNlosMeasureInd > &obj = *reinterpret_cast<const std::shared_ptr<LosNlosMeasureInd >*>(obj_los_nlos_measure_ind);
@@ -197,7 +197,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_los_nlos_meas
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_los_nlos_measure_ind_set_enum(data_collection_model_los_nlos_measure_ind_t *obj_los_nlos_measure_ind, data_collection_model_los_nlos_measure_ind_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_los_nlos_measure_ind_set_enum(data_collection_model_los_nlos_measure_ind_t *obj_los_nlos_measure_ind, data_collection_model_los_nlos_measure_ind_e p_value)
 {
     if (!obj_los_nlos_measure_ind) return false;
     std::shared_ptr<LosNlosMeasureInd > &obj = *reinterpret_cast<std::shared_ptr<LosNlosMeasureInd >*>(obj_los_nlos_measure_ind);
@@ -218,7 +218,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_los_nlos_measure_ind
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_los_nlos_measure_ind_set_string(data_collection_model_los_nlos_measure_ind_t *obj_los_nlos_measure_ind, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_los_nlos_measure_ind_set_string(data_collection_model_los_nlos_measure_ind_t *obj_los_nlos_measure_ind, const char *p_value)
 {
     if (!obj_los_nlos_measure_ind) return false;
     std::shared_ptr<LosNlosMeasureInd > &obj = *reinterpret_cast<std::shared_ptr<LosNlosMeasureInd >*>(obj_los_nlos_measure_ind);
@@ -233,7 +233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_los_nlos_measure_ind
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_los_nlos_measure_ind_make_lnode(data_collection_model_los_nlos_measure_ind_t *p_los_nlos_measure_ind)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_los_nlos_measure_ind_make_lnode(data_collection_model_los_nlos_measure_ind_t *p_los_nlos_measure_ind)
 {
     return data_collection_lnode_create(p_los_nlos_measure_ind, reinterpret_cast<void(*)(void*)>(data_collection_model_los_nlos_measure_ind_free));
 }

@@ -22,14 +22,14 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_create(
 )
 {
     return reinterpret_cast<data_collection_model_ms_qoe_metrics_collection_t*>(new std::shared_ptr<MsQoeMetricsCollection>(new MsQoeMetricsCollection(
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_create_copy(const data_collection_model_ms_qoe_metrics_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_create_copy(const data_collection_model_ms_qoe_metrics_collection_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<MsQoeMetricsCollection > &obj = *reinterpret_cast<const std::shared_ptr<MsQoeMetricsCollection >*>(other);
@@ -37,7 +37,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_qoe_metrics
     return reinterpret_cast<data_collection_model_ms_qoe_metrics_collection_t*>(new std::shared_ptr<MsQoeMetricsCollection >(new MsQoeMetricsCollection(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_create_move(data_collection_model_ms_qoe_metrics_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_create_move(data_collection_model_ms_qoe_metrics_collection_t *other)
 {
     if (!other) return NULL;
 
@@ -50,7 +50,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_qoe_metrics
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_copy(data_collection_model_ms_qoe_metrics_collection_t *ms_qoe_metrics_collection, const data_collection_model_ms_qoe_metrics_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_copy(data_collection_model_ms_qoe_metrics_collection_t *ms_qoe_metrics_collection, const data_collection_model_ms_qoe_metrics_collection_t *other)
 {
     if (ms_qoe_metrics_collection) {
         std::shared_ptr<MsQoeMetricsCollection > &obj = *reinterpret_cast<std::shared_ptr<MsQoeMetricsCollection >*>(ms_qoe_metrics_collection);
@@ -79,7 +79,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_qoe_metrics
     return ms_qoe_metrics_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_move(data_collection_model_ms_qoe_metrics_collection_t *ms_qoe_metrics_collection, data_collection_model_ms_qoe_metrics_collection_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_move(data_collection_model_ms_qoe_metrics_collection_t *ms_qoe_metrics_collection, data_collection_model_ms_qoe_metrics_collection_t *other)
 {
     std::shared_ptr<MsQoeMetricsCollection > *other_ptr = reinterpret_cast<std::shared_ptr<MsQoeMetricsCollection >*>(other);
 
@@ -103,13 +103,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_qoe_metrics
     return ms_qoe_metrics_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_ms_qoe_metrics_collection_free(data_collection_model_ms_qoe_metrics_collection_t *ms_qoe_metrics_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_ms_qoe_metrics_collection_free(data_collection_model_ms_qoe_metrics_collection_t *ms_qoe_metrics_collection)
 {
     if (!ms_qoe_metrics_collection) return;
     delete reinterpret_cast<std::shared_ptr<MsQoeMetricsCollection >*>(ms_qoe_metrics_collection);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_ms_qoe_metrics_collection_toJSON(const data_collection_model_ms_qoe_metrics_collection_t *ms_qoe_metrics_collection, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_ms_qoe_metrics_collection_toJSON(const data_collection_model_ms_qoe_metrics_collection_t *ms_qoe_metrics_collection, bool as_request)
 {
     if (!ms_qoe_metrics_collection) return NULL;
     const std::shared_ptr<MsQoeMetricsCollection > &obj = *reinterpret_cast<const std::shared_ptr<MsQoeMetricsCollection >*>(ms_qoe_metrics_collection);
@@ -118,7 +118,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_ms_qoe_
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -131,7 +131,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_qoe_metrics
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ms_qoe_metrics_collection_is_equal_to(const data_collection_model_ms_qoe_metrics_collection_t *first, const data_collection_model_ms_qoe_metrics_collection_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ms_qoe_metrics_collection_is_equal_to(const data_collection_model_ms_qoe_metrics_collection_t *first, const data_collection_model_ms_qoe_metrics_collection_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -156,7 +156,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_ms_qoe_me
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ms_qoe_metrics_collection_get_ms_qoe_metrics(const data_collection_model_ms_qoe_metrics_collection_t *obj_ms_qoe_metrics_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ms_qoe_metrics_collection_get_ms_qoe_metrics(const data_collection_model_ms_qoe_metrics_collection_t *obj_ms_qoe_metrics_collection)
 {
     if (!obj_ms_qoe_metrics_collection) {
         ogs_list_t *result = NULL;
@@ -182,7 +182,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" ogs_list_t* data_collection_model_ms
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_set_ms_qoe_metrics(data_collection_model_ms_qoe_metrics_collection_t *obj_ms_qoe_metrics_collection, const ogs_list_t* p_ms_qoe_metrics)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_set_ms_qoe_metrics(data_collection_model_ms_qoe_metrics_collection_t *obj_ms_qoe_metrics_collection, const ogs_list_t* p_ms_qoe_metrics)
 {
     if (!obj_ms_qoe_metrics_collection) return NULL;
 
@@ -206,7 +206,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_qoe_metrics
     return obj_ms_qoe_metrics_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_set_ms_qoe_metrics_move(data_collection_model_ms_qoe_metrics_collection_t *obj_ms_qoe_metrics_collection, ogs_list_t* p_ms_qoe_metrics)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_set_ms_qoe_metrics_move(data_collection_model_ms_qoe_metrics_collection_t *obj_ms_qoe_metrics_collection, ogs_list_t* p_ms_qoe_metrics)
 {
     if (!obj_ms_qoe_metrics_collection) return NULL;
 
@@ -231,7 +231,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_qoe_metrics
     return obj_ms_qoe_metrics_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_add_ms_qoe_metrics(data_collection_model_ms_qoe_metrics_collection_t *obj_ms_qoe_metrics_collection, char* p_ms_qoe_metrics)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_add_ms_qoe_metrics(data_collection_model_ms_qoe_metrics_collection_t *obj_ms_qoe_metrics_collection, char* p_ms_qoe_metrics)
 {
     if (!obj_ms_qoe_metrics_collection) return NULL;
 
@@ -248,7 +248,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_qoe_metrics
     return obj_ms_qoe_metrics_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_remove_ms_qoe_metrics(data_collection_model_ms_qoe_metrics_collection_t *obj_ms_qoe_metrics_collection, const char* p_ms_qoe_metrics)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_remove_ms_qoe_metrics(data_collection_model_ms_qoe_metrics_collection_t *obj_ms_qoe_metrics_collection, const char* p_ms_qoe_metrics)
 {
     if (!obj_ms_qoe_metrics_collection) return NULL;
 
@@ -263,7 +263,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_qoe_metrics
     return obj_ms_qoe_metrics_collection;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_clear_ms_qoe_metrics(data_collection_model_ms_qoe_metrics_collection_t *obj_ms_qoe_metrics_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_clear_ms_qoe_metrics(data_collection_model_ms_qoe_metrics_collection_t *obj_ms_qoe_metrics_collection)
 {
     if (!obj_ms_qoe_metrics_collection) return NULL;
 
@@ -275,7 +275,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_ms_qoe_metrics
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_ms_qoe_metrics_collection_make_lnode(data_collection_model_ms_qoe_metrics_collection_t *p_ms_qoe_metrics_collection)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_ms_qoe_metrics_collection_make_lnode(data_collection_model_ms_qoe_metrics_collection_t *p_ms_qoe_metrics_collection)
 {
     return data_collection_lnode_create(p_ms_qoe_metrics_collection, reinterpret_cast<void(*)(void*)>(data_collection_model_ms_qoe_metrics_collection_free));
 }

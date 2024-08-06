@@ -22,12 +22,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_collective_behaviour_filter_type_t *data_collection_model_collective_behaviour_filter_type_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_behaviour_filter_type_t *data_collection_model_collective_behaviour_filter_type_create()
 {
     return reinterpret_cast<data_collection_model_collective_behaviour_filter_type_t*>(new std::shared_ptr<CollectiveBehaviourFilterType>(new CollectiveBehaviourFilterType()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_collective_behaviour_filter_type_t *data_collection_model_collective_behaviour_filter_type_create_copy(const data_collection_model_collective_behaviour_filter_type_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_behaviour_filter_type_t *data_collection_model_collective_behaviour_filter_type_create_copy(const data_collection_model_collective_behaviour_filter_type_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<CollectiveBehaviourFilterType > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourFilterType >*>(other);
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_collective_beh
     return reinterpret_cast<data_collection_model_collective_behaviour_filter_type_t*>(new std::shared_ptr<CollectiveBehaviourFilterType >(new CollectiveBehaviourFilterType(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_collective_behaviour_filter_type_t *data_collection_model_collective_behaviour_filter_type_create_move(data_collection_model_collective_behaviour_filter_type_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_behaviour_filter_type_t *data_collection_model_collective_behaviour_filter_type_create_move(data_collection_model_collective_behaviour_filter_type_t *other)
 {
     if (!other) return NULL;
 
@@ -48,7 +48,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_collective_beh
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_collective_behaviour_filter_type_t *data_collection_model_collective_behaviour_filter_type_copy(data_collection_model_collective_behaviour_filter_type_t *collective_behaviour_filter_type, const data_collection_model_collective_behaviour_filter_type_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_behaviour_filter_type_t *data_collection_model_collective_behaviour_filter_type_copy(data_collection_model_collective_behaviour_filter_type_t *collective_behaviour_filter_type, const data_collection_model_collective_behaviour_filter_type_t *other)
 {
     if (collective_behaviour_filter_type) {
         std::shared_ptr<CollectiveBehaviourFilterType > &obj = *reinterpret_cast<std::shared_ptr<CollectiveBehaviourFilterType >*>(collective_behaviour_filter_type);
@@ -77,7 +77,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_collective_beh
     return collective_behaviour_filter_type;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_collective_behaviour_filter_type_t *data_collection_model_collective_behaviour_filter_type_move(data_collection_model_collective_behaviour_filter_type_t *collective_behaviour_filter_type, data_collection_model_collective_behaviour_filter_type_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_behaviour_filter_type_t *data_collection_model_collective_behaviour_filter_type_move(data_collection_model_collective_behaviour_filter_type_t *collective_behaviour_filter_type, data_collection_model_collective_behaviour_filter_type_t *other)
 {
     std::shared_ptr<CollectiveBehaviourFilterType > *other_ptr = reinterpret_cast<std::shared_ptr<CollectiveBehaviourFilterType >*>(other);
 
@@ -101,13 +101,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_collective_beh
     return collective_behaviour_filter_type;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_collective_behaviour_filter_type_free(data_collection_model_collective_behaviour_filter_type_t *collective_behaviour_filter_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_collective_behaviour_filter_type_free(data_collection_model_collective_behaviour_filter_type_t *collective_behaviour_filter_type)
 {
     if (!collective_behaviour_filter_type) return;
     delete reinterpret_cast<std::shared_ptr<CollectiveBehaviourFilterType >*>(collective_behaviour_filter_type);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_collective_behaviour_filter_type_toJSON(const data_collection_model_collective_behaviour_filter_type_t *collective_behaviour_filter_type, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_collective_behaviour_filter_type_toJSON(const data_collection_model_collective_behaviour_filter_type_t *collective_behaviour_filter_type, bool as_request)
 {
     if (!collective_behaviour_filter_type) return NULL;
     const std::shared_ptr<CollectiveBehaviourFilterType > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourFilterType >*>(collective_behaviour_filter_type);
@@ -116,7 +116,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_collect
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_collective_behaviour_filter_type_t *data_collection_model_collective_behaviour_filter_type_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_behaviour_filter_type_t *data_collection_model_collective_behaviour_filter_type_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -129,7 +129,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_collective_beh
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_collective_behaviour_filter_type_is_equal_to(const data_collection_model_collective_behaviour_filter_type_t *first, const data_collection_model_collective_behaviour_filter_type_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour_filter_type_is_equal_to(const data_collection_model_collective_behaviour_filter_type_t *first, const data_collection_model_collective_behaviour_filter_type_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -154,7 +154,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_collectiv
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour_filter_type_is_not_set(const data_collection_model_collective_behaviour_filter_type_t *obj_collective_behaviour_filter_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour_filter_type_is_not_set(const data_collection_model_collective_behaviour_filter_type_t *obj_collective_behaviour_filter_type)
 {
     if (!obj_collective_behaviour_filter_type) return true;
     const std::shared_ptr<CollectiveBehaviourFilterType > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourFilterType >*>(obj_collective_behaviour_filter_type);
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour
     return obj->getValue() == CollectiveBehaviourFilterType::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour_filter_type_is_non_standard(const data_collection_model_collective_behaviour_filter_type_t *obj_collective_behaviour_filter_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour_filter_type_is_non_standard(const data_collection_model_collective_behaviour_filter_type_t *obj_collective_behaviour_filter_type)
 {
     if (!obj_collective_behaviour_filter_type) return false;
     const std::shared_ptr<CollectiveBehaviourFilterType > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourFilterType >*>(obj_collective_behaviour_filter_type);
@@ -170,7 +170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour
     return obj->getValue() == CollectiveBehaviourFilterType::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_behaviour_filter_type_e data_collection_model_collective_behaviour_filter_type_get_enum(const data_collection_model_collective_behaviour_filter_type_t *obj_collective_behaviour_filter_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_behaviour_filter_type_e data_collection_model_collective_behaviour_filter_type_get_enum(const data_collection_model_collective_behaviour_filter_type_t *obj_collective_behaviour_filter_type)
 {
     if (!obj_collective_behaviour_filter_type)
         return DCM_COLLECTIVE_BEHAVIOUR_FILTER_TYPE_NO_VAL;
@@ -189,7 +189,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_behaviour_filt
     return DCM_COLLECTIVE_BEHAVIOUR_FILTER_TYPE_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_collective_behaviour_filter_type_get_string(const data_collection_model_collective_behaviour_filter_type_t *obj_collective_behaviour_filter_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_collective_behaviour_filter_type_get_string(const data_collection_model_collective_behaviour_filter_type_t *obj_collective_behaviour_filter_type)
 {
     if (!obj_collective_behaviour_filter_type) return NULL;
     const std::shared_ptr<CollectiveBehaviourFilterType > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourFilterType >*>(obj_collective_behaviour_filter_type);
@@ -197,7 +197,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_collective_be
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour_filter_type_set_enum(data_collection_model_collective_behaviour_filter_type_t *obj_collective_behaviour_filter_type, data_collection_model_collective_behaviour_filter_type_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour_filter_type_set_enum(data_collection_model_collective_behaviour_filter_type_t *obj_collective_behaviour_filter_type, data_collection_model_collective_behaviour_filter_type_e p_value)
 {
     if (!obj_collective_behaviour_filter_type) return false;
     std::shared_ptr<CollectiveBehaviourFilterType > &obj = *reinterpret_cast<std::shared_ptr<CollectiveBehaviourFilterType >*>(obj_collective_behaviour_filter_type);
@@ -218,7 +218,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour_filter_type_set_string(data_collection_model_collective_behaviour_filter_type_t *obj_collective_behaviour_filter_type, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour_filter_type_set_string(data_collection_model_collective_behaviour_filter_type_t *obj_collective_behaviour_filter_type, const char *p_value)
 {
     if (!obj_collective_behaviour_filter_type) return false;
     std::shared_ptr<CollectiveBehaviourFilterType > &obj = *reinterpret_cast<std::shared_ptr<CollectiveBehaviourFilterType >*>(obj_collective_behaviour_filter_type);
@@ -233,7 +233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_collective_behaviour_filter_type_make_lnode(data_collection_model_collective_behaviour_filter_type_t *p_collective_behaviour_filter_type)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_collective_behaviour_filter_type_make_lnode(data_collection_model_collective_behaviour_filter_type_t *p_collective_behaviour_filter_type)
 {
     return data_collection_lnode_create(p_collective_behaviour_filter_type, reinterpret_cast<void(*)(void*)>(data_collection_model_collective_behaviour_filter_type_free));
 }

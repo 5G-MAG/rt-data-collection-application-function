@@ -24,12 +24,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_event_trigger_t *data_collection_model_data_reporting_event_trigger_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_event_trigger_t *data_collection_model_data_reporting_event_trigger_create()
 {
     return reinterpret_cast<data_collection_model_data_reporting_event_trigger_t*>(new std::shared_ptr<DataReportingEventTrigger>(new DataReportingEventTrigger()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_event_trigger_t *data_collection_model_data_reporting_event_trigger_create_copy(const data_collection_model_data_reporting_event_trigger_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_event_trigger_t *data_collection_model_data_reporting_event_trigger_create_copy(const data_collection_model_data_reporting_event_trigger_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<DataReportingEventTrigger > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingEventTrigger >*>(other);
@@ -37,7 +37,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return reinterpret_cast<data_collection_model_data_reporting_event_trigger_t*>(new std::shared_ptr<DataReportingEventTrigger >(new DataReportingEventTrigger(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_event_trigger_t *data_collection_model_data_reporting_event_trigger_create_move(data_collection_model_data_reporting_event_trigger_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_event_trigger_t *data_collection_model_data_reporting_event_trigger_create_move(data_collection_model_data_reporting_event_trigger_t *other)
 {
     if (!other) return NULL;
 
@@ -50,7 +50,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_event_trigger_t *data_collection_model_data_reporting_event_trigger_copy(data_collection_model_data_reporting_event_trigger_t *data_reporting_event_trigger, const data_collection_model_data_reporting_event_trigger_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_event_trigger_t *data_collection_model_data_reporting_event_trigger_copy(data_collection_model_data_reporting_event_trigger_t *data_reporting_event_trigger, const data_collection_model_data_reporting_event_trigger_t *other)
 {
     if (data_reporting_event_trigger) {
         std::shared_ptr<DataReportingEventTrigger > &obj = *reinterpret_cast<std::shared_ptr<DataReportingEventTrigger >*>(data_reporting_event_trigger);
@@ -79,7 +79,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return data_reporting_event_trigger;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_event_trigger_t *data_collection_model_data_reporting_event_trigger_move(data_collection_model_data_reporting_event_trigger_t *data_reporting_event_trigger, data_collection_model_data_reporting_event_trigger_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_event_trigger_t *data_collection_model_data_reporting_event_trigger_move(data_collection_model_data_reporting_event_trigger_t *data_reporting_event_trigger, data_collection_model_data_reporting_event_trigger_t *other)
 {
     std::shared_ptr<DataReportingEventTrigger > *other_ptr = reinterpret_cast<std::shared_ptr<DataReportingEventTrigger >*>(other);
 
@@ -103,13 +103,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return data_reporting_event_trigger;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_data_reporting_event_trigger_free(data_collection_model_data_reporting_event_trigger_t *data_reporting_event_trigger)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_data_reporting_event_trigger_free(data_collection_model_data_reporting_event_trigger_t *data_reporting_event_trigger)
 {
     if (!data_reporting_event_trigger) return;
     delete reinterpret_cast<std::shared_ptr<DataReportingEventTrigger >*>(data_reporting_event_trigger);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_data_reporting_event_trigger_toJSON(const data_collection_model_data_reporting_event_trigger_t *data_reporting_event_trigger, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_data_reporting_event_trigger_toJSON(const data_collection_model_data_reporting_event_trigger_t *data_reporting_event_trigger, bool as_request)
 {
     if (!data_reporting_event_trigger) return NULL;
     const std::shared_ptr<DataReportingEventTrigger > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingEventTrigger >*>(data_reporting_event_trigger);
@@ -118,7 +118,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_data_re
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting_event_trigger_t *data_collection_model_data_reporting_event_trigger_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_event_trigger_t *data_collection_model_data_reporting_event_trigger_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -131,7 +131,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_data_reporting
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_data_reporting_event_trigger_is_equal_to(const data_collection_model_data_reporting_event_trigger_t *first, const data_collection_model_data_reporting_event_trigger_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_event_trigger_is_equal_to(const data_collection_model_data_reporting_event_trigger_t *first, const data_collection_model_data_reporting_event_trigger_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -156,7 +156,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_data_repo
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_event_trigger_is_not_set(const data_collection_model_data_reporting_event_trigger_t *obj_data_reporting_event_trigger)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_event_trigger_is_not_set(const data_collection_model_data_reporting_event_trigger_t *obj_data_reporting_event_trigger)
 {
     if (!obj_data_reporting_event_trigger) return true;
     const std::shared_ptr<DataReportingEventTrigger > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingEventTrigger >*>(obj_data_reporting_event_trigger);
@@ -164,7 +164,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_event
     return obj->getValue() == DataReportingEventTrigger::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_event_trigger_is_non_standard(const data_collection_model_data_reporting_event_trigger_t *obj_data_reporting_event_trigger)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_event_trigger_is_non_standard(const data_collection_model_data_reporting_event_trigger_t *obj_data_reporting_event_trigger)
 {
     if (!obj_data_reporting_event_trigger) return false;
     const std::shared_ptr<DataReportingEventTrigger > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingEventTrigger >*>(obj_data_reporting_event_trigger);
@@ -172,7 +172,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_event
     return obj->getValue() == DataReportingEventTrigger::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_event_trigger_e data_collection_model_data_reporting_event_trigger_get_enum(const data_collection_model_data_reporting_event_trigger_t *obj_data_reporting_event_trigger)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_event_trigger_e data_collection_model_data_reporting_event_trigger_get_enum(const data_collection_model_data_reporting_event_trigger_t *obj_data_reporting_event_trigger)
 {
     if (!obj_data_reporting_event_trigger)
         return DCM_DATA_REPORTING_EVENT_TRIGGER_NO_VAL;
@@ -191,7 +191,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_event_trig
     return DCM_DATA_REPORTING_EVENT_TRIGGER_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_data_reporting_event_trigger_get_string(const data_collection_model_data_reporting_event_trigger_t *obj_data_reporting_event_trigger)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_data_reporting_event_trigger_get_string(const data_collection_model_data_reporting_event_trigger_t *obj_data_reporting_event_trigger)
 {
     if (!obj_data_reporting_event_trigger) return NULL;
     const std::shared_ptr<DataReportingEventTrigger > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingEventTrigger >*>(obj_data_reporting_event_trigger);
@@ -199,7 +199,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_data_reportin
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_event_trigger_set_enum(data_collection_model_data_reporting_event_trigger_t *obj_data_reporting_event_trigger, data_collection_model_data_reporting_event_trigger_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_event_trigger_set_enum(data_collection_model_data_reporting_event_trigger_t *obj_data_reporting_event_trigger, data_collection_model_data_reporting_event_trigger_e p_value)
 {
     if (!obj_data_reporting_event_trigger) return false;
     std::shared_ptr<DataReportingEventTrigger > &obj = *reinterpret_cast<std::shared_ptr<DataReportingEventTrigger >*>(obj_data_reporting_event_trigger);
@@ -220,7 +220,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_event
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_event_trigger_set_string(data_collection_model_data_reporting_event_trigger_t *obj_data_reporting_event_trigger, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_event_trigger_set_string(data_collection_model_data_reporting_event_trigger_t *obj_data_reporting_event_trigger, const char *p_value)
 {
     if (!obj_data_reporting_event_trigger) return false;
     std::shared_ptr<DataReportingEventTrigger > &obj = *reinterpret_cast<std::shared_ptr<DataReportingEventTrigger >*>(obj_data_reporting_event_trigger);
@@ -235,7 +235,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_event
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_data_reporting_event_trigger_make_lnode(data_collection_model_data_reporting_event_trigger_t *p_data_reporting_event_trigger)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_data_reporting_event_trigger_make_lnode(data_collection_model_data_reporting_event_trigger_t *p_data_reporting_event_trigger)
 {
     return data_collection_lnode_create(p_data_reporting_event_trigger, reinterpret_cast<void(*)(void*)>(data_collection_model_data_reporting_event_trigger_free));
 }

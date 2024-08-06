@@ -22,12 +22,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_t *data_collection_model_positioning_method_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_t *data_collection_model_positioning_method_create()
 {
     return reinterpret_cast<data_collection_model_positioning_method_t*>(new std::shared_ptr<PositioningMethod>(new PositioningMethod()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_t *data_collection_model_positioning_method_create_copy(const data_collection_model_positioning_method_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_t *data_collection_model_positioning_method_create_copy(const data_collection_model_positioning_method_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<PositioningMethod > &obj = *reinterpret_cast<const std::shared_ptr<PositioningMethod >*>(other);
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_me
     return reinterpret_cast<data_collection_model_positioning_method_t*>(new std::shared_ptr<PositioningMethod >(new PositioningMethod(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_t *data_collection_model_positioning_method_create_move(data_collection_model_positioning_method_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_t *data_collection_model_positioning_method_create_move(data_collection_model_positioning_method_t *other)
 {
     if (!other) return NULL;
 
@@ -48,7 +48,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_me
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_t *data_collection_model_positioning_method_copy(data_collection_model_positioning_method_t *positioning_method, const data_collection_model_positioning_method_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_t *data_collection_model_positioning_method_copy(data_collection_model_positioning_method_t *positioning_method, const data_collection_model_positioning_method_t *other)
 {
     if (positioning_method) {
         std::shared_ptr<PositioningMethod > &obj = *reinterpret_cast<std::shared_ptr<PositioningMethod >*>(positioning_method);
@@ -77,7 +77,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_me
     return positioning_method;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_t *data_collection_model_positioning_method_move(data_collection_model_positioning_method_t *positioning_method, data_collection_model_positioning_method_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_t *data_collection_model_positioning_method_move(data_collection_model_positioning_method_t *positioning_method, data_collection_model_positioning_method_t *other)
 {
     std::shared_ptr<PositioningMethod > *other_ptr = reinterpret_cast<std::shared_ptr<PositioningMethod >*>(other);
 
@@ -101,13 +101,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_me
     return positioning_method;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_positioning_method_free(data_collection_model_positioning_method_t *positioning_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_positioning_method_free(data_collection_model_positioning_method_t *positioning_method)
 {
     if (!positioning_method) return;
     delete reinterpret_cast<std::shared_ptr<PositioningMethod >*>(positioning_method);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_positioning_method_toJSON(const data_collection_model_positioning_method_t *positioning_method, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_positioning_method_toJSON(const data_collection_model_positioning_method_t *positioning_method, bool as_request)
 {
     if (!positioning_method) return NULL;
     const std::shared_ptr<PositioningMethod > &obj = *reinterpret_cast<const std::shared_ptr<PositioningMethod >*>(positioning_method);
@@ -116,7 +116,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_positio
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_method_t *data_collection_model_positioning_method_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_t *data_collection_model_positioning_method_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -129,7 +129,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_positioning_me
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_positioning_method_is_equal_to(const data_collection_model_positioning_method_t *first, const data_collection_model_positioning_method_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_method_is_equal_to(const data_collection_model_positioning_method_t *first, const data_collection_model_positioning_method_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -154,7 +154,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_positioni
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_method_is_not_set(const data_collection_model_positioning_method_t *obj_positioning_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_method_is_not_set(const data_collection_model_positioning_method_t *obj_positioning_method)
 {
     if (!obj_positioning_method) return true;
     const std::shared_ptr<PositioningMethod > &obj = *reinterpret_cast<const std::shared_ptr<PositioningMethod >*>(obj_positioning_method);
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_method_i
     return obj->getValue() == PositioningMethod::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_method_is_non_standard(const data_collection_model_positioning_method_t *obj_positioning_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_method_is_non_standard(const data_collection_model_positioning_method_t *obj_positioning_method)
 {
     if (!obj_positioning_method) return false;
     const std::shared_ptr<PositioningMethod > &obj = *reinterpret_cast<const std::shared_ptr<PositioningMethod >*>(obj_positioning_method);
@@ -170,7 +170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_method_i
     return obj->getValue() == PositioningMethod::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_e data_collection_model_positioning_method_get_enum(const data_collection_model_positioning_method_t *obj_positioning_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_e data_collection_model_positioning_method_get_enum(const data_collection_model_positioning_method_t *obj_positioning_method)
 {
     if (!obj_positioning_method)
         return DCM_POSITIONING_METHOD_NO_VAL;
@@ -223,7 +223,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_e data
     return DCM_POSITIONING_METHOD_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_positioning_method_get_string(const data_collection_model_positioning_method_t *obj_positioning_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_positioning_method_get_string(const data_collection_model_positioning_method_t *obj_positioning_method)
 {
     if (!obj_positioning_method) return NULL;
     const std::shared_ptr<PositioningMethod > &obj = *reinterpret_cast<const std::shared_ptr<PositioningMethod >*>(obj_positioning_method);
@@ -231,7 +231,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_positioning_m
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_method_set_enum(data_collection_model_positioning_method_t *obj_positioning_method, data_collection_model_positioning_method_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_method_set_enum(data_collection_model_positioning_method_t *obj_positioning_method, data_collection_model_positioning_method_e p_value)
 {
     if (!obj_positioning_method) return false;
     std::shared_ptr<PositioningMethod > &obj = *reinterpret_cast<std::shared_ptr<PositioningMethod >*>(obj_positioning_method);
@@ -303,7 +303,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_method_s
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_method_set_string(data_collection_model_positioning_method_t *obj_positioning_method, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_method_set_string(data_collection_model_positioning_method_t *obj_positioning_method, const char *p_value)
 {
     if (!obj_positioning_method) return false;
     std::shared_ptr<PositioningMethod > &obj = *reinterpret_cast<std::shared_ptr<PositioningMethod >*>(obj_positioning_method);
@@ -318,7 +318,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_method_s
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_positioning_method_make_lnode(data_collection_model_positioning_method_t *p_positioning_method)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_positioning_method_make_lnode(data_collection_model_positioning_method_t *p_positioning_method)
 {
     return data_collection_lnode_create(p_positioning_method, reinterpret_cast<void(*)(void*)>(data_collection_model_positioning_method_free));
 }

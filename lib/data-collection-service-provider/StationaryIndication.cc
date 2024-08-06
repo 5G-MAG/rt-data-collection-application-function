@@ -22,12 +22,12 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_stationary_indication_t *data_collection_model_stationary_indication_create()
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_stationary_indication_t *data_collection_model_stationary_indication_create()
 {
     return reinterpret_cast<data_collection_model_stationary_indication_t*>(new std::shared_ptr<StationaryIndication>(new StationaryIndication()));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_stationary_indication_t *data_collection_model_stationary_indication_create_copy(const data_collection_model_stationary_indication_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_stationary_indication_t *data_collection_model_stationary_indication_create_copy(const data_collection_model_stationary_indication_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<StationaryIndication > &obj = *reinterpret_cast<const std::shared_ptr<StationaryIndication >*>(other);
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_stationary_ind
     return reinterpret_cast<data_collection_model_stationary_indication_t*>(new std::shared_ptr<StationaryIndication >(new StationaryIndication(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_stationary_indication_t *data_collection_model_stationary_indication_create_move(data_collection_model_stationary_indication_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_stationary_indication_t *data_collection_model_stationary_indication_create_move(data_collection_model_stationary_indication_t *other)
 {
     if (!other) return NULL;
 
@@ -48,7 +48,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_stationary_ind
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_stationary_indication_t *data_collection_model_stationary_indication_copy(data_collection_model_stationary_indication_t *stationary_indication, const data_collection_model_stationary_indication_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_stationary_indication_t *data_collection_model_stationary_indication_copy(data_collection_model_stationary_indication_t *stationary_indication, const data_collection_model_stationary_indication_t *other)
 {
     if (stationary_indication) {
         std::shared_ptr<StationaryIndication > &obj = *reinterpret_cast<std::shared_ptr<StationaryIndication >*>(stationary_indication);
@@ -77,7 +77,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_stationary_ind
     return stationary_indication;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_stationary_indication_t *data_collection_model_stationary_indication_move(data_collection_model_stationary_indication_t *stationary_indication, data_collection_model_stationary_indication_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_stationary_indication_t *data_collection_model_stationary_indication_move(data_collection_model_stationary_indication_t *stationary_indication, data_collection_model_stationary_indication_t *other)
 {
     std::shared_ptr<StationaryIndication > *other_ptr = reinterpret_cast<std::shared_ptr<StationaryIndication >*>(other);
 
@@ -101,13 +101,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_stationary_ind
     return stationary_indication;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_stationary_indication_free(data_collection_model_stationary_indication_t *stationary_indication)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_stationary_indication_free(data_collection_model_stationary_indication_t *stationary_indication)
 {
     if (!stationary_indication) return;
     delete reinterpret_cast<std::shared_ptr<StationaryIndication >*>(stationary_indication);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_stationary_indication_toJSON(const data_collection_model_stationary_indication_t *stationary_indication, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_stationary_indication_toJSON(const data_collection_model_stationary_indication_t *stationary_indication, bool as_request)
 {
     if (!stationary_indication) return NULL;
     const std::shared_ptr<StationaryIndication > &obj = *reinterpret_cast<const std::shared_ptr<StationaryIndication >*>(stationary_indication);
@@ -116,7 +116,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_station
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_stationary_indication_t *data_collection_model_stationary_indication_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_stationary_indication_t *data_collection_model_stationary_indication_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -129,7 +129,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_stationary_ind
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_stationary_indication_is_equal_to(const data_collection_model_stationary_indication_t *first, const data_collection_model_stationary_indication_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_stationary_indication_is_equal_to(const data_collection_model_stationary_indication_t *first, const data_collection_model_stationary_indication_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -154,7 +154,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_stationar
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_stationary_indication_is_not_set(const data_collection_model_stationary_indication_t *obj_stationary_indication)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_stationary_indication_is_not_set(const data_collection_model_stationary_indication_t *obj_stationary_indication)
 {
     if (!obj_stationary_indication) return true;
     const std::shared_ptr<StationaryIndication > &obj = *reinterpret_cast<const std::shared_ptr<StationaryIndication >*>(obj_stationary_indication);
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_stationary_indicatio
     return obj->getValue() == StationaryIndication::Enum::NO_VAL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_stationary_indication_is_non_standard(const data_collection_model_stationary_indication_t *obj_stationary_indication)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_stationary_indication_is_non_standard(const data_collection_model_stationary_indication_t *obj_stationary_indication)
 {
     if (!obj_stationary_indication) return false;
     const std::shared_ptr<StationaryIndication > &obj = *reinterpret_cast<const std::shared_ptr<StationaryIndication >*>(obj_stationary_indication);
@@ -170,7 +170,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_stationary_indicatio
     return obj->getValue() == StationaryIndication::Enum::OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_stationary_indication_e data_collection_model_stationary_indication_get_enum(const data_collection_model_stationary_indication_t *obj_stationary_indication)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_stationary_indication_e data_collection_model_stationary_indication_get_enum(const data_collection_model_stationary_indication_t *obj_stationary_indication)
 {
     if (!obj_stationary_indication)
         return DCM_STATIONARY_INDICATION_NO_VAL;
@@ -189,7 +189,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_stationary_indication_e d
     return DCM_STATIONARY_INDICATION_OTHER;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_stationary_indication_get_string(const data_collection_model_stationary_indication_t *obj_stationary_indication)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_stationary_indication_get_string(const data_collection_model_stationary_indication_t *obj_stationary_indication)
 {
     if (!obj_stationary_indication) return NULL;
     const std::shared_ptr<StationaryIndication > &obj = *reinterpret_cast<const std::shared_ptr<StationaryIndication >*>(obj_stationary_indication);
@@ -197,7 +197,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_stationary_in
     return obj->getString().c_str();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_stationary_indication_set_enum(data_collection_model_stationary_indication_t *obj_stationary_indication, data_collection_model_stationary_indication_e p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_stationary_indication_set_enum(data_collection_model_stationary_indication_t *obj_stationary_indication, data_collection_model_stationary_indication_e p_value)
 {
     if (!obj_stationary_indication) return false;
     std::shared_ptr<StationaryIndication > &obj = *reinterpret_cast<std::shared_ptr<StationaryIndication >*>(obj_stationary_indication);
@@ -218,7 +218,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_stationary_indicatio
     return false;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_stationary_indication_set_string(data_collection_model_stationary_indication_t *obj_stationary_indication, const char *p_value)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_stationary_indication_set_string(data_collection_model_stationary_indication_t *obj_stationary_indication, const char *p_value)
 {
     if (!obj_stationary_indication) return false;
     std::shared_ptr<StationaryIndication > &obj = *reinterpret_cast<std::shared_ptr<StationaryIndication >*>(obj_stationary_indication);
@@ -233,7 +233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_stationary_indicatio
 
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_stationary_indication_make_lnode(data_collection_model_stationary_indication_t *p_stationary_indication)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_stationary_indication_make_lnode(data_collection_model_stationary_indication_t *p_stationary_indication)
 {
     return data_collection_lnode_create(p_stationary_indication, reinterpret_cast<void(*)(void*)>(data_collection_model_stationary_indication_free));
 }

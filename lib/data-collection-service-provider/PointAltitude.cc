@@ -24,7 +24,7 @@
 
 using namespace reftools::data_collection_sp;
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_t *data_collection_model_point_altitude_create(
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_t *data_collection_model_point_altitude_create(
 
 
 )
@@ -35,7 +35,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
 )));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_t *data_collection_model_point_altitude_create_copy(const data_collection_model_point_altitude_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_t *data_collection_model_point_altitude_create_copy(const data_collection_model_point_altitude_t *other)
 {
     if (!other) return NULL;
     const std::shared_ptr<PointAltitude > &obj = *reinterpret_cast<const std::shared_ptr<PointAltitude >*>(other);
@@ -43,7 +43,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return reinterpret_cast<data_collection_model_point_altitude_t*>(new std::shared_ptr<PointAltitude >(new PointAltitude(*obj)));
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_t *data_collection_model_point_altitude_create_move(data_collection_model_point_altitude_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_t *data_collection_model_point_altitude_create_move(data_collection_model_point_altitude_t *other)
 {
     if (!other) return NULL;
 
@@ -56,7 +56,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return other;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_t *data_collection_model_point_altitude_copy(data_collection_model_point_altitude_t *point_altitude, const data_collection_model_point_altitude_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_t *data_collection_model_point_altitude_copy(data_collection_model_point_altitude_t *point_altitude, const data_collection_model_point_altitude_t *other)
 {
     if (point_altitude) {
         std::shared_ptr<PointAltitude > &obj = *reinterpret_cast<std::shared_ptr<PointAltitude >*>(point_altitude);
@@ -85,7 +85,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return point_altitude;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_t *data_collection_model_point_altitude_move(data_collection_model_point_altitude_t *point_altitude, data_collection_model_point_altitude_t *other)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_t *data_collection_model_point_altitude_move(data_collection_model_point_altitude_t *point_altitude, data_collection_model_point_altitude_t *other)
 {
     std::shared_ptr<PointAltitude > *other_ptr = reinterpret_cast<std::shared_ptr<PointAltitude >*>(other);
 
@@ -109,13 +109,13 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return point_altitude;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" void data_collection_model_point_altitude_free(data_collection_model_point_altitude_t *point_altitude)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_point_altitude_free(data_collection_model_point_altitude_t *point_altitude)
 {
     if (!point_altitude) return;
     delete reinterpret_cast<std::shared_ptr<PointAltitude >*>(point_altitude);
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_point_altitude_toJSON(const data_collection_model_point_altitude_t *point_altitude, bool as_request)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_point_altitude_toJSON(const data_collection_model_point_altitude_t *point_altitude, bool as_request)
 {
     if (!point_altitude) return NULL;
     const std::shared_ptr<PointAltitude > &obj = *reinterpret_cast<const std::shared_ptr<PointAltitude >*>(point_altitude);
@@ -124,7 +124,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" cJSON *data_collection_model_point_a
     return json.exportCJSON();
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_t *data_collection_model_point_altitude_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_t *data_collection_model_point_altitude_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
 {
     fiveg_mag_reftools::CJson objjson(json, false);
     try {
@@ -137,7 +137,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return NULL;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_point_altitude_is_equal_to(const data_collection_model_point_altitude_t *first, const data_collection_model_point_altitude_t *second)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_point_altitude_is_equal_to(const data_collection_model_point_altitude_t *first, const data_collection_model_point_altitude_t *second)
 {
     /* check pointers first */
     if (first == second) return true;
@@ -162,7 +162,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" bool data_collection_model_point_alt
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_supported_gad_shapes_t* data_collection_model_point_altitude_get_shape(const data_collection_model_point_altitude_t *obj_point_altitude)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supported_gad_shapes_t* data_collection_model_point_altitude_get_shape(const data_collection_model_point_altitude_t *obj_point_altitude)
 {
     if (!obj_point_altitude) {
         const data_collection_model_supported_gad_shapes_t *result = NULL;
@@ -181,7 +181,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_supporte
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_t *data_collection_model_point_altitude_set_shape(data_collection_model_point_altitude_t *obj_point_altitude, const data_collection_model_supported_gad_shapes_t* p_shape)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_t *data_collection_model_point_altitude_set_shape(data_collection_model_point_altitude_t *obj_point_altitude, const data_collection_model_supported_gad_shapes_t* p_shape)
 {
     if (!obj_point_altitude) return NULL;
 
@@ -197,7 +197,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return obj_point_altitude;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_t *data_collection_model_point_altitude_set_shape_move(data_collection_model_point_altitude_t *obj_point_altitude, data_collection_model_supported_gad_shapes_t* p_shape)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_t *data_collection_model_point_altitude_set_shape_move(data_collection_model_point_altitude_t *obj_point_altitude, data_collection_model_supported_gad_shapes_t* p_shape)
 {
     if (!obj_point_altitude) return NULL;
 
@@ -214,7 +214,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return obj_point_altitude;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geographical_coordinates_t* data_collection_model_point_altitude_get_point(const data_collection_model_point_altitude_t *obj_point_altitude)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geographical_coordinates_t* data_collection_model_point_altitude_get_point(const data_collection_model_point_altitude_t *obj_point_altitude)
 {
     if (!obj_point_altitude) {
         const data_collection_model_geographical_coordinates_t *result = NULL;
@@ -233,7 +233,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const data_collection_model_geograph
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_t *data_collection_model_point_altitude_set_point(data_collection_model_point_altitude_t *obj_point_altitude, const data_collection_model_geographical_coordinates_t* p_point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_t *data_collection_model_point_altitude_set_point(data_collection_model_point_altitude_t *obj_point_altitude, const data_collection_model_geographical_coordinates_t* p_point)
 {
     if (!obj_point_altitude) return NULL;
 
@@ -249,7 +249,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return obj_point_altitude;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_t *data_collection_model_point_altitude_set_point_move(data_collection_model_point_altitude_t *obj_point_altitude, data_collection_model_geographical_coordinates_t* p_point)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_t *data_collection_model_point_altitude_set_point_move(data_collection_model_point_altitude_t *obj_point_altitude, data_collection_model_geographical_coordinates_t* p_point)
 {
     if (!obj_point_altitude) return NULL;
 
@@ -266,7 +266,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return obj_point_altitude;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_point_altitude_get_altitude(const data_collection_model_point_altitude_t *obj_point_altitude)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const double data_collection_model_point_altitude_get_altitude(const data_collection_model_point_altitude_t *obj_point_altitude)
 {
     if (!obj_point_altitude) {
         const double result = 0;
@@ -285,7 +285,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" const double data_collection_model_p
     return result;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_t *data_collection_model_point_altitude_set_altitude(data_collection_model_point_altitude_t *obj_point_altitude, const double p_altitude)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_t *data_collection_model_point_altitude_set_altitude(data_collection_model_point_altitude_t *obj_point_altitude, const double p_altitude)
 {
     if (!obj_point_altitude) return NULL;
 
@@ -301,7 +301,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
     return obj_point_altitude;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude_t *data_collection_model_point_altitude_set_altitude_move(data_collection_model_point_altitude_t *obj_point_altitude, double p_altitude)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_t *data_collection_model_point_altitude_set_altitude_move(data_collection_model_point_altitude_t *obj_point_altitude, double p_altitude)
 {
     if (!obj_point_altitude) return NULL;
 
@@ -319,7 +319,7 @@ DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_model_point_altitude
 }
 
 
-DATA_COLLECTION_SVC_PRODUCER_API extern "C" data_collection_lnode_t *data_collection_model_point_altitude_make_lnode(data_collection_model_point_altitude_t *p_point_altitude)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_point_altitude_make_lnode(data_collection_model_point_altitude_t *p_point_altitude)
 {
     return data_collection_lnode_create(p_point_altitude, reinterpret_cast<void(*)(void*)>(data_collection_model_point_altitude_free));
 }
