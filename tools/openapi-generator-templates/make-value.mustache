@@ -1,33 +1,36 @@
 {{#composedSchemas}}{{^oneOf}}{{^not}}{{^anyOf}}{{^allOf.2}}{{#allOf}}{{>make-value}}{{/allOf}}{{/allOf.2}}{{#allOf.2.name}}ValueType *value = reinterpret_cast<ValueType*>(value_from);{{/allOf.2.name}}{{/anyOf}}{{^allOf}}{{^anyOf.2}}{{#anyOf}}{{>make-value}}{{/anyOf}}{{/anyOf.2}}{{^anyOf.3}}{{#anyOf.2.isString}}{{#anyOf.1.isEnum}}ValueType value(value_from);{{/anyOf.1.isEnum}}{{/anyOf.2.isString}}{{^anyOf.1.isEnum}}ValueType *value = reinterpret_cast<ValueType*>(value_from);{{/anyOf.1.isEnum}}{{^anyOf.2.isString}}{{#anyOf.1.isEnum}}ValueType *value = reinterpret_cast<ValueType*>(value_from);{{/anyOf.1.isEnum}}{{/anyOf.2.isString}}{{/anyOf.3}}{{#anyOf.3.name}}ValueType *value = reinterpret_cast<ValueType*>(value_from);{{/anyOf.3.name}}{{/allOf}}{{/not}}{{/oneOf}}{{/composedSchemas}}{{^composedSchemas}}{{#isContainer}}ValueType value;
-{{#isArray}}{
+{{#isArray}}if (value_from) {
     data_collection_lnode_t *lnode;
-    typedef typename ValueType::value_type ItemType;
+    typedef typename ValueType{{<is-optional}}{{$yes}}::value_type{{/yes}}{{/is-optional}}::value_type ItemType;
+    {{<is-optional}}{{$yes}}value = std::move(typename ValueType::value_type());{{/yes}}{{/is-optional}}
+    auto &container(value{{<is-optional}}{{$yes}}.value(){{/yes}}{{/is-optional}});
     ogs_list_for_each(value_from, lnode) {
-	{{#items}}{{#isString}}value.push_back(ItemType((const char *)lnode->object));
-        {{/isString}}{{^isString}}{{#isContainer}}auto &container(value);
+	{{#items}}{{#isString}}container.push_back(ItemType({{<is-optional}}{{$yes}}std::move(typename ItemType::value_type({{/yes}}{{/is-optional}}(const char *)lnode->object{{<is-optional}}{{$yes}})){{/yes}}{{/is-optional}}));
+        {{/isString}}{{^isString}}{{#isContainer}}
 	{
             {{#isMap}}const ogs_hash_t *value_from = reinterpret_cast<const ogs_hash_t*>(lnode->object);{{/isMap}}{{#isArray}}const ogs_list_t *value_from = reinterpret_cast<ogs_list_t*>(lnode->object);{{/isArray}}
 	    typedef ItemType ValueType;
 	    {{>make-value}}
-	    container.push_back(value);
-	}{{/isContainer}}{{^isContainer}}value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+	    {{<is-optional}}{{$yes}}if (value) {{/yes}}{{/is-optional}}container.push_back(value);
+	}{{/isContainer}}{{^isContainer}}container.push_back({{<is-optional}}{{$yes}}ItemType(std::move({{/yes}}{{/is-optional}}*reinterpret_cast<const ItemType{{<is-optional}}{{$yes}}::value_type{{/yes}}{{/is-optional}}*>(lnode->object){{<is-optional}}{{$yes}})){{/yes}}{{/is-optional}});
 	{{/isContainer}}{{/isString}}{{/items}}
     }
-}{{/isArray}}{{#isMap}}{
-    typedef typename ValueType::mapped_type ItemType;
+}{{/isArray}}{{#isMap}}if (value_from) {
+    typedef typename ValueType{{<is-optional}}{{$yes}}::value_type{{/yes}}{{/is-optional}}::mapped_type ItemType;
+    {{<is-optional}}{{$yes}}value = std::move(typename ValueType::value_type());{{/yes}}{{/is-optional}}
     ogs_hash_index_t *entry = ogs_hash_index_make(value_from);
+    auto &container(value{{<is-optional}}{{$yes}}.value(){{/yes}}{{/is-optional}});
     for (entry = ogs_hash_next(entry); entry; entry = ogs_hash_next(entry)) {
-	auto &container(value);
 	const char *key;
         int key_len;
-	{{#items}}{{#isString}}const char *item;{{/isString}}{{^isString}}{{#isContainer}}{{#isMap}}const ogs_hash_t *item;{{/isMap}}{{#isArray}}const ogs_list_t *item;{{/isArray}}{{/isContainer}}{{^isContainer}}const ItemType *item;{{/isContainer}}{{/isString}}
+	{{#items}}{{#isString}}const char *item;{{/isString}}{{^isString}}{{#isContainer}}{{#isMap}}const ogs_hash_t *item;{{/isMap}}{{#isArray}}const ogs_list_t *item;{{/isArray}}{{/isContainer}}{{^isContainer}}const ItemType{{<is-optional}}{{$yes}}::value_type{{/yes}}{{/is-optional}} *item;{{/isContainer}}{{/isString}}
 	ogs_hash_this(entry, reinterpret_cast<const void**>(&key), &key_len, reinterpret_cast<void**>(const_cast<std::remove_const<std::remove_pointer<decltype(item)>::type>::type**>(&item)));
-	{{#isString}}container.insert(std::make_pair(std::string(key), ItemType(item)));{{/isString}}{{^isString}}{{#isContainer}}{
+	{{#isString}}container.insert(std::make_pair(std::string(key), ItemType({{<is-optional}}{{$yes}}std::move(typename ItemType::value_type({{/yes}}{{/is-optional}}item{{<is-optional}}{{$yes}})){{/yes}}{{/is-optional}})));{{/isString}}{{^isString}}{{#isContainer}}{
             const auto value_from = item;
 	    typedef ItemType ValueType;
 	    {{>make-value}}
-            container.insert(std::make_pair(std::string(key), value));
-	}{{/isContainer}}{{^isContainer}}container.insert(std::make_pair(std::string(key), *item));{{/isContainer}}{{/isString}}{{/items}}
+            {{<is-optional}}{{$yes}}if (value.has_value()) {{/yes}}{{/is-optional}}container.insert(std::make_pair(std::string(key), {{<is-optional}}{{$yes}}ItemType(std::move({{/yes}}{{/is-optional}}value{{<is-optional}}{{$yes}})){{/yes}}{{/is-optional}}));
+	}{{/isContainer}}{{^isContainer}}if (item) container.insert(std::make_pair(std::string(key), {{<is-optional}}{{$yes}}ItemType(std::move({{/yes}}{{/is-optional}}*item{{<is-optional}}{{$yes}})){{/yes}}{{/is-optional}}));{{/isContainer}}{{/isString}}{{/items}}
     }
     ogs_free(entry);
-}{{/isMap}}{{/isContainer}}{{^isContainer}}{{#isPrimitiveType}}ValueType value = value_from;{{/isPrimitiveType}}{{^isPrimitiveType}}{{#isString}}ValueType value(value_from);{{/isString}}{{#isDate}}ValueType value(value_from);{{/isDate}}{{#isDateTime}}ValueType value(value_from);{{/isDateTime}}{{#isByteArray}}ValueType value(value_from);{{/isByteArray}}{{^isString}}{{^isDate}}{{^isDateTime}}{{^isByteArray}}ValueType value(*reinterpret_cast<const ValueType*>(value_from));{{/isByteArray}}{{/isDateTime}}{{/isDate}}{{/isString}}{{/isPrimitiveType}}{{/isContainer}}{{/composedSchemas}}
+}{{/isMap}}{{/isContainer}}{{^isContainer}}{{#isPrimitiveType}}ValueType value(value_from);{{/isPrimitiveType}}{{^isPrimitiveType}}{{#isString}}ValueType value(value_from);{{/isString}}{{#isDate}}ValueType value(value_from);{{/isDate}}{{#isDateTime}}ValueType value(value_from);{{/isDateTime}}{{#isByteArray}}ValueType value(value_from);{{/isByteArray}}{{^isString}}{{^isDate}}{{^isDateTime}}{{^isByteArray}}ValueType value(*reinterpret_cast<const ValueType{{<is-optional}}{{$yes}}::value_type{{/yes}}{{/is-optional}}*>(value_from));{{/isByteArray}}{{/isDateTime}}{{/isDate}}{{/isString}}{{/isPrimitiveType}}{{/isContainer}}{{/composedSchemas}}

@@ -300,7 +300,18 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda
 }
 
 {{/anyOf.0.isEnumRef}}{{/anyOf.1.isString}}{{/anyOf.2.name}}{{/allOf}}{{/oneOf}}{{/composedSchemas}}{{/isEnum}}{{/hasVars}}
-{{#vars}}
+{{#vars}}{{<is-optional}}{{$yes}}
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_has_{{#lambda.lowercase}}{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}{{/lambda.lowercase}}(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
+{
+    if (!obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}) return false;
+
+    const std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    if (!obj) return false;
+
+    return obj->{{{getter}}}().has_value();
+}
+
+{{/yes}}{{/is-optional}}
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API {{#isContainer}}{{^isArray}}const {{/isArray}}{{/isContainer}}{{^isContainer}}const {{/isContainer}}{{>data-type}} data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_{{#lambda.lowercase}}{{#lambda.snakecase}}{{getter}}{{/lambda.snakecase}}{{/lambda.lowercase}}(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
 {
     if (!obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}) {
@@ -364,13 +375,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowe
     std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
     if (!obj) return NULL;
 
-    typedef typename {{{classname}}}::{{name}}Type ContainerType;
+    typedef typename {{{classname}}}::{{name}}Type{{<is-optional}}{{$yes}}::value_type{{/yes}}{{/is-optional}} ContainerType;
     typedef typename ContainerType::{{#isMap}}mapped_type{{/isMap}}{{#isArray}}value_type{{/isArray}} ValueType;
     const auto &value_from = p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}};
 
     {{#items}}{{>make-value}}{{/items}}
 
-    obj->add{{name}}({{#isMap}}std::string(p_key), {{/isMap}}value);
+    {{<is-optional}}{{$yes}}if (value) {{/yes}}{{/is-optional}}obj->add{{name}}({{#isMap}}std::string(p_key), {{/isMap}}value{{<is-optional}}{{$yes}}.value(){{/yes}}{{/is-optional}});
     return obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}};
 }
 
@@ -381,7 +392,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowe
     std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
     if (!obj) return NULL;
 
-    {{^isMap}}typedef typename {{{classname}}}::{{name}}Type ContainerType;
+    {{^isMap}}typedef typename {{{classname}}}::{{name}}Type{{<is-optional}}{{$yes}}::value_type{{/yes}}{{/is-optional}} ContainerType;
     typedef typename ContainerType::{{#isMap}}mapped_type{{/isMap}}{{#isArray}}value_type{{/isArray}} ValueType;
     auto &value_from = p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}};
     {{#items}}{{>make-value}}{{/items}}{{/isMap}}
