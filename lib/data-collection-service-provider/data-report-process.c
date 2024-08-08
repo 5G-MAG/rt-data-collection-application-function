@@ -141,10 +141,10 @@ bool _data_report_process_event(ogs_event_t *e)
                     server_found = server_types[i];
                     break;
                 }
-           }
-           if (server_found == -1) {
-               return false;
-           }
+            }
+            if (server_found == -1) {
+                return false;
+            }
 
 
             rv = ogs_sbi_parse_header(&message, &request->h);
@@ -160,7 +160,7 @@ bool _data_report_process_event(ogs_event_t *e)
                 CASE("3gpp-ndcaf_data-reporting")
                     api = ndcaf_datareporting_api;
                     break;
-                CASE("3gpp-ndcaf_data-reporting_provisioning")
+                CASE("3gpp-ndcaf_data-reporting-provisioning")
                     api = ndcaf_datareportingprovisioning_api;
                     break;
 		DEFAULT
@@ -172,8 +172,8 @@ bool _data_report_process_event(ogs_event_t *e)
                     ogs_free(err);
 		    */
 		    ogs_sbi_message_free(&message);
-                    ogs_sbi_request_free(request);
-                    return true;
+                    //ogs_sbi_request_free(request);
+                    return false;
 
                 END
                 if (api == ndcaf_datareporting_api) {
@@ -528,6 +528,7 @@ bool _data_report_process_event(ogs_event_t *e)
                         ogs_error("3gpp-ndcaf_data-reporting-provisioning request on wrong interface");
                         ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_NOT_FOUND, 0, &message, "Not found",
                                                     NULL, NULL, NULL, NULL, api, app_meta));
+                        break;
                     }
 
                     if (strcmp(message.h.api.version, OGS_SBI_API_V1) != 0) {
@@ -793,6 +794,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                 }
                             } else {
                                 /* /sessions request: POST or OPTIONS */
+                                ogs_debug("%s /sessions", message.h.method);
                                 SWITCH(message.h.method)
                                 CASE(OGS_SBI_HTTP_METHOD_POST)
                                     /* CreateSession */
