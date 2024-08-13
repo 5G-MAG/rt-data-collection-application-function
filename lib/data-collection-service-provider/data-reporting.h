@@ -40,7 +40,8 @@ typedef struct data_collection_reporting_session_s {
 extern data_collection_reporting_session_t *data_reporting_session_populate(data_collection_reporting_session_t *data_collection_reporting_session, data_collection_model_data_reporting_session_t *data_reporting_session);
 
 extern const data_reporting_session_cache_entry_t *data_collection_context_retrieve_reporting_session(const char *reporting_session_id);
-
+extern void data_collection_reporting_session_add_sampling_rules(data_collection_model_data_reporting_session_t *data_reporting_session, const char *data_domain, const ogs_list_t *data_reporting_session_sampling_rules);
+ 
 
 #ifdef __cplusplus
 }

@@ -16,6 +16,7 @@
 #include "hash.h"
 #include "utilities.h"
 
+#include "data-reporting.h"
 #include "data-reporting-provisioning.h"
 
 #ifdef __cplusplus
@@ -31,6 +32,7 @@ static void __reporting_provisioning_session_free(data_collection_reporting_prov
 /******* Private structures ********/
 
 typedef struct data_collection_reporting_provisioning_session_s {
+    ogs_lnode_t node; // Allow these to be listed in an ogs_list_t
     data_collection_model_data_reporting_provisioning_session_t *session;
     ogs_hash_t *configurations; // configurationId => data_collection_reporting_configuration_t
     ogs_time_t last_modified;
@@ -322,55 +324,6 @@ data_collection_reporting_provisioning_session_get_configurations(const data_col
 
 /******* Library internal functions ********/
 
-ogs_list_t *_reporting_provisioning_sessions_get_user_ids(char *event_type, char *external_application_id, ogs_list_t *user_identifiers)
-{
-    ogs_hash_index_t *it;
-    ogs_hash_t *data_reporting_provisioning_sessions = data_collection_self()->data_reporting_provisioning_sessions; 
-    data_collection_reporting_provisioning_session_t *session;
-    for (it = ogs_hash_first(data_reporting_provisioning_sessions); it; it = ogs_hash_next(it)) {
-        const char *key;
-        int key_len;
-
-	ogs_hash_this(it, (const void **)&key, &key_len, (void**)(&session));
-
-        const char *session_event_type = data_collection_reporting_provisioning_session_get_af_event_type(session);
-        const char *session_ext_id = data_collection_reporting_provisioning_session_get_external_application_id(session);
-
-        if(!strcmp(session_event_type, event_type) && !strcmp(session_ext_id, external_application_id)) {
-	    
-            ogs_hash_index_t *hit;
-	    ogs_hash_t *configurations = session->configurations;
-	    data_collection_reporting_configuration_t *configuration;
-
-            for (hit = ogs_hash_first(configurations); hit; hit = ogs_hash_next(hit)) {
-                const char *ckey;
-                int ckey_len;
-
-	        ogs_hash_this(it, (const void **)&ckey, &ckey_len, (void**)(&configuration));
-                const data_collection_model_data_reporting_configuration_t *data_report_config =
-                            data_collection_reporting_configuration_model(configuration);
-                ogs_list_t *data_access_profiles =
-                            data_collection_model_data_reporting_configuration_get_data_access_profiles(data_report_config);
-                if (data_access_profiles) {
-		    data_collection_lnode_t *data_access_profile_node;
-                    ogs_list_for_each(data_access_profiles, data_access_profile_node) {
-                        data_collection_model_data_access_profile_t *data_access_profile = data_access_profile_node->object;
-		        data_collection_model_data_access_profile_user_access_restrictions_t *user_access_restrictions;
-	
-		        //if(data_access_profile->user_access_restrictions && data_access_profile->user_access_restrictions->user_ids) {
-                        //OpenAPI_list_for_each(user_ids, user_id_node) {
-			//    OpenAPI_list_add(user_identifiers, user_id_node);
-			//}			    
-		    }
-    		    //user_access_restrictions = data_access_profile->user_access_restrictions;			
-                    data_collection_list_free(data_access_profiles);
-                }
-	    }
-	}
-    }
-    return user_identifiers;
-}
-
 /******* Local private functions ********/
 
 static int __add_session_to_list(void *data, const void *key, int klen, const void *value)
@@ -425,7 +378,6 @@ static void __reporting_provisioning_session_free(data_collection_reporting_prov
 
     ogs_free(session);
 }
-
 
 #ifdef __cplusplus
 }

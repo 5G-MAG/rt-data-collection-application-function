@@ -27,9 +27,6 @@ const char *_reporting_provisioning_session_get_external_application_id(const da
 /** Get the map of configuration id => data_collection_reporting_configuration_t for the provisioning session */
 const ogs_hash_t *_reporting_provisioning_session_get_configurations(const data_collection_reporting_provisioning_session_t *session);
 
-/** Get the list of user ids (TODO: Review this) */
-ogs_list_t *_reporting_provisioning_session_get_user_ids(char *event_type, char *external_application_id, ogs_list_t *user_identifiers);
-
 #ifdef __cplusplus
 }
 #endif
