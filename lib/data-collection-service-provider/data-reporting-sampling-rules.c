@@ -61,16 +61,6 @@ void data_collection_adjust_sampling_rules(data_collection_model_data_reporting_
 
 /******* Local private functions ********/
 
-static int __add_session_to_list(void *data, const void *key, int klen, const void *value)
-{
-    ogs_list_t *list = (ogs_list_t*)data;
-    /* add value without free function, this list does not own its objects */
-    data_collection_lnode_t *node = data_collection_lnode_create_ref(value);
-    ogs_list_add((ogs_list_t*)list, node);
-
-    return 1;
-}
-
 static void __data_collection_adjust_sampling_rules(data_collection_model_data_reporting_session_t *data_reporting_session, ogs_hash_t *configurations, ogs_list_t *data_reporting_session_sampling_rules_data_domain, const char *data_domain, data_collection_reporting_client_type_e client_type)
 {
 
@@ -111,19 +101,12 @@ static void __adjust_sampling_rules(data_collection_model_data_reporting_session
     ogs_list_for_each(configuration_sampling_rules, configuration_sampling_rule_node) {
         data_collection_lnode_t *data_reporting_session_sampling_rule;
         data_collection_model_data_sampling_rule_t *config_sampling_rule = configuration_sampling_rule_node->object;
-        float config_sampling_period;
 	
-        config_sampling_period = data_collection_model_data_sampling_rule_get_sampling_period(config_sampling_rule);
-
         ogs_list_for_each(data_reporting_session_sampling_rules_data_domain, data_reporting_session_sampling_rule_node) {
 	    data_collection_model_data_sampling_rule_t *data_reporting_session_sampling_rule = data_reporting_session_sampling_rule_node->object;    
-            float sampling_period;
 
-            sampling_period = data_collection_model_data_sampling_rule_get_sampling_period(data_reporting_session_sampling_rule);
+            if(data_collection_model_data_sampling_rule_is_equal_to(data_reporting_session_sampling_rule, config_sampling_rule)) {
 
-	    // TODO: Replace sampling_period comparison with the c++ template compare without contextId function once implemented
-
-	    if(config_sampling_period == sampling_period) {
 	        data_collection_model_data_sampling_rule_add_context_ids(data_reporting_session_sampling_rule, data_collection_strdup(configuration_id));	    
 	        	    
 	    } else {
@@ -142,6 +125,9 @@ static void __adjust_sampling_rules(data_collection_model_data_reporting_session
 
     }
 }
+
+static bool __data_collection_model_data_sampling_rule_is_equal_to(const data_collection_model_data_sampling_rule_t *first, const data_collection_model_data_sampling_rule_t *second)
+
 
 static ogs_list_t *__sampling_rules_copy(ogs_list_t *sampling_rules_to_copy) {
 
