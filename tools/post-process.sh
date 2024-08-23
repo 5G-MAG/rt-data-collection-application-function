@@ -9,7 +9,9 @@ bnfile=`basename "$file"`
 internal_fns="$scriptdir/snippets/internal/${bnfile}"
 public_fns="$scriptdir/snippets/public/${bnfile}"
 
-sed -i '/#include </ d' "$file"
+if [ "${file##*.}" != "cpp" ]; then
+    sed -i '/#include </ d' "$file"
+fi
 
 if [ -f "$internal_fns" ]; then
     internal_line=`grep -nF 'Internal library protected functions' "$file"|sed 's/:.*//'`
@@ -34,5 +36,6 @@ if [ -f "$public_fns" ]; then
 fi
 
 if [ "${file##*.}" = "cpp" ]; then
+    rm -f "${file%.cpp}.cc"
     ln "$file" "${file%.cpp}.cc"
 fi
