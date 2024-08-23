@@ -174,6 +174,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_repo
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_data_report_get_external_application_id(const data_collection_model_data_report_t *obj_data_report)
 {
     if (!obj_data_report) {
@@ -204,6 +205,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     typedef typename DataReport::ExternalApplicationIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setExternalApplicationId(value)) return NULL;
 
     return obj_data_report;
@@ -220,11 +222,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     typedef typename DataReport::ExternalApplicationIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setExternalApplicationId(std::move(value))) return NULL;
 
     return obj_data_report;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_report_has_expedite(const data_collection_model_data_report_t *obj_data_report)
+{
+    if (!obj_data_report) return false;
+
+    const std::shared_ptr<DataReport > &obj = *reinterpret_cast<const std::shared_ptr<DataReport >*>(obj_data_report);
+    if (!obj) return false;
+
+    return obj->isExpedite().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_data_report_is_expedite(const data_collection_model_data_report_t *obj_data_report)
 {
@@ -241,7 +255,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_dat
 
     typedef typename DataReport::ExpediteType ResultFromType;
     const ResultFromType result_from = obj->isExpedite();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -255,7 +269,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     const auto &value_from = p_expedite;
     typedef typename DataReport::ExpediteType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setExpedite(value)) return NULL;
 
     return obj_data_report;
@@ -271,12 +286,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     const auto &value_from = p_expedite;
     typedef typename DataReport::ExpediteType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setExpedite(std::move(value))) return NULL;
 
     return obj_data_report;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_report_has_service_experience_records(const data_collection_model_data_report_t *obj_data_report)
+{
+    if (!obj_data_report) return false;
+
+    const std::shared_ptr<DataReport > &obj = *reinterpret_cast<const std::shared_ptr<DataReport >*>(obj_data_report);
+    if (!obj) return false;
+
+    return obj->getServiceExperienceRecords().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_report_get_service_experience_records(const data_collection_model_data_report_t *obj_data_report)
 {
@@ -293,15 +320,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
 
     typedef typename DataReport::ServiceExperienceRecordsType ResultFromType;
     const ResultFromType result_from = obj->getServiceExperienceRecords();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_service_experience_record_t *item_obj = reinterpret_cast<data_collection_model_service_experience_record_t*>(new std::shared_ptr<ServiceExperienceRecord >(item));
-        node = data_collection_model_service_experience_record_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_service_experience_record_t *item_obj = reinterpret_cast<data_collection_model_service_experience_record_t*>(item.has_value()?new std::shared_ptr<ServiceExperienceRecord >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_service_experience_record_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -316,14 +347,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     typedef typename DataReport::ServiceExperienceRecordsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setServiceExperienceRecords(value)) return NULL;
 
     return obj_data_report;
@@ -340,14 +374,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     typedef typename DataReport::ServiceExperienceRecordsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_service_experience_records);
     if (!obj->setServiceExperienceRecords(std::move(value))) return NULL;
 
@@ -361,13 +398,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     std::shared_ptr<DataReport > &obj = *reinterpret_cast<std::shared_ptr<DataReport >*>(obj_data_report);
     if (!obj) return NULL;
 
-    typedef typename DataReport::ServiceExperienceRecordsType ContainerType;
+    typedef typename DataReport::ServiceExperienceRecordsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_service_experience_records;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addServiceExperienceRecords(value);
+
+    if (value) obj->addServiceExperienceRecords(value.value());
     return obj_data_report;
 }
 
@@ -378,10 +416,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     std::shared_ptr<DataReport > &obj = *reinterpret_cast<std::shared_ptr<DataReport >*>(obj_data_report);
     if (!obj) return NULL;
 
-    typedef typename DataReport::ServiceExperienceRecordsType ContainerType;
+    typedef typename DataReport::ServiceExperienceRecordsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_service_experience_records;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeServiceExperienceRecords(value);
     return obj_data_report;
 }
@@ -396,6 +435,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     obj->clearServiceExperienceRecords();
     return obj_data_report;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_report_has_location_records(const data_collection_model_data_report_t *obj_data_report)
+{
+    if (!obj_data_report) return false;
+
+    const std::shared_ptr<DataReport > &obj = *reinterpret_cast<const std::shared_ptr<DataReport >*>(obj_data_report);
+    if (!obj) return false;
+
+    return obj->getLocationRecords().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_report_get_location_records(const data_collection_model_data_report_t *obj_data_report)
 {
@@ -412,15 +462,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
 
     typedef typename DataReport::LocationRecordsType ResultFromType;
     const ResultFromType result_from = obj->getLocationRecords();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_location_record_t *item_obj = reinterpret_cast<data_collection_model_location_record_t*>(new std::shared_ptr<LocationRecord >(item));
-        node = data_collection_model_location_record_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_location_record_t *item_obj = reinterpret_cast<data_collection_model_location_record_t*>(item.has_value()?new std::shared_ptr<LocationRecord >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_location_record_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -435,14 +489,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     typedef typename DataReport::LocationRecordsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setLocationRecords(value)) return NULL;
 
     return obj_data_report;
@@ -459,14 +516,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     typedef typename DataReport::LocationRecordsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_location_records);
     if (!obj->setLocationRecords(std::move(value))) return NULL;
 
@@ -480,13 +540,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     std::shared_ptr<DataReport > &obj = *reinterpret_cast<std::shared_ptr<DataReport >*>(obj_data_report);
     if (!obj) return NULL;
 
-    typedef typename DataReport::LocationRecordsType ContainerType;
+    typedef typename DataReport::LocationRecordsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_location_records;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addLocationRecords(value);
+
+    if (value) obj->addLocationRecords(value.value());
     return obj_data_report;
 }
 
@@ -497,10 +558,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     std::shared_ptr<DataReport > &obj = *reinterpret_cast<std::shared_ptr<DataReport >*>(obj_data_report);
     if (!obj) return NULL;
 
-    typedef typename DataReport::LocationRecordsType ContainerType;
+    typedef typename DataReport::LocationRecordsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_location_records;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeLocationRecords(value);
     return obj_data_report;
 }
@@ -515,6 +577,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     obj->clearLocationRecords();
     return obj_data_report;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_report_has_communication_records(const data_collection_model_data_report_t *obj_data_report)
+{
+    if (!obj_data_report) return false;
+
+    const std::shared_ptr<DataReport > &obj = *reinterpret_cast<const std::shared_ptr<DataReport >*>(obj_data_report);
+    if (!obj) return false;
+
+    return obj->getCommunicationRecords().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_report_get_communication_records(const data_collection_model_data_report_t *obj_data_report)
 {
@@ -531,15 +604,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
 
     typedef typename DataReport::CommunicationRecordsType ResultFromType;
     const ResultFromType result_from = obj->getCommunicationRecords();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_communication_record_t *item_obj = reinterpret_cast<data_collection_model_communication_record_t*>(new std::shared_ptr<CommunicationRecord >(item));
-        node = data_collection_model_communication_record_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_communication_record_t *item_obj = reinterpret_cast<data_collection_model_communication_record_t*>(item.has_value()?new std::shared_ptr<CommunicationRecord >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_communication_record_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -554,14 +631,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     typedef typename DataReport::CommunicationRecordsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setCommunicationRecords(value)) return NULL;
 
     return obj_data_report;
@@ -578,14 +658,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     typedef typename DataReport::CommunicationRecordsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_communication_records);
     if (!obj->setCommunicationRecords(std::move(value))) return NULL;
 
@@ -599,13 +682,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     std::shared_ptr<DataReport > &obj = *reinterpret_cast<std::shared_ptr<DataReport >*>(obj_data_report);
     if (!obj) return NULL;
 
-    typedef typename DataReport::CommunicationRecordsType ContainerType;
+    typedef typename DataReport::CommunicationRecordsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_communication_records;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addCommunicationRecords(value);
+
+    if (value) obj->addCommunicationRecords(value.value());
     return obj_data_report;
 }
 
@@ -616,10 +700,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     std::shared_ptr<DataReport > &obj = *reinterpret_cast<std::shared_ptr<DataReport >*>(obj_data_report);
     if (!obj) return NULL;
 
-    typedef typename DataReport::CommunicationRecordsType ContainerType;
+    typedef typename DataReport::CommunicationRecordsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_communication_records;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeCommunicationRecords(value);
     return obj_data_report;
 }
@@ -634,6 +719,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     obj->clearCommunicationRecords();
     return obj_data_report;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_report_has_performance_data_records(const data_collection_model_data_report_t *obj_data_report)
+{
+    if (!obj_data_report) return false;
+
+    const std::shared_ptr<DataReport > &obj = *reinterpret_cast<const std::shared_ptr<DataReport >*>(obj_data_report);
+    if (!obj) return false;
+
+    return obj->getPerformanceDataRecords().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_report_get_performance_data_records(const data_collection_model_data_report_t *obj_data_report)
 {
@@ -650,15 +746,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
 
     typedef typename DataReport::PerformanceDataRecordsType ResultFromType;
     const ResultFromType result_from = obj->getPerformanceDataRecords();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_performance_data_record_t *item_obj = reinterpret_cast<data_collection_model_performance_data_record_t*>(new std::shared_ptr<PerformanceDataRecord >(item));
-        node = data_collection_model_performance_data_record_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_performance_data_record_t *item_obj = reinterpret_cast<data_collection_model_performance_data_record_t*>(item.has_value()?new std::shared_ptr<PerformanceDataRecord >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_performance_data_record_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -673,14 +773,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     typedef typename DataReport::PerformanceDataRecordsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setPerformanceDataRecords(value)) return NULL;
 
     return obj_data_report;
@@ -697,14 +800,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     typedef typename DataReport::PerformanceDataRecordsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_performance_data_records);
     if (!obj->setPerformanceDataRecords(std::move(value))) return NULL;
 
@@ -718,13 +824,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     std::shared_ptr<DataReport > &obj = *reinterpret_cast<std::shared_ptr<DataReport >*>(obj_data_report);
     if (!obj) return NULL;
 
-    typedef typename DataReport::PerformanceDataRecordsType ContainerType;
+    typedef typename DataReport::PerformanceDataRecordsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_performance_data_records;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addPerformanceDataRecords(value);
+
+    if (value) obj->addPerformanceDataRecords(value.value());
     return obj_data_report;
 }
 
@@ -735,10 +842,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     std::shared_ptr<DataReport > &obj = *reinterpret_cast<std::shared_ptr<DataReport >*>(obj_data_report);
     if (!obj) return NULL;
 
-    typedef typename DataReport::PerformanceDataRecordsType ContainerType;
+    typedef typename DataReport::PerformanceDataRecordsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_performance_data_records;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removePerformanceDataRecords(value);
     return obj_data_report;
 }
@@ -753,6 +861,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     obj->clearPerformanceDataRecords();
     return obj_data_report;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_report_has_application_specific_records(const data_collection_model_data_report_t *obj_data_report)
+{
+    if (!obj_data_report) return false;
+
+    const std::shared_ptr<DataReport > &obj = *reinterpret_cast<const std::shared_ptr<DataReport >*>(obj_data_report);
+    if (!obj) return false;
+
+    return obj->getApplicationSpecificRecords().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_report_get_application_specific_records(const data_collection_model_data_report_t *obj_data_report)
 {
@@ -769,15 +888,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
 
     typedef typename DataReport::ApplicationSpecificRecordsType ResultFromType;
     const ResultFromType result_from = obj->getApplicationSpecificRecords();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_application_specific_record_t *item_obj = reinterpret_cast<data_collection_model_application_specific_record_t*>(new std::shared_ptr<ApplicationSpecificRecord >(item));
-        node = data_collection_model_application_specific_record_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_application_specific_record_t *item_obj = reinterpret_cast<data_collection_model_application_specific_record_t*>(item.has_value()?new std::shared_ptr<ApplicationSpecificRecord >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_application_specific_record_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -792,14 +915,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     typedef typename DataReport::ApplicationSpecificRecordsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setApplicationSpecificRecords(value)) return NULL;
 
     return obj_data_report;
@@ -816,14 +942,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     typedef typename DataReport::ApplicationSpecificRecordsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_application_specific_records);
     if (!obj->setApplicationSpecificRecords(std::move(value))) return NULL;
 
@@ -837,13 +966,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     std::shared_ptr<DataReport > &obj = *reinterpret_cast<std::shared_ptr<DataReport >*>(obj_data_report);
     if (!obj) return NULL;
 
-    typedef typename DataReport::ApplicationSpecificRecordsType ContainerType;
+    typedef typename DataReport::ApplicationSpecificRecordsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_application_specific_records;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addApplicationSpecificRecords(value);
+
+    if (value) obj->addApplicationSpecificRecords(value.value());
     return obj_data_report;
 }
 
@@ -854,10 +984,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     std::shared_ptr<DataReport > &obj = *reinterpret_cast<std::shared_ptr<DataReport >*>(obj_data_report);
     if (!obj) return NULL;
 
-    typedef typename DataReport::ApplicationSpecificRecordsType ContainerType;
+    typedef typename DataReport::ApplicationSpecificRecordsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_application_specific_records;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeApplicationSpecificRecords(value);
     return obj_data_report;
 }
@@ -872,6 +1003,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     obj->clearApplicationSpecificRecords();
     return obj_data_report;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_report_has_trip_plan_records(const data_collection_model_data_report_t *obj_data_report)
+{
+    if (!obj_data_report) return false;
+
+    const std::shared_ptr<DataReport > &obj = *reinterpret_cast<const std::shared_ptr<DataReport >*>(obj_data_report);
+    if (!obj) return false;
+
+    return obj->getTripPlanRecords().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_report_get_trip_plan_records(const data_collection_model_data_report_t *obj_data_report)
 {
@@ -888,15 +1030,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
 
     typedef typename DataReport::TripPlanRecordsType ResultFromType;
     const ResultFromType result_from = obj->getTripPlanRecords();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_trip_plan_record_t *item_obj = reinterpret_cast<data_collection_model_trip_plan_record_t*>(new std::shared_ptr<TripPlanRecord >(item));
-        node = data_collection_model_trip_plan_record_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_trip_plan_record_t *item_obj = reinterpret_cast<data_collection_model_trip_plan_record_t*>(item.has_value()?new std::shared_ptr<TripPlanRecord >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_trip_plan_record_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -911,14 +1057,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     typedef typename DataReport::TripPlanRecordsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setTripPlanRecords(value)) return NULL;
 
     return obj_data_report;
@@ -935,14 +1084,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     typedef typename DataReport::TripPlanRecordsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_trip_plan_records);
     if (!obj->setTripPlanRecords(std::move(value))) return NULL;
 
@@ -956,13 +1108,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     std::shared_ptr<DataReport > &obj = *reinterpret_cast<std::shared_ptr<DataReport >*>(obj_data_report);
     if (!obj) return NULL;
 
-    typedef typename DataReport::TripPlanRecordsType ContainerType;
+    typedef typename DataReport::TripPlanRecordsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_trip_plan_records;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addTripPlanRecords(value);
+
+    if (value) obj->addTripPlanRecords(value.value());
     return obj_data_report;
 }
 
@@ -973,10 +1126,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     std::shared_ptr<DataReport > &obj = *reinterpret_cast<std::shared_ptr<DataReport >*>(obj_data_report);
     if (!obj) return NULL;
 
-    typedef typename DataReport::TripPlanRecordsType ContainerType;
+    typedef typename DataReport::TripPlanRecordsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_trip_plan_records;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeTripPlanRecords(value);
     return obj_data_report;
 }
@@ -991,6 +1145,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     obj->clearTripPlanRecords();
     return obj_data_report;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_report_has_anbr_network_assistance_invocation_records(const data_collection_model_data_report_t *obj_data_report)
+{
+    if (!obj_data_report) return false;
+
+    const std::shared_ptr<DataReport > &obj = *reinterpret_cast<const std::shared_ptr<DataReport >*>(obj_data_report);
+    if (!obj) return false;
+
+    return obj->getANBRNetworkAssistanceInvocationRecords().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_report_get_anbr_network_assistance_invocation_records(const data_collection_model_data_report_t *obj_data_report)
 {
@@ -1007,15 +1172,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
 
     typedef typename DataReport::ANBRNetworkAssistanceInvocationRecordsType ResultFromType;
     const ResultFromType result_from = obj->getANBRNetworkAssistanceInvocationRecords();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_anbr_network_assistance_invocation_record_t *item_obj = reinterpret_cast<data_collection_model_anbr_network_assistance_invocation_record_t*>(new std::shared_ptr<ANBRNetworkAssistanceInvocationRecord >(item));
-        node = data_collection_model_anbr_network_assistance_invocation_record_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_anbr_network_assistance_invocation_record_t *item_obj = reinterpret_cast<data_collection_model_anbr_network_assistance_invocation_record_t*>(item.has_value()?new std::shared_ptr<ANBRNetworkAssistanceInvocationRecord >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_anbr_network_assistance_invocation_record_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -1030,14 +1199,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     typedef typename DataReport::ANBRNetworkAssistanceInvocationRecordsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setANBRNetworkAssistanceInvocationRecords(value)) return NULL;
 
     return obj_data_report;
@@ -1054,14 +1226,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     typedef typename DataReport::ANBRNetworkAssistanceInvocationRecordsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_anbr_network_assistance_invocation_records);
     if (!obj->setANBRNetworkAssistanceInvocationRecords(std::move(value))) return NULL;
 
@@ -1075,13 +1250,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     std::shared_ptr<DataReport > &obj = *reinterpret_cast<std::shared_ptr<DataReport >*>(obj_data_report);
     if (!obj) return NULL;
 
-    typedef typename DataReport::ANBRNetworkAssistanceInvocationRecordsType ContainerType;
+    typedef typename DataReport::ANBRNetworkAssistanceInvocationRecordsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_anbr_network_assistance_invocation_records;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addANBRNetworkAssistanceInvocationRecords(value);
+
+    if (value) obj->addANBRNetworkAssistanceInvocationRecords(value.value());
     return obj_data_report;
 }
 
@@ -1092,10 +1268,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     std::shared_ptr<DataReport > &obj = *reinterpret_cast<std::shared_ptr<DataReport >*>(obj_data_report);
     if (!obj) return NULL;
 
-    typedef typename DataReport::ANBRNetworkAssistanceInvocationRecordsType ContainerType;
+    typedef typename DataReport::ANBRNetworkAssistanceInvocationRecordsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_anbr_network_assistance_invocation_records;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeANBRNetworkAssistanceInvocationRecords(value);
     return obj_data_report;
 }
@@ -1110,6 +1287,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     obj->clearANBRNetworkAssistanceInvocationRecords();
     return obj_data_report;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_report_has_media_streaming_access_records(const data_collection_model_data_report_t *obj_data_report)
+{
+    if (!obj_data_report) return false;
+
+    const std::shared_ptr<DataReport > &obj = *reinterpret_cast<const std::shared_ptr<DataReport >*>(obj_data_report);
+    if (!obj) return false;
+
+    return obj->getMediaStreamingAccessRecords().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_report_get_media_streaming_access_records(const data_collection_model_data_report_t *obj_data_report)
 {
@@ -1126,15 +1314,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
 
     typedef typename DataReport::MediaStreamingAccessRecordsType ResultFromType;
     const ResultFromType result_from = obj->getMediaStreamingAccessRecords();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_media_streaming_access_record_t *item_obj = reinterpret_cast<data_collection_model_media_streaming_access_record_t*>(new std::shared_ptr<MediaStreamingAccessRecord >(item));
-        node = data_collection_model_media_streaming_access_record_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_media_streaming_access_record_t *item_obj = reinterpret_cast<data_collection_model_media_streaming_access_record_t*>(item.has_value()?new std::shared_ptr<MediaStreamingAccessRecord >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_media_streaming_access_record_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -1149,14 +1341,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     typedef typename DataReport::MediaStreamingAccessRecordsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setMediaStreamingAccessRecords(value)) return NULL;
 
     return obj_data_report;
@@ -1173,14 +1368,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     typedef typename DataReport::MediaStreamingAccessRecordsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_media_streaming_access_records);
     if (!obj->setMediaStreamingAccessRecords(std::move(value))) return NULL;
 
@@ -1194,13 +1392,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     std::shared_ptr<DataReport > &obj = *reinterpret_cast<std::shared_ptr<DataReport >*>(obj_data_report);
     if (!obj) return NULL;
 
-    typedef typename DataReport::MediaStreamingAccessRecordsType ContainerType;
+    typedef typename DataReport::MediaStreamingAccessRecordsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_media_streaming_access_records;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addMediaStreamingAccessRecords(value);
+
+    if (value) obj->addMediaStreamingAccessRecords(value.value());
     return obj_data_report;
 }
 
@@ -1211,10 +1410,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     std::shared_ptr<DataReport > &obj = *reinterpret_cast<std::shared_ptr<DataReport >*>(obj_data_report);
     if (!obj) return NULL;
 
-    typedef typename DataReport::MediaStreamingAccessRecordsType ContainerType;
+    typedef typename DataReport::MediaStreamingAccessRecordsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_media_streaming_access_records;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeMediaStreamingAccessRecords(value);
     return obj_data_report;
 }

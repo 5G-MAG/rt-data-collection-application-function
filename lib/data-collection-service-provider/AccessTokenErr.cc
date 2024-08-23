@@ -162,6 +162,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_access_to
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_access_token_err_get_error(const data_collection_model_access_token_err_t *obj_access_token_err)
 {
     if (!obj_access_token_err) {
@@ -192,6 +193,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_e
     typedef typename AccessTokenErr::ErrorType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setError(value)) return NULL;
 
     return obj_access_token_err;
@@ -208,11 +210,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_e
     typedef typename AccessTokenErr::ErrorType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setError(std::move(value))) return NULL;
 
     return obj_access_token_err;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_access_token_err_has_error_description(const data_collection_model_access_token_err_t *obj_access_token_err)
+{
+    if (!obj_access_token_err) return false;
+
+    const std::shared_ptr<AccessTokenErr > &obj = *reinterpret_cast<const std::shared_ptr<AccessTokenErr >*>(obj_access_token_err);
+    if (!obj) return false;
+
+    return obj->getErrorDescription().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_access_token_err_get_error_description(const data_collection_model_access_token_err_t *obj_access_token_err)
 {
@@ -229,7 +243,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ac
 
     typedef typename AccessTokenErr::Error_descriptionType ResultFromType;
     const ResultFromType result_from = obj->getErrorDescription();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -244,6 +258,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_e
     typedef typename AccessTokenErr::Error_descriptionType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setErrorDescription(value)) return NULL;
 
     return obj_access_token_err;
@@ -260,11 +275,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_e
     typedef typename AccessTokenErr::Error_descriptionType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setErrorDescription(std::move(value))) return NULL;
 
     return obj_access_token_err;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_access_token_err_has_error_uri(const data_collection_model_access_token_err_t *obj_access_token_err)
+{
+    if (!obj_access_token_err) return false;
+
+    const std::shared_ptr<AccessTokenErr > &obj = *reinterpret_cast<const std::shared_ptr<AccessTokenErr >*>(obj_access_token_err);
+    if (!obj) return false;
+
+    return obj->getErrorUri().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_access_token_err_get_error_uri(const data_collection_model_access_token_err_t *obj_access_token_err)
 {
@@ -281,7 +308,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ac
 
     typedef typename AccessTokenErr::Error_uriType ResultFromType;
     const ResultFromType result_from = obj->getErrorUri();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -296,6 +323,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_e
     typedef typename AccessTokenErr::Error_uriType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setErrorUri(value)) return NULL;
 
     return obj_access_token_err;
@@ -312,6 +340,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_e
     typedef typename AccessTokenErr::Error_uriType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setErrorUri(std::move(value))) return NULL;
 

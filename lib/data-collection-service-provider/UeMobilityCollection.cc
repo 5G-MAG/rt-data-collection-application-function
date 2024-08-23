@@ -166,6 +166,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ue_mobili
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ue_mobility_collection_has_gpsi(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
+{
+    if (!obj_ue_mobility_collection) return false;
+
+    const std::shared_ptr<UeMobilityCollection > &obj = *reinterpret_cast<const std::shared_ptr<UeMobilityCollection >*>(obj_ue_mobility_collection);
+    if (!obj) return false;
+
+    return obj->getGpsi().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue_mobility_collection_get_gpsi(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
 {
     if (!obj_ue_mobility_collection) {
@@ -181,7 +192,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue
 
     typedef typename UeMobilityCollection::GpsiType ResultFromType;
     const ResultFromType result_from = obj->getGpsi();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -196,6 +207,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
     typedef typename UeMobilityCollection::GpsiType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setGpsi(value)) return NULL;
 
     return obj_ue_mobility_collection;
@@ -212,11 +224,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
     typedef typename UeMobilityCollection::GpsiType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setGpsi(std::move(value))) return NULL;
 
     return obj_ue_mobility_collection;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ue_mobility_collection_has_supi(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
+{
+    if (!obj_ue_mobility_collection) return false;
+
+    const std::shared_ptr<UeMobilityCollection > &obj = *reinterpret_cast<const std::shared_ptr<UeMobilityCollection >*>(obj_ue_mobility_collection);
+    if (!obj) return false;
+
+    return obj->getSupi().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue_mobility_collection_get_supi(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
 {
@@ -233,7 +257,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue
 
     typedef typename UeMobilityCollection::SupiType ResultFromType;
     const ResultFromType result_from = obj->getSupi();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -248,6 +272,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
     typedef typename UeMobilityCollection::SupiType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setSupi(value)) return NULL;
 
     return obj_ue_mobility_collection;
@@ -264,11 +289,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
     typedef typename UeMobilityCollection::SupiType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setSupi(std::move(value))) return NULL;
 
     return obj_ue_mobility_collection;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue_mobility_collection_get_app_id(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
 {
@@ -300,6 +327,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
     typedef typename UeMobilityCollection::AppIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setAppId(value)) return NULL;
 
     return obj_ue_mobility_collection;
@@ -316,11 +344,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
     typedef typename UeMobilityCollection::AppIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setAppId(std::move(value))) return NULL;
 
     return obj_ue_mobility_collection;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ue_mobility_collection_has_all_app_ind(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
+{
+    if (!obj_ue_mobility_collection) return false;
+
+    const std::shared_ptr<UeMobilityCollection > &obj = *reinterpret_cast<const std::shared_ptr<UeMobilityCollection >*>(obj_ue_mobility_collection);
+    if (!obj) return false;
+
+    return obj->isAllAppInd().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_ue_mobility_collection_is_all_app_ind(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
 {
@@ -337,7 +377,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_ue_
 
     typedef typename UeMobilityCollection::AllAppIndType ResultFromType;
     const ResultFromType result_from = obj->isAllAppInd();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -351,7 +391,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
     const auto &value_from = p_all_app_ind;
     typedef typename UeMobilityCollection::AllAppIndType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setAllAppInd(value)) return NULL;
 
     return obj_ue_mobility_collection;
@@ -367,12 +408,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
     const auto &value_from = p_all_app_ind;
     typedef typename UeMobilityCollection::AllAppIndType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setAllAppInd(std::move(value))) return NULL;
 
     return obj_ue_mobility_collection;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ue_mobility_collection_get_ue_trajs(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
 {
@@ -390,13 +433,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ue
     typedef typename UeMobilityCollection::UeTrajsType ResultFromType;
     const ResultFromType result_from = obj->getUeTrajs();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+    
     typedef typename ResultFromType::value_type ItemType;
     for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_ue_trajectory_collection_t *item_obj = reinterpret_cast<data_collection_model_ue_trajectory_collection_t*>(new std::shared_ptr<UeTrajectoryCollection >(item));
-        node = data_collection_model_ue_trajectory_collection_make_lnode(item_obj);
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_ue_trajectory_collection_t *item_obj = reinterpret_cast<data_collection_model_ue_trajectory_collection_t*>(item.has_value()?new std::shared_ptr<UeTrajectoryCollection >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_ue_trajectory_collection_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
+        if (node) ogs_list_add(result, node);
     }
     return result;
 }
@@ -412,14 +458,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
     typedef typename UeMobilityCollection::UeTrajsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setUeTrajs(value)) return NULL;
 
     return obj_ue_mobility_collection;
@@ -436,14 +485,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
     typedef typename UeMobilityCollection::UeTrajsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_ue_trajs);
     if (!obj->setUeTrajs(std::move(value))) return NULL;
 
@@ -461,7 +513,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_ue_trajs;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
 
     obj->addUeTrajs(value);
     return obj_ue_mobility_collection;
@@ -477,7 +530,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
     typedef typename UeMobilityCollection::UeTrajsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_ue_trajs;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeUeTrajs(value);
     return obj_ue_mobility_collection;
 }
@@ -492,6 +546,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
     obj->clearUeTrajs();
     return obj_ue_mobility_collection;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ue_mobility_collection_has_areas(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
+{
+    if (!obj_ue_mobility_collection) return false;
+
+    const std::shared_ptr<UeMobilityCollection > &obj = *reinterpret_cast<const std::shared_ptr<UeMobilityCollection >*>(obj_ue_mobility_collection);
+    if (!obj) return false;
+
+    return obj->getAreas().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ue_mobility_collection_get_areas(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
 {
@@ -508,15 +573,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ue
 
     typedef typename UeMobilityCollection::AreasType ResultFromType;
     const ResultFromType result_from = obj->getAreas();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_location_area5_g_t *item_obj = reinterpret_cast<data_collection_model_location_area5_g_t*>(new std::shared_ptr<LocationArea5G >(item));
-        node = data_collection_model_location_area5_g_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_location_area5_g_t *item_obj = reinterpret_cast<data_collection_model_location_area5_g_t*>(item.has_value()?new std::shared_ptr<LocationArea5G >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_location_area5_g_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -531,14 +600,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
     typedef typename UeMobilityCollection::AreasType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setAreas(value)) return NULL;
 
     return obj_ue_mobility_collection;
@@ -555,14 +627,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
     typedef typename UeMobilityCollection::AreasType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_areas);
     if (!obj->setAreas(std::move(value))) return NULL;
 
@@ -576,13 +651,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
     std::shared_ptr<UeMobilityCollection > &obj = *reinterpret_cast<std::shared_ptr<UeMobilityCollection >*>(obj_ue_mobility_collection);
     if (!obj) return NULL;
 
-    typedef typename UeMobilityCollection::AreasType ContainerType;
+    typedef typename UeMobilityCollection::AreasType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_areas;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addAreas(value);
+
+    if (value) obj->addAreas(value.value());
     return obj_ue_mobility_collection;
 }
 
@@ -593,10 +669,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
     std::shared_ptr<UeMobilityCollection > &obj = *reinterpret_cast<std::shared_ptr<UeMobilityCollection >*>(obj_ue_mobility_collection);
     if (!obj) return NULL;
 
-    typedef typename UeMobilityCollection::AreasType ContainerType;
+    typedef typename UeMobilityCollection::AreasType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_areas;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeAreas(value);
     return obj_ue_mobility_collection;
 }

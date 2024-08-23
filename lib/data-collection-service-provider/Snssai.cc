@@ -160,6 +160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_snssai_is
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_snssai_get_sst(const data_collection_model_snssai_t *obj_snssai)
 {
     if (!obj_snssai) {
@@ -189,7 +190,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_snssai_t *data
     const auto &value_from = p_sst;
     typedef typename Snssai::SstType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setSst(value)) return NULL;
 
     return obj_snssai;
@@ -205,12 +207,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_snssai_t *data
     const auto &value_from = p_sst;
     typedef typename Snssai::SstType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setSst(std::move(value))) return NULL;
 
     return obj_snssai;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_snssai_has_sd(const data_collection_model_snssai_t *obj_snssai)
+{
+    if (!obj_snssai) return false;
+
+    const std::shared_ptr<Snssai > &obj = *reinterpret_cast<const std::shared_ptr<Snssai >*>(obj_snssai);
+    if (!obj) return false;
+
+    return obj->getSd().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_snssai_get_sd(const data_collection_model_snssai_t *obj_snssai)
 {
@@ -227,7 +241,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_sn
 
     typedef typename Snssai::SdType ResultFromType;
     const ResultFromType result_from = obj->getSd();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -242,6 +256,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_snssai_t *data
     typedef typename Snssai::SdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setSd(value)) return NULL;
 
     return obj_snssai;
@@ -258,6 +273,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_snssai_t *data
     typedef typename Snssai::SdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setSd(std::move(value))) return NULL;
 

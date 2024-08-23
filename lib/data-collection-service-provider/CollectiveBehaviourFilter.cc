@@ -164,6 +164,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collectiv
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_collective_behaviour_filter_type_t* data_collection_model_collective_behaviour_filter_get_type(const data_collection_model_collective_behaviour_filter_t *obj_collective_behaviour_filter)
 {
     if (!obj_collective_behaviour_filter) {
@@ -194,6 +195,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     typedef typename CollectiveBehaviourFilter::TypeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setType(value)) return NULL;
 
     return obj_collective_behaviour_filter;
@@ -210,11 +212,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     typedef typename CollectiveBehaviourFilter::TypeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setType(std::move(value))) return NULL;
 
     return obj_collective_behaviour_filter;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_collective_behaviour_filter_get_value(const data_collection_model_collective_behaviour_filter_t *obj_collective_behaviour_filter)
 {
@@ -246,6 +250,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     typedef typename CollectiveBehaviourFilter::ValueType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setValue(value)) return NULL;
 
     return obj_collective_behaviour_filter;
@@ -262,11 +267,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     typedef typename CollectiveBehaviourFilter::ValueType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setValue(std::move(value))) return NULL;
 
     return obj_collective_behaviour_filter;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour_filter_has_coll_beh_attr(const data_collection_model_collective_behaviour_filter_t *obj_collective_behaviour_filter)
+{
+    if (!obj_collective_behaviour_filter) return false;
+
+    const std::shared_ptr<CollectiveBehaviourFilter > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourFilter >*>(obj_collective_behaviour_filter);
+    if (!obj) return false;
+
+    return obj->getCollBehAttr().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_collective_behaviour_filter_get_coll_beh_attr(const data_collection_model_collective_behaviour_filter_t *obj_collective_behaviour_filter)
 {
@@ -283,15 +300,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_co
 
     typedef typename CollectiveBehaviourFilter::CollBehAttrType ResultFromType;
     const ResultFromType result_from = obj->getCollBehAttr();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_per_ue_attribute_t *item_obj = reinterpret_cast<data_collection_model_per_ue_attribute_t*>(new std::shared_ptr<PerUeAttribute >(item));
-        node = data_collection_model_per_ue_attribute_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_per_ue_attribute_t *item_obj = reinterpret_cast<data_collection_model_per_ue_attribute_t*>(item.has_value()?new std::shared_ptr<PerUeAttribute >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_per_ue_attribute_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -306,14 +327,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     typedef typename CollectiveBehaviourFilter::CollBehAttrType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setCollBehAttr(value)) return NULL;
 
     return obj_collective_behaviour_filter;
@@ -330,14 +354,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     typedef typename CollectiveBehaviourFilter::CollBehAttrType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_coll_beh_attr);
     if (!obj->setCollBehAttr(std::move(value))) return NULL;
 
@@ -351,13 +378,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     std::shared_ptr<CollectiveBehaviourFilter > &obj = *reinterpret_cast<std::shared_ptr<CollectiveBehaviourFilter >*>(obj_collective_behaviour_filter);
     if (!obj) return NULL;
 
-    typedef typename CollectiveBehaviourFilter::CollBehAttrType ContainerType;
+    typedef typename CollectiveBehaviourFilter::CollBehAttrType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_coll_beh_attr;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addCollBehAttr(value);
+
+    if (value) obj->addCollBehAttr(value.value());
     return obj_collective_behaviour_filter;
 }
 
@@ -368,10 +396,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     std::shared_ptr<CollectiveBehaviourFilter > &obj = *reinterpret_cast<std::shared_ptr<CollectiveBehaviourFilter >*>(obj_collective_behaviour_filter);
     if (!obj) return NULL;
 
-    typedef typename CollectiveBehaviourFilter::CollBehAttrType ContainerType;
+    typedef typename CollectiveBehaviourFilter::CollBehAttrType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_coll_beh_attr;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeCollBehAttr(value);
     return obj_collective_behaviour_filter;
 }
@@ -386,6 +415,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     obj->clearCollBehAttr();
     return obj_collective_behaviour_filter;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour_filter_has_data_proc_type(const data_collection_model_collective_behaviour_filter_t *obj_collective_behaviour_filter)
+{
+    if (!obj_collective_behaviour_filter) return false;
+
+    const std::shared_ptr<CollectiveBehaviourFilter > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourFilter >*>(obj_collective_behaviour_filter);
+    if (!obj) return false;
+
+    return obj->getDataProcType().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_processing_type_t* data_collection_model_collective_behaviour_filter_get_data_proc_type(const data_collection_model_collective_behaviour_filter_t *obj_collective_behaviour_filter)
 {
@@ -402,7 +442,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_pro
 
     typedef typename CollectiveBehaviourFilter::DataProcTypeType ResultFromType;
     const ResultFromType result_from = obj->getDataProcType();
-    const data_collection_model_data_processing_type_t *result = reinterpret_cast<const data_collection_model_data_processing_type_t*>(&result_from);
+    const data_collection_model_data_processing_type_t *result = reinterpret_cast<const data_collection_model_data_processing_type_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -416,7 +456,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     const auto &value_from = p_data_proc_type;
     typedef typename CollectiveBehaviourFilter::DataProcTypeType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setDataProcType(value)) return NULL;
 
     return obj_collective_behaviour_filter;
@@ -432,12 +473,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     const auto &value_from = p_data_proc_type;
     typedef typename CollectiveBehaviourFilter::DataProcTypeType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setDataProcType(std::move(value))) return NULL;
 
     return obj_collective_behaviour_filter;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour_filter_has_list_of_ue_ind(const data_collection_model_collective_behaviour_filter_t *obj_collective_behaviour_filter)
+{
+    if (!obj_collective_behaviour_filter) return false;
+
+    const std::shared_ptr<CollectiveBehaviourFilter > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourFilter >*>(obj_collective_behaviour_filter);
+    if (!obj) return false;
+
+    return obj->isListOfUeInd().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_collective_behaviour_filter_is_list_of_ue_ind(const data_collection_model_collective_behaviour_filter_t *obj_collective_behaviour_filter)
 {
@@ -454,7 +507,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_col
 
     typedef typename CollectiveBehaviourFilter::ListOfUeIndType ResultFromType;
     const ResultFromType result_from = obj->isListOfUeInd();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -468,7 +521,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     const auto &value_from = p_list_of_ue_ind;
     typedef typename CollectiveBehaviourFilter::ListOfUeIndType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setListOfUeInd(value)) return NULL;
 
     return obj_collective_behaviour_filter;
@@ -484,7 +538,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     const auto &value_from = p_list_of_ue_ind;
     typedef typename CollectiveBehaviourFilter::ListOfUeIndType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setListOfUeInd(std::move(value))) return NULL;
 

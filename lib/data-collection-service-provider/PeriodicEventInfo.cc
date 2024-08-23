@@ -162,6 +162,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_periodic_
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_periodic_event_info_get_reporting_amount(const data_collection_model_periodic_event_info_t *obj_periodic_event_info)
 {
     if (!obj_periodic_event_info) {
@@ -191,7 +192,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event
     const auto &value_from = p_reporting_amount;
     typedef typename PeriodicEventInfo::ReportingAmountType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setReportingAmount(value)) return NULL;
 
     return obj_periodic_event_info;
@@ -207,12 +209,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event
     const auto &value_from = p_reporting_amount;
     typedef typename PeriodicEventInfo::ReportingAmountType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setReportingAmount(std::move(value))) return NULL;
 
     return obj_periodic_event_info;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_periodic_event_info_get_reporting_interval(const data_collection_model_periodic_event_info_t *obj_periodic_event_info)
 {
@@ -243,7 +247,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event
     const auto &value_from = p_reporting_interval;
     typedef typename PeriodicEventInfo::ReportingIntervalType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setReportingInterval(value)) return NULL;
 
     return obj_periodic_event_info;
@@ -259,12 +264,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event
     const auto &value_from = p_reporting_interval;
     typedef typename PeriodicEventInfo::ReportingIntervalType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setReportingInterval(std::move(value))) return NULL;
 
     return obj_periodic_event_info;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_periodic_event_info_has_reporting_infinite_ind(const data_collection_model_periodic_event_info_t *obj_periodic_event_info)
+{
+    if (!obj_periodic_event_info) return false;
+
+    const std::shared_ptr<PeriodicEventInfo > &obj = *reinterpret_cast<const std::shared_ptr<PeriodicEventInfo >*>(obj_periodic_event_info);
+    if (!obj) return false;
+
+    return obj->isReportingInfiniteInd().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_periodic_event_info_is_reporting_infinite_ind(const data_collection_model_periodic_event_info_t *obj_periodic_event_info)
 {
@@ -281,7 +298,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_per
 
     typedef typename PeriodicEventInfo::ReportingInfiniteIndType ResultFromType;
     const ResultFromType result_from = obj->isReportingInfiniteInd();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -295,7 +312,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event
     const auto &value_from = p_reporting_infinite_ind;
     typedef typename PeriodicEventInfo::ReportingInfiniteIndType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setReportingInfiniteInd(value)) return NULL;
 
     return obj_periodic_event_info;
@@ -311,12 +329,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event
     const auto &value_from = p_reporting_infinite_ind;
     typedef typename PeriodicEventInfo::ReportingInfiniteIndType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setReportingInfiniteInd(std::move(value))) return NULL;
 
     return obj_periodic_event_info;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_periodic_event_info_has_reporting_interval_ms(const data_collection_model_periodic_event_info_t *obj_periodic_event_info)
+{
+    if (!obj_periodic_event_info) return false;
+
+    const std::shared_ptr<PeriodicEventInfo > &obj = *reinterpret_cast<const std::shared_ptr<PeriodicEventInfo >*>(obj_periodic_event_info);
+    if (!obj) return false;
+
+    return obj->getReportingIntervalMs().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_periodic_event_info_get_reporting_interval_ms(const data_collection_model_periodic_event_info_t *obj_periodic_event_info)
 {
@@ -333,7 +363,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename PeriodicEventInfo::ReportingIntervalMsType ResultFromType;
     const ResultFromType result_from = obj->getReportingIntervalMs();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -347,7 +377,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event
     const auto &value_from = p_reporting_interval_ms;
     typedef typename PeriodicEventInfo::ReportingIntervalMsType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setReportingIntervalMs(value)) return NULL;
 
     return obj_periodic_event_info;
@@ -363,7 +394,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event
     const auto &value_from = p_reporting_interval_ms;
     typedef typename PeriodicEventInfo::ReportingIntervalMsType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setReportingIntervalMs(std::move(value))) return NULL;
 

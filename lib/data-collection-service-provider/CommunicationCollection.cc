@@ -162,6 +162,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_communica
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_communication_collection_get_start_time(const data_collection_model_communication_collection_t *obj_communication_collection)
 {
     if (!obj_communication_collection) {
@@ -192,6 +193,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     typedef typename CommunicationCollection::StartTimeType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setStartTime(value)) return NULL;
 
     return obj_communication_collection;
@@ -208,11 +210,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     typedef typename CommunicationCollection::StartTimeType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setStartTime(std::move(value))) return NULL;
 
     return obj_communication_collection;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_communication_collection_get_end_time(const data_collection_model_communication_collection_t *obj_communication_collection)
 {
@@ -244,6 +248,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     typedef typename CommunicationCollection::EndTimeType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setEndTime(value)) return NULL;
 
     return obj_communication_collection;
@@ -260,11 +265,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     typedef typename CommunicationCollection::EndTimeType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setEndTime(std::move(value))) return NULL;
 
     return obj_communication_collection;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_communication_collection_get_ul_vol(const data_collection_model_communication_collection_t *obj_communication_collection)
 {
@@ -295,7 +302,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     const auto &value_from = p_ul_vol;
     typedef typename CommunicationCollection::UlVolType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setUlVol(value)) return NULL;
 
     return obj_communication_collection;
@@ -311,12 +319,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     const auto &value_from = p_ul_vol;
     typedef typename CommunicationCollection::UlVolType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setUlVol(std::move(value))) return NULL;
 
     return obj_communication_collection;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_communication_collection_get_dl_vol(const data_collection_model_communication_collection_t *obj_communication_collection)
 {
@@ -347,7 +357,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     const auto &value_from = p_dl_vol;
     typedef typename CommunicationCollection::DlVolType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setDlVol(value)) return NULL;
 
     return obj_communication_collection;
@@ -363,7 +374,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     const auto &value_from = p_dl_vol;
     typedef typename CommunicationCollection::DlVolType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setDlVol(std::move(value))) return NULL;
 

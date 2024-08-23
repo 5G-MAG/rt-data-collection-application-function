@@ -176,6 +176,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_reporting
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_reporting_information_has_imm_rep(const data_collection_model_reporting_information_t *obj_reporting_information)
+{
+    if (!obj_reporting_information) return false;
+
+    const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return false;
+
+    return obj->isImmRep().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_reporting_information_is_imm_rep(const data_collection_model_reporting_information_t *obj_reporting_information)
 {
     if (!obj_reporting_information) {
@@ -191,7 +202,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_rep
 
     typedef typename ReportingInformation::ImmRepType ResultFromType;
     const ResultFromType result_from = obj->isImmRep();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -205,7 +216,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     const auto &value_from = p_imm_rep;
     typedef typename ReportingInformation::ImmRepType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setImmRep(value)) return NULL;
 
     return obj_reporting_information;
@@ -221,12 +233,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     const auto &value_from = p_imm_rep;
     typedef typename ReportingInformation::ImmRepType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setImmRep(std::move(value))) return NULL;
 
     return obj_reporting_information;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_reporting_information_has_notif_method(const data_collection_model_reporting_information_t *obj_reporting_information)
+{
+    if (!obj_reporting_information) return false;
+
+    const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return false;
+
+    return obj->getNotifMethod().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_notification_method_t* data_collection_model_reporting_information_get_notif_method(const data_collection_model_reporting_information_t *obj_reporting_information)
 {
@@ -243,7 +267,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_notifica
 
     typedef typename ReportingInformation::NotifMethodType ResultFromType;
     const ResultFromType result_from = obj->getNotifMethod();
-    const data_collection_model_notification_method_t *result = reinterpret_cast<const data_collection_model_notification_method_t*>(&result_from);
+    const data_collection_model_notification_method_t *result = reinterpret_cast<const data_collection_model_notification_method_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -257,7 +281,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     const auto &value_from = p_notif_method;
     typedef typename ReportingInformation::NotifMethodType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setNotifMethod(value)) return NULL;
 
     return obj_reporting_information;
@@ -273,12 +298,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     const auto &value_from = p_notif_method;
     typedef typename ReportingInformation::NotifMethodType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setNotifMethod(std::move(value))) return NULL;
 
     return obj_reporting_information;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_reporting_information_has_max_report_nbr(const data_collection_model_reporting_information_t *obj_reporting_information)
+{
+    if (!obj_reporting_information) return false;
+
+    const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return false;
+
+    return obj->getMaxReportNbr().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_reporting_information_get_max_report_nbr(const data_collection_model_reporting_information_t *obj_reporting_information)
 {
@@ -295,7 +332,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename ReportingInformation::MaxReportNbrType ResultFromType;
     const ResultFromType result_from = obj->getMaxReportNbr();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -309,7 +346,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     const auto &value_from = p_max_report_nbr;
     typedef typename ReportingInformation::MaxReportNbrType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setMaxReportNbr(value)) return NULL;
 
     return obj_reporting_information;
@@ -325,12 +363,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     const auto &value_from = p_max_report_nbr;
     typedef typename ReportingInformation::MaxReportNbrType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setMaxReportNbr(std::move(value))) return NULL;
 
     return obj_reporting_information;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_reporting_information_has_mon_dur(const data_collection_model_reporting_information_t *obj_reporting_information)
+{
+    if (!obj_reporting_information) return false;
+
+    const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return false;
+
+    return obj->getMonDur().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_reporting_information_get_mon_dur(const data_collection_model_reporting_information_t *obj_reporting_information)
 {
@@ -347,7 +397,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_re
 
     typedef typename ReportingInformation::MonDurType ResultFromType;
     const ResultFromType result_from = obj->getMonDur();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -362,6 +412,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     typedef typename ReportingInformation::MonDurType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setMonDur(value)) return NULL;
 
     return obj_reporting_information;
@@ -378,11 +429,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     typedef typename ReportingInformation::MonDurType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setMonDur(std::move(value))) return NULL;
 
     return obj_reporting_information;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_reporting_information_has_rep_period(const data_collection_model_reporting_information_t *obj_reporting_information)
+{
+    if (!obj_reporting_information) return false;
+
+    const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return false;
+
+    return obj->getRepPeriod().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_reporting_information_get_rep_period(const data_collection_model_reporting_information_t *obj_reporting_information)
 {
@@ -399,7 +462,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename ReportingInformation::RepPeriodType ResultFromType;
     const ResultFromType result_from = obj->getRepPeriod();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -413,7 +476,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     const auto &value_from = p_rep_period;
     typedef typename ReportingInformation::RepPeriodType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setRepPeriod(value)) return NULL;
 
     return obj_reporting_information;
@@ -429,12 +493,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     const auto &value_from = p_rep_period;
     typedef typename ReportingInformation::RepPeriodType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setRepPeriod(std::move(value))) return NULL;
 
     return obj_reporting_information;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_reporting_information_has_samp_ratio(const data_collection_model_reporting_information_t *obj_reporting_information)
+{
+    if (!obj_reporting_information) return false;
+
+    const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return false;
+
+    return obj->getSampRatio().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_reporting_information_get_samp_ratio(const data_collection_model_reporting_information_t *obj_reporting_information)
 {
@@ -451,7 +527,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename ReportingInformation::SampRatioType ResultFromType;
     const ResultFromType result_from = obj->getSampRatio();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -465,7 +541,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     const auto &value_from = p_samp_ratio;
     typedef typename ReportingInformation::SampRatioType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setSampRatio(value)) return NULL;
 
     return obj_reporting_information;
@@ -481,12 +558,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     const auto &value_from = p_samp_ratio;
     typedef typename ReportingInformation::SampRatioType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setSampRatio(std::move(value))) return NULL;
 
     return obj_reporting_information;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_reporting_information_has_partition_criteria(const data_collection_model_reporting_information_t *obj_reporting_information)
+{
+    if (!obj_reporting_information) return false;
+
+    const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return false;
+
+    return obj->getPartitionCriteria().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_reporting_information_get_partition_criteria(const data_collection_model_reporting_information_t *obj_reporting_information)
 {
@@ -503,15 +592,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_re
 
     typedef typename ReportingInformation::PartitionCriteriaType ResultFromType;
     const ResultFromType result_from = obj->getPartitionCriteria();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_partitioning_criteria_t *item_obj = reinterpret_cast<data_collection_model_partitioning_criteria_t*>(new std::shared_ptr<PartitioningCriteria >(item));
-        node = data_collection_model_partitioning_criteria_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_partitioning_criteria_t *item_obj = reinterpret_cast<data_collection_model_partitioning_criteria_t*>(item.has_value()?new std::shared_ptr<PartitioningCriteria >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_partitioning_criteria_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -526,14 +619,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     typedef typename ReportingInformation::PartitionCriteriaType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setPartitionCriteria(value)) return NULL;
 
     return obj_reporting_information;
@@ -550,14 +646,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     typedef typename ReportingInformation::PartitionCriteriaType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_partition_criteria);
     if (!obj->setPartitionCriteria(std::move(value))) return NULL;
 
@@ -571,13 +670,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
     if (!obj) return NULL;
 
-    typedef typename ReportingInformation::PartitionCriteriaType ContainerType;
+    typedef typename ReportingInformation::PartitionCriteriaType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_partition_criteria;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addPartitionCriteria(value);
+
+    if (value) obj->addPartitionCriteria(value.value());
     return obj_reporting_information;
 }
 
@@ -588,10 +688,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
     if (!obj) return NULL;
 
-    typedef typename ReportingInformation::PartitionCriteriaType ContainerType;
+    typedef typename ReportingInformation::PartitionCriteriaType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_partition_criteria;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removePartitionCriteria(value);
     return obj_reporting_information;
 }
@@ -606,6 +707,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     obj->clearPartitionCriteria();
     return obj_reporting_information;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_reporting_information_has_grp_rep_time(const data_collection_model_reporting_information_t *obj_reporting_information)
+{
+    if (!obj_reporting_information) return false;
+
+    const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return false;
+
+    return obj->getGrpRepTime().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_reporting_information_get_grp_rep_time(const data_collection_model_reporting_information_t *obj_reporting_information)
 {
@@ -622,7 +734,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename ReportingInformation::GrpRepTimeType ResultFromType;
     const ResultFromType result_from = obj->getGrpRepTime();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -636,7 +748,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     const auto &value_from = p_grp_rep_time;
     typedef typename ReportingInformation::GrpRepTimeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setGrpRepTime(value)) return NULL;
 
     return obj_reporting_information;
@@ -652,12 +765,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     const auto &value_from = p_grp_rep_time;
     typedef typename ReportingInformation::GrpRepTimeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setGrpRepTime(std::move(value))) return NULL;
 
     return obj_reporting_information;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_reporting_information_has_notif_flag(const data_collection_model_reporting_information_t *obj_reporting_information)
+{
+    if (!obj_reporting_information) return false;
+
+    const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return false;
+
+    return obj->getNotifFlag().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_notification_flag_t* data_collection_model_reporting_information_get_notif_flag(const data_collection_model_reporting_information_t *obj_reporting_information)
 {
@@ -674,7 +799,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_notifica
 
     typedef typename ReportingInformation::NotifFlagType ResultFromType;
     const ResultFromType result_from = obj->getNotifFlag();
-    const data_collection_model_notification_flag_t *result = reinterpret_cast<const data_collection_model_notification_flag_t*>(&result_from);
+    const data_collection_model_notification_flag_t *result = reinterpret_cast<const data_collection_model_notification_flag_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -688,7 +813,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     const auto &value_from = p_notif_flag;
     typedef typename ReportingInformation::NotifFlagType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setNotifFlag(value)) return NULL;
 
     return obj_reporting_information;
@@ -704,12 +830,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     const auto &value_from = p_notif_flag;
     typedef typename ReportingInformation::NotifFlagType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setNotifFlag(std::move(value))) return NULL;
 
     return obj_reporting_information;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_reporting_information_has_notif_flag_instruct(const data_collection_model_reporting_information_t *obj_reporting_information)
+{
+    if (!obj_reporting_information) return false;
+
+    const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return false;
+
+    return obj->getNotifFlagInstruct().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_muting_exception_instructions_t* data_collection_model_reporting_information_get_notif_flag_instruct(const data_collection_model_reporting_information_t *obj_reporting_information)
 {
@@ -726,7 +864,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_muting_e
 
     typedef typename ReportingInformation::NotifFlagInstructType ResultFromType;
     const ResultFromType result_from = obj->getNotifFlagInstruct();
-    const data_collection_model_muting_exception_instructions_t *result = reinterpret_cast<const data_collection_model_muting_exception_instructions_t*>(&result_from);
+    const data_collection_model_muting_exception_instructions_t *result = reinterpret_cast<const data_collection_model_muting_exception_instructions_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -740,7 +878,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     const auto &value_from = p_notif_flag_instruct;
     typedef typename ReportingInformation::NotifFlagInstructType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setNotifFlagInstruct(value)) return NULL;
 
     return obj_reporting_information;
@@ -756,12 +895,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     const auto &value_from = p_notif_flag_instruct;
     typedef typename ReportingInformation::NotifFlagInstructType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setNotifFlagInstruct(std::move(value))) return NULL;
 
     return obj_reporting_information;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_reporting_information_has_muting_setting(const data_collection_model_reporting_information_t *obj_reporting_information)
+{
+    if (!obj_reporting_information) return false;
+
+    const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) return false;
+
+    return obj->getMutingSetting().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_muting_notifications_settings_t* data_collection_model_reporting_information_get_muting_setting(const data_collection_model_reporting_information_t *obj_reporting_information)
 {
@@ -778,7 +929,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_muting_n
 
     typedef typename ReportingInformation::MutingSettingType ResultFromType;
     const ResultFromType result_from = obj->getMutingSetting();
-    const data_collection_model_muting_notifications_settings_t *result = reinterpret_cast<const data_collection_model_muting_notifications_settings_t*>(&result_from);
+    const data_collection_model_muting_notifications_settings_t *result = reinterpret_cast<const data_collection_model_muting_notifications_settings_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -792,7 +943,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     const auto &value_from = p_muting_setting;
     typedef typename ReportingInformation::MutingSettingType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setMutingSetting(value)) return NULL;
 
     return obj_reporting_information;
@@ -808,7 +960,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     const auto &value_from = p_muting_setting;
     typedef typename ReportingInformation::MutingSettingType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setMutingSetting(std::move(value))) return NULL;
 

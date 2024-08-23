@@ -162,6 +162,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioni
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_positioning_method_t* data_collection_model_positioning_method_and_usage_get_method(const data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage)
 {
     if (!obj_positioning_method_and_usage) {
@@ -192,6 +193,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_me
     typedef typename PositioningMethodAndUsage::MethodType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setMethod(value)) return NULL;
 
     return obj_positioning_method_and_usage;
@@ -208,11 +210,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_me
     typedef typename PositioningMethodAndUsage::MethodType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setMethod(std::move(value))) return NULL;
 
     return obj_positioning_method_and_usage;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_positioning_mode_t* data_collection_model_positioning_method_and_usage_get_mode(const data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage)
 {
@@ -244,6 +248,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_me
     typedef typename PositioningMethodAndUsage::ModeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setMode(value)) return NULL;
 
     return obj_positioning_method_and_usage;
@@ -260,11 +265,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_me
     typedef typename PositioningMethodAndUsage::ModeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setMode(std::move(value))) return NULL;
 
     return obj_positioning_method_and_usage;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_usage_t* data_collection_model_positioning_method_and_usage_get_usage(const data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage)
 {
@@ -296,6 +303,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_me
     typedef typename PositioningMethodAndUsage::UsageType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setUsage(value)) return NULL;
 
     return obj_positioning_method_and_usage;
@@ -312,11 +320,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_me
     typedef typename PositioningMethodAndUsage::UsageType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setUsage(std::move(value))) return NULL;
 
     return obj_positioning_method_and_usage;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_positioning_method_and_usage_has_method_code(const data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage)
+{
+    if (!obj_positioning_method_and_usage) return false;
+
+    const std::shared_ptr<PositioningMethodAndUsage > &obj = *reinterpret_cast<const std::shared_ptr<PositioningMethodAndUsage >*>(obj_positioning_method_and_usage);
+    if (!obj) return false;
+
+    return obj->getMethodCode().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_positioning_method_and_usage_get_method_code(const data_collection_model_positioning_method_and_usage_t *obj_positioning_method_and_usage)
 {
@@ -333,7 +353,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename PositioningMethodAndUsage::MethodCodeType ResultFromType;
     const ResultFromType result_from = obj->getMethodCode();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -347,7 +367,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_me
     const auto &value_from = p_method_code;
     typedef typename PositioningMethodAndUsage::MethodCodeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setMethodCode(value)) return NULL;
 
     return obj_positioning_method_and_usage;
@@ -363,7 +384,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_me
     const auto &value_from = p_method_code;
     typedef typename PositioningMethodAndUsage::MethodCodeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setMethodCode(std::move(value))) return NULL;
 

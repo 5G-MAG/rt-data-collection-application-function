@@ -164,6 +164,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_high_accu
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_high_accuracy_gnss_metrics_has_nr_of_used_satellites(const data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics)
+{
+    if (!obj_high_accuracy_gnss_metrics) return false;
+
+    const std::shared_ptr<HighAccuracyGnssMetrics > &obj = *reinterpret_cast<const std::shared_ptr<HighAccuracyGnssMetrics >*>(obj_high_accuracy_gnss_metrics);
+    if (!obj) return false;
+
+    return obj->getNrOfUsedSatellites().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_high_accuracy_gnss_metrics_get_nr_of_used_satellites(const data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics)
 {
     if (!obj_high_accuracy_gnss_metrics) {
@@ -179,7 +190,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename HighAccuracyGnssMetrics::NrOfUsedSatellitesType ResultFromType;
     const ResultFromType result_from = obj->getNrOfUsedSatellites();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -193,7 +204,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_
     const auto &value_from = p_nr_of_used_satellites;
     typedef typename HighAccuracyGnssMetrics::NrOfUsedSatellitesType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setNrOfUsedSatellites(value)) return NULL;
 
     return obj_high_accuracy_gnss_metrics;
@@ -209,12 +221,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_
     const auto &value_from = p_nr_of_used_satellites;
     typedef typename HighAccuracyGnssMetrics::NrOfUsedSatellitesType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setNrOfUsedSatellites(std::move(value))) return NULL;
 
     return obj_high_accuracy_gnss_metrics;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_high_accuracy_gnss_metrics_has_hdopi(const data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics)
+{
+    if (!obj_high_accuracy_gnss_metrics) return false;
+
+    const std::shared_ptr<HighAccuracyGnssMetrics > &obj = *reinterpret_cast<const std::shared_ptr<HighAccuracyGnssMetrics >*>(obj_high_accuracy_gnss_metrics);
+    if (!obj) return false;
+
+    return obj->getHdopi().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_high_accuracy_gnss_metrics_get_hdopi(const data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics)
 {
@@ -231,7 +255,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename HighAccuracyGnssMetrics::HdopiType ResultFromType;
     const ResultFromType result_from = obj->getHdopi();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -245,7 +269,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_
     const auto &value_from = p_hdopi;
     typedef typename HighAccuracyGnssMetrics::HdopiType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setHdopi(value)) return NULL;
 
     return obj_high_accuracy_gnss_metrics;
@@ -261,12 +286,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_
     const auto &value_from = p_hdopi;
     typedef typename HighAccuracyGnssMetrics::HdopiType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setHdopi(std::move(value))) return NULL;
 
     return obj_high_accuracy_gnss_metrics;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_high_accuracy_gnss_metrics_has_pdopi(const data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics)
+{
+    if (!obj_high_accuracy_gnss_metrics) return false;
+
+    const std::shared_ptr<HighAccuracyGnssMetrics > &obj = *reinterpret_cast<const std::shared_ptr<HighAccuracyGnssMetrics >*>(obj_high_accuracy_gnss_metrics);
+    if (!obj) return false;
+
+    return obj->getPdopi().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_high_accuracy_gnss_metrics_get_pdopi(const data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics)
 {
@@ -283,7 +320,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename HighAccuracyGnssMetrics::PdopiType ResultFromType;
     const ResultFromType result_from = obj->getPdopi();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -297,7 +334,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_
     const auto &value_from = p_pdopi;
     typedef typename HighAccuracyGnssMetrics::PdopiType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setPdopi(value)) return NULL;
 
     return obj_high_accuracy_gnss_metrics;
@@ -313,12 +351,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_
     const auto &value_from = p_pdopi;
     typedef typename HighAccuracyGnssMetrics::PdopiType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setPdopi(std::move(value))) return NULL;
 
     return obj_high_accuracy_gnss_metrics;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_high_accuracy_gnss_metrics_has_age(const data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics)
+{
+    if (!obj_high_accuracy_gnss_metrics) return false;
+
+    const std::shared_ptr<HighAccuracyGnssMetrics > &obj = *reinterpret_cast<const std::shared_ptr<HighAccuracyGnssMetrics >*>(obj_high_accuracy_gnss_metrics);
+    if (!obj) return false;
+
+    return obj->getAge().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_high_accuracy_gnss_metrics_get_age(const data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics)
 {
@@ -335,7 +385,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename HighAccuracyGnssMetrics::AgeType ResultFromType;
     const ResultFromType result_from = obj->getAge();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -349,7 +399,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_
     const auto &value_from = p_age;
     typedef typename HighAccuracyGnssMetrics::AgeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setAge(value)) return NULL;
 
     return obj_high_accuracy_gnss_metrics;
@@ -365,12 +416,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_
     const auto &value_from = p_age;
     typedef typename HighAccuracyGnssMetrics::AgeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setAge(std::move(value))) return NULL;
 
     return obj_high_accuracy_gnss_metrics;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_high_accuracy_gnss_metrics_has_fix_type(const data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics)
+{
+    if (!obj_high_accuracy_gnss_metrics) return false;
+
+    const std::shared_ptr<HighAccuracyGnssMetrics > &obj = *reinterpret_cast<const std::shared_ptr<HighAccuracyGnssMetrics >*>(obj_high_accuracy_gnss_metrics);
+    if (!obj) return false;
+
+    return obj->getFixType().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_fix_type_t* data_collection_model_high_accuracy_gnss_metrics_get_fix_type(const data_collection_model_high_accuracy_gnss_metrics_t *obj_high_accuracy_gnss_metrics)
 {
@@ -387,7 +450,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_fix_type
 
     typedef typename HighAccuracyGnssMetrics::FixTypeType ResultFromType;
     const ResultFromType result_from = obj->getFixType();
-    const data_collection_model_fix_type_t *result = reinterpret_cast<const data_collection_model_fix_type_t*>(&result_from);
+    const data_collection_model_fix_type_t *result = reinterpret_cast<const data_collection_model_fix_type_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -401,7 +464,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_
     const auto &value_from = p_fix_type;
     typedef typename HighAccuracyGnssMetrics::FixTypeType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setFixType(value)) return NULL;
 
     return obj_high_accuracy_gnss_metrics;
@@ -417,7 +481,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_
     const auto &value_from = p_fix_type;
     typedef typename HighAccuracyGnssMetrics::FixTypeType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setFixType(std::move(value))) return NULL;
 

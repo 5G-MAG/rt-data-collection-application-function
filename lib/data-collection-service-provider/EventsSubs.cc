@@ -160,6 +160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_events_su
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_af_event_t* data_collection_model_events_subs_get_event(const data_collection_model_events_subs_t *obj_events_subs)
 {
     if (!obj_events_subs) {
@@ -190,6 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_events_subs_t 
     typedef typename EventsSubs::EventType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setEvent(value)) return NULL;
 
     return obj_events_subs;
@@ -206,11 +208,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_events_subs_t 
     typedef typename EventsSubs::EventType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setEvent(std::move(value))) return NULL;
 
     return obj_events_subs;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_event_filter_t* data_collection_model_events_subs_get_event_filter(const data_collection_model_events_subs_t *obj_events_subs)
 {
@@ -242,6 +246,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_events_subs_t 
     typedef typename EventsSubs::EventFilterType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setEventFilter(value)) return NULL;
 
     return obj_events_subs;
@@ -258,11 +263,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_events_subs_t 
     typedef typename EventsSubs::EventFilterType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setEventFilter(std::move(value))) return NULL;
 
     return obj_events_subs;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_events_subs_has_event_rep_info(const data_collection_model_events_subs_t *obj_events_subs)
+{
+    if (!obj_events_subs) return false;
+
+    const std::shared_ptr<EventsSubs > &obj = *reinterpret_cast<const std::shared_ptr<EventsSubs >*>(obj_events_subs);
+    if (!obj) return false;
+
+    return obj->getEventRepInfo().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_reporting_information_t* data_collection_model_events_subs_get_event_rep_info(const data_collection_model_events_subs_t *obj_events_subs)
 {
@@ -279,7 +296,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_reportin
 
     typedef typename EventsSubs::EventRepInfoType ResultFromType;
     const ResultFromType result_from = obj->getEventRepInfo();
-    const data_collection_model_reporting_information_t *result = reinterpret_cast<const data_collection_model_reporting_information_t*>(&result_from);
+    const data_collection_model_reporting_information_t *result = reinterpret_cast<const data_collection_model_reporting_information_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -293,7 +310,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_events_subs_t 
     const auto &value_from = p_event_rep_info;
     typedef typename EventsSubs::EventRepInfoType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setEventRepInfo(value)) return NULL;
 
     return obj_events_subs;
@@ -309,7 +327,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_events_subs_t 
     const auto &value_from = p_event_rep_info;
     typedef typename EventsSubs::EventRepInfoType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setEventRepInfo(std::move(value))) return NULL;
 

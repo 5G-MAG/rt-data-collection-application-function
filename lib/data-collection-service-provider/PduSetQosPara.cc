@@ -160,6 +160,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_q
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_qos_para_has_pdu_set_delay_budget(const data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para)
+{
+    if (!obj_pdu_set_qos_para) return false;
+
+    const std::shared_ptr<PduSetQosPara > &obj = *reinterpret_cast<const std::shared_ptr<PduSetQosPara >*>(obj_pdu_set_qos_para);
+    if (!obj) return false;
+
+    return obj->getPduSetDelayBudget().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_pdu_set_qos_para_get_pdu_set_delay_budget(const data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para)
 {
     if (!obj_pdu_set_qos_para) {
@@ -175,7 +186,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename PduSetQosPara::PduSetDelayBudgetType ResultFromType;
     const ResultFromType result_from = obj->getPduSetDelayBudget();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -189,7 +200,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_qos_pa
     const auto &value_from = p_pdu_set_delay_budget;
     typedef typename PduSetQosPara::PduSetDelayBudgetType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setPduSetDelayBudget(value)) return NULL;
 
     return obj_pdu_set_qos_para;
@@ -205,12 +217,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_qos_pa
     const auto &value_from = p_pdu_set_delay_budget;
     typedef typename PduSetQosPara::PduSetDelayBudgetType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setPduSetDelayBudget(std::move(value))) return NULL;
 
     return obj_pdu_set_qos_para;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_qos_para_has_pdu_set_err_rate(const data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para)
+{
+    if (!obj_pdu_set_qos_para) return false;
+
+    const std::shared_ptr<PduSetQosPara > &obj = *reinterpret_cast<const std::shared_ptr<PduSetQosPara >*>(obj_pdu_set_qos_para);
+    if (!obj) return false;
+
+    return obj->getPduSetErrRate().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pdu_set_qos_para_get_pdu_set_err_rate(const data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para)
 {
@@ -227,7 +251,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pd
 
     typedef typename PduSetQosPara::PduSetErrRateType ResultFromType;
     const ResultFromType result_from = obj->getPduSetErrRate();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -242,6 +266,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_qos_pa
     typedef typename PduSetQosPara::PduSetErrRateType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setPduSetErrRate(value)) return NULL;
 
     return obj_pdu_set_qos_para;
@@ -258,11 +283,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_qos_pa
     typedef typename PduSetQosPara::PduSetErrRateType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setPduSetErrRate(std::move(value))) return NULL;
 
     return obj_pdu_set_qos_para;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_pdu_set_qos_para_has_pdu_set_handling_info(const data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para)
+{
+    if (!obj_pdu_set_qos_para) return false;
+
+    const std::shared_ptr<PduSetQosPara > &obj = *reinterpret_cast<const std::shared_ptr<PduSetQosPara >*>(obj_pdu_set_qos_para);
+    if (!obj) return false;
+
+    return obj->getPduSetHandlingInfo().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_pdu_set_handling_info_t* data_collection_model_pdu_set_qos_para_get_pdu_set_handling_info(const data_collection_model_pdu_set_qos_para_t *obj_pdu_set_qos_para)
 {
@@ -279,7 +316,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_pdu_set_
 
     typedef typename PduSetQosPara::PduSetHandlingInfoType ResultFromType;
     const ResultFromType result_from = obj->getPduSetHandlingInfo();
-    const data_collection_model_pdu_set_handling_info_t *result = reinterpret_cast<const data_collection_model_pdu_set_handling_info_t*>(&result_from);
+    const data_collection_model_pdu_set_handling_info_t *result = reinterpret_cast<const data_collection_model_pdu_set_handling_info_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -293,7 +330,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_qos_pa
     const auto &value_from = p_pdu_set_handling_info;
     typedef typename PduSetQosPara::PduSetHandlingInfoType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setPduSetHandlingInfo(value)) return NULL;
 
     return obj_pdu_set_qos_para;
@@ -309,7 +347,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_qos_pa
     const auto &value_from = p_pdu_set_handling_info;
     typedef typename PduSetQosPara::PduSetHandlingInfoType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setPduSetHandlingInfo(std::move(value))) return NULL;
 

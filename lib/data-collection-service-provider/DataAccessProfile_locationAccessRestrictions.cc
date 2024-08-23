@@ -158,6 +158,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_acce
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_access_profile_location_access_restrictions_get_location_areas(const data_collection_model_data_access_profile_location_access_restrictions_t *obj_data_access_profile_location_access_restrictions)
 {
     if (!obj_data_access_profile_location_access_restrictions) {
@@ -174,13 +175,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     typedef typename DataAccessProfile_locationAccessRestrictions::LocationAreasType ResultFromType;
     const ResultFromType result_from = obj->getLocationAreas();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+    
     typedef typename ResultFromType::value_type ItemType;
     for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_location_area5_g_t *item_obj = reinterpret_cast<data_collection_model_location_area5_g_t*>(new std::shared_ptr<LocationArea5G >(item));
-        node = data_collection_model_location_area5_g_make_lnode(item_obj);
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_location_area5_g_t *item_obj = reinterpret_cast<data_collection_model_location_area5_g_t*>(item.has_value()?new std::shared_ptr<LocationArea5G >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_location_area5_g_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
+        if (node) ogs_list_add(result, node);
     }
     return result;
 }
@@ -196,14 +200,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename DataAccessProfile_locationAccessRestrictions::LocationAreasType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setLocationAreas(value)) return NULL;
 
     return obj_data_access_profile_location_access_restrictions;
@@ -220,14 +227,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename DataAccessProfile_locationAccessRestrictions::LocationAreasType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_location_areas);
     if (!obj->setLocationAreas(std::move(value))) return NULL;
 
@@ -245,7 +255,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_location_areas;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
 
     obj->addLocationAreas(value);
     return obj_data_access_profile_location_access_restrictions;
@@ -261,7 +272,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename DataAccessProfile_locationAccessRestrictions::LocationAreasType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_location_areas;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeLocationAreas(value);
     return obj_data_access_profile_location_access_restrictions;
 }
@@ -276,6 +288,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     obj->clearLocationAreas();
     return obj_data_access_profile_location_access_restrictions;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_access_profile_location_access_restrictions_get_aggregation_functions(const data_collection_model_data_access_profile_location_access_restrictions_t *obj_data_access_profile_location_access_restrictions)
 {
@@ -293,13 +306,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     typedef typename DataAccessProfile_locationAccessRestrictions::AggregationFunctionsType ResultFromType;
     const ResultFromType result_from = obj->getAggregationFunctions();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+    
     typedef typename ResultFromType::value_type ItemType;
     for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_data_aggregation_function_type_t *item_obj = reinterpret_cast<data_collection_model_data_aggregation_function_type_t*>(new std::shared_ptr<DataAggregationFunctionType >(item));
-        node = data_collection_model_data_aggregation_function_type_make_lnode(item_obj);
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_data_aggregation_function_type_t *item_obj = reinterpret_cast<data_collection_model_data_aggregation_function_type_t*>(item.has_value()?new std::shared_ptr<DataAggregationFunctionType >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_data_aggregation_function_type_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
+        if (node) ogs_list_add(result, node);
     }
     return result;
 }
@@ -315,14 +331,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename DataAccessProfile_locationAccessRestrictions::AggregationFunctionsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setAggregationFunctions(value)) return NULL;
 
     return obj_data_access_profile_location_access_restrictions;
@@ -339,14 +358,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename DataAccessProfile_locationAccessRestrictions::AggregationFunctionsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_aggregation_functions);
     if (!obj->setAggregationFunctions(std::move(value))) return NULL;
 
@@ -364,7 +386,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_aggregation_functions;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
 
     obj->addAggregationFunctions(value);
     return obj_data_access_profile_location_access_restrictions;
@@ -380,7 +403,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename DataAccessProfile_locationAccessRestrictions::AggregationFunctionsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_aggregation_functions;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeAggregationFunctions(value);
     return obj_data_access_profile_location_access_restrictions;
 }

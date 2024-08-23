@@ -160,6 +160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ml_model_
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_nwdaf_event_t* data_collection_model_ml_model_inter_ind_get_analytics_id(const data_collection_model_ml_model_inter_ind_t *obj_ml_model_inter_ind)
 {
     if (!obj_ml_model_inter_ind) {
@@ -190,6 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ml_model_inter
     typedef typename MlModelInterInd::AnalyticsIdType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setAnalyticsId(value)) return NULL;
 
     return obj_ml_model_inter_ind;
@@ -206,11 +208,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ml_model_inter
     typedef typename MlModelInterInd::AnalyticsIdType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setAnalyticsId(std::move(value))) return NULL;
 
     return obj_ml_model_inter_ind;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ml_model_inter_ind_get_vendor_list(const data_collection_model_ml_model_inter_ind_t *obj_ml_model_inter_ind)
 {
@@ -228,12 +232,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ml
     typedef typename MlModelInterInd::VendorListType ResultFromType;
     const ResultFromType result_from = obj->getVendorList();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+    
     typedef typename ResultFromType::value_type ItemType;
     for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
+        if (node) ogs_list_add(result, node);
     }
     return result;
 }
@@ -249,14 +254,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ml_model_inter
     typedef typename MlModelInterInd::VendorListType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setVendorList(value)) return NULL;
 
     return obj_ml_model_inter_ind;
@@ -273,14 +281,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ml_model_inter
     typedef typename MlModelInterInd::VendorListType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_vendor_list);
     if (!obj->setVendorList(std::move(value))) return NULL;
 
@@ -300,6 +311,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ml_model_inter
 
     ValueType value(value_from);
 
+
     obj->addVendorList(value);
     return obj_ml_model_inter_ind;
 }
@@ -315,6 +327,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ml_model_inter
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_vendor_list;
     ValueType value(value_from);
+
     obj->removeVendorList(value);
     return obj_ml_model_inter_ind;
 }

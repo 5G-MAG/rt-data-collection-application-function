@@ -162,6 +162,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ecgi_is_e
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_plmn_id_t* data_collection_model_ecgi_get_plmn_id(const data_collection_model_ecgi_t *obj_ecgi)
 {
     if (!obj_ecgi) {
@@ -192,6 +193,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_c
     typedef typename Ecgi::PlmnIdType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setPlmnId(value)) return NULL;
 
     return obj_ecgi;
@@ -208,11 +210,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_c
     typedef typename Ecgi::PlmnIdType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setPlmnId(std::move(value))) return NULL;
 
     return obj_ecgi;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ecgi_get_eutra_cell_id(const data_collection_model_ecgi_t *obj_ecgi)
 {
@@ -244,6 +248,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_c
     typedef typename Ecgi::EutraCellIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setEutraCellId(value)) return NULL;
 
     return obj_ecgi;
@@ -260,11 +265,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_c
     typedef typename Ecgi::EutraCellIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setEutraCellId(std::move(value))) return NULL;
 
     return obj_ecgi;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ecgi_has_nid(const data_collection_model_ecgi_t *obj_ecgi)
+{
+    if (!obj_ecgi) return false;
+
+    const std::shared_ptr<Ecgi > &obj = *reinterpret_cast<const std::shared_ptr<Ecgi >*>(obj_ecgi);
+    if (!obj) return false;
+
+    return obj->getNid().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ecgi_get_nid(const data_collection_model_ecgi_t *obj_ecgi)
 {
@@ -281,7 +298,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ec
 
     typedef typename Ecgi::NidType ResultFromType;
     const ResultFromType result_from = obj->getNid();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -296,6 +313,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_c
     typedef typename Ecgi::NidType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setNid(value)) return NULL;
 
     return obj_ecgi;
@@ -312,6 +330,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_c
     typedef typename Ecgi::NidType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setNid(std::move(value))) return NULL;
 

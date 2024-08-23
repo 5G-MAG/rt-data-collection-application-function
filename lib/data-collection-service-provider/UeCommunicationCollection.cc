@@ -168,6 +168,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ue_commun
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ue_communication_collection_has_gpsi(const data_collection_model_ue_communication_collection_t *obj_ue_communication_collection)
+{
+    if (!obj_ue_communication_collection) return false;
+
+    const std::shared_ptr<UeCommunicationCollection > &obj = *reinterpret_cast<const std::shared_ptr<UeCommunicationCollection >*>(obj_ue_communication_collection);
+    if (!obj) return false;
+
+    return obj->getGpsi().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue_communication_collection_get_gpsi(const data_collection_model_ue_communication_collection_t *obj_ue_communication_collection)
 {
     if (!obj_ue_communication_collection) {
@@ -183,7 +194,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue
 
     typedef typename UeCommunicationCollection::GpsiType ResultFromType;
     const ResultFromType result_from = obj->getGpsi();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -198,6 +209,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
     typedef typename UeCommunicationCollection::GpsiType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setGpsi(value)) return NULL;
 
     return obj_ue_communication_collection;
@@ -214,11 +226,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
     typedef typename UeCommunicationCollection::GpsiType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setGpsi(std::move(value))) return NULL;
 
     return obj_ue_communication_collection;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ue_communication_collection_has_supi(const data_collection_model_ue_communication_collection_t *obj_ue_communication_collection)
+{
+    if (!obj_ue_communication_collection) return false;
+
+    const std::shared_ptr<UeCommunicationCollection > &obj = *reinterpret_cast<const std::shared_ptr<UeCommunicationCollection >*>(obj_ue_communication_collection);
+    if (!obj) return false;
+
+    return obj->getSupi().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue_communication_collection_get_supi(const data_collection_model_ue_communication_collection_t *obj_ue_communication_collection)
 {
@@ -235,7 +259,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue
 
     typedef typename UeCommunicationCollection::SupiType ResultFromType;
     const ResultFromType result_from = obj->getSupi();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -250,6 +274,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
     typedef typename UeCommunicationCollection::SupiType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setSupi(value)) return NULL;
 
     return obj_ue_communication_collection;
@@ -266,11 +291,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
     typedef typename UeCommunicationCollection::SupiType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setSupi(std::move(value))) return NULL;
 
     return obj_ue_communication_collection;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ue_communication_collection_has_exter_group_id(const data_collection_model_ue_communication_collection_t *obj_ue_communication_collection)
+{
+    if (!obj_ue_communication_collection) return false;
+
+    const std::shared_ptr<UeCommunicationCollection > &obj = *reinterpret_cast<const std::shared_ptr<UeCommunicationCollection >*>(obj_ue_communication_collection);
+    if (!obj) return false;
+
+    return obj->getExterGroupId().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue_communication_collection_get_exter_group_id(const data_collection_model_ue_communication_collection_t *obj_ue_communication_collection)
 {
@@ -287,7 +324,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue
 
     typedef typename UeCommunicationCollection::ExterGroupIdType ResultFromType;
     const ResultFromType result_from = obj->getExterGroupId();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -302,6 +339,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
     typedef typename UeCommunicationCollection::ExterGroupIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setExterGroupId(value)) return NULL;
 
     return obj_ue_communication_collection;
@@ -318,11 +356,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
     typedef typename UeCommunicationCollection::ExterGroupIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setExterGroupId(std::move(value))) return NULL;
 
     return obj_ue_communication_collection;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ue_communication_collection_has_inter_group_id(const data_collection_model_ue_communication_collection_t *obj_ue_communication_collection)
+{
+    if (!obj_ue_communication_collection) return false;
+
+    const std::shared_ptr<UeCommunicationCollection > &obj = *reinterpret_cast<const std::shared_ptr<UeCommunicationCollection >*>(obj_ue_communication_collection);
+    if (!obj) return false;
+
+    return obj->getInterGroupId().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue_communication_collection_get_inter_group_id(const data_collection_model_ue_communication_collection_t *obj_ue_communication_collection)
 {
@@ -339,7 +389,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue
 
     typedef typename UeCommunicationCollection::InterGroupIdType ResultFromType;
     const ResultFromType result_from = obj->getInterGroupId();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -354,6 +404,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
     typedef typename UeCommunicationCollection::InterGroupIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setInterGroupId(value)) return NULL;
 
     return obj_ue_communication_collection;
@@ -370,11 +421,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
     typedef typename UeCommunicationCollection::InterGroupIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setInterGroupId(std::move(value))) return NULL;
 
     return obj_ue_communication_collection;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue_communication_collection_get_app_id(const data_collection_model_ue_communication_collection_t *obj_ue_communication_collection)
 {
@@ -406,6 +459,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
     typedef typename UeCommunicationCollection::AppIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setAppId(value)) return NULL;
 
     return obj_ue_communication_collection;
@@ -422,11 +476,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
     typedef typename UeCommunicationCollection::AppIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setAppId(std::move(value))) return NULL;
 
     return obj_ue_communication_collection;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ue_communication_collection_has_expected_ue_behave_para(const data_collection_model_ue_communication_collection_t *obj_ue_communication_collection)
+{
+    if (!obj_ue_communication_collection) return false;
+
+    const std::shared_ptr<UeCommunicationCollection > &obj = *reinterpret_cast<const std::shared_ptr<UeCommunicationCollection >*>(obj_ue_communication_collection);
+    if (!obj) return false;
+
+    return obj->getExpectedUeBehavePara().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_cp_parameter_set_t* data_collection_model_ue_communication_collection_get_expected_ue_behave_para(const data_collection_model_ue_communication_collection_t *obj_ue_communication_collection)
 {
@@ -443,7 +509,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_cp_param
 
     typedef typename UeCommunicationCollection::ExpectedUeBehaveParaType ResultFromType;
     const ResultFromType result_from = obj->getExpectedUeBehavePara();
-    const data_collection_model_cp_parameter_set_t *result = reinterpret_cast<const data_collection_model_cp_parameter_set_t*>(&result_from);
+    const data_collection_model_cp_parameter_set_t *result = reinterpret_cast<const data_collection_model_cp_parameter_set_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -457,7 +523,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
     const auto &value_from = p_expected_ue_behave_para;
     typedef typename UeCommunicationCollection::ExpectedUeBehaveParaType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setExpectedUeBehavePara(value)) return NULL;
 
     return obj_ue_communication_collection;
@@ -473,12 +540,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
     const auto &value_from = p_expected_ue_behave_para;
     typedef typename UeCommunicationCollection::ExpectedUeBehaveParaType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setExpectedUeBehavePara(std::move(value))) return NULL;
 
     return obj_ue_communication_collection;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ue_communication_collection_get_comms(const data_collection_model_ue_communication_collection_t *obj_ue_communication_collection)
 {
@@ -496,13 +565,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ue
     typedef typename UeCommunicationCollection::CommsType ResultFromType;
     const ResultFromType result_from = obj->getComms();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+    
     typedef typename ResultFromType::value_type ItemType;
     for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_communication_collection_t *item_obj = reinterpret_cast<data_collection_model_communication_collection_t*>(new std::shared_ptr<CommunicationCollection >(item));
-        node = data_collection_model_communication_collection_make_lnode(item_obj);
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_communication_collection_t *item_obj = reinterpret_cast<data_collection_model_communication_collection_t*>(item.has_value()?new std::shared_ptr<CommunicationCollection >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_communication_collection_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
+        if (node) ogs_list_add(result, node);
     }
     return result;
 }
@@ -518,14 +590,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
     typedef typename UeCommunicationCollection::CommsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setComms(value)) return NULL;
 
     return obj_ue_communication_collection;
@@ -542,14 +617,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
     typedef typename UeCommunicationCollection::CommsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_comms);
     if (!obj->setComms(std::move(value))) return NULL;
 
@@ -567,7 +645,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_comms;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
 
     obj->addComms(value);
     return obj_ue_communication_collection;
@@ -583,7 +662,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
     typedef typename UeCommunicationCollection::CommsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_comms;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeComms(value);
     return obj_ue_communication_collection;
 }

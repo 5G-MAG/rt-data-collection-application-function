@@ -162,6 +162,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_usage_thr
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_usage_threshold_has_duration(const data_collection_model_usage_threshold_t *obj_usage_threshold)
+{
+    if (!obj_usage_threshold) return false;
+
+    const std::shared_ptr<UsageThreshold > &obj = *reinterpret_cast<const std::shared_ptr<UsageThreshold >*>(obj_usage_threshold);
+    if (!obj) return false;
+
+    return obj->getDuration().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_usage_threshold_get_duration(const data_collection_model_usage_threshold_t *obj_usage_threshold)
 {
     if (!obj_usage_threshold) {
@@ -177,7 +188,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename UsageThreshold::DurationType ResultFromType;
     const ResultFromType result_from = obj->getDuration();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -191,7 +202,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshol
     const auto &value_from = p_duration;
     typedef typename UsageThreshold::DurationType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setDuration(value)) return NULL;
 
     return obj_usage_threshold;
@@ -207,12 +219,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshol
     const auto &value_from = p_duration;
     typedef typename UsageThreshold::DurationType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setDuration(std::move(value))) return NULL;
 
     return obj_usage_threshold;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_usage_threshold_has_total_volume(const data_collection_model_usage_threshold_t *obj_usage_threshold)
+{
+    if (!obj_usage_threshold) return false;
+
+    const std::shared_ptr<UsageThreshold > &obj = *reinterpret_cast<const std::shared_ptr<UsageThreshold >*>(obj_usage_threshold);
+    if (!obj) return false;
+
+    return obj->getTotalVolume().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_usage_threshold_get_total_volume(const data_collection_model_usage_threshold_t *obj_usage_threshold)
 {
@@ -229,7 +253,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_
 
     typedef typename UsageThreshold::TotalVolumeType ResultFromType;
     const ResultFromType result_from = obj->getTotalVolume();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -243,7 +267,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshol
     const auto &value_from = p_total_volume;
     typedef typename UsageThreshold::TotalVolumeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setTotalVolume(value)) return NULL;
 
     return obj_usage_threshold;
@@ -259,12 +284,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshol
     const auto &value_from = p_total_volume;
     typedef typename UsageThreshold::TotalVolumeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setTotalVolume(std::move(value))) return NULL;
 
     return obj_usage_threshold;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_usage_threshold_has_downlink_volume(const data_collection_model_usage_threshold_t *obj_usage_threshold)
+{
+    if (!obj_usage_threshold) return false;
+
+    const std::shared_ptr<UsageThreshold > &obj = *reinterpret_cast<const std::shared_ptr<UsageThreshold >*>(obj_usage_threshold);
+    if (!obj) return false;
+
+    return obj->getDownlinkVolume().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_usage_threshold_get_downlink_volume(const data_collection_model_usage_threshold_t *obj_usage_threshold)
 {
@@ -281,7 +318,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_
 
     typedef typename UsageThreshold::DownlinkVolumeType ResultFromType;
     const ResultFromType result_from = obj->getDownlinkVolume();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -295,7 +332,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshol
     const auto &value_from = p_downlink_volume;
     typedef typename UsageThreshold::DownlinkVolumeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setDownlinkVolume(value)) return NULL;
 
     return obj_usage_threshold;
@@ -311,12 +349,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshol
     const auto &value_from = p_downlink_volume;
     typedef typename UsageThreshold::DownlinkVolumeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setDownlinkVolume(std::move(value))) return NULL;
 
     return obj_usage_threshold;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_usage_threshold_has_uplink_volume(const data_collection_model_usage_threshold_t *obj_usage_threshold)
+{
+    if (!obj_usage_threshold) return false;
+
+    const std::shared_ptr<UsageThreshold > &obj = *reinterpret_cast<const std::shared_ptr<UsageThreshold >*>(obj_usage_threshold);
+    if (!obj) return false;
+
+    return obj->getUplinkVolume().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_usage_threshold_get_uplink_volume(const data_collection_model_usage_threshold_t *obj_usage_threshold)
 {
@@ -333,7 +383,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_
 
     typedef typename UsageThreshold::UplinkVolumeType ResultFromType;
     const ResultFromType result_from = obj->getUplinkVolume();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -347,7 +397,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshol
     const auto &value_from = p_uplink_volume;
     typedef typename UsageThreshold::UplinkVolumeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setUplinkVolume(value)) return NULL;
 
     return obj_usage_threshold;
@@ -363,7 +414,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshol
     const auto &value_from = p_uplink_volume;
     typedef typename UsageThreshold::UplinkVolumeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setUplinkVolume(std::move(value))) return NULL;
 

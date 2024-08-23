@@ -44,11 +44,13 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnb_id_t *data_collection
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_gnb_id_is_equal_to(const data_collection_model_gnb_id_t *gnb_id, const data_collection_model_gnb_id_t *other_gnb_id);
 
 
+
 DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_gnb_id_get_bit_length(const data_collection_model_gnb_id_t *gnb_id);
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnb_id_t *data_collection_model_gnb_id_set_bit_length(data_collection_model_gnb_id_t *gnb_id, const int32_t p_bit_length);
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnb_id_t *data_collection_model_gnb_id_set_bit_length_move(data_collection_model_gnb_id_t *gnb_id, int32_t p_bit_length);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_gnb_id_get_gnb_value(const data_collection_model_gnb_id_t *gnb_id);
 

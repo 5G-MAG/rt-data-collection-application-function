@@ -164,6 +164,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_point_unc
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supported_gad_shapes_t* data_collection_model_point_uncertainty_ellipse_get_shape(const data_collection_model_point_uncertainty_ellipse_t *obj_point_uncertainty_ellipse)
 {
     if (!obj_point_uncertainty_ellipse) {
@@ -194,6 +195,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertai
     typedef typename PointUncertaintyEllipse::ShapeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setShape(value)) return NULL;
 
     return obj_point_uncertainty_ellipse;
@@ -210,11 +212,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertai
     typedef typename PointUncertaintyEllipse::ShapeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setShape(std::move(value))) return NULL;
 
     return obj_point_uncertainty_ellipse;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geographical_coordinates_t* data_collection_model_point_uncertainty_ellipse_get_point(const data_collection_model_point_uncertainty_ellipse_t *obj_point_uncertainty_ellipse)
 {
@@ -246,6 +250,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertai
     typedef typename PointUncertaintyEllipse::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setPoint(value)) return NULL;
 
     return obj_point_uncertainty_ellipse;
@@ -262,11 +267,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertai
     typedef typename PointUncertaintyEllipse::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setPoint(std::move(value))) return NULL;
 
     return obj_point_uncertainty_ellipse;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_uncertainty_ellipse_t* data_collection_model_point_uncertainty_ellipse_get_uncertainty_ellipse(const data_collection_model_point_uncertainty_ellipse_t *obj_point_uncertainty_ellipse)
 {
@@ -298,6 +305,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertai
     typedef typename PointUncertaintyEllipse::UncertaintyEllipseType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setUncertaintyEllipse(value)) return NULL;
 
     return obj_point_uncertainty_ellipse;
@@ -314,11 +322,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertai
     typedef typename PointUncertaintyEllipse::UncertaintyEllipseType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setUncertaintyEllipse(std::move(value))) return NULL;
 
     return obj_point_uncertainty_ellipse;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_point_uncertainty_ellipse_get_confidence(const data_collection_model_point_uncertainty_ellipse_t *obj_point_uncertainty_ellipse)
 {
@@ -349,7 +359,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertai
     const auto &value_from = p_confidence;
     typedef typename PointUncertaintyEllipse::ConfidenceType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setConfidence(value)) return NULL;
 
     return obj_point_uncertainty_ellipse;
@@ -365,7 +376,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertai
     const auto &value_from = p_confidence;
     typedef typename PointUncertaintyEllipse::ConfidenceType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setConfidence(std::move(value))) return NULL;
 

@@ -156,6 +156,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ms_consum
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ms_consumption_collection_get_ms_consumps(const data_collection_model_ms_consumption_collection_t *obj_ms_consumption_collection)
 {
     if (!obj_ms_consumption_collection) {
@@ -172,12 +173,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ms
     typedef typename MsConsumptionCollection::MsConsumpsType ResultFromType;
     const ResultFromType result_from = obj->getMsConsumps();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+    
     typedef typename ResultFromType::value_type ItemType;
     for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
+        if (node) ogs_list_add(result, node);
     }
     return result;
 }
@@ -193,14 +195,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_consumption
     typedef typename MsConsumptionCollection::MsConsumpsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setMsConsumps(value)) return NULL;
 
     return obj_ms_consumption_collection;
@@ -217,14 +222,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_consumption
     typedef typename MsConsumptionCollection::MsConsumpsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_ms_consumps);
     if (!obj->setMsConsumps(std::move(value))) return NULL;
 
@@ -244,6 +252,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_consumption
 
     ValueType value(value_from);
 
+
     obj->addMsConsumps(value);
     return obj_ms_consumption_collection;
 }
@@ -259,6 +268,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_consumption
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_ms_consumps;
     ValueType value(value_from);
+
     obj->removeMsConsumps(value);
     return obj_ms_consumption_collection;
 }

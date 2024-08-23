@@ -198,6 +198,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_af_event_t* data_collection_model_af_event_notification_get_event(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) {
@@ -228,6 +229,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::EventType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setEvent(value)) return NULL;
 
     return obj_af_event_notification;
@@ -244,11 +246,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::EventType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setEvent(std::move(value))) return NULL;
 
     return obj_af_event_notification;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_af_event_notification_get_time_stamp(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
@@ -280,6 +284,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::TimeStampType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setTimeStamp(value)) return NULL;
 
     return obj_af_event_notification;
@@ -296,11 +301,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::TimeStampType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setTimeStamp(std::move(value))) return NULL;
 
     return obj_af_event_notification;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_notification_has_svc_exprc_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+{
+    if (!obj_af_event_notification) return false;
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) return false;
+
+    return obj->getSvcExprcInfos().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_svc_exprc_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
@@ -317,15 +334,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
 
     typedef typename AfEventNotification::SvcExprcInfosType ResultFromType;
     const ResultFromType result_from = obj->getSvcExprcInfos();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_service_experience_info_per_app_t *item_obj = reinterpret_cast<data_collection_model_service_experience_info_per_app_t*>(new std::shared_ptr<ServiceExperienceInfoPerApp >(item));
-        node = data_collection_model_service_experience_info_per_app_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_service_experience_info_per_app_t *item_obj = reinterpret_cast<data_collection_model_service_experience_info_per_app_t*>(item.has_value()?new std::shared_ptr<ServiceExperienceInfoPerApp >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_service_experience_info_per_app_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -340,14 +361,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::SvcExprcInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setSvcExprcInfos(value)) return NULL;
 
     return obj_af_event_notification;
@@ -364,14 +388,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::SvcExprcInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_svc_exprc_infos);
     if (!obj->setSvcExprcInfos(std::move(value))) return NULL;
 
@@ -385,13 +412,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::SvcExprcInfosType ContainerType;
+    typedef typename AfEventNotification::SvcExprcInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_svc_exprc_infos;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addSvcExprcInfos(value);
+
+    if (value) obj->addSvcExprcInfos(value.value());
     return obj_af_event_notification;
 }
 
@@ -402,10 +430,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::SvcExprcInfosType ContainerType;
+    typedef typename AfEventNotification::SvcExprcInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_svc_exprc_infos;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeSvcExprcInfos(value);
     return obj_af_event_notification;
 }
@@ -420,6 +449,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     obj->clearSvcExprcInfos();
     return obj_af_event_notification;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_notification_has_ue_mobility_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+{
+    if (!obj_af_event_notification) return false;
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) return false;
+
+    return obj->getUeMobilityInfos().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ue_mobility_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
@@ -436,15 +476,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
 
     typedef typename AfEventNotification::UeMobilityInfosType ResultFromType;
     const ResultFromType result_from = obj->getUeMobilityInfos();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_ue_mobility_collection_t *item_obj = reinterpret_cast<data_collection_model_ue_mobility_collection_t*>(new std::shared_ptr<UeMobilityCollection >(item));
-        node = data_collection_model_ue_mobility_collection_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_ue_mobility_collection_t *item_obj = reinterpret_cast<data_collection_model_ue_mobility_collection_t*>(item.has_value()?new std::shared_ptr<UeMobilityCollection >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_ue_mobility_collection_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -459,14 +503,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::UeMobilityInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setUeMobilityInfos(value)) return NULL;
 
     return obj_af_event_notification;
@@ -483,14 +530,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::UeMobilityInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_ue_mobility_infos);
     if (!obj->setUeMobilityInfos(std::move(value))) return NULL;
 
@@ -504,13 +554,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::UeMobilityInfosType ContainerType;
+    typedef typename AfEventNotification::UeMobilityInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_ue_mobility_infos;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addUeMobilityInfos(value);
+
+    if (value) obj->addUeMobilityInfos(value.value());
     return obj_af_event_notification;
 }
 
@@ -521,10 +572,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::UeMobilityInfosType ContainerType;
+    typedef typename AfEventNotification::UeMobilityInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_ue_mobility_infos;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeUeMobilityInfos(value);
     return obj_af_event_notification;
 }
@@ -539,6 +591,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     obj->clearUeMobilityInfos();
     return obj_af_event_notification;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_notification_has_ue_comm_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+{
+    if (!obj_af_event_notification) return false;
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) return false;
+
+    return obj->getUeCommInfos().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ue_comm_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
@@ -555,15 +618,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
 
     typedef typename AfEventNotification::UeCommInfosType ResultFromType;
     const ResultFromType result_from = obj->getUeCommInfos();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_ue_communication_collection_t *item_obj = reinterpret_cast<data_collection_model_ue_communication_collection_t*>(new std::shared_ptr<UeCommunicationCollection >(item));
-        node = data_collection_model_ue_communication_collection_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_ue_communication_collection_t *item_obj = reinterpret_cast<data_collection_model_ue_communication_collection_t*>(item.has_value()?new std::shared_ptr<UeCommunicationCollection >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_ue_communication_collection_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -578,14 +645,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::UeCommInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setUeCommInfos(value)) return NULL;
 
     return obj_af_event_notification;
@@ -602,14 +672,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::UeCommInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_ue_comm_infos);
     if (!obj->setUeCommInfos(std::move(value))) return NULL;
 
@@ -623,13 +696,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::UeCommInfosType ContainerType;
+    typedef typename AfEventNotification::UeCommInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_ue_comm_infos;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addUeCommInfos(value);
+
+    if (value) obj->addUeCommInfos(value.value());
     return obj_af_event_notification;
 }
 
@@ -640,10 +714,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::UeCommInfosType ContainerType;
+    typedef typename AfEventNotification::UeCommInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_ue_comm_infos;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeUeCommInfos(value);
     return obj_af_event_notification;
 }
@@ -658,6 +733,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     obj->clearUeCommInfos();
     return obj_af_event_notification;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_notification_has_excep_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+{
+    if (!obj_af_event_notification) return false;
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) return false;
+
+    return obj->getExcepInfos().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_excep_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
@@ -674,15 +760,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
 
     typedef typename AfEventNotification::ExcepInfosType ResultFromType;
     const ResultFromType result_from = obj->getExcepInfos();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_exception_info_t *item_obj = reinterpret_cast<data_collection_model_exception_info_t*>(new std::shared_ptr<ExceptionInfo >(item));
-        node = data_collection_model_exception_info_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_exception_info_t *item_obj = reinterpret_cast<data_collection_model_exception_info_t*>(item.has_value()?new std::shared_ptr<ExceptionInfo >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_exception_info_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -697,14 +787,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::ExcepInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setExcepInfos(value)) return NULL;
 
     return obj_af_event_notification;
@@ -721,14 +814,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::ExcepInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_excep_infos);
     if (!obj->setExcepInfos(std::move(value))) return NULL;
 
@@ -742,13 +838,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::ExcepInfosType ContainerType;
+    typedef typename AfEventNotification::ExcepInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_excep_infos;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addExcepInfos(value);
+
+    if (value) obj->addExcepInfos(value.value());
     return obj_af_event_notification;
 }
 
@@ -759,10 +856,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::ExcepInfosType ContainerType;
+    typedef typename AfEventNotification::ExcepInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_excep_infos;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeExcepInfos(value);
     return obj_af_event_notification;
 }
@@ -777,6 +875,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     obj->clearExcepInfos();
     return obj_af_event_notification;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_notification_has_congestion_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+{
+    if (!obj_af_event_notification) return false;
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) return false;
+
+    return obj->getCongestionInfos().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_congestion_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
@@ -793,15 +902,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
 
     typedef typename AfEventNotification::CongestionInfosType ResultFromType;
     const ResultFromType result_from = obj->getCongestionInfos();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_user_data_congestion_collection_t *item_obj = reinterpret_cast<data_collection_model_user_data_congestion_collection_t*>(new std::shared_ptr<UserDataCongestionCollection >(item));
-        node = data_collection_model_user_data_congestion_collection_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_user_data_congestion_collection_t *item_obj = reinterpret_cast<data_collection_model_user_data_congestion_collection_t*>(item.has_value()?new std::shared_ptr<UserDataCongestionCollection >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_user_data_congestion_collection_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -816,14 +929,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::CongestionInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setCongestionInfos(value)) return NULL;
 
     return obj_af_event_notification;
@@ -840,14 +956,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::CongestionInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_congestion_infos);
     if (!obj->setCongestionInfos(std::move(value))) return NULL;
 
@@ -861,13 +980,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::CongestionInfosType ContainerType;
+    typedef typename AfEventNotification::CongestionInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_congestion_infos;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addCongestionInfos(value);
+
+    if (value) obj->addCongestionInfos(value.value());
     return obj_af_event_notification;
 }
 
@@ -878,10 +998,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::CongestionInfosType ContainerType;
+    typedef typename AfEventNotification::CongestionInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_congestion_infos;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeCongestionInfos(value);
     return obj_af_event_notification;
 }
@@ -896,6 +1017,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     obj->clearCongestionInfos();
     return obj_af_event_notification;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_notification_has_perf_data_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+{
+    if (!obj_af_event_notification) return false;
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) return false;
+
+    return obj->getPerfDataInfos().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_perf_data_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
@@ -912,15 +1044,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
 
     typedef typename AfEventNotification::PerfDataInfosType ResultFromType;
     const ResultFromType result_from = obj->getPerfDataInfos();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_performance_data_collection_t *item_obj = reinterpret_cast<data_collection_model_performance_data_collection_t*>(new std::shared_ptr<PerformanceDataCollection >(item));
-        node = data_collection_model_performance_data_collection_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_performance_data_collection_t *item_obj = reinterpret_cast<data_collection_model_performance_data_collection_t*>(item.has_value()?new std::shared_ptr<PerformanceDataCollection >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_performance_data_collection_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -935,14 +1071,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::PerfDataInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setPerfDataInfos(value)) return NULL;
 
     return obj_af_event_notification;
@@ -959,14 +1098,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::PerfDataInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_perf_data_infos);
     if (!obj->setPerfDataInfos(std::move(value))) return NULL;
 
@@ -980,13 +1122,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::PerfDataInfosType ContainerType;
+    typedef typename AfEventNotification::PerfDataInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_perf_data_infos;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addPerfDataInfos(value);
+
+    if (value) obj->addPerfDataInfos(value.value());
     return obj_af_event_notification;
 }
 
@@ -997,10 +1140,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::PerfDataInfosType ContainerType;
+    typedef typename AfEventNotification::PerfDataInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_perf_data_infos;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removePerfDataInfos(value);
     return obj_af_event_notification;
 }
@@ -1015,6 +1159,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     obj->clearPerfDataInfos();
     return obj_af_event_notification;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_notification_has_dispersion_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+{
+    if (!obj_af_event_notification) return false;
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) return false;
+
+    return obj->getDispersionInfos().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_dispersion_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
@@ -1031,15 +1186,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
 
     typedef typename AfEventNotification::DispersionInfosType ResultFromType;
     const ResultFromType result_from = obj->getDispersionInfos();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_dispersion_collection_t *item_obj = reinterpret_cast<data_collection_model_dispersion_collection_t*>(new std::shared_ptr<DispersionCollection >(item));
-        node = data_collection_model_dispersion_collection_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_dispersion_collection_t *item_obj = reinterpret_cast<data_collection_model_dispersion_collection_t*>(item.has_value()?new std::shared_ptr<DispersionCollection >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_dispersion_collection_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -1054,14 +1213,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::DispersionInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setDispersionInfos(value)) return NULL;
 
     return obj_af_event_notification;
@@ -1078,14 +1240,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::DispersionInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_dispersion_infos);
     if (!obj->setDispersionInfos(std::move(value))) return NULL;
 
@@ -1099,13 +1264,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::DispersionInfosType ContainerType;
+    typedef typename AfEventNotification::DispersionInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_dispersion_infos;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addDispersionInfos(value);
+
+    if (value) obj->addDispersionInfos(value.value());
     return obj_af_event_notification;
 }
 
@@ -1116,10 +1282,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::DispersionInfosType ContainerType;
+    typedef typename AfEventNotification::DispersionInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_dispersion_infos;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeDispersionInfos(value);
     return obj_af_event_notification;
 }
@@ -1134,6 +1301,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     obj->clearDispersionInfos();
     return obj_af_event_notification;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_notification_has_coll_bhvr_infs(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+{
+    if (!obj_af_event_notification) return false;
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) return false;
+
+    return obj->getCollBhvrInfs().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_coll_bhvr_infs(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
@@ -1150,15 +1328,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
 
     typedef typename AfEventNotification::CollBhvrInfsType ResultFromType;
     const ResultFromType result_from = obj->getCollBhvrInfs();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_collective_behaviour_info_t *item_obj = reinterpret_cast<data_collection_model_collective_behaviour_info_t*>(new std::shared_ptr<CollectiveBehaviourInfo >(item));
-        node = data_collection_model_collective_behaviour_info_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_collective_behaviour_info_t *item_obj = reinterpret_cast<data_collection_model_collective_behaviour_info_t*>(item.has_value()?new std::shared_ptr<CollectiveBehaviourInfo >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_collective_behaviour_info_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -1173,14 +1355,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::CollBhvrInfsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setCollBhvrInfs(value)) return NULL;
 
     return obj_af_event_notification;
@@ -1197,14 +1382,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::CollBhvrInfsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_coll_bhvr_infs);
     if (!obj->setCollBhvrInfs(std::move(value))) return NULL;
 
@@ -1218,13 +1406,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::CollBhvrInfsType ContainerType;
+    typedef typename AfEventNotification::CollBhvrInfsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_coll_bhvr_infs;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addCollBhvrInfs(value);
+
+    if (value) obj->addCollBhvrInfs(value.value());
     return obj_af_event_notification;
 }
 
@@ -1235,10 +1424,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::CollBhvrInfsType ContainerType;
+    typedef typename AfEventNotification::CollBhvrInfsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_coll_bhvr_infs;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeCollBhvrInfs(value);
     return obj_af_event_notification;
 }
@@ -1253,6 +1443,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     obj->clearCollBhvrInfs();
     return obj_af_event_notification;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_notification_has_ms_qoe_metr_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+{
+    if (!obj_af_event_notification) return false;
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) return false;
+
+    return obj->getMsQoeMetrInfos().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ms_qoe_metr_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
@@ -1269,15 +1470,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
 
     typedef typename AfEventNotification::MsQoeMetrInfosType ResultFromType;
     const ResultFromType result_from = obj->getMsQoeMetrInfos();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_ms_qoe_metrics_collection_t *item_obj = reinterpret_cast<data_collection_model_ms_qoe_metrics_collection_t*>(new std::shared_ptr<MsQoeMetricsCollection >(item));
-        node = data_collection_model_ms_qoe_metrics_collection_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_ms_qoe_metrics_collection_t *item_obj = reinterpret_cast<data_collection_model_ms_qoe_metrics_collection_t*>(item.has_value()?new std::shared_ptr<MsQoeMetricsCollection >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_ms_qoe_metrics_collection_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -1292,14 +1497,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::MsQoeMetrInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setMsQoeMetrInfos(value)) return NULL;
 
     return obj_af_event_notification;
@@ -1316,14 +1524,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::MsQoeMetrInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_ms_qoe_metr_infos);
     if (!obj->setMsQoeMetrInfos(std::move(value))) return NULL;
 
@@ -1337,13 +1548,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::MsQoeMetrInfosType ContainerType;
+    typedef typename AfEventNotification::MsQoeMetrInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_ms_qoe_metr_infos;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addMsQoeMetrInfos(value);
+
+    if (value) obj->addMsQoeMetrInfos(value.value());
     return obj_af_event_notification;
 }
 
@@ -1354,10 +1566,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::MsQoeMetrInfosType ContainerType;
+    typedef typename AfEventNotification::MsQoeMetrInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_ms_qoe_metr_infos;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeMsQoeMetrInfos(value);
     return obj_af_event_notification;
 }
@@ -1372,6 +1585,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     obj->clearMsQoeMetrInfos();
     return obj_af_event_notification;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_notification_has_ms_qoe_metrics(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+{
+    if (!obj_af_event_notification) return false;
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) return false;
+
+    return obj->getMsQoeMetrics().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ms_qoe_metrics(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
@@ -1388,15 +1612,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
 
     typedef typename AfEventNotification::MsQoeMetricsType ResultFromType;
     const ResultFromType result_from = obj->getMsQoeMetrics();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_qo_e_metrics_collection_t *item_obj = reinterpret_cast<data_collection_model_qo_e_metrics_collection_t*>(new std::shared_ptr<QoEMetricsCollection >(item));
-        node = data_collection_model_qo_e_metrics_collection_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_qo_e_metrics_collection_t *item_obj = reinterpret_cast<data_collection_model_qo_e_metrics_collection_t*>(item.has_value()?new std::shared_ptr<QoEMetricsCollection >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_qo_e_metrics_collection_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -1411,14 +1639,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::MsQoeMetricsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setMsQoeMetrics(value)) return NULL;
 
     return obj_af_event_notification;
@@ -1435,14 +1666,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::MsQoeMetricsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_ms_qoe_metrics);
     if (!obj->setMsQoeMetrics(std::move(value))) return NULL;
 
@@ -1456,13 +1690,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::MsQoeMetricsType ContainerType;
+    typedef typename AfEventNotification::MsQoeMetricsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_ms_qoe_metrics;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addMsQoeMetrics(value);
+
+    if (value) obj->addMsQoeMetrics(value.value());
     return obj_af_event_notification;
 }
 
@@ -1473,10 +1708,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::MsQoeMetricsType ContainerType;
+    typedef typename AfEventNotification::MsQoeMetricsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_ms_qoe_metrics;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeMsQoeMetrics(value);
     return obj_af_event_notification;
 }
@@ -1491,6 +1727,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     obj->clearMsQoeMetrics();
     return obj_af_event_notification;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_notification_has_ms_consump_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+{
+    if (!obj_af_event_notification) return false;
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) return false;
+
+    return obj->getMsConsumpInfos().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ms_consump_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
@@ -1507,15 +1754,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
 
     typedef typename AfEventNotification::MsConsumpInfosType ResultFromType;
     const ResultFromType result_from = obj->getMsConsumpInfos();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_ms_consumption_collection_t *item_obj = reinterpret_cast<data_collection_model_ms_consumption_collection_t*>(new std::shared_ptr<MsConsumptionCollection >(item));
-        node = data_collection_model_ms_consumption_collection_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_ms_consumption_collection_t *item_obj = reinterpret_cast<data_collection_model_ms_consumption_collection_t*>(item.has_value()?new std::shared_ptr<MsConsumptionCollection >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_ms_consumption_collection_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -1530,14 +1781,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::MsConsumpInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setMsConsumpInfos(value)) return NULL;
 
     return obj_af_event_notification;
@@ -1554,14 +1808,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::MsConsumpInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_ms_consump_infos);
     if (!obj->setMsConsumpInfos(std::move(value))) return NULL;
 
@@ -1575,13 +1832,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::MsConsumpInfosType ContainerType;
+    typedef typename AfEventNotification::MsConsumpInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_ms_consump_infos;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addMsConsumpInfos(value);
+
+    if (value) obj->addMsConsumpInfos(value.value());
     return obj_af_event_notification;
 }
 
@@ -1592,10 +1850,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::MsConsumpInfosType ContainerType;
+    typedef typename AfEventNotification::MsConsumpInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_ms_consump_infos;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeMsConsumpInfos(value);
     return obj_af_event_notification;
 }
@@ -1610,6 +1869,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     obj->clearMsConsumpInfos();
     return obj_af_event_notification;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_notification_has_ms_consump_rpts(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+{
+    if (!obj_af_event_notification) return false;
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) return false;
+
+    return obj->getMsConsumpRpts().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ms_consump_rpts(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
@@ -1626,15 +1896,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
 
     typedef typename AfEventNotification::MsConsumpRptsType ResultFromType;
     const ResultFromType result_from = obj->getMsConsumpRpts();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_consumption_reporting_units_collection_t *item_obj = reinterpret_cast<data_collection_model_consumption_reporting_units_collection_t*>(new std::shared_ptr<ConsumptionReportingUnitsCollection >(item));
-        node = data_collection_model_consumption_reporting_units_collection_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_consumption_reporting_units_collection_t *item_obj = reinterpret_cast<data_collection_model_consumption_reporting_units_collection_t*>(item.has_value()?new std::shared_ptr<ConsumptionReportingUnitsCollection >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_consumption_reporting_units_collection_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -1649,14 +1923,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::MsConsumpRptsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setMsConsumpRpts(value)) return NULL;
 
     return obj_af_event_notification;
@@ -1673,14 +1950,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::MsConsumpRptsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_ms_consump_rpts);
     if (!obj->setMsConsumpRpts(std::move(value))) return NULL;
 
@@ -1694,13 +1974,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::MsConsumpRptsType ContainerType;
+    typedef typename AfEventNotification::MsConsumpRptsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_ms_consump_rpts;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addMsConsumpRpts(value);
+
+    if (value) obj->addMsConsumpRpts(value.value());
     return obj_af_event_notification;
 }
 
@@ -1711,10 +1992,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::MsConsumpRptsType ContainerType;
+    typedef typename AfEventNotification::MsConsumpRptsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_ms_consump_rpts;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeMsConsumpRpts(value);
     return obj_af_event_notification;
 }
@@ -1729,6 +2011,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     obj->clearMsConsumpRpts();
     return obj_af_event_notification;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_notification_has_ms_net_ass_inv_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+{
+    if (!obj_af_event_notification) return false;
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) return false;
+
+    return obj->getMsNetAssInvInfos().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ms_net_ass_inv_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
@@ -1745,15 +2038,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
 
     typedef typename AfEventNotification::MsNetAssInvInfosType ResultFromType;
     const ResultFromType result_from = obj->getMsNetAssInvInfos();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_ms_net_ass_invocation_collection_t *item_obj = reinterpret_cast<data_collection_model_ms_net_ass_invocation_collection_t*>(new std::shared_ptr<MsNetAssInvocationCollection >(item));
-        node = data_collection_model_ms_net_ass_invocation_collection_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_ms_net_ass_invocation_collection_t *item_obj = reinterpret_cast<data_collection_model_ms_net_ass_invocation_collection_t*>(item.has_value()?new std::shared_ptr<MsNetAssInvocationCollection >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_ms_net_ass_invocation_collection_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -1768,14 +2065,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::MsNetAssInvInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setMsNetAssInvInfos(value)) return NULL;
 
     return obj_af_event_notification;
@@ -1792,14 +2092,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::MsNetAssInvInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_ms_net_ass_inv_infos);
     if (!obj->setMsNetAssInvInfos(std::move(value))) return NULL;
 
@@ -1813,13 +2116,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::MsNetAssInvInfosType ContainerType;
+    typedef typename AfEventNotification::MsNetAssInvInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_ms_net_ass_inv_infos;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addMsNetAssInvInfos(value);
+
+    if (value) obj->addMsNetAssInvInfos(value.value());
     return obj_af_event_notification;
 }
 
@@ -1830,10 +2134,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::MsNetAssInvInfosType ContainerType;
+    typedef typename AfEventNotification::MsNetAssInvInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_ms_net_ass_inv_infos;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeMsNetAssInvInfos(value);
     return obj_af_event_notification;
 }
@@ -1848,6 +2153,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     obj->clearMsNetAssInvInfos();
     return obj_af_event_notification;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_notification_has_ms_net_assist_invs(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+{
+    if (!obj_af_event_notification) return false;
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) return false;
+
+    return obj->getMsNetAssistInvs().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ms_net_assist_invs(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
@@ -1864,15 +2180,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
 
     typedef typename AfEventNotification::MsNetAssistInvsType ResultFromType;
     const ResultFromType result_from = obj->getMsNetAssistInvs();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_network_assistance_invocations_collection_t *item_obj = reinterpret_cast<data_collection_model_network_assistance_invocations_collection_t*>(new std::shared_ptr<NetworkAssistanceInvocationsCollection >(item));
-        node = data_collection_model_network_assistance_invocations_collection_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_network_assistance_invocations_collection_t *item_obj = reinterpret_cast<data_collection_model_network_assistance_invocations_collection_t*>(item.has_value()?new std::shared_ptr<NetworkAssistanceInvocationsCollection >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_network_assistance_invocations_collection_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -1887,14 +2207,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::MsNetAssistInvsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setMsNetAssistInvs(value)) return NULL;
 
     return obj_af_event_notification;
@@ -1911,14 +2234,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::MsNetAssistInvsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_ms_net_assist_invs);
     if (!obj->setMsNetAssistInvs(std::move(value))) return NULL;
 
@@ -1932,13 +2258,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::MsNetAssistInvsType ContainerType;
+    typedef typename AfEventNotification::MsNetAssistInvsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_ms_net_assist_invs;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addMsNetAssistInvs(value);
+
+    if (value) obj->addMsNetAssistInvs(value.value());
     return obj_af_event_notification;
 }
 
@@ -1949,10 +2276,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::MsNetAssistInvsType ContainerType;
+    typedef typename AfEventNotification::MsNetAssistInvsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_ms_net_assist_invs;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeMsNetAssistInvs(value);
     return obj_af_event_notification;
 }
@@ -1967,6 +2295,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     obj->clearMsNetAssistInvs();
     return obj_af_event_notification;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_notification_has_ms_dyn_ply_inv_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+{
+    if (!obj_af_event_notification) return false;
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) return false;
+
+    return obj->getMsDynPlyInvInfos().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ms_dyn_ply_inv_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
@@ -1983,15 +2322,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
 
     typedef typename AfEventNotification::MsDynPlyInvInfosType ResultFromType;
     const ResultFromType result_from = obj->getMsDynPlyInvInfos();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_ms_dyn_policy_invocation_collection_t *item_obj = reinterpret_cast<data_collection_model_ms_dyn_policy_invocation_collection_t*>(new std::shared_ptr<MsDynPolicyInvocationCollection >(item));
-        node = data_collection_model_ms_dyn_policy_invocation_collection_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_ms_dyn_policy_invocation_collection_t *item_obj = reinterpret_cast<data_collection_model_ms_dyn_policy_invocation_collection_t*>(item.has_value()?new std::shared_ptr<MsDynPolicyInvocationCollection >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_ms_dyn_policy_invocation_collection_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -2006,14 +2349,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::MsDynPlyInvInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setMsDynPlyInvInfos(value)) return NULL;
 
     return obj_af_event_notification;
@@ -2030,14 +2376,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::MsDynPlyInvInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_ms_dyn_ply_inv_infos);
     if (!obj->setMsDynPlyInvInfos(std::move(value))) return NULL;
 
@@ -2051,13 +2400,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::MsDynPlyInvInfosType ContainerType;
+    typedef typename AfEventNotification::MsDynPlyInvInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_ms_dyn_ply_inv_infos;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addMsDynPlyInvInfos(value);
+
+    if (value) obj->addMsDynPlyInvInfos(value.value());
     return obj_af_event_notification;
 }
 
@@ -2068,10 +2418,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::MsDynPlyInvInfosType ContainerType;
+    typedef typename AfEventNotification::MsDynPlyInvInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_ms_dyn_ply_inv_infos;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeMsDynPlyInvInfos(value);
     return obj_af_event_notification;
 }
@@ -2086,6 +2437,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     obj->clearMsDynPlyInvInfos();
     return obj_af_event_notification;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_notification_has_ms_dyn_ply_invs(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+{
+    if (!obj_af_event_notification) return false;
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) return false;
+
+    return obj->getMsDynPlyInvs().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ms_dyn_ply_invs(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
@@ -2102,15 +2464,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
 
     typedef typename AfEventNotification::MsDynPlyInvsType ResultFromType;
     const ResultFromType result_from = obj->getMsDynPlyInvs();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_dynamic_policy_invocations_collection_t *item_obj = reinterpret_cast<data_collection_model_dynamic_policy_invocations_collection_t*>(new std::shared_ptr<DynamicPolicyInvocationsCollection >(item));
-        node = data_collection_model_dynamic_policy_invocations_collection_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_dynamic_policy_invocations_collection_t *item_obj = reinterpret_cast<data_collection_model_dynamic_policy_invocations_collection_t*>(item.has_value()?new std::shared_ptr<DynamicPolicyInvocationsCollection >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_dynamic_policy_invocations_collection_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -2125,14 +2491,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::MsDynPlyInvsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setMsDynPlyInvs(value)) return NULL;
 
     return obj_af_event_notification;
@@ -2149,14 +2518,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::MsDynPlyInvsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_ms_dyn_ply_invs);
     if (!obj->setMsDynPlyInvs(std::move(value))) return NULL;
 
@@ -2170,13 +2542,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::MsDynPlyInvsType ContainerType;
+    typedef typename AfEventNotification::MsDynPlyInvsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_ms_dyn_ply_invs;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addMsDynPlyInvs(value);
+
+    if (value) obj->addMsDynPlyInvs(value.value());
     return obj_af_event_notification;
 }
 
@@ -2187,10 +2560,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::MsDynPlyInvsType ContainerType;
+    typedef typename AfEventNotification::MsDynPlyInvsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_ms_dyn_ply_invs;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeMsDynPlyInvs(value);
     return obj_af_event_notification;
 }
@@ -2205,6 +2579,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     obj->clearMsDynPlyInvs();
     return obj_af_event_notification;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_notification_has_ms_acc_act_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+{
+    if (!obj_af_event_notification) return false;
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) return false;
+
+    return obj->getMsAccActInfos().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ms_acc_act_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
@@ -2221,15 +2606,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
 
     typedef typename AfEventNotification::MsAccActInfosType ResultFromType;
     const ResultFromType result_from = obj->getMsAccActInfos();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_ms_access_activity_collection_t *item_obj = reinterpret_cast<data_collection_model_ms_access_activity_collection_t*>(new std::shared_ptr<MSAccessActivityCollection >(item));
-        node = data_collection_model_ms_access_activity_collection_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_ms_access_activity_collection_t *item_obj = reinterpret_cast<data_collection_model_ms_access_activity_collection_t*>(item.has_value()?new std::shared_ptr<MSAccessActivityCollection >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_ms_access_activity_collection_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -2244,14 +2633,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::MsAccActInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setMsAccActInfos(value)) return NULL;
 
     return obj_af_event_notification;
@@ -2268,14 +2660,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::MsAccActInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_ms_acc_act_infos);
     if (!obj->setMsAccActInfos(std::move(value))) return NULL;
 
@@ -2289,13 +2684,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::MsAccActInfosType ContainerType;
+    typedef typename AfEventNotification::MsAccActInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_ms_acc_act_infos;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addMsAccActInfos(value);
+
+    if (value) obj->addMsAccActInfos(value.value());
     return obj_af_event_notification;
 }
 
@@ -2306,10 +2702,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::MsAccActInfosType ContainerType;
+    typedef typename AfEventNotification::MsAccActInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_ms_acc_act_infos;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeMsAccActInfos(value);
     return obj_af_event_notification;
 }
@@ -2324,6 +2721,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     obj->clearMsAccActInfos();
     return obj_af_event_notification;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_notification_has_ms_accesses(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+{
+    if (!obj_af_event_notification) return false;
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) return false;
+
+    return obj->getMsAccesses().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_ms_accesses(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
@@ -2340,15 +2748,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
 
     typedef typename AfEventNotification::MsAccessesType ResultFromType;
     const ResultFromType result_from = obj->getMsAccesses();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_media_streaming_accesses_collection_t *item_obj = reinterpret_cast<data_collection_model_media_streaming_accesses_collection_t*>(new std::shared_ptr<MediaStreamingAccessesCollection >(item));
-        node = data_collection_model_media_streaming_accesses_collection_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_media_streaming_accesses_collection_t *item_obj = reinterpret_cast<data_collection_model_media_streaming_accesses_collection_t*>(item.has_value()?new std::shared_ptr<MediaStreamingAccessesCollection >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_media_streaming_accesses_collection_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -2363,14 +2775,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::MsAccessesType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setMsAccesses(value)) return NULL;
 
     return obj_af_event_notification;
@@ -2387,14 +2802,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::MsAccessesType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_ms_accesses);
     if (!obj->setMsAccesses(std::move(value))) return NULL;
 
@@ -2408,13 +2826,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::MsAccessesType ContainerType;
+    typedef typename AfEventNotification::MsAccessesType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_ms_accesses;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addMsAccesses(value);
+
+    if (value) obj->addMsAccesses(value.value());
     return obj_af_event_notification;
 }
 
@@ -2425,10 +2844,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::MsAccessesType ContainerType;
+    typedef typename AfEventNotification::MsAccessesType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_ms_accesses;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeMsAccesses(value);
     return obj_af_event_notification;
 }
@@ -2443,6 +2863,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     obj->clearMsAccesses();
     return obj_af_event_notification;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_notification_has_gnss_assist_data_info(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+{
+    if (!obj_af_event_notification) return false;
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) return false;
+
+    return obj->getGnssAssistDataInfo().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_gnss_assist_data_info_t* data_collection_model_af_event_notification_get_gnss_assist_data_info(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
@@ -2459,7 +2890,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_gnss_ass
 
     typedef typename AfEventNotification::GnssAssistDataInfoType ResultFromType;
     const ResultFromType result_from = obj->getGnssAssistDataInfo();
-    const data_collection_model_gnss_assist_data_info_t *result = reinterpret_cast<const data_collection_model_gnss_assist_data_info_t*>(&result_from);
+    const data_collection_model_gnss_assist_data_info_t *result = reinterpret_cast<const data_collection_model_gnss_assist_data_info_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -2473,7 +2904,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     const auto &value_from = p_gnss_assist_data_info;
     typedef typename AfEventNotification::GnssAssistDataInfoType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setGnssAssistDataInfo(value)) return NULL;
 
     return obj_af_event_notification;
@@ -2489,12 +2921,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     const auto &value_from = p_gnss_assist_data_info;
     typedef typename AfEventNotification::GnssAssistDataInfoType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setGnssAssistDataInfo(std::move(value))) return NULL;
 
     return obj_af_event_notification;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_af_event_notification_has_dat_vol_trans_time_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
+{
+    if (!obj_af_event_notification) return false;
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) return false;
+
+    return obj->getDatVolTransTimeInfos().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af_event_notification_get_dat_vol_trans_time_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
@@ -2511,15 +2955,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
 
     typedef typename AfEventNotification::DatVolTransTimeInfosType ResultFromType;
     const ResultFromType result_from = obj->getDatVolTransTimeInfos();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_dat_vol_trans_time_collection_t *item_obj = reinterpret_cast<data_collection_model_dat_vol_trans_time_collection_t*>(new std::shared_ptr<DatVolTransTimeCollection >(item));
-        node = data_collection_model_dat_vol_trans_time_collection_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_dat_vol_trans_time_collection_t *item_obj = reinterpret_cast<data_collection_model_dat_vol_trans_time_collection_t*>(item.has_value()?new std::shared_ptr<DatVolTransTimeCollection >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_dat_vol_trans_time_collection_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -2534,14 +2982,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::DatVolTransTimeInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setDatVolTransTimeInfos(value)) return NULL;
 
     return obj_af_event_notification;
@@ -2558,14 +3009,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     typedef typename AfEventNotification::DatVolTransTimeInfosType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_dat_vol_trans_time_infos);
     if (!obj->setDatVolTransTimeInfos(std::move(value))) return NULL;
 
@@ -2579,13 +3033,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::DatVolTransTimeInfosType ContainerType;
+    typedef typename AfEventNotification::DatVolTransTimeInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_dat_vol_trans_time_infos;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addDatVolTransTimeInfos(value);
+
+    if (value) obj->addDatVolTransTimeInfos(value.value());
     return obj_af_event_notification;
 }
 
@@ -2596,10 +3051,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
     if (!obj) return NULL;
 
-    typedef typename AfEventNotification::DatVolTransTimeInfosType ContainerType;
+    typedef typename AfEventNotification::DatVolTransTimeInfosType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_dat_vol_trans_time_infos;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeDatVolTransTimeInfos(value);
     return obj_af_event_notification;
 }

@@ -45,17 +45,22 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_tai_t *data_collection_mo
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_tai_is_equal_to(const data_collection_model_tai_t *tai, const data_collection_model_tai_t *other_tai);
 
 
+
 DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_plmn_id_t* data_collection_model_tai_get_plmn_id(const data_collection_model_tai_t *tai);
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_tai_t *data_collection_model_tai_set_plmn_id(data_collection_model_tai_t *tai, const data_collection_model_plmn_id_t* p_plmn_id);
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_tai_t *data_collection_model_tai_set_plmn_id_move(data_collection_model_tai_t *tai, data_collection_model_plmn_id_t* p_plmn_id);
 
+
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_tai_get_tac(const data_collection_model_tai_t *tai);
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_tai_t *data_collection_model_tai_set_tac(data_collection_model_tai_t *tai, const char* p_tac);
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_tai_t *data_collection_model_tai_set_tac_move(data_collection_model_tai_t *tai, char* p_tac);
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_tai_has_nid(const data_collection_model_tai_t *tai);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_tai_get_nid(const data_collection_model_tai_t *tai);
 

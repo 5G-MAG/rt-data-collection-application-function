@@ -158,6 +158,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_umt_locat
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_umt_location_area5_g_all_of_has_umt_time(const data_collection_model_umt_location_area5_g_all_of_t *obj_umt_location_area5_g_all_of)
+{
+    if (!obj_umt_location_area5_g_all_of) return false;
+
+    const std::shared_ptr<UmtLocationArea5G_allOf > &obj = *reinterpret_cast<const std::shared_ptr<UmtLocationArea5G_allOf >*>(obj_umt_location_area5_g_all_of);
+    if (!obj) return false;
+
+    return obj->getUmtTime().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_umt_location_area5_g_all_of_get_umt_time(const data_collection_model_umt_location_area5_g_all_of_t *obj_umt_location_area5_g_all_of)
 {
     if (!obj_umt_location_area5_g_all_of) {
@@ -173,7 +184,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_um
 
     typedef typename UmtLocationArea5G_allOf::UmtTimeType ResultFromType;
     const ResultFromType result_from = obj->getUmtTime();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -188,6 +199,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
     typedef typename UmtLocationArea5G_allOf::UmtTimeType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setUmtTime(value)) return NULL;
 
     return obj_umt_location_area5_g_all_of;
@@ -204,11 +216,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
     typedef typename UmtLocationArea5G_allOf::UmtTimeType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setUmtTime(std::move(value))) return NULL;
 
     return obj_umt_location_area5_g_all_of;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_umt_location_area5_g_all_of_has_umt_duration(const data_collection_model_umt_location_area5_g_all_of_t *obj_umt_location_area5_g_all_of)
+{
+    if (!obj_umt_location_area5_g_all_of) return false;
+
+    const std::shared_ptr<UmtLocationArea5G_allOf > &obj = *reinterpret_cast<const std::shared_ptr<UmtLocationArea5G_allOf >*>(obj_umt_location_area5_g_all_of);
+    if (!obj) return false;
+
+    return obj->getUmtDuration().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_umt_location_area5_g_all_of_get_umt_duration(const data_collection_model_umt_location_area5_g_all_of_t *obj_umt_location_area5_g_all_of)
 {
@@ -225,7 +249,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename UmtLocationArea5G_allOf::UmtDurationType ResultFromType;
     const ResultFromType result_from = obj->getUmtDuration();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -239,7 +263,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
     const auto &value_from = p_umt_duration;
     typedef typename UmtLocationArea5G_allOf::UmtDurationType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setUmtDuration(value)) return NULL;
 
     return obj_umt_location_area5_g_all_of;
@@ -255,7 +280,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
     const auto &value_from = p_umt_duration;
     typedef typename UmtLocationArea5G_allOf::UmtDurationType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setUmtDuration(std::move(value))) return NULL;
 

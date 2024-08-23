@@ -164,6 +164,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_dynamic_p
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_dynamic_policy_invocation_event_all_of_get_policy_template_id(const data_collection_model_dynamic_policy_invocation_event_all_of_t *obj_dynamic_policy_invocation_event_all_of)
 {
     if (!obj_dynamic_policy_invocation_event_all_of) {
@@ -194,6 +195,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
     typedef typename DynamicPolicyInvocationEvent_allOf::PolicyTemplateIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setPolicyTemplateId(value)) return NULL;
 
     return obj_dynamic_policy_invocation_event_all_of;
@@ -210,11 +212,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
     typedef typename DynamicPolicyInvocationEvent_allOf::PolicyTemplateIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setPolicyTemplateId(std::move(value))) return NULL;
 
     return obj_dynamic_policy_invocation_event_all_of;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_dynamic_policy_invocation_event_all_of_has_application_flow_descriptions(const data_collection_model_dynamic_policy_invocation_event_all_of_t *obj_dynamic_policy_invocation_event_all_of)
+{
+    if (!obj_dynamic_policy_invocation_event_all_of) return false;
+
+    const std::shared_ptr<DynamicPolicyInvocationEvent_allOf > &obj = *reinterpret_cast<const std::shared_ptr<DynamicPolicyInvocationEvent_allOf >*>(obj_dynamic_policy_invocation_event_all_of);
+    if (!obj) return false;
+
+    return obj->getApplicationFlowDescriptions().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_dynamic_policy_invocation_event_all_of_get_application_flow_descriptions(const data_collection_model_dynamic_policy_invocation_event_all_of_t *obj_dynamic_policy_invocation_event_all_of)
 {
@@ -231,15 +245,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_dy
 
     typedef typename DynamicPolicyInvocationEvent_allOf::ApplicationFlowDescriptionsType ResultFromType;
     const ResultFromType result_from = obj->getApplicationFlowDescriptions();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_application_flow_description_t *item_obj = reinterpret_cast<data_collection_model_application_flow_description_t*>(new std::shared_ptr<ApplicationFlowDescription >(item));
-        node = data_collection_model_application_flow_description_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_application_flow_description_t *item_obj = reinterpret_cast<data_collection_model_application_flow_description_t*>(item.has_value()?new std::shared_ptr<ApplicationFlowDescription >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_application_flow_description_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -254,14 +272,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
     typedef typename DynamicPolicyInvocationEvent_allOf::ApplicationFlowDescriptionsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setApplicationFlowDescriptions(value)) return NULL;
 
     return obj_dynamic_policy_invocation_event_all_of;
@@ -278,14 +299,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
     typedef typename DynamicPolicyInvocationEvent_allOf::ApplicationFlowDescriptionsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_application_flow_descriptions);
     if (!obj->setApplicationFlowDescriptions(std::move(value))) return NULL;
 
@@ -299,13 +323,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
     std::shared_ptr<DynamicPolicyInvocationEvent_allOf > &obj = *reinterpret_cast<std::shared_ptr<DynamicPolicyInvocationEvent_allOf >*>(obj_dynamic_policy_invocation_event_all_of);
     if (!obj) return NULL;
 
-    typedef typename DynamicPolicyInvocationEvent_allOf::ApplicationFlowDescriptionsType ContainerType;
+    typedef typename DynamicPolicyInvocationEvent_allOf::ApplicationFlowDescriptionsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_application_flow_descriptions;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addApplicationFlowDescriptions(value);
+
+    if (value) obj->addApplicationFlowDescriptions(value.value());
     return obj_dynamic_policy_invocation_event_all_of;
 }
 
@@ -316,10 +341,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
     std::shared_ptr<DynamicPolicyInvocationEvent_allOf > &obj = *reinterpret_cast<std::shared_ptr<DynamicPolicyInvocationEvent_allOf >*>(obj_dynamic_policy_invocation_event_all_of);
     if (!obj) return NULL;
 
-    typedef typename DynamicPolicyInvocationEvent_allOf::ApplicationFlowDescriptionsType ContainerType;
+    typedef typename DynamicPolicyInvocationEvent_allOf::ApplicationFlowDescriptionsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_application_flow_descriptions;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeApplicationFlowDescriptions(value);
     return obj_dynamic_policy_invocation_event_all_of;
 }
@@ -334,6 +360,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
     obj->clearApplicationFlowDescriptions();
     return obj_dynamic_policy_invocation_event_all_of;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_dynamic_policy_invocation_event_all_of_has_requested_qo_s(const data_collection_model_dynamic_policy_invocation_event_all_of_t *obj_dynamic_policy_invocation_event_all_of)
+{
+    if (!obj_dynamic_policy_invocation_event_all_of) return false;
+
+    const std::shared_ptr<DynamicPolicyInvocationEvent_allOf > &obj = *reinterpret_cast<const std::shared_ptr<DynamicPolicyInvocationEvent_allOf >*>(obj_dynamic_policy_invocation_event_all_of);
+    if (!obj) return false;
+
+    return obj->getRequestedQoS().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_unidirectional_qo_s_specification_t* data_collection_model_dynamic_policy_invocation_event_all_of_get_requested_qo_s(const data_collection_model_dynamic_policy_invocation_event_all_of_t *obj_dynamic_policy_invocation_event_all_of)
 {
@@ -350,7 +387,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_unidirec
 
     typedef typename DynamicPolicyInvocationEvent_allOf::RequestedQoSType ResultFromType;
     const ResultFromType result_from = obj->getRequestedQoS();
-    const data_collection_model_unidirectional_qo_s_specification_t *result = reinterpret_cast<const data_collection_model_unidirectional_qo_s_specification_t*>(&result_from);
+    const data_collection_model_unidirectional_qo_s_specification_t *result = reinterpret_cast<const data_collection_model_unidirectional_qo_s_specification_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -364,7 +401,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
     const auto &value_from = p_requested_qo_s;
     typedef typename DynamicPolicyInvocationEvent_allOf::RequestedQoSType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setRequestedQoS(value)) return NULL;
 
     return obj_dynamic_policy_invocation_event_all_of;
@@ -380,12 +418,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
     const auto &value_from = p_requested_qo_s;
     typedef typename DynamicPolicyInvocationEvent_allOf::RequestedQoSType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setRequestedQoS(std::move(value))) return NULL;
 
     return obj_dynamic_policy_invocation_event_all_of;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_dynamic_policy_invocation_event_all_of_has_enforcement_method(const data_collection_model_dynamic_policy_invocation_event_all_of_t *obj_dynamic_policy_invocation_event_all_of)
+{
+    if (!obj_dynamic_policy_invocation_event_all_of) return false;
+
+    const std::shared_ptr<DynamicPolicyInvocationEvent_allOf > &obj = *reinterpret_cast<const std::shared_ptr<DynamicPolicyInvocationEvent_allOf >*>(obj_dynamic_policy_invocation_event_all_of);
+    if (!obj) return false;
+
+    return obj->getEnforcementMethod().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_dynamic_policy_invocation_event_all_of_get_enforcement_method(const data_collection_model_dynamic_policy_invocation_event_all_of_t *obj_dynamic_policy_invocation_event_all_of)
 {
@@ -402,7 +452,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_dy
 
     typedef typename DynamicPolicyInvocationEvent_allOf::EnforcementMethodType ResultFromType;
     const ResultFromType result_from = obj->getEnforcementMethod();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -417,6 +467,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
     typedef typename DynamicPolicyInvocationEvent_allOf::EnforcementMethodType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setEnforcementMethod(value)) return NULL;
 
     return obj_dynamic_policy_invocation_event_all_of;
@@ -433,11 +484,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
     typedef typename DynamicPolicyInvocationEvent_allOf::EnforcementMethodType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setEnforcementMethod(std::move(value))) return NULL;
 
     return obj_dynamic_policy_invocation_event_all_of;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_dynamic_policy_invocation_event_all_of_has_enforcement_bit_rate(const data_collection_model_dynamic_policy_invocation_event_all_of_t *obj_dynamic_policy_invocation_event_all_of)
+{
+    if (!obj_dynamic_policy_invocation_event_all_of) return false;
+
+    const std::shared_ptr<DynamicPolicyInvocationEvent_allOf > &obj = *reinterpret_cast<const std::shared_ptr<DynamicPolicyInvocationEvent_allOf >*>(obj_dynamic_policy_invocation_event_all_of);
+    if (!obj) return false;
+
+    return obj->getEnforcementBitRate().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_dynamic_policy_invocation_event_all_of_get_enforcement_bit_rate(const data_collection_model_dynamic_policy_invocation_event_all_of_t *obj_dynamic_policy_invocation_event_all_of)
 {
@@ -454,7 +517,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_dy
 
     typedef typename DynamicPolicyInvocationEvent_allOf::EnforcementBitRateType ResultFromType;
     const ResultFromType result_from = obj->getEnforcementBitRate();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -469,6 +532,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
     typedef typename DynamicPolicyInvocationEvent_allOf::EnforcementBitRateType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setEnforcementBitRate(value)) return NULL;
 
     return obj_dynamic_policy_invocation_event_all_of;
@@ -485,6 +549,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
     typedef typename DynamicPolicyInvocationEvent_allOf::EnforcementBitRateType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setEnforcementBitRate(std::move(value))) return NULL;
 

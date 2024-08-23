@@ -168,6 +168,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_app_exp_u
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_app_exp_ue_behaviour_has_app_id(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
+{
+    if (!obj_app_exp_ue_behaviour) return false;
+
+    const std::shared_ptr<AppExpUeBehaviour > &obj = *reinterpret_cast<const std::shared_ptr<AppExpUeBehaviour >*>(obj_app_exp_ue_behaviour);
+    if (!obj) return false;
+
+    return obj->getAppId().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_app_exp_ue_behaviour_get_app_id(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
 {
     if (!obj_app_exp_ue_behaviour) {
@@ -183,7 +194,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ap
 
     typedef typename AppExpUeBehaviour::AppIdType ResultFromType;
     const ResultFromType result_from = obj->getAppId();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -198,6 +209,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
     typedef typename AppExpUeBehaviour::AppIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setAppId(value)) return NULL;
 
     return obj_app_exp_ue_behaviour;
@@ -214,11 +226,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
     typedef typename AppExpUeBehaviour::AppIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setAppId(std::move(value))) return NULL;
 
     return obj_app_exp_ue_behaviour;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_app_exp_ue_behaviour_has_exp_pdu_ses_inac_tm(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
+{
+    if (!obj_app_exp_ue_behaviour) return false;
+
+    const std::shared_ptr<AppExpUeBehaviour > &obj = *reinterpret_cast<const std::shared_ptr<AppExpUeBehaviour >*>(obj_app_exp_ue_behaviour);
+    if (!obj) return false;
+
+    return obj->getExpPduSesInacTm().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_time_window_t* data_collection_model_app_exp_ue_behaviour_get_exp_pdu_ses_inac_tm(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
 {
@@ -235,7 +259,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_time_win
 
     typedef typename AppExpUeBehaviour::ExpPduSesInacTmType ResultFromType;
     const ResultFromType result_from = obj->getExpPduSesInacTm();
-    const data_collection_model_time_window_t *result = reinterpret_cast<const data_collection_model_time_window_t*>(&result_from);
+    const data_collection_model_time_window_t *result = reinterpret_cast<const data_collection_model_time_window_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -249,7 +273,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
     const auto &value_from = p_exp_pdu_ses_inac_tm;
     typedef typename AppExpUeBehaviour::ExpPduSesInacTmType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setExpPduSesInacTm(value)) return NULL;
 
     return obj_app_exp_ue_behaviour;
@@ -265,12 +290,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
     const auto &value_from = p_exp_pdu_ses_inac_tm;
     typedef typename AppExpUeBehaviour::ExpPduSesInacTmType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setExpPduSesInacTm(std::move(value))) return NULL;
 
     return obj_app_exp_ue_behaviour;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_app_exp_ue_behaviour_has_flow_descriptions(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
+{
+    if (!obj_app_exp_ue_behaviour) return false;
+
+    const std::shared_ptr<AppExpUeBehaviour > &obj = *reinterpret_cast<const std::shared_ptr<AppExpUeBehaviour >*>(obj_app_exp_ue_behaviour);
+    if (!obj) return false;
+
+    return obj->getFlowDescriptions().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_app_exp_ue_behaviour_get_flow_descriptions(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
 {
@@ -287,14 +324,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ap
 
     typedef typename AppExpUeBehaviour::FlowDescriptionsType ResultFromType;
     const ResultFromType result_from = obj->getFlowDescriptions();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -309,14 +348,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
     typedef typename AppExpUeBehaviour::FlowDescriptionsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setFlowDescriptions(value)) return NULL;
 
     return obj_app_exp_ue_behaviour;
@@ -333,14 +375,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
     typedef typename AppExpUeBehaviour::FlowDescriptionsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_flow_descriptions);
     if (!obj->setFlowDescriptions(std::move(value))) return NULL;
 
@@ -354,13 +399,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
     std::shared_ptr<AppExpUeBehaviour > &obj = *reinterpret_cast<std::shared_ptr<AppExpUeBehaviour >*>(obj_app_exp_ue_behaviour);
     if (!obj) return NULL;
 
-    typedef typename AppExpUeBehaviour::FlowDescriptionsType ContainerType;
+    typedef typename AppExpUeBehaviour::FlowDescriptionsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_flow_descriptions;
 
     ValueType value(value_from);
 
-    obj->addFlowDescriptions(value);
+
+    if (value) obj->addFlowDescriptions(value.value());
     return obj_app_exp_ue_behaviour;
 }
 
@@ -371,10 +417,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
     std::shared_ptr<AppExpUeBehaviour > &obj = *reinterpret_cast<std::shared_ptr<AppExpUeBehaviour >*>(obj_app_exp_ue_behaviour);
     if (!obj) return NULL;
 
-    typedef typename AppExpUeBehaviour::FlowDescriptionsType ContainerType;
+    typedef typename AppExpUeBehaviour::FlowDescriptionsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_flow_descriptions;
     ValueType value(value_from);
+
     obj->removeFlowDescriptions(value);
     return obj_app_exp_ue_behaviour;
 }
@@ -389,6 +436,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
     obj->clearFlowDescriptions();
     return obj_app_exp_ue_behaviour;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_app_exp_ue_behaviour_has_confidence_level(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
+{
+    if (!obj_app_exp_ue_behaviour) return false;
+
+    const std::shared_ptr<AppExpUeBehaviour > &obj = *reinterpret_cast<const std::shared_ptr<AppExpUeBehaviour >*>(obj_app_exp_ue_behaviour);
+    if (!obj) return false;
+
+    return obj->getConfidenceLevel().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_app_exp_ue_behaviour_get_confidence_level(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
 {
@@ -405,7 +463,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ap
 
     typedef typename AppExpUeBehaviour::ConfidenceLevelType ResultFromType;
     const ResultFromType result_from = obj->getConfidenceLevel();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -420,6 +478,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
     typedef typename AppExpUeBehaviour::ConfidenceLevelType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setConfidenceLevel(value)) return NULL;
 
     return obj_app_exp_ue_behaviour;
@@ -436,11 +495,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
     typedef typename AppExpUeBehaviour::ConfidenceLevelType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setConfidenceLevel(std::move(value))) return NULL;
 
     return obj_app_exp_ue_behaviour;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_app_exp_ue_behaviour_has_accuracy_level(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
+{
+    if (!obj_app_exp_ue_behaviour) return false;
+
+    const std::shared_ptr<AppExpUeBehaviour > &obj = *reinterpret_cast<const std::shared_ptr<AppExpUeBehaviour >*>(obj_app_exp_ue_behaviour);
+    if (!obj) return false;
+
+    return obj->getAccuracyLevel().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_app_exp_ue_behaviour_get_accuracy_level(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
 {
@@ -457,7 +528,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ap
 
     typedef typename AppExpUeBehaviour::AccuracyLevelType ResultFromType;
     const ResultFromType result_from = obj->getAccuracyLevel();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -472,6 +543,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
     typedef typename AppExpUeBehaviour::AccuracyLevelType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setAccuracyLevel(value)) return NULL;
 
     return obj_app_exp_ue_behaviour;
@@ -488,11 +560,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
     typedef typename AppExpUeBehaviour::AccuracyLevelType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setAccuracyLevel(std::move(value))) return NULL;
 
     return obj_app_exp_ue_behaviour;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_app_exp_ue_behaviour_has_failure_code(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
+{
+    if (!obj_app_exp_ue_behaviour) return false;
+
+    const std::shared_ptr<AppExpUeBehaviour > &obj = *reinterpret_cast<const std::shared_ptr<AppExpUeBehaviour >*>(obj_app_exp_ue_behaviour);
+    if (!obj) return false;
+
+    return obj->getFailureCode().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_cp_failure_code_t* data_collection_model_app_exp_ue_behaviour_get_failure_code(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
 {
@@ -509,7 +593,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_cp_failu
 
     typedef typename AppExpUeBehaviour::FailureCodeType ResultFromType;
     const ResultFromType result_from = obj->getFailureCode();
-    const data_collection_model_cp_failure_code_t *result = reinterpret_cast<const data_collection_model_cp_failure_code_t*>(&result_from);
+    const data_collection_model_cp_failure_code_t *result = reinterpret_cast<const data_collection_model_cp_failure_code_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -523,7 +607,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
     const auto &value_from = p_failure_code;
     typedef typename AppExpUeBehaviour::FailureCodeType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setFailureCode(value)) return NULL;
 
     return obj_app_exp_ue_behaviour;
@@ -539,12 +624,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
     const auto &value_from = p_failure_code;
     typedef typename AppExpUeBehaviour::FailureCodeType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setFailureCode(std::move(value))) return NULL;
 
     return obj_app_exp_ue_behaviour;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_app_exp_ue_behaviour_has_validity_time(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
+{
+    if (!obj_app_exp_ue_behaviour) return false;
+
+    const std::shared_ptr<AppExpUeBehaviour > &obj = *reinterpret_cast<const std::shared_ptr<AppExpUeBehaviour >*>(obj_app_exp_ue_behaviour);
+    if (!obj) return false;
+
+    return obj->getValidityTime().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_app_exp_ue_behaviour_get_validity_time(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
 {
@@ -561,7 +658,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ap
 
     typedef typename AppExpUeBehaviour::ValidityTimeType ResultFromType;
     const ResultFromType result_from = obj->getValidityTime();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -576,6 +673,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
     typedef typename AppExpUeBehaviour::ValidityTimeType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setValidityTime(value)) return NULL;
 
     return obj_app_exp_ue_behaviour;
@@ -592,6 +690,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
     typedef typename AppExpUeBehaviour::ValidityTimeType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setValidityTime(std::move(value))) return NULL;
 

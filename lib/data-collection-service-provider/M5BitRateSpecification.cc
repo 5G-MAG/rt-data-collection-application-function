@@ -160,6 +160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_m5_bit_ra
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_m5_bit_rate_specification_get_maximum_requested_bit_rate(const data_collection_model_m5_bit_rate_specification_t *obj_m5_bit_rate_specification)
 {
     if (!obj_m5_bit_rate_specification) {
@@ -190,6 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_bit_rate_sp
     typedef typename M5BitRateSpecification::MaximumRequestedBitRateType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setMaximumRequestedBitRate(value)) return NULL;
 
     return obj_m5_bit_rate_specification;
@@ -206,11 +208,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_bit_rate_sp
     typedef typename M5BitRateSpecification::MaximumRequestedBitRateType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setMaximumRequestedBitRate(std::move(value))) return NULL;
 
     return obj_m5_bit_rate_specification;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_m5_bit_rate_specification_get_minimum_desired_bit_rate(const data_collection_model_m5_bit_rate_specification_t *obj_m5_bit_rate_specification)
 {
@@ -242,6 +246,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_bit_rate_sp
     typedef typename M5BitRateSpecification::MinimumDesiredBitRateType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setMinimumDesiredBitRate(value)) return NULL;
 
     return obj_m5_bit_rate_specification;
@@ -258,11 +263,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_bit_rate_sp
     typedef typename M5BitRateSpecification::MinimumDesiredBitRateType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setMinimumDesiredBitRate(std::move(value))) return NULL;
 
     return obj_m5_bit_rate_specification;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_m5_bit_rate_specification_get_minimum_requested_bit_rate(const data_collection_model_m5_bit_rate_specification_t *obj_m5_bit_rate_specification)
 {
@@ -294,6 +301,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_bit_rate_sp
     typedef typename M5BitRateSpecification::MinimumRequestedBitRateType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setMinimumRequestedBitRate(value)) return NULL;
 
     return obj_m5_bit_rate_specification;
@@ -310,6 +318,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_bit_rate_sp
     typedef typename M5BitRateSpecification::MinimumRequestedBitRateType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setMinimumRequestedBitRate(std::move(value))) return NULL;
 

@@ -160,6 +160,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_paylo
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_payload_info_has_rtp_payload_type_list(const data_collection_model_rtp_payload_info_t *obj_rtp_payload_info)
+{
+    if (!obj_rtp_payload_info) return false;
+
+    const std::shared_ptr<RtpPayloadInfo > &obj = *reinterpret_cast<const std::shared_ptr<RtpPayloadInfo >*>(obj_rtp_payload_info);
+    if (!obj) return false;
+
+    return obj->getRtpPayloadTypeList().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_rtp_payload_info_get_rtp_payload_type_list(const data_collection_model_rtp_payload_info_t *obj_rtp_payload_info)
 {
     if (!obj_rtp_payload_info) {
@@ -175,16 +186,20 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_rt
 
     typedef typename RtpPayloadInfo::RtpPayloadTypeListType ResultFromType;
     const ResultFromType result_from = obj->getRtpPayloadTypeList();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        int32_t *item_obj = reinterpret_cast<int32_t*>(ogs_malloc(sizeof(*item_obj)));
-        *item_obj = item;
-        node = data_collection_lnode_create(item_obj, reinterpret_cast<void(*)(void*)>(_ogs_free));
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        int32_t *item_obj = reinterpret_cast<int32_t*>(item.has_value()?ogs_malloc(sizeof(*item_obj)):nullptr);
+        if (item_obj) {
+            *item_obj = item.value();
+            node = data_collection_lnode_create(item_obj, reinterpret_cast<void(*)(void*)>(_ogs_free));
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -199,14 +214,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_in
     typedef typename RtpPayloadInfo::RtpPayloadTypeListType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setRtpPayloadTypeList(value)) return NULL;
 
     return obj_rtp_payload_info;
@@ -223,14 +241,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_in
     typedef typename RtpPayloadInfo::RtpPayloadTypeListType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_rtp_payload_type_list);
     if (!obj->setRtpPayloadTypeList(std::move(value))) return NULL;
 
@@ -244,13 +265,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_in
     std::shared_ptr<RtpPayloadInfo > &obj = *reinterpret_cast<std::shared_ptr<RtpPayloadInfo >*>(obj_rtp_payload_info);
     if (!obj) return NULL;
 
-    typedef typename RtpPayloadInfo::RtpPayloadTypeListType ContainerType;
+    typedef typename RtpPayloadInfo::RtpPayloadTypeListType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_rtp_payload_type_list;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
 
-    obj->addRtpPayloadTypeList(value);
+
+    if (value) obj->addRtpPayloadTypeList(value.value());
     return obj_rtp_payload_info;
 }
 
@@ -261,10 +283,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_in
     std::shared_ptr<RtpPayloadInfo > &obj = *reinterpret_cast<std::shared_ptr<RtpPayloadInfo >*>(obj_rtp_payload_info);
     if (!obj) return NULL;
 
-    typedef typename RtpPayloadInfo::RtpPayloadTypeListType ContainerType;
+    typedef typename RtpPayloadInfo::RtpPayloadTypeListType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_rtp_payload_type_list;
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     obj->removeRtpPayloadTypeList(value);
     return obj_rtp_payload_info;
 }
@@ -279,6 +302,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_in
     obj->clearRtpPayloadTypeList();
     return obj_rtp_payload_info;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_payload_info_has_rtp_payload_format(const data_collection_model_rtp_payload_info_t *obj_rtp_payload_info)
+{
+    if (!obj_rtp_payload_info) return false;
+
+    const std::shared_ptr<RtpPayloadInfo > &obj = *reinterpret_cast<const std::shared_ptr<RtpPayloadInfo >*>(obj_rtp_payload_info);
+    if (!obj) return false;
+
+    return obj->getRtpPayloadFormat().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_rtp_payload_format_t* data_collection_model_rtp_payload_info_get_rtp_payload_format(const data_collection_model_rtp_payload_info_t *obj_rtp_payload_info)
 {
@@ -295,7 +329,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_rtp_payl
 
     typedef typename RtpPayloadInfo::RtpPayloadFormatType ResultFromType;
     const ResultFromType result_from = obj->getRtpPayloadFormat();
-    const data_collection_model_rtp_payload_format_t *result = reinterpret_cast<const data_collection_model_rtp_payload_format_t*>(&result_from);
+    const data_collection_model_rtp_payload_format_t *result = reinterpret_cast<const data_collection_model_rtp_payload_format_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -309,7 +343,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_in
     const auto &value_from = p_rtp_payload_format;
     typedef typename RtpPayloadInfo::RtpPayloadFormatType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setRtpPayloadFormat(value)) return NULL;
 
     return obj_rtp_payload_info;
@@ -325,7 +360,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_in
     const auto &value_from = p_rtp_payload_format;
     typedef typename RtpPayloadInfo::RtpPayloadFormatType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setRtpPayloadFormat(std::move(value))) return NULL;
 

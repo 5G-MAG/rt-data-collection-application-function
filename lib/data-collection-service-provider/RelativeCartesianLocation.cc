@@ -162,6 +162,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_relative_
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_relative_cartesian_location_get_x(const data_collection_model_relative_cartesian_location_t *obj_relative_cartesian_location)
 {
     if (!obj_relative_cartesian_location) {
@@ -191,7 +192,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_carte
     const auto &value_from = p_x;
     typedef typename RelativeCartesianLocation::xType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setX(value)) return NULL;
 
     return obj_relative_cartesian_location;
@@ -207,12 +209,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_carte
     const auto &value_from = p_x;
     typedef typename RelativeCartesianLocation::xType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setX(std::move(value))) return NULL;
 
     return obj_relative_cartesian_location;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_relative_cartesian_location_get_y(const data_collection_model_relative_cartesian_location_t *obj_relative_cartesian_location)
 {
@@ -243,7 +247,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_carte
     const auto &value_from = p_y;
     typedef typename RelativeCartesianLocation::yType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setY(value)) return NULL;
 
     return obj_relative_cartesian_location;
@@ -259,12 +264,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_carte
     const auto &value_from = p_y;
     typedef typename RelativeCartesianLocation::yType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setY(std::move(value))) return NULL;
 
     return obj_relative_cartesian_location;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_relative_cartesian_location_has_z(const data_collection_model_relative_cartesian_location_t *obj_relative_cartesian_location)
+{
+    if (!obj_relative_cartesian_location) return false;
+
+    const std::shared_ptr<RelativeCartesianLocation > &obj = *reinterpret_cast<const std::shared_ptr<RelativeCartesianLocation >*>(obj_relative_cartesian_location);
+    if (!obj) return false;
+
+    return obj->getZ().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_relative_cartesian_location_get_z(const data_collection_model_relative_cartesian_location_t *obj_relative_cartesian_location)
 {
@@ -281,7 +298,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_re
 
     typedef typename RelativeCartesianLocation::zType ResultFromType;
     const ResultFromType result_from = obj->getZ();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -295,7 +312,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_carte
     const auto &value_from = p_z;
     typedef typename RelativeCartesianLocation::zType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setZ(value)) return NULL;
 
     return obj_relative_cartesian_location;
@@ -311,7 +329,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_carte
     const auto &value_from = p_z;
     typedef typename RelativeCartesianLocation::zType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setZ(std::move(value))) return NULL;
 

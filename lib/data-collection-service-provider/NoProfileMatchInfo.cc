@@ -160,6 +160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profil
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_no_profile_match_reason_t* data_collection_model_no_profile_match_info_get_reason(const data_collection_model_no_profile_match_info_t *obj_no_profile_match_info)
 {
     if (!obj_no_profile_match_info) {
@@ -190,6 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_mat
     typedef typename NoProfileMatchInfo::ReasonType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setReason(value)) return NULL;
 
     return obj_no_profile_match_info;
@@ -206,11 +208,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_mat
     typedef typename NoProfileMatchInfo::ReasonType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setReason(std::move(value))) return NULL;
 
     return obj_no_profile_match_info;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_no_profile_match_info_has_query_param_combination_list(const data_collection_model_no_profile_match_info_t *obj_no_profile_match_info)
+{
+    if (!obj_no_profile_match_info) return false;
+
+    const std::shared_ptr<NoProfileMatchInfo > &obj = *reinterpret_cast<const std::shared_ptr<NoProfileMatchInfo >*>(obj_no_profile_match_info);
+    if (!obj) return false;
+
+    return obj->getQueryParamCombinationList().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_no_profile_match_info_get_query_param_combination_list(const data_collection_model_no_profile_match_info_t *obj_no_profile_match_info)
 {
@@ -227,15 +241,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_no
 
     typedef typename NoProfileMatchInfo::QueryParamCombinationListType ResultFromType;
     const ResultFromType result_from = obj->getQueryParamCombinationList();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_query_param_combination_t *item_obj = reinterpret_cast<data_collection_model_query_param_combination_t*>(new std::shared_ptr<QueryParamCombination >(item));
-        node = data_collection_model_query_param_combination_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_query_param_combination_t *item_obj = reinterpret_cast<data_collection_model_query_param_combination_t*>(item.has_value()?new std::shared_ptr<QueryParamCombination >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_query_param_combination_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -250,14 +268,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_mat
     typedef typename NoProfileMatchInfo::QueryParamCombinationListType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setQueryParamCombinationList(value)) return NULL;
 
     return obj_no_profile_match_info;
@@ -274,14 +295,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_mat
     typedef typename NoProfileMatchInfo::QueryParamCombinationListType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_query_param_combination_list);
     if (!obj->setQueryParamCombinationList(std::move(value))) return NULL;
 
@@ -295,13 +319,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_mat
     std::shared_ptr<NoProfileMatchInfo > &obj = *reinterpret_cast<std::shared_ptr<NoProfileMatchInfo >*>(obj_no_profile_match_info);
     if (!obj) return NULL;
 
-    typedef typename NoProfileMatchInfo::QueryParamCombinationListType ContainerType;
+    typedef typename NoProfileMatchInfo::QueryParamCombinationListType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_query_param_combination_list;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addQueryParamCombinationList(value);
+
+    if (value) obj->addQueryParamCombinationList(value.value());
     return obj_no_profile_match_info;
 }
 
@@ -312,10 +337,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_mat
     std::shared_ptr<NoProfileMatchInfo > &obj = *reinterpret_cast<std::shared_ptr<NoProfileMatchInfo >*>(obj_no_profile_match_info);
     if (!obj) return NULL;
 
-    typedef typename NoProfileMatchInfo::QueryParamCombinationListType ContainerType;
+    typedef typename NoProfileMatchInfo::QueryParamCombinationListType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_query_param_combination_list;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeQueryParamCombinationList(value);
     return obj_no_profile_match_info;
 }

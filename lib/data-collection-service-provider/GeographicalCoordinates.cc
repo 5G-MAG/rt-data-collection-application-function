@@ -160,6 +160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_geographi
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const double data_collection_model_geographical_coordinates_get_lon(const data_collection_model_geographical_coordinates_t *obj_geographical_coordinates)
 {
     if (!obj_geographical_coordinates) {
@@ -189,7 +190,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographical_c
     const auto &value_from = p_lon;
     typedef typename GeographicalCoordinates::LonType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setLon(value)) return NULL;
 
     return obj_geographical_coordinates;
@@ -205,12 +207,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographical_c
     const auto &value_from = p_lon;
     typedef typename GeographicalCoordinates::LonType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setLon(std::move(value))) return NULL;
 
     return obj_geographical_coordinates;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const double data_collection_model_geographical_coordinates_get_lat(const data_collection_model_geographical_coordinates_t *obj_geographical_coordinates)
 {
@@ -241,7 +245,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographical_c
     const auto &value_from = p_lat;
     typedef typename GeographicalCoordinates::LatType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setLat(value)) return NULL;
 
     return obj_geographical_coordinates;
@@ -257,7 +262,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographical_c
     const auto &value_from = p_lat;
     typedef typename GeographicalCoordinates::LatType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setLat(std::move(value))) return NULL;
 

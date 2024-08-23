@@ -45,17 +45,22 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_collection_m
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ecgi_is_equal_to(const data_collection_model_ecgi_t *ecgi, const data_collection_model_ecgi_t *other_ecgi);
 
 
+
 DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_plmn_id_t* data_collection_model_ecgi_get_plmn_id(const data_collection_model_ecgi_t *ecgi);
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_collection_model_ecgi_set_plmn_id(data_collection_model_ecgi_t *ecgi, const data_collection_model_plmn_id_t* p_plmn_id);
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_collection_model_ecgi_set_plmn_id_move(data_collection_model_ecgi_t *ecgi, data_collection_model_plmn_id_t* p_plmn_id);
 
+
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ecgi_get_eutra_cell_id(const data_collection_model_ecgi_t *ecgi);
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_collection_model_ecgi_set_eutra_cell_id(data_collection_model_ecgi_t *ecgi, const char* p_eutra_cell_id);
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_collection_model_ecgi_set_eutra_cell_id_move(data_collection_model_ecgi_t *ecgi, char* p_eutra_cell_id);
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ecgi_has_nid(const data_collection_model_ecgi_t *ecgi);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ecgi_get_nid(const data_collection_model_ecgi_t *ecgi);
 

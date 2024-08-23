@@ -160,6 +160,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_addr_fqdn
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_addr_fqdn_has_ip_addr(const data_collection_model_addr_fqdn_t *obj_addr_fqdn)
+{
+    if (!obj_addr_fqdn) return false;
+
+    const std::shared_ptr<AddrFqdn > &obj = *reinterpret_cast<const std::shared_ptr<AddrFqdn >*>(obj_addr_fqdn);
+    if (!obj) return false;
+
+    return obj->getIpAddr().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ip_addr_t* data_collection_model_addr_fqdn_get_ip_addr(const data_collection_model_addr_fqdn_t *obj_addr_fqdn)
 {
     if (!obj_addr_fqdn) {
@@ -175,7 +186,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ip_addr_
 
     typedef typename AddrFqdn::IpAddrType ResultFromType;
     const ResultFromType result_from = obj->getIpAddr();
-    const data_collection_model_ip_addr_t *result = reinterpret_cast<const data_collection_model_ip_addr_t*>(&result_from);
+    const data_collection_model_ip_addr_t *result = reinterpret_cast<const data_collection_model_ip_addr_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -189,7 +200,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_addr_fqdn_t *d
     const auto &value_from = p_ip_addr;
     typedef typename AddrFqdn::IpAddrType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setIpAddr(value)) return NULL;
 
     return obj_addr_fqdn;
@@ -205,12 +217,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_addr_fqdn_t *d
     const auto &value_from = p_ip_addr;
     typedef typename AddrFqdn::IpAddrType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setIpAddr(std::move(value))) return NULL;
 
     return obj_addr_fqdn;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_addr_fqdn_has_fqdn(const data_collection_model_addr_fqdn_t *obj_addr_fqdn)
+{
+    if (!obj_addr_fqdn) return false;
+
+    const std::shared_ptr<AddrFqdn > &obj = *reinterpret_cast<const std::shared_ptr<AddrFqdn >*>(obj_addr_fqdn);
+    if (!obj) return false;
+
+    return obj->getFqdn().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_addr_fqdn_get_fqdn(const data_collection_model_addr_fqdn_t *obj_addr_fqdn)
 {
@@ -227,7 +251,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ad
 
     typedef typename AddrFqdn::FqdnType ResultFromType;
     const ResultFromType result_from = obj->getFqdn();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -242,6 +266,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_addr_fqdn_t *d
     typedef typename AddrFqdn::FqdnType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setFqdn(value)) return NULL;
 
     return obj_addr_fqdn;
@@ -258,6 +283,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_addr_fqdn_t *d
     typedef typename AddrFqdn::FqdnType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setFqdn(std::move(value))) return NULL;
 

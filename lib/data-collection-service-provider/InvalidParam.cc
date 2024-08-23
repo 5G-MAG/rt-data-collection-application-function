@@ -160,6 +160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_invalid_p
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_invalid_param_get_param(const data_collection_model_invalid_param_t *obj_invalid_param)
 {
     if (!obj_invalid_param) {
@@ -190,6 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_invalid_param_
     typedef typename InvalidParam::ParamType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setParam(value)) return NULL;
 
     return obj_invalid_param;
@@ -206,11 +208,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_invalid_param_
     typedef typename InvalidParam::ParamType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setParam(std::move(value))) return NULL;
 
     return obj_invalid_param;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_invalid_param_has_reason(const data_collection_model_invalid_param_t *obj_invalid_param)
+{
+    if (!obj_invalid_param) return false;
+
+    const std::shared_ptr<InvalidParam > &obj = *reinterpret_cast<const std::shared_ptr<InvalidParam >*>(obj_invalid_param);
+    if (!obj) return false;
+
+    return obj->getReason().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_invalid_param_get_reason(const data_collection_model_invalid_param_t *obj_invalid_param)
 {
@@ -227,7 +241,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_in
 
     typedef typename InvalidParam::ReasonType ResultFromType;
     const ResultFromType result_from = obj->getReason();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -242,6 +256,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_invalid_param_
     typedef typename InvalidParam::ReasonType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setReason(value)) return NULL;
 
     return obj_invalid_param;
@@ -258,6 +273,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_invalid_param_
     typedef typename InvalidParam::ReasonType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setReason(std::move(value))) return NULL;
 

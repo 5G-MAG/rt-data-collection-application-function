@@ -45,17 +45,22 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ncgi_t *data_collection_m
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ncgi_is_equal_to(const data_collection_model_ncgi_t *ncgi, const data_collection_model_ncgi_t *other_ncgi);
 
 
+
 DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_plmn_id_t* data_collection_model_ncgi_get_plmn_id(const data_collection_model_ncgi_t *ncgi);
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ncgi_t *data_collection_model_ncgi_set_plmn_id(data_collection_model_ncgi_t *ncgi, const data_collection_model_plmn_id_t* p_plmn_id);
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ncgi_t *data_collection_model_ncgi_set_plmn_id_move(data_collection_model_ncgi_t *ncgi, data_collection_model_plmn_id_t* p_plmn_id);
 
+
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ncgi_get_nr_cell_id(const data_collection_model_ncgi_t *ncgi);
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ncgi_t *data_collection_model_ncgi_set_nr_cell_id(data_collection_model_ncgi_t *ncgi, const char* p_nr_cell_id);
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ncgi_t *data_collection_model_ncgi_set_nr_cell_id_move(data_collection_model_ncgi_t *ncgi, char* p_nr_cell_id);
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ncgi_has_nid(const data_collection_model_ncgi_t *ncgi);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ncgi_get_nid(const data_collection_model_ncgi_t *ncgi);
 

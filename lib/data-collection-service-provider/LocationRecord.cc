@@ -160,6 +160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_location_
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_location_record_get_timestamp(const data_collection_model_location_record_t *obj_location_record)
 {
     if (!obj_location_record) {
@@ -190,6 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_recor
     typedef typename LocationRecord::TimestampType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setTimestamp(value)) return NULL;
 
     return obj_location_record;
@@ -206,11 +208,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_recor
     typedef typename LocationRecord::TimestampType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setTimestamp(std::move(value))) return NULL;
 
     return obj_location_record;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_location_record_get_context_ids(const data_collection_model_location_record_t *obj_location_record)
 {
@@ -228,12 +232,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_lo
     typedef typename LocationRecord::ContextIdsType ResultFromType;
     const ResultFromType result_from = obj->getContextIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+    
     typedef typename ResultFromType::value_type ItemType;
     for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
+        if (node) ogs_list_add(result, node);
     }
     return result;
 }
@@ -249,14 +254,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_recor
     typedef typename LocationRecord::ContextIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setContextIds(value)) return NULL;
 
     return obj_location_record;
@@ -273,14 +281,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_recor
     typedef typename LocationRecord::ContextIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_context_ids);
     if (!obj->setContextIds(std::move(value))) return NULL;
 
@@ -300,6 +311,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_recor
 
     ValueType value(value_from);
 
+
     obj->addContextIds(value);
     return obj_location_record;
 }
@@ -315,6 +327,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_recor
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_context_ids;
     ValueType value(value_from);
+
     obj->removeContextIds(value);
     return obj_location_record;
 }
@@ -329,6 +342,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_recor
     obj->clearContextIds();
     return obj_location_record;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location_data_t* data_collection_model_location_record_get_location(const data_collection_model_location_record_t *obj_location_record)
 {
@@ -360,6 +374,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_recor
     typedef typename LocationRecord::LocationType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setLocation(value)) return NULL;
 
     return obj_location_record;
@@ -376,6 +391,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_recor
     typedef typename LocationRecord::LocationType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setLocation(std::move(value))) return NULL;
 

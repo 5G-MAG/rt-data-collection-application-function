@@ -164,6 +164,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_str
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_media_streaming_access_response_message_get_response_code(const data_collection_model_media_streaming_access_response_message_t *obj_media_streaming_access_response_message)
 {
     if (!obj_media_streaming_access_response_message) {
@@ -193,7 +194,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     const auto &value_from = p_response_code;
     typedef typename MediaStreamingAccess_responseMessage::ResponseCodeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setResponseCode(value)) return NULL;
 
     return obj_media_streaming_access_response_message;
@@ -209,12 +211,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     const auto &value_from = p_response_code;
     typedef typename MediaStreamingAccess_responseMessage::ResponseCodeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setResponseCode(std::move(value))) return NULL;
 
     return obj_media_streaming_access_response_message;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_media_streaming_access_response_message_get_size(const data_collection_model_media_streaming_access_response_message_t *obj_media_streaming_access_response_message)
 {
@@ -245,7 +249,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     const auto &value_from = p_size;
     typedef typename MediaStreamingAccess_responseMessage::SizeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setSize(value)) return NULL;
 
     return obj_media_streaming_access_response_message;
@@ -261,12 +266,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     const auto &value_from = p_size;
     typedef typename MediaStreamingAccess_responseMessage::SizeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setSize(std::move(value))) return NULL;
 
     return obj_media_streaming_access_response_message;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_media_streaming_access_response_message_get_body_size(const data_collection_model_media_streaming_access_response_message_t *obj_media_streaming_access_response_message)
 {
@@ -297,7 +304,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     const auto &value_from = p_body_size;
     typedef typename MediaStreamingAccess_responseMessage::BodySizeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setBodySize(value)) return NULL;
 
     return obj_media_streaming_access_response_message;
@@ -313,12 +321,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     const auto &value_from = p_body_size;
     typedef typename MediaStreamingAccess_responseMessage::BodySizeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setBodySize(std::move(value))) return NULL;
 
     return obj_media_streaming_access_response_message;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_streaming_access_response_message_has_content_type(const data_collection_model_media_streaming_access_response_message_t *obj_media_streaming_access_response_message)
+{
+    if (!obj_media_streaming_access_response_message) return false;
+
+    const std::shared_ptr<MediaStreamingAccess_responseMessage > &obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccess_responseMessage >*>(obj_media_streaming_access_response_message);
+    if (!obj) return false;
+
+    return obj->getContentType().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_media_streaming_access_response_message_get_content_type(const data_collection_model_media_streaming_access_response_message_t *obj_media_streaming_access_response_message)
 {
@@ -335,7 +355,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_me
 
     typedef typename MediaStreamingAccess_responseMessage::ContentTypeType ResultFromType;
     const ResultFromType result_from = obj->getContentType();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -350,6 +370,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     typedef typename MediaStreamingAccess_responseMessage::ContentTypeType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setContentType(value)) return NULL;
 
     return obj_media_streaming_access_response_message;
@@ -366,6 +387,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     typedef typename MediaStreamingAccess_responseMessage::ContentTypeType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setContentType(std::move(value))) return NULL;
 

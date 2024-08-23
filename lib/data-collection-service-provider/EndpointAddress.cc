@@ -160,6 +160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_endpoint_
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_endpoint_address_get_domain_name(const data_collection_model_endpoint_address_t *obj_endpoint_address)
 {
     if (!obj_endpoint_address) {
@@ -190,6 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_addre
     typedef typename EndpointAddress::DomainNameType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setDomainName(value)) return NULL;
 
     return obj_endpoint_address;
@@ -206,11 +208,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_addre
     typedef typename EndpointAddress::DomainNameType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setDomainName(std::move(value))) return NULL;
 
     return obj_endpoint_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_endpoint_address_has_port_numbers(const data_collection_model_endpoint_address_t *obj_endpoint_address)
+{
+    if (!obj_endpoint_address) return false;
+
+    const std::shared_ptr<EndpointAddress > &obj = *reinterpret_cast<const std::shared_ptr<EndpointAddress >*>(obj_endpoint_address);
+    if (!obj) return false;
+
+    return obj->getPortNumbers().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_endpoint_address_get_port_numbers(const data_collection_model_endpoint_address_t *obj_endpoint_address)
 {
@@ -227,16 +241,20 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_en
 
     typedef typename EndpointAddress::PortNumbersType ResultFromType;
     const ResultFromType result_from = obj->getPortNumbers();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        int32_t *item_obj = reinterpret_cast<int32_t*>(ogs_malloc(sizeof(*item_obj)));
-        *item_obj = item;
-        node = data_collection_lnode_create(item_obj, reinterpret_cast<void(*)(void*)>(_ogs_free));
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        int32_t *item_obj = reinterpret_cast<int32_t*>(item.has_value()?ogs_malloc(sizeof(*item_obj)):nullptr);
+        if (item_obj) {
+            *item_obj = item.value();
+            node = data_collection_lnode_create(item_obj, reinterpret_cast<void(*)(void*)>(_ogs_free));
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -251,14 +269,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_addre
     typedef typename EndpointAddress::PortNumbersType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setPortNumbers(value)) return NULL;
 
     return obj_endpoint_address;
@@ -275,14 +296,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_addre
     typedef typename EndpointAddress::PortNumbersType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_port_numbers);
     if (!obj->setPortNumbers(std::move(value))) return NULL;
 
@@ -296,13 +320,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_addre
     std::shared_ptr<EndpointAddress > &obj = *reinterpret_cast<std::shared_ptr<EndpointAddress >*>(obj_endpoint_address);
     if (!obj) return NULL;
 
-    typedef typename EndpointAddress::PortNumbersType ContainerType;
+    typedef typename EndpointAddress::PortNumbersType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_port_numbers;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
 
-    obj->addPortNumbers(value);
+
+    if (value) obj->addPortNumbers(value.value());
     return obj_endpoint_address;
 }
 
@@ -313,10 +338,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_addre
     std::shared_ptr<EndpointAddress > &obj = *reinterpret_cast<std::shared_ptr<EndpointAddress >*>(obj_endpoint_address);
     if (!obj) return NULL;
 
-    typedef typename EndpointAddress::PortNumbersType ContainerType;
+    typedef typename EndpointAddress::PortNumbersType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_port_numbers;
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     obj->removePortNumbers(value);
     return obj_endpoint_address;
 }

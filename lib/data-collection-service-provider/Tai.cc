@@ -162,6 +162,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_tai_is_eq
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_plmn_id_t* data_collection_model_tai_get_plmn_id(const data_collection_model_tai_t *obj_tai)
 {
     if (!obj_tai) {
@@ -192,6 +193,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_tai_t *data_co
     typedef typename Tai::PlmnIdType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setPlmnId(value)) return NULL;
 
     return obj_tai;
@@ -208,11 +210,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_tai_t *data_co
     typedef typename Tai::PlmnIdType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setPlmnId(std::move(value))) return NULL;
 
     return obj_tai;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_tai_get_tac(const data_collection_model_tai_t *obj_tai)
 {
@@ -244,6 +248,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_tai_t *data_co
     typedef typename Tai::TacType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setTac(value)) return NULL;
 
     return obj_tai;
@@ -260,11 +265,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_tai_t *data_co
     typedef typename Tai::TacType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setTac(std::move(value))) return NULL;
 
     return obj_tai;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_tai_has_nid(const data_collection_model_tai_t *obj_tai)
+{
+    if (!obj_tai) return false;
+
+    const std::shared_ptr<Tai > &obj = *reinterpret_cast<const std::shared_ptr<Tai >*>(obj_tai);
+    if (!obj) return false;
+
+    return obj->getNid().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_tai_get_nid(const data_collection_model_tai_t *obj_tai)
 {
@@ -281,7 +298,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ta
 
     typedef typename Tai::NidType ResultFromType;
     const ResultFromType result_from = obj->getNid();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -296,6 +313,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_tai_t *data_co
     typedef typename Tai::NidType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setNid(value)) return NULL;
 
     return obj_tai;
@@ -312,6 +330,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_tai_t *data_co
     typedef typename Tai::NidType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setNid(std::move(value))) return NULL;
 

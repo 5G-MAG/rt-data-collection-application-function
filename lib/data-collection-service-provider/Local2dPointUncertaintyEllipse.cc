@@ -166,6 +166,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_local2d_p
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supported_gad_shapes_t* data_collection_model_local2d_point_uncertainty_ellipse_get_shape(const data_collection_model_local2d_point_uncertainty_ellipse_t *obj_local2d_point_uncertainty_ellipse)
 {
     if (!obj_local2d_point_uncertainty_ellipse) {
@@ -196,6 +197,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_
     typedef typename Local2dPointUncertaintyEllipse::ShapeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setShape(value)) return NULL;
 
     return obj_local2d_point_uncertainty_ellipse;
@@ -212,11 +214,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_
     typedef typename Local2dPointUncertaintyEllipse::ShapeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setShape(std::move(value))) return NULL;
 
     return obj_local2d_point_uncertainty_ellipse;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_local_origin_t* data_collection_model_local2d_point_uncertainty_ellipse_get_local_origin(const data_collection_model_local2d_point_uncertainty_ellipse_t *obj_local2d_point_uncertainty_ellipse)
 {
@@ -248,6 +252,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_
     typedef typename Local2dPointUncertaintyEllipse::LocalOriginType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setLocalOrigin(value)) return NULL;
 
     return obj_local2d_point_uncertainty_ellipse;
@@ -264,11 +269,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_
     typedef typename Local2dPointUncertaintyEllipse::LocalOriginType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setLocalOrigin(std::move(value))) return NULL;
 
     return obj_local2d_point_uncertainty_ellipse;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_relative_cartesian_location_t* data_collection_model_local2d_point_uncertainty_ellipse_get_point(const data_collection_model_local2d_point_uncertainty_ellipse_t *obj_local2d_point_uncertainty_ellipse)
 {
@@ -300,6 +307,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_
     typedef typename Local2dPointUncertaintyEllipse::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setPoint(value)) return NULL;
 
     return obj_local2d_point_uncertainty_ellipse;
@@ -316,11 +324,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_
     typedef typename Local2dPointUncertaintyEllipse::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setPoint(std::move(value))) return NULL;
 
     return obj_local2d_point_uncertainty_ellipse;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_uncertainty_ellipse_t* data_collection_model_local2d_point_uncertainty_ellipse_get_uncertainty_ellipse(const data_collection_model_local2d_point_uncertainty_ellipse_t *obj_local2d_point_uncertainty_ellipse)
 {
@@ -352,6 +362,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_
     typedef typename Local2dPointUncertaintyEllipse::UncertaintyEllipseType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setUncertaintyEllipse(value)) return NULL;
 
     return obj_local2d_point_uncertainty_ellipse;
@@ -368,11 +379,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_
     typedef typename Local2dPointUncertaintyEllipse::UncertaintyEllipseType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setUncertaintyEllipse(std::move(value))) return NULL;
 
     return obj_local2d_point_uncertainty_ellipse;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_local2d_point_uncertainty_ellipse_get_confidence(const data_collection_model_local2d_point_uncertainty_ellipse_t *obj_local2d_point_uncertainty_ellipse)
 {
@@ -403,7 +416,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_
     const auto &value_from = p_confidence;
     typedef typename Local2dPointUncertaintyEllipse::ConfidenceType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setConfidence(value)) return NULL;
 
     return obj_local2d_point_uncertainty_ellipse;
@@ -419,7 +433,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_
     const auto &value_from = p_confidence;
     typedef typename Local2dPointUncertaintyEllipse::ConfidenceType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setConfidence(std::move(value))) return NULL;
 

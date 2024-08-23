@@ -170,6 +170,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_communica
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_communication_record_get_timestamp(const data_collection_model_communication_record_t *obj_communication_record)
 {
     if (!obj_communication_record) {
@@ -200,6 +201,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     typedef typename CommunicationRecord::TimestampType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setTimestamp(value)) return NULL;
 
     return obj_communication_record;
@@ -216,11 +218,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     typedef typename CommunicationRecord::TimestampType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setTimestamp(std::move(value))) return NULL;
 
     return obj_communication_record;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_communication_record_get_context_ids(const data_collection_model_communication_record_t *obj_communication_record)
 {
@@ -238,12 +242,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_co
     typedef typename CommunicationRecord::ContextIdsType ResultFromType;
     const ResultFromType result_from = obj->getContextIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+    
     typedef typename ResultFromType::value_type ItemType;
     for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
+        if (node) ogs_list_add(result, node);
     }
     return result;
 }
@@ -259,14 +264,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     typedef typename CommunicationRecord::ContextIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setContextIds(value)) return NULL;
 
     return obj_communication_record;
@@ -283,14 +291,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     typedef typename CommunicationRecord::ContextIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_context_ids);
     if (!obj->setContextIds(std::move(value))) return NULL;
 
@@ -310,6 +321,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
 
     ValueType value(value_from);
 
+
     obj->addContextIds(value);
     return obj_communication_record;
 }
@@ -325,6 +337,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_context_ids;
     ValueType value(value_from);
+
     obj->removeContextIds(value);
     return obj_communication_record;
 }
@@ -339,6 +352,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     obj->clearContextIds();
     return obj_communication_record;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_time_window_t* data_collection_model_communication_record_get_time_interval(const data_collection_model_communication_record_t *obj_communication_record)
 {
@@ -370,6 +384,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     typedef typename CommunicationRecord::TimeIntervalType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setTimeInterval(value)) return NULL;
 
     return obj_communication_record;
@@ -386,11 +401,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     typedef typename CommunicationRecord::TimeIntervalType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setTimeInterval(std::move(value))) return NULL;
 
     return obj_communication_record;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_communication_record_has_slice_info(const data_collection_model_communication_record_t *obj_communication_record)
+{
+    if (!obj_communication_record) return false;
+
+    const std::shared_ptr<CommunicationRecord > &obj = *reinterpret_cast<const std::shared_ptr<CommunicationRecord >*>(obj_communication_record);
+    if (!obj) return false;
+
+    return obj->getSliceInfo().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_snssai_t* data_collection_model_communication_record_get_slice_info(const data_collection_model_communication_record_t *obj_communication_record)
 {
@@ -407,7 +434,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_snssai_t
 
     typedef typename CommunicationRecord::SliceInfoType ResultFromType;
     const ResultFromType result_from = obj->getSliceInfo();
-    const data_collection_model_snssai_t *result = reinterpret_cast<const data_collection_model_snssai_t*>(&result_from);
+    const data_collection_model_snssai_t *result = reinterpret_cast<const data_collection_model_snssai_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -421,7 +448,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     const auto &value_from = p_slice_info;
     typedef typename CommunicationRecord::SliceInfoType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setSliceInfo(value)) return NULL;
 
     return obj_communication_record;
@@ -437,12 +465,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     const auto &value_from = p_slice_info;
     typedef typename CommunicationRecord::SliceInfoType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setSliceInfo(std::move(value))) return NULL;
 
     return obj_communication_record;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_communication_record_has_data_network_name(const data_collection_model_communication_record_t *obj_communication_record)
+{
+    if (!obj_communication_record) return false;
+
+    const std::shared_ptr<CommunicationRecord > &obj = *reinterpret_cast<const std::shared_ptr<CommunicationRecord >*>(obj_communication_record);
+    if (!obj) return false;
+
+    return obj->getDataNetworkName().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_communication_record_get_data_network_name(const data_collection_model_communication_record_t *obj_communication_record)
 {
@@ -459,7 +499,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_co
 
     typedef typename CommunicationRecord::DataNetworkNameType ResultFromType;
     const ResultFromType result_from = obj->getDataNetworkName();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -474,6 +514,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     typedef typename CommunicationRecord::DataNetworkNameType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setDataNetworkName(value)) return NULL;
 
     return obj_communication_record;
@@ -490,11 +531,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     typedef typename CommunicationRecord::DataNetworkNameType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setDataNetworkName(std::move(value))) return NULL;
 
     return obj_communication_record;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_communication_record_has_location(const data_collection_model_communication_record_t *obj_communication_record)
+{
+    if (!obj_communication_record) return false;
+
+    const std::shared_ptr<CommunicationRecord > &obj = *reinterpret_cast<const std::shared_ptr<CommunicationRecord >*>(obj_communication_record);
+    if (!obj) return false;
+
+    return obj->getLocation().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_communication_record_get_location(const data_collection_model_communication_record_t *obj_communication_record)
 {
@@ -511,15 +564,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_co
 
     typedef typename CommunicationRecord::LocationType ResultFromType;
     const ResultFromType result_from = obj->getLocation();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_location_area5_g_t *item_obj = reinterpret_cast<data_collection_model_location_area5_g_t*>(new std::shared_ptr<LocationArea5G >(item));
-        node = data_collection_model_location_area5_g_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_location_area5_g_t *item_obj = reinterpret_cast<data_collection_model_location_area5_g_t*>(item.has_value()?new std::shared_ptr<LocationArea5G >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_location_area5_g_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -534,14 +591,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     typedef typename CommunicationRecord::LocationType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setLocation(value)) return NULL;
 
     return obj_communication_record;
@@ -558,14 +618,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     typedef typename CommunicationRecord::LocationType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_location);
     if (!obj->setLocation(std::move(value))) return NULL;
 
@@ -579,13 +642,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     std::shared_ptr<CommunicationRecord > &obj = *reinterpret_cast<std::shared_ptr<CommunicationRecord >*>(obj_communication_record);
     if (!obj) return NULL;
 
-    typedef typename CommunicationRecord::LocationType ContainerType;
+    typedef typename CommunicationRecord::LocationType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_location;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addLocation(value);
+
+    if (value) obj->addLocation(value.value());
     return obj_communication_record;
 }
 
@@ -596,10 +660,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     std::shared_ptr<CommunicationRecord > &obj = *reinterpret_cast<std::shared_ptr<CommunicationRecord >*>(obj_communication_record);
     if (!obj) return NULL;
 
-    typedef typename CommunicationRecord::LocationType ContainerType;
+    typedef typename CommunicationRecord::LocationType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_location;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeLocation(value);
     return obj_communication_record;
 }
@@ -614,6 +679,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     obj->clearLocation();
     return obj_communication_record;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_communication_record_has_uplink_volume(const data_collection_model_communication_record_t *obj_communication_record)
+{
+    if (!obj_communication_record) return false;
+
+    const std::shared_ptr<CommunicationRecord > &obj = *reinterpret_cast<const std::shared_ptr<CommunicationRecord >*>(obj_communication_record);
+    if (!obj) return false;
+
+    return obj->getUplinkVolume().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_communication_record_get_uplink_volume(const data_collection_model_communication_record_t *obj_communication_record)
 {
@@ -630,7 +706,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_
 
     typedef typename CommunicationRecord::UplinkVolumeType ResultFromType;
     const ResultFromType result_from = obj->getUplinkVolume();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -644,7 +720,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     const auto &value_from = p_uplink_volume;
     typedef typename CommunicationRecord::UplinkVolumeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setUplinkVolume(value)) return NULL;
 
     return obj_communication_record;
@@ -660,12 +737,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     const auto &value_from = p_uplink_volume;
     typedef typename CommunicationRecord::UplinkVolumeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setUplinkVolume(std::move(value))) return NULL;
 
     return obj_communication_record;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_communication_record_has_downlink_volume(const data_collection_model_communication_record_t *obj_communication_record)
+{
+    if (!obj_communication_record) return false;
+
+    const std::shared_ptr<CommunicationRecord > &obj = *reinterpret_cast<const std::shared_ptr<CommunicationRecord >*>(obj_communication_record);
+    if (!obj) return false;
+
+    return obj->getDownlinkVolume().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_communication_record_get_downlink_volume(const data_collection_model_communication_record_t *obj_communication_record)
 {
@@ -682,7 +771,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_
 
     typedef typename CommunicationRecord::DownlinkVolumeType ResultFromType;
     const ResultFromType result_from = obj->getDownlinkVolume();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -696,7 +785,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     const auto &value_from = p_downlink_volume;
     typedef typename CommunicationRecord::DownlinkVolumeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setDownlinkVolume(value)) return NULL;
 
     return obj_communication_record;
@@ -712,7 +802,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
     const auto &value_from = p_downlink_volume;
     typedef typename CommunicationRecord::DownlinkVolumeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setDownlinkVolume(std::move(value))) return NULL;
 

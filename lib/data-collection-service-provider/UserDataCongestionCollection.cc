@@ -168,6 +168,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_user_data
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_user_data_congestion_collection_has_app_id(const data_collection_model_user_data_congestion_collection_t *obj_user_data_congestion_collection)
+{
+    if (!obj_user_data_congestion_collection) return false;
+
+    const std::shared_ptr<UserDataCongestionCollection > &obj = *reinterpret_cast<const std::shared_ptr<UserDataCongestionCollection >*>(obj_user_data_congestion_collection);
+    if (!obj) return false;
+
+    return obj->getAppId().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_user_data_congestion_collection_get_app_id(const data_collection_model_user_data_congestion_collection_t *obj_user_data_congestion_collection)
 {
     if (!obj_user_data_congestion_collection) {
@@ -183,7 +194,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_us
 
     typedef typename UserDataCongestionCollection::AppIdType ResultFromType;
     const ResultFromType result_from = obj->getAppId();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -198,6 +209,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_user_data_cong
     typedef typename UserDataCongestionCollection::AppIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setAppId(value)) return NULL;
 
     return obj_user_data_congestion_collection;
@@ -214,11 +226,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_user_data_cong
     typedef typename UserDataCongestionCollection::AppIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setAppId(std::move(value))) return NULL;
 
     return obj_user_data_congestion_collection;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_user_data_congestion_collection_has_ip_traffic_filter(const data_collection_model_user_data_congestion_collection_t *obj_user_data_congestion_collection)
+{
+    if (!obj_user_data_congestion_collection) return false;
+
+    const std::shared_ptr<UserDataCongestionCollection > &obj = *reinterpret_cast<const std::shared_ptr<UserDataCongestionCollection >*>(obj_user_data_congestion_collection);
+    if (!obj) return false;
+
+    return obj->getIpTrafficFilter().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_flow_info_t* data_collection_model_user_data_congestion_collection_get_ip_traffic_filter(const data_collection_model_user_data_congestion_collection_t *obj_user_data_congestion_collection)
 {
@@ -235,7 +259,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_flow_inf
 
     typedef typename UserDataCongestionCollection::IpTrafficFilterType ResultFromType;
     const ResultFromType result_from = obj->getIpTrafficFilter();
-    const data_collection_model_flow_info_t *result = reinterpret_cast<const data_collection_model_flow_info_t*>(&result_from);
+    const data_collection_model_flow_info_t *result = reinterpret_cast<const data_collection_model_flow_info_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -249,7 +273,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_user_data_cong
     const auto &value_from = p_ip_traffic_filter;
     typedef typename UserDataCongestionCollection::IpTrafficFilterType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setIpTrafficFilter(value)) return NULL;
 
     return obj_user_data_congestion_collection;
@@ -265,12 +290,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_user_data_cong
     const auto &value_from = p_ip_traffic_filter;
     typedef typename UserDataCongestionCollection::IpTrafficFilterType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setIpTrafficFilter(std::move(value))) return NULL;
 
     return obj_user_data_congestion_collection;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_user_data_congestion_collection_has_time_interv(const data_collection_model_user_data_congestion_collection_t *obj_user_data_congestion_collection)
+{
+    if (!obj_user_data_congestion_collection) return false;
+
+    const std::shared_ptr<UserDataCongestionCollection > &obj = *reinterpret_cast<const std::shared_ptr<UserDataCongestionCollection >*>(obj_user_data_congestion_collection);
+    if (!obj) return false;
+
+    return obj->getTimeInterv().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_time_window_t* data_collection_model_user_data_congestion_collection_get_time_interv(const data_collection_model_user_data_congestion_collection_t *obj_user_data_congestion_collection)
 {
@@ -287,7 +324,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_time_win
 
     typedef typename UserDataCongestionCollection::TimeIntervType ResultFromType;
     const ResultFromType result_from = obj->getTimeInterv();
-    const data_collection_model_time_window_t *result = reinterpret_cast<const data_collection_model_time_window_t*>(&result_from);
+    const data_collection_model_time_window_t *result = reinterpret_cast<const data_collection_model_time_window_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -301,7 +338,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_user_data_cong
     const auto &value_from = p_time_interv;
     typedef typename UserDataCongestionCollection::TimeIntervType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setTimeInterv(value)) return NULL;
 
     return obj_user_data_congestion_collection;
@@ -317,12 +355,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_user_data_cong
     const auto &value_from = p_time_interv;
     typedef typename UserDataCongestionCollection::TimeIntervType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setTimeInterv(std::move(value))) return NULL;
 
     return obj_user_data_congestion_collection;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_user_data_congestion_collection_has_thrput_ul(const data_collection_model_user_data_congestion_collection_t *obj_user_data_congestion_collection)
+{
+    if (!obj_user_data_congestion_collection) return false;
+
+    const std::shared_ptr<UserDataCongestionCollection > &obj = *reinterpret_cast<const std::shared_ptr<UserDataCongestionCollection >*>(obj_user_data_congestion_collection);
+    if (!obj) return false;
+
+    return obj->getThrputUl().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_user_data_congestion_collection_get_thrput_ul(const data_collection_model_user_data_congestion_collection_t *obj_user_data_congestion_collection)
 {
@@ -339,7 +389,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_us
 
     typedef typename UserDataCongestionCollection::ThrputUlType ResultFromType;
     const ResultFromType result_from = obj->getThrputUl();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -354,6 +404,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_user_data_cong
     typedef typename UserDataCongestionCollection::ThrputUlType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setThrputUl(value)) return NULL;
 
     return obj_user_data_congestion_collection;
@@ -370,11 +421,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_user_data_cong
     typedef typename UserDataCongestionCollection::ThrputUlType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setThrputUl(std::move(value))) return NULL;
 
     return obj_user_data_congestion_collection;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_user_data_congestion_collection_has_thrput_dl(const data_collection_model_user_data_congestion_collection_t *obj_user_data_congestion_collection)
+{
+    if (!obj_user_data_congestion_collection) return false;
+
+    const std::shared_ptr<UserDataCongestionCollection > &obj = *reinterpret_cast<const std::shared_ptr<UserDataCongestionCollection >*>(obj_user_data_congestion_collection);
+    if (!obj) return false;
+
+    return obj->getThrputDl().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_user_data_congestion_collection_get_thrput_dl(const data_collection_model_user_data_congestion_collection_t *obj_user_data_congestion_collection)
 {
@@ -391,7 +454,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_us
 
     typedef typename UserDataCongestionCollection::ThrputDlType ResultFromType;
     const ResultFromType result_from = obj->getThrputDl();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -406,6 +469,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_user_data_cong
     typedef typename UserDataCongestionCollection::ThrputDlType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setThrputDl(value)) return NULL;
 
     return obj_user_data_congestion_collection;
@@ -422,11 +486,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_user_data_cong
     typedef typename UserDataCongestionCollection::ThrputDlType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setThrputDl(std::move(value))) return NULL;
 
     return obj_user_data_congestion_collection;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_user_data_congestion_collection_has_thrput_pk_ul(const data_collection_model_user_data_congestion_collection_t *obj_user_data_congestion_collection)
+{
+    if (!obj_user_data_congestion_collection) return false;
+
+    const std::shared_ptr<UserDataCongestionCollection > &obj = *reinterpret_cast<const std::shared_ptr<UserDataCongestionCollection >*>(obj_user_data_congestion_collection);
+    if (!obj) return false;
+
+    return obj->getThrputPkUl().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_user_data_congestion_collection_get_thrput_pk_ul(const data_collection_model_user_data_congestion_collection_t *obj_user_data_congestion_collection)
 {
@@ -443,7 +519,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_us
 
     typedef typename UserDataCongestionCollection::ThrputPkUlType ResultFromType;
     const ResultFromType result_from = obj->getThrputPkUl();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -458,6 +534,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_user_data_cong
     typedef typename UserDataCongestionCollection::ThrputPkUlType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setThrputPkUl(value)) return NULL;
 
     return obj_user_data_congestion_collection;
@@ -474,11 +551,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_user_data_cong
     typedef typename UserDataCongestionCollection::ThrputPkUlType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setThrputPkUl(std::move(value))) return NULL;
 
     return obj_user_data_congestion_collection;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_user_data_congestion_collection_has_thrput_pk_dl(const data_collection_model_user_data_congestion_collection_t *obj_user_data_congestion_collection)
+{
+    if (!obj_user_data_congestion_collection) return false;
+
+    const std::shared_ptr<UserDataCongestionCollection > &obj = *reinterpret_cast<const std::shared_ptr<UserDataCongestionCollection >*>(obj_user_data_congestion_collection);
+    if (!obj) return false;
+
+    return obj->getThrputPkDl().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_user_data_congestion_collection_get_thrput_pk_dl(const data_collection_model_user_data_congestion_collection_t *obj_user_data_congestion_collection)
 {
@@ -495,7 +584,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_us
 
     typedef typename UserDataCongestionCollection::ThrputPkDlType ResultFromType;
     const ResultFromType result_from = obj->getThrputPkDl();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -510,6 +599,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_user_data_cong
     typedef typename UserDataCongestionCollection::ThrputPkDlType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setThrputPkDl(value)) return NULL;
 
     return obj_user_data_congestion_collection;
@@ -526,6 +616,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_user_data_cong
     typedef typename UserDataCongestionCollection::ThrputPkDlType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setThrputPkDl(std::move(value))) return NULL;
 

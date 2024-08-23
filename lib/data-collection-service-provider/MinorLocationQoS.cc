@@ -158,6 +158,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_minor_loc
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_minor_location_qo_s_has_h_accuracy(const data_collection_model_minor_location_qo_s_t *obj_minor_location_qo_s)
+{
+    if (!obj_minor_location_qo_s) return false;
+
+    const std::shared_ptr<MinorLocationQoS > &obj = *reinterpret_cast<const std::shared_ptr<MinorLocationQoS >*>(obj_minor_location_qo_s);
+    if (!obj) return false;
+
+    return obj->getHAccuracy().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_minor_location_qo_s_get_h_accuracy(const data_collection_model_minor_location_qo_s_t *obj_minor_location_qo_s)
 {
     if (!obj_minor_location_qo_s) {
@@ -173,7 +184,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_mi
 
     typedef typename MinorLocationQoS::HAccuracyType ResultFromType;
     const ResultFromType result_from = obj->getHAccuracy();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -187,7 +198,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_minor_location
     const auto &value_from = p_h_accuracy;
     typedef typename MinorLocationQoS::HAccuracyType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setHAccuracy(value)) return NULL;
 
     return obj_minor_location_qo_s;
@@ -203,12 +215,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_minor_location
     const auto &value_from = p_h_accuracy;
     typedef typename MinorLocationQoS::HAccuracyType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setHAccuracy(std::move(value))) return NULL;
 
     return obj_minor_location_qo_s;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_minor_location_qo_s_has_v_accuracy(const data_collection_model_minor_location_qo_s_t *obj_minor_location_qo_s)
+{
+    if (!obj_minor_location_qo_s) return false;
+
+    const std::shared_ptr<MinorLocationQoS > &obj = *reinterpret_cast<const std::shared_ptr<MinorLocationQoS >*>(obj_minor_location_qo_s);
+    if (!obj) return false;
+
+    return obj->getVAccuracy().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_minor_location_qo_s_get_v_accuracy(const data_collection_model_minor_location_qo_s_t *obj_minor_location_qo_s)
 {
@@ -225,7 +249,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_mi
 
     typedef typename MinorLocationQoS::VAccuracyType ResultFromType;
     const ResultFromType result_from = obj->getVAccuracy();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -239,7 +263,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_minor_location
     const auto &value_from = p_v_accuracy;
     typedef typename MinorLocationQoS::VAccuracyType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setVAccuracy(value)) return NULL;
 
     return obj_minor_location_qo_s;
@@ -255,7 +280,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_minor_location
     const auto &value_from = p_v_accuracy;
     typedef typename MinorLocationQoS::VAccuracyType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setVAccuracy(std::move(value))) return NULL;
 

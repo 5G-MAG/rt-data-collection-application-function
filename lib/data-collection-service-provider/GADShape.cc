@@ -158,6 +158,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_gad_shape
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supported_gad_shapes_t* data_collection_model_gad_shape_get_shape(const data_collection_model_gad_shape_t *obj_gad_shape)
 {
     if (!obj_gad_shape) {
@@ -188,6 +189,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gad_shape_t *d
     typedef typename GADShape::ShapeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setShape(value)) return NULL;
 
     return obj_gad_shape;
@@ -204,6 +206,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gad_shape_t *d
     typedef typename GADShape::ShapeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setShape(std::move(value))) return NULL;
 

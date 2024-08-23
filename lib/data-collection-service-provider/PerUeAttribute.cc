@@ -162,6 +162,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_per_ue_at
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_per_ue_attribute_has_ue_dest(const data_collection_model_per_ue_attribute_t *obj_per_ue_attribute)
+{
+    if (!obj_per_ue_attribute) return false;
+
+    const std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<const std::shared_ptr<PerUeAttribute >*>(obj_per_ue_attribute);
+    if (!obj) return false;
+
+    return obj->getUeDest().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location_area5_g_t* data_collection_model_per_ue_attribute_get_ue_dest(const data_collection_model_per_ue_attribute_t *obj_per_ue_attribute)
 {
     if (!obj_per_ue_attribute) {
@@ -177,7 +188,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location
 
     typedef typename PerUeAttribute::UeDestType ResultFromType;
     const ResultFromType result_from = obj->getUeDest();
-    const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(&result_from);
+    const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -191,7 +202,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribu
     const auto &value_from = p_ue_dest;
     typedef typename PerUeAttribute::UeDestType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setUeDest(value)) return NULL;
 
     return obj_per_ue_attribute;
@@ -207,12 +219,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribu
     const auto &value_from = p_ue_dest;
     typedef typename PerUeAttribute::UeDestType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setUeDest(std::move(value))) return NULL;
 
     return obj_per_ue_attribute;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_per_ue_attribute_has_route(const data_collection_model_per_ue_attribute_t *obj_per_ue_attribute)
+{
+    if (!obj_per_ue_attribute) return false;
+
+    const std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<const std::shared_ptr<PerUeAttribute >*>(obj_per_ue_attribute);
+    if (!obj) return false;
+
+    return obj->getRoute().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_per_ue_attribute_get_route(const data_collection_model_per_ue_attribute_t *obj_per_ue_attribute)
 {
@@ -229,7 +253,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
 
     typedef typename PerUeAttribute::RouteType ResultFromType;
     const ResultFromType result_from = obj->getRoute();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -244,6 +268,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribu
     typedef typename PerUeAttribute::RouteType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setRoute(value)) return NULL;
 
     return obj_per_ue_attribute;
@@ -260,11 +285,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribu
     typedef typename PerUeAttribute::RouteType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setRoute(std::move(value))) return NULL;
 
     return obj_per_ue_attribute;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_per_ue_attribute_has_avg_speed(const data_collection_model_per_ue_attribute_t *obj_per_ue_attribute)
+{
+    if (!obj_per_ue_attribute) return false;
+
+    const std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<const std::shared_ptr<PerUeAttribute >*>(obj_per_ue_attribute);
+    if (!obj) return false;
+
+    return obj->getAvgSpeed().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_per_ue_attribute_get_avg_speed(const data_collection_model_per_ue_attribute_t *obj_per_ue_attribute)
 {
@@ -281,7 +318,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
 
     typedef typename PerUeAttribute::AvgSpeedType ResultFromType;
     const ResultFromType result_from = obj->getAvgSpeed();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -296,6 +333,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribu
     typedef typename PerUeAttribute::AvgSpeedType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setAvgSpeed(value)) return NULL;
 
     return obj_per_ue_attribute;
@@ -312,11 +350,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribu
     typedef typename PerUeAttribute::AvgSpeedType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setAvgSpeed(std::move(value))) return NULL;
 
     return obj_per_ue_attribute;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_per_ue_attribute_has_time_of_arrival(const data_collection_model_per_ue_attribute_t *obj_per_ue_attribute)
+{
+    if (!obj_per_ue_attribute) return false;
+
+    const std::shared_ptr<PerUeAttribute > &obj = *reinterpret_cast<const std::shared_ptr<PerUeAttribute >*>(obj_per_ue_attribute);
+    if (!obj) return false;
+
+    return obj->getTimeOfArrival().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_per_ue_attribute_get_time_of_arrival(const data_collection_model_per_ue_attribute_t *obj_per_ue_attribute)
 {
@@ -333,7 +383,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
 
     typedef typename PerUeAttribute::TimeOfArrivalType ResultFromType;
     const ResultFromType result_from = obj->getTimeOfArrival();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -348,6 +398,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribu
     typedef typename PerUeAttribute::TimeOfArrivalType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setTimeOfArrival(value)) return NULL;
 
     return obj_per_ue_attribute;
@@ -364,6 +415,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribu
     typedef typename PerUeAttribute::TimeOfArrivalType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setTimeOfArrival(std::move(value))) return NULL;
 

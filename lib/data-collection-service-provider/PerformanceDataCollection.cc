@@ -170,6 +170,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performan
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_collection_has_app_id(const data_collection_model_performance_data_collection_t *obj_performance_data_collection)
+{
+    if (!obj_performance_data_collection) return false;
+
+    const std::shared_ptr<PerformanceDataCollection > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceDataCollection >*>(obj_performance_data_collection);
+    if (!obj) return false;
+
+    return obj->getAppId().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_performance_data_collection_get_app_id(const data_collection_model_performance_data_collection_t *obj_performance_data_collection)
 {
     if (!obj_performance_data_collection) {
@@ -185,7 +196,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
 
     typedef typename PerformanceDataCollection::AppIdType ResultFromType;
     const ResultFromType result_from = obj->getAppId();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -200,6 +211,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceDataCollection::AppIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setAppId(value)) return NULL;
 
     return obj_performance_data_collection;
@@ -216,11 +228,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceDataCollection::AppIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setAppId(std::move(value))) return NULL;
 
     return obj_performance_data_collection;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_collection_has_ue_ip_addr(const data_collection_model_performance_data_collection_t *obj_performance_data_collection)
+{
+    if (!obj_performance_data_collection) return false;
+
+    const std::shared_ptr<PerformanceDataCollection > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceDataCollection >*>(obj_performance_data_collection);
+    if (!obj) return false;
+
+    return obj->getUeIpAddr().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ip_addr_t* data_collection_model_performance_data_collection_get_ue_ip_addr(const data_collection_model_performance_data_collection_t *obj_performance_data_collection)
 {
@@ -237,7 +261,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ip_addr_
 
     typedef typename PerformanceDataCollection::UeIpAddrType ResultFromType;
     const ResultFromType result_from = obj->getUeIpAddr();
-    const data_collection_model_ip_addr_t *result = reinterpret_cast<const data_collection_model_ip_addr_t*>(&result_from);
+    const data_collection_model_ip_addr_t *result = reinterpret_cast<const data_collection_model_ip_addr_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -251,7 +275,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_ue_ip_addr;
     typedef typename PerformanceDataCollection::UeIpAddrType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setUeIpAddr(value)) return NULL;
 
     return obj_performance_data_collection;
@@ -267,12 +292,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_ue_ip_addr;
     typedef typename PerformanceDataCollection::UeIpAddrType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setUeIpAddr(std::move(value))) return NULL;
 
     return obj_performance_data_collection;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_collection_has_ip_traffic_filter(const data_collection_model_performance_data_collection_t *obj_performance_data_collection)
+{
+    if (!obj_performance_data_collection) return false;
+
+    const std::shared_ptr<PerformanceDataCollection > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceDataCollection >*>(obj_performance_data_collection);
+    if (!obj) return false;
+
+    return obj->getIpTrafficFilter().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_flow_info_t* data_collection_model_performance_data_collection_get_ip_traffic_filter(const data_collection_model_performance_data_collection_t *obj_performance_data_collection)
 {
@@ -289,7 +326,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_flow_inf
 
     typedef typename PerformanceDataCollection::IpTrafficFilterType ResultFromType;
     const ResultFromType result_from = obj->getIpTrafficFilter();
-    const data_collection_model_flow_info_t *result = reinterpret_cast<const data_collection_model_flow_info_t*>(&result_from);
+    const data_collection_model_flow_info_t *result = reinterpret_cast<const data_collection_model_flow_info_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -303,7 +340,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_ip_traffic_filter;
     typedef typename PerformanceDataCollection::IpTrafficFilterType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setIpTrafficFilter(value)) return NULL;
 
     return obj_performance_data_collection;
@@ -319,12 +357,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_ip_traffic_filter;
     typedef typename PerformanceDataCollection::IpTrafficFilterType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setIpTrafficFilter(std::move(value))) return NULL;
 
     return obj_performance_data_collection;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_collection_has_ue_loc(const data_collection_model_performance_data_collection_t *obj_performance_data_collection)
+{
+    if (!obj_performance_data_collection) return false;
+
+    const std::shared_ptr<PerformanceDataCollection > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceDataCollection >*>(obj_performance_data_collection);
+    if (!obj) return false;
+
+    return obj->getUeLoc().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location_area5_g_t* data_collection_model_performance_data_collection_get_ue_loc(const data_collection_model_performance_data_collection_t *obj_performance_data_collection)
 {
@@ -341,7 +391,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location
 
     typedef typename PerformanceDataCollection::UeLocType ResultFromType;
     const ResultFromType result_from = obj->getUeLoc();
-    const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(&result_from);
+    const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -355,7 +405,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_ue_loc;
     typedef typename PerformanceDataCollection::UeLocType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setUeLoc(value)) return NULL;
 
     return obj_performance_data_collection;
@@ -371,12 +422,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_ue_loc;
     typedef typename PerformanceDataCollection::UeLocType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setUeLoc(std::move(value))) return NULL;
 
     return obj_performance_data_collection;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_collection_has_app_locs(const data_collection_model_performance_data_collection_t *obj_performance_data_collection)
+{
+    if (!obj_performance_data_collection) return false;
+
+    const std::shared_ptr<PerformanceDataCollection > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceDataCollection >*>(obj_performance_data_collection);
+    if (!obj) return false;
+
+    return obj->getAppLocs().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_performance_data_collection_get_app_locs(const data_collection_model_performance_data_collection_t *obj_performance_data_collection)
 {
@@ -393,14 +456,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_pe
 
     typedef typename PerformanceDataCollection::AppLocsType ResultFromType;
     const ResultFromType result_from = obj->getAppLocs();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -415,14 +480,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceDataCollection::AppLocsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setAppLocs(value)) return NULL;
 
     return obj_performance_data_collection;
@@ -439,14 +507,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceDataCollection::AppLocsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_app_locs);
     if (!obj->setAppLocs(std::move(value))) return NULL;
 
@@ -460,13 +531,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     std::shared_ptr<PerformanceDataCollection > &obj = *reinterpret_cast<std::shared_ptr<PerformanceDataCollection >*>(obj_performance_data_collection);
     if (!obj) return NULL;
 
-    typedef typename PerformanceDataCollection::AppLocsType ContainerType;
+    typedef typename PerformanceDataCollection::AppLocsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_app_locs;
 
     ValueType value(value_from);
 
-    obj->addAppLocs(value);
+
+    if (value) obj->addAppLocs(value.value());
     return obj_performance_data_collection;
 }
 
@@ -477,10 +549,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     std::shared_ptr<PerformanceDataCollection > &obj = *reinterpret_cast<std::shared_ptr<PerformanceDataCollection >*>(obj_performance_data_collection);
     if (!obj) return NULL;
 
-    typedef typename PerformanceDataCollection::AppLocsType ContainerType;
+    typedef typename PerformanceDataCollection::AppLocsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_app_locs;
     ValueType value(value_from);
+
     obj->removeAppLocs(value);
     return obj_performance_data_collection;
 }
@@ -495,6 +568,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     obj->clearAppLocs();
     return obj_performance_data_collection;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_collection_has_as_addr(const data_collection_model_performance_data_collection_t *obj_performance_data_collection)
+{
+    if (!obj_performance_data_collection) return false;
+
+    const std::shared_ptr<PerformanceDataCollection > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceDataCollection >*>(obj_performance_data_collection);
+    if (!obj) return false;
+
+    return obj->getAsAddr().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_addr_fqdn_t* data_collection_model_performance_data_collection_get_as_addr(const data_collection_model_performance_data_collection_t *obj_performance_data_collection)
 {
@@ -511,7 +595,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_addr_fqd
 
     typedef typename PerformanceDataCollection::AsAddrType ResultFromType;
     const ResultFromType result_from = obj->getAsAddr();
-    const data_collection_model_addr_fqdn_t *result = reinterpret_cast<const data_collection_model_addr_fqdn_t*>(&result_from);
+    const data_collection_model_addr_fqdn_t *result = reinterpret_cast<const data_collection_model_addr_fqdn_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -525,7 +609,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_as_addr;
     typedef typename PerformanceDataCollection::AsAddrType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setAsAddr(value)) return NULL;
 
     return obj_performance_data_collection;
@@ -541,12 +626,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_as_addr;
     typedef typename PerformanceDataCollection::AsAddrType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setAsAddr(std::move(value))) return NULL;
 
     return obj_performance_data_collection;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_performance_data_t* data_collection_model_performance_data_collection_get_perf_data(const data_collection_model_performance_data_collection_t *obj_performance_data_collection)
 {
@@ -578,6 +665,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceDataCollection::PerfDataType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setPerfData(value)) return NULL;
 
     return obj_performance_data_collection;
@@ -594,11 +682,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceDataCollection::PerfDataType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setPerfData(std::move(value))) return NULL;
 
     return obj_performance_data_collection;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_performance_data_collection_get_time_stamp(const data_collection_model_performance_data_collection_t *obj_performance_data_collection)
 {
@@ -630,6 +720,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceDataCollection::TimeStampType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setTimeStamp(value)) return NULL;
 
     return obj_performance_data_collection;
@@ -646,6 +737,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceDataCollection::TimeStampType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setTimeStamp(std::move(value))) return NULL;
 

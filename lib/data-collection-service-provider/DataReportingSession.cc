@@ -168,6 +168,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_repo
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_session_has_session_id(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
+{
+    if (!obj_data_reporting_session) return false;
+
+    const std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return false;
+
+    return obj->getSessionId().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_data_reporting_session_get_session_id(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
 {
     if (!obj_data_reporting_session) {
@@ -185,7 +196,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_da
 
     typedef typename DataReportingSession::SessionIdType ResultFromType;
     const ResultFromType result_from = obj->getSessionId();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -200,6 +211,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     typedef typename DataReportingSession::SessionIdType ValueType;
 
     ValueType value(value_from);
+
+
     if (!obj->setSessionId(value)) return NULL;
 
     return obj_data_reporting_session;
@@ -216,11 +229,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     typedef typename DataReportingSession::SessionIdType ValueType;
 
     ValueType value(value_from);
+
+
     
     if (!obj->setSessionId(std::move(value))) return NULL;
 
     return obj_data_reporting_session;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_session_has_valid_until(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
+{
+    if (!obj_data_reporting_session) return false;
+
+    const std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return false;
+
+    return obj->getValidUntil().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_data_reporting_session_get_valid_until(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
 {
@@ -239,7 +265,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_da
 
     typedef typename DataReportingSession::ValidUntilType ResultFromType;
     const ResultFromType result_from = obj->getValidUntil();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -254,6 +280,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     typedef typename DataReportingSession::ValidUntilType ValueType;
 
     ValueType value(value_from);
+
+
     if (!obj->setValidUntil(value)) return NULL;
 
     return obj_data_reporting_session;
@@ -270,11 +298,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     typedef typename DataReportingSession::ValidUntilType ValueType;
 
     ValueType value(value_from);
+
+
     
     if (!obj->setValidUntil(std::move(value))) return NULL;
 
     return obj_data_reporting_session;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_data_reporting_session_get_external_application_id(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
 {
@@ -306,6 +337,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     typedef typename DataReportingSession::ExternalApplicationIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setExternalApplicationId(value)) return NULL;
 
     return obj_data_reporting_session;
@@ -322,11 +354,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     typedef typename DataReportingSession::ExternalApplicationIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setExternalApplicationId(std::move(value))) return NULL;
 
     return obj_data_reporting_session;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_reporting_session_get_supported_domains(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
 {
@@ -344,13 +378,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     typedef typename DataReportingSession::SupportedDomainsType ResultFromType;
     const ResultFromType result_from = obj->getSupportedDomains();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+    
     typedef typename ResultFromType::value_type ItemType;
     for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_data_domain_t *item_obj = reinterpret_cast<data_collection_model_data_domain_t*>(new std::shared_ptr<DataDomain >(item));
-        node = data_collection_model_data_domain_make_lnode(item_obj);
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_data_domain_t *item_obj = reinterpret_cast<data_collection_model_data_domain_t*>(item.has_value()?new std::shared_ptr<DataDomain >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_data_domain_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
+        if (node) ogs_list_add(result, node);
     }
     return result;
 }
@@ -366,14 +403,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     typedef typename DataReportingSession::SupportedDomainsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setSupportedDomains(value)) return NULL;
 
     return obj_data_reporting_session;
@@ -390,14 +430,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     typedef typename DataReportingSession::SupportedDomainsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_supported_domains);
     if (!obj->setSupportedDomains(std::move(value))) return NULL;
 
@@ -415,7 +458,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_supported_domains;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
 
     obj->addSupportedDomains(value);
     return obj_data_reporting_session;
@@ -431,7 +475,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     typedef typename DataReportingSession::SupportedDomainsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_supported_domains;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeSupportedDomains(value);
     return obj_data_reporting_session;
 }
@@ -446,6 +491,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     obj->clearSupportedDomains();
     return obj_data_reporting_session;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_session_has_sampling_rules(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
+{
+    if (!obj_data_reporting_session) return false;
+
+    const std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return false;
+
+    return obj->getSamplingRules().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const ogs_hash_t* data_collection_model_data_reporting_session_get_sampling_rules(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
 {
@@ -462,26 +518,35 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const ogs_hash_t* data_collection_mo
 
     typedef typename DataReportingSession::SamplingRulesType ResultFromType;
     const ResultFromType result_from = obj->getSamplingRules();
-    ogs_hash_t *result = ogs_hash_make();
-    for (const auto &item : result_from) {
-        ogs_list_t *item_obj;
-        typedef typename ResultFromType::mapped_type ItemType;
-        {
-    	const auto &result_from = item.second;
-            typedef ItemType ResultFromType;
-    	ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    	typedef typename ResultFromType::value_type ItemType;
-    	for (const ItemType &item : result_from) {
-    	    data_collection_lnode_t *node;
-    	    data_collection_model_data_sampling_rule_t *item_obj = reinterpret_cast<data_collection_model_data_sampling_rule_t*>(new std::shared_ptr<DataSamplingRule >(item));
-    	    node = data_collection_model_data_sampling_rule_make_lnode(item_obj);
-    	    
-    	    ogs_list_add(result, node);
-    	}    	item_obj = result;
+    ogs_hash_t *result = result_from.has_value()?ogs_hash_make():nullptr;
+    if (result) {
+        for (const auto &item : result_from.value()) {
+            ogs_list_t *item_obj = nullptr;
+            if (item.second.has_value()) {
+
+            typedef typename ResultFromType::value_type::mapped_type ItemType;
+            {
+                const auto &result_from = item.second;
+                typedef ItemType ResultFromType;
+                ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+                if (result_from.has_value()) {
+
+                typedef typename ResultFromType::value_type::value_type ItemType;
+                for (const ItemType &item : result_from.value()) {
+                    data_collection_lnode_t *node = nullptr;
+                    data_collection_model_data_sampling_rule_t *item_obj = reinterpret_cast<data_collection_model_data_sampling_rule_t*>(item.has_value()?new std::shared_ptr<DataSamplingRule >(item.value()):nullptr);
+                    if (item_obj) {
+                	node = data_collection_model_data_sampling_rule_make_lnode(item_obj);
+                    }
+                    
+                    if (node) ogs_list_add(result, node);
+                }}                item_obj = result;
+            }
+            }
+
+    
+            if (item_obj) ogs_hash_set(result, item.first.c_str(), OGS_HASH_KEY_STRING, item_obj);
         }
-    
-    
-        ogs_hash_set(result, item.first.c_str(), OGS_HASH_KEY_STRING, item_obj);
     }
     return result;
 }
@@ -497,11 +562,12 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     typedef typename DataReportingSession::SamplingRulesType ValueType;
 
     ValueType value;
-    {
-        typedef typename ValueType::mapped_type ItemType;
+    if (value_from) {
+        typedef typename ValueType::value_type::mapped_type ItemType;
+        value = std::move(typename ValueType::value_type());
         ogs_hash_index_t *entry = ogs_hash_index_make(value_from);
+        auto &container(value.value());
         for (entry = ogs_hash_next(entry); entry; entry = ogs_hash_next(entry)) {
-    	auto &container(value);
     	const char *key;
             int key_len;
     	const ogs_list_t *item;
@@ -510,18 +576,22 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
                 const auto value_from = item;
     	    typedef ItemType ValueType;
     	    ValueType value;
-    	    {
+    	    if (value_from) {
     	        data_collection_lnode_t *lnode;
-    	        typedef typename ValueType::value_type ItemType;
+    	        typedef typename ValueType::value_type::value_type ItemType;
+    	        value = std::move(typename ValueType::value_type());
+    	        auto &container(value.value());
     	        ogs_list_for_each(value_from, lnode) {
-    	    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	    	
     	        }
-    	    }                container.insert(std::make_pair(std::string(key), value));
+    	    }
+                if (value.has_value()) container.insert(std::make_pair(std::string(key), ItemType(std::move(value))));
     	}
         }
         ogs_free(entry);
     }
+
     if (!obj->setSamplingRules(value)) return NULL;
 
     return obj_data_reporting_session;
@@ -538,11 +608,12 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     typedef typename DataReportingSession::SamplingRulesType ValueType;
 
     ValueType value;
-    {
-        typedef typename ValueType::mapped_type ItemType;
+    if (value_from) {
+        typedef typename ValueType::value_type::mapped_type ItemType;
+        value = std::move(typename ValueType::value_type());
         ogs_hash_index_t *entry = ogs_hash_index_make(value_from);
+        auto &container(value.value());
         for (entry = ogs_hash_next(entry); entry; entry = ogs_hash_next(entry)) {
-    	auto &container(value);
     	const char *key;
             int key_len;
     	const ogs_list_t *item;
@@ -551,18 +622,22 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
                 const auto value_from = item;
     	    typedef ItemType ValueType;
     	    ValueType value;
-    	    {
+    	    if (value_from) {
     	        data_collection_lnode_t *lnode;
-    	        typedef typename ValueType::value_type ItemType;
+    	        typedef typename ValueType::value_type::value_type ItemType;
+    	        value = std::move(typename ValueType::value_type());
+    	        auto &container(value.value());
     	        ogs_list_for_each(value_from, lnode) {
-    	    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	    	
     	        }
-    	    }                container.insert(std::make_pair(std::string(key), value));
+    	    }
+                if (value.has_value()) container.insert(std::make_pair(std::string(key), ItemType(std::move(value))));
     	}
         }
         ogs_free(entry);
     }
+
     data_collection_hash_free(p_sampling_rules, reinterpret_cast<void(*)(void*)>(data_collection_model_data_sampling_rule_free));
     if (!obj->setSamplingRules(std::move(value))) return NULL;
 
@@ -576,21 +651,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
     if (!obj) return NULL;
 
-    typedef typename DataReportingSession::SamplingRulesType ContainerType;
+    typedef typename DataReportingSession::SamplingRulesType::value_type ContainerType;
     typedef typename ContainerType::mapped_type ValueType;
     const auto &value_from = p_sampling_rules;
 
     ValueType value;
-{
+if (value_from) {
     data_collection_lnode_t *lnode;
-    typedef typename ValueType::value_type ItemType;
+    typedef typename ValueType::value_type::value_type ItemType;
+    value = std::move(typename ValueType::value_type());
+    auto &container(value.value());
     ogs_list_for_each(value_from, lnode) {
-	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
 	
     }
 }
 
-    obj->addSamplingRules(std::string(p_key), value);
+
+    if (value) obj->addSamplingRules(std::string(p_key), value.value());
     return obj_data_reporting_session;
 }
 
@@ -617,6 +695,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     return obj_data_reporting_session;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_session_has_reporting_conditions(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
+{
+    if (!obj_data_reporting_session) return false;
+
+    const std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return false;
+
+    return obj->getReportingConditions().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const ogs_hash_t* data_collection_model_data_reporting_session_get_reporting_conditions(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
 {
     if (!obj_data_reporting_session) {
@@ -632,26 +721,35 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const ogs_hash_t* data_collection_mo
 
     typedef typename DataReportingSession::ReportingConditionsType ResultFromType;
     const ResultFromType result_from = obj->getReportingConditions();
-    ogs_hash_t *result = ogs_hash_make();
-    for (const auto &item : result_from) {
-        ogs_list_t *item_obj;
-        typedef typename ResultFromType::mapped_type ItemType;
-        {
-    	const auto &result_from = item.second;
-            typedef ItemType ResultFromType;
-    	ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    	typedef typename ResultFromType::value_type ItemType;
-    	for (const ItemType &item : result_from) {
-    	    data_collection_lnode_t *node;
-    	    data_collection_model_data_reporting_condition_t *item_obj = reinterpret_cast<data_collection_model_data_reporting_condition_t*>(new std::shared_ptr<DataReportingCondition >(item));
-    	    node = data_collection_model_data_reporting_condition_make_lnode(item_obj);
-    	    
-    	    ogs_list_add(result, node);
-    	}    	item_obj = result;
+    ogs_hash_t *result = result_from.has_value()?ogs_hash_make():nullptr;
+    if (result) {
+        for (const auto &item : result_from.value()) {
+            ogs_list_t *item_obj = nullptr;
+            if (item.second.has_value()) {
+
+            typedef typename ResultFromType::value_type::mapped_type ItemType;
+            {
+                const auto &result_from = item.second;
+                typedef ItemType ResultFromType;
+                ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+                if (result_from.has_value()) {
+
+                typedef typename ResultFromType::value_type::value_type ItemType;
+                for (const ItemType &item : result_from.value()) {
+                    data_collection_lnode_t *node = nullptr;
+                    data_collection_model_data_reporting_condition_t *item_obj = reinterpret_cast<data_collection_model_data_reporting_condition_t*>(item.has_value()?new std::shared_ptr<DataReportingCondition >(item.value()):nullptr);
+                    if (item_obj) {
+                	node = data_collection_model_data_reporting_condition_make_lnode(item_obj);
+                    }
+                    
+                    if (node) ogs_list_add(result, node);
+                }}                item_obj = result;
+            }
+            }
+
+    
+            if (item_obj) ogs_hash_set(result, item.first.c_str(), OGS_HASH_KEY_STRING, item_obj);
         }
-    
-    
-        ogs_hash_set(result, item.first.c_str(), OGS_HASH_KEY_STRING, item_obj);
     }
     return result;
 }
@@ -667,11 +765,12 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     typedef typename DataReportingSession::ReportingConditionsType ValueType;
 
     ValueType value;
-    {
-        typedef typename ValueType::mapped_type ItemType;
+    if (value_from) {
+        typedef typename ValueType::value_type::mapped_type ItemType;
+        value = std::move(typename ValueType::value_type());
         ogs_hash_index_t *entry = ogs_hash_index_make(value_from);
+        auto &container(value.value());
         for (entry = ogs_hash_next(entry); entry; entry = ogs_hash_next(entry)) {
-    	auto &container(value);
     	const char *key;
             int key_len;
     	const ogs_list_t *item;
@@ -680,18 +779,22 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
                 const auto value_from = item;
     	    typedef ItemType ValueType;
     	    ValueType value;
-    	    {
+    	    if (value_from) {
     	        data_collection_lnode_t *lnode;
-    	        typedef typename ValueType::value_type ItemType;
+    	        typedef typename ValueType::value_type::value_type ItemType;
+    	        value = std::move(typename ValueType::value_type());
+    	        auto &container(value.value());
     	        ogs_list_for_each(value_from, lnode) {
-    	    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	    	
     	        }
-    	    }                container.insert(std::make_pair(std::string(key), value));
+    	    }
+                if (value.has_value()) container.insert(std::make_pair(std::string(key), ItemType(std::move(value))));
     	}
         }
         ogs_free(entry);
     }
+
     if (!obj->setReportingConditions(value)) return NULL;
 
     return obj_data_reporting_session;
@@ -708,11 +811,12 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     typedef typename DataReportingSession::ReportingConditionsType ValueType;
 
     ValueType value;
-    {
-        typedef typename ValueType::mapped_type ItemType;
+    if (value_from) {
+        typedef typename ValueType::value_type::mapped_type ItemType;
+        value = std::move(typename ValueType::value_type());
         ogs_hash_index_t *entry = ogs_hash_index_make(value_from);
+        auto &container(value.value());
         for (entry = ogs_hash_next(entry); entry; entry = ogs_hash_next(entry)) {
-    	auto &container(value);
     	const char *key;
             int key_len;
     	const ogs_list_t *item;
@@ -721,18 +825,22 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
                 const auto value_from = item;
     	    typedef ItemType ValueType;
     	    ValueType value;
-    	    {
+    	    if (value_from) {
     	        data_collection_lnode_t *lnode;
-    	        typedef typename ValueType::value_type ItemType;
+    	        typedef typename ValueType::value_type::value_type ItemType;
+    	        value = std::move(typename ValueType::value_type());
+    	        auto &container(value.value());
     	        ogs_list_for_each(value_from, lnode) {
-    	    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	    	
     	        }
-    	    }                container.insert(std::make_pair(std::string(key), value));
+    	    }
+                if (value.has_value()) container.insert(std::make_pair(std::string(key), ItemType(std::move(value))));
     	}
         }
         ogs_free(entry);
     }
+
     data_collection_hash_free(p_reporting_conditions, reinterpret_cast<void(*)(void*)>(data_collection_model_data_reporting_condition_free));
     if (!obj->setReportingConditions(std::move(value))) return NULL;
 
@@ -746,21 +854,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
     if (!obj) return NULL;
 
-    typedef typename DataReportingSession::ReportingConditionsType ContainerType;
+    typedef typename DataReportingSession::ReportingConditionsType::value_type ContainerType;
     typedef typename ContainerType::mapped_type ValueType;
     const auto &value_from = p_reporting_conditions;
 
     ValueType value;
-{
+if (value_from) {
     data_collection_lnode_t *lnode;
-    typedef typename ValueType::value_type ItemType;
+    typedef typename ValueType::value_type::value_type ItemType;
+    value = std::move(typename ValueType::value_type());
+    auto &container(value.value());
     ogs_list_for_each(value_from, lnode) {
-	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
 	
     }
 }
 
-    obj->addReportingConditions(std::string(p_key), value);
+
+    if (value) obj->addReportingConditions(std::string(p_key), value.value());
     return obj_data_reporting_session;
 }
 
@@ -787,6 +898,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     return obj_data_reporting_session;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_session_has_reporting_rules(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
+{
+    if (!obj_data_reporting_session) return false;
+
+    const std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) return false;
+
+    return obj->getReportingRules().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const ogs_hash_t* data_collection_model_data_reporting_session_get_reporting_rules(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
 {
     if (!obj_data_reporting_session) {
@@ -802,26 +924,35 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const ogs_hash_t* data_collection_mo
 
     typedef typename DataReportingSession::ReportingRulesType ResultFromType;
     const ResultFromType result_from = obj->getReportingRules();
-    ogs_hash_t *result = ogs_hash_make();
-    for (const auto &item : result_from) {
-        ogs_list_t *item_obj;
-        typedef typename ResultFromType::mapped_type ItemType;
-        {
-    	const auto &result_from = item.second;
-            typedef ItemType ResultFromType;
-    	ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    	typedef typename ResultFromType::value_type ItemType;
-    	for (const ItemType &item : result_from) {
-    	    data_collection_lnode_t *node;
-    	    data_collection_model_data_reporting_rule_t *item_obj = reinterpret_cast<data_collection_model_data_reporting_rule_t*>(new std::shared_ptr<DataReportingRule >(item));
-    	    node = data_collection_model_data_reporting_rule_make_lnode(item_obj);
-    	    
-    	    ogs_list_add(result, node);
-    	}    	item_obj = result;
+    ogs_hash_t *result = result_from.has_value()?ogs_hash_make():nullptr;
+    if (result) {
+        for (const auto &item : result_from.value()) {
+            ogs_list_t *item_obj = nullptr;
+            if (item.second.has_value()) {
+
+            typedef typename ResultFromType::value_type::mapped_type ItemType;
+            {
+                const auto &result_from = item.second;
+                typedef ItemType ResultFromType;
+                ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+                if (result_from.has_value()) {
+
+                typedef typename ResultFromType::value_type::value_type ItemType;
+                for (const ItemType &item : result_from.value()) {
+                    data_collection_lnode_t *node = nullptr;
+                    data_collection_model_data_reporting_rule_t *item_obj = reinterpret_cast<data_collection_model_data_reporting_rule_t*>(item.has_value()?new std::shared_ptr<DataReportingRule >(item.value()):nullptr);
+                    if (item_obj) {
+                	node = data_collection_model_data_reporting_rule_make_lnode(item_obj);
+                    }
+                    
+                    if (node) ogs_list_add(result, node);
+                }}                item_obj = result;
+            }
+            }
+
+    
+            if (item_obj) ogs_hash_set(result, item.first.c_str(), OGS_HASH_KEY_STRING, item_obj);
         }
-    
-    
-        ogs_hash_set(result, item.first.c_str(), OGS_HASH_KEY_STRING, item_obj);
     }
     return result;
 }
@@ -837,11 +968,12 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     typedef typename DataReportingSession::ReportingRulesType ValueType;
 
     ValueType value;
-    {
-        typedef typename ValueType::mapped_type ItemType;
+    if (value_from) {
+        typedef typename ValueType::value_type::mapped_type ItemType;
+        value = std::move(typename ValueType::value_type());
         ogs_hash_index_t *entry = ogs_hash_index_make(value_from);
+        auto &container(value.value());
         for (entry = ogs_hash_next(entry); entry; entry = ogs_hash_next(entry)) {
-    	auto &container(value);
     	const char *key;
             int key_len;
     	const ogs_list_t *item;
@@ -850,18 +982,22 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
                 const auto value_from = item;
     	    typedef ItemType ValueType;
     	    ValueType value;
-    	    {
+    	    if (value_from) {
     	        data_collection_lnode_t *lnode;
-    	        typedef typename ValueType::value_type ItemType;
+    	        typedef typename ValueType::value_type::value_type ItemType;
+    	        value = std::move(typename ValueType::value_type());
+    	        auto &container(value.value());
     	        ogs_list_for_each(value_from, lnode) {
-    	    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	    	
     	        }
-    	    }                container.insert(std::make_pair(std::string(key), value));
+    	    }
+                if (value.has_value()) container.insert(std::make_pair(std::string(key), ItemType(std::move(value))));
     	}
         }
         ogs_free(entry);
     }
+
     if (!obj->setReportingRules(value)) return NULL;
 
     return obj_data_reporting_session;
@@ -878,11 +1014,12 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     typedef typename DataReportingSession::ReportingRulesType ValueType;
 
     ValueType value;
-    {
-        typedef typename ValueType::mapped_type ItemType;
+    if (value_from) {
+        typedef typename ValueType::value_type::mapped_type ItemType;
+        value = std::move(typename ValueType::value_type());
         ogs_hash_index_t *entry = ogs_hash_index_make(value_from);
+        auto &container(value.value());
         for (entry = ogs_hash_next(entry); entry; entry = ogs_hash_next(entry)) {
-    	auto &container(value);
     	const char *key;
             int key_len;
     	const ogs_list_t *item;
@@ -891,18 +1028,22 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
                 const auto value_from = item;
     	    typedef ItemType ValueType;
     	    ValueType value;
-    	    {
+    	    if (value_from) {
     	        data_collection_lnode_t *lnode;
-    	        typedef typename ValueType::value_type ItemType;
+    	        typedef typename ValueType::value_type::value_type ItemType;
+    	        value = std::move(typename ValueType::value_type());
+    	        auto &container(value.value());
     	        ogs_list_for_each(value_from, lnode) {
-    	    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	    	
     	        }
-    	    }                container.insert(std::make_pair(std::string(key), value));
+    	    }
+                if (value.has_value()) container.insert(std::make_pair(std::string(key), ItemType(std::move(value))));
     	}
         }
         ogs_free(entry);
     }
+
     data_collection_hash_free(p_reporting_rules, reinterpret_cast<void(*)(void*)>(data_collection_model_data_reporting_rule_free));
     if (!obj->setReportingRules(std::move(value))) return NULL;
 
@@ -916,21 +1057,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
     if (!obj) return NULL;
 
-    typedef typename DataReportingSession::ReportingRulesType ContainerType;
+    typedef typename DataReportingSession::ReportingRulesType::value_type ContainerType;
     typedef typename ContainerType::mapped_type ValueType;
     const auto &value_from = p_reporting_rules;
 
     ValueType value;
-{
+if (value_from) {
     data_collection_lnode_t *lnode;
-    typedef typename ValueType::value_type ItemType;
+    typedef typename ValueType::value_type::value_type ItemType;
+    value = std::move(typename ValueType::value_type());
+    auto &container(value.value());
     ogs_list_for_each(value_from, lnode) {
-	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
 	
     }
 }
 
-    obj->addReportingRules(std::string(p_key), value);
+
+    if (value) obj->addReportingRules(std::string(p_key), value.value());
     return obj_data_reporting_session;
 }
 

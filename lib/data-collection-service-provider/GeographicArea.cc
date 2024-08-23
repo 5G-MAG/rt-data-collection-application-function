@@ -182,6 +182,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_geographi
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supported_gad_shapes_t* data_collection_model_geographic_area_get_shape(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
     if (!obj_geographic_area) {
@@ -212,6 +213,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     typedef typename GeographicArea::ShapeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setShape(value)) return NULL;
 
     return obj_geographic_area;
@@ -228,11 +230,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     typedef typename GeographicArea::ShapeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setShape(std::move(value))) return NULL;
 
     return obj_geographic_area;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geographical_coordinates_t* data_collection_model_geographic_area_get_point(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
@@ -264,6 +268,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     typedef typename GeographicArea::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setPoint(value)) return NULL;
 
     return obj_geographic_area;
@@ -280,11 +285,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     typedef typename GeographicArea::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setPoint(std::move(value))) return NULL;
 
     return obj_geographic_area;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_geographic_area_get_uncertainty(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
@@ -315,7 +322,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     const auto &value_from = p_uncertainty;
     typedef typename GeographicArea::UncertaintyType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setUncertainty(value)) return NULL;
 
     return obj_geographic_area;
@@ -331,12 +339,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     const auto &value_from = p_uncertainty;
     typedef typename GeographicArea::UncertaintyType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setUncertainty(std::move(value))) return NULL;
 
     return obj_geographic_area;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_uncertainty_ellipse_t* data_collection_model_geographic_area_get_uncertainty_ellipse(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
@@ -368,6 +378,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     typedef typename GeographicArea::UncertaintyEllipseType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setUncertaintyEllipse(value)) return NULL;
 
     return obj_geographic_area;
@@ -384,11 +395,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     typedef typename GeographicArea::UncertaintyEllipseType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setUncertaintyEllipse(std::move(value))) return NULL;
 
     return obj_geographic_area;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_geographic_area_get_confidence(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
@@ -419,7 +432,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     const auto &value_from = p_confidence;
     typedef typename GeographicArea::ConfidenceType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setConfidence(value)) return NULL;
 
     return obj_geographic_area;
@@ -435,12 +449,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     const auto &value_from = p_confidence;
     typedef typename GeographicArea::ConfidenceType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setConfidence(std::move(value))) return NULL;
 
     return obj_geographic_area;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_geographic_area_get_point_list(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
@@ -458,13 +474,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ge
     typedef typename GeographicArea::PointListType ResultFromType;
     const ResultFromType result_from = obj->getPointList();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+    
     typedef typename ResultFromType::value_type ItemType;
     for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_geographical_coordinates_t *item_obj = reinterpret_cast<data_collection_model_geographical_coordinates_t*>(new std::shared_ptr<GeographicalCoordinates >(item));
-        node = data_collection_model_geographical_coordinates_make_lnode(item_obj);
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_geographical_coordinates_t *item_obj = reinterpret_cast<data_collection_model_geographical_coordinates_t*>(item.has_value()?new std::shared_ptr<GeographicalCoordinates >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_geographical_coordinates_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
+        if (node) ogs_list_add(result, node);
     }
     return result;
 }
@@ -480,14 +499,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     typedef typename GeographicArea::PointListType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setPointList(value)) return NULL;
 
     return obj_geographic_area;
@@ -504,14 +526,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     typedef typename GeographicArea::PointListType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_point_list);
     if (!obj->setPointList(std::move(value))) return NULL;
 
@@ -529,7 +554,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_point_list;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
 
     obj->addPointList(value);
     return obj_geographic_area;
@@ -545,7 +571,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     typedef typename GeographicArea::PointListType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_point_list;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removePointList(value);
     return obj_geographic_area;
 }
@@ -560,6 +587,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     obj->clearPointList();
     return obj_geographic_area;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const double data_collection_model_geographic_area_get_altitude(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
@@ -590,7 +618,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     const auto &value_from = p_altitude;
     typedef typename GeographicArea::AltitudeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setAltitude(value)) return NULL;
 
     return obj_geographic_area;
@@ -606,12 +635,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     const auto &value_from = p_altitude;
     typedef typename GeographicArea::AltitudeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setAltitude(std::move(value))) return NULL;
 
     return obj_geographic_area;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_geographic_area_get_uncertainty_altitude(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
@@ -642,7 +673,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     const auto &value_from = p_uncertainty_altitude;
     typedef typename GeographicArea::UncertaintyAltitudeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setUncertaintyAltitude(value)) return NULL;
 
     return obj_geographic_area;
@@ -658,12 +690,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     const auto &value_from = p_uncertainty_altitude;
     typedef typename GeographicArea::UncertaintyAltitudeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setUncertaintyAltitude(std::move(value))) return NULL;
 
     return obj_geographic_area;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_geographic_area_has_v_confidence(const data_collection_model_geographic_area_t *obj_geographic_area)
+{
+    if (!obj_geographic_area) return false;
+
+    const std::shared_ptr<GeographicArea > &obj = *reinterpret_cast<const std::shared_ptr<GeographicArea >*>(obj_geographic_area);
+    if (!obj) return false;
+
+    return obj->getVConfidence().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_geographic_area_get_v_confidence(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
@@ -680,7 +724,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename GeographicArea::VConfidenceType ResultFromType;
     const ResultFromType result_from = obj->getVConfidence();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -694,7 +738,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     const auto &value_from = p_v_confidence;
     typedef typename GeographicArea::VConfidenceType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setVConfidence(value)) return NULL;
 
     return obj_geographic_area;
@@ -710,12 +755,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     const auto &value_from = p_v_confidence;
     typedef typename GeographicArea::VConfidenceType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setVConfidence(std::move(value))) return NULL;
 
     return obj_geographic_area;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_geographic_area_get_inner_radius(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
@@ -746,7 +793,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     const auto &value_from = p_inner_radius;
     typedef typename GeographicArea::InnerRadiusType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setInnerRadius(value)) return NULL;
 
     return obj_geographic_area;
@@ -762,12 +810,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     const auto &value_from = p_inner_radius;
     typedef typename GeographicArea::InnerRadiusType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setInnerRadius(std::move(value))) return NULL;
 
     return obj_geographic_area;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_geographic_area_get_uncertainty_radius(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
@@ -798,7 +848,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     const auto &value_from = p_uncertainty_radius;
     typedef typename GeographicArea::UncertaintyRadiusType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setUncertaintyRadius(value)) return NULL;
 
     return obj_geographic_area;
@@ -814,12 +865,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     const auto &value_from = p_uncertainty_radius;
     typedef typename GeographicArea::UncertaintyRadiusType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setUncertaintyRadius(std::move(value))) return NULL;
 
     return obj_geographic_area;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_geographic_area_get_offset_angle(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
@@ -850,7 +903,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     const auto &value_from = p_offset_angle;
     typedef typename GeographicArea::OffsetAngleType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setOffsetAngle(value)) return NULL;
 
     return obj_geographic_area;
@@ -866,12 +920,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     const auto &value_from = p_offset_angle;
     typedef typename GeographicArea::OffsetAngleType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setOffsetAngle(std::move(value))) return NULL;
 
     return obj_geographic_area;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_geographic_area_get_included_angle(const data_collection_model_geographic_area_t *obj_geographic_area)
 {
@@ -902,7 +958,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     const auto &value_from = p_included_angle;
     typedef typename GeographicArea::IncludedAngleType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setIncludedAngle(value)) return NULL;
 
     return obj_geographic_area;
@@ -918,7 +975,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
     const auto &value_from = p_included_angle;
     typedef typename GeographicArea::IncludedAngleType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setIncludedAngle(std::move(value))) return NULL;
 

@@ -156,6 +156,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_location_
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location_data_t* data_collection_model_location_record_all_of_get_location(const data_collection_model_location_record_all_of_t *obj_location_record_all_of)
 {
     if (!obj_location_record_all_of) {
@@ -186,6 +187,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_recor
     typedef typename LocationRecord_allOf::LocationType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setLocation(value)) return NULL;
 
     return obj_location_record_all_of;
@@ -202,6 +204,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_recor
     typedef typename LocationRecord_allOf::LocationType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setLocation(std::move(value))) return NULL;
 

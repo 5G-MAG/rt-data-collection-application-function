@@ -166,6 +166,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_unidirect
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_unidirectional_qo_s_specification_get_maximum_requested_bit_rate(const data_collection_model_unidirectional_qo_s_specification_t *obj_unidirectional_qo_s_specification)
 {
     if (!obj_unidirectional_qo_s_specification) {
@@ -196,6 +197,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional
     typedef typename UnidirectionalQoSSpecification::MaximumRequestedBitRateType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setMaximumRequestedBitRate(value)) return NULL;
 
     return obj_unidirectional_qo_s_specification;
@@ -212,11 +214,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional
     typedef typename UnidirectionalQoSSpecification::MaximumRequestedBitRateType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setMaximumRequestedBitRate(std::move(value))) return NULL;
 
     return obj_unidirectional_qo_s_specification;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_unidirectional_qo_s_specification_has_minimum_desired_bit_rate(const data_collection_model_unidirectional_qo_s_specification_t *obj_unidirectional_qo_s_specification)
+{
+    if (!obj_unidirectional_qo_s_specification) return false;
+
+    const std::shared_ptr<UnidirectionalQoSSpecification > &obj = *reinterpret_cast<const std::shared_ptr<UnidirectionalQoSSpecification >*>(obj_unidirectional_qo_s_specification);
+    if (!obj) return false;
+
+    return obj->getMinimumDesiredBitRate().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_unidirectional_qo_s_specification_get_minimum_desired_bit_rate(const data_collection_model_unidirectional_qo_s_specification_t *obj_unidirectional_qo_s_specification)
 {
@@ -233,7 +247,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_un
 
     typedef typename UnidirectionalQoSSpecification::MinimumDesiredBitRateType ResultFromType;
     const ResultFromType result_from = obj->getMinimumDesiredBitRate();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -248,6 +262,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional
     typedef typename UnidirectionalQoSSpecification::MinimumDesiredBitRateType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setMinimumDesiredBitRate(value)) return NULL;
 
     return obj_unidirectional_qo_s_specification;
@@ -264,11 +279,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional
     typedef typename UnidirectionalQoSSpecification::MinimumDesiredBitRateType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setMinimumDesiredBitRate(std::move(value))) return NULL;
 
     return obj_unidirectional_qo_s_specification;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_unidirectional_qo_s_specification_get_minimum_requested_bit_rate(const data_collection_model_unidirectional_qo_s_specification_t *obj_unidirectional_qo_s_specification)
 {
@@ -300,6 +317,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional
     typedef typename UnidirectionalQoSSpecification::MinimumRequestedBitRateType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setMinimumRequestedBitRate(value)) return NULL;
 
     return obj_unidirectional_qo_s_specification;
@@ -316,11 +334,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional
     typedef typename UnidirectionalQoSSpecification::MinimumRequestedBitRateType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setMinimumRequestedBitRate(std::move(value))) return NULL;
 
     return obj_unidirectional_qo_s_specification;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_unidirectional_qo_s_specification_has_desired_packet_latency(const data_collection_model_unidirectional_qo_s_specification_t *obj_unidirectional_qo_s_specification)
+{
+    if (!obj_unidirectional_qo_s_specification) return false;
+
+    const std::shared_ptr<UnidirectionalQoSSpecification > &obj = *reinterpret_cast<const std::shared_ptr<UnidirectionalQoSSpecification >*>(obj_unidirectional_qo_s_specification);
+    if (!obj) return false;
+
+    return obj->getDesiredPacketLatency().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_unidirectional_qo_s_specification_get_desired_packet_latency(const data_collection_model_unidirectional_qo_s_specification_t *obj_unidirectional_qo_s_specification)
 {
@@ -337,7 +367,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename UnidirectionalQoSSpecification::DesiredPacketLatencyType ResultFromType;
     const ResultFromType result_from = obj->getDesiredPacketLatency();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -351,7 +381,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional
     const auto &value_from = p_desired_packet_latency;
     typedef typename UnidirectionalQoSSpecification::DesiredPacketLatencyType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setDesiredPacketLatency(value)) return NULL;
 
     return obj_unidirectional_qo_s_specification;
@@ -367,12 +398,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional
     const auto &value_from = p_desired_packet_latency;
     typedef typename UnidirectionalQoSSpecification::DesiredPacketLatencyType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setDesiredPacketLatency(std::move(value))) return NULL;
 
     return obj_unidirectional_qo_s_specification;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_unidirectional_qo_s_specification_has_desired_packet_loss_rate(const data_collection_model_unidirectional_qo_s_specification_t *obj_unidirectional_qo_s_specification)
+{
+    if (!obj_unidirectional_qo_s_specification) return false;
+
+    const std::shared_ptr<UnidirectionalQoSSpecification > &obj = *reinterpret_cast<const std::shared_ptr<UnidirectionalQoSSpecification >*>(obj_unidirectional_qo_s_specification);
+    if (!obj) return false;
+
+    return obj->getDesiredPacketLossRate().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_unidirectional_qo_s_specification_get_desired_packet_loss_rate(const data_collection_model_unidirectional_qo_s_specification_t *obj_unidirectional_qo_s_specification)
 {
@@ -389,7 +432,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename UnidirectionalQoSSpecification::DesiredPacketLossRateType ResultFromType;
     const ResultFromType result_from = obj->getDesiredPacketLossRate();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -403,7 +446,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional
     const auto &value_from = p_desired_packet_loss_rate;
     typedef typename UnidirectionalQoSSpecification::DesiredPacketLossRateType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setDesiredPacketLossRate(value)) return NULL;
 
     return obj_unidirectional_qo_s_specification;
@@ -419,7 +463,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional
     const auto &value_from = p_desired_packet_loss_rate;
     typedef typename UnidirectionalQoSSpecification::DesiredPacketLossRateType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setDesiredPacketLossRate(std::move(value))) return NULL;
 

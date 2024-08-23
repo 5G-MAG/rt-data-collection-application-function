@@ -160,6 +160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_per_flow_
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_svc_experience_t* data_collection_model_per_flow_service_experience_info_get_service_experience(const data_collection_model_per_flow_service_experience_info_t *obj_per_flow_service_experience_info)
 {
     if (!obj_per_flow_service_experience_info) {
@@ -190,6 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_flow_servi
     typedef typename PerFlowServiceExperienceInfo::ServiceExperienceType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setServiceExperience(value)) return NULL;
 
     return obj_per_flow_service_experience_info;
@@ -206,11 +208,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_flow_servi
     typedef typename PerFlowServiceExperienceInfo::ServiceExperienceType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setServiceExperience(std::move(value))) return NULL;
 
     return obj_per_flow_service_experience_info;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_time_window_t* data_collection_model_per_flow_service_experience_info_get_time_interval(const data_collection_model_per_flow_service_experience_info_t *obj_per_flow_service_experience_info)
 {
@@ -242,6 +246,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_flow_servi
     typedef typename PerFlowServiceExperienceInfo::TimeIntervalType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setTimeInterval(value)) return NULL;
 
     return obj_per_flow_service_experience_info;
@@ -258,11 +263,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_flow_servi
     typedef typename PerFlowServiceExperienceInfo::TimeIntervalType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setTimeInterval(std::move(value))) return NULL;
 
     return obj_per_flow_service_experience_info;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_addr_fqdn_t* data_collection_model_per_flow_service_experience_info_get_remote_endpoint(const data_collection_model_per_flow_service_experience_info_t *obj_per_flow_service_experience_info)
 {
@@ -294,6 +301,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_flow_servi
     typedef typename PerFlowServiceExperienceInfo::RemoteEndpointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setRemoteEndpoint(value)) return NULL;
 
     return obj_per_flow_service_experience_info;
@@ -310,6 +318,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_flow_servi
     typedef typename PerFlowServiceExperienceInfo::RemoteEndpointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setRemoteEndpoint(std::move(value))) return NULL;
 

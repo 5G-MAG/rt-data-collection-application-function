@@ -44,11 +44,15 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_snssai_t *data_collection
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_snssai_is_equal_to(const data_collection_model_snssai_t *snssai, const data_collection_model_snssai_t *other_snssai);
 
 
+
 DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_snssai_get_sst(const data_collection_model_snssai_t *snssai);
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_snssai_t *data_collection_model_snssai_set_sst(data_collection_model_snssai_t *snssai, const int32_t p_sst);
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_snssai_t *data_collection_model_snssai_set_sst_move(data_collection_model_snssai_t *snssai, int32_t p_sst);
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_snssai_has_sd(const data_collection_model_snssai_t *snssai);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_snssai_get_sd(const data_collection_model_snssai_t *snssai);
 

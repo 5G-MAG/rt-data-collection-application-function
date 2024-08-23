@@ -162,6 +162,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_qo_e_metr
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_qo_e_metrics_event_all_of_samples_has_sample_timestamp(const data_collection_model_qo_e_metrics_event_all_of_samples_t *obj_qo_e_metrics_event_all_of_samples)
+{
+    if (!obj_qo_e_metrics_event_all_of_samples) return false;
+
+    const std::shared_ptr<QoEMetricsEvent_allOf_samples > &obj = *reinterpret_cast<const std::shared_ptr<QoEMetricsEvent_allOf_samples >*>(obj_qo_e_metrics_event_all_of_samples);
+    if (!obj) return false;
+
+    return obj->getSampleTimestamp().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_qo_e_metrics_event_all_of_samples_get_sample_timestamp(const data_collection_model_qo_e_metrics_event_all_of_samples_t *obj_qo_e_metrics_event_all_of_samples)
 {
     if (!obj_qo_e_metrics_event_all_of_samples) {
@@ -177,7 +188,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_qo
 
     typedef typename QoEMetricsEvent_allOf_samples::SampleTimestampType ResultFromType;
     const ResultFromType result_from = obj->getSampleTimestamp();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -192,6 +203,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
     typedef typename QoEMetricsEvent_allOf_samples::SampleTimestampType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setSampleTimestamp(value)) return NULL;
 
     return obj_qo_e_metrics_event_all_of_samples;
@@ -208,11 +220,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
     typedef typename QoEMetricsEvent_allOf_samples::SampleTimestampType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setSampleTimestamp(std::move(value))) return NULL;
 
     return obj_qo_e_metrics_event_all_of_samples;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_qo_e_metrics_event_all_of_samples_has_sample_duration(const data_collection_model_qo_e_metrics_event_all_of_samples_t *obj_qo_e_metrics_event_all_of_samples)
+{
+    if (!obj_qo_e_metrics_event_all_of_samples) return false;
+
+    const std::shared_ptr<QoEMetricsEvent_allOf_samples > &obj = *reinterpret_cast<const std::shared_ptr<QoEMetricsEvent_allOf_samples >*>(obj_qo_e_metrics_event_all_of_samples);
+    if (!obj) return false;
+
+    return obj->getSampleDuration().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_qo_e_metrics_event_all_of_samples_get_sample_duration(const data_collection_model_qo_e_metrics_event_all_of_samples_t *obj_qo_e_metrics_event_all_of_samples)
 {
@@ -229,7 +253,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_qo
 
     typedef typename QoEMetricsEvent_allOf_samples::SampleDurationType ResultFromType;
     const ResultFromType result_from = obj->getSampleDuration();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -244,6 +268,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
     typedef typename QoEMetricsEvent_allOf_samples::SampleDurationType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setSampleDuration(value)) return NULL;
 
     return obj_qo_e_metrics_event_all_of_samples;
@@ -260,11 +285,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
     typedef typename QoEMetricsEvent_allOf_samples::SampleDurationType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setSampleDuration(std::move(value))) return NULL;
 
     return obj_qo_e_metrics_event_all_of_samples;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_qo_e_metrics_event_all_of_samples_has_media_timestamp(const data_collection_model_qo_e_metrics_event_all_of_samples_t *obj_qo_e_metrics_event_all_of_samples)
+{
+    if (!obj_qo_e_metrics_event_all_of_samples) return false;
+
+    const std::shared_ptr<QoEMetricsEvent_allOf_samples > &obj = *reinterpret_cast<const std::shared_ptr<QoEMetricsEvent_allOf_samples >*>(obj_qo_e_metrics_event_all_of_samples);
+    if (!obj) return false;
+
+    return obj->getMediaTimestamp().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_qo_e_metrics_event_all_of_samples_get_media_timestamp(const data_collection_model_qo_e_metrics_event_all_of_samples_t *obj_qo_e_metrics_event_all_of_samples)
 {
@@ -281,7 +318,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_qo
 
     typedef typename QoEMetricsEvent_allOf_samples::MediaTimestampType ResultFromType;
     const ResultFromType result_from = obj->getMediaTimestamp();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -296,6 +333,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
     typedef typename QoEMetricsEvent_allOf_samples::MediaTimestampType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setMediaTimestamp(value)) return NULL;
 
     return obj_qo_e_metrics_event_all_of_samples;
@@ -312,11 +350,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
     typedef typename QoEMetricsEvent_allOf_samples::MediaTimestampType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setMediaTimestamp(std::move(value))) return NULL;
 
     return obj_qo_e_metrics_event_all_of_samples;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_qo_e_metrics_event_all_of_samples_get_metrics(const data_collection_model_qo_e_metrics_event_all_of_samples_t *obj_qo_e_metrics_event_all_of_samples)
 {
@@ -334,13 +374,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_qo
     typedef typename QoEMetricsEvent_allOf_samples::MetricsType ResultFromType;
     const ResultFromType result_from = obj->getMetrics();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+    
     typedef typename ResultFromType::value_type ItemType;
     for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_qo_e_metrics_event_all_of_metrics_t *item_obj = reinterpret_cast<data_collection_model_qo_e_metrics_event_all_of_metrics_t*>(new std::shared_ptr<QoEMetricsEvent_allOf_metrics >(item));
-        node = data_collection_model_qo_e_metrics_event_all_of_metrics_make_lnode(item_obj);
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_qo_e_metrics_event_all_of_metrics_t *item_obj = reinterpret_cast<data_collection_model_qo_e_metrics_event_all_of_metrics_t*>(item.has_value()?new std::shared_ptr<QoEMetricsEvent_allOf_metrics >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_qo_e_metrics_event_all_of_metrics_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
+        if (node) ogs_list_add(result, node);
     }
     return result;
 }
@@ -356,14 +399,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
     typedef typename QoEMetricsEvent_allOf_samples::MetricsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setMetrics(value)) return NULL;
 
     return obj_qo_e_metrics_event_all_of_samples;
@@ -380,14 +426,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
     typedef typename QoEMetricsEvent_allOf_samples::MetricsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_metrics);
     if (!obj->setMetrics(std::move(value))) return NULL;
 
@@ -405,7 +454,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_metrics;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
 
     obj->addMetrics(value);
     return obj_qo_e_metrics_event_all_of_samples;
@@ -421,7 +471,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
     typedef typename QoEMetricsEvent_allOf_samples::MetricsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_metrics;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeMetrics(value);
     return obj_qo_e_metrics_event_all_of_samples;
 }

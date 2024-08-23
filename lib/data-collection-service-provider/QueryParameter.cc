@@ -160,6 +160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_query_par
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_query_parameter_get_name(const data_collection_model_query_parameter_t *obj_query_parameter)
 {
     if (!obj_query_parameter) {
@@ -190,6 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_paramete
     typedef typename QueryParameter::NameType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setName(value)) return NULL;
 
     return obj_query_parameter;
@@ -206,11 +208,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_paramete
     typedef typename QueryParameter::NameType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setName(std::move(value))) return NULL;
 
     return obj_query_parameter;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_query_parameter_get_value(const data_collection_model_query_parameter_t *obj_query_parameter)
 {
@@ -242,6 +246,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_paramete
     typedef typename QueryParameter::ValueType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setValue(value)) return NULL;
 
     return obj_query_parameter;
@@ -258,6 +263,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_paramete
     typedef typename QueryParameter::ValueType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setValue(std::move(value))) return NULL;
 

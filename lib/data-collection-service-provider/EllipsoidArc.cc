@@ -170,6 +170,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ellipsoid
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supported_gad_shapes_t* data_collection_model_ellipsoid_arc_get_shape(const data_collection_model_ellipsoid_arc_t *obj_ellipsoid_arc)
 {
     if (!obj_ellipsoid_arc) {
@@ -200,6 +201,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_
     typedef typename EllipsoidArc::ShapeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setShape(value)) return NULL;
 
     return obj_ellipsoid_arc;
@@ -216,11 +218,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_
     typedef typename EllipsoidArc::ShapeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setShape(std::move(value))) return NULL;
 
     return obj_ellipsoid_arc;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geographical_coordinates_t* data_collection_model_ellipsoid_arc_get_point(const data_collection_model_ellipsoid_arc_t *obj_ellipsoid_arc)
 {
@@ -252,6 +256,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_
     typedef typename EllipsoidArc::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setPoint(value)) return NULL;
 
     return obj_ellipsoid_arc;
@@ -268,11 +273,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_
     typedef typename EllipsoidArc::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setPoint(std::move(value))) return NULL;
 
     return obj_ellipsoid_arc;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_ellipsoid_arc_get_inner_radius(const data_collection_model_ellipsoid_arc_t *obj_ellipsoid_arc)
 {
@@ -303,7 +310,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_
     const auto &value_from = p_inner_radius;
     typedef typename EllipsoidArc::InnerRadiusType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setInnerRadius(value)) return NULL;
 
     return obj_ellipsoid_arc;
@@ -319,12 +327,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_
     const auto &value_from = p_inner_radius;
     typedef typename EllipsoidArc::InnerRadiusType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setInnerRadius(std::move(value))) return NULL;
 
     return obj_ellipsoid_arc;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_ellipsoid_arc_get_uncertainty_radius(const data_collection_model_ellipsoid_arc_t *obj_ellipsoid_arc)
 {
@@ -355,7 +365,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_
     const auto &value_from = p_uncertainty_radius;
     typedef typename EllipsoidArc::UncertaintyRadiusType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setUncertaintyRadius(value)) return NULL;
 
     return obj_ellipsoid_arc;
@@ -371,12 +382,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_
     const auto &value_from = p_uncertainty_radius;
     typedef typename EllipsoidArc::UncertaintyRadiusType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setUncertaintyRadius(std::move(value))) return NULL;
 
     return obj_ellipsoid_arc;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_ellipsoid_arc_get_offset_angle(const data_collection_model_ellipsoid_arc_t *obj_ellipsoid_arc)
 {
@@ -407,7 +420,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_
     const auto &value_from = p_offset_angle;
     typedef typename EllipsoidArc::OffsetAngleType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setOffsetAngle(value)) return NULL;
 
     return obj_ellipsoid_arc;
@@ -423,12 +437,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_
     const auto &value_from = p_offset_angle;
     typedef typename EllipsoidArc::OffsetAngleType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setOffsetAngle(std::move(value))) return NULL;
 
     return obj_ellipsoid_arc;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_ellipsoid_arc_get_included_angle(const data_collection_model_ellipsoid_arc_t *obj_ellipsoid_arc)
 {
@@ -459,7 +475,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_
     const auto &value_from = p_included_angle;
     typedef typename EllipsoidArc::IncludedAngleType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setIncludedAngle(value)) return NULL;
 
     return obj_ellipsoid_arc;
@@ -475,12 +492,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_
     const auto &value_from = p_included_angle;
     typedef typename EllipsoidArc::IncludedAngleType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setIncludedAngle(std::move(value))) return NULL;
 
     return obj_ellipsoid_arc;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_ellipsoid_arc_get_confidence(const data_collection_model_ellipsoid_arc_t *obj_ellipsoid_arc)
 {
@@ -511,7 +530,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_
     const auto &value_from = p_confidence;
     typedef typename EllipsoidArc::ConfidenceType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setConfidence(value)) return NULL;
 
     return obj_ellipsoid_arc;
@@ -527,7 +547,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_
     const auto &value_from = p_confidence;
     typedef typename EllipsoidArc::ConfidenceType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setConfidence(std::move(value))) return NULL;
 

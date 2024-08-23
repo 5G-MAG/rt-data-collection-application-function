@@ -160,6 +160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_a
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_network_assistance_invocation_recommended_qo_s_get_maximum_bit_rate(const data_collection_model_network_assistance_invocation_recommended_qo_s_t *obj_network_assistance_invocation_recommended_qo_s)
 {
     if (!obj_network_assistance_invocation_recommended_qo_s) {
@@ -190,6 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
     typedef typename NetworkAssistanceInvocation_recommendedQoS::MaximumBitRateType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setMaximumBitRate(value)) return NULL;
 
     return obj_network_assistance_invocation_recommended_qo_s;
@@ -206,11 +208,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
     typedef typename NetworkAssistanceInvocation_recommendedQoS::MaximumBitRateType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setMaximumBitRate(std::move(value))) return NULL;
 
     return obj_network_assistance_invocation_recommended_qo_s;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_network_assistance_invocation_recommended_qo_s_get_minimum_bit_rate(const data_collection_model_network_assistance_invocation_recommended_qo_s_t *obj_network_assistance_invocation_recommended_qo_s)
 {
@@ -242,6 +246,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
     typedef typename NetworkAssistanceInvocation_recommendedQoS::MinimumBitRateType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setMinimumBitRate(value)) return NULL;
 
     return obj_network_assistance_invocation_recommended_qo_s;
@@ -258,6 +263,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
     typedef typename NetworkAssistanceInvocation_recommendedQoS::MinimumBitRateType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setMinimumBitRate(std::move(value))) return NULL;
 

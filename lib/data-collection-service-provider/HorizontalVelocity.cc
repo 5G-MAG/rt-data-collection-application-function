@@ -158,6 +158,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_horizonta
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_horizontal_velocity_get_h_speed(const data_collection_model_horizontal_velocity_t *obj_horizontal_velocity)
 {
     if (!obj_horizontal_velocity) {
@@ -187,7 +188,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_vel
     const auto &value_from = p_h_speed;
     typedef typename HorizontalVelocity::HSpeedType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setHSpeed(value)) return NULL;
 
     return obj_horizontal_velocity;
@@ -203,12 +205,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_vel
     const auto &value_from = p_h_speed;
     typedef typename HorizontalVelocity::HSpeedType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setHSpeed(std::move(value))) return NULL;
 
     return obj_horizontal_velocity;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_horizontal_velocity_get_bearing(const data_collection_model_horizontal_velocity_t *obj_horizontal_velocity)
 {
@@ -239,7 +243,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_vel
     const auto &value_from = p_bearing;
     typedef typename HorizontalVelocity::BearingType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setBearing(value)) return NULL;
 
     return obj_horizontal_velocity;
@@ -255,7 +260,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_vel
     const auto &value_from = p_bearing;
     typedef typename HorizontalVelocity::BearingType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setBearing(std::move(value))) return NULL;
 

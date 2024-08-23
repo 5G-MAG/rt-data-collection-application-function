@@ -182,6 +182,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performan
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_has_pdb(const data_collection_model_performance_data_t *obj_performance_data)
+{
+    if (!obj_performance_data) return false;
+
+    const std::shared_ptr<PerformanceData > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceData >*>(obj_performance_data);
+    if (!obj) return false;
+
+    return obj->getPdb().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_performance_data_get_pdb(const data_collection_model_performance_data_t *obj_performance_data)
 {
     if (!obj_performance_data) {
@@ -197,7 +208,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename PerformanceData::PdbType ResultFromType;
     const ResultFromType result_from = obj->getPdb();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -211,7 +222,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_pdb;
     typedef typename PerformanceData::PdbType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setPdb(value)) return NULL;
 
     return obj_performance_data;
@@ -227,12 +239,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_pdb;
     typedef typename PerformanceData::PdbType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setPdb(std::move(value))) return NULL;
 
     return obj_performance_data;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_has_pdb_dl(const data_collection_model_performance_data_t *obj_performance_data)
+{
+    if (!obj_performance_data) return false;
+
+    const std::shared_ptr<PerformanceData > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceData >*>(obj_performance_data);
+    if (!obj) return false;
+
+    return obj->getPdbDl().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_performance_data_get_pdb_dl(const data_collection_model_performance_data_t *obj_performance_data)
 {
@@ -249,7 +273,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename PerformanceData::PdbDlType ResultFromType;
     const ResultFromType result_from = obj->getPdbDl();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -263,7 +287,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_pdb_dl;
     typedef typename PerformanceData::PdbDlType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setPdbDl(value)) return NULL;
 
     return obj_performance_data;
@@ -279,12 +304,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_pdb_dl;
     typedef typename PerformanceData::PdbDlType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setPdbDl(std::move(value))) return NULL;
 
     return obj_performance_data;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_has_max_pdb_ul(const data_collection_model_performance_data_t *obj_performance_data)
+{
+    if (!obj_performance_data) return false;
+
+    const std::shared_ptr<PerformanceData > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceData >*>(obj_performance_data);
+    if (!obj) return false;
+
+    return obj->getMaxPdbUl().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_performance_data_get_max_pdb_ul(const data_collection_model_performance_data_t *obj_performance_data)
 {
@@ -301,7 +338,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename PerformanceData::MaxPdbUlType ResultFromType;
     const ResultFromType result_from = obj->getMaxPdbUl();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -315,7 +352,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_max_pdb_ul;
     typedef typename PerformanceData::MaxPdbUlType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setMaxPdbUl(value)) return NULL;
 
     return obj_performance_data;
@@ -331,12 +369,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_max_pdb_ul;
     typedef typename PerformanceData::MaxPdbUlType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setMaxPdbUl(std::move(value))) return NULL;
 
     return obj_performance_data;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_has_max_pdb_dl(const data_collection_model_performance_data_t *obj_performance_data)
+{
+    if (!obj_performance_data) return false;
+
+    const std::shared_ptr<PerformanceData > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceData >*>(obj_performance_data);
+    if (!obj) return false;
+
+    return obj->getMaxPdbDl().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_performance_data_get_max_pdb_dl(const data_collection_model_performance_data_t *obj_performance_data)
 {
@@ -353,7 +403,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename PerformanceData::MaxPdbDlType ResultFromType;
     const ResultFromType result_from = obj->getMaxPdbDl();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -367,7 +417,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_max_pdb_dl;
     typedef typename PerformanceData::MaxPdbDlType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setMaxPdbDl(value)) return NULL;
 
     return obj_performance_data;
@@ -383,12 +434,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_max_pdb_dl;
     typedef typename PerformanceData::MaxPdbDlType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setMaxPdbDl(std::move(value))) return NULL;
 
     return obj_performance_data;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_has_plr(const data_collection_model_performance_data_t *obj_performance_data)
+{
+    if (!obj_performance_data) return false;
+
+    const std::shared_ptr<PerformanceData > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceData >*>(obj_performance_data);
+    if (!obj) return false;
+
+    return obj->getPlr().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_performance_data_get_plr(const data_collection_model_performance_data_t *obj_performance_data)
 {
@@ -405,7 +468,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename PerformanceData::PlrType ResultFromType;
     const ResultFromType result_from = obj->getPlr();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -419,7 +482,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_plr;
     typedef typename PerformanceData::PlrType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setPlr(value)) return NULL;
 
     return obj_performance_data;
@@ -435,12 +499,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_plr;
     typedef typename PerformanceData::PlrType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setPlr(std::move(value))) return NULL;
 
     return obj_performance_data;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_has_plr_dl(const data_collection_model_performance_data_t *obj_performance_data)
+{
+    if (!obj_performance_data) return false;
+
+    const std::shared_ptr<PerformanceData > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceData >*>(obj_performance_data);
+    if (!obj) return false;
+
+    return obj->getPlrDl().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_performance_data_get_plr_dl(const data_collection_model_performance_data_t *obj_performance_data)
 {
@@ -457,7 +533,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename PerformanceData::PlrDlType ResultFromType;
     const ResultFromType result_from = obj->getPlrDl();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -471,7 +547,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_plr_dl;
     typedef typename PerformanceData::PlrDlType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setPlrDl(value)) return NULL;
 
     return obj_performance_data;
@@ -487,12 +564,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_plr_dl;
     typedef typename PerformanceData::PlrDlType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setPlrDl(std::move(value))) return NULL;
 
     return obj_performance_data;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_has_max_plr_ul(const data_collection_model_performance_data_t *obj_performance_data)
+{
+    if (!obj_performance_data) return false;
+
+    const std::shared_ptr<PerformanceData > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceData >*>(obj_performance_data);
+    if (!obj) return false;
+
+    return obj->getMaxPlrUl().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_performance_data_get_max_plr_ul(const data_collection_model_performance_data_t *obj_performance_data)
 {
@@ -509,7 +598,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename PerformanceData::MaxPlrUlType ResultFromType;
     const ResultFromType result_from = obj->getMaxPlrUl();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -523,7 +612,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_max_plr_ul;
     typedef typename PerformanceData::MaxPlrUlType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setMaxPlrUl(value)) return NULL;
 
     return obj_performance_data;
@@ -539,12 +629,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_max_plr_ul;
     typedef typename PerformanceData::MaxPlrUlType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setMaxPlrUl(std::move(value))) return NULL;
 
     return obj_performance_data;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_has_max_plr_dl(const data_collection_model_performance_data_t *obj_performance_data)
+{
+    if (!obj_performance_data) return false;
+
+    const std::shared_ptr<PerformanceData > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceData >*>(obj_performance_data);
+    if (!obj) return false;
+
+    return obj->getMaxPlrDl().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_performance_data_get_max_plr_dl(const data_collection_model_performance_data_t *obj_performance_data)
 {
@@ -561,7 +663,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename PerformanceData::MaxPlrDlType ResultFromType;
     const ResultFromType result_from = obj->getMaxPlrDl();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -575,7 +677,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_max_plr_dl;
     typedef typename PerformanceData::MaxPlrDlType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setMaxPlrDl(value)) return NULL;
 
     return obj_performance_data;
@@ -591,12 +694,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_max_plr_dl;
     typedef typename PerformanceData::MaxPlrDlType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setMaxPlrDl(std::move(value))) return NULL;
 
     return obj_performance_data;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_has_thrput_ul(const data_collection_model_performance_data_t *obj_performance_data)
+{
+    if (!obj_performance_data) return false;
+
+    const std::shared_ptr<PerformanceData > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceData >*>(obj_performance_data);
+    if (!obj) return false;
+
+    return obj->getThrputUl().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_performance_data_get_thrput_ul(const data_collection_model_performance_data_t *obj_performance_data)
 {
@@ -613,7 +728,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
 
     typedef typename PerformanceData::ThrputUlType ResultFromType;
     const ResultFromType result_from = obj->getThrputUl();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -628,6 +743,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceData::ThrputUlType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setThrputUl(value)) return NULL;
 
     return obj_performance_data;
@@ -644,11 +760,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceData::ThrputUlType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setThrputUl(std::move(value))) return NULL;
 
     return obj_performance_data;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_has_max_thrput_ul(const data_collection_model_performance_data_t *obj_performance_data)
+{
+    if (!obj_performance_data) return false;
+
+    const std::shared_ptr<PerformanceData > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceData >*>(obj_performance_data);
+    if (!obj) return false;
+
+    return obj->getMaxThrputUl().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_performance_data_get_max_thrput_ul(const data_collection_model_performance_data_t *obj_performance_data)
 {
@@ -665,7 +793,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
 
     typedef typename PerformanceData::MaxThrputUlType ResultFromType;
     const ResultFromType result_from = obj->getMaxThrputUl();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -680,6 +808,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceData::MaxThrputUlType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setMaxThrputUl(value)) return NULL;
 
     return obj_performance_data;
@@ -696,11 +825,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceData::MaxThrputUlType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setMaxThrputUl(std::move(value))) return NULL;
 
     return obj_performance_data;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_has_min_thrput_ul(const data_collection_model_performance_data_t *obj_performance_data)
+{
+    if (!obj_performance_data) return false;
+
+    const std::shared_ptr<PerformanceData > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceData >*>(obj_performance_data);
+    if (!obj) return false;
+
+    return obj->getMinThrputUl().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_performance_data_get_min_thrput_ul(const data_collection_model_performance_data_t *obj_performance_data)
 {
@@ -717,7 +858,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
 
     typedef typename PerformanceData::MinThrputUlType ResultFromType;
     const ResultFromType result_from = obj->getMinThrputUl();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -732,6 +873,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceData::MinThrputUlType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setMinThrputUl(value)) return NULL;
 
     return obj_performance_data;
@@ -748,11 +890,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceData::MinThrputUlType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setMinThrputUl(std::move(value))) return NULL;
 
     return obj_performance_data;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_has_thrput_dl(const data_collection_model_performance_data_t *obj_performance_data)
+{
+    if (!obj_performance_data) return false;
+
+    const std::shared_ptr<PerformanceData > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceData >*>(obj_performance_data);
+    if (!obj) return false;
+
+    return obj->getThrputDl().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_performance_data_get_thrput_dl(const data_collection_model_performance_data_t *obj_performance_data)
 {
@@ -769,7 +923,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
 
     typedef typename PerformanceData::ThrputDlType ResultFromType;
     const ResultFromType result_from = obj->getThrputDl();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -784,6 +938,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceData::ThrputDlType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setThrputDl(value)) return NULL;
 
     return obj_performance_data;
@@ -800,11 +955,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceData::ThrputDlType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setThrputDl(std::move(value))) return NULL;
 
     return obj_performance_data;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_has_max_thrput_dl(const data_collection_model_performance_data_t *obj_performance_data)
+{
+    if (!obj_performance_data) return false;
+
+    const std::shared_ptr<PerformanceData > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceData >*>(obj_performance_data);
+    if (!obj) return false;
+
+    return obj->getMaxThrputDl().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_performance_data_get_max_thrput_dl(const data_collection_model_performance_data_t *obj_performance_data)
 {
@@ -821,7 +988,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
 
     typedef typename PerformanceData::MaxThrputDlType ResultFromType;
     const ResultFromType result_from = obj->getMaxThrputDl();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -836,6 +1003,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceData::MaxThrputDlType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setMaxThrputDl(value)) return NULL;
 
     return obj_performance_data;
@@ -852,11 +1020,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceData::MaxThrputDlType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setMaxThrputDl(std::move(value))) return NULL;
 
     return obj_performance_data;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_has_min_thrput_dl(const data_collection_model_performance_data_t *obj_performance_data)
+{
+    if (!obj_performance_data) return false;
+
+    const std::shared_ptr<PerformanceData > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceData >*>(obj_performance_data);
+    if (!obj) return false;
+
+    return obj->getMinThrputDl().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_performance_data_get_min_thrput_dl(const data_collection_model_performance_data_t *obj_performance_data)
 {
@@ -873,7 +1053,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
 
     typedef typename PerformanceData::MinThrputDlType ResultFromType;
     const ResultFromType result_from = obj->getMinThrputDl();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -888,6 +1068,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceData::MinThrputDlType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setMinThrputDl(value)) return NULL;
 
     return obj_performance_data;
@@ -904,6 +1085,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceData::MinThrputDlType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setMinThrputDl(std::move(value))) return NULL;
 

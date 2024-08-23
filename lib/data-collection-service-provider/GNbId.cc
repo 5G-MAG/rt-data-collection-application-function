@@ -160,6 +160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_gnb_id_is
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_gnb_id_get_bit_length(const data_collection_model_gnb_id_t *obj_gnb_id)
 {
     if (!obj_gnb_id) {
@@ -189,7 +190,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnb_id_t *data
     const auto &value_from = p_bit_length;
     typedef typename GNbId::BitLengthType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setBitLength(value)) return NULL;
 
     return obj_gnb_id;
@@ -205,12 +207,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnb_id_t *data
     const auto &value_from = p_bit_length;
     typedef typename GNbId::BitLengthType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setBitLength(std::move(value))) return NULL;
 
     return obj_gnb_id;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_gnb_id_get_gnb_value(const data_collection_model_gnb_id_t *obj_gnb_id)
 {
@@ -242,6 +246,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnb_id_t *data
     typedef typename GNbId::GNBValueType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setGNBValue(value)) return NULL;
 
     return obj_gnb_id;
@@ -258,6 +263,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnb_id_t *data
     typedef typename GNbId::GNBValueType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setGNBValue(std::move(value))) return NULL;
 

@@ -164,6 +164,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_service_e
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_service_experience_info_per_flow_has_svc_exprc(const data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow)
+{
+    if (!obj_service_experience_info_per_flow) return false;
+
+    const std::shared_ptr<ServiceExperienceInfoPerFlow > &obj = *reinterpret_cast<const std::shared_ptr<ServiceExperienceInfoPerFlow >*>(obj_service_experience_info_per_flow);
+    if (!obj) return false;
+
+    return obj->getSvcExprc().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_svc_experience_t* data_collection_model_service_experience_info_per_flow_get_svc_exprc(const data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow)
 {
     if (!obj_service_experience_info_per_flow) {
@@ -179,7 +190,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_svc_expe
 
     typedef typename ServiceExperienceInfoPerFlow::SvcExprcType ResultFromType;
     const ResultFromType result_from = obj->getSvcExprc();
-    const data_collection_model_svc_experience_t *result = reinterpret_cast<const data_collection_model_svc_experience_t*>(&result_from);
+    const data_collection_model_svc_experience_t *result = reinterpret_cast<const data_collection_model_svc_experience_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -193,7 +204,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     const auto &value_from = p_svc_exprc;
     typedef typename ServiceExperienceInfoPerFlow::SvcExprcType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setSvcExprc(value)) return NULL;
 
     return obj_service_experience_info_per_flow;
@@ -209,12 +221,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     const auto &value_from = p_svc_exprc;
     typedef typename ServiceExperienceInfoPerFlow::SvcExprcType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setSvcExprc(std::move(value))) return NULL;
 
     return obj_service_experience_info_per_flow;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_service_experience_info_per_flow_has_time_intev(const data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow)
+{
+    if (!obj_service_experience_info_per_flow) return false;
+
+    const std::shared_ptr<ServiceExperienceInfoPerFlow > &obj = *reinterpret_cast<const std::shared_ptr<ServiceExperienceInfoPerFlow >*>(obj_service_experience_info_per_flow);
+    if (!obj) return false;
+
+    return obj->getTimeIntev().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_time_window_t* data_collection_model_service_experience_info_per_flow_get_time_intev(const data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow)
 {
@@ -231,7 +255,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_time_win
 
     typedef typename ServiceExperienceInfoPerFlow::TimeIntevType ResultFromType;
     const ResultFromType result_from = obj->getTimeIntev();
-    const data_collection_model_time_window_t *result = reinterpret_cast<const data_collection_model_time_window_t*>(&result_from);
+    const data_collection_model_time_window_t *result = reinterpret_cast<const data_collection_model_time_window_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -245,7 +269,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     const auto &value_from = p_time_intev;
     typedef typename ServiceExperienceInfoPerFlow::TimeIntevType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setTimeIntev(value)) return NULL;
 
     return obj_service_experience_info_per_flow;
@@ -261,12 +286,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     const auto &value_from = p_time_intev;
     typedef typename ServiceExperienceInfoPerFlow::TimeIntevType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setTimeIntev(std::move(value))) return NULL;
 
     return obj_service_experience_info_per_flow;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_service_experience_info_per_flow_has_dnai(const data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow)
+{
+    if (!obj_service_experience_info_per_flow) return false;
+
+    const std::shared_ptr<ServiceExperienceInfoPerFlow > &obj = *reinterpret_cast<const std::shared_ptr<ServiceExperienceInfoPerFlow >*>(obj_service_experience_info_per_flow);
+    if (!obj) return false;
+
+    return obj->getDnai().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_service_experience_info_per_flow_get_dnai(const data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow)
 {
@@ -283,7 +320,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_se
 
     typedef typename ServiceExperienceInfoPerFlow::DnaiType ResultFromType;
     const ResultFromType result_from = obj->getDnai();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -298,6 +335,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     typedef typename ServiceExperienceInfoPerFlow::DnaiType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setDnai(value)) return NULL;
 
     return obj_service_experience_info_per_flow;
@@ -314,11 +352,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     typedef typename ServiceExperienceInfoPerFlow::DnaiType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setDnai(std::move(value))) return NULL;
 
     return obj_service_experience_info_per_flow;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_service_experience_info_per_flow_has_ip_traffic_filter(const data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow)
+{
+    if (!obj_service_experience_info_per_flow) return false;
+
+    const std::shared_ptr<ServiceExperienceInfoPerFlow > &obj = *reinterpret_cast<const std::shared_ptr<ServiceExperienceInfoPerFlow >*>(obj_service_experience_info_per_flow);
+    if (!obj) return false;
+
+    return obj->getIpTrafficFilter().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_flow_info_t* data_collection_model_service_experience_info_per_flow_get_ip_traffic_filter(const data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow)
 {
@@ -335,7 +385,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_flow_inf
 
     typedef typename ServiceExperienceInfoPerFlow::IpTrafficFilterType ResultFromType;
     const ResultFromType result_from = obj->getIpTrafficFilter();
-    const data_collection_model_flow_info_t *result = reinterpret_cast<const data_collection_model_flow_info_t*>(&result_from);
+    const data_collection_model_flow_info_t *result = reinterpret_cast<const data_collection_model_flow_info_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -349,7 +399,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     const auto &value_from = p_ip_traffic_filter;
     typedef typename ServiceExperienceInfoPerFlow::IpTrafficFilterType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setIpTrafficFilter(value)) return NULL;
 
     return obj_service_experience_info_per_flow;
@@ -365,12 +416,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     const auto &value_from = p_ip_traffic_filter;
     typedef typename ServiceExperienceInfoPerFlow::IpTrafficFilterType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setIpTrafficFilter(std::move(value))) return NULL;
 
     return obj_service_experience_info_per_flow;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_service_experience_info_per_flow_has_eth_traffic_filter(const data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow)
+{
+    if (!obj_service_experience_info_per_flow) return false;
+
+    const std::shared_ptr<ServiceExperienceInfoPerFlow > &obj = *reinterpret_cast<const std::shared_ptr<ServiceExperienceInfoPerFlow >*>(obj_service_experience_info_per_flow);
+    if (!obj) return false;
+
+    return obj->getEthTrafficFilter().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_eth_flow_description_t* data_collection_model_service_experience_info_per_flow_get_eth_traffic_filter(const data_collection_model_service_experience_info_per_flow_t *obj_service_experience_info_per_flow)
 {
@@ -387,7 +450,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_eth_flow
 
     typedef typename ServiceExperienceInfoPerFlow::EthTrafficFilterType ResultFromType;
     const ResultFromType result_from = obj->getEthTrafficFilter();
-    const data_collection_model_eth_flow_description_t *result = reinterpret_cast<const data_collection_model_eth_flow_description_t*>(&result_from);
+    const data_collection_model_eth_flow_description_t *result = reinterpret_cast<const data_collection_model_eth_flow_description_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -401,7 +464,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     const auto &value_from = p_eth_traffic_filter;
     typedef typename ServiceExperienceInfoPerFlow::EthTrafficFilterType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setEthTrafficFilter(value)) return NULL;
 
     return obj_service_experience_info_per_flow;
@@ -417,7 +481,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     const auto &value_from = p_eth_traffic_filter;
     typedef typename ServiceExperienceInfoPerFlow::EthTrafficFilterType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setEthTrafficFilter(std::move(value))) return NULL;
 

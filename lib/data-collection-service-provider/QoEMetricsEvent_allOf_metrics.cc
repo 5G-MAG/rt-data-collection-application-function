@@ -158,6 +158,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_qo_e_metr
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_qo_e_metrics_event_all_of_metrics_get_key(const data_collection_model_qo_e_metrics_event_all_of_metrics_t *obj_qo_e_metrics_event_all_of_metrics)
 {
     if (!obj_qo_e_metrics_event_all_of_metrics) {
@@ -188,6 +189,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
     typedef typename QoEMetricsEvent_allOf_metrics::KeyType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setKey(value)) return NULL;
 
     return obj_qo_e_metrics_event_all_of_metrics;
@@ -204,11 +206,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
     typedef typename QoEMetricsEvent_allOf_metrics::KeyType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setKey(std::move(value))) return NULL;
 
     return obj_qo_e_metrics_event_all_of_metrics;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_qo_e_metrics_event_all_of_metrics_has_value(const data_collection_model_qo_e_metrics_event_all_of_metrics_t *obj_qo_e_metrics_event_all_of_metrics)
+{
+    if (!obj_qo_e_metrics_event_all_of_metrics) return false;
+
+    const std::shared_ptr<QoEMetricsEvent_allOf_metrics > &obj = *reinterpret_cast<const std::shared_ptr<QoEMetricsEvent_allOf_metrics >*>(obj_qo_e_metrics_event_all_of_metrics);
+    if (!obj) return false;
+
+    return obj->getValue().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_any_type_t* data_collection_model_qo_e_metrics_event_all_of_metrics_get_value(const data_collection_model_qo_e_metrics_event_all_of_metrics_t *obj_qo_e_metrics_event_all_of_metrics)
 {
@@ -225,7 +239,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_any_type
 
     typedef typename QoEMetricsEvent_allOf_metrics::ValueType ResultFromType;
     const ResultFromType result_from = obj->getValue();
-    const data_collection_model_any_type_t *result = reinterpret_cast<const data_collection_model_any_type_t*>(&result_from);
+    const data_collection_model_any_type_t *result = reinterpret_cast<const data_collection_model_any_type_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -239,7 +253,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
     const auto &value_from = p_value;
     typedef typename QoEMetricsEvent_allOf_metrics::ValueType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setValue(value)) return NULL;
 
     return obj_qo_e_metrics_event_all_of_metrics;
@@ -255,7 +270,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
     const auto &value_from = p_value;
     typedef typename QoEMetricsEvent_allOf_metrics::ValueType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setValue(std::move(value))) return NULL;
 

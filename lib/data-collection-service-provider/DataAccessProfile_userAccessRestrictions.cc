@@ -160,6 +160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_acce
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_access_profile_user_access_restrictions_get_group_ids(const data_collection_model_data_access_profile_user_access_restrictions_t *obj_data_access_profile_user_access_restrictions)
 {
     if (!obj_data_access_profile_user_access_restrictions) {
@@ -176,12 +177,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     typedef typename DataAccessProfile_userAccessRestrictions::GroupIdsType ResultFromType;
     const ResultFromType result_from = obj->getGroupIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+    
     typedef typename ResultFromType::value_type ItemType;
     for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
+        if (node) ogs_list_add(result, node);
     }
     return result;
 }
@@ -197,14 +199,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename DataAccessProfile_userAccessRestrictions::GroupIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setGroupIds(value)) return NULL;
 
     return obj_data_access_profile_user_access_restrictions;
@@ -221,14 +226,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename DataAccessProfile_userAccessRestrictions::GroupIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_group_ids);
     if (!obj->setGroupIds(std::move(value))) return NULL;
 
@@ -248,6 +256,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
 
     ValueType value(value_from);
 
+
     obj->addGroupIds(value);
     return obj_data_access_profile_user_access_restrictions;
 }
@@ -263,6 +272,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_group_ids;
     ValueType value(value_from);
+
     obj->removeGroupIds(value);
     return obj_data_access_profile_user_access_restrictions;
 }
@@ -277,6 +287,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     obj->clearGroupIds();
     return obj_data_access_profile_user_access_restrictions;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_access_profile_user_access_restrictions_get_user_ids(const data_collection_model_data_access_profile_user_access_restrictions_t *obj_data_access_profile_user_access_restrictions)
 {
@@ -294,13 +305,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     typedef typename DataAccessProfile_userAccessRestrictions::UserIdsType ResultFromType;
     const ResultFromType result_from = obj->getUserIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+    
     typedef typename ResultFromType::value_type ItemType;
     for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_data_access_profile_user_access_restrictions_user_ids_inner_t *item_obj = reinterpret_cast<data_collection_model_data_access_profile_user_access_restrictions_user_ids_inner_t*>(new std::shared_ptr<DataAccessProfile_userAccessRestrictions_userIds_inner >(item));
-        node = data_collection_model_data_access_profile_user_access_restrictions_user_ids_inner_make_lnode(item_obj);
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_data_access_profile_user_access_restrictions_user_ids_inner_t *item_obj = reinterpret_cast<data_collection_model_data_access_profile_user_access_restrictions_user_ids_inner_t*>(item.has_value()?new std::shared_ptr<DataAccessProfile_userAccessRestrictions_userIds_inner >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_data_access_profile_user_access_restrictions_user_ids_inner_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
+        if (node) ogs_list_add(result, node);
     }
     return result;
 }
@@ -316,14 +330,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename DataAccessProfile_userAccessRestrictions::UserIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setUserIds(value)) return NULL;
 
     return obj_data_access_profile_user_access_restrictions;
@@ -340,14 +357,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename DataAccessProfile_userAccessRestrictions::UserIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_user_ids);
     if (!obj->setUserIds(std::move(value))) return NULL;
 
@@ -365,7 +385,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_user_ids;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
 
     obj->addUserIds(value);
     return obj_data_access_profile_user_access_restrictions;
@@ -381,7 +402,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename DataAccessProfile_userAccessRestrictions::UserIdsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_user_ids;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeUserIds(value);
     return obj_data_access_profile_user_access_restrictions;
 }
@@ -396,6 +418,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     obj->clearUserIds();
     return obj_data_access_profile_user_access_restrictions;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_access_profile_user_access_restrictions_get_aggregation_functions(const data_collection_model_data_access_profile_user_access_restrictions_t *obj_data_access_profile_user_access_restrictions)
 {
@@ -413,13 +436,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     typedef typename DataAccessProfile_userAccessRestrictions::AggregationFunctionsType ResultFromType;
     const ResultFromType result_from = obj->getAggregationFunctions();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+    
     typedef typename ResultFromType::value_type ItemType;
     for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_data_aggregation_function_type_t *item_obj = reinterpret_cast<data_collection_model_data_aggregation_function_type_t*>(new std::shared_ptr<DataAggregationFunctionType >(item));
-        node = data_collection_model_data_aggregation_function_type_make_lnode(item_obj);
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_data_aggregation_function_type_t *item_obj = reinterpret_cast<data_collection_model_data_aggregation_function_type_t*>(item.has_value()?new std::shared_ptr<DataAggregationFunctionType >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_data_aggregation_function_type_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
+        if (node) ogs_list_add(result, node);
     }
     return result;
 }
@@ -435,14 +461,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename DataAccessProfile_userAccessRestrictions::AggregationFunctionsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setAggregationFunctions(value)) return NULL;
 
     return obj_data_access_profile_user_access_restrictions;
@@ -459,14 +488,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename DataAccessProfile_userAccessRestrictions::AggregationFunctionsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_aggregation_functions);
     if (!obj->setAggregationFunctions(std::move(value))) return NULL;
 
@@ -484,7 +516,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_aggregation_functions;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
 
     obj->addAggregationFunctions(value);
     return obj_data_access_profile_user_access_restrictions;
@@ -500,7 +533,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename DataAccessProfile_userAccessRestrictions::AggregationFunctionsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_aggregation_functions;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeAggregationFunctions(value);
     return obj_data_access_profile_user_access_restrictions;
 }

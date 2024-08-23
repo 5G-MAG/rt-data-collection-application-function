@@ -164,6 +164,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_local_ori
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_local_origin_get_coordinate_id(const data_collection_model_local_origin_t *obj_local_origin)
 {
     if (!obj_local_origin) {
@@ -194,6 +195,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_origin_t
     typedef typename LocalOrigin::CoordinateIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setCoordinateId(value)) return NULL;
 
     return obj_local_origin;
@@ -210,11 +212,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_origin_t
     typedef typename LocalOrigin::CoordinateIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setCoordinateId(std::move(value))) return NULL;
 
     return obj_local_origin;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_local_origin_has_point(const data_collection_model_local_origin_t *obj_local_origin)
+{
+    if (!obj_local_origin) return false;
+
+    const std::shared_ptr<LocalOrigin > &obj = *reinterpret_cast<const std::shared_ptr<LocalOrigin >*>(obj_local_origin);
+    if (!obj) return false;
+
+    return obj->getPoint().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geographical_coordinates_t* data_collection_model_local_origin_get_point(const data_collection_model_local_origin_t *obj_local_origin)
 {
@@ -231,7 +245,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geograph
 
     typedef typename LocalOrigin::PointType ResultFromType;
     const ResultFromType result_from = obj->getPoint();
-    const data_collection_model_geographical_coordinates_t *result = reinterpret_cast<const data_collection_model_geographical_coordinates_t*>(&result_from);
+    const data_collection_model_geographical_coordinates_t *result = reinterpret_cast<const data_collection_model_geographical_coordinates_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -245,7 +259,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_origin_t
     const auto &value_from = p_point;
     typedef typename LocalOrigin::PointType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setPoint(value)) return NULL;
 
     return obj_local_origin;
@@ -261,12 +276,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_origin_t
     const auto &value_from = p_point;
     typedef typename LocalOrigin::PointType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setPoint(std::move(value))) return NULL;
 
     return obj_local_origin;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_local_origin_has_area(const data_collection_model_local_origin_t *obj_local_origin)
+{
+    if (!obj_local_origin) return false;
+
+    const std::shared_ptr<LocalOrigin > &obj = *reinterpret_cast<const std::shared_ptr<LocalOrigin >*>(obj_local_origin);
+    if (!obj) return false;
+
+    return obj->getArea().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geographic_area_t* data_collection_model_local_origin_get_area(const data_collection_model_local_origin_t *obj_local_origin)
 {
@@ -283,7 +310,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geograph
 
     typedef typename LocalOrigin::AreaType ResultFromType;
     const ResultFromType result_from = obj->getArea();
-    const data_collection_model_geographic_area_t *result = reinterpret_cast<const data_collection_model_geographic_area_t*>(&result_from);
+    const data_collection_model_geographic_area_t *result = reinterpret_cast<const data_collection_model_geographic_area_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -297,7 +324,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_origin_t
     const auto &value_from = p_area;
     typedef typename LocalOrigin::AreaType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setArea(value)) return NULL;
 
     return obj_local_origin;
@@ -313,12 +341,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_origin_t
     const auto &value_from = p_area;
     typedef typename LocalOrigin::AreaType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setArea(std::move(value))) return NULL;
 
     return obj_local_origin;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_local_origin_has_horiz_axes_orientation(const data_collection_model_local_origin_t *obj_local_origin)
+{
+    if (!obj_local_origin) return false;
+
+    const std::shared_ptr<LocalOrigin > &obj = *reinterpret_cast<const std::shared_ptr<LocalOrigin >*>(obj_local_origin);
+    if (!obj) return false;
+
+    return obj->getHorizAxesOrientation().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_local_origin_get_horiz_axes_orientation(const data_collection_model_local_origin_t *obj_local_origin)
 {
@@ -335,7 +375,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename LocalOrigin::HorizAxesOrientationType ResultFromType;
     const ResultFromType result_from = obj->getHorizAxesOrientation();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -349,7 +389,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_origin_t
     const auto &value_from = p_horiz_axes_orientation;
     typedef typename LocalOrigin::HorizAxesOrientationType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setHorizAxesOrientation(value)) return NULL;
 
     return obj_local_origin;
@@ -365,7 +406,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_origin_t
     const auto &value_from = p_horiz_axes_orientation;
     typedef typename LocalOrigin::HorizAxesOrientationType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setHorizAxesOrientation(std::move(value))) return NULL;
 

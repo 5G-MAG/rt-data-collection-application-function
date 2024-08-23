@@ -162,6 +162,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_integrity
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_integrity_result_has_computing_entity(const data_collection_model_integrity_result_t *obj_integrity_result)
+{
+    if (!obj_integrity_result) return false;
+
+    const std::shared_ptr<IntegrityResult > &obj = *reinterpret_cast<const std::shared_ptr<IntegrityResult >*>(obj_integrity_result);
+    if (!obj) return false;
+
+    return obj->getComputingEntity().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_integrity_computing_entity_t* data_collection_model_integrity_result_get_computing_entity(const data_collection_model_integrity_result_t *obj_integrity_result)
 {
     if (!obj_integrity_result) {
@@ -177,7 +188,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_integrit
 
     typedef typename IntegrityResult::ComputingEntityType ResultFromType;
     const ResultFromType result_from = obj->getComputingEntity();
-    const data_collection_model_integrity_computing_entity_t *result = reinterpret_cast<const data_collection_model_integrity_computing_entity_t*>(&result_from);
+    const data_collection_model_integrity_computing_entity_t *result = reinterpret_cast<const data_collection_model_integrity_computing_entity_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -191,7 +202,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_resu
     const auto &value_from = p_computing_entity;
     typedef typename IntegrityResult::ComputingEntityType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setComputingEntity(value)) return NULL;
 
     return obj_integrity_result;
@@ -207,12 +219,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_resu
     const auto &value_from = p_computing_entity;
     typedef typename IntegrityResult::ComputingEntityType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setComputingEntity(std::move(value))) return NULL;
 
     return obj_integrity_result;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_integrity_result_has_protection_level(const data_collection_model_integrity_result_t *obj_integrity_result)
+{
+    if (!obj_integrity_result) return false;
+
+    const std::shared_ptr<IntegrityResult > &obj = *reinterpret_cast<const std::shared_ptr<IntegrityResult >*>(obj_integrity_result);
+    if (!obj) return false;
+
+    return obj->getProtectionLevel().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_integrity_protection_level_t* data_collection_model_integrity_result_get_protection_level(const data_collection_model_integrity_result_t *obj_integrity_result)
 {
@@ -229,7 +253,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_integrit
 
     typedef typename IntegrityResult::ProtectionLevelType ResultFromType;
     const ResultFromType result_from = obj->getProtectionLevel();
-    const data_collection_model_integrity_protection_level_t *result = reinterpret_cast<const data_collection_model_integrity_protection_level_t*>(&result_from);
+    const data_collection_model_integrity_protection_level_t *result = reinterpret_cast<const data_collection_model_integrity_protection_level_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -243,7 +267,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_resu
     const auto &value_from = p_protection_level;
     typedef typename IntegrityResult::ProtectionLevelType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setProtectionLevel(value)) return NULL;
 
     return obj_integrity_result;
@@ -259,12 +284,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_resu
     const auto &value_from = p_protection_level;
     typedef typename IntegrityResult::ProtectionLevelType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setProtectionLevel(std::move(value))) return NULL;
 
     return obj_integrity_result;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_integrity_result_has_integrity_req_met_ind(const data_collection_model_integrity_result_t *obj_integrity_result)
+{
+    if (!obj_integrity_result) return false;
+
+    const std::shared_ptr<IntegrityResult > &obj = *reinterpret_cast<const std::shared_ptr<IntegrityResult >*>(obj_integrity_result);
+    if (!obj) return false;
+
+    return obj->isIntegrityReqMetInd().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_integrity_result_is_integrity_req_met_ind(const data_collection_model_integrity_result_t *obj_integrity_result)
 {
@@ -281,7 +318,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_int
 
     typedef typename IntegrityResult::IntegrityReqMetIndType ResultFromType;
     const ResultFromType result_from = obj->isIntegrityReqMetInd();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -295,7 +332,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_resu
     const auto &value_from = p_integrity_req_met_ind;
     typedef typename IntegrityResult::IntegrityReqMetIndType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setIntegrityReqMetInd(value)) return NULL;
 
     return obj_integrity_result;
@@ -311,12 +349,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_resu
     const auto &value_from = p_integrity_req_met_ind;
     typedef typename IntegrityResult::IntegrityReqMetIndType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setIntegrityReqMetInd(std::move(value))) return NULL;
 
     return obj_integrity_result;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_integrity_result_has_achieved_tir(const data_collection_model_integrity_result_t *obj_integrity_result)
+{
+    if (!obj_integrity_result) return false;
+
+    const std::shared_ptr<IntegrityResult > &obj = *reinterpret_cast<const std::shared_ptr<IntegrityResult >*>(obj_integrity_result);
+    if (!obj) return false;
+
+    return obj->getAchievedTir().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_integrity_result_get_achieved_tir(const data_collection_model_integrity_result_t *obj_integrity_result)
 {
@@ -333,7 +383,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename IntegrityResult::AchievedTirType ResultFromType;
     const ResultFromType result_from = obj->getAchievedTir();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -347,7 +397,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_resu
     const auto &value_from = p_achieved_tir;
     typedef typename IntegrityResult::AchievedTirType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setAchievedTir(value)) return NULL;
 
     return obj_integrity_result;
@@ -363,7 +414,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_resu
     const auto &value_from = p_achieved_tir;
     typedef typename IntegrityResult::AchievedTirType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setAchievedTir(std::move(value))) return NULL;
 

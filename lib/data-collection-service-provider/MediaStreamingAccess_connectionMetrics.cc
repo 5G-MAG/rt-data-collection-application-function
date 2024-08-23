@@ -162,6 +162,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_str
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_media_streaming_access_connection_metrics_get_mean_network_round_trip_time(const data_collection_model_media_streaming_access_connection_metrics_t *obj_media_streaming_access_connection_metrics)
 {
     if (!obj_media_streaming_access_connection_metrics) {
@@ -191,7 +192,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     const auto &value_from = p_mean_network_round_trip_time;
     typedef typename MediaStreamingAccess_connectionMetrics::MeanNetworkRoundTripTimeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setMeanNetworkRoundTripTime(value)) return NULL;
 
     return obj_media_streaming_access_connection_metrics;
@@ -207,12 +209,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     const auto &value_from = p_mean_network_round_trip_time;
     typedef typename MediaStreamingAccess_connectionMetrics::MeanNetworkRoundTripTimeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setMeanNetworkRoundTripTime(std::move(value))) return NULL;
 
     return obj_media_streaming_access_connection_metrics;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_media_streaming_access_connection_metrics_get_network_round_trip_time_variation(const data_collection_model_media_streaming_access_connection_metrics_t *obj_media_streaming_access_connection_metrics)
 {
@@ -243,7 +247,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     const auto &value_from = p_network_round_trip_time_variation;
     typedef typename MediaStreamingAccess_connectionMetrics::NetworkRoundTripTimeVariationType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setNetworkRoundTripTimeVariation(value)) return NULL;
 
     return obj_media_streaming_access_connection_metrics;
@@ -259,12 +264,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     const auto &value_from = p_network_round_trip_time_variation;
     typedef typename MediaStreamingAccess_connectionMetrics::NetworkRoundTripTimeVariationType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setNetworkRoundTripTimeVariation(std::move(value))) return NULL;
 
     return obj_media_streaming_access_connection_metrics;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_media_streaming_access_connection_metrics_get_congestion_window_size(const data_collection_model_media_streaming_access_connection_metrics_t *obj_media_streaming_access_connection_metrics)
 {
@@ -295,7 +302,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     const auto &value_from = p_congestion_window_size;
     typedef typename MediaStreamingAccess_connectionMetrics::CongestionWindowSizeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setCongestionWindowSize(value)) return NULL;
 
     return obj_media_streaming_access_connection_metrics;
@@ -311,7 +319,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     const auto &value_from = p_congestion_window_size;
     typedef typename MediaStreamingAccess_connectionMetrics::CongestionWindowSizeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setCongestionWindowSize(std::move(value))) return NULL;
 

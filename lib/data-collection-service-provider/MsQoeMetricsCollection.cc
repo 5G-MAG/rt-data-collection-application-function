@@ -156,6 +156,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ms_qoe_me
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ms_qoe_metrics_collection_get_ms_qoe_metrics(const data_collection_model_ms_qoe_metrics_collection_t *obj_ms_qoe_metrics_collection)
 {
     if (!obj_ms_qoe_metrics_collection) {
@@ -172,12 +173,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ms
     typedef typename MsQoeMetricsCollection::MsQoeMetricsType ResultFromType;
     const ResultFromType result_from = obj->getMsQoeMetrics();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+    
     typedef typename ResultFromType::value_type ItemType;
     for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
+        if (node) ogs_list_add(result, node);
     }
     return result;
 }
@@ -193,14 +195,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_qoe_metrics
     typedef typename MsQoeMetricsCollection::MsQoeMetricsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setMsQoeMetrics(value)) return NULL;
 
     return obj_ms_qoe_metrics_collection;
@@ -217,14 +222,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_qoe_metrics
     typedef typename MsQoeMetricsCollection::MsQoeMetricsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_ms_qoe_metrics);
     if (!obj->setMsQoeMetrics(std::move(value))) return NULL;
 
@@ -244,6 +252,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_qoe_metrics
 
     ValueType value(value_from);
 
+
     obj->addMsQoeMetrics(value);
     return obj_ms_qoe_metrics_collection;
 }
@@ -259,6 +268,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_qoe_metrics
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_ms_qoe_metrics;
     ValueType value(value_from);
+
     obj->removeMsQoeMetrics(value);
     return obj_ms_qoe_metrics_collection;
 }

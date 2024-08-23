@@ -162,6 +162,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_plmn_id_n
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_plmn_id_nid_get_mcc(const data_collection_model_plmn_id_nid_t *obj_plmn_id_nid)
 {
     if (!obj_plmn_id_nid) {
@@ -192,6 +193,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_plmn_id_nid_t 
     typedef typename PlmnIdNid::MccType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setMcc(value)) return NULL;
 
     return obj_plmn_id_nid;
@@ -208,11 +210,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_plmn_id_nid_t 
     typedef typename PlmnIdNid::MccType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setMcc(std::move(value))) return NULL;
 
     return obj_plmn_id_nid;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_plmn_id_nid_get_mnc(const data_collection_model_plmn_id_nid_t *obj_plmn_id_nid)
 {
@@ -244,6 +248,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_plmn_id_nid_t 
     typedef typename PlmnIdNid::MncType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setMnc(value)) return NULL;
 
     return obj_plmn_id_nid;
@@ -260,11 +265,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_plmn_id_nid_t 
     typedef typename PlmnIdNid::MncType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setMnc(std::move(value))) return NULL;
 
     return obj_plmn_id_nid;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_plmn_id_nid_has_nid(const data_collection_model_plmn_id_nid_t *obj_plmn_id_nid)
+{
+    if (!obj_plmn_id_nid) return false;
+
+    const std::shared_ptr<PlmnIdNid > &obj = *reinterpret_cast<const std::shared_ptr<PlmnIdNid >*>(obj_plmn_id_nid);
+    if (!obj) return false;
+
+    return obj->getNid().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_plmn_id_nid_get_nid(const data_collection_model_plmn_id_nid_t *obj_plmn_id_nid)
 {
@@ -281,7 +298,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pl
 
     typedef typename PlmnIdNid::NidType ResultFromType;
     const ResultFromType result_from = obj->getNid();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -296,6 +313,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_plmn_id_nid_t 
     typedef typename PlmnIdNid::NidType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setNid(value)) return NULL;
 
     return obj_plmn_id_nid;
@@ -312,6 +330,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_plmn_id_nid_t 
     typedef typename PlmnIdNid::NidType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setNid(std::move(value))) return NULL;
 

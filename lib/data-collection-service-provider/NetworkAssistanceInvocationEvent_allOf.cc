@@ -156,6 +156,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_a
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_network_assistance_type_t* data_collection_model_network_assistance_invocation_event_all_of_get_network_assistance_type(const data_collection_model_network_assistance_invocation_event_all_of_t *obj_network_assistance_invocation_event_all_of)
 {
     if (!obj_network_assistance_invocation_event_all_of) {
@@ -186,6 +187,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
     typedef typename NetworkAssistanceInvocationEvent_allOf::NetworkAssistanceTypeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setNetworkAssistanceType(value)) return NULL;
 
     return obj_network_assistance_invocation_event_all_of;
@@ -202,6 +204,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
     typedef typename NetworkAssistanceInvocationEvent_allOf::NetworkAssistanceTypeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setNetworkAssistanceType(std::move(value))) return NULL;
 

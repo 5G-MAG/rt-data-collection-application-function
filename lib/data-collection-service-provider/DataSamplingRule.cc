@@ -162,6 +162,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_samp
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_sampling_rule_has_context_ids(const data_collection_model_data_sampling_rule_t *obj_data_sampling_rule)
+{
+    if (!obj_data_sampling_rule) return false;
+
+    const std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<const std::shared_ptr<DataSamplingRule >*>(obj_data_sampling_rule);
+    if (!obj) return false;
+
+    return obj->getContextIds().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_sampling_rule_get_context_ids(const data_collection_model_data_sampling_rule_t *obj_data_sampling_rule)
 {
     if (!obj_data_sampling_rule) {
@@ -177,14 +188,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
 
     typedef typename DataSamplingRule::ContextIdsType ResultFromType;
     const ResultFromType result_from = obj->getContextIds();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -199,14 +212,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_sampling_
     typedef typename DataSamplingRule::ContextIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setContextIds(value)) return NULL;
 
     return obj_data_sampling_rule;
@@ -223,14 +239,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_sampling_
     typedef typename DataSamplingRule::ContextIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_context_ids);
     if (!obj->setContextIds(std::move(value))) return NULL;
 
@@ -244,13 +263,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_sampling_
     std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<std::shared_ptr<DataSamplingRule >*>(obj_data_sampling_rule);
     if (!obj) return NULL;
 
-    typedef typename DataSamplingRule::ContextIdsType ContainerType;
+    typedef typename DataSamplingRule::ContextIdsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_context_ids;
 
     ValueType value(value_from);
 
-    obj->addContextIds(value);
+
+    if (value) obj->addContextIds(value.value());
     return obj_data_sampling_rule;
 }
 
@@ -261,10 +281,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_sampling_
     std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<std::shared_ptr<DataSamplingRule >*>(obj_data_sampling_rule);
     if (!obj) return NULL;
 
-    typedef typename DataSamplingRule::ContextIdsType ContainerType;
+    typedef typename DataSamplingRule::ContextIdsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_context_ids;
     ValueType value(value_from);
+
     obj->removeContextIds(value);
     return obj_data_sampling_rule;
 }
@@ -279,6 +300,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_sampling_
     obj->clearContextIds();
     return obj_data_sampling_rule;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_sampling_rule_has_sampling_period(const data_collection_model_data_sampling_rule_t *obj_data_sampling_rule)
+{
+    if (!obj_data_sampling_rule) return false;
+
+    const std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<const std::shared_ptr<DataSamplingRule >*>(obj_data_sampling_rule);
+    if (!obj) return false;
+
+    return obj->getSamplingPeriod().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_data_sampling_rule_get_sampling_period(const data_collection_model_data_sampling_rule_t *obj_data_sampling_rule)
 {
@@ -295,7 +327,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_da
 
     typedef typename DataSamplingRule::SamplingPeriodType ResultFromType;
     const ResultFromType result_from = obj->getSamplingPeriod();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -309,7 +341,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_sampling_
     const auto &value_from = p_sampling_period;
     typedef typename DataSamplingRule::SamplingPeriodType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setSamplingPeriod(value)) return NULL;
 
     return obj_data_sampling_rule;
@@ -325,12 +358,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_sampling_
     const auto &value_from = p_sampling_period;
     typedef typename DataSamplingRule::SamplingPeriodType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setSamplingPeriod(std::move(value))) return NULL;
 
     return obj_data_sampling_rule;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_sampling_rule_has_location_filter(const data_collection_model_data_sampling_rule_t *obj_data_sampling_rule)
+{
+    if (!obj_data_sampling_rule) return false;
+
+    const std::shared_ptr<DataSamplingRule > &obj = *reinterpret_cast<const std::shared_ptr<DataSamplingRule >*>(obj_data_sampling_rule);
+    if (!obj) return false;
+
+    return obj->getLocationFilter().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location_area5_g_t* data_collection_model_data_sampling_rule_get_location_filter(const data_collection_model_data_sampling_rule_t *obj_data_sampling_rule)
 {
@@ -347,7 +392,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location
 
     typedef typename DataSamplingRule::LocationFilterType ResultFromType;
     const ResultFromType result_from = obj->getLocationFilter();
-    const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(&result_from);
+    const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -361,7 +406,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_sampling_
     const auto &value_from = p_location_filter;
     typedef typename DataSamplingRule::LocationFilterType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setLocationFilter(value)) return NULL;
 
     return obj_data_sampling_rule;
@@ -377,7 +423,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_sampling_
     const auto &value_from = p_location_filter;
     typedef typename DataSamplingRule::LocationFilterType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setLocationFilter(std::move(value))) return NULL;
 

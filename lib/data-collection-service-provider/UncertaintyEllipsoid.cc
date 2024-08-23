@@ -164,6 +164,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_uncertain
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_uncertainty_ellipsoid_get_semi_major(const data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid)
 {
     if (!obj_uncertainty_ellipsoid) {
@@ -193,7 +194,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_el
     const auto &value_from = p_semi_major;
     typedef typename UncertaintyEllipsoid::SemiMajorType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setSemiMajor(value)) return NULL;
 
     return obj_uncertainty_ellipsoid;
@@ -209,12 +211,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_el
     const auto &value_from = p_semi_major;
     typedef typename UncertaintyEllipsoid::SemiMajorType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setSemiMajor(std::move(value))) return NULL;
 
     return obj_uncertainty_ellipsoid;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_uncertainty_ellipsoid_get_semi_minor(const data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid)
 {
@@ -245,7 +249,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_el
     const auto &value_from = p_semi_minor;
     typedef typename UncertaintyEllipsoid::SemiMinorType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setSemiMinor(value)) return NULL;
 
     return obj_uncertainty_ellipsoid;
@@ -261,12 +266,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_el
     const auto &value_from = p_semi_minor;
     typedef typename UncertaintyEllipsoid::SemiMinorType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setSemiMinor(std::move(value))) return NULL;
 
     return obj_uncertainty_ellipsoid;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_uncertainty_ellipsoid_get_vertical(const data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid)
 {
@@ -297,7 +304,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_el
     const auto &value_from = p_vertical;
     typedef typename UncertaintyEllipsoid::VerticalType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setVertical(value)) return NULL;
 
     return obj_uncertainty_ellipsoid;
@@ -313,12 +321,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_el
     const auto &value_from = p_vertical;
     typedef typename UncertaintyEllipsoid::VerticalType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setVertical(std::move(value))) return NULL;
 
     return obj_uncertainty_ellipsoid;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_uncertainty_ellipsoid_get_orientation_major(const data_collection_model_uncertainty_ellipsoid_t *obj_uncertainty_ellipsoid)
 {
@@ -349,7 +359,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_el
     const auto &value_from = p_orientation_major;
     typedef typename UncertaintyEllipsoid::OrientationMajorType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setOrientationMajor(value)) return NULL;
 
     return obj_uncertainty_ellipsoid;
@@ -365,7 +376,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_el
     const auto &value_from = p_orientation_major;
     typedef typename UncertaintyEllipsoid::OrientationMajorType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setOrientationMajor(std::move(value))) return NULL;
 

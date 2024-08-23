@@ -174,6 +174,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collectiv
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour_info_has_col_attrib(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
+{
+    if (!obj_collective_behaviour_info) return false;
+
+    const std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
+    if (!obj) return false;
+
+    return obj->getColAttrib().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_collective_behaviour_info_get_col_attrib(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
 {
     if (!obj_collective_behaviour_info) {
@@ -189,15 +200,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_co
 
     typedef typename CollectiveBehaviourInfo::ColAttribType ResultFromType;
     const ResultFromType result_from = obj->getColAttrib();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_per_ue_attribute_t *item_obj = reinterpret_cast<data_collection_model_per_ue_attribute_t*>(new std::shared_ptr<PerUeAttribute >(item));
-        node = data_collection_model_per_ue_attribute_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_per_ue_attribute_t *item_obj = reinterpret_cast<data_collection_model_per_ue_attribute_t*>(item.has_value()?new std::shared_ptr<PerUeAttribute >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_per_ue_attribute_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -212,14 +227,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     typedef typename CollectiveBehaviourInfo::ColAttribType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setColAttrib(value)) return NULL;
 
     return obj_collective_behaviour_info;
@@ -236,14 +254,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     typedef typename CollectiveBehaviourInfo::ColAttribType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_col_attrib);
     if (!obj->setColAttrib(std::move(value))) return NULL;
 
@@ -257,13 +278,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
     if (!obj) return NULL;
 
-    typedef typename CollectiveBehaviourInfo::ColAttribType ContainerType;
+    typedef typename CollectiveBehaviourInfo::ColAttribType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_col_attrib;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addColAttrib(value);
+
+    if (value) obj->addColAttrib(value.value());
     return obj_collective_behaviour_info;
 }
 
@@ -274,10 +296,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
     if (!obj) return NULL;
 
-    typedef typename CollectiveBehaviourInfo::ColAttribType ContainerType;
+    typedef typename CollectiveBehaviourInfo::ColAttribType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_col_attrib;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeColAttrib(value);
     return obj_collective_behaviour_info;
 }
@@ -292,6 +315,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     obj->clearColAttrib();
     return obj_collective_behaviour_info;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour_info_has_no_of_ues(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
+{
+    if (!obj_collective_behaviour_info) return false;
+
+    const std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
+    if (!obj) return false;
+
+    return obj->getNoOfUes().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_collective_behaviour_info_get_no_of_ues(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
 {
@@ -308,7 +342,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename CollectiveBehaviourInfo::NoOfUesType ResultFromType;
     const ResultFromType result_from = obj->getNoOfUes();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -322,7 +356,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     const auto &value_from = p_no_of_ues;
     typedef typename CollectiveBehaviourInfo::NoOfUesType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setNoOfUes(value)) return NULL;
 
     return obj_collective_behaviour_info;
@@ -338,12 +373,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     const auto &value_from = p_no_of_ues;
     typedef typename CollectiveBehaviourInfo::NoOfUesType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setNoOfUes(std::move(value))) return NULL;
 
     return obj_collective_behaviour_info;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour_info_has_app_ids(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
+{
+    if (!obj_collective_behaviour_info) return false;
+
+    const std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
+    if (!obj) return false;
+
+    return obj->getAppIds().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_collective_behaviour_info_get_app_ids(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
 {
@@ -360,14 +407,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_co
 
     typedef typename CollectiveBehaviourInfo::AppIdsType ResultFromType;
     const ResultFromType result_from = obj->getAppIds();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -382,14 +431,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     typedef typename CollectiveBehaviourInfo::AppIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setAppIds(value)) return NULL;
 
     return obj_collective_behaviour_info;
@@ -406,14 +458,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     typedef typename CollectiveBehaviourInfo::AppIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_app_ids);
     if (!obj->setAppIds(std::move(value))) return NULL;
 
@@ -427,13 +482,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
     if (!obj) return NULL;
 
-    typedef typename CollectiveBehaviourInfo::AppIdsType ContainerType;
+    typedef typename CollectiveBehaviourInfo::AppIdsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_app_ids;
 
     ValueType value(value_from);
 
-    obj->addAppIds(value);
+
+    if (value) obj->addAppIds(value.value());
     return obj_collective_behaviour_info;
 }
 
@@ -444,10 +500,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
     if (!obj) return NULL;
 
-    typedef typename CollectiveBehaviourInfo::AppIdsType ContainerType;
+    typedef typename CollectiveBehaviourInfo::AppIdsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_app_ids;
     ValueType value(value_from);
+
     obj->removeAppIds(value);
     return obj_collective_behaviour_info;
 }
@@ -462,6 +519,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     obj->clearAppIds();
     return obj_collective_behaviour_info;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour_info_has_ext_ue_ids(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
+{
+    if (!obj_collective_behaviour_info) return false;
+
+    const std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
+    if (!obj) return false;
+
+    return obj->getExtUeIds().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_collective_behaviour_info_get_ext_ue_ids(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
 {
@@ -478,14 +546,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_co
 
     typedef typename CollectiveBehaviourInfo::ExtUeIdsType ResultFromType;
     const ResultFromType result_from = obj->getExtUeIds();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -500,14 +570,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     typedef typename CollectiveBehaviourInfo::ExtUeIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setExtUeIds(value)) return NULL;
 
     return obj_collective_behaviour_info;
@@ -524,14 +597,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     typedef typename CollectiveBehaviourInfo::ExtUeIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_ext_ue_ids);
     if (!obj->setExtUeIds(std::move(value))) return NULL;
 
@@ -545,13 +621,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
     if (!obj) return NULL;
 
-    typedef typename CollectiveBehaviourInfo::ExtUeIdsType ContainerType;
+    typedef typename CollectiveBehaviourInfo::ExtUeIdsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_ext_ue_ids;
 
     ValueType value(value_from);
 
-    obj->addExtUeIds(value);
+
+    if (value) obj->addExtUeIds(value.value());
     return obj_collective_behaviour_info;
 }
 
@@ -562,10 +639,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
     if (!obj) return NULL;
 
-    typedef typename CollectiveBehaviourInfo::ExtUeIdsType ContainerType;
+    typedef typename CollectiveBehaviourInfo::ExtUeIdsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_ext_ue_ids;
     ValueType value(value_from);
+
     obj->removeExtUeIds(value);
     return obj_collective_behaviour_info;
 }
@@ -580,6 +658,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     obj->clearExtUeIds();
     return obj_collective_behaviour_info;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour_info_has_ue_ids(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
+{
+    if (!obj_collective_behaviour_info) return false;
+
+    const std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
+    if (!obj) return false;
+
+    return obj->getUeIds().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_collective_behaviour_info_get_ue_ids(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
 {
@@ -596,14 +685,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_co
 
     typedef typename CollectiveBehaviourInfo::UeIdsType ResultFromType;
     const ResultFromType result_from = obj->getUeIds();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -618,14 +709,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     typedef typename CollectiveBehaviourInfo::UeIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setUeIds(value)) return NULL;
 
     return obj_collective_behaviour_info;
@@ -642,14 +736,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     typedef typename CollectiveBehaviourInfo::UeIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_ue_ids);
     if (!obj->setUeIds(std::move(value))) return NULL;
 
@@ -663,13 +760,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
     if (!obj) return NULL;
 
-    typedef typename CollectiveBehaviourInfo::UeIdsType ContainerType;
+    typedef typename CollectiveBehaviourInfo::UeIdsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_ue_ids;
 
     ValueType value(value_from);
 
-    obj->addUeIds(value);
+
+    if (value) obj->addUeIds(value.value());
     return obj_collective_behaviour_info;
 }
 
@@ -680,10 +778,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
     if (!obj) return NULL;
 
-    typedef typename CollectiveBehaviourInfo::UeIdsType ContainerType;
+    typedef typename CollectiveBehaviourInfo::UeIdsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_ue_ids;
     ValueType value(value_from);
+
     obj->removeUeIds(value);
     return obj_collective_behaviour_info;
 }
@@ -698,6 +797,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     obj->clearUeIds();
     return obj_collective_behaviour_info;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour_info_has_collision_dist(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
+{
+    if (!obj_collective_behaviour_info) return false;
+
+    const std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
+    if (!obj) return false;
+
+    return obj->getCollisionDist().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_collective_behaviour_info_get_collision_dist(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
 {
@@ -714,7 +824,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename CollectiveBehaviourInfo::CollisionDistType ResultFromType;
     const ResultFromType result_from = obj->getCollisionDist();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -728,7 +838,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     const auto &value_from = p_collision_dist;
     typedef typename CollectiveBehaviourInfo::CollisionDistType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setCollisionDist(value)) return NULL;
 
     return obj_collective_behaviour_info;
@@ -744,12 +855,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     const auto &value_from = p_collision_dist;
     typedef typename CollectiveBehaviourInfo::CollisionDistType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setCollisionDist(std::move(value))) return NULL;
 
     return obj_collective_behaviour_info;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour_info_has_abs_dirs(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
+{
+    if (!obj_collective_behaviour_info) return false;
+
+    const std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
+    if (!obj) return false;
+
+    return obj->getAbsDirs().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_collective_behaviour_info_get_abs_dirs(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
 {
@@ -766,15 +889,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_co
 
     typedef typename CollectiveBehaviourInfo::AbsDirsType ResultFromType;
     const ResultFromType result_from = obj->getAbsDirs();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_direction_t *item_obj = reinterpret_cast<data_collection_model_direction_t*>(new std::shared_ptr<Direction >(item));
-        node = data_collection_model_direction_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_direction_t *item_obj = reinterpret_cast<data_collection_model_direction_t*>(item.has_value()?new std::shared_ptr<Direction >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_direction_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -789,14 +916,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     typedef typename CollectiveBehaviourInfo::AbsDirsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setAbsDirs(value)) return NULL;
 
     return obj_collective_behaviour_info;
@@ -813,14 +943,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     typedef typename CollectiveBehaviourInfo::AbsDirsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_abs_dirs);
     if (!obj->setAbsDirs(std::move(value))) return NULL;
 
@@ -834,13 +967,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
     if (!obj) return NULL;
 
-    typedef typename CollectiveBehaviourInfo::AbsDirsType ContainerType;
+    typedef typename CollectiveBehaviourInfo::AbsDirsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_abs_dirs;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addAbsDirs(value);
+
+    if (value) obj->addAbsDirs(value.value());
     return obj_collective_behaviour_info;
 }
 
@@ -851,10 +985,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
     if (!obj) return NULL;
 
-    typedef typename CollectiveBehaviourInfo::AbsDirsType ContainerType;
+    typedef typename CollectiveBehaviourInfo::AbsDirsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_abs_dirs;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeAbsDirs(value);
     return obj_collective_behaviour_info;
 }
@@ -869,6 +1004,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     obj->clearAbsDirs();
     return obj_collective_behaviour_info;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour_info_has_rel_dirs(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
+{
+    if (!obj_collective_behaviour_info) return false;
+
+    const std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
+    if (!obj) return false;
+
+    return obj->getRelDirs().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_collective_behaviour_info_get_rel_dirs(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
 {
@@ -885,15 +1031,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_co
 
     typedef typename CollectiveBehaviourInfo::RelDirsType ResultFromType;
     const ResultFromType result_from = obj->getRelDirs();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_relative_direction_t *item_obj = reinterpret_cast<data_collection_model_relative_direction_t*>(new std::shared_ptr<RelativeDirection >(item));
-        node = data_collection_model_relative_direction_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_relative_direction_t *item_obj = reinterpret_cast<data_collection_model_relative_direction_t*>(item.has_value()?new std::shared_ptr<RelativeDirection >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_relative_direction_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -908,14 +1058,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     typedef typename CollectiveBehaviourInfo::RelDirsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setRelDirs(value)) return NULL;
 
     return obj_collective_behaviour_info;
@@ -932,14 +1085,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     typedef typename CollectiveBehaviourInfo::RelDirsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_rel_dirs);
     if (!obj->setRelDirs(std::move(value))) return NULL;
 
@@ -953,13 +1109,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
     if (!obj) return NULL;
 
-    typedef typename CollectiveBehaviourInfo::RelDirsType ContainerType;
+    typedef typename CollectiveBehaviourInfo::RelDirsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_rel_dirs;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addRelDirs(value);
+
+    if (value) obj->addRelDirs(value.value());
     return obj_collective_behaviour_info;
 }
 
@@ -970,10 +1127,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
     if (!obj) return NULL;
 
-    typedef typename CollectiveBehaviourInfo::RelDirsType ContainerType;
+    typedef typename CollectiveBehaviourInfo::RelDirsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_rel_dirs;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeRelDirs(value);
     return obj_collective_behaviour_info;
 }
@@ -988,6 +1146,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     obj->clearRelDirs();
     return obj_collective_behaviour_info;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour_info_has_ue_trajectory(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
+{
+    if (!obj_collective_behaviour_info) return false;
+
+    const std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
+    if (!obj) return false;
+
+    return obj->getUeTrajectory().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ue_trajectory_collection_t* data_collection_model_collective_behaviour_info_get_ue_trajectory(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
 {
@@ -1004,7 +1173,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ue_traje
 
     typedef typename CollectiveBehaviourInfo::UeTrajectoryType ResultFromType;
     const ResultFromType result_from = obj->getUeTrajectory();
-    const data_collection_model_ue_trajectory_collection_t *result = reinterpret_cast<const data_collection_model_ue_trajectory_collection_t*>(&result_from);
+    const data_collection_model_ue_trajectory_collection_t *result = reinterpret_cast<const data_collection_model_ue_trajectory_collection_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -1018,7 +1187,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     const auto &value_from = p_ue_trajectory;
     typedef typename CollectiveBehaviourInfo::UeTrajectoryType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setUeTrajectory(value)) return NULL;
 
     return obj_collective_behaviour_info;
@@ -1034,12 +1204,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     const auto &value_from = p_ue_trajectory;
     typedef typename CollectiveBehaviourInfo::UeTrajectoryType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setUeTrajectory(std::move(value))) return NULL;
 
     return obj_collective_behaviour_info;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_collective_behaviour_info_has_confidence(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
+{
+    if (!obj_collective_behaviour_info) return false;
+
+    const std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
+    if (!obj) return false;
+
+    return obj->getConfidence().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_collective_behaviour_info_get_confidence(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
 {
@@ -1056,7 +1238,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename CollectiveBehaviourInfo::ConfidenceType ResultFromType;
     const ResultFromType result_from = obj->getConfidence();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -1070,7 +1252,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     const auto &value_from = p_confidence;
     typedef typename CollectiveBehaviourInfo::ConfidenceType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setConfidence(value)) return NULL;
 
     return obj_collective_behaviour_info;
@@ -1086,7 +1269,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     const auto &value_from = p_confidence;
     typedef typename CollectiveBehaviourInfo::ConfidenceType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setConfidence(std::move(value))) return NULL;
 

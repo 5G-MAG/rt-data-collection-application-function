@@ -160,6 +160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_flow_info
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_flow_info_get_flow_id(const data_collection_model_flow_info_t *obj_flow_info)
 {
     if (!obj_flow_info) {
@@ -189,7 +190,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *d
     const auto &value_from = p_flow_id;
     typedef typename FlowInfo::FlowIdType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setFlowId(value)) return NULL;
 
     return obj_flow_info;
@@ -205,12 +207,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *d
     const auto &value_from = p_flow_id;
     typedef typename FlowInfo::FlowIdType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setFlowId(std::move(value))) return NULL;
 
     return obj_flow_info;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_flow_info_has_flow_descriptions(const data_collection_model_flow_info_t *obj_flow_info)
+{
+    if (!obj_flow_info) return false;
+
+    const std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<const std::shared_ptr<FlowInfo >*>(obj_flow_info);
+    if (!obj) return false;
+
+    return obj->getFlowDescriptions().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_flow_info_get_flow_descriptions(const data_collection_model_flow_info_t *obj_flow_info)
 {
@@ -227,14 +241,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_fl
 
     typedef typename FlowInfo::FlowDescriptionsType ResultFromType;
     const ResultFromType result_from = obj->getFlowDescriptions();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -249,14 +265,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *d
     typedef typename FlowInfo::FlowDescriptionsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setFlowDescriptions(value)) return NULL;
 
     return obj_flow_info;
@@ -273,14 +292,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *d
     typedef typename FlowInfo::FlowDescriptionsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_flow_descriptions);
     if (!obj->setFlowDescriptions(std::move(value))) return NULL;
 
@@ -294,13 +316,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *d
     std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<std::shared_ptr<FlowInfo >*>(obj_flow_info);
     if (!obj) return NULL;
 
-    typedef typename FlowInfo::FlowDescriptionsType ContainerType;
+    typedef typename FlowInfo::FlowDescriptionsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_flow_descriptions;
 
     ValueType value(value_from);
 
-    obj->addFlowDescriptions(value);
+
+    if (value) obj->addFlowDescriptions(value.value());
     return obj_flow_info;
 }
 
@@ -311,10 +334,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *d
     std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<std::shared_ptr<FlowInfo >*>(obj_flow_info);
     if (!obj) return NULL;
 
-    typedef typename FlowInfo::FlowDescriptionsType ContainerType;
+    typedef typename FlowInfo::FlowDescriptionsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_flow_descriptions;
     ValueType value(value_from);
+
     obj->removeFlowDescriptions(value);
     return obj_flow_info;
 }
@@ -329,6 +353,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *d
     obj->clearFlowDescriptions();
     return obj_flow_info;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_flow_info_has_tos_tc(const data_collection_model_flow_info_t *obj_flow_info)
+{
+    if (!obj_flow_info) return false;
+
+    const std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<const std::shared_ptr<FlowInfo >*>(obj_flow_info);
+    if (!obj) return false;
+
+    return obj->getTosTC().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_flow_info_get_tos_tc(const data_collection_model_flow_info_t *obj_flow_info)
 {
@@ -345,7 +380,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_fl
 
     typedef typename FlowInfo::TosTCType ResultFromType;
     const ResultFromType result_from = obj->getTosTC();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -360,6 +395,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *d
     typedef typename FlowInfo::TosTCType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setTosTC(value)) return NULL;
 
     return obj_flow_info;
@@ -376,6 +412,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *d
     typedef typename FlowInfo::TosTCType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setTosTC(std::move(value))) return NULL;
 

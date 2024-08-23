@@ -188,6 +188,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cp_parame
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_cp_parameter_set_get_set_id(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
 {
     if (!obj_cp_parameter_set) {
@@ -218,6 +219,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     typedef typename CpParameterSet::SetIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setSetId(value)) return NULL;
 
     return obj_cp_parameter_set;
@@ -234,11 +236,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     typedef typename CpParameterSet::SetIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setSetId(std::move(value))) return NULL;
 
     return obj_cp_parameter_set;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cp_parameter_set_has_self(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
+{
+    if (!obj_cp_parameter_set) return false;
+
+    const std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<const std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
+    if (!obj) return false;
+
+    return obj->getSelf().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_cp_parameter_set_get_self(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
 {
@@ -255,7 +269,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_cp
 
     typedef typename CpParameterSet::SelfType ResultFromType;
     const ResultFromType result_from = obj->getSelf();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -270,6 +284,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     typedef typename CpParameterSet::SelfType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setSelf(value)) return NULL;
 
     return obj_cp_parameter_set;
@@ -286,11 +301,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     typedef typename CpParameterSet::SelfType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setSelf(std::move(value))) return NULL;
 
     return obj_cp_parameter_set;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cp_parameter_set_has_validity_time(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
+{
+    if (!obj_cp_parameter_set) return false;
+
+    const std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<const std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
+    if (!obj) return false;
+
+    return obj->getValidityTime().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_cp_parameter_set_get_validity_time(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
 {
@@ -307,7 +334,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_cp
 
     typedef typename CpParameterSet::ValidityTimeType ResultFromType;
     const ResultFromType result_from = obj->getValidityTime();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -322,6 +349,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     typedef typename CpParameterSet::ValidityTimeType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setValidityTime(value)) return NULL;
 
     return obj_cp_parameter_set;
@@ -338,11 +366,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     typedef typename CpParameterSet::ValidityTimeType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setValidityTime(std::move(value))) return NULL;
 
     return obj_cp_parameter_set;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cp_parameter_set_has_periodic_communication_indicator(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
+{
+    if (!obj_cp_parameter_set) return false;
+
+    const std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<const std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
+    if (!obj) return false;
+
+    return obj->getPeriodicCommunicationIndicator().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_communication_indicator_t* data_collection_model_cp_parameter_set_get_periodic_communication_indicator(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
 {
@@ -359,7 +399,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_communic
 
     typedef typename CpParameterSet::PeriodicCommunicationIndicatorType ResultFromType;
     const ResultFromType result_from = obj->getPeriodicCommunicationIndicator();
-    const data_collection_model_communication_indicator_t *result = reinterpret_cast<const data_collection_model_communication_indicator_t*>(&result_from);
+    const data_collection_model_communication_indicator_t *result = reinterpret_cast<const data_collection_model_communication_indicator_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -373,7 +413,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     const auto &value_from = p_periodic_communication_indicator;
     typedef typename CpParameterSet::PeriodicCommunicationIndicatorType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setPeriodicCommunicationIndicator(value)) return NULL;
 
     return obj_cp_parameter_set;
@@ -389,12 +430,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     const auto &value_from = p_periodic_communication_indicator;
     typedef typename CpParameterSet::PeriodicCommunicationIndicatorType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setPeriodicCommunicationIndicator(std::move(value))) return NULL;
 
     return obj_cp_parameter_set;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cp_parameter_set_has_communication_duration_time(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
+{
+    if (!obj_cp_parameter_set) return false;
+
+    const std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<const std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
+    if (!obj) return false;
+
+    return obj->getCommunicationDurationTime().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_cp_parameter_set_get_communication_duration_time(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
 {
@@ -411,7 +464,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename CpParameterSet::CommunicationDurationTimeType ResultFromType;
     const ResultFromType result_from = obj->getCommunicationDurationTime();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -425,7 +478,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     const auto &value_from = p_communication_duration_time;
     typedef typename CpParameterSet::CommunicationDurationTimeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setCommunicationDurationTime(value)) return NULL;
 
     return obj_cp_parameter_set;
@@ -441,12 +495,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     const auto &value_from = p_communication_duration_time;
     typedef typename CpParameterSet::CommunicationDurationTimeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setCommunicationDurationTime(std::move(value))) return NULL;
 
     return obj_cp_parameter_set;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cp_parameter_set_has_periodic_time(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
+{
+    if (!obj_cp_parameter_set) return false;
+
+    const std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<const std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
+    if (!obj) return false;
+
+    return obj->getPeriodicTime().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_cp_parameter_set_get_periodic_time(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
 {
@@ -463,7 +529,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename CpParameterSet::PeriodicTimeType ResultFromType;
     const ResultFromType result_from = obj->getPeriodicTime();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -477,7 +543,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     const auto &value_from = p_periodic_time;
     typedef typename CpParameterSet::PeriodicTimeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setPeriodicTime(value)) return NULL;
 
     return obj_cp_parameter_set;
@@ -493,12 +560,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     const auto &value_from = p_periodic_time;
     typedef typename CpParameterSet::PeriodicTimeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setPeriodicTime(std::move(value))) return NULL;
 
     return obj_cp_parameter_set;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cp_parameter_set_has_scheduled_communication_time(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
+{
+    if (!obj_cp_parameter_set) return false;
+
+    const std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<const std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
+    if (!obj) return false;
+
+    return obj->getScheduledCommunicationTime().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_scheduled_communication_time_t* data_collection_model_cp_parameter_set_get_scheduled_communication_time(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
 {
@@ -515,7 +594,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_schedule
 
     typedef typename CpParameterSet::ScheduledCommunicationTimeType ResultFromType;
     const ResultFromType result_from = obj->getScheduledCommunicationTime();
-    const data_collection_model_scheduled_communication_time_t *result = reinterpret_cast<const data_collection_model_scheduled_communication_time_t*>(&result_from);
+    const data_collection_model_scheduled_communication_time_t *result = reinterpret_cast<const data_collection_model_scheduled_communication_time_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -529,7 +608,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     const auto &value_from = p_scheduled_communication_time;
     typedef typename CpParameterSet::ScheduledCommunicationTimeType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setScheduledCommunicationTime(value)) return NULL;
 
     return obj_cp_parameter_set;
@@ -545,12 +625,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     const auto &value_from = p_scheduled_communication_time;
     typedef typename CpParameterSet::ScheduledCommunicationTimeType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setScheduledCommunicationTime(std::move(value))) return NULL;
 
     return obj_cp_parameter_set;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cp_parameter_set_has_scheduled_communication_type(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
+{
+    if (!obj_cp_parameter_set) return false;
+
+    const std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<const std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
+    if (!obj) return false;
+
+    return obj->getScheduledCommunicationType().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_scheduled_communication_type_t* data_collection_model_cp_parameter_set_get_scheduled_communication_type(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
 {
@@ -567,7 +659,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_schedule
 
     typedef typename CpParameterSet::ScheduledCommunicationTypeType ResultFromType;
     const ResultFromType result_from = obj->getScheduledCommunicationType();
-    const data_collection_model_scheduled_communication_type_t *result = reinterpret_cast<const data_collection_model_scheduled_communication_type_t*>(&result_from);
+    const data_collection_model_scheduled_communication_type_t *result = reinterpret_cast<const data_collection_model_scheduled_communication_type_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -581,7 +673,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     const auto &value_from = p_scheduled_communication_type;
     typedef typename CpParameterSet::ScheduledCommunicationTypeType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setScheduledCommunicationType(value)) return NULL;
 
     return obj_cp_parameter_set;
@@ -597,12 +690,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     const auto &value_from = p_scheduled_communication_type;
     typedef typename CpParameterSet::ScheduledCommunicationTypeType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setScheduledCommunicationType(std::move(value))) return NULL;
 
     return obj_cp_parameter_set;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cp_parameter_set_has_stationary_indication(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
+{
+    if (!obj_cp_parameter_set) return false;
+
+    const std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<const std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
+    if (!obj) return false;
+
+    return obj->getStationaryIndication().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_stationary_indication_t* data_collection_model_cp_parameter_set_get_stationary_indication(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
 {
@@ -619,7 +724,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_stationa
 
     typedef typename CpParameterSet::StationaryIndicationType ResultFromType;
     const ResultFromType result_from = obj->getStationaryIndication();
-    const data_collection_model_stationary_indication_t *result = reinterpret_cast<const data_collection_model_stationary_indication_t*>(&result_from);
+    const data_collection_model_stationary_indication_t *result = reinterpret_cast<const data_collection_model_stationary_indication_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -633,7 +738,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     const auto &value_from = p_stationary_indication;
     typedef typename CpParameterSet::StationaryIndicationType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setStationaryIndication(value)) return NULL;
 
     return obj_cp_parameter_set;
@@ -649,12 +755,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     const auto &value_from = p_stationary_indication;
     typedef typename CpParameterSet::StationaryIndicationType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setStationaryIndication(std::move(value))) return NULL;
 
     return obj_cp_parameter_set;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cp_parameter_set_has_battery_inds(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
+{
+    if (!obj_cp_parameter_set) return false;
+
+    const std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<const std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
+    if (!obj) return false;
+
+    return obj->getBatteryInds().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_cp_parameter_set_get_battery_inds(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
 {
@@ -671,15 +789,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_cp
 
     typedef typename CpParameterSet::BatteryIndsType ResultFromType;
     const ResultFromType result_from = obj->getBatteryInds();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_battery_indication_t *item_obj = reinterpret_cast<data_collection_model_battery_indication_t*>(new std::shared_ptr<BatteryIndication >(item));
-        node = data_collection_model_battery_indication_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_battery_indication_t *item_obj = reinterpret_cast<data_collection_model_battery_indication_t*>(item.has_value()?new std::shared_ptr<BatteryIndication >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_battery_indication_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -694,14 +816,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     typedef typename CpParameterSet::BatteryIndsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setBatteryInds(value)) return NULL;
 
     return obj_cp_parameter_set;
@@ -718,14 +843,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     typedef typename CpParameterSet::BatteryIndsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_battery_inds);
     if (!obj->setBatteryInds(std::move(value))) return NULL;
 
@@ -739,13 +867,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
     if (!obj) return NULL;
 
-    typedef typename CpParameterSet::BatteryIndsType ContainerType;
+    typedef typename CpParameterSet::BatteryIndsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_battery_inds;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addBatteryInds(value);
+
+    if (value) obj->addBatteryInds(value.value());
     return obj_cp_parameter_set;
 }
 
@@ -756,10 +885,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
     if (!obj) return NULL;
 
-    typedef typename CpParameterSet::BatteryIndsType ContainerType;
+    typedef typename CpParameterSet::BatteryIndsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_battery_inds;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeBatteryInds(value);
     return obj_cp_parameter_set;
 }
@@ -774,6 +904,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     obj->clearBatteryInds();
     return obj_cp_parameter_set;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cp_parameter_set_has_traffic_profile(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
+{
+    if (!obj_cp_parameter_set) return false;
+
+    const std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<const std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
+    if (!obj) return false;
+
+    return obj->getTrafficProfile().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_traffic_profile_t* data_collection_model_cp_parameter_set_get_traffic_profile(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
 {
@@ -790,7 +931,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_traffic_
 
     typedef typename CpParameterSet::TrafficProfileType ResultFromType;
     const ResultFromType result_from = obj->getTrafficProfile();
-    const data_collection_model_traffic_profile_t *result = reinterpret_cast<const data_collection_model_traffic_profile_t*>(&result_from);
+    const data_collection_model_traffic_profile_t *result = reinterpret_cast<const data_collection_model_traffic_profile_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -804,7 +945,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     const auto &value_from = p_traffic_profile;
     typedef typename CpParameterSet::TrafficProfileType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setTrafficProfile(value)) return NULL;
 
     return obj_cp_parameter_set;
@@ -820,12 +962,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     const auto &value_from = p_traffic_profile;
     typedef typename CpParameterSet::TrafficProfileType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setTrafficProfile(std::move(value))) return NULL;
 
     return obj_cp_parameter_set;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cp_parameter_set_has_expected_umts(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
+{
+    if (!obj_cp_parameter_set) return false;
+
+    const std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<const std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
+    if (!obj) return false;
+
+    return obj->getExpectedUmts().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_cp_parameter_set_get_expected_umts(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
 {
@@ -842,15 +996,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_cp
 
     typedef typename CpParameterSet::ExpectedUmtsType ResultFromType;
     const ResultFromType result_from = obj->getExpectedUmts();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_umt_location_area5_g_t *item_obj = reinterpret_cast<data_collection_model_umt_location_area5_g_t*>(new std::shared_ptr<UmtLocationArea5G >(item));
-        node = data_collection_model_umt_location_area5_g_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_umt_location_area5_g_t *item_obj = reinterpret_cast<data_collection_model_umt_location_area5_g_t*>(item.has_value()?new std::shared_ptr<UmtLocationArea5G >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_umt_location_area5_g_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -865,14 +1023,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     typedef typename CpParameterSet::ExpectedUmtsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setExpectedUmts(value)) return NULL;
 
     return obj_cp_parameter_set;
@@ -889,14 +1050,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     typedef typename CpParameterSet::ExpectedUmtsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_expected_umts);
     if (!obj->setExpectedUmts(std::move(value))) return NULL;
 
@@ -910,13 +1074,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
     if (!obj) return NULL;
 
-    typedef typename CpParameterSet::ExpectedUmtsType ContainerType;
+    typedef typename CpParameterSet::ExpectedUmtsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_expected_umts;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addExpectedUmts(value);
+
+    if (value) obj->addExpectedUmts(value.value());
     return obj_cp_parameter_set;
 }
 
@@ -927,10 +1092,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
     if (!obj) return NULL;
 
-    typedef typename CpParameterSet::ExpectedUmtsType ContainerType;
+    typedef typename CpParameterSet::ExpectedUmtsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_expected_umts;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeExpectedUmts(value);
     return obj_cp_parameter_set;
 }
@@ -945,6 +1111,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     obj->clearExpectedUmts();
     return obj_cp_parameter_set;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cp_parameter_set_has_expected_umt_days(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
+{
+    if (!obj_cp_parameter_set) return false;
+
+    const std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<const std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
+    if (!obj) return false;
+
+    return obj->getExpectedUmtDays().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_cp_parameter_set_get_expected_umt_days(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
 {
@@ -961,7 +1138,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename CpParameterSet::ExpectedUmtDaysType ResultFromType;
     const ResultFromType result_from = obj->getExpectedUmtDays();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -975,7 +1152,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     const auto &value_from = p_expected_umt_days;
     typedef typename CpParameterSet::ExpectedUmtDaysType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setExpectedUmtDays(value)) return NULL;
 
     return obj_cp_parameter_set;
@@ -991,12 +1169,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     const auto &value_from = p_expected_umt_days;
     typedef typename CpParameterSet::ExpectedUmtDaysType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setExpectedUmtDays(std::move(value))) return NULL;
 
     return obj_cp_parameter_set;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cp_parameter_set_has_expected_umt_days_add(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
+{
+    if (!obj_cp_parameter_set) return false;
+
+    const std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<const std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
+    if (!obj) return false;
+
+    return obj->getExpectedUmtDaysAdd().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_cp_parameter_set_get_expected_umt_days_add(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
 {
@@ -1013,16 +1203,20 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_cp
 
     typedef typename CpParameterSet::ExpectedUmtDaysAddType ResultFromType;
     const ResultFromType result_from = obj->getExpectedUmtDaysAdd();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        int32_t *item_obj = reinterpret_cast<int32_t*>(ogs_malloc(sizeof(*item_obj)));
-        *item_obj = item;
-        node = data_collection_lnode_create(item_obj, reinterpret_cast<void(*)(void*)>(_ogs_free));
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        int32_t *item_obj = reinterpret_cast<int32_t*>(item.has_value()?ogs_malloc(sizeof(*item_obj)):nullptr);
+        if (item_obj) {
+            *item_obj = item.value();
+            node = data_collection_lnode_create(item_obj, reinterpret_cast<void(*)(void*)>(_ogs_free));
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -1037,14 +1231,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     typedef typename CpParameterSet::ExpectedUmtDaysAddType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setExpectedUmtDaysAdd(value)) return NULL;
 
     return obj_cp_parameter_set;
@@ -1061,14 +1258,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     typedef typename CpParameterSet::ExpectedUmtDaysAddType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_expected_umt_days_add);
     if (!obj->setExpectedUmtDaysAdd(std::move(value))) return NULL;
 
@@ -1082,13 +1282,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
     if (!obj) return NULL;
 
-    typedef typename CpParameterSet::ExpectedUmtDaysAddType ContainerType;
+    typedef typename CpParameterSet::ExpectedUmtDaysAddType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_expected_umt_days_add;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
 
-    obj->addExpectedUmtDaysAdd(value);
+
+    if (value) obj->addExpectedUmtDaysAdd(value.value());
     return obj_cp_parameter_set;
 }
 
@@ -1099,10 +1300,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
     if (!obj) return NULL;
 
-    typedef typename CpParameterSet::ExpectedUmtDaysAddType ContainerType;
+    typedef typename CpParameterSet::ExpectedUmtDaysAddType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_expected_umt_days_add;
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     obj->removeExpectedUmtDaysAdd(value);
     return obj_cp_parameter_set;
 }
@@ -1117,6 +1319,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     obj->clearExpectedUmtDaysAdd();
     return obj_cp_parameter_set;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cp_parameter_set_has_app_exp_ue_behv(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
+{
+    if (!obj_cp_parameter_set) return false;
+
+    const std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<const std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
+    if (!obj) return false;
+
+    return obj->getAppExpUeBehv().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_app_exp_ue_behaviour_t* data_collection_model_cp_parameter_set_get_app_exp_ue_behv(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
 {
@@ -1133,7 +1346,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_app_exp_
 
     typedef typename CpParameterSet::AppExpUeBehvType ResultFromType;
     const ResultFromType result_from = obj->getAppExpUeBehv();
-    const data_collection_model_app_exp_ue_behaviour_t *result = reinterpret_cast<const data_collection_model_app_exp_ue_behaviour_t*>(&result_from);
+    const data_collection_model_app_exp_ue_behaviour_t *result = reinterpret_cast<const data_collection_model_app_exp_ue_behaviour_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -1147,7 +1360,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     const auto &value_from = p_app_exp_ue_behv;
     typedef typename CpParameterSet::AppExpUeBehvType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setAppExpUeBehv(value)) return NULL;
 
     return obj_cp_parameter_set;
@@ -1163,12 +1377,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     const auto &value_from = p_app_exp_ue_behv;
     typedef typename CpParameterSet::AppExpUeBehvType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setAppExpUeBehv(std::move(value))) return NULL;
 
     return obj_cp_parameter_set;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cp_parameter_set_has_confidence_level(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
+{
+    if (!obj_cp_parameter_set) return false;
+
+    const std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<const std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
+    if (!obj) return false;
+
+    return obj->getConfidenceLevel().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_cp_parameter_set_get_confidence_level(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
 {
@@ -1185,7 +1411,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_cp
 
     typedef typename CpParameterSet::ConfidenceLevelType ResultFromType;
     const ResultFromType result_from = obj->getConfidenceLevel();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -1200,6 +1426,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     typedef typename CpParameterSet::ConfidenceLevelType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setConfidenceLevel(value)) return NULL;
 
     return obj_cp_parameter_set;
@@ -1216,11 +1443,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     typedef typename CpParameterSet::ConfidenceLevelType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setConfidenceLevel(std::move(value))) return NULL;
 
     return obj_cp_parameter_set;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_cp_parameter_set_has_accuracy_level(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
+{
+    if (!obj_cp_parameter_set) return false;
+
+    const std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<const std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
+    if (!obj) return false;
+
+    return obj->getAccuracyLevel().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_cp_parameter_set_get_accuracy_level(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
 {
@@ -1237,7 +1476,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_cp
 
     typedef typename CpParameterSet::AccuracyLevelType ResultFromType;
     const ResultFromType result_from = obj->getAccuracyLevel();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -1252,6 +1491,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     typedef typename CpParameterSet::AccuracyLevelType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setAccuracyLevel(value)) return NULL;
 
     return obj_cp_parameter_set;
@@ -1268,6 +1508,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     typedef typename CpParameterSet::AccuracyLevelType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setAccuracyLevel(std::move(value))) return NULL;
 

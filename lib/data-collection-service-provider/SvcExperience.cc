@@ -162,6 +162,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_svc_exper
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_svc_experience_has_mos(const data_collection_model_svc_experience_t *obj_svc_experience)
+{
+    if (!obj_svc_experience) return false;
+
+    const std::shared_ptr<SvcExperience > &obj = *reinterpret_cast<const std::shared_ptr<SvcExperience >*>(obj_svc_experience);
+    if (!obj) return false;
+
+    return obj->getMos().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_svc_experience_get_mos(const data_collection_model_svc_experience_t *obj_svc_experience)
 {
     if (!obj_svc_experience) {
@@ -177,7 +188,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_sv
 
     typedef typename SvcExperience::MosType ResultFromType;
     const ResultFromType result_from = obj->getMos();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -191,7 +202,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience
     const auto &value_from = p_mos;
     typedef typename SvcExperience::MosType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setMos(value)) return NULL;
 
     return obj_svc_experience;
@@ -207,12 +219,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience
     const auto &value_from = p_mos;
     typedef typename SvcExperience::MosType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setMos(std::move(value))) return NULL;
 
     return obj_svc_experience;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_svc_experience_has_upper_range(const data_collection_model_svc_experience_t *obj_svc_experience)
+{
+    if (!obj_svc_experience) return false;
+
+    const std::shared_ptr<SvcExperience > &obj = *reinterpret_cast<const std::shared_ptr<SvcExperience >*>(obj_svc_experience);
+    if (!obj) return false;
+
+    return obj->getUpperRange().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_svc_experience_get_upper_range(const data_collection_model_svc_experience_t *obj_svc_experience)
 {
@@ -229,7 +253,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_sv
 
     typedef typename SvcExperience::UpperRangeType ResultFromType;
     const ResultFromType result_from = obj->getUpperRange();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -243,7 +267,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience
     const auto &value_from = p_upper_range;
     typedef typename SvcExperience::UpperRangeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setUpperRange(value)) return NULL;
 
     return obj_svc_experience;
@@ -259,12 +284,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience
     const auto &value_from = p_upper_range;
     typedef typename SvcExperience::UpperRangeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setUpperRange(std::move(value))) return NULL;
 
     return obj_svc_experience;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_svc_experience_has_lower_range(const data_collection_model_svc_experience_t *obj_svc_experience)
+{
+    if (!obj_svc_experience) return false;
+
+    const std::shared_ptr<SvcExperience > &obj = *reinterpret_cast<const std::shared_ptr<SvcExperience >*>(obj_svc_experience);
+    if (!obj) return false;
+
+    return obj->getLowerRange().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_svc_experience_get_lower_range(const data_collection_model_svc_experience_t *obj_svc_experience)
 {
@@ -281,7 +318,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_sv
 
     typedef typename SvcExperience::LowerRangeType ResultFromType;
     const ResultFromType result_from = obj->getLowerRange();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -295,7 +332,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience
     const auto &value_from = p_lower_range;
     typedef typename SvcExperience::LowerRangeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setLowerRange(value)) return NULL;
 
     return obj_svc_experience;
@@ -311,7 +349,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience
     const auto &value_from = p_lower_range;
     typedef typename SvcExperience::LowerRangeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setLowerRange(std::move(value))) return NULL;
 

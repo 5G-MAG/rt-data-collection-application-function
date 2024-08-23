@@ -158,6 +158,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_str
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_media_streaming_session_identification_get_session_id(const data_collection_model_media_streaming_session_identification_t *obj_media_streaming_session_identification)
 {
     if (!obj_media_streaming_session_identification) {
@@ -188,6 +189,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     typedef typename MediaStreamingSessionIdentification::SessionIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setSessionId(value)) return NULL;
 
     return obj_media_streaming_session_identification;
@@ -204,6 +206,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     typedef typename MediaStreamingSessionIdentification::SessionIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setSessionId(std::move(value))) return NULL;
 

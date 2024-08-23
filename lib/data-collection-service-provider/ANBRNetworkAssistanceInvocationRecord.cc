@@ -174,6 +174,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_anbr_netw
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_anbr_network_assistance_invocation_record_get_timestamp(const data_collection_model_anbr_network_assistance_invocation_record_t *obj_anbr_network_assistance_invocation_record)
 {
     if (!obj_anbr_network_assistance_invocation_record) {
@@ -204,6 +205,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     typedef typename ANBRNetworkAssistanceInvocationRecord::TimestampType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setTimestamp(value)) return NULL;
 
     return obj_anbr_network_assistance_invocation_record;
@@ -220,11 +222,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     typedef typename ANBRNetworkAssistanceInvocationRecord::TimestampType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setTimestamp(std::move(value))) return NULL;
 
     return obj_anbr_network_assistance_invocation_record;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_anbr_network_assistance_invocation_record_get_context_ids(const data_collection_model_anbr_network_assistance_invocation_record_t *obj_anbr_network_assistance_invocation_record)
 {
@@ -242,12 +246,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_an
     typedef typename ANBRNetworkAssistanceInvocationRecord::ContextIdsType ResultFromType;
     const ResultFromType result_from = obj->getContextIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+    
     typedef typename ResultFromType::value_type ItemType;
     for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
+        if (node) ogs_list_add(result, node);
     }
     return result;
 }
@@ -263,14 +268,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     typedef typename ANBRNetworkAssistanceInvocationRecord::ContextIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setContextIds(value)) return NULL;
 
     return obj_anbr_network_assistance_invocation_record;
@@ -287,14 +295,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     typedef typename ANBRNetworkAssistanceInvocationRecord::ContextIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_context_ids);
     if (!obj->setContextIds(std::move(value))) return NULL;
 
@@ -314,6 +325,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
 
     ValueType value(value_from);
 
+
     obj->addContextIds(value);
     return obj_anbr_network_assistance_invocation_record;
 }
@@ -329,6 +341,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_context_ids;
     ValueType value(value_from);
+
     obj->removeContextIds(value);
     return obj_anbr_network_assistance_invocation_record;
 }
@@ -343,6 +356,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     obj->clearContextIds();
     return obj_anbr_network_assistance_invocation_record;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_anbr_network_assistance_invocation_record_has_slice_info(const data_collection_model_anbr_network_assistance_invocation_record_t *obj_anbr_network_assistance_invocation_record)
+{
+    if (!obj_anbr_network_assistance_invocation_record) return false;
+
+    const std::shared_ptr<ANBRNetworkAssistanceInvocationRecord > &obj = *reinterpret_cast<const std::shared_ptr<ANBRNetworkAssistanceInvocationRecord >*>(obj_anbr_network_assistance_invocation_record);
+    if (!obj) return false;
+
+    return obj->getSliceInfo().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_snssai_t* data_collection_model_anbr_network_assistance_invocation_record_get_slice_info(const data_collection_model_anbr_network_assistance_invocation_record_t *obj_anbr_network_assistance_invocation_record)
 {
@@ -359,7 +383,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_snssai_t
 
     typedef typename ANBRNetworkAssistanceInvocationRecord::SliceInfoType ResultFromType;
     const ResultFromType result_from = obj->getSliceInfo();
-    const data_collection_model_snssai_t *result = reinterpret_cast<const data_collection_model_snssai_t*>(&result_from);
+    const data_collection_model_snssai_t *result = reinterpret_cast<const data_collection_model_snssai_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -373,7 +397,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     const auto &value_from = p_slice_info;
     typedef typename ANBRNetworkAssistanceInvocationRecord::SliceInfoType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setSliceInfo(value)) return NULL;
 
     return obj_anbr_network_assistance_invocation_record;
@@ -389,12 +414,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     const auto &value_from = p_slice_info;
     typedef typename ANBRNetworkAssistanceInvocationRecord::SliceInfoType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setSliceInfo(std::move(value))) return NULL;
 
     return obj_anbr_network_assistance_invocation_record;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_anbr_network_assistance_invocation_record_has_data_network_name(const data_collection_model_anbr_network_assistance_invocation_record_t *obj_anbr_network_assistance_invocation_record)
+{
+    if (!obj_anbr_network_assistance_invocation_record) return false;
+
+    const std::shared_ptr<ANBRNetworkAssistanceInvocationRecord > &obj = *reinterpret_cast<const std::shared_ptr<ANBRNetworkAssistanceInvocationRecord >*>(obj_anbr_network_assistance_invocation_record);
+    if (!obj) return false;
+
+    return obj->getDataNetworkName().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_anbr_network_assistance_invocation_record_get_data_network_name(const data_collection_model_anbr_network_assistance_invocation_record_t *obj_anbr_network_assistance_invocation_record)
 {
@@ -411,7 +448,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_an
 
     typedef typename ANBRNetworkAssistanceInvocationRecord::DataNetworkNameType ResultFromType;
     const ResultFromType result_from = obj->getDataNetworkName();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -426,6 +463,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     typedef typename ANBRNetworkAssistanceInvocationRecord::DataNetworkNameType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setDataNetworkName(value)) return NULL;
 
     return obj_anbr_network_assistance_invocation_record;
@@ -442,11 +480,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     typedef typename ANBRNetworkAssistanceInvocationRecord::DataNetworkNameType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setDataNetworkName(std::move(value))) return NULL;
 
     return obj_anbr_network_assistance_invocation_record;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_anbr_network_assistance_invocation_record_has_location(const data_collection_model_anbr_network_assistance_invocation_record_t *obj_anbr_network_assistance_invocation_record)
+{
+    if (!obj_anbr_network_assistance_invocation_record) return false;
+
+    const std::shared_ptr<ANBRNetworkAssistanceInvocationRecord > &obj = *reinterpret_cast<const std::shared_ptr<ANBRNetworkAssistanceInvocationRecord >*>(obj_anbr_network_assistance_invocation_record);
+    if (!obj) return false;
+
+    return obj->getLocation().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_typed_location_t* data_collection_model_anbr_network_assistance_invocation_record_get_location(const data_collection_model_anbr_network_assistance_invocation_record_t *obj_anbr_network_assistance_invocation_record)
 {
@@ -463,7 +513,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_typed_lo
 
     typedef typename ANBRNetworkAssistanceInvocationRecord::LocationType ResultFromType;
     const ResultFromType result_from = obj->getLocation();
-    const data_collection_model_typed_location_t *result = reinterpret_cast<const data_collection_model_typed_location_t*>(&result_from);
+    const data_collection_model_typed_location_t *result = reinterpret_cast<const data_collection_model_typed_location_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -477,7 +527,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     const auto &value_from = p_location;
     typedef typename ANBRNetworkAssistanceInvocationRecord::LocationType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setLocation(value)) return NULL;
 
     return obj_anbr_network_assistance_invocation_record;
@@ -493,12 +544,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     const auto &value_from = p_location;
     typedef typename ANBRNetworkAssistanceInvocationRecord::LocationType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setLocation(std::move(value))) return NULL;
 
     return obj_anbr_network_assistance_invocation_record;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_anbr_network_assistance_invocation_record_get_session_id(const data_collection_model_anbr_network_assistance_invocation_record_t *obj_anbr_network_assistance_invocation_record)
 {
@@ -530,6 +583,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     typedef typename ANBRNetworkAssistanceInvocationRecord::SessionIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setSessionId(value)) return NULL;
 
     return obj_anbr_network_assistance_invocation_record;
@@ -546,11 +600,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     typedef typename ANBRNetworkAssistanceInvocationRecord::SessionIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setSessionId(std::move(value))) return NULL;
 
     return obj_anbr_network_assistance_invocation_record;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_anbr_network_assistance_invocation_record_has_policy_template_id(const data_collection_model_anbr_network_assistance_invocation_record_t *obj_anbr_network_assistance_invocation_record)
+{
+    if (!obj_anbr_network_assistance_invocation_record) return false;
+
+    const std::shared_ptr<ANBRNetworkAssistanceInvocationRecord > &obj = *reinterpret_cast<const std::shared_ptr<ANBRNetworkAssistanceInvocationRecord >*>(obj_anbr_network_assistance_invocation_record);
+    if (!obj) return false;
+
+    return obj->getPolicyTemplateId().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_anbr_network_assistance_invocation_record_get_policy_template_id(const data_collection_model_anbr_network_assistance_invocation_record_t *obj_anbr_network_assistance_invocation_record)
 {
@@ -567,7 +633,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_an
 
     typedef typename ANBRNetworkAssistanceInvocationRecord::PolicyTemplateIdType ResultFromType;
     const ResultFromType result_from = obj->getPolicyTemplateId();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -582,6 +648,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     typedef typename ANBRNetworkAssistanceInvocationRecord::PolicyTemplateIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setPolicyTemplateId(value)) return NULL;
 
     return obj_anbr_network_assistance_invocation_record;
@@ -598,11 +665,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     typedef typename ANBRNetworkAssistanceInvocationRecord::PolicyTemplateIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setPolicyTemplateId(std::move(value))) return NULL;
 
     return obj_anbr_network_assistance_invocation_record;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_anbr_network_assistance_invocation_record_has_application_flow_descriptions(const data_collection_model_anbr_network_assistance_invocation_record_t *obj_anbr_network_assistance_invocation_record)
+{
+    if (!obj_anbr_network_assistance_invocation_record) return false;
+
+    const std::shared_ptr<ANBRNetworkAssistanceInvocationRecord > &obj = *reinterpret_cast<const std::shared_ptr<ANBRNetworkAssistanceInvocationRecord >*>(obj_anbr_network_assistance_invocation_record);
+    if (!obj) return false;
+
+    return obj->getApplicationFlowDescriptions().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_anbr_network_assistance_invocation_record_get_application_flow_descriptions(const data_collection_model_anbr_network_assistance_invocation_record_t *obj_anbr_network_assistance_invocation_record)
 {
@@ -619,15 +698,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_an
 
     typedef typename ANBRNetworkAssistanceInvocationRecord::ApplicationFlowDescriptionsType ResultFromType;
     const ResultFromType result_from = obj->getApplicationFlowDescriptions();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_application_flow_description_t *item_obj = reinterpret_cast<data_collection_model_application_flow_description_t*>(new std::shared_ptr<ApplicationFlowDescription >(item));
-        node = data_collection_model_application_flow_description_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_application_flow_description_t *item_obj = reinterpret_cast<data_collection_model_application_flow_description_t*>(item.has_value()?new std::shared_ptr<ApplicationFlowDescription >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_application_flow_description_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -642,14 +725,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     typedef typename ANBRNetworkAssistanceInvocationRecord::ApplicationFlowDescriptionsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setApplicationFlowDescriptions(value)) return NULL;
 
     return obj_anbr_network_assistance_invocation_record;
@@ -666,14 +752,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     typedef typename ANBRNetworkAssistanceInvocationRecord::ApplicationFlowDescriptionsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_application_flow_descriptions);
     if (!obj->setApplicationFlowDescriptions(std::move(value))) return NULL;
 
@@ -687,13 +776,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     std::shared_ptr<ANBRNetworkAssistanceInvocationRecord > &obj = *reinterpret_cast<std::shared_ptr<ANBRNetworkAssistanceInvocationRecord >*>(obj_anbr_network_assistance_invocation_record);
     if (!obj) return NULL;
 
-    typedef typename ANBRNetworkAssistanceInvocationRecord::ApplicationFlowDescriptionsType ContainerType;
+    typedef typename ANBRNetworkAssistanceInvocationRecord::ApplicationFlowDescriptionsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_application_flow_descriptions;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addApplicationFlowDescriptions(value);
+
+    if (value) obj->addApplicationFlowDescriptions(value.value());
     return obj_anbr_network_assistance_invocation_record;
 }
 
@@ -704,10 +794,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     std::shared_ptr<ANBRNetworkAssistanceInvocationRecord > &obj = *reinterpret_cast<std::shared_ptr<ANBRNetworkAssistanceInvocationRecord >*>(obj_anbr_network_assistance_invocation_record);
     if (!obj) return NULL;
 
-    typedef typename ANBRNetworkAssistanceInvocationRecord::ApplicationFlowDescriptionsType ContainerType;
+    typedef typename ANBRNetworkAssistanceInvocationRecord::ApplicationFlowDescriptionsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_application_flow_descriptions;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeApplicationFlowDescriptions(value);
     return obj_anbr_network_assistance_invocation_record;
 }
@@ -722,6 +813,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     obj->clearApplicationFlowDescriptions();
     return obj_anbr_network_assistance_invocation_record;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_anbr_network_assistance_invocation_record_has_requested_qo_s(const data_collection_model_anbr_network_assistance_invocation_record_t *obj_anbr_network_assistance_invocation_record)
+{
+    if (!obj_anbr_network_assistance_invocation_record) return false;
+
+    const std::shared_ptr<ANBRNetworkAssistanceInvocationRecord > &obj = *reinterpret_cast<const std::shared_ptr<ANBRNetworkAssistanceInvocationRecord >*>(obj_anbr_network_assistance_invocation_record);
+    if (!obj) return false;
+
+    return obj->getRequestedQoS().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_unidirectional_qo_s_specification_t* data_collection_model_anbr_network_assistance_invocation_record_get_requested_qo_s(const data_collection_model_anbr_network_assistance_invocation_record_t *obj_anbr_network_assistance_invocation_record)
 {
@@ -738,7 +840,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_unidirec
 
     typedef typename ANBRNetworkAssistanceInvocationRecord::RequestedQoSType ResultFromType;
     const ResultFromType result_from = obj->getRequestedQoS();
-    const data_collection_model_unidirectional_qo_s_specification_t *result = reinterpret_cast<const data_collection_model_unidirectional_qo_s_specification_t*>(&result_from);
+    const data_collection_model_unidirectional_qo_s_specification_t *result = reinterpret_cast<const data_collection_model_unidirectional_qo_s_specification_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -752,7 +854,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     const auto &value_from = p_requested_qo_s;
     typedef typename ANBRNetworkAssistanceInvocationRecord::RequestedQoSType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setRequestedQoS(value)) return NULL;
 
     return obj_anbr_network_assistance_invocation_record;
@@ -768,12 +871,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     const auto &value_from = p_requested_qo_s;
     typedef typename ANBRNetworkAssistanceInvocationRecord::RequestedQoSType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setRequestedQoS(std::move(value))) return NULL;
 
     return obj_anbr_network_assistance_invocation_record;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_anbr_network_assistance_invocation_record_has_recommended_qo_s(const data_collection_model_anbr_network_assistance_invocation_record_t *obj_anbr_network_assistance_invocation_record)
+{
+    if (!obj_anbr_network_assistance_invocation_record) return false;
+
+    const std::shared_ptr<ANBRNetworkAssistanceInvocationRecord > &obj = *reinterpret_cast<const std::shared_ptr<ANBRNetworkAssistanceInvocationRecord >*>(obj_anbr_network_assistance_invocation_record);
+    if (!obj) return false;
+
+    return obj->getRecommendedQoS().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_network_assistance_invocation_recommended_qo_s_t* data_collection_model_anbr_network_assistance_invocation_record_get_recommended_qo_s(const data_collection_model_anbr_network_assistance_invocation_record_t *obj_anbr_network_assistance_invocation_record)
 {
@@ -790,7 +905,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_network_
 
     typedef typename ANBRNetworkAssistanceInvocationRecord::RecommendedQoSType ResultFromType;
     const ResultFromType result_from = obj->getRecommendedQoS();
-    const data_collection_model_network_assistance_invocation_recommended_qo_s_t *result = reinterpret_cast<const data_collection_model_network_assistance_invocation_recommended_qo_s_t*>(&result_from);
+    const data_collection_model_network_assistance_invocation_recommended_qo_s_t *result = reinterpret_cast<const data_collection_model_network_assistance_invocation_recommended_qo_s_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -804,7 +919,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     const auto &value_from = p_recommended_qo_s;
     typedef typename ANBRNetworkAssistanceInvocationRecord::RecommendedQoSType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setRecommendedQoS(value)) return NULL;
 
     return obj_anbr_network_assistance_invocation_record;
@@ -820,7 +936,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     const auto &value_from = p_recommended_qo_s;
     typedef typename ANBRNetworkAssistanceInvocationRecord::RecommendedQoSType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setRecommendedQoS(std::move(value))) return NULL;
 

@@ -170,6 +170,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_eth_flow_
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_eth_flow_description_has_dest_mac_addr(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
+{
+    if (!obj_eth_flow_description) return false;
+
+    const std::shared_ptr<EthFlowDescription > &obj = *reinterpret_cast<const std::shared_ptr<EthFlowDescription >*>(obj_eth_flow_description);
+    if (!obj) return false;
+
+    return obj->getDestMacAddr().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_eth_flow_description_get_dest_mac_addr(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
 {
     if (!obj_eth_flow_description) {
@@ -185,7 +196,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_et
 
     typedef typename EthFlowDescription::DestMacAddrType ResultFromType;
     const ResultFromType result_from = obj->getDestMacAddr();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -200,6 +211,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
     typedef typename EthFlowDescription::DestMacAddrType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setDestMacAddr(value)) return NULL;
 
     return obj_eth_flow_description;
@@ -216,11 +228,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
     typedef typename EthFlowDescription::DestMacAddrType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setDestMacAddr(std::move(value))) return NULL;
 
     return obj_eth_flow_description;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_eth_flow_description_get_eth_type(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
 {
@@ -252,6 +266,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
     typedef typename EthFlowDescription::EthTypeType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setEthType(value)) return NULL;
 
     return obj_eth_flow_description;
@@ -268,11 +283,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
     typedef typename EthFlowDescription::EthTypeType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setEthType(std::move(value))) return NULL;
 
     return obj_eth_flow_description;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_eth_flow_description_has_f_desc(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
+{
+    if (!obj_eth_flow_description) return false;
+
+    const std::shared_ptr<EthFlowDescription > &obj = *reinterpret_cast<const std::shared_ptr<EthFlowDescription >*>(obj_eth_flow_description);
+    if (!obj) return false;
+
+    return obj->getFDesc().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_eth_flow_description_get_f_desc(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
 {
@@ -289,7 +316,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_et
 
     typedef typename EthFlowDescription::FDescType ResultFromType;
     const ResultFromType result_from = obj->getFDesc();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -304,6 +331,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
     typedef typename EthFlowDescription::FDescType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setFDesc(value)) return NULL;
 
     return obj_eth_flow_description;
@@ -320,11 +348,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
     typedef typename EthFlowDescription::FDescType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setFDesc(std::move(value))) return NULL;
 
     return obj_eth_flow_description;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_eth_flow_description_has_f_dir(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
+{
+    if (!obj_eth_flow_description) return false;
+
+    const std::shared_ptr<EthFlowDescription > &obj = *reinterpret_cast<const std::shared_ptr<EthFlowDescription >*>(obj_eth_flow_description);
+    if (!obj) return false;
+
+    return obj->getFDir().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_flow_direction_t* data_collection_model_eth_flow_description_get_f_dir(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
 {
@@ -341,7 +381,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_flow_dir
 
     typedef typename EthFlowDescription::FDirType ResultFromType;
     const ResultFromType result_from = obj->getFDir();
-    const data_collection_model_flow_direction_t *result = reinterpret_cast<const data_collection_model_flow_direction_t*>(&result_from);
+    const data_collection_model_flow_direction_t *result = reinterpret_cast<const data_collection_model_flow_direction_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -355,7 +395,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
     const auto &value_from = p_f_dir;
     typedef typename EthFlowDescription::FDirType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setFDir(value)) return NULL;
 
     return obj_eth_flow_description;
@@ -371,12 +412,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
     const auto &value_from = p_f_dir;
     typedef typename EthFlowDescription::FDirType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setFDir(std::move(value))) return NULL;
 
     return obj_eth_flow_description;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_eth_flow_description_has_source_mac_addr(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
+{
+    if (!obj_eth_flow_description) return false;
+
+    const std::shared_ptr<EthFlowDescription > &obj = *reinterpret_cast<const std::shared_ptr<EthFlowDescription >*>(obj_eth_flow_description);
+    if (!obj) return false;
+
+    return obj->getSourceMacAddr().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_eth_flow_description_get_source_mac_addr(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
 {
@@ -393,7 +446,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_et
 
     typedef typename EthFlowDescription::SourceMacAddrType ResultFromType;
     const ResultFromType result_from = obj->getSourceMacAddr();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -408,6 +461,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
     typedef typename EthFlowDescription::SourceMacAddrType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setSourceMacAddr(value)) return NULL;
 
     return obj_eth_flow_description;
@@ -424,11 +478,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
     typedef typename EthFlowDescription::SourceMacAddrType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setSourceMacAddr(std::move(value))) return NULL;
 
     return obj_eth_flow_description;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_eth_flow_description_has_vlan_tags(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
+{
+    if (!obj_eth_flow_description) return false;
+
+    const std::shared_ptr<EthFlowDescription > &obj = *reinterpret_cast<const std::shared_ptr<EthFlowDescription >*>(obj_eth_flow_description);
+    if (!obj) return false;
+
+    return obj->getVlanTags().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_eth_flow_description_get_vlan_tags(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
 {
@@ -445,14 +511,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_et
 
     typedef typename EthFlowDescription::VlanTagsType ResultFromType;
     const ResultFromType result_from = obj->getVlanTags();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -467,14 +535,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
     typedef typename EthFlowDescription::VlanTagsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setVlanTags(value)) return NULL;
 
     return obj_eth_flow_description;
@@ -491,14 +562,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
     typedef typename EthFlowDescription::VlanTagsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_vlan_tags);
     if (!obj->setVlanTags(std::move(value))) return NULL;
 
@@ -512,13 +586,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
     std::shared_ptr<EthFlowDescription > &obj = *reinterpret_cast<std::shared_ptr<EthFlowDescription >*>(obj_eth_flow_description);
     if (!obj) return NULL;
 
-    typedef typename EthFlowDescription::VlanTagsType ContainerType;
+    typedef typename EthFlowDescription::VlanTagsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_vlan_tags;
 
     ValueType value(value_from);
 
-    obj->addVlanTags(value);
+
+    if (value) obj->addVlanTags(value.value());
     return obj_eth_flow_description;
 }
 
@@ -529,10 +604,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
     std::shared_ptr<EthFlowDescription > &obj = *reinterpret_cast<std::shared_ptr<EthFlowDescription >*>(obj_eth_flow_description);
     if (!obj) return NULL;
 
-    typedef typename EthFlowDescription::VlanTagsType ContainerType;
+    typedef typename EthFlowDescription::VlanTagsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_vlan_tags;
     ValueType value(value_from);
+
     obj->removeVlanTags(value);
     return obj_eth_flow_description;
 }
@@ -547,6 +623,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
     obj->clearVlanTags();
     return obj_eth_flow_description;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_eth_flow_description_has_src_mac_addr_end(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
+{
+    if (!obj_eth_flow_description) return false;
+
+    const std::shared_ptr<EthFlowDescription > &obj = *reinterpret_cast<const std::shared_ptr<EthFlowDescription >*>(obj_eth_flow_description);
+    if (!obj) return false;
+
+    return obj->getSrcMacAddrEnd().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_eth_flow_description_get_src_mac_addr_end(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
 {
@@ -563,7 +650,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_et
 
     typedef typename EthFlowDescription::SrcMacAddrEndType ResultFromType;
     const ResultFromType result_from = obj->getSrcMacAddrEnd();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -578,6 +665,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
     typedef typename EthFlowDescription::SrcMacAddrEndType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setSrcMacAddrEnd(value)) return NULL;
 
     return obj_eth_flow_description;
@@ -594,11 +682,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
     typedef typename EthFlowDescription::SrcMacAddrEndType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setSrcMacAddrEnd(std::move(value))) return NULL;
 
     return obj_eth_flow_description;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_eth_flow_description_has_dest_mac_addr_end(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
+{
+    if (!obj_eth_flow_description) return false;
+
+    const std::shared_ptr<EthFlowDescription > &obj = *reinterpret_cast<const std::shared_ptr<EthFlowDescription >*>(obj_eth_flow_description);
+    if (!obj) return false;
+
+    return obj->getDestMacAddrEnd().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_eth_flow_description_get_dest_mac_addr_end(const data_collection_model_eth_flow_description_t *obj_eth_flow_description)
 {
@@ -615,7 +715,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_et
 
     typedef typename EthFlowDescription::DestMacAddrEndType ResultFromType;
     const ResultFromType result_from = obj->getDestMacAddrEnd();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -630,6 +730,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
     typedef typename EthFlowDescription::DestMacAddrEndType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setDestMacAddrEnd(value)) return NULL;
 
     return obj_eth_flow_description;
@@ -646,6 +747,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
     typedef typename EthFlowDescription::DestMacAddrEndType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setDestMacAddrEnd(std::move(value))) return NULL;
 

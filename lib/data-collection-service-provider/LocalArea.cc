@@ -168,6 +168,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_local_are
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supported_gad_shapes_t* data_collection_model_local_area_get_shape(const data_collection_model_local_area_t *obj_local_area)
 {
     if (!obj_local_area) {
@@ -198,6 +199,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *
     typedef typename LocalArea::ShapeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setShape(value)) return NULL;
 
     return obj_local_area;
@@ -214,11 +216,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *
     typedef typename LocalArea::ShapeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setShape(std::move(value))) return NULL;
 
     return obj_local_area;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_local_origin_t* data_collection_model_local_area_get_local_origin(const data_collection_model_local_area_t *obj_local_area)
 {
@@ -250,6 +254,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *
     typedef typename LocalArea::LocalOriginType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setLocalOrigin(value)) return NULL;
 
     return obj_local_area;
@@ -266,11 +271,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *
     typedef typename LocalArea::LocalOriginType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setLocalOrigin(std::move(value))) return NULL;
 
     return obj_local_area;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_relative_cartesian_location_t* data_collection_model_local_area_get_point(const data_collection_model_local_area_t *obj_local_area)
 {
@@ -302,6 +309,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *
     typedef typename LocalArea::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setPoint(value)) return NULL;
 
     return obj_local_area;
@@ -318,11 +326,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *
     typedef typename LocalArea::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setPoint(std::move(value))) return NULL;
 
     return obj_local_area;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_uncertainty_ellipse_t* data_collection_model_local_area_get_uncertainty_ellipse(const data_collection_model_local_area_t *obj_local_area)
 {
@@ -354,6 +364,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *
     typedef typename LocalArea::UncertaintyEllipseType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setUncertaintyEllipse(value)) return NULL;
 
     return obj_local_area;
@@ -370,11 +381,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *
     typedef typename LocalArea::UncertaintyEllipseType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setUncertaintyEllipse(std::move(value))) return NULL;
 
     return obj_local_area;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_local_area_get_confidence(const data_collection_model_local_area_t *obj_local_area)
 {
@@ -405,7 +418,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *
     const auto &value_from = p_confidence;
     typedef typename LocalArea::ConfidenceType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setConfidence(value)) return NULL;
 
     return obj_local_area;
@@ -421,12 +435,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *
     const auto &value_from = p_confidence;
     typedef typename LocalArea::ConfidenceType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setConfidence(std::move(value))) return NULL;
 
     return obj_local_area;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_uncertainty_ellipsoid_t* data_collection_model_local_area_get_uncertainty_ellipsoid(const data_collection_model_local_area_t *obj_local_area)
 {
@@ -458,6 +474,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *
     typedef typename LocalArea::UncertaintyEllipsoidType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setUncertaintyEllipsoid(value)) return NULL;
 
     return obj_local_area;
@@ -474,11 +491,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *
     typedef typename LocalArea::UncertaintyEllipsoidType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setUncertaintyEllipsoid(std::move(value))) return NULL;
 
     return obj_local_area;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_local_area_has_v_confidence(const data_collection_model_local_area_t *obj_local_area)
+{
+    if (!obj_local_area) return false;
+
+    const std::shared_ptr<LocalArea > &obj = *reinterpret_cast<const std::shared_ptr<LocalArea >*>(obj_local_area);
+    if (!obj) return false;
+
+    return obj->getVConfidence().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_local_area_get_v_confidence(const data_collection_model_local_area_t *obj_local_area)
 {
@@ -495,7 +524,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename LocalArea::VConfidenceType ResultFromType;
     const ResultFromType result_from = obj->getVConfidence();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -509,7 +538,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *
     const auto &value_from = p_v_confidence;
     typedef typename LocalArea::VConfidenceType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setVConfidence(value)) return NULL;
 
     return obj_local_area;
@@ -525,7 +555,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *
     const auto &value_from = p_v_confidence;
     typedef typename LocalArea::VConfidenceType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setVConfidence(std::move(value))) return NULL;
 

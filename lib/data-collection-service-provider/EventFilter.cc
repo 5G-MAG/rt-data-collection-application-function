@@ -174,6 +174,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_fil
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_filter_has_gpsis(const data_collection_model_event_filter_t *obj_event_filter)
+{
+    if (!obj_event_filter) return false;
+
+    const std::shared_ptr<EventFilter > &obj = *reinterpret_cast<const std::shared_ptr<EventFilter >*>(obj_event_filter);
+    if (!obj) return false;
+
+    return obj->getGpsis().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_event_filter_get_gpsis(const data_collection_model_event_filter_t *obj_event_filter)
 {
     if (!obj_event_filter) {
@@ -189,14 +200,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ev
 
     typedef typename EventFilter::GpsisType ResultFromType;
     const ResultFromType result_from = obj->getGpsis();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -211,14 +224,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     typedef typename EventFilter::GpsisType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setGpsis(value)) return NULL;
 
     return obj_event_filter;
@@ -235,14 +251,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     typedef typename EventFilter::GpsisType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_gpsis);
     if (!obj->setGpsis(std::move(value))) return NULL;
 
@@ -256,13 +275,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     std::shared_ptr<EventFilter > &obj = *reinterpret_cast<std::shared_ptr<EventFilter >*>(obj_event_filter);
     if (!obj) return NULL;
 
-    typedef typename EventFilter::GpsisType ContainerType;
+    typedef typename EventFilter::GpsisType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_gpsis;
 
     ValueType value(value_from);
 
-    obj->addGpsis(value);
+
+    if (value) obj->addGpsis(value.value());
     return obj_event_filter;
 }
 
@@ -273,10 +293,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     std::shared_ptr<EventFilter > &obj = *reinterpret_cast<std::shared_ptr<EventFilter >*>(obj_event_filter);
     if (!obj) return NULL;
 
-    typedef typename EventFilter::GpsisType ContainerType;
+    typedef typename EventFilter::GpsisType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_gpsis;
     ValueType value(value_from);
+
     obj->removeGpsis(value);
     return obj_event_filter;
 }
@@ -291,6 +312,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     obj->clearGpsis();
     return obj_event_filter;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_filter_has_supis(const data_collection_model_event_filter_t *obj_event_filter)
+{
+    if (!obj_event_filter) return false;
+
+    const std::shared_ptr<EventFilter > &obj = *reinterpret_cast<const std::shared_ptr<EventFilter >*>(obj_event_filter);
+    if (!obj) return false;
+
+    return obj->getSupis().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_event_filter_get_supis(const data_collection_model_event_filter_t *obj_event_filter)
 {
@@ -307,14 +339,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ev
 
     typedef typename EventFilter::SupisType ResultFromType;
     const ResultFromType result_from = obj->getSupis();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -329,14 +363,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     typedef typename EventFilter::SupisType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setSupis(value)) return NULL;
 
     return obj_event_filter;
@@ -353,14 +390,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     typedef typename EventFilter::SupisType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_supis);
     if (!obj->setSupis(std::move(value))) return NULL;
 
@@ -374,13 +414,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     std::shared_ptr<EventFilter > &obj = *reinterpret_cast<std::shared_ptr<EventFilter >*>(obj_event_filter);
     if (!obj) return NULL;
 
-    typedef typename EventFilter::SupisType ContainerType;
+    typedef typename EventFilter::SupisType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_supis;
 
     ValueType value(value_from);
 
-    obj->addSupis(value);
+
+    if (value) obj->addSupis(value.value());
     return obj_event_filter;
 }
 
@@ -391,10 +432,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     std::shared_ptr<EventFilter > &obj = *reinterpret_cast<std::shared_ptr<EventFilter >*>(obj_event_filter);
     if (!obj) return NULL;
 
-    typedef typename EventFilter::SupisType ContainerType;
+    typedef typename EventFilter::SupisType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_supis;
     ValueType value(value_from);
+
     obj->removeSupis(value);
     return obj_event_filter;
 }
@@ -409,6 +451,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     obj->clearSupis();
     return obj_event_filter;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_filter_has_exter_group_ids(const data_collection_model_event_filter_t *obj_event_filter)
+{
+    if (!obj_event_filter) return false;
+
+    const std::shared_ptr<EventFilter > &obj = *reinterpret_cast<const std::shared_ptr<EventFilter >*>(obj_event_filter);
+    if (!obj) return false;
+
+    return obj->getExterGroupIds().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_event_filter_get_exter_group_ids(const data_collection_model_event_filter_t *obj_event_filter)
 {
@@ -425,14 +478,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ev
 
     typedef typename EventFilter::ExterGroupIdsType ResultFromType;
     const ResultFromType result_from = obj->getExterGroupIds();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -447,14 +502,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     typedef typename EventFilter::ExterGroupIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setExterGroupIds(value)) return NULL;
 
     return obj_event_filter;
@@ -471,14 +529,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     typedef typename EventFilter::ExterGroupIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_exter_group_ids);
     if (!obj->setExterGroupIds(std::move(value))) return NULL;
 
@@ -492,13 +553,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     std::shared_ptr<EventFilter > &obj = *reinterpret_cast<std::shared_ptr<EventFilter >*>(obj_event_filter);
     if (!obj) return NULL;
 
-    typedef typename EventFilter::ExterGroupIdsType ContainerType;
+    typedef typename EventFilter::ExterGroupIdsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_exter_group_ids;
 
     ValueType value(value_from);
 
-    obj->addExterGroupIds(value);
+
+    if (value) obj->addExterGroupIds(value.value());
     return obj_event_filter;
 }
 
@@ -509,10 +571,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     std::shared_ptr<EventFilter > &obj = *reinterpret_cast<std::shared_ptr<EventFilter >*>(obj_event_filter);
     if (!obj) return NULL;
 
-    typedef typename EventFilter::ExterGroupIdsType ContainerType;
+    typedef typename EventFilter::ExterGroupIdsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_exter_group_ids;
     ValueType value(value_from);
+
     obj->removeExterGroupIds(value);
     return obj_event_filter;
 }
@@ -527,6 +590,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     obj->clearExterGroupIds();
     return obj_event_filter;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_filter_has_inter_group_ids(const data_collection_model_event_filter_t *obj_event_filter)
+{
+    if (!obj_event_filter) return false;
+
+    const std::shared_ptr<EventFilter > &obj = *reinterpret_cast<const std::shared_ptr<EventFilter >*>(obj_event_filter);
+    if (!obj) return false;
+
+    return obj->getInterGroupIds().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_event_filter_get_inter_group_ids(const data_collection_model_event_filter_t *obj_event_filter)
 {
@@ -543,14 +617,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ev
 
     typedef typename EventFilter::InterGroupIdsType ResultFromType;
     const ResultFromType result_from = obj->getInterGroupIds();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -565,14 +641,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     typedef typename EventFilter::InterGroupIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setInterGroupIds(value)) return NULL;
 
     return obj_event_filter;
@@ -589,14 +668,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     typedef typename EventFilter::InterGroupIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_inter_group_ids);
     if (!obj->setInterGroupIds(std::move(value))) return NULL;
 
@@ -610,13 +692,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     std::shared_ptr<EventFilter > &obj = *reinterpret_cast<std::shared_ptr<EventFilter >*>(obj_event_filter);
     if (!obj) return NULL;
 
-    typedef typename EventFilter::InterGroupIdsType ContainerType;
+    typedef typename EventFilter::InterGroupIdsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_inter_group_ids;
 
     ValueType value(value_from);
 
-    obj->addInterGroupIds(value);
+
+    if (value) obj->addInterGroupIds(value.value());
     return obj_event_filter;
 }
 
@@ -627,10 +710,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     std::shared_ptr<EventFilter > &obj = *reinterpret_cast<std::shared_ptr<EventFilter >*>(obj_event_filter);
     if (!obj) return NULL;
 
-    typedef typename EventFilter::InterGroupIdsType ContainerType;
+    typedef typename EventFilter::InterGroupIdsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_inter_group_ids;
     ValueType value(value_from);
+
     obj->removeInterGroupIds(value);
     return obj_event_filter;
 }
@@ -645,6 +729,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     obj->clearInterGroupIds();
     return obj_event_filter;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_filter_has_any_ue_ind(const data_collection_model_event_filter_t *obj_event_filter)
+{
+    if (!obj_event_filter) return false;
+
+    const std::shared_ptr<EventFilter > &obj = *reinterpret_cast<const std::shared_ptr<EventFilter >*>(obj_event_filter);
+    if (!obj) return false;
+
+    return obj->isAnyUeInd().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_event_filter_is_any_ue_ind(const data_collection_model_event_filter_t *obj_event_filter)
 {
@@ -661,7 +756,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_eve
 
     typedef typename EventFilter::AnyUeIndType ResultFromType;
     const ResultFromType result_from = obj->isAnyUeInd();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -675,7 +770,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     const auto &value_from = p_any_ue_ind;
     typedef typename EventFilter::AnyUeIndType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setAnyUeInd(value)) return NULL;
 
     return obj_event_filter;
@@ -691,12 +787,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     const auto &value_from = p_any_ue_ind;
     typedef typename EventFilter::AnyUeIndType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setAnyUeInd(std::move(value))) return NULL;
 
     return obj_event_filter;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_filter_has_ue_ip_addr(const data_collection_model_event_filter_t *obj_event_filter)
+{
+    if (!obj_event_filter) return false;
+
+    const std::shared_ptr<EventFilter > &obj = *reinterpret_cast<const std::shared_ptr<EventFilter >*>(obj_event_filter);
+    if (!obj) return false;
+
+    return obj->getUeIpAddr().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ip_addr_t* data_collection_model_event_filter_get_ue_ip_addr(const data_collection_model_event_filter_t *obj_event_filter)
 {
@@ -713,7 +821,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ip_addr_
 
     typedef typename EventFilter::UeIpAddrType ResultFromType;
     const ResultFromType result_from = obj->getUeIpAddr();
-    const data_collection_model_ip_addr_t *result = reinterpret_cast<const data_collection_model_ip_addr_t*>(&result_from);
+    const data_collection_model_ip_addr_t *result = reinterpret_cast<const data_collection_model_ip_addr_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -727,7 +835,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     const auto &value_from = p_ue_ip_addr;
     typedef typename EventFilter::UeIpAddrType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setUeIpAddr(value)) return NULL;
 
     return obj_event_filter;
@@ -743,12 +852,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     const auto &value_from = p_ue_ip_addr;
     typedef typename EventFilter::UeIpAddrType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setUeIpAddr(std::move(value))) return NULL;
 
     return obj_event_filter;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_filter_has_app_ids(const data_collection_model_event_filter_t *obj_event_filter)
+{
+    if (!obj_event_filter) return false;
+
+    const std::shared_ptr<EventFilter > &obj = *reinterpret_cast<const std::shared_ptr<EventFilter >*>(obj_event_filter);
+    if (!obj) return false;
+
+    return obj->getAppIds().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_event_filter_get_app_ids(const data_collection_model_event_filter_t *obj_event_filter)
 {
@@ -765,14 +886,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ev
 
     typedef typename EventFilter::AppIdsType ResultFromType;
     const ResultFromType result_from = obj->getAppIds();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -787,14 +910,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     typedef typename EventFilter::AppIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setAppIds(value)) return NULL;
 
     return obj_event_filter;
@@ -811,14 +937,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     typedef typename EventFilter::AppIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_app_ids);
     if (!obj->setAppIds(std::move(value))) return NULL;
 
@@ -832,13 +961,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     std::shared_ptr<EventFilter > &obj = *reinterpret_cast<std::shared_ptr<EventFilter >*>(obj_event_filter);
     if (!obj) return NULL;
 
-    typedef typename EventFilter::AppIdsType ContainerType;
+    typedef typename EventFilter::AppIdsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_app_ids;
 
     ValueType value(value_from);
 
-    obj->addAppIds(value);
+
+    if (value) obj->addAppIds(value.value());
     return obj_event_filter;
 }
 
@@ -849,10 +979,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     std::shared_ptr<EventFilter > &obj = *reinterpret_cast<std::shared_ptr<EventFilter >*>(obj_event_filter);
     if (!obj) return NULL;
 
-    typedef typename EventFilter::AppIdsType ContainerType;
+    typedef typename EventFilter::AppIdsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_app_ids;
     ValueType value(value_from);
+
     obj->removeAppIds(value);
     return obj_event_filter;
 }
@@ -867,6 +998,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     obj->clearAppIds();
     return obj_event_filter;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_filter_has_loc_area(const data_collection_model_event_filter_t *obj_event_filter)
+{
+    if (!obj_event_filter) return false;
+
+    const std::shared_ptr<EventFilter > &obj = *reinterpret_cast<const std::shared_ptr<EventFilter >*>(obj_event_filter);
+    if (!obj) return false;
+
+    return obj->getLocArea().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location_area5_g_t* data_collection_model_event_filter_get_loc_area(const data_collection_model_event_filter_t *obj_event_filter)
 {
@@ -883,7 +1025,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location
 
     typedef typename EventFilter::LocAreaType ResultFromType;
     const ResultFromType result_from = obj->getLocArea();
-    const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(&result_from);
+    const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -897,7 +1039,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     const auto &value_from = p_loc_area;
     typedef typename EventFilter::LocAreaType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setLocArea(value)) return NULL;
 
     return obj_event_filter;
@@ -913,12 +1056,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     const auto &value_from = p_loc_area;
     typedef typename EventFilter::LocAreaType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setLocArea(std::move(value))) return NULL;
 
     return obj_event_filter;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_filter_has_coll_attrs(const data_collection_model_event_filter_t *obj_event_filter)
+{
+    if (!obj_event_filter) return false;
+
+    const std::shared_ptr<EventFilter > &obj = *reinterpret_cast<const std::shared_ptr<EventFilter >*>(obj_event_filter);
+    if (!obj) return false;
+
+    return obj->getCollAttrs().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_event_filter_get_coll_attrs(const data_collection_model_event_filter_t *obj_event_filter)
 {
@@ -935,15 +1090,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ev
 
     typedef typename EventFilter::CollAttrsType ResultFromType;
     const ResultFromType result_from = obj->getCollAttrs();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_collective_behaviour_filter_t *item_obj = reinterpret_cast<data_collection_model_collective_behaviour_filter_t*>(new std::shared_ptr<CollectiveBehaviourFilter >(item));
-        node = data_collection_model_collective_behaviour_filter_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_collective_behaviour_filter_t *item_obj = reinterpret_cast<data_collection_model_collective_behaviour_filter_t*>(item.has_value()?new std::shared_ptr<CollectiveBehaviourFilter >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_collective_behaviour_filter_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -958,14 +1117,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     typedef typename EventFilter::CollAttrsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setCollAttrs(value)) return NULL;
 
     return obj_event_filter;
@@ -982,14 +1144,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     typedef typename EventFilter::CollAttrsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_coll_attrs);
     if (!obj->setCollAttrs(std::move(value))) return NULL;
 
@@ -1003,13 +1168,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     std::shared_ptr<EventFilter > &obj = *reinterpret_cast<std::shared_ptr<EventFilter >*>(obj_event_filter);
     if (!obj) return NULL;
 
-    typedef typename EventFilter::CollAttrsType ContainerType;
+    typedef typename EventFilter::CollAttrsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_coll_attrs;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addCollAttrs(value);
+
+    if (value) obj->addCollAttrs(value.value());
     return obj_event_filter;
 }
 
@@ -1020,10 +1186,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     std::shared_ptr<EventFilter > &obj = *reinterpret_cast<std::shared_ptr<EventFilter >*>(obj_event_filter);
     if (!obj) return NULL;
 
-    typedef typename EventFilter::CollAttrsType ContainerType;
+    typedef typename EventFilter::CollAttrsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_coll_attrs;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeCollAttrs(value);
     return obj_event_filter;
 }
@@ -1038,6 +1205,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     obj->clearCollAttrs();
     return obj_event_filter;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_event_filter_has_exception_reqs(const data_collection_model_event_filter_t *obj_event_filter)
+{
+    if (!obj_event_filter) return false;
+
+    const std::shared_ptr<EventFilter > &obj = *reinterpret_cast<const std::shared_ptr<EventFilter >*>(obj_event_filter);
+    if (!obj) return false;
+
+    return obj->getExceptionReqs().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_event_filter_get_exception_reqs(const data_collection_model_event_filter_t *obj_event_filter)
 {
@@ -1054,15 +1232,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ev
 
     typedef typename EventFilter::ExceptionReqsType ResultFromType;
     const ResultFromType result_from = obj->getExceptionReqs();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_exception_t *item_obj = reinterpret_cast<data_collection_model_exception_t*>(new std::shared_ptr<Exception >(item));
-        node = data_collection_model_exception_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_exception_t *item_obj = reinterpret_cast<data_collection_model_exception_t*>(item.has_value()?new std::shared_ptr<Exception >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_exception_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -1077,14 +1259,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     typedef typename EventFilter::ExceptionReqsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setExceptionReqs(value)) return NULL;
 
     return obj_event_filter;
@@ -1101,14 +1286,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     typedef typename EventFilter::ExceptionReqsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_exception_reqs);
     if (!obj->setExceptionReqs(std::move(value))) return NULL;
 
@@ -1122,13 +1310,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     std::shared_ptr<EventFilter > &obj = *reinterpret_cast<std::shared_ptr<EventFilter >*>(obj_event_filter);
     if (!obj) return NULL;
 
-    typedef typename EventFilter::ExceptionReqsType ContainerType;
+    typedef typename EventFilter::ExceptionReqsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_exception_reqs;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addExceptionReqs(value);
+
+    if (value) obj->addExceptionReqs(value.value());
     return obj_event_filter;
 }
 
@@ -1139,10 +1328,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     std::shared_ptr<EventFilter > &obj = *reinterpret_cast<std::shared_ptr<EventFilter >*>(obj_event_filter);
     if (!obj) return NULL;
 
-    typedef typename EventFilter::ExceptionReqsType ContainerType;
+    typedef typename EventFilter::ExceptionReqsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_exception_reqs;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeExceptionReqs(value);
     return obj_event_filter;
 }

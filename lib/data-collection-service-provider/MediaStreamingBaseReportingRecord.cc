@@ -162,6 +162,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_str
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_streaming_base_reporting_record_has_slice_info(const data_collection_model_media_streaming_base_reporting_record_t *obj_media_streaming_base_reporting_record)
+{
+    if (!obj_media_streaming_base_reporting_record) return false;
+
+    const std::shared_ptr<MediaStreamingBaseReportingRecord > &obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingBaseReportingRecord >*>(obj_media_streaming_base_reporting_record);
+    if (!obj) return false;
+
+    return obj->getSliceInfo().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_snssai_t* data_collection_model_media_streaming_base_reporting_record_get_slice_info(const data_collection_model_media_streaming_base_reporting_record_t *obj_media_streaming_base_reporting_record)
 {
     if (!obj_media_streaming_base_reporting_record) {
@@ -177,7 +188,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_snssai_t
 
     typedef typename MediaStreamingBaseReportingRecord::SliceInfoType ResultFromType;
     const ResultFromType result_from = obj->getSliceInfo();
-    const data_collection_model_snssai_t *result = reinterpret_cast<const data_collection_model_snssai_t*>(&result_from);
+    const data_collection_model_snssai_t *result = reinterpret_cast<const data_collection_model_snssai_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -191,7 +202,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     const auto &value_from = p_slice_info;
     typedef typename MediaStreamingBaseReportingRecord::SliceInfoType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setSliceInfo(value)) return NULL;
 
     return obj_media_streaming_base_reporting_record;
@@ -207,12 +219,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     const auto &value_from = p_slice_info;
     typedef typename MediaStreamingBaseReportingRecord::SliceInfoType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setSliceInfo(std::move(value))) return NULL;
 
     return obj_media_streaming_base_reporting_record;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_streaming_base_reporting_record_has_data_network_name(const data_collection_model_media_streaming_base_reporting_record_t *obj_media_streaming_base_reporting_record)
+{
+    if (!obj_media_streaming_base_reporting_record) return false;
+
+    const std::shared_ptr<MediaStreamingBaseReportingRecord > &obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingBaseReportingRecord >*>(obj_media_streaming_base_reporting_record);
+    if (!obj) return false;
+
+    return obj->getDataNetworkName().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_media_streaming_base_reporting_record_get_data_network_name(const data_collection_model_media_streaming_base_reporting_record_t *obj_media_streaming_base_reporting_record)
 {
@@ -229,7 +253,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_me
 
     typedef typename MediaStreamingBaseReportingRecord::DataNetworkNameType ResultFromType;
     const ResultFromType result_from = obj->getDataNetworkName();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -244,6 +268,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     typedef typename MediaStreamingBaseReportingRecord::DataNetworkNameType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setDataNetworkName(value)) return NULL;
 
     return obj_media_streaming_base_reporting_record;
@@ -260,11 +285,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     typedef typename MediaStreamingBaseReportingRecord::DataNetworkNameType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setDataNetworkName(std::move(value))) return NULL;
 
     return obj_media_streaming_base_reporting_record;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_media_streaming_base_reporting_record_has_location(const data_collection_model_media_streaming_base_reporting_record_t *obj_media_streaming_base_reporting_record)
+{
+    if (!obj_media_streaming_base_reporting_record) return false;
+
+    const std::shared_ptr<MediaStreamingBaseReportingRecord > &obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingBaseReportingRecord >*>(obj_media_streaming_base_reporting_record);
+    if (!obj) return false;
+
+    return obj->getLocation().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_typed_location_t* data_collection_model_media_streaming_base_reporting_record_get_location(const data_collection_model_media_streaming_base_reporting_record_t *obj_media_streaming_base_reporting_record)
 {
@@ -281,7 +318,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_typed_lo
 
     typedef typename MediaStreamingBaseReportingRecord::LocationType ResultFromType;
     const ResultFromType result_from = obj->getLocation();
-    const data_collection_model_typed_location_t *result = reinterpret_cast<const data_collection_model_typed_location_t*>(&result_from);
+    const data_collection_model_typed_location_t *result = reinterpret_cast<const data_collection_model_typed_location_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -295,7 +332,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     const auto &value_from = p_location;
     typedef typename MediaStreamingBaseReportingRecord::LocationType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setLocation(value)) return NULL;
 
     return obj_media_streaming_base_reporting_record;
@@ -311,7 +349,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     const auto &value_from = p_location;
     typedef typename MediaStreamingBaseReportingRecord::LocationType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setLocation(std::move(value))) return NULL;
 

@@ -160,6 +160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_gnss_assi
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_gnss_assist_data_info_get_gnss_assist_data(const data_collection_model_gnss_assist_data_info_t *obj_gnss_assist_data_info)
 {
     if (!obj_gnss_assist_data_info) {
@@ -190,6 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_assist_da
     typedef typename GNSSAssistDataInfo::GnssAssistDataType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setGnssAssistData(value)) return NULL;
 
     return obj_gnss_assist_data_info;
@@ -206,11 +208,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_assist_da
     typedef typename GNSSAssistDataInfo::GnssAssistDataType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setGnssAssistData(std::move(value))) return NULL;
 
     return obj_gnss_assist_data_info;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_gnss_serv_area_t* data_collection_model_gnss_assist_data_info_get_serv_area(const data_collection_model_gnss_assist_data_info_t *obj_gnss_assist_data_info)
 {
@@ -242,6 +246,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_assist_da
     typedef typename GNSSAssistDataInfo::ServAreaType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setServArea(value)) return NULL;
 
     return obj_gnss_assist_data_info;
@@ -258,11 +263,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_assist_da
     typedef typename GNSSAssistDataInfo::ServAreaType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setServArea(std::move(value))) return NULL;
 
     return obj_gnss_assist_data_info;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_gnss_assist_data_info_has_source_info(const data_collection_model_gnss_assist_data_info_t *obj_gnss_assist_data_info)
+{
+    if (!obj_gnss_assist_data_info) return false;
+
+    const std::shared_ptr<GNSSAssistDataInfo > &obj = *reinterpret_cast<const std::shared_ptr<GNSSAssistDataInfo >*>(obj_gnss_assist_data_info);
+    if (!obj) return false;
+
+    return obj->getSourceInfo().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geographical_coordinates_t* data_collection_model_gnss_assist_data_info_get_source_info(const data_collection_model_gnss_assist_data_info_t *obj_gnss_assist_data_info)
 {
@@ -279,7 +296,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geograph
 
     typedef typename GNSSAssistDataInfo::SourceInfoType ResultFromType;
     const ResultFromType result_from = obj->getSourceInfo();
-    const data_collection_model_geographical_coordinates_t *result = reinterpret_cast<const data_collection_model_geographical_coordinates_t*>(&result_from);
+    const data_collection_model_geographical_coordinates_t *result = reinterpret_cast<const data_collection_model_geographical_coordinates_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -293,7 +310,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_assist_da
     const auto &value_from = p_source_info;
     typedef typename GNSSAssistDataInfo::SourceInfoType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setSourceInfo(value)) return NULL;
 
     return obj_gnss_assist_data_info;
@@ -309,7 +327,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_assist_da
     const auto &value_from = p_source_info;
     typedef typename GNSSAssistDataInfo::SourceInfoType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setSourceInfo(std::move(value))) return NULL;
 

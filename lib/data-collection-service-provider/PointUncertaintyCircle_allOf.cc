@@ -160,6 +160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_point_unc
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geographical_coordinates_t* data_collection_model_point_uncertainty_circle_all_of_get_point(const data_collection_model_point_uncertainty_circle_all_of_t *obj_point_uncertainty_circle_all_of)
 {
     if (!obj_point_uncertainty_circle_all_of) {
@@ -190,6 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertai
     typedef typename PointUncertaintyCircle_allOf::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setPoint(value)) return NULL;
 
     return obj_point_uncertainty_circle_all_of;
@@ -206,11 +208,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertai
     typedef typename PointUncertaintyCircle_allOf::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setPoint(std::move(value))) return NULL;
 
     return obj_point_uncertainty_circle_all_of;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_point_uncertainty_circle_all_of_get_uncertainty(const data_collection_model_point_uncertainty_circle_all_of_t *obj_point_uncertainty_circle_all_of)
 {
@@ -241,7 +245,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertai
     const auto &value_from = p_uncertainty;
     typedef typename PointUncertaintyCircle_allOf::UncertaintyType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setUncertainty(value)) return NULL;
 
     return obj_point_uncertainty_circle_all_of;
@@ -257,7 +262,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertai
     const auto &value_from = p_uncertainty;
     typedef typename PointUncertaintyCircle_allOf::UncertaintyType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setUncertainty(std::move(value))) return NULL;
 

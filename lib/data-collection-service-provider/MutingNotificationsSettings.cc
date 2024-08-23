@@ -158,6 +158,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_muting_no
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_muting_notifications_settings_has_max_no_of_notif(const data_collection_model_muting_notifications_settings_t *obj_muting_notifications_settings)
+{
+    if (!obj_muting_notifications_settings) return false;
+
+    const std::shared_ptr<MutingNotificationsSettings > &obj = *reinterpret_cast<const std::shared_ptr<MutingNotificationsSettings >*>(obj_muting_notifications_settings);
+    if (!obj) return false;
+
+    return obj->getMaxNoOfNotif().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_muting_notifications_settings_get_max_no_of_notif(const data_collection_model_muting_notifications_settings_t *obj_muting_notifications_settings)
 {
     if (!obj_muting_notifications_settings) {
@@ -173,7 +184,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename MutingNotificationsSettings::MaxNoOfNotifType ResultFromType;
     const ResultFromType result_from = obj->getMaxNoOfNotif();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -187,7 +198,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_notific
     const auto &value_from = p_max_no_of_notif;
     typedef typename MutingNotificationsSettings::MaxNoOfNotifType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setMaxNoOfNotif(value)) return NULL;
 
     return obj_muting_notifications_settings;
@@ -203,12 +215,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_notific
     const auto &value_from = p_max_no_of_notif;
     typedef typename MutingNotificationsSettings::MaxNoOfNotifType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setMaxNoOfNotif(std::move(value))) return NULL;
 
     return obj_muting_notifications_settings;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_muting_notifications_settings_has_duration_buffered_notif(const data_collection_model_muting_notifications_settings_t *obj_muting_notifications_settings)
+{
+    if (!obj_muting_notifications_settings) return false;
+
+    const std::shared_ptr<MutingNotificationsSettings > &obj = *reinterpret_cast<const std::shared_ptr<MutingNotificationsSettings >*>(obj_muting_notifications_settings);
+    if (!obj) return false;
+
+    return obj->getDurationBufferedNotif().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_muting_notifications_settings_get_duration_buffered_notif(const data_collection_model_muting_notifications_settings_t *obj_muting_notifications_settings)
 {
@@ -225,7 +249,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename MutingNotificationsSettings::DurationBufferedNotifType ResultFromType;
     const ResultFromType result_from = obj->getDurationBufferedNotif();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -239,7 +263,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_notific
     const auto &value_from = p_duration_buffered_notif;
     typedef typename MutingNotificationsSettings::DurationBufferedNotifType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setDurationBufferedNotif(value)) return NULL;
 
     return obj_muting_notifications_settings;
@@ -255,7 +280,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_notific
     const auto &value_from = p_duration_buffered_notif;
     typedef typename MutingNotificationsSettings::DurationBufferedNotifType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setDurationBufferedNotif(std::move(value))) return NULL;
 

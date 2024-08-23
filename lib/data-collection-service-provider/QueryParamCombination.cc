@@ -158,6 +158,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_query_par
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_query_param_combination_get_query_params(const data_collection_model_query_param_combination_t *obj_query_param_combination)
 {
     if (!obj_query_param_combination) {
@@ -174,13 +175,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_qu
     typedef typename QueryParamCombination::QueryParamsType ResultFromType;
     const ResultFromType result_from = obj->getQueryParams();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+    
     typedef typename ResultFromType::value_type ItemType;
     for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_query_parameter_t *item_obj = reinterpret_cast<data_collection_model_query_parameter_t*>(new std::shared_ptr<QueryParameter >(item));
-        node = data_collection_model_query_parameter_make_lnode(item_obj);
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_query_parameter_t *item_obj = reinterpret_cast<data_collection_model_query_parameter_t*>(item.has_value()?new std::shared_ptr<QueryParameter >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_query_parameter_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
+        if (node) ogs_list_add(result, node);
     }
     return result;
 }
@@ -196,14 +200,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_param_co
     typedef typename QueryParamCombination::QueryParamsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setQueryParams(value)) return NULL;
 
     return obj_query_param_combination;
@@ -220,14 +227,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_param_co
     typedef typename QueryParamCombination::QueryParamsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_query_params);
     if (!obj->setQueryParams(std::move(value))) return NULL;
 
@@ -245,7 +255,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_param_co
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_query_params;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
 
     obj->addQueryParams(value);
     return obj_query_param_combination;
@@ -261,7 +272,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_param_co
     typedef typename QueryParamCombination::QueryParamsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_query_params;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeQueryParams(value);
     return obj_query_param_combination;
 }

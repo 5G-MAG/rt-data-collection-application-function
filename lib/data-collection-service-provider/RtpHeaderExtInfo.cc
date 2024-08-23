@@ -164,6 +164,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_heade
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_header_ext_info_has_rtp_header_ext_type(const data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info)
+{
+    if (!obj_rtp_header_ext_info) return false;
+
+    const std::shared_ptr<RtpHeaderExtInfo > &obj = *reinterpret_cast<const std::shared_ptr<RtpHeaderExtInfo >*>(obj_rtp_header_ext_info);
+    if (!obj) return false;
+
+    return obj->getRtpHeaderExtType().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_rtp_header_ext_type_t* data_collection_model_rtp_header_ext_info_get_rtp_header_ext_type(const data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info)
 {
     if (!obj_rtp_header_ext_info) {
@@ -179,7 +190,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_rtp_head
 
     typedef typename RtpHeaderExtInfo::RtpHeaderExtTypeType ResultFromType;
     const ResultFromType result_from = obj->getRtpHeaderExtType();
-    const data_collection_model_rtp_header_ext_type_t *result = reinterpret_cast<const data_collection_model_rtp_header_ext_type_t*>(&result_from);
+    const data_collection_model_rtp_header_ext_type_t *result = reinterpret_cast<const data_collection_model_rtp_header_ext_type_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -193,7 +204,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext
     const auto &value_from = p_rtp_header_ext_type;
     typedef typename RtpHeaderExtInfo::RtpHeaderExtTypeType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setRtpHeaderExtType(value)) return NULL;
 
     return obj_rtp_header_ext_info;
@@ -209,12 +221,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext
     const auto &value_from = p_rtp_header_ext_type;
     typedef typename RtpHeaderExtInfo::RtpHeaderExtTypeType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setRtpHeaderExtType(std::move(value))) return NULL;
 
     return obj_rtp_header_ext_info;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_header_ext_info_has_rtp_header_ext_id(const data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info)
+{
+    if (!obj_rtp_header_ext_info) return false;
+
+    const std::shared_ptr<RtpHeaderExtInfo > &obj = *reinterpret_cast<const std::shared_ptr<RtpHeaderExtInfo >*>(obj_rtp_header_ext_info);
+    if (!obj) return false;
+
+    return obj->getRtpHeaderExtId().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_rtp_header_ext_info_get_rtp_header_ext_id(const data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info)
 {
@@ -231,7 +255,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename RtpHeaderExtInfo::RtpHeaderExtIdType ResultFromType;
     const ResultFromType result_from = obj->getRtpHeaderExtId();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -245,7 +269,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext
     const auto &value_from = p_rtp_header_ext_id;
     typedef typename RtpHeaderExtInfo::RtpHeaderExtIdType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setRtpHeaderExtId(value)) return NULL;
 
     return obj_rtp_header_ext_info;
@@ -261,12 +286,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext
     const auto &value_from = p_rtp_header_ext_id;
     typedef typename RtpHeaderExtInfo::RtpHeaderExtIdType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setRtpHeaderExtId(std::move(value))) return NULL;
 
     return obj_rtp_header_ext_info;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_header_ext_info_has_long_format(const data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info)
+{
+    if (!obj_rtp_header_ext_info) return false;
+
+    const std::shared_ptr<RtpHeaderExtInfo > &obj = *reinterpret_cast<const std::shared_ptr<RtpHeaderExtInfo >*>(obj_rtp_header_ext_info);
+    if (!obj) return false;
+
+    return obj->isLongFormat().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_rtp_header_ext_info_is_long_format(const data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info)
 {
@@ -283,7 +320,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_rtp
 
     typedef typename RtpHeaderExtInfo::LongFormatType ResultFromType;
     const ResultFromType result_from = obj->isLongFormat();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -297,7 +334,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext
     const auto &value_from = p_long_format;
     typedef typename RtpHeaderExtInfo::LongFormatType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setLongFormat(value)) return NULL;
 
     return obj_rtp_header_ext_info;
@@ -313,12 +351,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext
     const auto &value_from = p_long_format;
     typedef typename RtpHeaderExtInfo::LongFormatType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setLongFormat(std::move(value))) return NULL;
 
     return obj_rtp_header_ext_info;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_rtp_header_ext_info_has_pdu_set_size_active(const data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info)
+{
+    if (!obj_rtp_header_ext_info) return false;
+
+    const std::shared_ptr<RtpHeaderExtInfo > &obj = *reinterpret_cast<const std::shared_ptr<RtpHeaderExtInfo >*>(obj_rtp_header_ext_info);
+    if (!obj) return false;
+
+    return obj->isPduSetSizeActive().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_rtp_header_ext_info_is_pdu_set_size_active(const data_collection_model_rtp_header_ext_info_t *obj_rtp_header_ext_info)
 {
@@ -335,7 +385,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_rtp
 
     typedef typename RtpHeaderExtInfo::PduSetSizeActiveType ResultFromType;
     const ResultFromType result_from = obj->isPduSetSizeActive();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -349,7 +399,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext
     const auto &value_from = p_pdu_set_size_active;
     typedef typename RtpHeaderExtInfo::PduSetSizeActiveType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setPduSetSizeActive(value)) return NULL;
 
     return obj_rtp_header_ext_info;
@@ -365,7 +416,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext
     const auto &value_from = p_pdu_set_size_active;
     typedef typename RtpHeaderExtInfo::PduSetSizeActiveType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setPduSetSizeActive(std::move(value))) return NULL;
 

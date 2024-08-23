@@ -158,6 +158,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ue_area_i
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ue_area_indication_has_country(const data_collection_model_ue_area_indication_t *obj_ue_area_indication)
+{
+    if (!obj_ue_area_indication) return false;
+
+    const std::shared_ptr<UeAreaIndication > &obj = *reinterpret_cast<const std::shared_ptr<UeAreaIndication >*>(obj_ue_area_indication);
+    if (!obj) return false;
+
+    return obj->getCountry().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue_area_indication_get_country(const data_collection_model_ue_area_indication_t *obj_ue_area_indication)
 {
     if (!obj_ue_area_indication) {
@@ -173,7 +184,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue
 
     typedef typename UeAreaIndication::CountryType ResultFromType;
     const ResultFromType result_from = obj->getCountry();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -188,6 +199,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_area_indica
     typedef typename UeAreaIndication::CountryType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setCountry(value)) return NULL;
 
     return obj_ue_area_indication;
@@ -204,11 +216,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_area_indica
     typedef typename UeAreaIndication::CountryType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setCountry(std::move(value))) return NULL;
 
     return obj_ue_area_indication;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ue_area_indication_has_international_area_ind(const data_collection_model_ue_area_indication_t *obj_ue_area_indication)
+{
+    if (!obj_ue_area_indication) return false;
+
+    const std::shared_ptr<UeAreaIndication > &obj = *reinterpret_cast<const std::shared_ptr<UeAreaIndication >*>(obj_ue_area_indication);
+    if (!obj) return false;
+
+    return obj->isInternationalAreaInd().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_ue_area_indication_is_international_area_ind(const data_collection_model_ue_area_indication_t *obj_ue_area_indication)
 {
@@ -225,7 +249,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_ue_
 
     typedef typename UeAreaIndication::InternationalAreaIndType ResultFromType;
     const ResultFromType result_from = obj->isInternationalAreaInd();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -239,7 +263,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_area_indica
     const auto &value_from = p_international_area_ind;
     typedef typename UeAreaIndication::InternationalAreaIndType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setInternationalAreaInd(value)) return NULL;
 
     return obj_ue_area_indication;
@@ -255,7 +280,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_area_indica
     const auto &value_from = p_international_area_ind;
     typedef typename UeAreaIndication::InternationalAreaIndType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setInternationalAreaInd(std::move(value))) return NULL;
 

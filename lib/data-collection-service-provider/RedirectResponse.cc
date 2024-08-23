@@ -162,6 +162,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_redirect_
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_redirect_response_has_cause(const data_collection_model_redirect_response_t *obj_redirect_response)
+{
+    if (!obj_redirect_response) return false;
+
+    const std::shared_ptr<RedirectResponse > &obj = *reinterpret_cast<const std::shared_ptr<RedirectResponse >*>(obj_redirect_response);
+    if (!obj) return false;
+
+    return obj->getCause().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_redirect_response_get_cause(const data_collection_model_redirect_response_t *obj_redirect_response)
 {
     if (!obj_redirect_response) {
@@ -177,7 +188,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_re
 
     typedef typename RedirectResponse::CauseType ResultFromType;
     const ResultFromType result_from = obj->getCause();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -192,6 +203,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_redirect_respo
     typedef typename RedirectResponse::CauseType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setCause(value)) return NULL;
 
     return obj_redirect_response;
@@ -208,11 +220,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_redirect_respo
     typedef typename RedirectResponse::CauseType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setCause(std::move(value))) return NULL;
 
     return obj_redirect_response;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_redirect_response_has_target_scp(const data_collection_model_redirect_response_t *obj_redirect_response)
+{
+    if (!obj_redirect_response) return false;
+
+    const std::shared_ptr<RedirectResponse > &obj = *reinterpret_cast<const std::shared_ptr<RedirectResponse >*>(obj_redirect_response);
+    if (!obj) return false;
+
+    return obj->getTargetScp().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_redirect_response_get_target_scp(const data_collection_model_redirect_response_t *obj_redirect_response)
 {
@@ -229,7 +253,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_re
 
     typedef typename RedirectResponse::TargetScpType ResultFromType;
     const ResultFromType result_from = obj->getTargetScp();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -244,6 +268,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_redirect_respo
     typedef typename RedirectResponse::TargetScpType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setTargetScp(value)) return NULL;
 
     return obj_redirect_response;
@@ -260,11 +285,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_redirect_respo
     typedef typename RedirectResponse::TargetScpType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setTargetScp(std::move(value))) return NULL;
 
     return obj_redirect_response;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_redirect_response_has_target_sepp(const data_collection_model_redirect_response_t *obj_redirect_response)
+{
+    if (!obj_redirect_response) return false;
+
+    const std::shared_ptr<RedirectResponse > &obj = *reinterpret_cast<const std::shared_ptr<RedirectResponse >*>(obj_redirect_response);
+    if (!obj) return false;
+
+    return obj->getTargetSepp().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_redirect_response_get_target_sepp(const data_collection_model_redirect_response_t *obj_redirect_response)
 {
@@ -281,7 +318,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_re
 
     typedef typename RedirectResponse::TargetSeppType ResultFromType;
     const ResultFromType result_from = obj->getTargetSepp();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -296,6 +333,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_redirect_respo
     typedef typename RedirectResponse::TargetSeppType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setTargetSepp(value)) return NULL;
 
     return obj_redirect_response;
@@ -312,6 +350,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_redirect_respo
     typedef typename RedirectResponse::TargetSeppType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setTargetSepp(std::move(value))) return NULL;
 

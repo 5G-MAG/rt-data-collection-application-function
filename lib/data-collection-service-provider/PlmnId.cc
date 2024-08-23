@@ -160,6 +160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_plmn_id_i
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_plmn_id_get_mcc(const data_collection_model_plmn_id_t *obj_plmn_id)
 {
     if (!obj_plmn_id) {
@@ -190,6 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_plmn_id_t *dat
     typedef typename PlmnId::MccType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setMcc(value)) return NULL;
 
     return obj_plmn_id;
@@ -206,11 +208,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_plmn_id_t *dat
     typedef typename PlmnId::MccType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setMcc(std::move(value))) return NULL;
 
     return obj_plmn_id;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_plmn_id_get_mnc(const data_collection_model_plmn_id_t *obj_plmn_id)
 {
@@ -242,6 +246,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_plmn_id_t *dat
     typedef typename PlmnId::MncType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setMnc(value)) return NULL;
 
     return obj_plmn_id;
@@ -258,6 +263,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_plmn_id_t *dat
     typedef typename PlmnId::MncType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setMnc(std::move(value))) return NULL;
 

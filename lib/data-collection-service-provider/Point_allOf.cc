@@ -158,6 +158,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_point_all
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geographical_coordinates_t* data_collection_model_point_all_of_get_point(const data_collection_model_point_all_of_t *obj_point_all_of)
 {
     if (!obj_point_all_of) {
@@ -188,6 +189,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_all_of_t
     typedef typename Point_allOf::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setPoint(value)) return NULL;
 
     return obj_point_all_of;
@@ -204,6 +206,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_all_of_t
     typedef typename Point_allOf::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setPoint(std::move(value))) return NULL;
 

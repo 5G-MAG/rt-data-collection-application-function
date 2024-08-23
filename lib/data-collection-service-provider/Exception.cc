@@ -160,6 +160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_exception_id_t* data_collection_model_exception_get_excep_id(const data_collection_model_exception_t *obj_exception)
 {
     if (!obj_exception) {
@@ -190,6 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_t *d
     typedef typename Exception::ExcepIdType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setExcepId(value)) return NULL;
 
     return obj_exception;
@@ -206,11 +208,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_t *d
     typedef typename Exception::ExcepIdType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setExcepId(std::move(value))) return NULL;
 
     return obj_exception;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_has_excep_level(const data_collection_model_exception_t *obj_exception)
+{
+    if (!obj_exception) return false;
+
+    const std::shared_ptr<Exception > &obj = *reinterpret_cast<const std::shared_ptr<Exception >*>(obj_exception);
+    if (!obj) return false;
+
+    return obj->getExcepLevel().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_exception_get_excep_level(const data_collection_model_exception_t *obj_exception)
 {
@@ -227,7 +241,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename Exception::ExcepLevelType ResultFromType;
     const ResultFromType result_from = obj->getExcepLevel();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -241,7 +255,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_t *d
     const auto &value_from = p_excep_level;
     typedef typename Exception::ExcepLevelType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setExcepLevel(value)) return NULL;
 
     return obj_exception;
@@ -257,12 +272,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_t *d
     const auto &value_from = p_excep_level;
     typedef typename Exception::ExcepLevelType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setExcepLevel(std::move(value))) return NULL;
 
     return obj_exception;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_has_excep_trend(const data_collection_model_exception_t *obj_exception)
+{
+    if (!obj_exception) return false;
+
+    const std::shared_ptr<Exception > &obj = *reinterpret_cast<const std::shared_ptr<Exception >*>(obj_exception);
+    if (!obj) return false;
+
+    return obj->getExcepTrend().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_exception_trend_t* data_collection_model_exception_get_excep_trend(const data_collection_model_exception_t *obj_exception)
 {
@@ -279,7 +306,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_exceptio
 
     typedef typename Exception::ExcepTrendType ResultFromType;
     const ResultFromType result_from = obj->getExcepTrend();
-    const data_collection_model_exception_trend_t *result = reinterpret_cast<const data_collection_model_exception_trend_t*>(&result_from);
+    const data_collection_model_exception_trend_t *result = reinterpret_cast<const data_collection_model_exception_trend_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -293,7 +320,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_t *d
     const auto &value_from = p_excep_trend;
     typedef typename Exception::ExcepTrendType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setExcepTrend(value)) return NULL;
 
     return obj_exception;
@@ -309,7 +337,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_t *d
     const auto &value_from = p_excep_trend;
     typedef typename Exception::ExcepTrendType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setExcepTrend(std::move(value))) return NULL;
 

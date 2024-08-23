@@ -166,6 +166,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_service_e
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_service_experience_info_per_app_has_app_id(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
+{
+    if (!obj_service_experience_info_per_app) return false;
+
+    const std::shared_ptr<ServiceExperienceInfoPerApp > &obj = *reinterpret_cast<const std::shared_ptr<ServiceExperienceInfoPerApp >*>(obj_service_experience_info_per_app);
+    if (!obj) return false;
+
+    return obj->getAppId().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_service_experience_info_per_app_get_app_id(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
 {
     if (!obj_service_experience_info_per_app) {
@@ -181,7 +192,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_se
 
     typedef typename ServiceExperienceInfoPerApp::AppIdType ResultFromType;
     const ResultFromType result_from = obj->getAppId();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -196,6 +207,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     typedef typename ServiceExperienceInfoPerApp::AppIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setAppId(value)) return NULL;
 
     return obj_service_experience_info_per_app;
@@ -212,11 +224,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     typedef typename ServiceExperienceInfoPerApp::AppIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setAppId(std::move(value))) return NULL;
 
     return obj_service_experience_info_per_app;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_service_experience_info_per_app_has_app_server_ins(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
+{
+    if (!obj_service_experience_info_per_app) return false;
+
+    const std::shared_ptr<ServiceExperienceInfoPerApp > &obj = *reinterpret_cast<const std::shared_ptr<ServiceExperienceInfoPerApp >*>(obj_service_experience_info_per_app);
+    if (!obj) return false;
+
+    return obj->getAppServerIns().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_addr_fqdn_t* data_collection_model_service_experience_info_per_app_get_app_server_ins(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
 {
@@ -233,7 +257,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_addr_fqd
 
     typedef typename ServiceExperienceInfoPerApp::AppServerInsType ResultFromType;
     const ResultFromType result_from = obj->getAppServerIns();
-    const data_collection_model_addr_fqdn_t *result = reinterpret_cast<const data_collection_model_addr_fqdn_t*>(&result_from);
+    const data_collection_model_addr_fqdn_t *result = reinterpret_cast<const data_collection_model_addr_fqdn_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -247,7 +271,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     const auto &value_from = p_app_server_ins;
     typedef typename ServiceExperienceInfoPerApp::AppServerInsType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setAppServerIns(value)) return NULL;
 
     return obj_service_experience_info_per_app;
@@ -263,12 +288,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     const auto &value_from = p_app_server_ins;
     typedef typename ServiceExperienceInfoPerApp::AppServerInsType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setAppServerIns(std::move(value))) return NULL;
 
     return obj_service_experience_info_per_app;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_service_experience_info_per_app_get_svc_exp_per_flows(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
 {
@@ -286,13 +313,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_se
     typedef typename ServiceExperienceInfoPerApp::SvcExpPerFlowsType ResultFromType;
     const ResultFromType result_from = obj->getSvcExpPerFlows();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+    
     typedef typename ResultFromType::value_type ItemType;
     for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_service_experience_info_per_flow_t *item_obj = reinterpret_cast<data_collection_model_service_experience_info_per_flow_t*>(new std::shared_ptr<ServiceExperienceInfoPerFlow >(item));
-        node = data_collection_model_service_experience_info_per_flow_make_lnode(item_obj);
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_service_experience_info_per_flow_t *item_obj = reinterpret_cast<data_collection_model_service_experience_info_per_flow_t*>(item.has_value()?new std::shared_ptr<ServiceExperienceInfoPerFlow >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_service_experience_info_per_flow_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
+        if (node) ogs_list_add(result, node);
     }
     return result;
 }
@@ -308,14 +338,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     typedef typename ServiceExperienceInfoPerApp::SvcExpPerFlowsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setSvcExpPerFlows(value)) return NULL;
 
     return obj_service_experience_info_per_app;
@@ -332,14 +365,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     typedef typename ServiceExperienceInfoPerApp::SvcExpPerFlowsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_svc_exp_per_flows);
     if (!obj->setSvcExpPerFlows(std::move(value))) return NULL;
 
@@ -357,7 +393,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_svc_exp_per_flows;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
 
     obj->addSvcExpPerFlows(value);
     return obj_service_experience_info_per_app;
@@ -373,7 +410,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     typedef typename ServiceExperienceInfoPerApp::SvcExpPerFlowsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_svc_exp_per_flows;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeSvcExpPerFlows(value);
     return obj_service_experience_info_per_app;
 }
@@ -388,6 +426,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     obj->clearSvcExpPerFlows();
     return obj_service_experience_info_per_app;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_service_experience_info_per_app_has_gpsis(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
+{
+    if (!obj_service_experience_info_per_app) return false;
+
+    const std::shared_ptr<ServiceExperienceInfoPerApp > &obj = *reinterpret_cast<const std::shared_ptr<ServiceExperienceInfoPerApp >*>(obj_service_experience_info_per_app);
+    if (!obj) return false;
+
+    return obj->getGpsis().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_service_experience_info_per_app_get_gpsis(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
 {
@@ -404,14 +453,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_se
 
     typedef typename ServiceExperienceInfoPerApp::GpsisType ResultFromType;
     const ResultFromType result_from = obj->getGpsis();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -426,14 +477,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     typedef typename ServiceExperienceInfoPerApp::GpsisType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setGpsis(value)) return NULL;
 
     return obj_service_experience_info_per_app;
@@ -450,14 +504,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     typedef typename ServiceExperienceInfoPerApp::GpsisType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_gpsis);
     if (!obj->setGpsis(std::move(value))) return NULL;
 
@@ -471,13 +528,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     std::shared_ptr<ServiceExperienceInfoPerApp > &obj = *reinterpret_cast<std::shared_ptr<ServiceExperienceInfoPerApp >*>(obj_service_experience_info_per_app);
     if (!obj) return NULL;
 
-    typedef typename ServiceExperienceInfoPerApp::GpsisType ContainerType;
+    typedef typename ServiceExperienceInfoPerApp::GpsisType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_gpsis;
 
     ValueType value(value_from);
 
-    obj->addGpsis(value);
+
+    if (value) obj->addGpsis(value.value());
     return obj_service_experience_info_per_app;
 }
 
@@ -488,10 +546,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     std::shared_ptr<ServiceExperienceInfoPerApp > &obj = *reinterpret_cast<std::shared_ptr<ServiceExperienceInfoPerApp >*>(obj_service_experience_info_per_app);
     if (!obj) return NULL;
 
-    typedef typename ServiceExperienceInfoPerApp::GpsisType ContainerType;
+    typedef typename ServiceExperienceInfoPerApp::GpsisType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_gpsis;
     ValueType value(value_from);
+
     obj->removeGpsis(value);
     return obj_service_experience_info_per_app;
 }
@@ -506,6 +565,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     obj->clearGpsis();
     return obj_service_experience_info_per_app;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_service_experience_info_per_app_has_supis(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
+{
+    if (!obj_service_experience_info_per_app) return false;
+
+    const std::shared_ptr<ServiceExperienceInfoPerApp > &obj = *reinterpret_cast<const std::shared_ptr<ServiceExperienceInfoPerApp >*>(obj_service_experience_info_per_app);
+    if (!obj) return false;
+
+    return obj->getSupis().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_service_experience_info_per_app_get_supis(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
 {
@@ -522,14 +592,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_se
 
     typedef typename ServiceExperienceInfoPerApp::SupisType ResultFromType;
     const ResultFromType result_from = obj->getSupis();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -544,14 +616,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     typedef typename ServiceExperienceInfoPerApp::SupisType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setSupis(value)) return NULL;
 
     return obj_service_experience_info_per_app;
@@ -568,14 +643,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     typedef typename ServiceExperienceInfoPerApp::SupisType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_supis);
     if (!obj->setSupis(std::move(value))) return NULL;
 
@@ -589,13 +667,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     std::shared_ptr<ServiceExperienceInfoPerApp > &obj = *reinterpret_cast<std::shared_ptr<ServiceExperienceInfoPerApp >*>(obj_service_experience_info_per_app);
     if (!obj) return NULL;
 
-    typedef typename ServiceExperienceInfoPerApp::SupisType ContainerType;
+    typedef typename ServiceExperienceInfoPerApp::SupisType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_supis;
 
     ValueType value(value_from);
 
-    obj->addSupis(value);
+
+    if (value) obj->addSupis(value.value());
     return obj_service_experience_info_per_app;
 }
 
@@ -606,10 +685,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     std::shared_ptr<ServiceExperienceInfoPerApp > &obj = *reinterpret_cast<std::shared_ptr<ServiceExperienceInfoPerApp >*>(obj_service_experience_info_per_app);
     if (!obj) return NULL;
 
-    typedef typename ServiceExperienceInfoPerApp::SupisType ContainerType;
+    typedef typename ServiceExperienceInfoPerApp::SupisType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_supis;
     ValueType value(value_from);
+
     obj->removeSupis(value);
     return obj_service_experience_info_per_app;
 }
@@ -624,6 +704,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     obj->clearSupis();
     return obj_service_experience_info_per_app;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_service_experience_info_per_app_has_contr_weights(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
+{
+    if (!obj_service_experience_info_per_app) return false;
+
+    const std::shared_ptr<ServiceExperienceInfoPerApp > &obj = *reinterpret_cast<const std::shared_ptr<ServiceExperienceInfoPerApp >*>(obj_service_experience_info_per_app);
+    if (!obj) return false;
+
+    return obj->getContrWeights().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_service_experience_info_per_app_get_contr_weights(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
 {
@@ -640,16 +731,20 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_se
 
     typedef typename ServiceExperienceInfoPerApp::ContrWeightsType ResultFromType;
     const ResultFromType result_from = obj->getContrWeights();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        int32_t *item_obj = reinterpret_cast<int32_t*>(ogs_malloc(sizeof(*item_obj)));
-        *item_obj = item;
-        node = data_collection_lnode_create(item_obj, reinterpret_cast<void(*)(void*)>(_ogs_free));
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        int32_t *item_obj = reinterpret_cast<int32_t*>(item.has_value()?ogs_malloc(sizeof(*item_obj)):nullptr);
+        if (item_obj) {
+            *item_obj = item.value();
+            node = data_collection_lnode_create(item_obj, reinterpret_cast<void(*)(void*)>(_ogs_free));
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -664,14 +759,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     typedef typename ServiceExperienceInfoPerApp::ContrWeightsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setContrWeights(value)) return NULL;
 
     return obj_service_experience_info_per_app;
@@ -688,14 +786,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     typedef typename ServiceExperienceInfoPerApp::ContrWeightsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_contr_weights);
     if (!obj->setContrWeights(std::move(value))) return NULL;
 
@@ -709,13 +810,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     std::shared_ptr<ServiceExperienceInfoPerApp > &obj = *reinterpret_cast<std::shared_ptr<ServiceExperienceInfoPerApp >*>(obj_service_experience_info_per_app);
     if (!obj) return NULL;
 
-    typedef typename ServiceExperienceInfoPerApp::ContrWeightsType ContainerType;
+    typedef typename ServiceExperienceInfoPerApp::ContrWeightsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_contr_weights;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
 
-    obj->addContrWeights(value);
+
+    if (value) obj->addContrWeights(value.value());
     return obj_service_experience_info_per_app;
 }
 
@@ -726,10 +828,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     std::shared_ptr<ServiceExperienceInfoPerApp > &obj = *reinterpret_cast<std::shared_ptr<ServiceExperienceInfoPerApp >*>(obj_service_experience_info_per_app);
     if (!obj) return NULL;
 
-    typedef typename ServiceExperienceInfoPerApp::ContrWeightsType ContainerType;
+    typedef typename ServiceExperienceInfoPerApp::ContrWeightsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_contr_weights;
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     obj->removeContrWeights(value);
     return obj_service_experience_info_per_app;
 }

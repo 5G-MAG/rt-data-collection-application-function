@@ -168,6 +168,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_point_alt
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geographical_coordinates_t* data_collection_model_point_altitude_uncertainty_all_of_get_point(const data_collection_model_point_altitude_uncertainty_all_of_t *obj_point_altitude_uncertainty_all_of)
 {
     if (!obj_point_altitude_uncertainty_all_of) {
@@ -198,6 +199,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
     typedef typename PointAltitudeUncertainty_allOf::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setPoint(value)) return NULL;
 
     return obj_point_altitude_uncertainty_all_of;
@@ -214,11 +216,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
     typedef typename PointAltitudeUncertainty_allOf::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setPoint(std::move(value))) return NULL;
 
     return obj_point_altitude_uncertainty_all_of;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const double data_collection_model_point_altitude_uncertainty_all_of_get_altitude(const data_collection_model_point_altitude_uncertainty_all_of_t *obj_point_altitude_uncertainty_all_of)
 {
@@ -249,7 +253,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
     const auto &value_from = p_altitude;
     typedef typename PointAltitudeUncertainty_allOf::AltitudeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setAltitude(value)) return NULL;
 
     return obj_point_altitude_uncertainty_all_of;
@@ -265,12 +270,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
     const auto &value_from = p_altitude;
     typedef typename PointAltitudeUncertainty_allOf::AltitudeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setAltitude(std::move(value))) return NULL;
 
     return obj_point_altitude_uncertainty_all_of;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_uncertainty_ellipse_t* data_collection_model_point_altitude_uncertainty_all_of_get_uncertainty_ellipse(const data_collection_model_point_altitude_uncertainty_all_of_t *obj_point_altitude_uncertainty_all_of)
 {
@@ -302,6 +309,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
     typedef typename PointAltitudeUncertainty_allOf::UncertaintyEllipseType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setUncertaintyEllipse(value)) return NULL;
 
     return obj_point_altitude_uncertainty_all_of;
@@ -318,11 +326,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
     typedef typename PointAltitudeUncertainty_allOf::UncertaintyEllipseType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setUncertaintyEllipse(std::move(value))) return NULL;
 
     return obj_point_altitude_uncertainty_all_of;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_point_altitude_uncertainty_all_of_get_uncertainty_altitude(const data_collection_model_point_altitude_uncertainty_all_of_t *obj_point_altitude_uncertainty_all_of)
 {
@@ -353,7 +363,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
     const auto &value_from = p_uncertainty_altitude;
     typedef typename PointAltitudeUncertainty_allOf::UncertaintyAltitudeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setUncertaintyAltitude(value)) return NULL;
 
     return obj_point_altitude_uncertainty_all_of;
@@ -369,12 +380,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
     const auto &value_from = p_uncertainty_altitude;
     typedef typename PointAltitudeUncertainty_allOf::UncertaintyAltitudeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setUncertaintyAltitude(std::move(value))) return NULL;
 
     return obj_point_altitude_uncertainty_all_of;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_point_altitude_uncertainty_all_of_get_confidence(const data_collection_model_point_altitude_uncertainty_all_of_t *obj_point_altitude_uncertainty_all_of)
 {
@@ -405,7 +418,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
     const auto &value_from = p_confidence;
     typedef typename PointAltitudeUncertainty_allOf::ConfidenceType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setConfidence(value)) return NULL;
 
     return obj_point_altitude_uncertainty_all_of;
@@ -421,12 +435,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
     const auto &value_from = p_confidence;
     typedef typename PointAltitudeUncertainty_allOf::ConfidenceType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setConfidence(std::move(value))) return NULL;
 
     return obj_point_altitude_uncertainty_all_of;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_point_altitude_uncertainty_all_of_has_v_confidence(const data_collection_model_point_altitude_uncertainty_all_of_t *obj_point_altitude_uncertainty_all_of)
+{
+    if (!obj_point_altitude_uncertainty_all_of) return false;
+
+    const std::shared_ptr<PointAltitudeUncertainty_allOf > &obj = *reinterpret_cast<const std::shared_ptr<PointAltitudeUncertainty_allOf >*>(obj_point_altitude_uncertainty_all_of);
+    if (!obj) return false;
+
+    return obj->getVConfidence().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_point_altitude_uncertainty_all_of_get_v_confidence(const data_collection_model_point_altitude_uncertainty_all_of_t *obj_point_altitude_uncertainty_all_of)
 {
@@ -443,7 +469,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename PointAltitudeUncertainty_allOf::VConfidenceType ResultFromType;
     const ResultFromType result_from = obj->getVConfidence();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -457,7 +483,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
     const auto &value_from = p_v_confidence;
     typedef typename PointAltitudeUncertainty_allOf::VConfidenceType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setVConfidence(value)) return NULL;
 
     return obj_point_altitude_uncertainty_all_of;
@@ -473,7 +500,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
     const auto &value_from = p_v_confidence;
     typedef typename PointAltitudeUncertainty_allOf::VConfidenceType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setVConfidence(std::move(value))) return NULL;
 

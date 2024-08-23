@@ -182,6 +182,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_problem_d
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_problem_details_has_type(const data_collection_model_problem_details_t *obj_problem_details)
+{
+    if (!obj_problem_details) return false;
+
+    const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return false;
+
+    return obj->getType().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_problem_details_get_type(const data_collection_model_problem_details_t *obj_problem_details)
 {
     if (!obj_problem_details) {
@@ -197,7 +208,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pr
 
     typedef typename ProblemDetails::TypeType ResultFromType;
     const ResultFromType result_from = obj->getType();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -212,6 +223,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     typedef typename ProblemDetails::TypeType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setType(value)) return NULL;
 
     return obj_problem_details;
@@ -228,11 +240,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     typedef typename ProblemDetails::TypeType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setType(std::move(value))) return NULL;
 
     return obj_problem_details;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_problem_details_has_title(const data_collection_model_problem_details_t *obj_problem_details)
+{
+    if (!obj_problem_details) return false;
+
+    const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return false;
+
+    return obj->getTitle().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_problem_details_get_title(const data_collection_model_problem_details_t *obj_problem_details)
 {
@@ -249,7 +273,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pr
 
     typedef typename ProblemDetails::TitleType ResultFromType;
     const ResultFromType result_from = obj->getTitle();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -264,6 +288,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     typedef typename ProblemDetails::TitleType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setTitle(value)) return NULL;
 
     return obj_problem_details;
@@ -280,11 +305,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     typedef typename ProblemDetails::TitleType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setTitle(std::move(value))) return NULL;
 
     return obj_problem_details;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_problem_details_has_status(const data_collection_model_problem_details_t *obj_problem_details)
+{
+    if (!obj_problem_details) return false;
+
+    const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return false;
+
+    return obj->getStatus().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_problem_details_get_status(const data_collection_model_problem_details_t *obj_problem_details)
 {
@@ -301,7 +338,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename ProblemDetails::StatusType ResultFromType;
     const ResultFromType result_from = obj->getStatus();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -315,7 +352,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     const auto &value_from = p_status;
     typedef typename ProblemDetails::StatusType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setStatus(value)) return NULL;
 
     return obj_problem_details;
@@ -331,12 +369,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     const auto &value_from = p_status;
     typedef typename ProblemDetails::StatusType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setStatus(std::move(value))) return NULL;
 
     return obj_problem_details;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_problem_details_has_detail(const data_collection_model_problem_details_t *obj_problem_details)
+{
+    if (!obj_problem_details) return false;
+
+    const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return false;
+
+    return obj->getDetail().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_problem_details_get_detail(const data_collection_model_problem_details_t *obj_problem_details)
 {
@@ -353,7 +403,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pr
 
     typedef typename ProblemDetails::DetailType ResultFromType;
     const ResultFromType result_from = obj->getDetail();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -368,6 +418,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     typedef typename ProblemDetails::DetailType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setDetail(value)) return NULL;
 
     return obj_problem_details;
@@ -384,11 +435,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     typedef typename ProblemDetails::DetailType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setDetail(std::move(value))) return NULL;
 
     return obj_problem_details;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_problem_details_has_instance(const data_collection_model_problem_details_t *obj_problem_details)
+{
+    if (!obj_problem_details) return false;
+
+    const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return false;
+
+    return obj->getInstance().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_problem_details_get_instance(const data_collection_model_problem_details_t *obj_problem_details)
 {
@@ -405,7 +468,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pr
 
     typedef typename ProblemDetails::InstanceType ResultFromType;
     const ResultFromType result_from = obj->getInstance();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -420,6 +483,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     typedef typename ProblemDetails::InstanceType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setInstance(value)) return NULL;
 
     return obj_problem_details;
@@ -436,11 +500,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     typedef typename ProblemDetails::InstanceType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setInstance(std::move(value))) return NULL;
 
     return obj_problem_details;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_problem_details_has_cause(const data_collection_model_problem_details_t *obj_problem_details)
+{
+    if (!obj_problem_details) return false;
+
+    const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return false;
+
+    return obj->getCause().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_problem_details_get_cause(const data_collection_model_problem_details_t *obj_problem_details)
 {
@@ -457,7 +533,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pr
 
     typedef typename ProblemDetails::CauseType ResultFromType;
     const ResultFromType result_from = obj->getCause();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -472,6 +548,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     typedef typename ProblemDetails::CauseType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setCause(value)) return NULL;
 
     return obj_problem_details;
@@ -488,11 +565,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     typedef typename ProblemDetails::CauseType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setCause(std::move(value))) return NULL;
 
     return obj_problem_details;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_problem_details_has_invalid_params(const data_collection_model_problem_details_t *obj_problem_details)
+{
+    if (!obj_problem_details) return false;
+
+    const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return false;
+
+    return obj->getInvalidParams().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_problem_details_get_invalid_params(const data_collection_model_problem_details_t *obj_problem_details)
 {
@@ -509,15 +598,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_pr
 
     typedef typename ProblemDetails::InvalidParamsType ResultFromType;
     const ResultFromType result_from = obj->getInvalidParams();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_invalid_param_t *item_obj = reinterpret_cast<data_collection_model_invalid_param_t*>(new std::shared_ptr<InvalidParam >(item));
-        node = data_collection_model_invalid_param_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_invalid_param_t *item_obj = reinterpret_cast<data_collection_model_invalid_param_t*>(item.has_value()?new std::shared_ptr<InvalidParam >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_invalid_param_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -532,14 +625,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     typedef typename ProblemDetails::InvalidParamsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setInvalidParams(value)) return NULL;
 
     return obj_problem_details;
@@ -556,14 +652,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     typedef typename ProblemDetails::InvalidParamsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_invalid_params);
     if (!obj->setInvalidParams(std::move(value))) return NULL;
 
@@ -577,13 +676,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
     if (!obj) return NULL;
 
-    typedef typename ProblemDetails::InvalidParamsType ContainerType;
+    typedef typename ProblemDetails::InvalidParamsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_invalid_params;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addInvalidParams(value);
+
+    if (value) obj->addInvalidParams(value.value());
     return obj_problem_details;
 }
 
@@ -594,10 +694,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
     if (!obj) return NULL;
 
-    typedef typename ProblemDetails::InvalidParamsType ContainerType;
+    typedef typename ProblemDetails::InvalidParamsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_invalid_params;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeInvalidParams(value);
     return obj_problem_details;
 }
@@ -612,6 +713,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     obj->clearInvalidParams();
     return obj_problem_details;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_problem_details_has_supported_features(const data_collection_model_problem_details_t *obj_problem_details)
+{
+    if (!obj_problem_details) return false;
+
+    const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return false;
+
+    return obj->getSupportedFeatures().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_problem_details_get_supported_features(const data_collection_model_problem_details_t *obj_problem_details)
 {
@@ -628,7 +740,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pr
 
     typedef typename ProblemDetails::SupportedFeaturesType ResultFromType;
     const ResultFromType result_from = obj->getSupportedFeatures();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -643,6 +755,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     typedef typename ProblemDetails::SupportedFeaturesType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setSupportedFeatures(value)) return NULL;
 
     return obj_problem_details;
@@ -659,11 +772,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     typedef typename ProblemDetails::SupportedFeaturesType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setSupportedFeatures(std::move(value))) return NULL;
 
     return obj_problem_details;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_problem_details_has_access_token_error(const data_collection_model_problem_details_t *obj_problem_details)
+{
+    if (!obj_problem_details) return false;
+
+    const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return false;
+
+    return obj->getAccessTokenError().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_access_token_err_t* data_collection_model_problem_details_get_access_token_error(const data_collection_model_problem_details_t *obj_problem_details)
 {
@@ -680,7 +805,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_access_t
 
     typedef typename ProblemDetails::AccessTokenErrorType ResultFromType;
     const ResultFromType result_from = obj->getAccessTokenError();
-    const data_collection_model_access_token_err_t *result = reinterpret_cast<const data_collection_model_access_token_err_t*>(&result_from);
+    const data_collection_model_access_token_err_t *result = reinterpret_cast<const data_collection_model_access_token_err_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -694,7 +819,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     const auto &value_from = p_access_token_error;
     typedef typename ProblemDetails::AccessTokenErrorType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setAccessTokenError(value)) return NULL;
 
     return obj_problem_details;
@@ -710,12 +836,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     const auto &value_from = p_access_token_error;
     typedef typename ProblemDetails::AccessTokenErrorType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setAccessTokenError(std::move(value))) return NULL;
 
     return obj_problem_details;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_problem_details_has_access_token_request(const data_collection_model_problem_details_t *obj_problem_details)
+{
+    if (!obj_problem_details) return false;
+
+    const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return false;
+
+    return obj->getAccessTokenRequest().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_access_token_req_t* data_collection_model_problem_details_get_access_token_request(const data_collection_model_problem_details_t *obj_problem_details)
 {
@@ -732,7 +870,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_access_t
 
     typedef typename ProblemDetails::AccessTokenRequestType ResultFromType;
     const ResultFromType result_from = obj->getAccessTokenRequest();
-    const data_collection_model_access_token_req_t *result = reinterpret_cast<const data_collection_model_access_token_req_t*>(&result_from);
+    const data_collection_model_access_token_req_t *result = reinterpret_cast<const data_collection_model_access_token_req_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -746,7 +884,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     const auto &value_from = p_access_token_request;
     typedef typename ProblemDetails::AccessTokenRequestType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setAccessTokenRequest(value)) return NULL;
 
     return obj_problem_details;
@@ -762,12 +901,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     const auto &value_from = p_access_token_request;
     typedef typename ProblemDetails::AccessTokenRequestType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setAccessTokenRequest(std::move(value))) return NULL;
 
     return obj_problem_details;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_problem_details_has_nrf_id(const data_collection_model_problem_details_t *obj_problem_details)
+{
+    if (!obj_problem_details) return false;
+
+    const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return false;
+
+    return obj->getNrfId().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_problem_details_get_nrf_id(const data_collection_model_problem_details_t *obj_problem_details)
 {
@@ -784,7 +935,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pr
 
     typedef typename ProblemDetails::NrfIdType ResultFromType;
     const ResultFromType result_from = obj->getNrfId();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -799,6 +950,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     typedef typename ProblemDetails::NrfIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setNrfId(value)) return NULL;
 
     return obj_problem_details;
@@ -815,11 +967,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     typedef typename ProblemDetails::NrfIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setNrfId(std::move(value))) return NULL;
 
     return obj_problem_details;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_problem_details_has_supported_api_versions(const data_collection_model_problem_details_t *obj_problem_details)
+{
+    if (!obj_problem_details) return false;
+
+    const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return false;
+
+    return obj->getSupportedApiVersions().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_problem_details_get_supported_api_versions(const data_collection_model_problem_details_t *obj_problem_details)
 {
@@ -836,14 +1000,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_pr
 
     typedef typename ProblemDetails::SupportedApiVersionsType ResultFromType;
     const ResultFromType result_from = obj->getSupportedApiVersions();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -858,14 +1024,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     typedef typename ProblemDetails::SupportedApiVersionsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setSupportedApiVersions(value)) return NULL;
 
     return obj_problem_details;
@@ -882,14 +1051,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     typedef typename ProblemDetails::SupportedApiVersionsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_supported_api_versions);
     if (!obj->setSupportedApiVersions(std::move(value))) return NULL;
 
@@ -903,13 +1075,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
     if (!obj) return NULL;
 
-    typedef typename ProblemDetails::SupportedApiVersionsType ContainerType;
+    typedef typename ProblemDetails::SupportedApiVersionsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_supported_api_versions;
 
     ValueType value(value_from);
 
-    obj->addSupportedApiVersions(value);
+
+    if (value) obj->addSupportedApiVersions(value.value());
     return obj_problem_details;
 }
 
@@ -920,10 +1093,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<std::shared_ptr<ProblemDetails >*>(obj_problem_details);
     if (!obj) return NULL;
 
-    typedef typename ProblemDetails::SupportedApiVersionsType ContainerType;
+    typedef typename ProblemDetails::SupportedApiVersionsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_supported_api_versions;
     ValueType value(value_from);
+
     obj->removeSupportedApiVersions(value);
     return obj_problem_details;
 }
@@ -938,6 +1112,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     obj->clearSupportedApiVersions();
     return obj_problem_details;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_problem_details_has_no_profile_match_info(const data_collection_model_problem_details_t *obj_problem_details)
+{
+    if (!obj_problem_details) return false;
+
+    const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) return false;
+
+    return obj->getNoProfileMatchInfo().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_no_profile_match_info_t* data_collection_model_problem_details_get_no_profile_match_info(const data_collection_model_problem_details_t *obj_problem_details)
 {
@@ -954,7 +1139,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_no_profi
 
     typedef typename ProblemDetails::NoProfileMatchInfoType ResultFromType;
     const ResultFromType result_from = obj->getNoProfileMatchInfo();
-    const data_collection_model_no_profile_match_info_t *result = reinterpret_cast<const data_collection_model_no_profile_match_info_t*>(&result_from);
+    const data_collection_model_no_profile_match_info_t *result = reinterpret_cast<const data_collection_model_no_profile_match_info_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -968,7 +1153,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     const auto &value_from = p_no_profile_match_info;
     typedef typename ProblemDetails::NoProfileMatchInfoType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setNoProfileMatchInfo(value)) return NULL;
 
     return obj_problem_details;
@@ -984,7 +1170,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     const auto &value_from = p_no_profile_match_info;
     typedef typename ProblemDetails::NoProfileMatchInfoType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setNoProfileMatchInfo(std::move(value))) return NULL;
 

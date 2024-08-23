@@ -182,6 +182,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_consumpti
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_event_record_type_t* data_collection_model_consumption_reporting_event_get_record_type(const data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event)
 {
     if (!obj_consumption_reporting_event) {
@@ -212,6 +213,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     typedef typename ConsumptionReportingEvent::RecordTypeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setRecordType(value)) return NULL;
 
     return obj_consumption_reporting_event;
@@ -228,11 +230,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     typedef typename ConsumptionReportingEvent::RecordTypeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setRecordType(std::move(value))) return NULL;
 
     return obj_consumption_reporting_event;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_consumption_reporting_event_get_record_timestamp(const data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event)
 {
@@ -264,6 +268,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     typedef typename ConsumptionReportingEvent::RecordTimestampType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setRecordTimestamp(value)) return NULL;
 
     return obj_consumption_reporting_event;
@@ -280,11 +285,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     typedef typename ConsumptionReportingEvent::RecordTimestampType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setRecordTimestamp(std::move(value))) return NULL;
 
     return obj_consumption_reporting_event;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_consumption_reporting_event_get_app_id(const data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event)
 {
@@ -316,6 +323,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     typedef typename ConsumptionReportingEvent::AppIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setAppId(value)) return NULL;
 
     return obj_consumption_reporting_event;
@@ -332,11 +340,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     typedef typename ConsumptionReportingEvent::AppIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setAppId(std::move(value))) return NULL;
 
     return obj_consumption_reporting_event;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_consumption_reporting_event_has_provisioning_session_id(const data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event)
+{
+    if (!obj_consumption_reporting_event) return false;
+
+    const std::shared_ptr<ConsumptionReportingEvent > &obj = *reinterpret_cast<const std::shared_ptr<ConsumptionReportingEvent >*>(obj_consumption_reporting_event);
+    if (!obj) return false;
+
+    return obj->getProvisioningSessionId().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_consumption_reporting_event_get_provisioning_session_id(const data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event)
 {
@@ -353,7 +373,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_co
 
     typedef typename ConsumptionReportingEvent::ProvisioningSessionIdType ResultFromType;
     const ResultFromType result_from = obj->getProvisioningSessionId();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -368,6 +388,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     typedef typename ConsumptionReportingEvent::ProvisioningSessionIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setProvisioningSessionId(value)) return NULL;
 
     return obj_consumption_reporting_event;
@@ -384,11 +405,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     typedef typename ConsumptionReportingEvent::ProvisioningSessionIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setProvisioningSessionId(std::move(value))) return NULL;
 
     return obj_consumption_reporting_event;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_consumption_reporting_event_has_session_id(const data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event)
+{
+    if (!obj_consumption_reporting_event) return false;
+
+    const std::shared_ptr<ConsumptionReportingEvent > &obj = *reinterpret_cast<const std::shared_ptr<ConsumptionReportingEvent >*>(obj_consumption_reporting_event);
+    if (!obj) return false;
+
+    return obj->getSessionId().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_consumption_reporting_event_get_session_id(const data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event)
 {
@@ -405,7 +438,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_co
 
     typedef typename ConsumptionReportingEvent::SessionIdType ResultFromType;
     const ResultFromType result_from = obj->getSessionId();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -420,6 +453,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     typedef typename ConsumptionReportingEvent::SessionIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setSessionId(value)) return NULL;
 
     return obj_consumption_reporting_event;
@@ -436,11 +470,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     typedef typename ConsumptionReportingEvent::SessionIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setSessionId(std::move(value))) return NULL;
 
     return obj_consumption_reporting_event;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_consumption_reporting_event_has_ue_identification(const data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event)
+{
+    if (!obj_consumption_reporting_event) return false;
+
+    const std::shared_ptr<ConsumptionReportingEvent > &obj = *reinterpret_cast<const std::shared_ptr<ConsumptionReportingEvent >*>(obj_consumption_reporting_event);
+    if (!obj) return false;
+
+    return obj->getUeIdentification().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_consumption_reporting_event_get_ue_identification(const data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event)
 {
@@ -457,7 +503,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_co
 
     typedef typename ConsumptionReportingEvent::UeIdentificationType ResultFromType;
     const ResultFromType result_from = obj->getUeIdentification();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -472,6 +518,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     typedef typename ConsumptionReportingEvent::UeIdentificationType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setUeIdentification(value)) return NULL;
 
     return obj_consumption_reporting_event;
@@ -488,11 +535,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     typedef typename ConsumptionReportingEvent::UeIdentificationType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setUeIdentification(std::move(value))) return NULL;
 
     return obj_consumption_reporting_event;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_consumption_reporting_event_has_data_network_name(const data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event)
+{
+    if (!obj_consumption_reporting_event) return false;
+
+    const std::shared_ptr<ConsumptionReportingEvent > &obj = *reinterpret_cast<const std::shared_ptr<ConsumptionReportingEvent >*>(obj_consumption_reporting_event);
+    if (!obj) return false;
+
+    return obj->getDataNetworkName().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_consumption_reporting_event_get_data_network_name(const data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event)
 {
@@ -509,7 +568,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_co
 
     typedef typename ConsumptionReportingEvent::DataNetworkNameType ResultFromType;
     const ResultFromType result_from = obj->getDataNetworkName();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -524,6 +583,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     typedef typename ConsumptionReportingEvent::DataNetworkNameType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setDataNetworkName(value)) return NULL;
 
     return obj_consumption_reporting_event;
@@ -540,11 +600,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     typedef typename ConsumptionReportingEvent::DataNetworkNameType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setDataNetworkName(std::move(value))) return NULL;
 
     return obj_consumption_reporting_event;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_consumption_reporting_event_has_slice_id(const data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event)
+{
+    if (!obj_consumption_reporting_event) return false;
+
+    const std::shared_ptr<ConsumptionReportingEvent > &obj = *reinterpret_cast<const std::shared_ptr<ConsumptionReportingEvent >*>(obj_consumption_reporting_event);
+    if (!obj) return false;
+
+    return obj->getSliceId().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_snssai_t* data_collection_model_consumption_reporting_event_get_slice_id(const data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event)
 {
@@ -561,7 +633,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_snssai_t
 
     typedef typename ConsumptionReportingEvent::SliceIdType ResultFromType;
     const ResultFromType result_from = obj->getSliceId();
-    const data_collection_model_snssai_t *result = reinterpret_cast<const data_collection_model_snssai_t*>(&result_from);
+    const data_collection_model_snssai_t *result = reinterpret_cast<const data_collection_model_snssai_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -575,7 +647,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     const auto &value_from = p_slice_id;
     typedef typename ConsumptionReportingEvent::SliceIdType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setSliceId(value)) return NULL;
 
     return obj_consumption_reporting_event;
@@ -591,12 +664,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     const auto &value_from = p_slice_id;
     typedef typename ConsumptionReportingEvent::SliceIdType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setSliceId(std::move(value))) return NULL;
 
     return obj_consumption_reporting_event;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_consumption_reporting_event_has_ue_locations(const data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event)
+{
+    if (!obj_consumption_reporting_event) return false;
+
+    const std::shared_ptr<ConsumptionReportingEvent > &obj = *reinterpret_cast<const std::shared_ptr<ConsumptionReportingEvent >*>(obj_consumption_reporting_event);
+    if (!obj) return false;
+
+    return obj->getUeLocations().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_consumption_reporting_event_get_ue_locations(const data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event)
 {
@@ -613,15 +698,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_co
 
     typedef typename ConsumptionReportingEvent::UeLocationsType ResultFromType;
     const ResultFromType result_from = obj->getUeLocations();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_location_area5_g_t *item_obj = reinterpret_cast<data_collection_model_location_area5_g_t*>(new std::shared_ptr<LocationArea5G >(item));
-        node = data_collection_model_location_area5_g_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_location_area5_g_t *item_obj = reinterpret_cast<data_collection_model_location_area5_g_t*>(item.has_value()?new std::shared_ptr<LocationArea5G >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_location_area5_g_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -636,14 +725,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     typedef typename ConsumptionReportingEvent::UeLocationsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setUeLocations(value)) return NULL;
 
     return obj_consumption_reporting_event;
@@ -660,14 +752,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     typedef typename ConsumptionReportingEvent::UeLocationsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_ue_locations);
     if (!obj->setUeLocations(std::move(value))) return NULL;
 
@@ -681,13 +776,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     std::shared_ptr<ConsumptionReportingEvent > &obj = *reinterpret_cast<std::shared_ptr<ConsumptionReportingEvent >*>(obj_consumption_reporting_event);
     if (!obj) return NULL;
 
-    typedef typename ConsumptionReportingEvent::UeLocationsType ContainerType;
+    typedef typename ConsumptionReportingEvent::UeLocationsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_ue_locations;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addUeLocations(value);
+
+    if (value) obj->addUeLocations(value.value());
     return obj_consumption_reporting_event;
 }
 
@@ -698,10 +794,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     std::shared_ptr<ConsumptionReportingEvent > &obj = *reinterpret_cast<std::shared_ptr<ConsumptionReportingEvent >*>(obj_consumption_reporting_event);
     if (!obj) return NULL;
 
-    typedef typename ConsumptionReportingEvent::UeLocationsType ContainerType;
+    typedef typename ConsumptionReportingEvent::UeLocationsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_ue_locations;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeUeLocations(value);
     return obj_consumption_reporting_event;
 }
@@ -716,6 +813,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     obj->clearUeLocations();
     return obj_consumption_reporting_event;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_consumption_reporting_event_get_unit_duration(const data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event)
 {
@@ -747,6 +845,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     typedef typename ConsumptionReportingEvent::UnitDurationType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setUnitDuration(value)) return NULL;
 
     return obj_consumption_reporting_event;
@@ -763,11 +862,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     typedef typename ConsumptionReportingEvent::UnitDurationType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setUnitDuration(std::move(value))) return NULL;
 
     return obj_consumption_reporting_event;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_consumption_reporting_event_has_client_endpoint_address(const data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event)
+{
+    if (!obj_consumption_reporting_event) return false;
+
+    const std::shared_ptr<ConsumptionReportingEvent > &obj = *reinterpret_cast<const std::shared_ptr<ConsumptionReportingEvent >*>(obj_consumption_reporting_event);
+    if (!obj) return false;
+
+    return obj->getClientEndpointAddress().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_endpoint_address_t* data_collection_model_consumption_reporting_event_get_client_endpoint_address(const data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event)
 {
@@ -784,7 +895,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_endpoint
 
     typedef typename ConsumptionReportingEvent::ClientEndpointAddressType ResultFromType;
     const ResultFromType result_from = obj->getClientEndpointAddress();
-    const data_collection_model_endpoint_address_t *result = reinterpret_cast<const data_collection_model_endpoint_address_t*>(&result_from);
+    const data_collection_model_endpoint_address_t *result = reinterpret_cast<const data_collection_model_endpoint_address_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -798,7 +909,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     const auto &value_from = p_client_endpoint_address;
     typedef typename ConsumptionReportingEvent::ClientEndpointAddressType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setClientEndpointAddress(value)) return NULL;
 
     return obj_consumption_reporting_event;
@@ -814,12 +926,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     const auto &value_from = p_client_endpoint_address;
     typedef typename ConsumptionReportingEvent::ClientEndpointAddressType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setClientEndpointAddress(std::move(value))) return NULL;
 
     return obj_consumption_reporting_event;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_consumption_reporting_event_has_server_endpoint_address(const data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event)
+{
+    if (!obj_consumption_reporting_event) return false;
+
+    const std::shared_ptr<ConsumptionReportingEvent > &obj = *reinterpret_cast<const std::shared_ptr<ConsumptionReportingEvent >*>(obj_consumption_reporting_event);
+    if (!obj) return false;
+
+    return obj->getServerEndpointAddress().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_endpoint_address_t* data_collection_model_consumption_reporting_event_get_server_endpoint_address(const data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event)
 {
@@ -836,7 +960,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_endpoint
 
     typedef typename ConsumptionReportingEvent::ServerEndpointAddressType ResultFromType;
     const ResultFromType result_from = obj->getServerEndpointAddress();
-    const data_collection_model_endpoint_address_t *result = reinterpret_cast<const data_collection_model_endpoint_address_t*>(&result_from);
+    const data_collection_model_endpoint_address_t *result = reinterpret_cast<const data_collection_model_endpoint_address_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -850,7 +974,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     const auto &value_from = p_server_endpoint_address;
     typedef typename ConsumptionReportingEvent::ServerEndpointAddressType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setServerEndpointAddress(value)) return NULL;
 
     return obj_consumption_reporting_event;
@@ -866,12 +991,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     const auto &value_from = p_server_endpoint_address;
     typedef typename ConsumptionReportingEvent::ServerEndpointAddressType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setServerEndpointAddress(std::move(value))) return NULL;
 
     return obj_consumption_reporting_event;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_consumption_reporting_event_get_media_player_entry_url(const data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event)
 {
@@ -903,6 +1030,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     typedef typename ConsumptionReportingEvent::MediaPlayerEntryUrlType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setMediaPlayerEntryUrl(value)) return NULL;
 
     return obj_consumption_reporting_event;
@@ -919,11 +1047,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     typedef typename ConsumptionReportingEvent::MediaPlayerEntryUrlType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setMediaPlayerEntryUrl(std::move(value))) return NULL;
 
     return obj_consumption_reporting_event;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_consumption_reporting_event_get_media_component_identifier(const data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event)
 {
@@ -955,6 +1085,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     typedef typename ConsumptionReportingEvent::MediaComponentIdentifierType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setMediaComponentIdentifier(value)) return NULL;
 
     return obj_consumption_reporting_event;
@@ -971,6 +1102,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     typedef typename ConsumptionReportingEvent::MediaComponentIdentifierType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setMediaComponentIdentifier(std::move(value))) return NULL;
 

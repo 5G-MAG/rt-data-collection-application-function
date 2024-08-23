@@ -160,6 +160,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_info_has_ip_traffic_filter(const data_collection_model_exception_info_t *obj_exception_info)
+{
+    if (!obj_exception_info) return false;
+
+    const std::shared_ptr<ExceptionInfo > &obj = *reinterpret_cast<const std::shared_ptr<ExceptionInfo >*>(obj_exception_info);
+    if (!obj) return false;
+
+    return obj->getIpTrafficFilter().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_flow_info_t* data_collection_model_exception_info_get_ip_traffic_filter(const data_collection_model_exception_info_t *obj_exception_info)
 {
     if (!obj_exception_info) {
@@ -175,7 +186,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_flow_inf
 
     typedef typename ExceptionInfo::IpTrafficFilterType ResultFromType;
     const ResultFromType result_from = obj->getIpTrafficFilter();
-    const data_collection_model_flow_info_t *result = reinterpret_cast<const data_collection_model_flow_info_t*>(&result_from);
+    const data_collection_model_flow_info_t *result = reinterpret_cast<const data_collection_model_flow_info_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -189,7 +200,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info
     const auto &value_from = p_ip_traffic_filter;
     typedef typename ExceptionInfo::IpTrafficFilterType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setIpTrafficFilter(value)) return NULL;
 
     return obj_exception_info;
@@ -205,12 +217,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info
     const auto &value_from = p_ip_traffic_filter;
     typedef typename ExceptionInfo::IpTrafficFilterType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setIpTrafficFilter(std::move(value))) return NULL;
 
     return obj_exception_info;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_exception_info_has_eth_traffic_filter(const data_collection_model_exception_info_t *obj_exception_info)
+{
+    if (!obj_exception_info) return false;
+
+    const std::shared_ptr<ExceptionInfo > &obj = *reinterpret_cast<const std::shared_ptr<ExceptionInfo >*>(obj_exception_info);
+    if (!obj) return false;
+
+    return obj->getEthTrafficFilter().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_eth_flow_description_t* data_collection_model_exception_info_get_eth_traffic_filter(const data_collection_model_exception_info_t *obj_exception_info)
 {
@@ -227,7 +251,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_eth_flow
 
     typedef typename ExceptionInfo::EthTrafficFilterType ResultFromType;
     const ResultFromType result_from = obj->getEthTrafficFilter();
-    const data_collection_model_eth_flow_description_t *result = reinterpret_cast<const data_collection_model_eth_flow_description_t*>(&result_from);
+    const data_collection_model_eth_flow_description_t *result = reinterpret_cast<const data_collection_model_eth_flow_description_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -241,7 +265,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info
     const auto &value_from = p_eth_traffic_filter;
     typedef typename ExceptionInfo::EthTrafficFilterType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setEthTrafficFilter(value)) return NULL;
 
     return obj_exception_info;
@@ -257,12 +282,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info
     const auto &value_from = p_eth_traffic_filter;
     typedef typename ExceptionInfo::EthTrafficFilterType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setEthTrafficFilter(std::move(value))) return NULL;
 
     return obj_exception_info;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_exception_info_get_exceps(const data_collection_model_exception_info_t *obj_exception_info)
 {
@@ -280,13 +307,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ex
     typedef typename ExceptionInfo::ExcepsType ResultFromType;
     const ResultFromType result_from = obj->getExceps();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+    
     typedef typename ResultFromType::value_type ItemType;
     for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_exception_t *item_obj = reinterpret_cast<data_collection_model_exception_t*>(new std::shared_ptr<Exception >(item));
-        node = data_collection_model_exception_make_lnode(item_obj);
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_exception_t *item_obj = reinterpret_cast<data_collection_model_exception_t*>(item.has_value()?new std::shared_ptr<Exception >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_exception_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
+        if (node) ogs_list_add(result, node);
     }
     return result;
 }
@@ -302,14 +332,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info
     typedef typename ExceptionInfo::ExcepsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setExceps(value)) return NULL;
 
     return obj_exception_info;
@@ -326,14 +359,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info
     typedef typename ExceptionInfo::ExcepsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_exceps);
     if (!obj->setExceps(std::move(value))) return NULL;
 
@@ -351,7 +387,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_exceps;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
 
     obj->addExceps(value);
     return obj_exception_info;
@@ -367,7 +404,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info
     typedef typename ExceptionInfo::ExcepsType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_exceps;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeExceps(value);
     return obj_exception_info;
 }

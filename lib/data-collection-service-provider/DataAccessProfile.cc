@@ -166,6 +166,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_acce
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_data_access_profile_get_data_access_profile_id(const data_collection_model_data_access_profile_t *obj_data_access_profile)
 {
     if (!obj_data_access_profile) {
@@ -196,6 +197,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename DataAccessProfile::DataAccessProfileIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setDataAccessProfileId(value)) return NULL;
 
     return obj_data_access_profile;
@@ -212,11 +214,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename DataAccessProfile::DataAccessProfileIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setDataAccessProfileId(std::move(value))) return NULL;
 
     return obj_data_access_profile;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_access_profile_get_target_event_consumer_types(const data_collection_model_data_access_profile_t *obj_data_access_profile)
 {
@@ -234,13 +238,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     typedef typename DataAccessProfile::TargetEventConsumerTypesType ResultFromType;
     const ResultFromType result_from = obj->getTargetEventConsumerTypes();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+    
     typedef typename ResultFromType::value_type ItemType;
     for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_event_consumer_type_t *item_obj = reinterpret_cast<data_collection_model_event_consumer_type_t*>(new std::shared_ptr<EventConsumerType >(item));
-        node = data_collection_model_event_consumer_type_make_lnode(item_obj);
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_event_consumer_type_t *item_obj = reinterpret_cast<data_collection_model_event_consumer_type_t*>(item.has_value()?new std::shared_ptr<EventConsumerType >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_event_consumer_type_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
+        if (node) ogs_list_add(result, node);
     }
     return result;
 }
@@ -256,14 +263,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename DataAccessProfile::TargetEventConsumerTypesType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setTargetEventConsumerTypes(value)) return NULL;
 
     return obj_data_access_profile;
@@ -280,14 +290,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename DataAccessProfile::TargetEventConsumerTypesType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_target_event_consumer_types);
     if (!obj->setTargetEventConsumerTypes(std::move(value))) return NULL;
 
@@ -305,7 +318,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_target_event_consumer_types;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
 
     obj->addTargetEventConsumerTypes(value);
     return obj_data_access_profile;
@@ -321,7 +335,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename DataAccessProfile::TargetEventConsumerTypesType ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_target_event_consumer_types;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeTargetEventConsumerTypes(value);
     return obj_data_access_profile;
 }
@@ -336,6 +351,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     obj->clearTargetEventConsumerTypes();
     return obj_data_access_profile;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_access_profile_get_parameters(const data_collection_model_data_access_profile_t *obj_data_access_profile)
 {
@@ -353,12 +369,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     typedef typename DataAccessProfile::ParametersType ResultFromType;
     const ResultFromType result_from = obj->getParameters();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+    
     typedef typename ResultFromType::value_type ItemType;
     for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
+        if (node) ogs_list_add(result, node);
     }
     return result;
 }
@@ -374,14 +391,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename DataAccessProfile::ParametersType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setParameters(value)) return NULL;
 
     return obj_data_access_profile;
@@ -398,14 +418,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename DataAccessProfile::ParametersType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_parameters);
     if (!obj->setParameters(std::move(value))) return NULL;
 
@@ -425,6 +448,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
 
     ValueType value(value_from);
 
+
     obj->addParameters(value);
     return obj_data_access_profile;
 }
@@ -440,6 +464,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_parameters;
     ValueType value(value_from);
+
     obj->removeParameters(value);
     return obj_data_access_profile;
 }
@@ -454,6 +479,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     obj->clearParameters();
     return obj_data_access_profile;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_access_profile_has_time_access_restrictions(const data_collection_model_data_access_profile_t *obj_data_access_profile)
+{
+    if (!obj_data_access_profile) return false;
+
+    const std::shared_ptr<DataAccessProfile > &obj = *reinterpret_cast<const std::shared_ptr<DataAccessProfile >*>(obj_data_access_profile);
+    if (!obj) return false;
+
+    return obj->getTimeAccessRestrictions().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_access_profile_time_access_restrictions_t* data_collection_model_data_access_profile_get_time_access_restrictions(const data_collection_model_data_access_profile_t *obj_data_access_profile)
 {
@@ -470,7 +506,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_acc
 
     typedef typename DataAccessProfile::TimeAccessRestrictionsType ResultFromType;
     const ResultFromType result_from = obj->getTimeAccessRestrictions();
-    const data_collection_model_data_access_profile_time_access_restrictions_t *result = reinterpret_cast<const data_collection_model_data_access_profile_time_access_restrictions_t*>(&result_from);
+    const data_collection_model_data_access_profile_time_access_restrictions_t *result = reinterpret_cast<const data_collection_model_data_access_profile_time_access_restrictions_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -484,7 +520,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     const auto &value_from = p_time_access_restrictions;
     typedef typename DataAccessProfile::TimeAccessRestrictionsType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setTimeAccessRestrictions(value)) return NULL;
 
     return obj_data_access_profile;
@@ -500,12 +537,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     const auto &value_from = p_time_access_restrictions;
     typedef typename DataAccessProfile::TimeAccessRestrictionsType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setTimeAccessRestrictions(std::move(value))) return NULL;
 
     return obj_data_access_profile;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_access_profile_has_user_access_restrictions(const data_collection_model_data_access_profile_t *obj_data_access_profile)
+{
+    if (!obj_data_access_profile) return false;
+
+    const std::shared_ptr<DataAccessProfile > &obj = *reinterpret_cast<const std::shared_ptr<DataAccessProfile >*>(obj_data_access_profile);
+    if (!obj) return false;
+
+    return obj->getUserAccessRestrictions().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_access_profile_user_access_restrictions_t* data_collection_model_data_access_profile_get_user_access_restrictions(const data_collection_model_data_access_profile_t *obj_data_access_profile)
 {
@@ -522,7 +571,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_acc
 
     typedef typename DataAccessProfile::UserAccessRestrictionsType ResultFromType;
     const ResultFromType result_from = obj->getUserAccessRestrictions();
-    const data_collection_model_data_access_profile_user_access_restrictions_t *result = reinterpret_cast<const data_collection_model_data_access_profile_user_access_restrictions_t*>(&result_from);
+    const data_collection_model_data_access_profile_user_access_restrictions_t *result = reinterpret_cast<const data_collection_model_data_access_profile_user_access_restrictions_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -536,7 +585,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     const auto &value_from = p_user_access_restrictions;
     typedef typename DataAccessProfile::UserAccessRestrictionsType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setUserAccessRestrictions(value)) return NULL;
 
     return obj_data_access_profile;
@@ -552,12 +602,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     const auto &value_from = p_user_access_restrictions;
     typedef typename DataAccessProfile::UserAccessRestrictionsType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setUserAccessRestrictions(std::move(value))) return NULL;
 
     return obj_data_access_profile;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_access_profile_has_location_access_restrictions(const data_collection_model_data_access_profile_t *obj_data_access_profile)
+{
+    if (!obj_data_access_profile) return false;
+
+    const std::shared_ptr<DataAccessProfile > &obj = *reinterpret_cast<const std::shared_ptr<DataAccessProfile >*>(obj_data_access_profile);
+    if (!obj) return false;
+
+    return obj->getLocationAccessRestrictions().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_access_profile_location_access_restrictions_t* data_collection_model_data_access_profile_get_location_access_restrictions(const data_collection_model_data_access_profile_t *obj_data_access_profile)
 {
@@ -574,7 +636,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_acc
 
     typedef typename DataAccessProfile::LocationAccessRestrictionsType ResultFromType;
     const ResultFromType result_from = obj->getLocationAccessRestrictions();
-    const data_collection_model_data_access_profile_location_access_restrictions_t *result = reinterpret_cast<const data_collection_model_data_access_profile_location_access_restrictions_t*>(&result_from);
+    const data_collection_model_data_access_profile_location_access_restrictions_t *result = reinterpret_cast<const data_collection_model_data_access_profile_location_access_restrictions_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -588,7 +650,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     const auto &value_from = p_location_access_restrictions;
     typedef typename DataAccessProfile::LocationAccessRestrictionsType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setLocationAccessRestrictions(value)) return NULL;
 
     return obj_data_access_profile;
@@ -604,7 +667,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     const auto &value_from = p_location_access_restrictions;
     typedef typename DataAccessProfile::LocationAccessRestrictionsType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setLocationAccessRestrictions(std::move(value))) return NULL;
 

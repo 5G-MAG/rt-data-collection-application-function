@@ -224,6 +224,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_add
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_country(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getCountry().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_country(const data_collection_model_civic_address_t *obj_civic_address)
 {
     if (!obj_civic_address) {
@@ -239,7 +250,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::CountryType ResultFromType;
     const ResultFromType result_from = obj->getCountry();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -254,6 +265,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::CountryType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setCountry(value)) return NULL;
 
     return obj_civic_address;
@@ -270,11 +282,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::CountryType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setCountry(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_a1(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getA1().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_a1(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -291,7 +315,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::A1Type ResultFromType;
     const ResultFromType result_from = obj->getA1();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -306,6 +330,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::A1Type ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setA1(value)) return NULL;
 
     return obj_civic_address;
@@ -322,11 +347,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::A1Type ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setA1(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_a2(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getA2().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_a2(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -343,7 +380,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::A2Type ResultFromType;
     const ResultFromType result_from = obj->getA2();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -358,6 +395,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::A2Type ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setA2(value)) return NULL;
 
     return obj_civic_address;
@@ -374,11 +412,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::A2Type ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setA2(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_a3(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getA3().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_a3(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -395,7 +445,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::A3Type ResultFromType;
     const ResultFromType result_from = obj->getA3();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -410,6 +460,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::A3Type ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setA3(value)) return NULL;
 
     return obj_civic_address;
@@ -426,11 +477,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::A3Type ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setA3(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_a4(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getA4().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_a4(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -447,7 +510,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::A4Type ResultFromType;
     const ResultFromType result_from = obj->getA4();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -462,6 +525,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::A4Type ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setA4(value)) return NULL;
 
     return obj_civic_address;
@@ -478,11 +542,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::A4Type ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setA4(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_a5(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getA5().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_a5(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -499,7 +575,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::A5Type ResultFromType;
     const ResultFromType result_from = obj->getA5();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -514,6 +590,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::A5Type ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setA5(value)) return NULL;
 
     return obj_civic_address;
@@ -530,11 +607,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::A5Type ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setA5(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_a6(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getA6().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_a6(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -551,7 +640,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::A6Type ResultFromType;
     const ResultFromType result_from = obj->getA6();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -566,6 +655,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::A6Type ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setA6(value)) return NULL;
 
     return obj_civic_address;
@@ -582,11 +672,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::A6Type ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setA6(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_prd(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getPRD().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_prd(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -603,7 +705,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::PRDType ResultFromType;
     const ResultFromType result_from = obj->getPRD();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -618,6 +720,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::PRDType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setPRD(value)) return NULL;
 
     return obj_civic_address;
@@ -634,11 +737,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::PRDType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setPRD(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_pod(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getPOD().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_pod(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -655,7 +770,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::PODType ResultFromType;
     const ResultFromType result_from = obj->getPOD();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -670,6 +785,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::PODType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setPOD(value)) return NULL;
 
     return obj_civic_address;
@@ -686,11 +802,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::PODType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setPOD(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_sts(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getSTS().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_sts(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -707,7 +835,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::STSType ResultFromType;
     const ResultFromType result_from = obj->getSTS();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -722,6 +850,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::STSType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setSTS(value)) return NULL;
 
     return obj_civic_address;
@@ -738,11 +867,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::STSType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setSTS(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_hno(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getHNO().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_hno(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -759,7 +900,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::HNOType ResultFromType;
     const ResultFromType result_from = obj->getHNO();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -774,6 +915,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::HNOType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setHNO(value)) return NULL;
 
     return obj_civic_address;
@@ -790,11 +932,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::HNOType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setHNO(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_hns(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getHNS().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_hns(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -811,7 +965,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::HNSType ResultFromType;
     const ResultFromType result_from = obj->getHNS();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -826,6 +980,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::HNSType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setHNS(value)) return NULL;
 
     return obj_civic_address;
@@ -842,11 +997,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::HNSType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setHNS(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_lmk(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getLMK().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_lmk(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -863,7 +1030,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::LMKType ResultFromType;
     const ResultFromType result_from = obj->getLMK();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -878,6 +1045,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::LMKType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setLMK(value)) return NULL;
 
     return obj_civic_address;
@@ -894,11 +1062,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::LMKType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setLMK(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_loc(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getLOC().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_loc(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -915,7 +1095,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::LOCType ResultFromType;
     const ResultFromType result_from = obj->getLOC();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -930,6 +1110,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::LOCType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setLOC(value)) return NULL;
 
     return obj_civic_address;
@@ -946,11 +1127,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::LOCType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setLOC(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_nam(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getNAM().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_nam(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -967,7 +1160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::NAMType ResultFromType;
     const ResultFromType result_from = obj->getNAM();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -982,6 +1175,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::NAMType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setNAM(value)) return NULL;
 
     return obj_civic_address;
@@ -998,11 +1192,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::NAMType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setNAM(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_pc(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getPC().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_pc(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -1019,7 +1225,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::PCType ResultFromType;
     const ResultFromType result_from = obj->getPC();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -1034,6 +1240,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::PCType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setPC(value)) return NULL;
 
     return obj_civic_address;
@@ -1050,11 +1257,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::PCType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setPC(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_bld(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getBLD().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_bld(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -1071,7 +1290,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::BLDType ResultFromType;
     const ResultFromType result_from = obj->getBLD();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -1086,6 +1305,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::BLDType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setBLD(value)) return NULL;
 
     return obj_civic_address;
@@ -1102,11 +1322,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::BLDType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setBLD(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_unit(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getUNIT().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_unit(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -1123,7 +1355,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::UNITType ResultFromType;
     const ResultFromType result_from = obj->getUNIT();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -1138,6 +1370,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::UNITType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setUNIT(value)) return NULL;
 
     return obj_civic_address;
@@ -1154,11 +1387,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::UNITType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setUNIT(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_flr(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getFLR().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_flr(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -1175,7 +1420,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::FLRType ResultFromType;
     const ResultFromType result_from = obj->getFLR();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -1190,6 +1435,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::FLRType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setFLR(value)) return NULL;
 
     return obj_civic_address;
@@ -1206,11 +1452,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::FLRType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setFLR(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_room(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getROOM().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_room(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -1227,7 +1485,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::ROOMType ResultFromType;
     const ResultFromType result_from = obj->getROOM();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -1242,6 +1500,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::ROOMType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setROOM(value)) return NULL;
 
     return obj_civic_address;
@@ -1258,11 +1517,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::ROOMType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setROOM(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_plc(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getPLC().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_plc(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -1279,7 +1550,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::PLCType ResultFromType;
     const ResultFromType result_from = obj->getPLC();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -1294,6 +1565,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::PLCType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setPLC(value)) return NULL;
 
     return obj_civic_address;
@@ -1310,11 +1582,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::PLCType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setPLC(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_pcn(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getPCN().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_pcn(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -1331,7 +1615,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::PCNType ResultFromType;
     const ResultFromType result_from = obj->getPCN();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -1346,6 +1630,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::PCNType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setPCN(value)) return NULL;
 
     return obj_civic_address;
@@ -1362,11 +1647,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::PCNType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setPCN(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_pobox(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getPOBOX().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_pobox(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -1383,7 +1680,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::POBOXType ResultFromType;
     const ResultFromType result_from = obj->getPOBOX();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -1398,6 +1695,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::POBOXType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setPOBOX(value)) return NULL;
 
     return obj_civic_address;
@@ -1414,11 +1712,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::POBOXType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setPOBOX(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_addcode(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getADDCODE().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_addcode(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -1435,7 +1745,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::ADDCODEType ResultFromType;
     const ResultFromType result_from = obj->getADDCODE();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -1450,6 +1760,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::ADDCODEType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setADDCODE(value)) return NULL;
 
     return obj_civic_address;
@@ -1466,11 +1777,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::ADDCODEType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setADDCODE(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_seat(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getSEAT().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_seat(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -1487,7 +1810,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::SEATType ResultFromType;
     const ResultFromType result_from = obj->getSEAT();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -1502,6 +1825,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::SEATType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setSEAT(value)) return NULL;
 
     return obj_civic_address;
@@ -1518,11 +1842,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::SEATType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setSEAT(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_rd(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getRD().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_rd(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -1539,7 +1875,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::RDType ResultFromType;
     const ResultFromType result_from = obj->getRD();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -1554,6 +1890,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::RDType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setRD(value)) return NULL;
 
     return obj_civic_address;
@@ -1570,11 +1907,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::RDType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setRD(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_rdsec(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getRDSEC().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_rdsec(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -1591,7 +1940,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::RDSECType ResultFromType;
     const ResultFromType result_from = obj->getRDSEC();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -1606,6 +1955,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::RDSECType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setRDSEC(value)) return NULL;
 
     return obj_civic_address;
@@ -1622,11 +1972,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::RDSECType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setRDSEC(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_rdbr(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getRDBR().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_rdbr(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -1643,7 +2005,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::RDBRType ResultFromType;
     const ResultFromType result_from = obj->getRDBR();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -1658,6 +2020,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::RDBRType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setRDBR(value)) return NULL;
 
     return obj_civic_address;
@@ -1674,11 +2037,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::RDBRType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setRDBR(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_rdsubbr(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getRDSUBBR().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_rdsubbr(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -1695,7 +2070,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::RDSUBBRType ResultFromType;
     const ResultFromType result_from = obj->getRDSUBBR();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -1710,6 +2085,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::RDSUBBRType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setRDSUBBR(value)) return NULL;
 
     return obj_civic_address;
@@ -1726,11 +2102,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::RDSUBBRType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setRDSUBBR(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_prm(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getPRM().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_prm(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -1747,7 +2135,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::PRMType ResultFromType;
     const ResultFromType result_from = obj->getPRM();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -1762,6 +2150,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::PRMType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setPRM(value)) return NULL;
 
     return obj_civic_address;
@@ -1778,11 +2167,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::PRMType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setPRM(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_pom(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getPOM().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_pom(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -1799,7 +2200,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::POMType ResultFromType;
     const ResultFromType result_from = obj->getPOM();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -1814,6 +2215,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::POMType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setPOM(value)) return NULL;
 
     return obj_civic_address;
@@ -1830,11 +2232,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::POMType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setPOM(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_usage_rules(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getUsageRules().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_usage_rules(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -1851,7 +2265,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::UsageRulesType ResultFromType;
     const ResultFromType result_from = obj->getUsageRules();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -1866,6 +2280,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::UsageRulesType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setUsageRules(value)) return NULL;
 
     return obj_civic_address;
@@ -1882,11 +2297,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::UsageRulesType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setUsageRules(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_method(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getMethod().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_method(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -1903,7 +2330,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::MethodType ResultFromType;
     const ResultFromType result_from = obj->getMethod();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -1918,6 +2345,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::MethodType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setMethod(value)) return NULL;
 
     return obj_civic_address;
@@ -1934,11 +2362,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::MethodType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setMethod(std::move(value))) return NULL;
 
     return obj_civic_address;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_civic_address_has_provided_by(const data_collection_model_civic_address_t *obj_civic_address)
+{
+    if (!obj_civic_address) return false;
+
+    const std::shared_ptr<CivicAddress > &obj = *reinterpret_cast<const std::shared_ptr<CivicAddress >*>(obj_civic_address);
+    if (!obj) return false;
+
+    return obj->getProvidedBy().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_civic_address_get_provided_by(const data_collection_model_civic_address_t *obj_civic_address)
 {
@@ -1955,7 +2395,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
 
     typedef typename CivicAddress::ProvidedByType ResultFromType;
     const ResultFromType result_from = obj->getProvidedBy();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -1970,6 +2410,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::ProvidedByType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setProvidedBy(value)) return NULL;
 
     return obj_civic_address;
@@ -1986,6 +2427,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
     typedef typename CivicAddress::ProvidedByType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setProvidedBy(std::move(value))) return NULL;
 

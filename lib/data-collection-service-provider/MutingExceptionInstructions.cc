@@ -158,6 +158,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_muting_ex
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_muting_exception_instructions_has_buffered_notifs(const data_collection_model_muting_exception_instructions_t *obj_muting_exception_instructions)
+{
+    if (!obj_muting_exception_instructions) return false;
+
+    const std::shared_ptr<MutingExceptionInstructions > &obj = *reinterpret_cast<const std::shared_ptr<MutingExceptionInstructions >*>(obj_muting_exception_instructions);
+    if (!obj) return false;
+
+    return obj->getBufferedNotifs().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_buffered_notifications_action_t* data_collection_model_muting_exception_instructions_get_buffered_notifs(const data_collection_model_muting_exception_instructions_t *obj_muting_exception_instructions)
 {
     if (!obj_muting_exception_instructions) {
@@ -173,7 +184,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_buffered
 
     typedef typename MutingExceptionInstructions::BufferedNotifsType ResultFromType;
     const ResultFromType result_from = obj->getBufferedNotifs();
-    const data_collection_model_buffered_notifications_action_t *result = reinterpret_cast<const data_collection_model_buffered_notifications_action_t*>(&result_from);
+    const data_collection_model_buffered_notifications_action_t *result = reinterpret_cast<const data_collection_model_buffered_notifications_action_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -187,7 +198,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_excepti
     const auto &value_from = p_buffered_notifs;
     typedef typename MutingExceptionInstructions::BufferedNotifsType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setBufferedNotifs(value)) return NULL;
 
     return obj_muting_exception_instructions;
@@ -203,12 +215,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_excepti
     const auto &value_from = p_buffered_notifs;
     typedef typename MutingExceptionInstructions::BufferedNotifsType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setBufferedNotifs(std::move(value))) return NULL;
 
     return obj_muting_exception_instructions;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_muting_exception_instructions_has_subscription(const data_collection_model_muting_exception_instructions_t *obj_muting_exception_instructions)
+{
+    if (!obj_muting_exception_instructions) return false;
+
+    const std::shared_ptr<MutingExceptionInstructions > &obj = *reinterpret_cast<const std::shared_ptr<MutingExceptionInstructions >*>(obj_muting_exception_instructions);
+    if (!obj) return false;
+
+    return obj->getSubscription().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_subscription_action_t* data_collection_model_muting_exception_instructions_get_subscription(const data_collection_model_muting_exception_instructions_t *obj_muting_exception_instructions)
 {
@@ -225,7 +249,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_subscrip
 
     typedef typename MutingExceptionInstructions::SubscriptionType ResultFromType;
     const ResultFromType result_from = obj->getSubscription();
-    const data_collection_model_subscription_action_t *result = reinterpret_cast<const data_collection_model_subscription_action_t*>(&result_from);
+    const data_collection_model_subscription_action_t *result = reinterpret_cast<const data_collection_model_subscription_action_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -239,7 +263,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_excepti
     const auto &value_from = p_subscription;
     typedef typename MutingExceptionInstructions::SubscriptionType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setSubscription(value)) return NULL;
 
     return obj_muting_exception_instructions;
@@ -255,7 +280,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_excepti
     const auto &value_from = p_subscription;
     typedef typename MutingExceptionInstructions::SubscriptionType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setSubscription(std::move(value))) return NULL;
 

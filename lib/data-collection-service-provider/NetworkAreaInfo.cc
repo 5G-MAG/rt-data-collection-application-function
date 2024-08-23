@@ -164,6 +164,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_a
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_area_info_has_ecgis(const data_collection_model_network_area_info_t *obj_network_area_info)
+{
+    if (!obj_network_area_info) return false;
+
+    const std::shared_ptr<NetworkAreaInfo > &obj = *reinterpret_cast<const std::shared_ptr<NetworkAreaInfo >*>(obj_network_area_info);
+    if (!obj) return false;
+
+    return obj->getEcgis().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_network_area_info_get_ecgis(const data_collection_model_network_area_info_t *obj_network_area_info)
 {
     if (!obj_network_area_info) {
@@ -179,15 +190,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ne
 
     typedef typename NetworkAreaInfo::EcgisType ResultFromType;
     const ResultFromType result_from = obj->getEcgis();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_ecgi_t *item_obj = reinterpret_cast<data_collection_model_ecgi_t*>(new std::shared_ptr<Ecgi >(item));
-        node = data_collection_model_ecgi_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_ecgi_t *item_obj = reinterpret_cast<data_collection_model_ecgi_t*>(item.has_value()?new std::shared_ptr<Ecgi >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_ecgi_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -202,14 +217,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
     typedef typename NetworkAreaInfo::EcgisType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setEcgis(value)) return NULL;
 
     return obj_network_area_info;
@@ -226,14 +244,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
     typedef typename NetworkAreaInfo::EcgisType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_ecgis);
     if (!obj->setEcgis(std::move(value))) return NULL;
 
@@ -247,13 +268,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
     std::shared_ptr<NetworkAreaInfo > &obj = *reinterpret_cast<std::shared_ptr<NetworkAreaInfo >*>(obj_network_area_info);
     if (!obj) return NULL;
 
-    typedef typename NetworkAreaInfo::EcgisType ContainerType;
+    typedef typename NetworkAreaInfo::EcgisType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_ecgis;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addEcgis(value);
+
+    if (value) obj->addEcgis(value.value());
     return obj_network_area_info;
 }
 
@@ -264,10 +286,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
     std::shared_ptr<NetworkAreaInfo > &obj = *reinterpret_cast<std::shared_ptr<NetworkAreaInfo >*>(obj_network_area_info);
     if (!obj) return NULL;
 
-    typedef typename NetworkAreaInfo::EcgisType ContainerType;
+    typedef typename NetworkAreaInfo::EcgisType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_ecgis;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeEcgis(value);
     return obj_network_area_info;
 }
@@ -282,6 +305,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
     obj->clearEcgis();
     return obj_network_area_info;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_area_info_has_ncgis(const data_collection_model_network_area_info_t *obj_network_area_info)
+{
+    if (!obj_network_area_info) return false;
+
+    const std::shared_ptr<NetworkAreaInfo > &obj = *reinterpret_cast<const std::shared_ptr<NetworkAreaInfo >*>(obj_network_area_info);
+    if (!obj) return false;
+
+    return obj->getNcgis().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_network_area_info_get_ncgis(const data_collection_model_network_area_info_t *obj_network_area_info)
 {
@@ -298,15 +332,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ne
 
     typedef typename NetworkAreaInfo::NcgisType ResultFromType;
     const ResultFromType result_from = obj->getNcgis();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_ncgi_t *item_obj = reinterpret_cast<data_collection_model_ncgi_t*>(new std::shared_ptr<Ncgi >(item));
-        node = data_collection_model_ncgi_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_ncgi_t *item_obj = reinterpret_cast<data_collection_model_ncgi_t*>(item.has_value()?new std::shared_ptr<Ncgi >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_ncgi_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -321,14 +359,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
     typedef typename NetworkAreaInfo::NcgisType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setNcgis(value)) return NULL;
 
     return obj_network_area_info;
@@ -345,14 +386,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
     typedef typename NetworkAreaInfo::NcgisType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_ncgis);
     if (!obj->setNcgis(std::move(value))) return NULL;
 
@@ -366,13 +410,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
     std::shared_ptr<NetworkAreaInfo > &obj = *reinterpret_cast<std::shared_ptr<NetworkAreaInfo >*>(obj_network_area_info);
     if (!obj) return NULL;
 
-    typedef typename NetworkAreaInfo::NcgisType ContainerType;
+    typedef typename NetworkAreaInfo::NcgisType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_ncgis;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addNcgis(value);
+
+    if (value) obj->addNcgis(value.value());
     return obj_network_area_info;
 }
 
@@ -383,10 +428,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
     std::shared_ptr<NetworkAreaInfo > &obj = *reinterpret_cast<std::shared_ptr<NetworkAreaInfo >*>(obj_network_area_info);
     if (!obj) return NULL;
 
-    typedef typename NetworkAreaInfo::NcgisType ContainerType;
+    typedef typename NetworkAreaInfo::NcgisType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_ncgis;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeNcgis(value);
     return obj_network_area_info;
 }
@@ -401,6 +447,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
     obj->clearNcgis();
     return obj_network_area_info;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_area_info_has_g_ran_node_ids(const data_collection_model_network_area_info_t *obj_network_area_info)
+{
+    if (!obj_network_area_info) return false;
+
+    const std::shared_ptr<NetworkAreaInfo > &obj = *reinterpret_cast<const std::shared_ptr<NetworkAreaInfo >*>(obj_network_area_info);
+    if (!obj) return false;
+
+    return obj->getGRanNodeIds().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_network_area_info_get_g_ran_node_ids(const data_collection_model_network_area_info_t *obj_network_area_info)
 {
@@ -417,15 +474,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ne
 
     typedef typename NetworkAreaInfo::GRanNodeIdsType ResultFromType;
     const ResultFromType result_from = obj->getGRanNodeIds();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_global_ran_node_id_t *item_obj = reinterpret_cast<data_collection_model_global_ran_node_id_t*>(new std::shared_ptr<GlobalRanNodeId >(item));
-        node = data_collection_model_global_ran_node_id_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_global_ran_node_id_t *item_obj = reinterpret_cast<data_collection_model_global_ran_node_id_t*>(item.has_value()?new std::shared_ptr<GlobalRanNodeId >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_global_ran_node_id_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -440,14 +501,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
     typedef typename NetworkAreaInfo::GRanNodeIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setGRanNodeIds(value)) return NULL;
 
     return obj_network_area_info;
@@ -464,14 +528,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
     typedef typename NetworkAreaInfo::GRanNodeIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_g_ran_node_ids);
     if (!obj->setGRanNodeIds(std::move(value))) return NULL;
 
@@ -485,13 +552,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
     std::shared_ptr<NetworkAreaInfo > &obj = *reinterpret_cast<std::shared_ptr<NetworkAreaInfo >*>(obj_network_area_info);
     if (!obj) return NULL;
 
-    typedef typename NetworkAreaInfo::GRanNodeIdsType ContainerType;
+    typedef typename NetworkAreaInfo::GRanNodeIdsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_g_ran_node_ids;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addGRanNodeIds(value);
+
+    if (value) obj->addGRanNodeIds(value.value());
     return obj_network_area_info;
 }
 
@@ -502,10 +570,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
     std::shared_ptr<NetworkAreaInfo > &obj = *reinterpret_cast<std::shared_ptr<NetworkAreaInfo >*>(obj_network_area_info);
     if (!obj) return NULL;
 
-    typedef typename NetworkAreaInfo::GRanNodeIdsType ContainerType;
+    typedef typename NetworkAreaInfo::GRanNodeIdsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_g_ran_node_ids;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeGRanNodeIds(value);
     return obj_network_area_info;
 }
@@ -520,6 +589,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
     obj->clearGRanNodeIds();
     return obj_network_area_info;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_network_area_info_has_tais(const data_collection_model_network_area_info_t *obj_network_area_info)
+{
+    if (!obj_network_area_info) return false;
+
+    const std::shared_ptr<NetworkAreaInfo > &obj = *reinterpret_cast<const std::shared_ptr<NetworkAreaInfo >*>(obj_network_area_info);
+    if (!obj) return false;
+
+    return obj->getTais().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_network_area_info_get_tais(const data_collection_model_network_area_info_t *obj_network_area_info)
 {
@@ -536,15 +616,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ne
 
     typedef typename NetworkAreaInfo::TaisType ResultFromType;
     const ResultFromType result_from = obj->getTais();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_tai_t *item_obj = reinterpret_cast<data_collection_model_tai_t*>(new std::shared_ptr<Tai >(item));
-        node = data_collection_model_tai_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_tai_t *item_obj = reinterpret_cast<data_collection_model_tai_t*>(item.has_value()?new std::shared_ptr<Tai >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_tai_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -559,14 +643,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
     typedef typename NetworkAreaInfo::TaisType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setTais(value)) return NULL;
 
     return obj_network_area_info;
@@ -583,14 +670,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
     typedef typename NetworkAreaInfo::TaisType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_tais);
     if (!obj->setTais(std::move(value))) return NULL;
 
@@ -604,13 +694,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
     std::shared_ptr<NetworkAreaInfo > &obj = *reinterpret_cast<std::shared_ptr<NetworkAreaInfo >*>(obj_network_area_info);
     if (!obj) return NULL;
 
-    typedef typename NetworkAreaInfo::TaisType ContainerType;
+    typedef typename NetworkAreaInfo::TaisType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_tais;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addTais(value);
+
+    if (value) obj->addTais(value.value());
     return obj_network_area_info;
 }
 
@@ -621,10 +712,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
     std::shared_ptr<NetworkAreaInfo > &obj = *reinterpret_cast<std::shared_ptr<NetworkAreaInfo >*>(obj_network_area_info);
     if (!obj) return NULL;
 
-    typedef typename NetworkAreaInfo::TaisType ContainerType;
+    typedef typename NetworkAreaInfo::TaisType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_tais;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeTais(value);
     return obj_network_area_info;
 }

@@ -158,6 +158,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_ue_trajec
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue_trajectory_collection_get_ts(const data_collection_model_ue_trajectory_collection_t *obj_ue_trajectory_collection)
 {
     if (!obj_ue_trajectory_collection) {
@@ -188,6 +189,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_trajectory_
     typedef typename UeTrajectoryCollection::TsType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setTs(value)) return NULL;
 
     return obj_ue_trajectory_collection;
@@ -204,11 +206,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_trajectory_
     typedef typename UeTrajectoryCollection::TsType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setTs(std::move(value))) return NULL;
 
     return obj_ue_trajectory_collection;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location_area5_g_t* data_collection_model_ue_trajectory_collection_get_loc_area(const data_collection_model_ue_trajectory_collection_t *obj_ue_trajectory_collection)
 {
@@ -240,6 +244,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_trajectory_
     typedef typename UeTrajectoryCollection::LocAreaType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setLocArea(value)) return NULL;
 
     return obj_ue_trajectory_collection;
@@ -256,6 +261,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_trajectory_
     typedef typename UeTrajectoryCollection::LocAreaType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setLocArea(std::move(value))) return NULL;
 

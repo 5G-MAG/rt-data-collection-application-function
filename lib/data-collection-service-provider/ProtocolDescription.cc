@@ -162,6 +162,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_protocol_
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_protocol_description_has_transport_proto(const data_collection_model_protocol_description_t *obj_protocol_description)
+{
+    if (!obj_protocol_description) return false;
+
+    const std::shared_ptr<ProtocolDescription > &obj = *reinterpret_cast<const std::shared_ptr<ProtocolDescription >*>(obj_protocol_description);
+    if (!obj) return false;
+
+    return obj->getTransportProto().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_media_transport_proto_t* data_collection_model_protocol_description_get_transport_proto(const data_collection_model_protocol_description_t *obj_protocol_description)
 {
     if (!obj_protocol_description) {
@@ -177,7 +188,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_media_tr
 
     typedef typename ProtocolDescription::TransportProtoType ResultFromType;
     const ResultFromType result_from = obj->getTransportProto();
-    const data_collection_model_media_transport_proto_t *result = reinterpret_cast<const data_collection_model_media_transport_proto_t*>(&result_from);
+    const data_collection_model_media_transport_proto_t *result = reinterpret_cast<const data_collection_model_media_transport_proto_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -191,7 +202,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_descr
     const auto &value_from = p_transport_proto;
     typedef typename ProtocolDescription::TransportProtoType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setTransportProto(value)) return NULL;
 
     return obj_protocol_description;
@@ -207,12 +219,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_descr
     const auto &value_from = p_transport_proto;
     typedef typename ProtocolDescription::TransportProtoType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setTransportProto(std::move(value))) return NULL;
 
     return obj_protocol_description;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_protocol_description_has_rtp_header_ext_info(const data_collection_model_protocol_description_t *obj_protocol_description)
+{
+    if (!obj_protocol_description) return false;
+
+    const std::shared_ptr<ProtocolDescription > &obj = *reinterpret_cast<const std::shared_ptr<ProtocolDescription >*>(obj_protocol_description);
+    if (!obj) return false;
+
+    return obj->getRtpHeaderExtInfo().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_rtp_header_ext_info_t* data_collection_model_protocol_description_get_rtp_header_ext_info(const data_collection_model_protocol_description_t *obj_protocol_description)
 {
@@ -229,7 +253,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_rtp_head
 
     typedef typename ProtocolDescription::RtpHeaderExtInfoType ResultFromType;
     const ResultFromType result_from = obj->getRtpHeaderExtInfo();
-    const data_collection_model_rtp_header_ext_info_t *result = reinterpret_cast<const data_collection_model_rtp_header_ext_info_t*>(&result_from);
+    const data_collection_model_rtp_header_ext_info_t *result = reinterpret_cast<const data_collection_model_rtp_header_ext_info_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -243,7 +267,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_descr
     const auto &value_from = p_rtp_header_ext_info;
     typedef typename ProtocolDescription::RtpHeaderExtInfoType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setRtpHeaderExtInfo(value)) return NULL;
 
     return obj_protocol_description;
@@ -259,12 +284,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_descr
     const auto &value_from = p_rtp_header_ext_info;
     typedef typename ProtocolDescription::RtpHeaderExtInfoType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setRtpHeaderExtInfo(std::move(value))) return NULL;
 
     return obj_protocol_description;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_protocol_description_has_rtp_payload_info_list(const data_collection_model_protocol_description_t *obj_protocol_description)
+{
+    if (!obj_protocol_description) return false;
+
+    const std::shared_ptr<ProtocolDescription > &obj = *reinterpret_cast<const std::shared_ptr<ProtocolDescription >*>(obj_protocol_description);
+    if (!obj) return false;
+
+    return obj->getRtpPayloadInfoList().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_protocol_description_get_rtp_payload_info_list(const data_collection_model_protocol_description_t *obj_protocol_description)
 {
@@ -281,15 +318,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_pr
 
     typedef typename ProtocolDescription::RtpPayloadInfoListType ResultFromType;
     const ResultFromType result_from = obj->getRtpPayloadInfoList();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_rtp_payload_info_t *item_obj = reinterpret_cast<data_collection_model_rtp_payload_info_t*>(new std::shared_ptr<RtpPayloadInfo >(item));
-        node = data_collection_model_rtp_payload_info_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_rtp_payload_info_t *item_obj = reinterpret_cast<data_collection_model_rtp_payload_info_t*>(item.has_value()?new std::shared_ptr<RtpPayloadInfo >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_rtp_payload_info_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -304,14 +345,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_descr
     typedef typename ProtocolDescription::RtpPayloadInfoListType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setRtpPayloadInfoList(value)) return NULL;
 
     return obj_protocol_description;
@@ -328,14 +372,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_descr
     typedef typename ProtocolDescription::RtpPayloadInfoListType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_rtp_payload_info_list);
     if (!obj->setRtpPayloadInfoList(std::move(value))) return NULL;
 
@@ -349,13 +396,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_descr
     std::shared_ptr<ProtocolDescription > &obj = *reinterpret_cast<std::shared_ptr<ProtocolDescription >*>(obj_protocol_description);
     if (!obj) return NULL;
 
-    typedef typename ProtocolDescription::RtpPayloadInfoListType ContainerType;
+    typedef typename ProtocolDescription::RtpPayloadInfoListType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_rtp_payload_info_list;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addRtpPayloadInfoList(value);
+
+    if (value) obj->addRtpPayloadInfoList(value.value());
     return obj_protocol_description;
 }
 
@@ -366,10 +414,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_descr
     std::shared_ptr<ProtocolDescription > &obj = *reinterpret_cast<std::shared_ptr<ProtocolDescription >*>(obj_protocol_description);
     if (!obj) return NULL;
 
-    typedef typename ProtocolDescription::RtpPayloadInfoListType ContainerType;
+    typedef typename ProtocolDescription::RtpPayloadInfoListType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_rtp_payload_info_list;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeRtpPayloadInfoList(value);
     return obj_protocol_description;
 }

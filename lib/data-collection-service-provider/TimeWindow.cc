@@ -160,6 +160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_time_wind
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_time_window_get_start_time(const data_collection_model_time_window_t *obj_time_window)
 {
     if (!obj_time_window) {
@@ -190,6 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_time_window_t 
     typedef typename TimeWindow::StartTimeType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setStartTime(value)) return NULL;
 
     return obj_time_window;
@@ -206,11 +208,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_time_window_t 
     typedef typename TimeWindow::StartTimeType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setStartTime(std::move(value))) return NULL;
 
     return obj_time_window;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_time_window_get_stop_time(const data_collection_model_time_window_t *obj_time_window)
 {
@@ -242,6 +246,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_time_window_t 
     typedef typename TimeWindow::StopTimeType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setStopTime(value)) return NULL;
 
     return obj_time_window;
@@ -258,6 +263,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_time_window_t 
     typedef typename TimeWindow::StopTimeType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setStopTime(std::move(value))) return NULL;
 

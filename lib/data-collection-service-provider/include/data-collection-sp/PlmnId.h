@@ -44,11 +44,13 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_plmn_id_t *data_collectio
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_plmn_id_is_equal_to(const data_collection_model_plmn_id_t *plmn_id, const data_collection_model_plmn_id_t *other_plmn_id);
 
 
+
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_plmn_id_get_mcc(const data_collection_model_plmn_id_t *plmn_id);
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_plmn_id_t *data_collection_model_plmn_id_set_mcc(data_collection_model_plmn_id_t *plmn_id, const char* p_mcc);
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_plmn_id_t *data_collection_model_plmn_id_set_mcc_move(data_collection_model_plmn_id_t *plmn_id, char* p_mcc);
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_plmn_id_get_mnc(const data_collection_model_plmn_id_t *plmn_id);
 

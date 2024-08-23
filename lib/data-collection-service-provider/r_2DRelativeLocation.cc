@@ -160,6 +160,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_r_2_d_rel
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_r_2_d_relative_location_has_semi_minor(const data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location)
+{
+    if (!obj_r_2_d_relative_location) return false;
+
+    const std::shared_ptr<r_2DRelativeLocation > &obj = *reinterpret_cast<const std::shared_ptr<r_2DRelativeLocation >*>(obj_r_2_d_relative_location);
+    if (!obj) return false;
+
+    return obj->getSemiMinor().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_r_2_d_relative_location_get_semi_minor(const data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location)
 {
     if (!obj_r_2_d_relative_location) {
@@ -175,7 +186,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_r_
 
     typedef typename r_2DRelativeLocation::SemiMinorType ResultFromType;
     const ResultFromType result_from = obj->getSemiMinor();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -189,7 +200,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_r_2_d_relative
     const auto &value_from = p_semi_minor;
     typedef typename r_2DRelativeLocation::SemiMinorType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setSemiMinor(value)) return NULL;
 
     return obj_r_2_d_relative_location;
@@ -205,12 +217,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_r_2_d_relative
     const auto &value_from = p_semi_minor;
     typedef typename r_2DRelativeLocation::SemiMinorType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setSemiMinor(std::move(value))) return NULL;
 
     return obj_r_2_d_relative_location;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_r_2_d_relative_location_has_semi_major(const data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location)
+{
+    if (!obj_r_2_d_relative_location) return false;
+
+    const std::shared_ptr<r_2DRelativeLocation > &obj = *reinterpret_cast<const std::shared_ptr<r_2DRelativeLocation >*>(obj_r_2_d_relative_location);
+    if (!obj) return false;
+
+    return obj->getSemiMajor().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_r_2_d_relative_location_get_semi_major(const data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location)
 {
@@ -227,7 +251,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_r_
 
     typedef typename r_2DRelativeLocation::SemiMajorType ResultFromType;
     const ResultFromType result_from = obj->getSemiMajor();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -241,7 +265,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_r_2_d_relative
     const auto &value_from = p_semi_major;
     typedef typename r_2DRelativeLocation::SemiMajorType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setSemiMajor(value)) return NULL;
 
     return obj_r_2_d_relative_location;
@@ -257,12 +282,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_r_2_d_relative
     const auto &value_from = p_semi_major;
     typedef typename r_2DRelativeLocation::SemiMajorType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setSemiMajor(std::move(value))) return NULL;
 
     return obj_r_2_d_relative_location;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_r_2_d_relative_location_has_orientation_angle(const data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location)
+{
+    if (!obj_r_2_d_relative_location) return false;
+
+    const std::shared_ptr<r_2DRelativeLocation > &obj = *reinterpret_cast<const std::shared_ptr<r_2DRelativeLocation >*>(obj_r_2_d_relative_location);
+    if (!obj) return false;
+
+    return obj->getOrientationAngle().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_r_2_d_relative_location_get_orientation_angle(const data_collection_model_r_2_d_relative_location_t *obj_r_2_d_relative_location)
 {
@@ -279,7 +316,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename r_2DRelativeLocation::OrientationAngleType ResultFromType;
     const ResultFromType result_from = obj->getOrientationAngle();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -293,7 +330,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_r_2_d_relative
     const auto &value_from = p_orientation_angle;
     typedef typename r_2DRelativeLocation::OrientationAngleType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setOrientationAngle(value)) return NULL;
 
     return obj_r_2_d_relative_location;
@@ -309,7 +347,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_r_2_d_relative
     const auto &value_from = p_orientation_angle;
     typedef typename r_2DRelativeLocation::OrientationAngleType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setOrientationAngle(std::move(value))) return NULL;
 

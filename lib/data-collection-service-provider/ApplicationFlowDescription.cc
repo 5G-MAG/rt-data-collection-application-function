@@ -166,6 +166,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_applicati
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_sdf_method_t* data_collection_model_application_flow_description_get_filter_method(const data_collection_model_application_flow_description_t *obj_application_flow_description)
 {
     if (!obj_application_flow_description) {
@@ -196,6 +197,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_fl
     typedef typename ApplicationFlowDescription::FilterMethodType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setFilterMethod(value)) return NULL;
 
     return obj_application_flow_description;
@@ -212,11 +214,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_fl
     typedef typename ApplicationFlowDescription::FilterMethodType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setFilterMethod(std::move(value))) return NULL;
 
     return obj_application_flow_description;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_application_flow_description_has_packet_filter(const data_collection_model_application_flow_description_t *obj_application_flow_description)
+{
+    if (!obj_application_flow_description) return false;
+
+    const std::shared_ptr<ApplicationFlowDescription > &obj = *reinterpret_cast<const std::shared_ptr<ApplicationFlowDescription >*>(obj_application_flow_description);
+    if (!obj) return false;
+
+    return obj->getPacketFilter().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ip_packet_filter_set_t* data_collection_model_application_flow_description_get_packet_filter(const data_collection_model_application_flow_description_t *obj_application_flow_description)
 {
@@ -233,7 +247,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ip_packe
 
     typedef typename ApplicationFlowDescription::PacketFilterType ResultFromType;
     const ResultFromType result_from = obj->getPacketFilter();
-    const data_collection_model_ip_packet_filter_set_t *result = reinterpret_cast<const data_collection_model_ip_packet_filter_set_t*>(&result_from);
+    const data_collection_model_ip_packet_filter_set_t *result = reinterpret_cast<const data_collection_model_ip_packet_filter_set_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -247,7 +261,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_fl
     const auto &value_from = p_packet_filter;
     typedef typename ApplicationFlowDescription::PacketFilterType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setPacketFilter(value)) return NULL;
 
     return obj_application_flow_description;
@@ -263,12 +278,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_fl
     const auto &value_from = p_packet_filter;
     typedef typename ApplicationFlowDescription::PacketFilterType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setPacketFilter(std::move(value))) return NULL;
 
     return obj_application_flow_description;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_application_flow_description_has_domain_name(const data_collection_model_application_flow_description_t *obj_application_flow_description)
+{
+    if (!obj_application_flow_description) return false;
+
+    const std::shared_ptr<ApplicationFlowDescription > &obj = *reinterpret_cast<const std::shared_ptr<ApplicationFlowDescription >*>(obj_application_flow_description);
+    if (!obj) return false;
+
+    return obj->getDomainName().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_application_flow_description_get_domain_name(const data_collection_model_application_flow_description_t *obj_application_flow_description)
 {
@@ -285,7 +312,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ap
 
     typedef typename ApplicationFlowDescription::DomainNameType ResultFromType;
     const ResultFromType result_from = obj->getDomainName();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -300,6 +327,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_fl
     typedef typename ApplicationFlowDescription::DomainNameType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setDomainName(value)) return NULL;
 
     return obj_application_flow_description;
@@ -316,11 +344,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_fl
     typedef typename ApplicationFlowDescription::DomainNameType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setDomainName(std::move(value))) return NULL;
 
     return obj_application_flow_description;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_application_flow_description_has_media_type(const data_collection_model_application_flow_description_t *obj_application_flow_description)
+{
+    if (!obj_application_flow_description) return false;
+
+    const std::shared_ptr<ApplicationFlowDescription > &obj = *reinterpret_cast<const std::shared_ptr<ApplicationFlowDescription >*>(obj_application_flow_description);
+    if (!obj) return false;
+
+    return obj->getMediaType().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_media_type_t* data_collection_model_application_flow_description_get_media_type(const data_collection_model_application_flow_description_t *obj_application_flow_description)
 {
@@ -337,7 +377,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_media_ty
 
     typedef typename ApplicationFlowDescription::MediaTypeType ResultFromType;
     const ResultFromType result_from = obj->getMediaType();
-    const data_collection_model_media_type_t *result = reinterpret_cast<const data_collection_model_media_type_t*>(&result_from);
+    const data_collection_model_media_type_t *result = reinterpret_cast<const data_collection_model_media_type_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -351,7 +391,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_fl
     const auto &value_from = p_media_type;
     typedef typename ApplicationFlowDescription::MediaTypeType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setMediaType(value)) return NULL;
 
     return obj_application_flow_description;
@@ -367,12 +408,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_fl
     const auto &value_from = p_media_type;
     typedef typename ApplicationFlowDescription::MediaTypeType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setMediaType(std::move(value))) return NULL;
 
     return obj_application_flow_description;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_application_flow_description_has_media_transport_parameters(const data_collection_model_application_flow_description_t *obj_application_flow_description)
+{
+    if (!obj_application_flow_description) return false;
+
+    const std::shared_ptr<ApplicationFlowDescription > &obj = *reinterpret_cast<const std::shared_ptr<ApplicationFlowDescription >*>(obj_application_flow_description);
+    if (!obj) return false;
+
+    return obj->getMediaTransportParameters().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_protocol_description_t* data_collection_model_application_flow_description_get_media_transport_parameters(const data_collection_model_application_flow_description_t *obj_application_flow_description)
 {
@@ -389,7 +442,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_protocol
 
     typedef typename ApplicationFlowDescription::MediaTransportParametersType ResultFromType;
     const ResultFromType result_from = obj->getMediaTransportParameters();
-    const data_collection_model_protocol_description_t *result = reinterpret_cast<const data_collection_model_protocol_description_t*>(&result_from);
+    const data_collection_model_protocol_description_t *result = reinterpret_cast<const data_collection_model_protocol_description_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -403,7 +456,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_fl
     const auto &value_from = p_media_transport_parameters;
     typedef typename ApplicationFlowDescription::MediaTransportParametersType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setMediaTransportParameters(value)) return NULL;
 
     return obj_application_flow_description;
@@ -419,7 +473,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_fl
     const auto &value_from = p_media_transport_parameters;
     typedef typename ApplicationFlowDescription::MediaTransportParametersType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setMediaTransportParameters(std::move(value))) return NULL;
 

@@ -168,6 +168,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performan
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_time_window_t* data_collection_model_performance_data_record_all_of_get_time_interval(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
 {
     if (!obj_performance_data_record_all_of) {
@@ -198,6 +199,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceDataRecord_allOf::TimeIntervalType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setTimeInterval(value)) return NULL;
 
     return obj_performance_data_record_all_of;
@@ -214,11 +216,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceDataRecord_allOf::TimeIntervalType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setTimeInterval(std::move(value))) return NULL;
 
     return obj_performance_data_record_all_of;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_record_all_of_has_location(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
+{
+    if (!obj_performance_data_record_all_of) return false;
+
+    const std::shared_ptr<PerformanceDataRecord_allOf > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceDataRecord_allOf >*>(obj_performance_data_record_all_of);
+    if (!obj) return false;
+
+    return obj->getLocation().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location_area5_g_t* data_collection_model_performance_data_record_all_of_get_location(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
 {
@@ -235,7 +249,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location
 
     typedef typename PerformanceDataRecord_allOf::LocationType ResultFromType;
     const ResultFromType result_from = obj->getLocation();
-    const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(&result_from);
+    const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -249,7 +263,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_location;
     typedef typename PerformanceDataRecord_allOf::LocationType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setLocation(value)) return NULL;
 
     return obj_performance_data_record_all_of;
@@ -265,12 +280,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_location;
     typedef typename PerformanceDataRecord_allOf::LocationType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setLocation(std::move(value))) return NULL;
 
     return obj_performance_data_record_all_of;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_record_all_of_has_remote_endpoint(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
+{
+    if (!obj_performance_data_record_all_of) return false;
+
+    const std::shared_ptr<PerformanceDataRecord_allOf > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceDataRecord_allOf >*>(obj_performance_data_record_all_of);
+    if (!obj) return false;
+
+    return obj->getRemoteEndpoint().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_addr_fqdn_t* data_collection_model_performance_data_record_all_of_get_remote_endpoint(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
 {
@@ -287,7 +314,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_addr_fqd
 
     typedef typename PerformanceDataRecord_allOf::RemoteEndpointType ResultFromType;
     const ResultFromType result_from = obj->getRemoteEndpoint();
-    const data_collection_model_addr_fqdn_t *result = reinterpret_cast<const data_collection_model_addr_fqdn_t*>(&result_from);
+    const data_collection_model_addr_fqdn_t *result = reinterpret_cast<const data_collection_model_addr_fqdn_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -301,7 +328,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_remote_endpoint;
     typedef typename PerformanceDataRecord_allOf::RemoteEndpointType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setRemoteEndpoint(value)) return NULL;
 
     return obj_performance_data_record_all_of;
@@ -317,12 +345,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_remote_endpoint;
     typedef typename PerformanceDataRecord_allOf::RemoteEndpointType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setRemoteEndpoint(std::move(value))) return NULL;
 
     return obj_performance_data_record_all_of;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_record_all_of_has_packet_delay_budget(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
+{
+    if (!obj_performance_data_record_all_of) return false;
+
+    const std::shared_ptr<PerformanceDataRecord_allOf > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceDataRecord_allOf >*>(obj_performance_data_record_all_of);
+    if (!obj) return false;
+
+    return obj->getPacketDelayBudget().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_performance_data_record_all_of_get_packet_delay_budget(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
 {
@@ -339,7 +379,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename PerformanceDataRecord_allOf::PacketDelayBudgetType ResultFromType;
     const ResultFromType result_from = obj->getPacketDelayBudget();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -353,7 +393,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_packet_delay_budget;
     typedef typename PerformanceDataRecord_allOf::PacketDelayBudgetType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setPacketDelayBudget(value)) return NULL;
 
     return obj_performance_data_record_all_of;
@@ -369,12 +410,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_packet_delay_budget;
     typedef typename PerformanceDataRecord_allOf::PacketDelayBudgetType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setPacketDelayBudget(std::move(value))) return NULL;
 
     return obj_performance_data_record_all_of;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_record_all_of_has_packet_loss_rate(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
+{
+    if (!obj_performance_data_record_all_of) return false;
+
+    const std::shared_ptr<PerformanceDataRecord_allOf > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceDataRecord_allOf >*>(obj_performance_data_record_all_of);
+    if (!obj) return false;
+
+    return obj->getPacketLossRate().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_performance_data_record_all_of_get_packet_loss_rate(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
 {
@@ -391,7 +444,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename PerformanceDataRecord_allOf::PacketLossRateType ResultFromType;
     const ResultFromType result_from = obj->getPacketLossRate();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -405,7 +458,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_packet_loss_rate;
     typedef typename PerformanceDataRecord_allOf::PacketLossRateType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setPacketLossRate(value)) return NULL;
 
     return obj_performance_data_record_all_of;
@@ -421,12 +475,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     const auto &value_from = p_packet_loss_rate;
     typedef typename PerformanceDataRecord_allOf::PacketLossRateType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setPacketLossRate(std::move(value))) return NULL;
 
     return obj_performance_data_record_all_of;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_record_all_of_has_uplink_throughput(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
+{
+    if (!obj_performance_data_record_all_of) return false;
+
+    const std::shared_ptr<PerformanceDataRecord_allOf > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceDataRecord_allOf >*>(obj_performance_data_record_all_of);
+    if (!obj) return false;
+
+    return obj->getUplinkThroughput().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_performance_data_record_all_of_get_uplink_throughput(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
 {
@@ -443,7 +509,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
 
     typedef typename PerformanceDataRecord_allOf::UplinkThroughputType ResultFromType;
     const ResultFromType result_from = obj->getUplinkThroughput();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -458,6 +524,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceDataRecord_allOf::UplinkThroughputType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setUplinkThroughput(value)) return NULL;
 
     return obj_performance_data_record_all_of;
@@ -474,11 +541,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceDataRecord_allOf::UplinkThroughputType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setUplinkThroughput(std::move(value))) return NULL;
 
     return obj_performance_data_record_all_of;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_performance_data_record_all_of_has_downlink_througput(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
+{
+    if (!obj_performance_data_record_all_of) return false;
+
+    const std::shared_ptr<PerformanceDataRecord_allOf > &obj = *reinterpret_cast<const std::shared_ptr<PerformanceDataRecord_allOf >*>(obj_performance_data_record_all_of);
+    if (!obj) return false;
+
+    return obj->getDownlinkThrougput().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_performance_data_record_all_of_get_downlink_througput(const data_collection_model_performance_data_record_all_of_t *obj_performance_data_record_all_of)
 {
@@ -495,7 +574,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
 
     typedef typename PerformanceDataRecord_allOf::DownlinkThrougputType ResultFromType;
     const ResultFromType result_from = obj->getDownlinkThrougput();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -510,6 +589,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceDataRecord_allOf::DownlinkThrougputType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setDownlinkThrougput(value)) return NULL;
 
     return obj_performance_data_record_all_of;
@@ -526,6 +606,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     typedef typename PerformanceDataRecord_allOf::DownlinkThrougputType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setDownlinkThrougput(std::move(value))) return NULL;
 

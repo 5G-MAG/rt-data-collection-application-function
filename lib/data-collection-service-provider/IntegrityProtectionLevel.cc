@@ -158,6 +158,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_integrity
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_integrity_protection_level_get_horizontal_protection_level(const data_collection_model_integrity_protection_level_t *obj_integrity_protection_level)
 {
     if (!obj_integrity_protection_level) {
@@ -187,7 +188,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_prot
     const auto &value_from = p_horizontal_protection_level;
     typedef typename IntegrityProtectionLevel::HorizontalProtectionLevelType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setHorizontalProtectionLevel(value)) return NULL;
 
     return obj_integrity_protection_level;
@@ -203,12 +205,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_prot
     const auto &value_from = p_horizontal_protection_level;
     typedef typename IntegrityProtectionLevel::HorizontalProtectionLevelType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setHorizontalProtectionLevel(std::move(value))) return NULL;
 
     return obj_integrity_protection_level;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_integrity_protection_level_has_vertical_protection_level(const data_collection_model_integrity_protection_level_t *obj_integrity_protection_level)
+{
+    if (!obj_integrity_protection_level) return false;
+
+    const std::shared_ptr<IntegrityProtectionLevel > &obj = *reinterpret_cast<const std::shared_ptr<IntegrityProtectionLevel >*>(obj_integrity_protection_level);
+    if (!obj) return false;
+
+    return obj->getVerticalProtectionLevel().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_integrity_protection_level_get_vertical_protection_level(const data_collection_model_integrity_protection_level_t *obj_integrity_protection_level)
 {
@@ -225,7 +239,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename IntegrityProtectionLevel::VerticalProtectionLevelType ResultFromType;
     const ResultFromType result_from = obj->getVerticalProtectionLevel();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -239,7 +253,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_prot
     const auto &value_from = p_vertical_protection_level;
     typedef typename IntegrityProtectionLevel::VerticalProtectionLevelType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setVerticalProtectionLevel(value)) return NULL;
 
     return obj_integrity_protection_level;
@@ -255,7 +270,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_prot
     const auto &value_from = p_vertical_protection_level;
     typedef typename IntegrityProtectionLevel::VerticalProtectionLevelType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setVerticalProtectionLevel(std::move(value))) return NULL;
 

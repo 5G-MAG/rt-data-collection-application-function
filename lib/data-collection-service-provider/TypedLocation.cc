@@ -160,6 +160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_typed_loc
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_cell_identifier_type_t* data_collection_model_typed_location_get_location_identifier_type(const data_collection_model_typed_location_t *obj_typed_location)
 {
     if (!obj_typed_location) {
@@ -190,6 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_typed_location
     typedef typename TypedLocation::LocationIdentifierTypeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setLocationIdentifierType(value)) return NULL;
 
     return obj_typed_location;
@@ -206,11 +208,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_typed_location
     typedef typename TypedLocation::LocationIdentifierTypeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setLocationIdentifierType(std::move(value))) return NULL;
 
     return obj_typed_location;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_typed_location_get_location(const data_collection_model_typed_location_t *obj_typed_location)
 {
@@ -242,6 +246,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_typed_location
     typedef typename TypedLocation::LocationType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setLocation(value)) return NULL;
 
     return obj_typed_location;
@@ -258,6 +263,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_typed_location
     typedef typename TypedLocation::LocationType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setLocation(std::move(value))) return NULL;
 

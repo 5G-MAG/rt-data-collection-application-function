@@ -172,6 +172,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_global_ra
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_plmn_id_t* data_collection_model_global_ran_node_id_get_plmn_id(const data_collection_model_global_ran_node_id_t *obj_global_ran_node_id)
 {
     if (!obj_global_ran_node_id) {
@@ -202,6 +203,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
     typedef typename GlobalRanNodeId::PlmnIdType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setPlmnId(value)) return NULL;
 
     return obj_global_ran_node_id;
@@ -218,11 +220,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
     typedef typename GlobalRanNodeId::PlmnIdType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setPlmnId(std::move(value))) return NULL;
 
     return obj_global_ran_node_id;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_global_ran_node_id_has_n3_iwf_id(const data_collection_model_global_ran_node_id_t *obj_global_ran_node_id)
+{
+    if (!obj_global_ran_node_id) return false;
+
+    const std::shared_ptr<GlobalRanNodeId > &obj = *reinterpret_cast<const std::shared_ptr<GlobalRanNodeId >*>(obj_global_ran_node_id);
+    if (!obj) return false;
+
+    return obj->getN3IwfId().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_global_ran_node_id_get_n3_iwf_id(const data_collection_model_global_ran_node_id_t *obj_global_ran_node_id)
 {
@@ -239,7 +253,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_gl
 
     typedef typename GlobalRanNodeId::N3IwfIdType ResultFromType;
     const ResultFromType result_from = obj->getN3IwfId();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -254,6 +268,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
     typedef typename GlobalRanNodeId::N3IwfIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setN3IwfId(value)) return NULL;
 
     return obj_global_ran_node_id;
@@ -270,11 +285,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
     typedef typename GlobalRanNodeId::N3IwfIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setN3IwfId(std::move(value))) return NULL;
 
     return obj_global_ran_node_id;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_global_ran_node_id_has_gnb_id(const data_collection_model_global_ran_node_id_t *obj_global_ran_node_id)
+{
+    if (!obj_global_ran_node_id) return false;
+
+    const std::shared_ptr<GlobalRanNodeId > &obj = *reinterpret_cast<const std::shared_ptr<GlobalRanNodeId >*>(obj_global_ran_node_id);
+    if (!obj) return false;
+
+    return obj->getGNbId().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_gnb_id_t* data_collection_model_global_ran_node_id_get_gnb_id(const data_collection_model_global_ran_node_id_t *obj_global_ran_node_id)
 {
@@ -291,7 +318,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_gnb_id_t
 
     typedef typename GlobalRanNodeId::GNbIdType ResultFromType;
     const ResultFromType result_from = obj->getGNbId();
-    const data_collection_model_gnb_id_t *result = reinterpret_cast<const data_collection_model_gnb_id_t*>(&result_from);
+    const data_collection_model_gnb_id_t *result = reinterpret_cast<const data_collection_model_gnb_id_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -305,7 +332,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
     const auto &value_from = p_gnb_id;
     typedef typename GlobalRanNodeId::GNbIdType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setGNbId(value)) return NULL;
 
     return obj_global_ran_node_id;
@@ -321,12 +349,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
     const auto &value_from = p_gnb_id;
     typedef typename GlobalRanNodeId::GNbIdType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setGNbId(std::move(value))) return NULL;
 
     return obj_global_ran_node_id;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_global_ran_node_id_has_nge_nb_id(const data_collection_model_global_ran_node_id_t *obj_global_ran_node_id)
+{
+    if (!obj_global_ran_node_id) return false;
+
+    const std::shared_ptr<GlobalRanNodeId > &obj = *reinterpret_cast<const std::shared_ptr<GlobalRanNodeId >*>(obj_global_ran_node_id);
+    if (!obj) return false;
+
+    return obj->getNgeNbId().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_global_ran_node_id_get_nge_nb_id(const data_collection_model_global_ran_node_id_t *obj_global_ran_node_id)
 {
@@ -343,7 +383,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_gl
 
     typedef typename GlobalRanNodeId::NgeNbIdType ResultFromType;
     const ResultFromType result_from = obj->getNgeNbId();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -358,6 +398,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
     typedef typename GlobalRanNodeId::NgeNbIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setNgeNbId(value)) return NULL;
 
     return obj_global_ran_node_id;
@@ -374,11 +415,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
     typedef typename GlobalRanNodeId::NgeNbIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setNgeNbId(std::move(value))) return NULL;
 
     return obj_global_ran_node_id;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_global_ran_node_id_has_wagf_id(const data_collection_model_global_ran_node_id_t *obj_global_ran_node_id)
+{
+    if (!obj_global_ran_node_id) return false;
+
+    const std::shared_ptr<GlobalRanNodeId > &obj = *reinterpret_cast<const std::shared_ptr<GlobalRanNodeId >*>(obj_global_ran_node_id);
+    if (!obj) return false;
+
+    return obj->getWagfId().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_global_ran_node_id_get_wagf_id(const data_collection_model_global_ran_node_id_t *obj_global_ran_node_id)
 {
@@ -395,7 +448,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_gl
 
     typedef typename GlobalRanNodeId::WagfIdType ResultFromType;
     const ResultFromType result_from = obj->getWagfId();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -410,6 +463,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
     typedef typename GlobalRanNodeId::WagfIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setWagfId(value)) return NULL;
 
     return obj_global_ran_node_id;
@@ -426,11 +480,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
     typedef typename GlobalRanNodeId::WagfIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setWagfId(std::move(value))) return NULL;
 
     return obj_global_ran_node_id;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_global_ran_node_id_has_tngf_id(const data_collection_model_global_ran_node_id_t *obj_global_ran_node_id)
+{
+    if (!obj_global_ran_node_id) return false;
+
+    const std::shared_ptr<GlobalRanNodeId > &obj = *reinterpret_cast<const std::shared_ptr<GlobalRanNodeId >*>(obj_global_ran_node_id);
+    if (!obj) return false;
+
+    return obj->getTngfId().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_global_ran_node_id_get_tngf_id(const data_collection_model_global_ran_node_id_t *obj_global_ran_node_id)
 {
@@ -447,7 +513,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_gl
 
     typedef typename GlobalRanNodeId::TngfIdType ResultFromType;
     const ResultFromType result_from = obj->getTngfId();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -462,6 +528,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
     typedef typename GlobalRanNodeId::TngfIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setTngfId(value)) return NULL;
 
     return obj_global_ran_node_id;
@@ -478,11 +545,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
     typedef typename GlobalRanNodeId::TngfIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setTngfId(std::move(value))) return NULL;
 
     return obj_global_ran_node_id;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_global_ran_node_id_has_nid(const data_collection_model_global_ran_node_id_t *obj_global_ran_node_id)
+{
+    if (!obj_global_ran_node_id) return false;
+
+    const std::shared_ptr<GlobalRanNodeId > &obj = *reinterpret_cast<const std::shared_ptr<GlobalRanNodeId >*>(obj_global_ran_node_id);
+    if (!obj) return false;
+
+    return obj->getNid().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_global_ran_node_id_get_nid(const data_collection_model_global_ran_node_id_t *obj_global_ran_node_id)
 {
@@ -499,7 +578,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_gl
 
     typedef typename GlobalRanNodeId::NidType ResultFromType;
     const ResultFromType result_from = obj->getNid();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -514,6 +593,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
     typedef typename GlobalRanNodeId::NidType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setNid(value)) return NULL;
 
     return obj_global_ran_node_id;
@@ -530,11 +610,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
     typedef typename GlobalRanNodeId::NidType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setNid(std::move(value))) return NULL;
 
     return obj_global_ran_node_id;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_global_ran_node_id_has_enb_id(const data_collection_model_global_ran_node_id_t *obj_global_ran_node_id)
+{
+    if (!obj_global_ran_node_id) return false;
+
+    const std::shared_ptr<GlobalRanNodeId > &obj = *reinterpret_cast<const std::shared_ptr<GlobalRanNodeId >*>(obj_global_ran_node_id);
+    if (!obj) return false;
+
+    return obj->getENbId().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_global_ran_node_id_get_enb_id(const data_collection_model_global_ran_node_id_t *obj_global_ran_node_id)
 {
@@ -551,7 +643,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_gl
 
     typedef typename GlobalRanNodeId::ENbIdType ResultFromType;
     const ResultFromType result_from = obj->getENbId();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -566,6 +658,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
     typedef typename GlobalRanNodeId::ENbIdType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setENbId(value)) return NULL;
 
     return obj_global_ran_node_id;
@@ -582,6 +675,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
     typedef typename GlobalRanNodeId::ENbIdType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setENbId(std::move(value))) return NULL;
 

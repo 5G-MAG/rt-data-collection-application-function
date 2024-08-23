@@ -164,6 +164,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_umt_locat
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_umt_location_area5_g_has_geographic_areas(const data_collection_model_umt_location_area5_g_t *obj_umt_location_area5_g)
+{
+    if (!obj_umt_location_area5_g) return false;
+
+    const std::shared_ptr<UmtLocationArea5G > &obj = *reinterpret_cast<const std::shared_ptr<UmtLocationArea5G >*>(obj_umt_location_area5_g);
+    if (!obj) return false;
+
+    return obj->getGeographicAreas().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_umt_location_area5_g_get_geographic_areas(const data_collection_model_umt_location_area5_g_t *obj_umt_location_area5_g)
 {
     if (!obj_umt_location_area5_g) {
@@ -179,15 +190,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_um
 
     typedef typename UmtLocationArea5G::GeographicAreasType ResultFromType;
     const ResultFromType result_from = obj->getGeographicAreas();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_geographic_area_t *item_obj = reinterpret_cast<data_collection_model_geographic_area_t*>(new std::shared_ptr<GeographicArea >(item));
-        node = data_collection_model_geographic_area_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_geographic_area_t *item_obj = reinterpret_cast<data_collection_model_geographic_area_t*>(item.has_value()?new std::shared_ptr<GeographicArea >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_geographic_area_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -202,14 +217,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
     typedef typename UmtLocationArea5G::GeographicAreasType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setGeographicAreas(value)) return NULL;
 
     return obj_umt_location_area5_g;
@@ -226,14 +244,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
     typedef typename UmtLocationArea5G::GeographicAreasType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_geographic_areas);
     if (!obj->setGeographicAreas(std::move(value))) return NULL;
 
@@ -247,13 +268,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
     std::shared_ptr<UmtLocationArea5G > &obj = *reinterpret_cast<std::shared_ptr<UmtLocationArea5G >*>(obj_umt_location_area5_g);
     if (!obj) return NULL;
 
-    typedef typename UmtLocationArea5G::GeographicAreasType ContainerType;
+    typedef typename UmtLocationArea5G::GeographicAreasType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_geographic_areas;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addGeographicAreas(value);
+
+    if (value) obj->addGeographicAreas(value.value());
     return obj_umt_location_area5_g;
 }
 
@@ -264,10 +286,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
     std::shared_ptr<UmtLocationArea5G > &obj = *reinterpret_cast<std::shared_ptr<UmtLocationArea5G >*>(obj_umt_location_area5_g);
     if (!obj) return NULL;
 
-    typedef typename UmtLocationArea5G::GeographicAreasType ContainerType;
+    typedef typename UmtLocationArea5G::GeographicAreasType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_geographic_areas;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeGeographicAreas(value);
     return obj_umt_location_area5_g;
 }
@@ -282,6 +305,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
     obj->clearGeographicAreas();
     return obj_umt_location_area5_g;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_umt_location_area5_g_has_civic_addresses(const data_collection_model_umt_location_area5_g_t *obj_umt_location_area5_g)
+{
+    if (!obj_umt_location_area5_g) return false;
+
+    const std::shared_ptr<UmtLocationArea5G > &obj = *reinterpret_cast<const std::shared_ptr<UmtLocationArea5G >*>(obj_umt_location_area5_g);
+    if (!obj) return false;
+
+    return obj->getCivicAddresses().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_umt_location_area5_g_get_civic_addresses(const data_collection_model_umt_location_area5_g_t *obj_umt_location_area5_g)
 {
@@ -298,15 +332,19 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_um
 
     typedef typename UmtLocationArea5G::CivicAddressesType ResultFromType;
     const ResultFromType result_from = obj->getCivicAddresses();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        data_collection_model_civic_address_t *item_obj = reinterpret_cast<data_collection_model_civic_address_t*>(new std::shared_ptr<CivicAddress >(item));
-        node = data_collection_model_civic_address_make_lnode(item_obj);
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
+        data_collection_lnode_t *node = nullptr;
+        data_collection_model_civic_address_t *item_obj = reinterpret_cast<data_collection_model_civic_address_t*>(item.has_value()?new std::shared_ptr<CivicAddress >(item.value()):nullptr);
+        if (item_obj) {
+    	node = data_collection_model_civic_address_make_lnode(item_obj);
+        }
         
-        ogs_list_add(result, node);
-    }
+        if (node) ogs_list_add(result, node);
+    }}
     return result;
 }
 
@@ -321,14 +359,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
     typedef typename UmtLocationArea5G::CivicAddressesType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     if (!obj->setCivicAddresses(value)) return NULL;
 
     return obj_umt_location_area5_g;
@@ -345,14 +386,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
     typedef typename UmtLocationArea5G::CivicAddressesType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(*reinterpret_cast<const ItemType*>(lnode->object));
+    	container.push_back(ItemType(std::move(*reinterpret_cast<const ItemType::value_type*>(lnode->object))));
     	
         }
     }
+
     data_collection_list_free(p_civic_addresses);
     if (!obj->setCivicAddresses(std::move(value))) return NULL;
 
@@ -366,13 +410,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
     std::shared_ptr<UmtLocationArea5G > &obj = *reinterpret_cast<std::shared_ptr<UmtLocationArea5G >*>(obj_umt_location_area5_g);
     if (!obj) return NULL;
 
-    typedef typename UmtLocationArea5G::CivicAddressesType ContainerType;
+    typedef typename UmtLocationArea5G::CivicAddressesType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_civic_addresses;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    obj->addCivicAddresses(value);
+
+    if (value) obj->addCivicAddresses(value.value());
     return obj_umt_location_area5_g;
 }
 
@@ -383,10 +428,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
     std::shared_ptr<UmtLocationArea5G > &obj = *reinterpret_cast<std::shared_ptr<UmtLocationArea5G >*>(obj_umt_location_area5_g);
     if (!obj) return NULL;
 
-    typedef typename UmtLocationArea5G::CivicAddressesType ContainerType;
+    typedef typename UmtLocationArea5G::CivicAddressesType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_civic_addresses;
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     obj->removeCivicAddresses(value);
     return obj_umt_location_area5_g;
 }
@@ -401,6 +447,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
     obj->clearCivicAddresses();
     return obj_umt_location_area5_g;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_umt_location_area5_g_has_nw_area_info(const data_collection_model_umt_location_area5_g_t *obj_umt_location_area5_g)
+{
+    if (!obj_umt_location_area5_g) return false;
+
+    const std::shared_ptr<UmtLocationArea5G > &obj = *reinterpret_cast<const std::shared_ptr<UmtLocationArea5G >*>(obj_umt_location_area5_g);
+    if (!obj) return false;
+
+    return obj->getNwAreaInfo().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_network_area_info_t* data_collection_model_umt_location_area5_g_get_nw_area_info(const data_collection_model_umt_location_area5_g_t *obj_umt_location_area5_g)
 {
@@ -417,7 +474,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_network_
 
     typedef typename UmtLocationArea5G::NwAreaInfoType ResultFromType;
     const ResultFromType result_from = obj->getNwAreaInfo();
-    const data_collection_model_network_area_info_t *result = reinterpret_cast<const data_collection_model_network_area_info_t*>(&result_from);
+    const data_collection_model_network_area_info_t *result = reinterpret_cast<const data_collection_model_network_area_info_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -431,7 +488,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
     const auto &value_from = p_nw_area_info;
     typedef typename UmtLocationArea5G::NwAreaInfoType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setNwAreaInfo(value)) return NULL;
 
     return obj_umt_location_area5_g;
@@ -447,12 +505,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
     const auto &value_from = p_nw_area_info;
     typedef typename UmtLocationArea5G::NwAreaInfoType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setNwAreaInfo(std::move(value))) return NULL;
 
     return obj_umt_location_area5_g;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_umt_location_area5_g_has_umt_time(const data_collection_model_umt_location_area5_g_t *obj_umt_location_area5_g)
+{
+    if (!obj_umt_location_area5_g) return false;
+
+    const std::shared_ptr<UmtLocationArea5G > &obj = *reinterpret_cast<const std::shared_ptr<UmtLocationArea5G >*>(obj_umt_location_area5_g);
+    if (!obj) return false;
+
+    return obj->getUmtTime().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_umt_location_area5_g_get_umt_time(const data_collection_model_umt_location_area5_g_t *obj_umt_location_area5_g)
 {
@@ -469,7 +539,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_um
 
     typedef typename UmtLocationArea5G::UmtTimeType ResultFromType;
     const ResultFromType result_from = obj->getUmtTime();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -484,6 +554,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
     typedef typename UmtLocationArea5G::UmtTimeType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setUmtTime(value)) return NULL;
 
     return obj_umt_location_area5_g;
@@ -500,11 +571,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
     typedef typename UmtLocationArea5G::UmtTimeType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setUmtTime(std::move(value))) return NULL;
 
     return obj_umt_location_area5_g;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_umt_location_area5_g_has_umt_duration(const data_collection_model_umt_location_area5_g_t *obj_umt_location_area5_g)
+{
+    if (!obj_umt_location_area5_g) return false;
+
+    const std::shared_ptr<UmtLocationArea5G > &obj = *reinterpret_cast<const std::shared_ptr<UmtLocationArea5G >*>(obj_umt_location_area5_g);
+    if (!obj) return false;
+
+    return obj->getUmtDuration().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_umt_location_area5_g_get_umt_duration(const data_collection_model_umt_location_area5_g_t *obj_umt_location_area5_g)
 {
@@ -521,7 +604,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename UmtLocationArea5G::UmtDurationType ResultFromType;
     const ResultFromType result_from = obj->getUmtDuration();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -535,7 +618,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
     const auto &value_from = p_umt_duration;
     typedef typename UmtLocationArea5G::UmtDurationType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setUmtDuration(value)) return NULL;
 
     return obj_umt_location_area5_g;
@@ -551,7 +635,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
     const auto &value_from = p_umt_duration;
     typedef typename UmtLocationArea5G::UmtDurationType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setUmtDuration(std::move(value))) return NULL;
 

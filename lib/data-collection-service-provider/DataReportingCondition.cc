@@ -170,6 +170,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_repo
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_reporting_condition_get_context_ids(const data_collection_model_data_reporting_condition_t *obj_data_reporting_condition)
 {
     if (!obj_data_reporting_condition) {
@@ -186,12 +187,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     typedef typename DataReportingCondition::ContextIdsType ResultFromType;
     const ResultFromType result_from = obj->getContextIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
+    
     typedef typename ResultFromType::value_type ItemType;
     for (const ItemType &item : result_from) {
-        data_collection_lnode_t *node;
-        node = data_collection_lnode_create(data_collection_strdup(item.c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free));
+        data_collection_lnode_t *node = nullptr;
+        node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
-        ogs_list_add(result, node);
+        if (node) ogs_list_add(result, node);
     }
     return result;
 }
@@ -207,14 +209,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     typedef typename DataReportingCondition::ContextIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     if (!obj->setContextIds(value)) return NULL;
 
     return obj_data_reporting_condition;
@@ -231,14 +236,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     typedef typename DataReportingCondition::ContextIdsType ValueType;
 
     ValueType value;
-    {
+    if (value_from) {
         data_collection_lnode_t *lnode;
         typedef typename ValueType::value_type ItemType;
+        
+        auto &container(value);
         ogs_list_for_each(value_from, lnode) {
-    	value.push_back(ItemType((const char *)lnode->object));
+    	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
         }
     }
+
     data_collection_list_free(p_context_ids);
     if (!obj->setContextIds(std::move(value))) return NULL;
 
@@ -258,6 +266,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(value_from);
 
+
     obj->addContextIds(value);
     return obj_data_reporting_condition;
 }
@@ -273,6 +282,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_context_ids;
     ValueType value(value_from);
+
     obj->removeContextIds(value);
     return obj_data_reporting_condition;
 }
@@ -287,6 +297,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     obj->clearContextIds();
     return obj_data_reporting_condition;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_reporting_condition_type_t* data_collection_model_data_reporting_condition_get_type(const data_collection_model_data_reporting_condition_t *obj_data_reporting_condition)
 {
@@ -318,6 +329,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     typedef typename DataReportingCondition::TypeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setType(value)) return NULL;
 
     return obj_data_reporting_condition;
@@ -334,11 +346,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     typedef typename DataReportingCondition::TypeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setType(std::move(value))) return NULL;
 
     return obj_data_reporting_condition;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_condition_has_period(const data_collection_model_data_reporting_condition_t *obj_data_reporting_condition)
+{
+    if (!obj_data_reporting_condition) return false;
+
+    const std::shared_ptr<DataReportingCondition > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingCondition >*>(obj_data_reporting_condition);
+    if (!obj) return false;
+
+    return obj->getPeriod().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_data_reporting_condition_get_period(const data_collection_model_data_reporting_condition_t *obj_data_reporting_condition)
 {
@@ -355,7 +379,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename DataReportingCondition::PeriodType ResultFromType;
     const ResultFromType result_from = obj->getPeriod();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -369,7 +393,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     const auto &value_from = p_period;
     typedef typename DataReportingCondition::PeriodType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setPeriod(value)) return NULL;
 
     return obj_data_reporting_condition;
@@ -385,12 +410,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     const auto &value_from = p_period;
     typedef typename DataReportingCondition::PeriodType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setPeriod(std::move(value))) return NULL;
 
     return obj_data_reporting_condition;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_condition_has_parameter(const data_collection_model_data_reporting_condition_t *obj_data_reporting_condition)
+{
+    if (!obj_data_reporting_condition) return false;
+
+    const std::shared_ptr<DataReportingCondition > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingCondition >*>(obj_data_reporting_condition);
+    if (!obj) return false;
+
+    return obj->getParameter().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_data_reporting_condition_get_parameter(const data_collection_model_data_reporting_condition_t *obj_data_reporting_condition)
 {
@@ -407,7 +444,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_da
 
     typedef typename DataReportingCondition::ParameterType ResultFromType;
     const ResultFromType result_from = obj->getParameter();
-    const char *result = result_from.c_str();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
 
@@ -422,6 +459,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     typedef typename DataReportingCondition::ParameterType ValueType;
 
     ValueType value(value_from);
+
     if (!obj->setParameter(value)) return NULL;
 
     return obj_data_reporting_condition;
@@ -438,11 +476,23 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     typedef typename DataReportingCondition::ParameterType ValueType;
 
     ValueType value(value_from);
+
     
     if (!obj->setParameter(std::move(value))) return NULL;
 
     return obj_data_reporting_condition;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_condition_has_threshold(const data_collection_model_data_reporting_condition_t *obj_data_reporting_condition)
+{
+    if (!obj_data_reporting_condition) return false;
+
+    const std::shared_ptr<DataReportingCondition > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingCondition >*>(obj_data_reporting_condition);
+    if (!obj) return false;
+
+    return obj->getThreshold().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_reporting_condition_threshold_t* data_collection_model_data_reporting_condition_get_threshold(const data_collection_model_data_reporting_condition_t *obj_data_reporting_condition)
 {
@@ -459,7 +509,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_rep
 
     typedef typename DataReportingCondition::ThresholdType ResultFromType;
     const ResultFromType result_from = obj->getThreshold();
-    const data_collection_model_data_reporting_condition_threshold_t *result = reinterpret_cast<const data_collection_model_data_reporting_condition_threshold_t*>(&result_from);
+    const data_collection_model_data_reporting_condition_threshold_t *result = reinterpret_cast<const data_collection_model_data_reporting_condition_threshold_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -473,7 +523,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     const auto &value_from = p_threshold;
     typedef typename DataReportingCondition::ThresholdType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setThreshold(value)) return NULL;
 
     return obj_data_reporting_condition;
@@ -489,12 +540,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     const auto &value_from = p_threshold;
     typedef typename DataReportingCondition::ThresholdType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setThreshold(std::move(value))) return NULL;
 
     return obj_data_reporting_condition;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_condition_has_report_when_below(const data_collection_model_data_reporting_condition_t *obj_data_reporting_condition)
+{
+    if (!obj_data_reporting_condition) return false;
+
+    const std::shared_ptr<DataReportingCondition > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingCondition >*>(obj_data_reporting_condition);
+    if (!obj) return false;
+
+    return obj->isReportWhenBelow().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_data_reporting_condition_is_report_when_below(const data_collection_model_data_reporting_condition_t *obj_data_reporting_condition)
 {
@@ -511,7 +574,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_dat
 
     typedef typename DataReportingCondition::ReportWhenBelowType ResultFromType;
     const ResultFromType result_from = obj->isReportWhenBelow();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -525,7 +588,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     const auto &value_from = p_report_when_below;
     typedef typename DataReportingCondition::ReportWhenBelowType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setReportWhenBelow(value)) return NULL;
 
     return obj_data_reporting_condition;
@@ -541,12 +605,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     const auto &value_from = p_report_when_below;
     typedef typename DataReportingCondition::ReportWhenBelowType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setReportWhenBelow(std::move(value))) return NULL;
 
     return obj_data_reporting_condition;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_condition_has_event_trigger(const data_collection_model_data_reporting_condition_t *obj_data_reporting_condition)
+{
+    if (!obj_data_reporting_condition) return false;
+
+    const std::shared_ptr<DataReportingCondition > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingCondition >*>(obj_data_reporting_condition);
+    if (!obj) return false;
+
+    return obj->getEventTrigger().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_reporting_event_trigger_t* data_collection_model_data_reporting_condition_get_event_trigger(const data_collection_model_data_reporting_condition_t *obj_data_reporting_condition)
 {
@@ -563,7 +639,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_rep
 
     typedef typename DataReportingCondition::EventTriggerType ResultFromType;
     const ResultFromType result_from = obj->getEventTrigger();
-    const data_collection_model_data_reporting_event_trigger_t *result = reinterpret_cast<const data_collection_model_data_reporting_event_trigger_t*>(&result_from);
+    const data_collection_model_data_reporting_event_trigger_t *result = reinterpret_cast<const data_collection_model_data_reporting_event_trigger_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
 
@@ -577,7 +653,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     const auto &value_from = p_event_trigger;
     typedef typename DataReportingCondition::EventTriggerType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     if (!obj->setEventTrigger(value)) return NULL;
 
     return obj_data_reporting_condition;
@@ -593,7 +670,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     const auto &value_from = p_event_trigger;
     typedef typename DataReportingCondition::EventTriggerType ValueType;
 
-    ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+    ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
+
     
     if (!obj->setEventTrigger(std::move(value))) return NULL;
 

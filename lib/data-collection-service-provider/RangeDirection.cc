@@ -160,6 +160,17 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_range_dir
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_range_direction_has_distance(const data_collection_model_range_direction_t *obj_range_direction)
+{
+    if (!obj_range_direction) return false;
+
+    const std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<const std::shared_ptr<RangeDirection >*>(obj_range_direction);
+    if (!obj) return false;
+
+    return obj->getDistance().has_value();
+}
+
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const double data_collection_model_range_direction_get_distance(const data_collection_model_range_direction_t *obj_range_direction)
 {
     if (!obj_range_direction) {
@@ -175,7 +186,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const double data_collection_model_r
 
     typedef typename RangeDirection::DistanceType ResultFromType;
     const ResultFromType result_from = obj->getDistance();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -189,7 +200,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_range_directio
     const auto &value_from = p_distance;
     typedef typename RangeDirection::DistanceType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setDistance(value)) return NULL;
 
     return obj_range_direction;
@@ -205,12 +217,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_range_directio
     const auto &value_from = p_distance;
     typedef typename RangeDirection::DistanceType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setDistance(std::move(value))) return NULL;
 
     return obj_range_direction;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_range_direction_has_azimuth_direction(const data_collection_model_range_direction_t *obj_range_direction)
+{
+    if (!obj_range_direction) return false;
+
+    const std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<const std::shared_ptr<RangeDirection >*>(obj_range_direction);
+    if (!obj) return false;
+
+    return obj->getAzimuthDirection().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_range_direction_get_azimuth_direction(const data_collection_model_range_direction_t *obj_range_direction)
 {
@@ -227,7 +251,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename RangeDirection::AzimuthDirectionType ResultFromType;
     const ResultFromType result_from = obj->getAzimuthDirection();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -241,7 +265,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_range_directio
     const auto &value_from = p_azimuth_direction;
     typedef typename RangeDirection::AzimuthDirectionType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setAzimuthDirection(value)) return NULL;
 
     return obj_range_direction;
@@ -257,12 +282,24 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_range_directio
     const auto &value_from = p_azimuth_direction;
     typedef typename RangeDirection::AzimuthDirectionType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setAzimuthDirection(std::move(value))) return NULL;
 
     return obj_range_direction;
 }
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_range_direction_has_elevation_direction(const data_collection_model_range_direction_t *obj_range_direction)
+{
+    if (!obj_range_direction) return false;
+
+    const std::shared_ptr<RangeDirection > &obj = *reinterpret_cast<const std::shared_ptr<RangeDirection >*>(obj_range_direction);
+    if (!obj) return false;
+
+    return obj->getElevationDirection().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_range_direction_get_elevation_direction(const data_collection_model_range_direction_t *obj_range_direction)
 {
@@ -279,7 +316,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
 
     typedef typename RangeDirection::ElevationDirectionType ResultFromType;
     const ResultFromType result_from = obj->getElevationDirection();
-    const ResultFromType result = result_from;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
 
@@ -293,7 +330,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_range_directio
     const auto &value_from = p_elevation_direction;
     typedef typename RangeDirection::ElevationDirectionType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setElevationDirection(value)) return NULL;
 
     return obj_range_direction;
@@ -309,7 +347,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_range_directio
     const auto &value_from = p_elevation_direction;
     typedef typename RangeDirection::ElevationDirectionType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setElevationDirection(std::move(value))) return NULL;
 

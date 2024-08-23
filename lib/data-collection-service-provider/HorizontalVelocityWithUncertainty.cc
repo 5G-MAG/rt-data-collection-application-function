@@ -160,6 +160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_horizonta
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_horizontal_velocity_with_uncertainty_get_h_speed(const data_collection_model_horizontal_velocity_with_uncertainty_t *obj_horizontal_velocity_with_uncertainty)
 {
     if (!obj_horizontal_velocity_with_uncertainty) {
@@ -189,7 +190,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_vel
     const auto &value_from = p_h_speed;
     typedef typename HorizontalVelocityWithUncertainty::HSpeedType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setHSpeed(value)) return NULL;
 
     return obj_horizontal_velocity_with_uncertainty;
@@ -205,12 +207,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_vel
     const auto &value_from = p_h_speed;
     typedef typename HorizontalVelocityWithUncertainty::HSpeedType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setHSpeed(std::move(value))) return NULL;
 
     return obj_horizontal_velocity_with_uncertainty;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_horizontal_velocity_with_uncertainty_get_bearing(const data_collection_model_horizontal_velocity_with_uncertainty_t *obj_horizontal_velocity_with_uncertainty)
 {
@@ -241,7 +245,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_vel
     const auto &value_from = p_bearing;
     typedef typename HorizontalVelocityWithUncertainty::BearingType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setBearing(value)) return NULL;
 
     return obj_horizontal_velocity_with_uncertainty;
@@ -257,12 +262,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_vel
     const auto &value_from = p_bearing;
     typedef typename HorizontalVelocityWithUncertainty::BearingType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setBearing(std::move(value))) return NULL;
 
     return obj_horizontal_velocity_with_uncertainty;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_horizontal_velocity_with_uncertainty_get_h_uncertainty(const data_collection_model_horizontal_velocity_with_uncertainty_t *obj_horizontal_velocity_with_uncertainty)
 {
@@ -293,7 +300,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_vel
     const auto &value_from = p_h_uncertainty;
     typedef typename HorizontalVelocityWithUncertainty::HUncertaintyType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setHUncertainty(value)) return NULL;
 
     return obj_horizontal_velocity_with_uncertainty;
@@ -309,7 +317,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_vel
     const auto &value_from = p_h_uncertainty;
     typedef typename HorizontalVelocityWithUncertainty::HUncertaintyType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setHUncertainty(std::move(value))) return NULL;
 

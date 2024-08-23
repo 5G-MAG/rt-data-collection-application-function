@@ -162,6 +162,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_point_alt
 }
 
 
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supported_gad_shapes_t* data_collection_model_point_altitude_get_shape(const data_collection_model_point_altitude_t *obj_point_altitude)
 {
     if (!obj_point_altitude) {
@@ -192,6 +193,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
     typedef typename PointAltitude::ShapeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setShape(value)) return NULL;
 
     return obj_point_altitude;
@@ -208,11 +210,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
     typedef typename PointAltitude::ShapeType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setShape(std::move(value))) return NULL;
 
     return obj_point_altitude;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geographical_coordinates_t* data_collection_model_point_altitude_get_point(const data_collection_model_point_altitude_t *obj_point_altitude)
 {
@@ -244,6 +248,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
     typedef typename PointAltitude::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     if (!obj->setPoint(value)) return NULL;
 
     return obj_point_altitude;
@@ -260,11 +265,13 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
     typedef typename PointAltitude::PointType ValueType;
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
+
     
     if (!obj->setPoint(std::move(value))) return NULL;
 
     return obj_point_altitude;
 }
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API const double data_collection_model_point_altitude_get_altitude(const data_collection_model_point_altitude_t *obj_point_altitude)
 {
@@ -295,7 +302,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
     const auto &value_from = p_altitude;
     typedef typename PointAltitude::AltitudeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     if (!obj->setAltitude(value)) return NULL;
 
     return obj_point_altitude;
@@ -311,7 +319,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
     const auto &value_from = p_altitude;
     typedef typename PointAltitude::AltitudeType ValueType;
 
-    ValueType value = value_from;
+    ValueType value(value_from);
+
     
     if (!obj->setAltitude(std::move(value))) return NULL;
 
