@@ -10,6 +10,8 @@
  * https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
  **********************************************************************************************************************************/
 
+#include <memory>
+#include <type_traits>
 
 #include "ogs-memory-helper.h"
 #include "utilities.h"
