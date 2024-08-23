@@ -26,7 +26,6 @@ extern "C" {
 
 static void __data_collection_adjust_sampling_rules(data_collection_model_data_reporting_session_t *data_reporting_session, ogs_hash_t *configurations, ogs_list_t *data_reporting_session_sampling_rules_data_domain, const char *data_domain, data_collection_reporting_client_type_e client_type);
 static void __adjust_sampling_rules(data_collection_model_data_reporting_session_t *data_reporting_session, ogs_list_t *configuration_sampling_rules, const char *configuration_id, ogs_list_t *data_reporting_session_sampling_rules_data_domain, const char *data_domain);
-static ogs_list_t *__sampling_rules_copy(ogs_list_t *sampling_rules_to_copy);
 
 /******* Private structures ********/
 
@@ -110,42 +109,16 @@ static void __adjust_sampling_rules(data_collection_model_data_reporting_session
 	        data_collection_model_data_sampling_rule_add_context_ids(data_reporting_session_sampling_rule, data_collection_strdup(configuration_id));	    
 	        	    
 	    } else {
-		//ogs_list_t *data_reporting_session_sampling_rules = __sampling_rules_copy(data_reporting_session_sampling_rules_data_domain);
 		data_collection_lnode_t *data_reporting_session_sampling_rule_node;
 		data_collection_model_data_sampling_rule_add_context_ids(config_sampling_rule, data_collection_strdup(configuration_id));    
 		data_reporting_session_sampling_rule_node = data_collection_model_data_sampling_rule_make_lnode(config_sampling_rule);
 		ogs_list_add(data_reporting_session_sampling_rules_data_domain, data_reporting_session_sampling_rule_node);
 		data_collection_reporting_session_add_sampling_rules(data_reporting_session, data_domain, data_reporting_session_sampling_rules_data_domain);
-	        /*
-		ogs_list_add(data_reporting_session_sampling_rules, data_reporting_session_sampling_rule);
-		data_collection_reporting_session_add_sampling_rules(data_reporting_session, data_domain, data_reporting_session_sampling_rules);
-		*/
 	    }
 	}
 
     }
 }
-
-static bool __data_collection_model_data_sampling_rule_is_equal_to(const data_collection_model_data_sampling_rule_t *first, const data_collection_model_data_sampling_rule_t *second)
-
-
-static ogs_list_t *__sampling_rules_copy(ogs_list_t *sampling_rules_to_copy) {
-
-     data_collection_lnode_t *sampling_rule_node;
-     ogs_list_t *sampling_rules;
-
-     sampling_rules = (ogs_list_t*) ogs_calloc(1,sizeof(*sampling_rules));
-     ogs_assert(sampling_rules);
-     ogs_list_init(sampling_rules);
-
-     ogs_list_for_each(sampling_rules_to_copy, sampling_rule_node) {
-	  data_collection_model_data_sampling_rule_t *sampling_rule = sampling_rule_node->object;    
-         ogs_list_add(sampling_rules, data_collection_lnode_create_ref(sampling_rule));	     
-     }
-     return sampling_rules;
-}
-
-
 
 #ifdef __cplusplus
 }
