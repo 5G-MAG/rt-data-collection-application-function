@@ -104,7 +104,7 @@ static void __adjust_sampling_rules(data_collection_model_data_reporting_session
         ogs_list_for_each(data_reporting_session_sampling_rules_data_domain, data_reporting_session_sampling_rule_node) {
 	    data_collection_model_data_sampling_rule_t *data_reporting_session_sampling_rule = data_reporting_session_sampling_rule_node->object;    
 
-            if(data_collection_model_data_sampling_rule_is_equal_to(data_reporting_session_sampling_rule, config_sampling_rule)) {
+            if(data_collection_model_data_sampling_rule_is_equal_to_sans_context_ids(data_reporting_session_sampling_rule, config_sampling_rule)) {
 
 	        data_collection_model_data_sampling_rule_add_context_ids(data_reporting_session_sampling_rule, data_collection_strdup(configuration_id));	    
 	        	    

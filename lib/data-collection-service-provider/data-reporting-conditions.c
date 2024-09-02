@@ -104,7 +104,7 @@ static void __adjust_reporting_conditions(data_collection_model_data_reporting_s
         ogs_list_for_each(data_reporting_session_reporting_conditions_data_domain, data_reporting_session_reporting_condition_node) {
 	    data_collection_model_data_reporting_condition_t *data_reporting_session_reporting_condition = data_reporting_session_reporting_condition_node->object;    
 
-	    if(data_collection_model_data_reporting_condition_is_equal_to(config_reporting_condition, data_reporting_session_reporting_condition)) {
+	    if(data_collection_model_data_reporting_condition_is_equal_to_sans_context_ids(config_reporting_condition, data_reporting_session_reporting_condition)) {
 	        data_collection_model_data_reporting_condition_add_context_ids(data_reporting_session_reporting_condition, data_collection_strdup(configuration_id));	    
 	        	    
 	    } else {
