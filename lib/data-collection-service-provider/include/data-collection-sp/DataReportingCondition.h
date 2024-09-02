@@ -115,6 +115,9 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_condition_
 /* lnode helper for generating ogs_list_t nodes's of type DataReportingCondition */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_data_reporting_condition_make_lnode(data_collection_model_data_reporting_condition_t *data_reporting_condition);
 
+/** Check if two DataReportingConditions are equal without checking the contextIds array */
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_condition_is_equal_to_sans_context_ids(const data_collection_model_data_reporting_condition_t *first, const data_collection_model_data_reporting_condition_t *second);
+
 /***** Internal library protected functions *****/
 
 #ifdef __cplusplus

@@ -87,6 +87,9 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_rule_t *da
 /* lnode helper for generating ogs_list_t nodes's of type DataReportingRule */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_data_reporting_rule_make_lnode(data_collection_model_data_reporting_rule_t *data_reporting_rule);
 
+/** Check if two DataReportingRules are equal without checking the contextIds array */
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_rule_is_equal_to_sans_context_ids(const data_collection_model_data_reporting_rule_t *first, const data_collection_model_data_reporting_rule_t *second);
+
 /***** Internal library protected functions *****/
 
 #ifdef __cplusplus
