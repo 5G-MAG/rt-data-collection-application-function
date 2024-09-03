@@ -94,7 +94,7 @@ data_collection_reporting_provisioning_session_parse_from_json(cJSON *json, cons
     /* Try to interpret JSON */
     data_collection_model_data_reporting_provisioning_session_t *oa_session = data_collection_model_data_reporting_provisioning_session_fromJSON(json, true, (char**)error_reason, &error_classname, (char**)error_parameter);
     if (!oa_session) {
-        if (error_parameter) *error_parameter = NULL; /* Until templates get "error_parameter" just NULL this */
+        ogs_error("Unable to parse JSON structure @ %s.%s: %s", error_classname, *error_parameter, *error_reason);
         goto err;
     }
 

@@ -814,7 +814,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                             if (error_parameter) {
                                                 invalid_params = nf_server_make_invalid_params(error_parameter, error_return);
                                             }
-                                            ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_BAD_REQUEST, 4,
+                                            ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_BAD_REQUEST, 0,
                                                                         &message, "Bad Request", err, NULL, invalid_params, NULL,
                                                                         api, app_meta));
                                             ogs_free(err);
@@ -959,9 +959,8 @@ static void __send_data_reporting_provisioning_session(ogs_sbi_stream_t *stream,
                                                           data_collection_self()->config.server_response_cache_control->data_collection_reporting_provisioning_session_response_max_age,
                                                           NULL /* Allow */, api, app_meta);
     ogs_assert(response);
-    nf_server_populate_response(response, strlen(body), body, OGS_SBI_HTTP_STATUS_OK);
+    nf_server_populate_response(response, strlen(body), body /*[transfer]*/, OGS_SBI_HTTP_STATUS_OK);
     ogs_assert(true == ogs_sbi_server_send_response(stream, response));
-    cJSON_free(body);
 }
 
 static bool __resource_updated(ogs_sbi_request_t *request, const char *etag, ogs_time_t last_modified)
