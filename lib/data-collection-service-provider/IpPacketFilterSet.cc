@@ -131,9 +131,15 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_ip_pack
 {
     if (!ip_packet_filter_set) return NULL;
     const std::shared_ptr<IpPacketFilterSet > &obj = *reinterpret_cast<const std::shared_ptr<IpPacketFilterSet >*>(ip_packet_filter_set);
-    if (!obj) return NULL;
-    fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
-    return json.exportCJSON();
+    if (obj) {
+        try {
+            fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
+            return json.exportCJSON();
+        } catch (const fiveg_mag_reftools::ModelException &err) {
+            ogs_error("Failed to convert data_collection_model_ip_packet_filter_set_t to cJSON [%s.%s]: %s", err.classname.c_str(), err.parameter.c_str(), err.what());
+        }
+    }
+    return NULL;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)

@@ -117,9 +117,15 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_point_a
 {
     if (!point_altitude_all_of) return NULL;
     const std::shared_ptr<PointAltitude_allOf > &obj = *reinterpret_cast<const std::shared_ptr<PointAltitude_allOf >*>(point_altitude_all_of);
-    if (!obj) return NULL;
-    fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
-    return json.exportCJSON();
+    if (obj) {
+        try {
+            fiveg_mag_reftools::CJson json(obj->toJSON(as_request));
+            return json.exportCJSON();
+        } catch (const fiveg_mag_reftools::ModelException &err) {
+            ogs_error("Failed to convert data_collection_model_point_altitude_all_of_t to cJSON [%s.%s]: %s", err.classname.c_str(), err.parameter.c_str(), err.what());
+        }
+    }
+    return NULL;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_all_of_t *data_collection_model_point_altitude_all_of_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter)
