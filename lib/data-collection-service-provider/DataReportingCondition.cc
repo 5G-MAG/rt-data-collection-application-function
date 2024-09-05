@@ -176,6 +176,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_repo
 }
 
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_reporting_condition_has_context_ids(const data_collection_model_data_reporting_condition_t *obj_data_reporting_condition)
+{
+    if (!obj_data_reporting_condition) return false;
+
+    const std::shared_ptr<DataReportingCondition > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingCondition >*>(obj_data_reporting_condition);
+    if (!obj) return false;
+
+    return obj->getContextIds().has_value();
+}
+
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_reporting_condition_get_context_ids(const data_collection_model_data_reporting_condition_t *obj_data_reporting_condition)
 {
@@ -192,15 +202,16 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
 
     typedef typename DataReportingCondition::ContextIdsType ResultFromType;
     const ResultFromType result_from = obj->getContextIds();
-    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
-    
-    typedef typename ResultFromType::value_type ItemType;
-    for (const ItemType &item : result_from) {
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+    if (result_from.has_value()) {
+
+    typedef typename ResultFromType::value_type::value_type ItemType;
+    for (const ItemType &item : result_from.value()) {
         data_collection_lnode_t *node = nullptr;
         node = item.has_value()?data_collection_lnode_create(data_collection_strdup(item.value().c_str()), reinterpret_cast<void(*)(void*)>(_ogs_free)):nullptr;
         
         if (node) ogs_list_add(result, node);
-    }
+    }}
     return result;
 }
 
@@ -217,9 +228,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     ValueType value;
     if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
-        
-        auto &container(value);
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
     	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
@@ -244,9 +255,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     ValueType value;
     if (value_from) {
         data_collection_lnode_t *lnode;
-        typedef typename ValueType::value_type ItemType;
-        
-        auto &container(value);
+        typedef typename ValueType::value_type::value_type ItemType;
+        value = std::move(typename ValueType::value_type());
+        auto &container(value.value());
         ogs_list_for_each(value_from, lnode) {
     	container.push_back(ItemType(std::move(typename ItemType::value_type((const char *)lnode->object))));
             
@@ -266,14 +277,14 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     std::shared_ptr<DataReportingCondition > &obj = *reinterpret_cast<std::shared_ptr<DataReportingCondition >*>(obj_data_reporting_condition);
     if (!obj) return NULL;
 
-    typedef typename DataReportingCondition::ContextIdsType ContainerType;
+    typedef typename DataReportingCondition::ContextIdsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     const auto &value_from = p_context_ids;
 
     ValueType value(value_from);
 
 
-    obj->addContextIds(value);
+    if (value) obj->addContextIds(value.value());
     return obj_data_reporting_condition;
 }
 
@@ -284,7 +295,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     std::shared_ptr<DataReportingCondition > &obj = *reinterpret_cast<std::shared_ptr<DataReportingCondition >*>(obj_data_reporting_condition);
     if (!obj) return NULL;
 
-    typedef typename DataReportingCondition::ContextIdsType ContainerType;
+    typedef typename DataReportingCondition::ContextIdsType::value_type ContainerType;
     typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_context_ids;
     ValueType value(value_from);
