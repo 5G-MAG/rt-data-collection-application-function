@@ -377,7 +377,7 @@ bool _data_report_process_event(ogs_event_t *e)
 					char *body;
 
 					data_reporting_session_populate(data_collection_reporting_session, data_reporting_session);
-                                        data_collection_model_data_reporting_session_free(data_reporting_session);
+                                        //data_collection_model_data_reporting_session_free(data_reporting_session);
 
 					data_collection_reporting_sess = data_collection_reporting_session_json(data_collection_reporting_session);
 
@@ -912,6 +912,7 @@ static void __send_data_reporting_configuration(ogs_sbi_stream_t *stream, ogs_sb
                                                 data_collection_reporting_configuration_t *configuration, int path_length,
                                                 const nf_server_interface_metadata_t *api, const nf_server_app_metadata_t *app_meta)
 {
+    char *location;
     cJSON *json = data_collection_reporting_configuration_json(configuration);
     if (!json) {
         static const char *err = "Unable to convert DataReportingConfiguration to JSON";
@@ -923,8 +924,10 @@ static void __send_data_reporting_configuration(ogs_sbi_stream_t *stream, ogs_sb
 
     char *body = cJSON_Print(json);
     cJSON_Delete(json);
+    
+    location = ogs_msprintf("%s/%s", message->h.uri, data_collection_reporting_configuration_id(configuration));
 
-    ogs_sbi_response_t *response = nf_server_new_response(message->h.uri /* Location */, "application/json",
+    ogs_sbi_response_t *response = nf_server_new_response(location /* Location */, "application/json",
                                                           data_collection_reporting_configuration_last_modified(configuration),
                                                           data_collection_reporting_configuration_etag(configuration),
                                                           data_collection_self()->config.server_response_cache_control->data_collection_reporting_provisioning_session_response_max_age,
@@ -932,7 +935,8 @@ static void __send_data_reporting_configuration(ogs_sbi_stream_t *stream, ogs_sb
     ogs_assert(response);
     nf_server_populate_response(response, strlen(body), body, OGS_SBI_HTTP_STATUS_OK);
     ogs_assert(true == ogs_sbi_server_send_response(stream, response));
-    cJSON_free(body);
+    if(location) ogs_free(location);
+    //cJSON_free(body);
 }
 
 static void __send_data_reporting_provisioning_session(ogs_sbi_stream_t *stream, ogs_sbi_message_t *message,
@@ -940,6 +944,7 @@ static void __send_data_reporting_provisioning_session(ogs_sbi_stream_t *stream,
                                                 const nf_server_interface_metadata_t *api, const nf_server_app_metadata_t *app_meta)
 {
     cJSON *json = data_collection_reporting_provisioning_session_json(session);
+    char *location;
 
     if (!json) {
         static const char *err = "Unable to convert DataReportingProvisioningSession to JSON";
@@ -953,7 +958,9 @@ static void __send_data_reporting_provisioning_session(ogs_sbi_stream_t *stream,
     cJSON_Delete(json);
     json = NULL;
 
-    ogs_sbi_response_t *response = nf_server_new_response(message->h.uri /* Location */, "application/json",
+    location = ogs_msprintf("%s/%s", message->h.uri, data_collection_reporting_provisioning_session_id(session));
+
+    ogs_sbi_response_t *response = nf_server_new_response(location /* Location */, "application/json",
                                                           data_collection_reporting_provisioning_session_last_modified(session),
                                                           data_collection_reporting_provisioning_session_etag(session),
                                                           data_collection_self()->config.server_response_cache_control->data_collection_reporting_provisioning_session_response_max_age,
@@ -961,6 +968,7 @@ static void __send_data_reporting_provisioning_session(ogs_sbi_stream_t *stream,
     ogs_assert(response);
     nf_server_populate_response(response, strlen(body), body /*[transfer]*/, OGS_SBI_HTTP_STATUS_OK);
     ogs_assert(true == ogs_sbi_server_send_response(stream, response));
+    if(location) ogs_free(location);
 }
 
 static bool __resource_updated(ogs_sbi_request_t *request, const char *etag, ogs_time_t last_modified)

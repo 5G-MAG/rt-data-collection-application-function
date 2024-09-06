@@ -228,11 +228,16 @@ static void supported_domains_remove_all(data_domain_list_t *supported_domains)
 
 static void data_reporting_session_add_or_update_sampling_rules(data_collection_model_data_reporting_session_t *data_reporting_session, ogs_list_t *supported_domains, data_collection_reporting_client_type_e client_type)
 {
-    data_domain_node_t *data_domain_node;
+    //data_domain_node_t *data_domain_node;
     data_collection_data_report_handler_t *handler = NULL;
+    data_collection_lnode_t *node = NULL;
 
-    ogs_list_for_each(supported_domains, data_domain_node) {
-        handler = get_matching_data_report_handler(data_domain_node->data_domain);
+    ogs_list_for_each(supported_domains, node) {
+
+	data_collection_model_data_domain_t *data_domain_object = node->object;
+        const char *data_domain = data_collection_model_data_domain_get_string(data_domain_object);
+    
+        handler = get_matching_data_report_handler(data_domain);
 	if(handler) {
 	    ogs_hash_t *data_reporting_session_sampling_rules;	
 	    ogs_list_t *data_reporting_session_sampling_rules_data_domain = NULL;
@@ -242,7 +247,9 @@ static void data_reporting_session_add_or_update_sampling_rules(data_collection_
 
 	    data_reporting_session_sampling_rules = data_collection_model_data_reporting_session_get_sampling_rules(data_reporting_session);
 
-            data_reporting_session_sampling_rules_data_domain = ogs_hash_get(data_reporting_session_sampling_rules, data_domain_node->data_domain, OGS_HASH_KEY_STRING);
+            if(data_reporting_session_sampling_rules) {
+	        data_reporting_session_sampling_rules_data_domain = ogs_hash_get(data_reporting_session_sampling_rules, data_domain, OGS_HASH_KEY_STRING);
+            }
 
 	    if(!data_reporting_session_sampling_rules_data_domain || !ogs_list_first(data_reporting_session_sampling_rules_data_domain)) {
                  data_reporting_session_sampling_rules_data_domain = (ogs_list_t*) ogs_calloc(1,sizeof(*data_reporting_session_sampling_rules_data_domain));
@@ -250,7 +257,7 @@ static void data_reporting_session_add_or_update_sampling_rules(data_collection_
                  ogs_list_init(data_reporting_session_sampling_rules_data_domain);
 	    }
             	    
-	    data_collection_adjust_sampling_rules(data_reporting_session, data_reporting_session_sampling_rules_data_domain, external_application_id, handler->event_type, data_domain_node->data_domain, client_type);
+	    data_collection_adjust_sampling_rules(data_reporting_session, data_reporting_session_sampling_rules_data_domain, external_application_id, handler->event_type, data_domain, client_type);
             /*
 	    ogs_list_t *data_reporting_provisioning_session_configurations;	
 	    data_reporting_configuration_sampling_rules = data_reporting_configuration_sampling_rules_get(data_collection_reporting_session->external_application_id, handler->event_type, data_collection_reporting_session->client_type);
@@ -270,11 +277,14 @@ static void data_reporting_session_add_or_update_sampling_rules(data_collection_
 
 static void data_reporting_session_add_or_update_reporting_rules(data_collection_model_data_reporting_session_t *data_reporting_session, ogs_list_t *supported_domains, data_collection_reporting_client_type_e client_type) 
 {
-    data_domain_node_t *data_domain_node;
+    //data_domain_node_t *data_domain_node;
     data_collection_data_report_handler_t *handler = NULL;
+    data_collection_lnode_t *node = NULL;
 
-    ogs_list_for_each(supported_domains, data_domain_node) {
-        handler = get_matching_data_report_handler(data_domain_node->data_domain);
+    ogs_list_for_each(supported_domains, node) {
+	data_collection_model_data_domain_t *data_domain_object = node->object;
+        const char *data_domain = data_collection_model_data_domain_get_string(data_domain_object);
+        handler = get_matching_data_report_handler(data_domain);
 	if(handler) {
 	    ogs_hash_t *data_reporting_session_reporting_rules;	
 	    ogs_list_t *data_reporting_session_reporting_rules_data_domain = NULL;
@@ -284,7 +294,10 @@ static void data_reporting_session_add_or_update_reporting_rules(data_collection
 
 	    data_reporting_session_reporting_rules = data_collection_model_data_reporting_session_get_reporting_rules(data_reporting_session);
 
-            data_reporting_session_reporting_rules_data_domain = ogs_hash_get(data_reporting_session_reporting_rules, data_domain_node->data_domain, OGS_HASH_KEY_STRING);
+	    if(data_reporting_session_reporting_rules) {
+
+                data_reporting_session_reporting_rules_data_domain = ogs_hash_get(data_reporting_session_reporting_rules, data_domain, OGS_HASH_KEY_STRING);
+            }
 
 	    if(!data_reporting_session_reporting_rules_data_domain || !ogs_list_first(data_reporting_session_reporting_rules_data_domain)) {
                  data_reporting_session_reporting_rules_data_domain = (ogs_list_t*) ogs_calloc(1,sizeof(*data_reporting_session_reporting_rules_data_domain));
@@ -292,7 +305,7 @@ static void data_reporting_session_add_or_update_reporting_rules(data_collection
                  ogs_list_init(data_reporting_session_reporting_rules_data_domain);
 	    }
             	    
-	    data_collection_adjust_reporting_rules(data_reporting_session, data_reporting_session_reporting_rules_data_domain, external_application_id, handler->event_type, data_domain_node->data_domain, client_type);
+	    data_collection_adjust_reporting_rules(data_reporting_session, data_reporting_session_reporting_rules_data_domain, external_application_id, handler->event_type, data_domain, client_type);
 	}
     }
 
@@ -300,11 +313,15 @@ static void data_reporting_session_add_or_update_reporting_rules(data_collection
 
 static void data_reporting_session_add_or_update_reporting_conditions(data_collection_model_data_reporting_session_t *data_reporting_session, ogs_list_t *supported_domains, data_collection_reporting_client_type_e client_type)
 {
-    data_domain_node_t *data_domain_node;
+    //data_domain_node_t *data_domain_node;
     data_collection_data_report_handler_t *handler = NULL;
-
-    ogs_list_for_each(supported_domains, data_domain_node) {
-        handler = get_matching_data_report_handler(data_domain_node->data_domain);
+    data_collection_lnode_t *node = NULL;
+    
+    ogs_list_for_each(supported_domains, node) {
+        data_collection_model_data_domain_t *data_domain_object = node->object;
+        const char *data_domain = data_collection_model_data_domain_get_string(data_domain_object);
+	    
+        handler = get_matching_data_report_handler(data_domain);
         if(handler) {
             ogs_hash_t *data_reporting_session_reporting_conditions;
             ogs_list_t *data_reporting_session_reporting_conditions_data_domain = NULL;
@@ -314,15 +331,16 @@ static void data_reporting_session_add_or_update_reporting_conditions(data_colle
 
             data_reporting_session_reporting_conditions = data_collection_model_data_reporting_session_get_reporting_conditions(data_reporting_session);
 
-            data_reporting_session_reporting_conditions_data_domain = ogs_hash_get(data_reporting_session_reporting_conditions, data_domain_node->data_domain, OGS_HASH_KEY_STRING);
-
+	    if(data_reporting_session_reporting_conditions) {
+                data_reporting_session_reporting_conditions_data_domain = ogs_hash_get(data_reporting_session_reporting_conditions, data_domain, OGS_HASH_KEY_STRING);
+            }
             if(!data_reporting_session_reporting_conditions_data_domain || !ogs_list_first(data_reporting_session_reporting_conditions_data_domain)) {
                  data_reporting_session_reporting_conditions_data_domain = (ogs_list_t*) ogs_calloc(1,sizeof(*data_reporting_session_reporting_conditions_data_domain));
                  ogs_assert(data_reporting_session_reporting_conditions_data_domain);
                  ogs_list_init(data_reporting_session_reporting_conditions_data_domain);
             }
 
-            data_collection_adjust_reporting_conditions(data_reporting_session, data_reporting_session_reporting_conditions_data_domain, external_application_id, handler->event_type, data_domain_node->data_domain, client_type);
+            data_collection_adjust_reporting_conditions(data_reporting_session, data_reporting_session_reporting_conditions_data_domain, external_application_id, handler->event_type, data_domain, client_type);
         }
     }
 

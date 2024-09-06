@@ -115,7 +115,7 @@ data_collection_reporting_provisioning_session_parse_from_json(cJSON *json, cons
     __restamp_session(session);
 
     ogs_hash_set(data_collection_self()->data_reporting_provisioning_sessions,
-                data_collection_model_data_reporting_provisioning_session_get_provisioning_session_id(session->session),
+                data_collection_strdup(data_collection_model_data_reporting_provisioning_session_get_provisioning_session_id(session->session)),
                 OGS_HASH_KEY_STRING, session);
 
     return session;

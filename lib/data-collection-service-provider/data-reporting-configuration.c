@@ -10,7 +10,7 @@
  */
 
 #include "hash.h"
-
+#include "utilities.h"
 #include "data-reporting-configuration.h"
 #include "data-collection-sp/data-collection.h"
 
@@ -18,6 +18,9 @@
 
 static void __reporting_configuration_new_uuid(data_collection_reporting_configuration_t *config);
 static void __reporting_configuration_update_cache_params(data_collection_reporting_configuration_t *config);
+static void __provisioning_configuration_data_sampling_rules_add_context_ids(data_collection_model_data_reporting_configuration_t *data_reporting_configuration); 
+static void __provisioning_configuration_data_reporting_rules_add_context_ids(data_collection_model_data_reporting_configuration_t *data_reporting_configuration);
+static void __provisioning_configuration_data_reporting_conditions_add_context_ids(data_collection_model_data_reporting_configuration_t *data_reporting_configuration);
 
 /***** Enumerations *****/
 
@@ -108,6 +111,20 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_configuration_t *data
         /* need a new id */
         __reporting_configuration_new_uuid(ret);
     }
+
+    
+
+    if(data_collection_model_data_reporting_configuration_has_data_sampling_rules(ret->model)) {
+         __provisioning_configuration_data_sampling_rules_add_context_ids(ret->model); 
+    }
+    
+
+    if( data_collection_model_data_reporting_configuration_has_data_reporting_rules(ret->model)) {
+        __provisioning_configuration_data_reporting_rules_add_context_ids(ret->model);
+	    
+    }
+
+    __provisioning_configuration_data_reporting_conditions_add_context_ids(ret->model);
 
     __reporting_configuration_update_cache_params(ret);
 
@@ -269,6 +286,60 @@ static void __reporting_configuration_update_cache_params(data_collection_report
     config->etag = calculate_hash(data);
     cJSON_free(data);
 }
+
+static void __provisioning_configuration_data_sampling_rules_add_context_ids(data_collection_model_data_reporting_configuration_t *data_reporting_configuration){
+
+    ogs_list_t *configuration_sampling_rules;
+    configuration_sampling_rules = data_collection_model_data_reporting_configuration_get_data_sampling_rules(data_reporting_configuration);
+    if(configuration_sampling_rules) {
+        data_collection_lnode_t *configuration_sampling_rule_node;
+        const char *configuration_id;
+        
+        ogs_list_for_each(configuration_sampling_rules, configuration_sampling_rule_node) {
+            data_collection_model_data_sampling_rule_t *config_sampling_rule = configuration_sampling_rule_node->object;
+            
+            configuration_id = data_collection_model_data_reporting_configuration_get_data_reporting_configuration_id(data_reporting_configuration);
+            data_collection_model_data_sampling_rule_add_context_ids(config_sampling_rule, data_collection_strdup(configuration_id));
+        }
+    }
+
+
+}
+
+static void __provisioning_configuration_data_reporting_rules_add_context_ids(data_collection_model_data_reporting_configuration_t *data_reporting_configuration)
+{
+    ogs_list_t *configuration_reporting_rules;
+    configuration_reporting_rules = data_collection_model_data_reporting_configuration_get_data_reporting_rules(data_reporting_configuration);
+    if(configuration_reporting_rules) {
+        data_collection_lnode_t *configuration_reporting_rule_node;
+	const char *configuration_id;
+        
+	ogs_list_for_each(configuration_reporting_rules, configuration_reporting_rule_node) {
+            data_collection_model_data_reporting_rule_t *config_reporting_rule = configuration_reporting_rule_node->object;
+  	    
+            configuration_id = data_collection_model_data_reporting_configuration_get_data_reporting_configuration_id(data_reporting_configuration);
+	    data_collection_model_data_reporting_rule_add_context_ids(config_reporting_rule, data_collection_strdup(configuration_id));
+        }
+    }
+}
+
+static void __provisioning_configuration_data_reporting_conditions_add_context_ids(data_collection_model_data_reporting_configuration_t *data_reporting_configuration)
+{
+    ogs_list_t *configuration_reporting_conditions;
+    configuration_reporting_conditions = data_collection_model_data_reporting_configuration_get_data_reporting_conditions(data_reporting_configuration);
+    if(configuration_reporting_conditions) {
+        data_collection_lnode_t *configuration_reporting_condition_node;
+        const char *configuration_id;
+        
+        ogs_list_for_each(configuration_reporting_conditions, configuration_reporting_condition_node) {
+            data_collection_model_data_reporting_condition_t *config_reporting_condition = configuration_reporting_condition_node->object;
+            
+            configuration_id = data_collection_model_data_reporting_configuration_get_data_reporting_configuration_id(data_reporting_configuration);
+            data_collection_model_data_reporting_condition_add_context_ids(config_reporting_condition, data_collection_strdup(configuration_id));
+        }
+    }
+}
+	
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */
