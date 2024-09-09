@@ -181,7 +181,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename Snssai::SstType ResultFromType;
-    const ResultFromType result_from = obj->getSst();
+    const ResultFromType &result_from = obj->getSst();
     const ResultFromType result = result_from;
     return result;
 }
@@ -246,7 +246,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_sn
     }
 
     typedef typename Snssai::SdType ResultFromType;
-    const ResultFromType result_from = obj->getSd();
+    const ResultFromType &result_from = obj->getSd();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

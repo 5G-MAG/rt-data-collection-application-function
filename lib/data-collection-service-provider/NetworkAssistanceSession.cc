@@ -193,7 +193,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ne
     }
 
     typedef typename NetworkAssistanceSession::NaSessionIdType ResultFromType;
-    const ResultFromType result_from = obj->getNaSessionId();
+    const ResultFromType &result_from = obj->getNaSessionId();
     const char *result = result_from.c_str();
     return result;
 }
@@ -248,7 +248,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ne
     }
 
     typedef typename NetworkAssistanceSession::ProvisioningSessionIdType ResultFromType;
-    const ResultFromType result_from = obj->getProvisioningSessionId();
+    const ResultFromType &result_from = obj->getProvisioningSessionId();
     const char *result = result_from.c_str();
     return result;
 }
@@ -303,7 +303,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ne
     }
 
     typedef typename NetworkAssistanceSession::ServiceDataFlowDescriptionsType ResultFromType;
-    const ResultFromType result_from = obj->getServiceDataFlowDescriptions();
+    const ResultFromType &result_from = obj->getServiceDataFlowDescriptions();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;
@@ -444,7 +444,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_media_ty
     }
 
     typedef typename NetworkAssistanceSession::MediaTypeType ResultFromType;
-    const ResultFromType result_from = obj->getMediaType();
+    const ResultFromType &result_from = obj->getMediaType();
     const data_collection_model_media_type_t *result = reinterpret_cast<const data_collection_model_media_type_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -509,7 +509,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ne
     }
 
     typedef typename NetworkAssistanceSession::PolicyTemplateIdType ResultFromType;
-    const ResultFromType result_from = obj->getPolicyTemplateId();
+    const ResultFromType &result_from = obj->getPolicyTemplateId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -574,7 +574,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_m5_qo_s_
     }
 
     typedef typename NetworkAssistanceSession::RequestedQoSType ResultFromType;
-    const ResultFromType result_from = obj->getRequestedQoS();
+    const ResultFromType &result_from = obj->getRequestedQoS();
     const data_collection_model_m5_qo_s_specification_t *result = reinterpret_cast<const data_collection_model_m5_qo_s_specification_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -639,7 +639,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_m5_qo_s_
     }
 
     typedef typename NetworkAssistanceSession::RecommendedQoSType ResultFromType;
-    const ResultFromType result_from = obj->getRecommendedQoS();
+    const ResultFromType &result_from = obj->getRecommendedQoS();
     const data_collection_model_m5_qo_s_specification_t *result = reinterpret_cast<const data_collection_model_m5_qo_s_specification_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -704,7 +704,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ne
     }
 
     typedef typename NetworkAssistanceSession::NotficationURLType ResultFromType;
-    const ResultFromType result_from = obj->getNotficationURL();
+    const ResultFromType &result_from = obj->getNotficationURL();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

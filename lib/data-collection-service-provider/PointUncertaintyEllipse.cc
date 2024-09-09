@@ -185,7 +185,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supporte
     }
 
     typedef typename PointUncertaintyEllipse::ShapeType ResultFromType;
-    const ResultFromType result_from = obj->getShape();
+    const ResultFromType &result_from = obj->getShape();
     const data_collection_model_supported_gad_shapes_t *result = reinterpret_cast<const data_collection_model_supported_gad_shapes_t*>(&result_from);
     return result;
 }
@@ -240,7 +240,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geograph
     }
 
     typedef typename PointUncertaintyEllipse::PointType ResultFromType;
-    const ResultFromType result_from = obj->getPoint();
+    const ResultFromType &result_from = obj->getPoint();
     const data_collection_model_geographical_coordinates_t *result = reinterpret_cast<const data_collection_model_geographical_coordinates_t*>(&result_from);
     return result;
 }
@@ -295,7 +295,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_uncertai
     }
 
     typedef typename PointUncertaintyEllipse::UncertaintyEllipseType ResultFromType;
-    const ResultFromType result_from = obj->getUncertaintyEllipse();
+    const ResultFromType &result_from = obj->getUncertaintyEllipse();
     const data_collection_model_uncertainty_ellipse_t *result = reinterpret_cast<const data_collection_model_uncertainty_ellipse_t*>(&result_from);
     return result;
 }
@@ -350,7 +350,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename PointUncertaintyEllipse::ConfidenceType ResultFromType;
-    const ResultFromType result_from = obj->getConfidence();
+    const ResultFromType &result_from = obj->getConfidence();
     const ResultFromType result = result_from;
     return result;
 }

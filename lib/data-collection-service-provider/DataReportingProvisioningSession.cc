@@ -201,7 +201,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_da
     }
 
     typedef typename DataReportingProvisioningSession::ProvisioningSessionIdType ResultFromType;
-    const ResultFromType result_from = obj->getProvisioningSessionId();
+    const ResultFromType &result_from = obj->getProvisioningSessionId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -258,7 +258,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_da
     }
 
     typedef typename DataReportingProvisioningSession::AspIdType ResultFromType;
-    const ResultFromType result_from = obj->getAspId();
+    const ResultFromType &result_from = obj->getAspId();
     const char *result = result_from.c_str();
     return result;
 }
@@ -313,7 +313,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_da
     }
 
     typedef typename DataReportingProvisioningSession::ExternalApplicationIdType ResultFromType;
-    const ResultFromType result_from = obj->getExternalApplicationId();
+    const ResultFromType &result_from = obj->getExternalApplicationId();
     const char *result = result_from.c_str();
     return result;
 }
@@ -378,7 +378,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_da
     }
 
     typedef typename DataReportingProvisioningSession::InternalApplicationIdType ResultFromType;
-    const ResultFromType result_from = obj->getInternalApplicationId();
+    const ResultFromType &result_from = obj->getInternalApplicationId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -433,7 +433,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_af_event
     }
 
     typedef typename DataReportingProvisioningSession::EventIdType ResultFromType;
-    const ResultFromType result_from = obj->getEventId();
+    const ResultFromType &result_from = obj->getEventId();
     const data_collection_model_af_event_t *result = reinterpret_cast<const data_collection_model_af_event_t*>(&result_from);
     return result;
 }
@@ -498,7 +498,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataReportingProvisioningSession::DataReportingConfigurationIdsType ResultFromType;
-    const ResultFromType result_from = obj->getDataReportingConfigurationIds();
+    const ResultFromType &result_from = obj->getDataReportingConfigurationIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 

@@ -185,7 +185,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_ho
     }
 
     typedef typename HorizontalWithVerticalVelocity::HSpeedType ResultFromType;
-    const ResultFromType result_from = obj->getHSpeed();
+    const ResultFromType &result_from = obj->getHSpeed();
     const ResultFromType result = result_from;
     return result;
 }
@@ -240,7 +240,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename HorizontalWithVerticalVelocity::BearingType ResultFromType;
-    const ResultFromType result_from = obj->getBearing();
+    const ResultFromType &result_from = obj->getBearing();
     const ResultFromType result = result_from;
     return result;
 }
@@ -295,7 +295,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_ho
     }
 
     typedef typename HorizontalWithVerticalVelocity::VSpeedType ResultFromType;
-    const ResultFromType result_from = obj->getVSpeed();
+    const ResultFromType &result_from = obj->getVSpeed();
     const ResultFromType result = result_from;
     return result;
 }
@@ -350,7 +350,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_vertical
     }
 
     typedef typename HorizontalWithVerticalVelocity::VDirectionType ResultFromType;
-    const ResultFromType result_from = obj->getVDirection();
+    const ResultFromType &result_from = obj->getVDirection();
     const data_collection_model_vertical_direction_t *result = reinterpret_cast<const data_collection_model_vertical_direction_t*>(&result_from);
     return result;
 }

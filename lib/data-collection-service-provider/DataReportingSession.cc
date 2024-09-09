@@ -203,7 +203,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_da
     }
 
     typedef typename DataReportingSession::SessionIdType ResultFromType;
-    const ResultFromType result_from = obj->getSessionId();
+    const ResultFromType &result_from = obj->getSessionId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -272,7 +272,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_da
     }
 
     typedef typename DataReportingSession::ValidUntilType ResultFromType;
-    const ResultFromType result_from = obj->getValidUntil();
+    const ResultFromType &result_from = obj->getValidUntil();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -329,7 +329,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_da
     }
 
     typedef typename DataReportingSession::ExternalApplicationIdType ResultFromType;
-    const ResultFromType result_from = obj->getExternalApplicationId();
+    const ResultFromType &result_from = obj->getExternalApplicationId();
     const char *result = result_from.c_str();
     return result;
 }
@@ -384,7 +384,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataReportingSession::SupportedDomainsType ResultFromType;
-    const ResultFromType result_from = obj->getSupportedDomains();
+    const ResultFromType &result_from = obj->getSupportedDomains();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;
@@ -525,7 +525,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const ogs_hash_t* data_collection_mo
     }
 
     typedef typename DataReportingSession::SamplingRulesType ResultFromType;
-    const ResultFromType result_from = obj->getSamplingRules();
+    const ResultFromType &result_from = obj->getSamplingRules();
     ogs_hash_t *result = result_from.has_value()?ogs_hash_make():nullptr;
     if (result) {
         for (const auto &item : result_from.value()) {
@@ -728,7 +728,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const ogs_hash_t* data_collection_mo
     }
 
     typedef typename DataReportingSession::ReportingConditionsType ResultFromType;
-    const ResultFromType result_from = obj->getReportingConditions();
+    const ResultFromType &result_from = obj->getReportingConditions();
     ogs_hash_t *result = result_from.has_value()?ogs_hash_make():nullptr;
     if (result) {
         for (const auto &item : result_from.value()) {
@@ -931,7 +931,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const ogs_hash_t* data_collection_mo
     }
 
     typedef typename DataReportingSession::ReportingRulesType ResultFromType;
-    const ResultFromType result_from = obj->getReportingRules();
+    const ResultFromType &result_from = obj->getReportingRules();
     ogs_hash_t *result = result_from.has_value()?ogs_hash_make():nullptr;
     if (result) {
         for (const auto &item : result_from.value()) {

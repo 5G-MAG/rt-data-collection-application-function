@@ -183,7 +183,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_me
     }
 
     typedef typename MediaStreamingAccess_connectionMetrics::MeanNetworkRoundTripTimeType ResultFromType;
-    const ResultFromType result_from = obj->getMeanNetworkRoundTripTime();
+    const ResultFromType &result_from = obj->getMeanNetworkRoundTripTime();
     const ResultFromType result = result_from;
     return result;
 }
@@ -238,7 +238,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_me
     }
 
     typedef typename MediaStreamingAccess_connectionMetrics::NetworkRoundTripTimeVariationType ResultFromType;
-    const ResultFromType result_from = obj->getNetworkRoundTripTimeVariation();
+    const ResultFromType &result_from = obj->getNetworkRoundTripTimeVariation();
     const ResultFromType result = result_from;
     return result;
 }
@@ -293,7 +293,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename MediaStreamingAccess_connectionMetrics::CongestionWindowSizeType ResultFromType;
-    const ResultFromType result_from = obj->getCongestionWindowSize();
+    const ResultFromType &result_from = obj->getCongestionWindowSize();
     const ResultFromType result = result_from;
     return result;
 }

@@ -205,7 +205,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_event_re
     }
 
     typedef typename NetworkAssistanceInvocationEvent::RecordTypeType ResultFromType;
-    const ResultFromType result_from = obj->getRecordType();
+    const ResultFromType &result_from = obj->getRecordType();
     const data_collection_model_event_record_type_t *result = reinterpret_cast<const data_collection_model_event_record_type_t*>(&result_from);
     return result;
 }
@@ -260,7 +260,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ne
     }
 
     typedef typename NetworkAssistanceInvocationEvent::RecordTimestampType ResultFromType;
-    const ResultFromType result_from = obj->getRecordTimestamp();
+    const ResultFromType &result_from = obj->getRecordTimestamp();
     const char *result = result_from.c_str();
     return result;
 }
@@ -315,7 +315,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ne
     }
 
     typedef typename NetworkAssistanceInvocationEvent::AppIdType ResultFromType;
-    const ResultFromType result_from = obj->getAppId();
+    const ResultFromType &result_from = obj->getAppId();
     const char *result = result_from.c_str();
     return result;
 }
@@ -380,7 +380,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ne
     }
 
     typedef typename NetworkAssistanceInvocationEvent::ProvisioningSessionIdType ResultFromType;
-    const ResultFromType result_from = obj->getProvisioningSessionId();
+    const ResultFromType &result_from = obj->getProvisioningSessionId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -445,7 +445,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ne
     }
 
     typedef typename NetworkAssistanceInvocationEvent::SessionIdType ResultFromType;
-    const ResultFromType result_from = obj->getSessionId();
+    const ResultFromType &result_from = obj->getSessionId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -510,7 +510,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ne
     }
 
     typedef typename NetworkAssistanceInvocationEvent::UeIdentificationType ResultFromType;
-    const ResultFromType result_from = obj->getUeIdentification();
+    const ResultFromType &result_from = obj->getUeIdentification();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -575,7 +575,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ne
     }
 
     typedef typename NetworkAssistanceInvocationEvent::DataNetworkNameType ResultFromType;
-    const ResultFromType result_from = obj->getDataNetworkName();
+    const ResultFromType &result_from = obj->getDataNetworkName();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -640,7 +640,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_snssai_t
     }
 
     typedef typename NetworkAssistanceInvocationEvent::SliceIdType ResultFromType;
-    const ResultFromType result_from = obj->getSliceId();
+    const ResultFromType &result_from = obj->getSliceId();
     const data_collection_model_snssai_t *result = reinterpret_cast<const data_collection_model_snssai_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -705,7 +705,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ne
     }
 
     typedef typename NetworkAssistanceInvocationEvent::UeLocationsType ResultFromType;
-    const ResultFromType result_from = obj->getUeLocations();
+    const ResultFromType &result_from = obj->getUeLocations();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -837,7 +837,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_network_
     }
 
     typedef typename NetworkAssistanceInvocationEvent::NetworkAssistanceTypeType ResultFromType;
-    const ResultFromType result_from = obj->getNetworkAssistanceType();
+    const ResultFromType &result_from = obj->getNetworkAssistanceType();
     const data_collection_model_network_assistance_type_t *result = reinterpret_cast<const data_collection_model_network_assistance_type_t*>(&result_from);
     return result;
 }
@@ -902,7 +902,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ne
     }
 
     typedef typename NetworkAssistanceInvocationEvent::PolicyTemplateIdType ResultFromType;
-    const ResultFromType result_from = obj->getPolicyTemplateId();
+    const ResultFromType &result_from = obj->getPolicyTemplateId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -967,7 +967,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ne
     }
 
     typedef typename NetworkAssistanceInvocationEvent::ApplicationFlowDescriptionsType ResultFromType;
-    const ResultFromType result_from = obj->getApplicationFlowDescriptions();
+    const ResultFromType &result_from = obj->getApplicationFlowDescriptions();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -1109,7 +1109,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_unidirec
     }
 
     typedef typename NetworkAssistanceInvocationEvent::RequestedQoSType ResultFromType;
-    const ResultFromType result_from = obj->getRequestedQoS();
+    const ResultFromType &result_from = obj->getRequestedQoS();
     const data_collection_model_unidirectional_qo_s_specification_t *result = reinterpret_cast<const data_collection_model_unidirectional_qo_s_specification_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -1174,7 +1174,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_network_
     }
 
     typedef typename NetworkAssistanceInvocationEvent::RecommendedQoSType ResultFromType;
-    const ResultFromType result_from = obj->getRecommendedQoS();
+    const ResultFromType &result_from = obj->getRecommendedQoS();
     const data_collection_model_network_assistance_invocation_recommended_qo_s_t *result = reinterpret_cast<const data_collection_model_network_assistance_invocation_recommended_qo_s_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }

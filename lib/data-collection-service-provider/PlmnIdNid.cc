@@ -183,7 +183,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pl
     }
 
     typedef typename PlmnIdNid::MccType ResultFromType;
-    const ResultFromType result_from = obj->getMcc();
+    const ResultFromType &result_from = obj->getMcc();
     const char *result = result_from.c_str();
     return result;
 }
@@ -238,7 +238,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pl
     }
 
     typedef typename PlmnIdNid::MncType ResultFromType;
-    const ResultFromType result_from = obj->getMnc();
+    const ResultFromType &result_from = obj->getMnc();
     const char *result = result_from.c_str();
     return result;
 }
@@ -303,7 +303,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pl
     }
 
     typedef typename PlmnIdNid::NidType ResultFromType;
-    const ResultFromType result_from = obj->getNid();
+    const ResultFromType &result_from = obj->getNid();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

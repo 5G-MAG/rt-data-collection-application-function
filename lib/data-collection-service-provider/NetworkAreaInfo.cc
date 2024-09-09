@@ -195,7 +195,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ne
     }
 
     typedef typename NetworkAreaInfo::EcgisType ResultFromType;
-    const ResultFromType result_from = obj->getEcgis();
+    const ResultFromType &result_from = obj->getEcgis();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -337,7 +337,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ne
     }
 
     typedef typename NetworkAreaInfo::NcgisType ResultFromType;
-    const ResultFromType result_from = obj->getNcgis();
+    const ResultFromType &result_from = obj->getNcgis();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -479,7 +479,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ne
     }
 
     typedef typename NetworkAreaInfo::GRanNodeIdsType ResultFromType;
-    const ResultFromType result_from = obj->getGRanNodeIds();
+    const ResultFromType &result_from = obj->getGRanNodeIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -621,7 +621,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ne
     }
 
     typedef typename NetworkAreaInfo::TaisType ResultFromType;
-    const ResultFromType result_from = obj->getTais();
+    const ResultFromType &result_from = obj->getTais();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 

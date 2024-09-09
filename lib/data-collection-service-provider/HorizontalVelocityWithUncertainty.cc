@@ -183,7 +183,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_ho
     }
 
     typedef typename HorizontalVelocityWithUncertainty::HSpeedType ResultFromType;
-    const ResultFromType result_from = obj->getHSpeed();
+    const ResultFromType &result_from = obj->getHSpeed();
     const ResultFromType result = result_from;
     return result;
 }
@@ -238,7 +238,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename HorizontalVelocityWithUncertainty::BearingType ResultFromType;
-    const ResultFromType result_from = obj->getBearing();
+    const ResultFromType &result_from = obj->getBearing();
     const ResultFromType result = result_from;
     return result;
 }
@@ -293,7 +293,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_ho
     }
 
     typedef typename HorizontalVelocityWithUncertainty::HUncertaintyType ResultFromType;
-    const ResultFromType result_from = obj->getHUncertainty();
+    const ResultFromType &result_from = obj->getHUncertainty();
     const ResultFromType result = result_from;
     return result;
 }

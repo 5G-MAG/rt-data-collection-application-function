@@ -211,7 +211,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_cp
     }
 
     typedef typename CpParameterSet::SetIdType ResultFromType;
-    const ResultFromType result_from = obj->getSetId();
+    const ResultFromType &result_from = obj->getSetId();
     const char *result = result_from.c_str();
     return result;
 }
@@ -276,7 +276,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_cp
     }
 
     typedef typename CpParameterSet::SelfType ResultFromType;
-    const ResultFromType result_from = obj->getSelf();
+    const ResultFromType &result_from = obj->getSelf();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -341,7 +341,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_cp
     }
 
     typedef typename CpParameterSet::ValidityTimeType ResultFromType;
-    const ResultFromType result_from = obj->getValidityTime();
+    const ResultFromType &result_from = obj->getValidityTime();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -406,7 +406,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_communic
     }
 
     typedef typename CpParameterSet::PeriodicCommunicationIndicatorType ResultFromType;
-    const ResultFromType result_from = obj->getPeriodicCommunicationIndicator();
+    const ResultFromType &result_from = obj->getPeriodicCommunicationIndicator();
     const data_collection_model_communication_indicator_t *result = reinterpret_cast<const data_collection_model_communication_indicator_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -471,7 +471,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename CpParameterSet::CommunicationDurationTimeType ResultFromType;
-    const ResultFromType result_from = obj->getCommunicationDurationTime();
+    const ResultFromType &result_from = obj->getCommunicationDurationTime();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -536,7 +536,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename CpParameterSet::PeriodicTimeType ResultFromType;
-    const ResultFromType result_from = obj->getPeriodicTime();
+    const ResultFromType &result_from = obj->getPeriodicTime();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -601,7 +601,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_schedule
     }
 
     typedef typename CpParameterSet::ScheduledCommunicationTimeType ResultFromType;
-    const ResultFromType result_from = obj->getScheduledCommunicationTime();
+    const ResultFromType &result_from = obj->getScheduledCommunicationTime();
     const data_collection_model_scheduled_communication_time_t *result = reinterpret_cast<const data_collection_model_scheduled_communication_time_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -666,7 +666,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_schedule
     }
 
     typedef typename CpParameterSet::ScheduledCommunicationTypeType ResultFromType;
-    const ResultFromType result_from = obj->getScheduledCommunicationType();
+    const ResultFromType &result_from = obj->getScheduledCommunicationType();
     const data_collection_model_scheduled_communication_type_t *result = reinterpret_cast<const data_collection_model_scheduled_communication_type_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -731,7 +731,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_stationa
     }
 
     typedef typename CpParameterSet::StationaryIndicationType ResultFromType;
-    const ResultFromType result_from = obj->getStationaryIndication();
+    const ResultFromType &result_from = obj->getStationaryIndication();
     const data_collection_model_stationary_indication_t *result = reinterpret_cast<const data_collection_model_stationary_indication_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -796,7 +796,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_cp
     }
 
     typedef typename CpParameterSet::BatteryIndsType ResultFromType;
-    const ResultFromType result_from = obj->getBatteryInds();
+    const ResultFromType &result_from = obj->getBatteryInds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -938,7 +938,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_traffic_
     }
 
     typedef typename CpParameterSet::TrafficProfileType ResultFromType;
-    const ResultFromType result_from = obj->getTrafficProfile();
+    const ResultFromType &result_from = obj->getTrafficProfile();
     const data_collection_model_traffic_profile_t *result = reinterpret_cast<const data_collection_model_traffic_profile_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -1003,7 +1003,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_cp
     }
 
     typedef typename CpParameterSet::ExpectedUmtsType ResultFromType;
-    const ResultFromType result_from = obj->getExpectedUmts();
+    const ResultFromType &result_from = obj->getExpectedUmts();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -1145,7 +1145,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename CpParameterSet::ExpectedUmtDaysType ResultFromType;
-    const ResultFromType result_from = obj->getExpectedUmtDays();
+    const ResultFromType &result_from = obj->getExpectedUmtDays();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -1210,7 +1210,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_cp
     }
 
     typedef typename CpParameterSet::ExpectedUmtDaysAddType ResultFromType;
-    const ResultFromType result_from = obj->getExpectedUmtDaysAdd();
+    const ResultFromType &result_from = obj->getExpectedUmtDaysAdd();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -1353,7 +1353,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_app_exp_
     }
 
     typedef typename CpParameterSet::AppExpUeBehvType ResultFromType;
-    const ResultFromType result_from = obj->getAppExpUeBehv();
+    const ResultFromType &result_from = obj->getAppExpUeBehv();
     const data_collection_model_app_exp_ue_behaviour_t *result = reinterpret_cast<const data_collection_model_app_exp_ue_behaviour_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -1418,7 +1418,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_cp
     }
 
     typedef typename CpParameterSet::ConfidenceLevelType ResultFromType;
-    const ResultFromType result_from = obj->getConfidenceLevel();
+    const ResultFromType &result_from = obj->getConfidenceLevel();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1483,7 +1483,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_cp
     }
 
     typedef typename CpParameterSet::AccuracyLevelType ResultFromType;
-    const ResultFromType result_from = obj->getAccuracyLevel();
+    const ResultFromType &result_from = obj->getAccuracyLevel();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

@@ -195,7 +195,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataReportingRule::ContextIdsType ResultFromType;
-    const ResultFromType result_from = obj->getContextIds();
+    const ResultFromType &result_from = obj->getContextIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -334,7 +334,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const double data_collection_model_d
     }
 
     typedef typename DataReportingRule::ReportingProbabilityType ResultFromType;
-    const ResultFromType result_from = obj->getReportingProbability();
+    const ResultFromType &result_from = obj->getReportingProbability();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -399,7 +399,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_da
     }
 
     typedef typename DataReportingRule::ReportingFormatType ResultFromType;
-    const ResultFromType result_from = obj->getReportingFormat();
+    const ResultFromType &result_from = obj->getReportingFormat();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -464,7 +464,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_da
     }
 
     typedef typename DataReportingRule::DataPackagingStrategyType ResultFromType;
-    const ResultFromType result_from = obj->getDataPackagingStrategy();
+    const ResultFromType &result_from = obj->getDataPackagingStrategy();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

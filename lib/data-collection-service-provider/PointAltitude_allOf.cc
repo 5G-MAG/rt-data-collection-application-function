@@ -181,7 +181,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geograph
     }
 
     typedef typename PointAltitude_allOf::PointType ResultFromType;
-    const ResultFromType result_from = obj->getPoint();
+    const ResultFromType &result_from = obj->getPoint();
     const data_collection_model_geographical_coordinates_t *result = reinterpret_cast<const data_collection_model_geographical_coordinates_t*>(&result_from);
     return result;
 }
@@ -236,7 +236,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const double data_collection_model_p
     }
 
     typedef typename PointAltitude_allOf::AltitudeType ResultFromType;
-    const ResultFromType result_from = obj->getAltitude();
+    const ResultFromType &result_from = obj->getAltitude();
     const ResultFromType result = result_from;
     return result;
 }

@@ -203,7 +203,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_da
     }
 
     typedef typename DataReportingConfiguration::DataReportingConfigurationIdType ResultFromType;
-    const ResultFromType result_from = obj->getDataReportingConfigurationId();
+    const ResultFromType &result_from = obj->getDataReportingConfigurationId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -260,7 +260,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_col
     }
 
     typedef typename DataReportingConfiguration::DataCollectionClientTypeType ResultFromType;
-    const ResultFromType result_from = obj->getDataCollectionClientType();
+    const ResultFromType &result_from = obj->getDataCollectionClientType();
     const data_collection_model_data_collection_client_type_t *result = reinterpret_cast<const data_collection_model_data_collection_client_type_t*>(&result_from);
     return result;
 }
@@ -325,7 +325,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_da
     }
 
     typedef typename DataReportingConfiguration::AuthorizationURLType ResultFromType;
-    const ResultFromType result_from = obj->getAuthorizationURL();
+    const ResultFromType &result_from = obj->getAuthorizationURL();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -390,7 +390,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataReportingConfiguration::DataSamplingRulesType ResultFromType;
-    const ResultFromType result_from = obj->getDataSamplingRules();
+    const ResultFromType &result_from = obj->getDataSamplingRules();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -522,7 +522,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataReportingConfiguration::DataReportingConditionsType ResultFromType;
-    const ResultFromType result_from = obj->getDataReportingConditions();
+    const ResultFromType &result_from = obj->getDataReportingConditions();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;
@@ -663,7 +663,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataReportingConfiguration::DataReportingRulesType ResultFromType;
-    const ResultFromType result_from = obj->getDataReportingRules();
+    const ResultFromType &result_from = obj->getDataReportingRules();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -795,7 +795,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataReportingConfiguration::DataAccessProfilesType ResultFromType;
-    const ResultFromType result_from = obj->getDataAccessProfiles();
+    const ResultFromType &result_from = obj->getDataAccessProfiles();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;

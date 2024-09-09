@@ -193,7 +193,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_re
     }
 
     typedef typename RedirectResponse::CauseType ResultFromType;
-    const ResultFromType result_from = obj->getCause();
+    const ResultFromType &result_from = obj->getCause();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -258,7 +258,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_re
     }
 
     typedef typename RedirectResponse::TargetScpType ResultFromType;
-    const ResultFromType result_from = obj->getTargetScp();
+    const ResultFromType &result_from = obj->getTargetScp();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -323,7 +323,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_re
     }
 
     typedef typename RedirectResponse::TargetSeppType ResultFromType;
-    const ResultFromType result_from = obj->getTargetSepp();
+    const ResultFromType &result_from = obj->getTargetSepp();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

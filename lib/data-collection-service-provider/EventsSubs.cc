@@ -183,7 +183,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_af_event
     }
 
     typedef typename EventsSubs::EventType ResultFromType;
-    const ResultFromType result_from = obj->getEvent();
+    const ResultFromType &result_from = obj->getEvent();
     const data_collection_model_af_event_t *result = reinterpret_cast<const data_collection_model_af_event_t*>(&result_from);
     return result;
 }
@@ -238,7 +238,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_event_fi
     }
 
     typedef typename EventsSubs::EventFilterType ResultFromType;
-    const ResultFromType result_from = obj->getEventFilter();
+    const ResultFromType &result_from = obj->getEventFilter();
     const data_collection_model_event_filter_t *result = reinterpret_cast<const data_collection_model_event_filter_t*>(&result_from);
     return result;
 }
@@ -303,7 +303,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_reportin
     }
 
     typedef typename EventsSubs::EventRepInfoType ResultFromType;
-    const ResultFromType result_from = obj->getEventRepInfo();
+    const ResultFromType &result_from = obj->getEventRepInfo();
     const data_collection_model_reporting_information_t *result = reinterpret_cast<const data_collection_model_reporting_information_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }

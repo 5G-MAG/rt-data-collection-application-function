@@ -193,7 +193,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_plmn_id_
     }
 
     typedef typename GlobalRanNodeId::PlmnIdType ResultFromType;
-    const ResultFromType result_from = obj->getPlmnId();
+    const ResultFromType &result_from = obj->getPlmnId();
     const data_collection_model_plmn_id_t *result = reinterpret_cast<const data_collection_model_plmn_id_t*>(&result_from);
     return result;
 }
@@ -258,7 +258,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_gl
     }
 
     typedef typename GlobalRanNodeId::N3IwfIdType ResultFromType;
-    const ResultFromType result_from = obj->getN3IwfId();
+    const ResultFromType &result_from = obj->getN3IwfId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -323,7 +323,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_gnb_id_t
     }
 
     typedef typename GlobalRanNodeId::GNbIdType ResultFromType;
-    const ResultFromType result_from = obj->getGNbId();
+    const ResultFromType &result_from = obj->getGNbId();
     const data_collection_model_gnb_id_t *result = reinterpret_cast<const data_collection_model_gnb_id_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -388,7 +388,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_gl
     }
 
     typedef typename GlobalRanNodeId::NgeNbIdType ResultFromType;
-    const ResultFromType result_from = obj->getNgeNbId();
+    const ResultFromType &result_from = obj->getNgeNbId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -453,7 +453,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_gl
     }
 
     typedef typename GlobalRanNodeId::WagfIdType ResultFromType;
-    const ResultFromType result_from = obj->getWagfId();
+    const ResultFromType &result_from = obj->getWagfId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -518,7 +518,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_gl
     }
 
     typedef typename GlobalRanNodeId::TngfIdType ResultFromType;
-    const ResultFromType result_from = obj->getTngfId();
+    const ResultFromType &result_from = obj->getTngfId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -583,7 +583,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_gl
     }
 
     typedef typename GlobalRanNodeId::NidType ResultFromType;
-    const ResultFromType result_from = obj->getNid();
+    const ResultFromType &result_from = obj->getNid();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -648,7 +648,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_gl
     }
 
     typedef typename GlobalRanNodeId::ENbIdType ResultFromType;
-    const ResultFromType result_from = obj->getENbId();
+    const ResultFromType &result_from = obj->getENbId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

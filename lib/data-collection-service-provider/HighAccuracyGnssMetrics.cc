@@ -197,7 +197,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename HighAccuracyGnssMetrics::NrOfUsedSatellitesType ResultFromType;
-    const ResultFromType result_from = obj->getNrOfUsedSatellites();
+    const ResultFromType &result_from = obj->getNrOfUsedSatellites();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -262,7 +262,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename HighAccuracyGnssMetrics::HdopiType ResultFromType;
-    const ResultFromType result_from = obj->getHdopi();
+    const ResultFromType &result_from = obj->getHdopi();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -327,7 +327,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename HighAccuracyGnssMetrics::PdopiType ResultFromType;
-    const ResultFromType result_from = obj->getPdopi();
+    const ResultFromType &result_from = obj->getPdopi();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -392,7 +392,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename HighAccuracyGnssMetrics::AgeType ResultFromType;
-    const ResultFromType result_from = obj->getAge();
+    const ResultFromType &result_from = obj->getAge();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -457,7 +457,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_fix_type
     }
 
     typedef typename HighAccuracyGnssMetrics::FixTypeType ResultFromType;
-    const ResultFromType result_from = obj->getFixType();
+    const ResultFromType &result_from = obj->getFixType();
     const data_collection_model_fix_type_t *result = reinterpret_cast<const data_collection_model_fix_type_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }

@@ -183,7 +183,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_svc_expe
     }
 
     typedef typename PerFlowServiceExperienceInfo::ServiceExperienceType ResultFromType;
-    const ResultFromType result_from = obj->getServiceExperience();
+    const ResultFromType &result_from = obj->getServiceExperience();
     const data_collection_model_svc_experience_t *result = reinterpret_cast<const data_collection_model_svc_experience_t*>(&result_from);
     return result;
 }
@@ -238,7 +238,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_time_win
     }
 
     typedef typename PerFlowServiceExperienceInfo::TimeIntervalType ResultFromType;
-    const ResultFromType result_from = obj->getTimeInterval();
+    const ResultFromType &result_from = obj->getTimeInterval();
     const data_collection_model_time_window_t *result = reinterpret_cast<const data_collection_model_time_window_t*>(&result_from);
     return result;
 }
@@ -293,7 +293,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_addr_fqd
     }
 
     typedef typename PerFlowServiceExperienceInfo::RemoteEndpointType ResultFromType;
-    const ResultFromType result_from = obj->getRemoteEndpoint();
+    const ResultFromType &result_from = obj->getRemoteEndpoint();
     const data_collection_model_addr_fqdn_t *result = reinterpret_cast<const data_collection_model_addr_fqdn_t*>(&result_from);
     return result;
 }

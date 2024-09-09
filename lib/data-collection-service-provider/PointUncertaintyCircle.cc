@@ -183,7 +183,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supporte
     }
 
     typedef typename PointUncertaintyCircle::ShapeType ResultFromType;
-    const ResultFromType result_from = obj->getShape();
+    const ResultFromType &result_from = obj->getShape();
     const data_collection_model_supported_gad_shapes_t *result = reinterpret_cast<const data_collection_model_supported_gad_shapes_t*>(&result_from);
     return result;
 }
@@ -238,7 +238,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geograph
     }
 
     typedef typename PointUncertaintyCircle::PointType ResultFromType;
-    const ResultFromType result_from = obj->getPoint();
+    const ResultFromType &result_from = obj->getPoint();
     const data_collection_model_geographical_coordinates_t *result = reinterpret_cast<const data_collection_model_geographical_coordinates_t*>(&result_from);
     return result;
 }
@@ -293,7 +293,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_po
     }
 
     typedef typename PointUncertaintyCircle::UncertaintyType ResultFromType;
-    const ResultFromType result_from = obj->getUncertainty();
+    const ResultFromType &result_from = obj->getUncertainty();
     const ResultFromType result = result_from;
     return result;
 }

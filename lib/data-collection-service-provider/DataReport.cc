@@ -197,7 +197,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_da
     }
 
     typedef typename DataReport::ExternalApplicationIdType ResultFromType;
-    const ResultFromType result_from = obj->getExternalApplicationId();
+    const ResultFromType &result_from = obj->getExternalApplicationId();
     const char *result = result_from.c_str();
     return result;
 }
@@ -262,7 +262,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_dat
     }
 
     typedef typename DataReport::ExpediteType ResultFromType;
-    const ResultFromType result_from = obj->isExpedite();
+    const ResultFromType &result_from = obj->isExpedite();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -327,7 +327,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataReport::ServiceExperienceRecordsType ResultFromType;
-    const ResultFromType result_from = obj->getServiceExperienceRecords();
+    const ResultFromType &result_from = obj->getServiceExperienceRecords();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -469,7 +469,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataReport::LocationRecordsType ResultFromType;
-    const ResultFromType result_from = obj->getLocationRecords();
+    const ResultFromType &result_from = obj->getLocationRecords();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -611,7 +611,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataReport::CommunicationRecordsType ResultFromType;
-    const ResultFromType result_from = obj->getCommunicationRecords();
+    const ResultFromType &result_from = obj->getCommunicationRecords();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -753,7 +753,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataReport::PerformanceDataRecordsType ResultFromType;
-    const ResultFromType result_from = obj->getPerformanceDataRecords();
+    const ResultFromType &result_from = obj->getPerformanceDataRecords();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -895,7 +895,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataReport::ApplicationSpecificRecordsType ResultFromType;
-    const ResultFromType result_from = obj->getApplicationSpecificRecords();
+    const ResultFromType &result_from = obj->getApplicationSpecificRecords();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -1037,7 +1037,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataReport::TripPlanRecordsType ResultFromType;
-    const ResultFromType result_from = obj->getTripPlanRecords();
+    const ResultFromType &result_from = obj->getTripPlanRecords();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -1179,7 +1179,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataReport::ANBRNetworkAssistanceInvocationRecordsType ResultFromType;
-    const ResultFromType result_from = obj->getANBRNetworkAssistanceInvocationRecords();
+    const ResultFromType &result_from = obj->getANBRNetworkAssistanceInvocationRecords();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -1321,7 +1321,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataReport::MediaStreamingAccessRecordsType ResultFromType;
-    const ResultFromType result_from = obj->getMediaStreamingAccessRecords();
+    const ResultFromType &result_from = obj->getMediaStreamingAccessRecords();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 

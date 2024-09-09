@@ -181,7 +181,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_qo
     }
 
     typedef typename QoEMetricsEvent_allOf_metrics::KeyType ResultFromType;
-    const ResultFromType result_from = obj->getKey();
+    const ResultFromType &result_from = obj->getKey();
     const char *result = result_from.c_str();
     return result;
 }
@@ -246,7 +246,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_any_type
     }
 
     typedef typename QoEMetricsEvent_allOf_metrics::ValueType ResultFromType;
-    const ResultFromType result_from = obj->getValue();
+    const ResultFromType &result_from = obj->getValue();
     const data_collection_model_any_type_t *result = reinterpret_cast<const data_collection_model_any_type_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }

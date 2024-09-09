@@ -183,7 +183,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_un
     }
 
     typedef typename UncertaintyEllipse::SemiMajorType ResultFromType;
-    const ResultFromType result_from = obj->getSemiMajor();
+    const ResultFromType &result_from = obj->getSemiMajor();
     const ResultFromType result = result_from;
     return result;
 }
@@ -238,7 +238,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_un
     }
 
     typedef typename UncertaintyEllipse::SemiMinorType ResultFromType;
-    const ResultFromType result_from = obj->getSemiMinor();
+    const ResultFromType &result_from = obj->getSemiMinor();
     const ResultFromType result = result_from;
     return result;
 }
@@ -293,7 +293,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename UncertaintyEllipse::OrientationMajorType ResultFromType;
-    const ResultFromType result_from = obj->getOrientationMajor();
+    const ResultFromType &result_from = obj->getOrientationMajor();
     const ResultFromType result = result_from;
     return result;
 }

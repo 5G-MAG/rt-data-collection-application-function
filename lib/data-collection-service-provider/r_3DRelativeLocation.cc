@@ -195,7 +195,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_r_
     }
 
     typedef typename r_3DRelativeLocation::SemiMinorType ResultFromType;
-    const ResultFromType result_from = obj->getSemiMinor();
+    const ResultFromType &result_from = obj->getSemiMinor();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -260,7 +260,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_r_
     }
 
     typedef typename r_3DRelativeLocation::SemiMajorType ResultFromType;
-    const ResultFromType result_from = obj->getSemiMajor();
+    const ResultFromType &result_from = obj->getSemiMajor();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -325,7 +325,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_r_
     }
 
     typedef typename r_3DRelativeLocation::VerticalUncertaintyType ResultFromType;
-    const ResultFromType result_from = obj->getVerticalUncertainty();
+    const ResultFromType &result_from = obj->getVerticalUncertainty();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -390,7 +390,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename r_3DRelativeLocation::OrientationAngleType ResultFromType;
-    const ResultFromType result_from = obj->getOrientationAngle();
+    const ResultFromType &result_from = obj->getOrientationAngle();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }

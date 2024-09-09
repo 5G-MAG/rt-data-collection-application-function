@@ -183,7 +183,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_se
     }
 
     typedef typename ServiceExperienceRecord::TimestampType ResultFromType;
-    const ResultFromType result_from = obj->getTimestamp();
+    const ResultFromType &result_from = obj->getTimestamp();
     const char *result = result_from.c_str();
     return result;
 }
@@ -238,7 +238,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_se
     }
 
     typedef typename ServiceExperienceRecord::ContextIdsType ResultFromType;
-    const ResultFromType result_from = obj->getContextIds();
+    const ResultFromType &result_from = obj->getContextIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;
@@ -366,7 +366,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_se
     }
 
     typedef typename ServiceExperienceRecord::ServiceExperienceInfosType ResultFromType;
-    const ResultFromType result_from = obj->getServiceExperienceInfos();
+    const ResultFromType &result_from = obj->getServiceExperienceInfos();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;

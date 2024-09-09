@@ -201,7 +201,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_af
     }
 
     typedef typename AfEventExposureSubsc::DataAccProfIdType ResultFromType;
-    const ResultFromType result_from = obj->getDataAccProfId();
+    const ResultFromType &result_from = obj->getDataAccProfId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -256,7 +256,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
     }
 
     typedef typename AfEventExposureSubsc::EventsSubsType ResultFromType;
-    const ResultFromType result_from = obj->getEventsSubs();
+    const ResultFromType &result_from = obj->getEventsSubs();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;
@@ -387,7 +387,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_reportin
     }
 
     typedef typename AfEventExposureSubsc::EventsRepInfoType ResultFromType;
-    const ResultFromType result_from = obj->getEventsRepInfo();
+    const ResultFromType &result_from = obj->getEventsRepInfo();
     const data_collection_model_reporting_information_t *result = reinterpret_cast<const data_collection_model_reporting_information_t*>(&result_from);
     return result;
 }
@@ -442,7 +442,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_af
     }
 
     typedef typename AfEventExposureSubsc::NotifUriType ResultFromType;
-    const ResultFromType result_from = obj->getNotifUri();
+    const ResultFromType &result_from = obj->getNotifUri();
     const char *result = result_from.c_str();
     return result;
 }
@@ -497,7 +497,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_af
     }
 
     typedef typename AfEventExposureSubsc::NotifIdType ResultFromType;
-    const ResultFromType result_from = obj->getNotifId();
+    const ResultFromType &result_from = obj->getNotifId();
     const char *result = result_from.c_str();
     return result;
 }
@@ -562,7 +562,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
     }
 
     typedef typename AfEventExposureSubsc::EventNotifsType ResultFromType;
-    const ResultFromType result_from = obj->getEventNotifs();
+    const ResultFromType &result_from = obj->getEventNotifs();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -704,7 +704,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_af
     }
 
     typedef typename AfEventExposureSubsc::SuppFeatType ResultFromType;
-    const ResultFromType result_from = obj->getSuppFeat();
+    const ResultFromType &result_from = obj->getSuppFeat();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

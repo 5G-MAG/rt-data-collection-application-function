@@ -185,7 +185,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename PeriodicEventInfo::ReportingAmountType ResultFromType;
-    const ResultFromType result_from = obj->getReportingAmount();
+    const ResultFromType &result_from = obj->getReportingAmount();
     const ResultFromType result = result_from;
     return result;
 }
@@ -240,7 +240,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename PeriodicEventInfo::ReportingIntervalType ResultFromType;
-    const ResultFromType result_from = obj->getReportingInterval();
+    const ResultFromType &result_from = obj->getReportingInterval();
     const ResultFromType result = result_from;
     return result;
 }
@@ -305,7 +305,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_per
     }
 
     typedef typename PeriodicEventInfo::ReportingInfiniteIndType ResultFromType;
-    const ResultFromType result_from = obj->isReportingInfiniteInd();
+    const ResultFromType &result_from = obj->isReportingInfiniteInd();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -370,7 +370,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename PeriodicEventInfo::ReportingIntervalMsType ResultFromType;
-    const ResultFromType result_from = obj->getReportingIntervalMs();
+    const ResultFromType &result_from = obj->getReportingIntervalMs();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }

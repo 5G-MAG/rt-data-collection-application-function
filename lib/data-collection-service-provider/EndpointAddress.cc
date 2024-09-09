@@ -181,7 +181,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_en
     }
 
     typedef typename EndpointAddress::DomainNameType ResultFromType;
-    const ResultFromType result_from = obj->getDomainName();
+    const ResultFromType &result_from = obj->getDomainName();
     const char *result = result_from.c_str();
     return result;
 }
@@ -246,7 +246,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_en
     }
 
     typedef typename EndpointAddress::PortNumbersType ResultFromType;
-    const ResultFromType result_from = obj->getPortNumbers();
+    const ResultFromType &result_from = obj->getPortNumbers();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 

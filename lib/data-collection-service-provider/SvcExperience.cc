@@ -193,7 +193,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_sv
     }
 
     typedef typename SvcExperience::MosType ResultFromType;
-    const ResultFromType result_from = obj->getMos();
+    const ResultFromType &result_from = obj->getMos();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -258,7 +258,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_sv
     }
 
     typedef typename SvcExperience::UpperRangeType ResultFromType;
-    const ResultFromType result_from = obj->getUpperRange();
+    const ResultFromType &result_from = obj->getUpperRange();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -323,7 +323,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_sv
     }
 
     typedef typename SvcExperience::LowerRangeType ResultFromType;
-    const ResultFromType result_from = obj->getLowerRange();
+    const ResultFromType &result_from = obj->getLowerRange();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }

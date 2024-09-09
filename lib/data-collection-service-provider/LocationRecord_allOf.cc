@@ -179,7 +179,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location
     }
 
     typedef typename LocationRecord_allOf::LocationType ResultFromType;
-    const ResultFromType result_from = obj->getLocation();
+    const ResultFromType &result_from = obj->getLocation();
     const data_collection_model_location_data_t *result = reinterpret_cast<const data_collection_model_location_data_t*>(&result_from);
     return result;
 }

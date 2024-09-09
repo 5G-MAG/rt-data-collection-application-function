@@ -195,7 +195,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ne
     }
 
     typedef typename NetworkAssistanceInvocation::PolicyTemplateIdType ResultFromType;
-    const ResultFromType result_from = obj->getPolicyTemplateId();
+    const ResultFromType &result_from = obj->getPolicyTemplateId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -260,7 +260,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ne
     }
 
     typedef typename NetworkAssistanceInvocation::ApplicationFlowDescriptionsType ResultFromType;
-    const ResultFromType result_from = obj->getApplicationFlowDescriptions();
+    const ResultFromType &result_from = obj->getApplicationFlowDescriptions();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -402,7 +402,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_unidirec
     }
 
     typedef typename NetworkAssistanceInvocation::RequestedQoSType ResultFromType;
-    const ResultFromType result_from = obj->getRequestedQoS();
+    const ResultFromType &result_from = obj->getRequestedQoS();
     const data_collection_model_unidirectional_qo_s_specification_t *result = reinterpret_cast<const data_collection_model_unidirectional_qo_s_specification_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -467,7 +467,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_network_
     }
 
     typedef typename NetworkAssistanceInvocation::RecommendedQoSType ResultFromType;
-    const ResultFromType result_from = obj->getRecommendedQoS();
+    const ResultFromType &result_from = obj->getRecommendedQoS();
     const data_collection_model_network_assistance_invocation_recommended_qo_s_t *result = reinterpret_cast<const data_collection_model_network_assistance_invocation_recommended_qo_s_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }

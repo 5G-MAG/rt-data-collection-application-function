@@ -195,7 +195,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location
     }
 
     typedef typename PerUeAttribute::UeDestType ResultFromType;
-    const ResultFromType result_from = obj->getUeDest();
+    const ResultFromType &result_from = obj->getUeDest();
     const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -260,7 +260,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
     }
 
     typedef typename PerUeAttribute::RouteType ResultFromType;
-    const ResultFromType result_from = obj->getRoute();
+    const ResultFromType &result_from = obj->getRoute();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -325,7 +325,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
     }
 
     typedef typename PerUeAttribute::AvgSpeedType ResultFromType;
-    const ResultFromType result_from = obj->getAvgSpeed();
+    const ResultFromType &result_from = obj->getAvgSpeed();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -390,7 +390,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
     }
 
     typedef typename PerUeAttribute::TimeOfArrivalType ResultFromType;
-    const ResultFromType result_from = obj->getTimeOfArrival();
+    const ResultFromType &result_from = obj->getTimeOfArrival();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

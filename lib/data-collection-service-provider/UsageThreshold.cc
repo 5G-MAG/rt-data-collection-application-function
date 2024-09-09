@@ -195,7 +195,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename UsageThreshold::DurationType ResultFromType;
-    const ResultFromType result_from = obj->getDuration();
+    const ResultFromType &result_from = obj->getDuration();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -260,7 +260,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_
     }
 
     typedef typename UsageThreshold::TotalVolumeType ResultFromType;
-    const ResultFromType result_from = obj->getTotalVolume();
+    const ResultFromType &result_from = obj->getTotalVolume();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -325,7 +325,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_
     }
 
     typedef typename UsageThreshold::DownlinkVolumeType ResultFromType;
-    const ResultFromType result_from = obj->getDownlinkVolume();
+    const ResultFromType &result_from = obj->getDownlinkVolume();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -390,7 +390,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_
     }
 
     typedef typename UsageThreshold::UplinkVolumeType ResultFromType;
-    const ResultFromType result_from = obj->getUplinkVolume();
+    const ResultFromType &result_from = obj->getUplinkVolume();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }

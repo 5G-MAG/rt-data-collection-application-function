@@ -201,7 +201,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue
     }
 
     typedef typename UeCommunicationCollection::GpsiType ResultFromType;
-    const ResultFromType result_from = obj->getGpsi();
+    const ResultFromType &result_from = obj->getGpsi();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -266,7 +266,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue
     }
 
     typedef typename UeCommunicationCollection::SupiType ResultFromType;
-    const ResultFromType result_from = obj->getSupi();
+    const ResultFromType &result_from = obj->getSupi();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -331,7 +331,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue
     }
 
     typedef typename UeCommunicationCollection::ExterGroupIdType ResultFromType;
-    const ResultFromType result_from = obj->getExterGroupId();
+    const ResultFromType &result_from = obj->getExterGroupId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -396,7 +396,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue
     }
 
     typedef typename UeCommunicationCollection::InterGroupIdType ResultFromType;
-    const ResultFromType result_from = obj->getInterGroupId();
+    const ResultFromType &result_from = obj->getInterGroupId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -451,7 +451,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue
     }
 
     typedef typename UeCommunicationCollection::AppIdType ResultFromType;
-    const ResultFromType result_from = obj->getAppId();
+    const ResultFromType &result_from = obj->getAppId();
     const char *result = result_from.c_str();
     return result;
 }
@@ -516,7 +516,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_cp_param
     }
 
     typedef typename UeCommunicationCollection::ExpectedUeBehaveParaType ResultFromType;
-    const ResultFromType result_from = obj->getExpectedUeBehavePara();
+    const ResultFromType &result_from = obj->getExpectedUeBehavePara();
     const data_collection_model_cp_parameter_set_t *result = reinterpret_cast<const data_collection_model_cp_parameter_set_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -571,7 +571,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ue
     }
 
     typedef typename UeCommunicationCollection::CommsType ResultFromType;
-    const ResultFromType result_from = obj->getComms();
+    const ResultFromType &result_from = obj->getComms();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;

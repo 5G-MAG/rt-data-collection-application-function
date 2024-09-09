@@ -183,7 +183,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ac
     }
 
     typedef typename AccessTokenErr::ErrorType ResultFromType;
-    const ResultFromType result_from = obj->getError();
+    const ResultFromType &result_from = obj->getError();
     const char *result = result_from.c_str();
     return result;
 }
@@ -248,7 +248,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ac
     }
 
     typedef typename AccessTokenErr::Error_descriptionType ResultFromType;
-    const ResultFromType result_from = obj->getErrorDescription();
+    const ResultFromType &result_from = obj->getErrorDescription();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -313,7 +313,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ac
     }
 
     typedef typename AccessTokenErr::Error_uriType ResultFromType;
-    const ResultFromType result_from = obj->getErrorUri();
+    const ResultFromType &result_from = obj->getErrorUri();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

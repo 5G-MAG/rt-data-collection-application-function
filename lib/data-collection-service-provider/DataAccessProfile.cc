@@ -189,7 +189,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_da
     }
 
     typedef typename DataAccessProfile::DataAccessProfileIdType ResultFromType;
-    const ResultFromType result_from = obj->getDataAccessProfileId();
+    const ResultFromType &result_from = obj->getDataAccessProfileId();
     const char *result = result_from.c_str();
     return result;
 }
@@ -244,7 +244,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataAccessProfile::TargetEventConsumerTypesType ResultFromType;
-    const ResultFromType result_from = obj->getTargetEventConsumerTypes();
+    const ResultFromType &result_from = obj->getTargetEventConsumerTypes();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;
@@ -375,7 +375,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataAccessProfile::ParametersType ResultFromType;
-    const ResultFromType result_from = obj->getParameters();
+    const ResultFromType &result_from = obj->getParameters();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;
@@ -513,7 +513,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_acc
     }
 
     typedef typename DataAccessProfile::TimeAccessRestrictionsType ResultFromType;
-    const ResultFromType result_from = obj->getTimeAccessRestrictions();
+    const ResultFromType &result_from = obj->getTimeAccessRestrictions();
     const data_collection_model_data_access_profile_time_access_restrictions_t *result = reinterpret_cast<const data_collection_model_data_access_profile_time_access_restrictions_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -578,7 +578,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_acc
     }
 
     typedef typename DataAccessProfile::UserAccessRestrictionsType ResultFromType;
-    const ResultFromType result_from = obj->getUserAccessRestrictions();
+    const ResultFromType &result_from = obj->getUserAccessRestrictions();
     const data_collection_model_data_access_profile_user_access_restrictions_t *result = reinterpret_cast<const data_collection_model_data_access_profile_user_access_restrictions_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -643,7 +643,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_acc
     }
 
     typedef typename DataAccessProfile::LocationAccessRestrictionsType ResultFromType;
-    const ResultFromType result_from = obj->getLocationAccessRestrictions();
+    const ResultFromType &result_from = obj->getLocationAccessRestrictions();
     const data_collection_model_data_access_profile_location_access_restrictions_t *result = reinterpret_cast<const data_collection_model_data_access_profile_location_access_restrictions_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }

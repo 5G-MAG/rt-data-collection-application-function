@@ -181,7 +181,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pl
     }
 
     typedef typename PlmnId::MccType ResultFromType;
-    const ResultFromType result_from = obj->getMcc();
+    const ResultFromType &result_from = obj->getMcc();
     const char *result = result_from.c_str();
     return result;
 }
@@ -236,7 +236,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pl
     }
 
     typedef typename PlmnId::MncType ResultFromType;
-    const ResultFromType result_from = obj->getMnc();
+    const ResultFromType &result_from = obj->getMnc();
     const char *result = result_from.c_str();
     return result;
 }

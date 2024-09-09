@@ -191,7 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_buffered
     }
 
     typedef typename MutingExceptionInstructions::BufferedNotifsType ResultFromType;
-    const ResultFromType result_from = obj->getBufferedNotifs();
+    const ResultFromType &result_from = obj->getBufferedNotifs();
     const data_collection_model_buffered_notifications_action_t *result = reinterpret_cast<const data_collection_model_buffered_notifications_action_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -256,7 +256,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_subscrip
     }
 
     typedef typename MutingExceptionInstructions::SubscriptionType ResultFromType;
-    const ResultFromType result_from = obj->getSubscription();
+    const ResultFromType &result_from = obj->getSubscription();
     const data_collection_model_subscription_action_t *result = reinterpret_cast<const data_collection_model_subscription_action_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }

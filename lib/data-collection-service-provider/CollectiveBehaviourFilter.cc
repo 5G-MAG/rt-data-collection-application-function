@@ -187,7 +187,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_collecti
     }
 
     typedef typename CollectiveBehaviourFilter::TypeType ResultFromType;
-    const ResultFromType result_from = obj->getType();
+    const ResultFromType &result_from = obj->getType();
     const data_collection_model_collective_behaviour_filter_type_t *result = reinterpret_cast<const data_collection_model_collective_behaviour_filter_type_t*>(&result_from);
     return result;
 }
@@ -242,7 +242,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_co
     }
 
     typedef typename CollectiveBehaviourFilter::ValueType ResultFromType;
-    const ResultFromType result_from = obj->getValue();
+    const ResultFromType &result_from = obj->getValue();
     const char *result = result_from.c_str();
     return result;
 }
@@ -307,7 +307,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_co
     }
 
     typedef typename CollectiveBehaviourFilter::CollBehAttrType ResultFromType;
-    const ResultFromType result_from = obj->getCollBehAttr();
+    const ResultFromType &result_from = obj->getCollBehAttr();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -449,7 +449,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_pro
     }
 
     typedef typename CollectiveBehaviourFilter::DataProcTypeType ResultFromType;
-    const ResultFromType result_from = obj->getDataProcType();
+    const ResultFromType &result_from = obj->getDataProcType();
     const data_collection_model_data_processing_type_t *result = reinterpret_cast<const data_collection_model_data_processing_type_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -514,7 +514,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_col
     }
 
     typedef typename CollectiveBehaviourFilter::ListOfUeIndType ResultFromType;
-    const ResultFromType result_from = obj->isListOfUeInd();
+    const ResultFromType &result_from = obj->isListOfUeInd();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }

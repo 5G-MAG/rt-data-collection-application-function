@@ -189,7 +189,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_m5_bit_r
     }
 
     typedef typename M5QoSSpecification::DownlinkBitRatesType ResultFromType;
-    const ResultFromType result_from = obj->getDownlinkBitRates();
+    const ResultFromType &result_from = obj->getDownlinkBitRates();
     const data_collection_model_m5_bit_rate_specification_t *result = reinterpret_cast<const data_collection_model_m5_bit_rate_specification_t*>(&result_from);
     return result;
 }
@@ -244,7 +244,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_m5_bit_r
     }
 
     typedef typename M5QoSSpecification::UplinkBitRatesType ResultFromType;
-    const ResultFromType result_from = obj->getUplinkBitRates();
+    const ResultFromType &result_from = obj->getUplinkBitRates();
     const data_collection_model_m5_bit_rate_specification_t *result = reinterpret_cast<const data_collection_model_m5_bit_rate_specification_t*>(&result_from);
     return result;
 }
@@ -309,7 +309,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename M5QoSSpecification::DesiredPacketLatencyType ResultFromType;
-    const ResultFromType result_from = obj->getDesiredPacketLatency();
+    const ResultFromType &result_from = obj->getDesiredPacketLatency();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -374,7 +374,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename M5QoSSpecification::DesiredPacketLossRateType ResultFromType;
-    const ResultFromType result_from = obj->getDesiredPacketLossRate();
+    const ResultFromType &result_from = obj->getDesiredPacketLossRate();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -439,7 +439,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_pdu_set_
     }
 
     typedef typename M5QoSSpecification::DesiredDownlinkPduSetQosParametersType ResultFromType;
-    const ResultFromType result_from = obj->getDesiredDownlinkPduSetQosParameters();
+    const ResultFromType &result_from = obj->getDesiredDownlinkPduSetQosParameters();
     const data_collection_model_pdu_set_qos_para_t *result = reinterpret_cast<const data_collection_model_pdu_set_qos_para_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -504,7 +504,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_pdu_set_
     }
 
     typedef typename M5QoSSpecification::DesiredUplinkPduSetQosParametersType ResultFromType;
-    const ResultFromType result_from = obj->getDesiredUplinkPduSetQosParameters();
+    const ResultFromType &result_from = obj->getDesiredUplinkPduSetQosParameters();
     const data_collection_model_pdu_set_qos_para_t *result = reinterpret_cast<const data_collection_model_pdu_set_qos_para_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }

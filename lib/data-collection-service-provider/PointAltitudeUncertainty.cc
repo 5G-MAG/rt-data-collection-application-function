@@ -191,7 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supporte
     }
 
     typedef typename PointAltitudeUncertainty::ShapeType ResultFromType;
-    const ResultFromType result_from = obj->getShape();
+    const ResultFromType &result_from = obj->getShape();
     const data_collection_model_supported_gad_shapes_t *result = reinterpret_cast<const data_collection_model_supported_gad_shapes_t*>(&result_from);
     return result;
 }
@@ -246,7 +246,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geograph
     }
 
     typedef typename PointAltitudeUncertainty::PointType ResultFromType;
-    const ResultFromType result_from = obj->getPoint();
+    const ResultFromType &result_from = obj->getPoint();
     const data_collection_model_geographical_coordinates_t *result = reinterpret_cast<const data_collection_model_geographical_coordinates_t*>(&result_from);
     return result;
 }
@@ -301,7 +301,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const double data_collection_model_p
     }
 
     typedef typename PointAltitudeUncertainty::AltitudeType ResultFromType;
-    const ResultFromType result_from = obj->getAltitude();
+    const ResultFromType &result_from = obj->getAltitude();
     const ResultFromType result = result_from;
     return result;
 }
@@ -356,7 +356,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_uncertai
     }
 
     typedef typename PointAltitudeUncertainty::UncertaintyEllipseType ResultFromType;
-    const ResultFromType result_from = obj->getUncertaintyEllipse();
+    const ResultFromType &result_from = obj->getUncertaintyEllipse();
     const data_collection_model_uncertainty_ellipse_t *result = reinterpret_cast<const data_collection_model_uncertainty_ellipse_t*>(&result_from);
     return result;
 }
@@ -411,7 +411,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_po
     }
 
     typedef typename PointAltitudeUncertainty::UncertaintyAltitudeType ResultFromType;
-    const ResultFromType result_from = obj->getUncertaintyAltitude();
+    const ResultFromType &result_from = obj->getUncertaintyAltitude();
     const ResultFromType result = result_from;
     return result;
 }
@@ -466,7 +466,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename PointAltitudeUncertainty::ConfidenceType ResultFromType;
-    const ResultFromType result_from = obj->getConfidence();
+    const ResultFromType &result_from = obj->getConfidence();
     const ResultFromType result = result_from;
     return result;
 }
@@ -531,7 +531,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename PointAltitudeUncertainty::VConfidenceType ResultFromType;
-    const ResultFromType result_from = obj->getVConfidence();
+    const ResultFromType &result_from = obj->getVConfidence();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }

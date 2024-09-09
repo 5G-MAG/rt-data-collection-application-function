@@ -183,7 +183,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataAccessProfile_userAccessRestrictions::GroupIdsType ResultFromType;
-    const ResultFromType result_from = obj->getGroupIds();
+    const ResultFromType &result_from = obj->getGroupIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;
@@ -311,7 +311,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataAccessProfile_userAccessRestrictions::UserIdsType ResultFromType;
-    const ResultFromType result_from = obj->getUserIds();
+    const ResultFromType &result_from = obj->getUserIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;
@@ -442,7 +442,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataAccessProfile_userAccessRestrictions::AggregationFunctionsType ResultFromType;
-    const ResultFromType result_from = obj->getAggregationFunctions();
+    const ResultFromType &result_from = obj->getAggregationFunctions();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;

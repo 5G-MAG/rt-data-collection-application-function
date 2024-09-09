@@ -191,7 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_time_win
     }
 
     typedef typename PerformanceDataRecord_allOf::TimeIntervalType ResultFromType;
-    const ResultFromType result_from = obj->getTimeInterval();
+    const ResultFromType &result_from = obj->getTimeInterval();
     const data_collection_model_time_window_t *result = reinterpret_cast<const data_collection_model_time_window_t*>(&result_from);
     return result;
 }
@@ -256,7 +256,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location
     }
 
     typedef typename PerformanceDataRecord_allOf::LocationType ResultFromType;
-    const ResultFromType result_from = obj->getLocation();
+    const ResultFromType &result_from = obj->getLocation();
     const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -321,7 +321,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_addr_fqd
     }
 
     typedef typename PerformanceDataRecord_allOf::RemoteEndpointType ResultFromType;
-    const ResultFromType result_from = obj->getRemoteEndpoint();
+    const ResultFromType &result_from = obj->getRemoteEndpoint();
     const data_collection_model_addr_fqdn_t *result = reinterpret_cast<const data_collection_model_addr_fqdn_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -386,7 +386,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename PerformanceDataRecord_allOf::PacketDelayBudgetType ResultFromType;
-    const ResultFromType result_from = obj->getPacketDelayBudget();
+    const ResultFromType &result_from = obj->getPacketDelayBudget();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -451,7 +451,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename PerformanceDataRecord_allOf::PacketLossRateType ResultFromType;
-    const ResultFromType result_from = obj->getPacketLossRate();
+    const ResultFromType &result_from = obj->getPacketLossRate();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -516,7 +516,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
     }
 
     typedef typename PerformanceDataRecord_allOf::UplinkThroughputType ResultFromType;
-    const ResultFromType result_from = obj->getUplinkThroughput();
+    const ResultFromType &result_from = obj->getUplinkThroughput();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -581,7 +581,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
     }
 
     typedef typename PerformanceDataRecord_allOf::DownlinkThrougputType ResultFromType;
-    const ResultFromType result_from = obj->getDownlinkThrougput();
+    const ResultFromType &result_from = obj->getDownlinkThrougput();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

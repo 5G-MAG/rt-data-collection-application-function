@@ -183,7 +183,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_plmn_id_
     }
 
     typedef typename Tai::PlmnIdType ResultFromType;
-    const ResultFromType result_from = obj->getPlmnId();
+    const ResultFromType &result_from = obj->getPlmnId();
     const data_collection_model_plmn_id_t *result = reinterpret_cast<const data_collection_model_plmn_id_t*>(&result_from);
     return result;
 }
@@ -238,7 +238,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ta
     }
 
     typedef typename Tai::TacType ResultFromType;
-    const ResultFromType result_from = obj->getTac();
+    const ResultFromType &result_from = obj->getTac();
     const char *result = result_from.c_str();
     return result;
 }
@@ -303,7 +303,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ta
     }
 
     typedef typename Tai::NidType ResultFromType;
-    const ResultFromType result_from = obj->getNid();
+    const ResultFromType &result_from = obj->getNid();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

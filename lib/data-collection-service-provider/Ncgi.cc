@@ -183,7 +183,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_plmn_id_
     }
 
     typedef typename Ncgi::PlmnIdType ResultFromType;
-    const ResultFromType result_from = obj->getPlmnId();
+    const ResultFromType &result_from = obj->getPlmnId();
     const data_collection_model_plmn_id_t *result = reinterpret_cast<const data_collection_model_plmn_id_t*>(&result_from);
     return result;
 }
@@ -238,7 +238,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_nc
     }
 
     typedef typename Ncgi::NrCellIdType ResultFromType;
-    const ResultFromType result_from = obj->getNrCellId();
+    const ResultFromType &result_from = obj->getNrCellId();
     const char *result = result_from.c_str();
     return result;
 }
@@ -303,7 +303,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_nc
     }
 
     typedef typename Ncgi::NidType ResultFromType;
-    const ResultFromType result_from = obj->getNid();
+    const ResultFromType &result_from = obj->getNid();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

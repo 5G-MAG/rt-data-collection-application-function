@@ -181,7 +181,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_cell_ide
     }
 
     typedef typename TypedLocation::LocationIdentifierTypeType ResultFromType;
-    const ResultFromType result_from = obj->getLocationIdentifierType();
+    const ResultFromType &result_from = obj->getLocationIdentifierType();
     const data_collection_model_cell_identifier_type_t *result = reinterpret_cast<const data_collection_model_cell_identifier_type_t*>(&result_from);
     return result;
 }
@@ -236,7 +236,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ty
     }
 
     typedef typename TypedLocation::LocationType ResultFromType;
-    const ResultFromType result_from = obj->getLocation();
+    const ResultFromType &result_from = obj->getLocation();
     const char *result = result_from.c_str();
     return result;
 }

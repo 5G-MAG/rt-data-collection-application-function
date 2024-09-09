@@ -183,7 +183,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_exceptio
     }
 
     typedef typename Exception::ExcepIdType ResultFromType;
-    const ResultFromType result_from = obj->getExcepId();
+    const ResultFromType &result_from = obj->getExcepId();
     const data_collection_model_exception_id_t *result = reinterpret_cast<const data_collection_model_exception_id_t*>(&result_from);
     return result;
 }
@@ -248,7 +248,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename Exception::ExcepLevelType ResultFromType;
-    const ResultFromType result_from = obj->getExcepLevel();
+    const ResultFromType &result_from = obj->getExcepLevel();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -313,7 +313,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_exceptio
     }
 
     typedef typename Exception::ExcepTrendType ResultFromType;
-    const ResultFromType result_from = obj->getExcepTrend();
+    const ResultFromType &result_from = obj->getExcepTrend();
     const data_collection_model_exception_trend_t *result = reinterpret_cast<const data_collection_model_exception_trend_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }

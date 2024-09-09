@@ -205,7 +205,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_di
     }
 
     typedef typename DispersionCollection::GpsiType ResultFromType;
-    const ResultFromType result_from = obj->getGpsi();
+    const ResultFromType &result_from = obj->getGpsi();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -270,7 +270,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_di
     }
 
     typedef typename DispersionCollection::SupiType ResultFromType;
-    const ResultFromType result_from = obj->getSupi();
+    const ResultFromType &result_from = obj->getSupi();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -335,7 +335,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ip_addr_
     }
 
     typedef typename DispersionCollection::UeAddrType ResultFromType;
-    const ResultFromType result_from = obj->getUeAddr();
+    const ResultFromType &result_from = obj->getUeAddr();
     const data_collection_model_ip_addr_t *result = reinterpret_cast<const data_collection_model_ip_addr_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -400,7 +400,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_di
     }
 
     typedef typename DispersionCollection::TimeStampType ResultFromType;
-    const ResultFromType result_from = obj->getTimeStamp();
+    const ResultFromType &result_from = obj->getTimeStamp();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -455,7 +455,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_usage_th
     }
 
     typedef typename DispersionCollection::DataUsageType ResultFromType;
-    const ResultFromType result_from = obj->getDataUsage();
+    const ResultFromType &result_from = obj->getDataUsage();
     const data_collection_model_usage_threshold_t *result = reinterpret_cast<const data_collection_model_usage_threshold_t*>(&result_from);
     return result;
 }
@@ -520,7 +520,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_di
     }
 
     typedef typename DispersionCollection::FlowDespType ResultFromType;
-    const ResultFromType result_from = obj->getFlowDesp();
+    const ResultFromType &result_from = obj->getFlowDesp();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -585,7 +585,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_di
     }
 
     typedef typename DispersionCollection::AppIdType ResultFromType;
-    const ResultFromType result_from = obj->getAppId();
+    const ResultFromType &result_from = obj->getAppId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -650,7 +650,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_di
     }
 
     typedef typename DispersionCollection::DnaisType ResultFromType;
-    const ResultFromType result_from = obj->getDnais();
+    const ResultFromType &result_from = obj->getDnais();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -789,7 +789,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename DispersionCollection::AppDurType ResultFromType;
-    const ResultFromType result_from = obj->getAppDur();
+    const ResultFromType &result_from = obj->getAppDur();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }

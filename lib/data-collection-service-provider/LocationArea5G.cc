@@ -193,7 +193,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_lo
     }
 
     typedef typename LocationArea5G::GeographicAreasType ResultFromType;
-    const ResultFromType result_from = obj->getGeographicAreas();
+    const ResultFromType &result_from = obj->getGeographicAreas();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -335,7 +335,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_lo
     }
 
     typedef typename LocationArea5G::CivicAddressesType ResultFromType;
-    const ResultFromType result_from = obj->getCivicAddresses();
+    const ResultFromType &result_from = obj->getCivicAddresses();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -477,7 +477,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_network_
     }
 
     typedef typename LocationArea5G::NwAreaInfoType ResultFromType;
-    const ResultFromType result_from = obj->getNwAreaInfo();
+    const ResultFromType &result_from = obj->getNwAreaInfo();
     const data_collection_model_network_area_info_t *result = reinterpret_cast<const data_collection_model_network_area_info_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }

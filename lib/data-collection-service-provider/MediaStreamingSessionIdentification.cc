@@ -179,7 +179,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_me
     }
 
     typedef typename MediaStreamingSessionIdentification::SessionIdType ResultFromType;
-    const ResultFromType result_from = obj->getSessionId();
+    const ResultFromType &result_from = obj->getSessionId();
     const char *result = result_from.c_str();
     return result;
 }

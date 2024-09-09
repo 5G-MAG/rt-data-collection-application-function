@@ -193,7 +193,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ip
     }
 
     typedef typename IpAddr::Ipv4AddrType ResultFromType;
-    const ResultFromType result_from = obj->getIpv4Addr();
+    const ResultFromType &result_from = obj->getIpv4Addr();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -258,7 +258,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ipv6_add
     }
 
     typedef typename IpAddr::Ipv6AddrType ResultFromType;
-    const ResultFromType result_from = obj->getIpv6Addr();
+    const ResultFromType &result_from = obj->getIpv6Addr();
     const data_collection_model_ipv6_addr_t *result = reinterpret_cast<const data_collection_model_ipv6_addr_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -323,7 +323,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ipv6_pre
     }
 
     typedef typename IpAddr::Ipv6PrefixType ResultFromType;
-    const ResultFromType result_from = obj->getIpv6Prefix();
+    const ResultFromType &result_from = obj->getIpv6Prefix();
     const data_collection_model_ipv6_prefix_t *result = reinterpret_cast<const data_collection_model_ipv6_prefix_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }

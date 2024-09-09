@@ -181,7 +181,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const double data_collection_model_g
     }
 
     typedef typename GeographicalCoordinates::LonType ResultFromType;
-    const ResultFromType result_from = obj->getLon();
+    const ResultFromType &result_from = obj->getLon();
     const ResultFromType result = result_from;
     return result;
 }
@@ -236,7 +236,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const double data_collection_model_g
     }
 
     typedef typename GeographicalCoordinates::LatType ResultFromType;
-    const ResultFromType result_from = obj->getLat();
+    const ResultFromType &result_from = obj->getLat();
     const ResultFromType result = result_from;
     return result;
 }

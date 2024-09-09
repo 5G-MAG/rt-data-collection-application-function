@@ -191,7 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename MutingNotificationsSettings::MaxNoOfNotifType ResultFromType;
-    const ResultFromType result_from = obj->getMaxNoOfNotif();
+    const ResultFromType &result_from = obj->getMaxNoOfNotif();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -256,7 +256,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename MutingNotificationsSettings::DurationBufferedNotifType ResultFromType;
-    const ResultFromType result_from = obj->getDurationBufferedNotif();
+    const ResultFromType &result_from = obj->getDurationBufferedNotif();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }

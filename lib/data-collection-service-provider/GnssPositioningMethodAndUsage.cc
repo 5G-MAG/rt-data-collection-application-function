@@ -183,7 +183,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_position
     }
 
     typedef typename GnssPositioningMethodAndUsage::ModeType ResultFromType;
-    const ResultFromType result_from = obj->getMode();
+    const ResultFromType &result_from = obj->getMode();
     const data_collection_model_positioning_mode_t *result = reinterpret_cast<const data_collection_model_positioning_mode_t*>(&result_from);
     return result;
 }
@@ -238,7 +238,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_gnss_id_
     }
 
     typedef typename GnssPositioningMethodAndUsage::GnssType ResultFromType;
-    const ResultFromType result_from = obj->getGnss();
+    const ResultFromType &result_from = obj->getGnss();
     const data_collection_model_gnss_id_t *result = reinterpret_cast<const data_collection_model_gnss_id_t*>(&result_from);
     return result;
 }
@@ -293,7 +293,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_usage_t*
     }
 
     typedef typename GnssPositioningMethodAndUsage::UsageType ResultFromType;
-    const ResultFromType result_from = obj->getUsage();
+    const ResultFromType &result_from = obj->getUsage();
     const data_collection_model_usage_t *result = reinterpret_cast<const data_collection_model_usage_t*>(&result_from);
     return result;
 }

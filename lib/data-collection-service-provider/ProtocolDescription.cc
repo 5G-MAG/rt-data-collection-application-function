@@ -193,7 +193,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_media_tr
     }
 
     typedef typename ProtocolDescription::TransportProtoType ResultFromType;
-    const ResultFromType result_from = obj->getTransportProto();
+    const ResultFromType &result_from = obj->getTransportProto();
     const data_collection_model_media_transport_proto_t *result = reinterpret_cast<const data_collection_model_media_transport_proto_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -258,7 +258,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_rtp_head
     }
 
     typedef typename ProtocolDescription::RtpHeaderExtInfoType ResultFromType;
-    const ResultFromType result_from = obj->getRtpHeaderExtInfo();
+    const ResultFromType &result_from = obj->getRtpHeaderExtInfo();
     const data_collection_model_rtp_header_ext_info_t *result = reinterpret_cast<const data_collection_model_rtp_header_ext_info_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -323,7 +323,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_pr
     }
 
     typedef typename ProtocolDescription::RtpPayloadInfoListType ResultFromType;
-    const ResultFromType result_from = obj->getRtpPayloadInfoList();
+    const ResultFromType &result_from = obj->getRtpPayloadInfoList();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 

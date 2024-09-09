@@ -185,7 +185,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ap
     }
 
     typedef typename ApplicationSpecificRecord::TimestampType ResultFromType;
-    const ResultFromType result_from = obj->getTimestamp();
+    const ResultFromType &result_from = obj->getTimestamp();
     const char *result = result_from.c_str();
     return result;
 }
@@ -240,7 +240,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ap
     }
 
     typedef typename ApplicationSpecificRecord::ContextIdsType ResultFromType;
-    const ResultFromType result_from = obj->getContextIds();
+    const ResultFromType &result_from = obj->getContextIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;
@@ -368,7 +368,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ap
     }
 
     typedef typename ApplicationSpecificRecord::RecordTypeType ResultFromType;
-    const ResultFromType result_from = obj->getRecordType();
+    const ResultFromType &result_from = obj->getRecordType();
     const char *result = result_from.c_str();
     return result;
 }
@@ -423,7 +423,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_any_type
     }
 
     typedef typename ApplicationSpecificRecord::RecordContainerType ResultFromType;
-    const ResultFromType result_from = obj->getRecordContainer();
+    const ResultFromType &result_from = obj->getRecordContainer();
     const data_collection_model_any_type_t *result = reinterpret_cast<const data_collection_model_any_type_t*>(&result_from);
     return result;
 }

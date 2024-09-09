@@ -181,7 +181,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue
     }
 
     typedef typename UeTrajectoryCollection::TsType ResultFromType;
-    const ResultFromType result_from = obj->getTs();
+    const ResultFromType &result_from = obj->getTs();
     const char *result = result_from.c_str();
     return result;
 }
@@ -236,7 +236,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location
     }
 
     typedef typename UeTrajectoryCollection::LocAreaType ResultFromType;
-    const ResultFromType result_from = obj->getLocArea();
+    const ResultFromType &result_from = obj->getLocArea();
     const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(&result_from);
     return result;
 }

@@ -183,7 +183,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename FlowInfo::FlowIdType ResultFromType;
-    const ResultFromType result_from = obj->getFlowId();
+    const ResultFromType &result_from = obj->getFlowId();
     const ResultFromType result = result_from;
     return result;
 }
@@ -248,7 +248,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_fl
     }
 
     typedef typename FlowInfo::FlowDescriptionsType ResultFromType;
-    const ResultFromType result_from = obj->getFlowDescriptions();
+    const ResultFromType &result_from = obj->getFlowDescriptions();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -387,7 +387,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_fl
     }
 
     typedef typename FlowInfo::TosTCType ResultFromType;
-    const ResultFromType result_from = obj->getTosTC();
+    const ResultFromType &result_from = obj->getTosTC();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

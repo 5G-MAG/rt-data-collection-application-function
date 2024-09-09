@@ -187,7 +187,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_dy
     }
 
     typedef typename DynamicPolicyInvocationEvent_allOf::PolicyTemplateIdType ResultFromType;
-    const ResultFromType result_from = obj->getPolicyTemplateId();
+    const ResultFromType &result_from = obj->getPolicyTemplateId();
     const char *result = result_from.c_str();
     return result;
 }
@@ -252,7 +252,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_dy
     }
 
     typedef typename DynamicPolicyInvocationEvent_allOf::ApplicationFlowDescriptionsType ResultFromType;
-    const ResultFromType result_from = obj->getApplicationFlowDescriptions();
+    const ResultFromType &result_from = obj->getApplicationFlowDescriptions();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -394,7 +394,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_unidirec
     }
 
     typedef typename DynamicPolicyInvocationEvent_allOf::RequestedQoSType ResultFromType;
-    const ResultFromType result_from = obj->getRequestedQoS();
+    const ResultFromType &result_from = obj->getRequestedQoS();
     const data_collection_model_unidirectional_qo_s_specification_t *result = reinterpret_cast<const data_collection_model_unidirectional_qo_s_specification_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -459,7 +459,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_dy
     }
 
     typedef typename DynamicPolicyInvocationEvent_allOf::EnforcementMethodType ResultFromType;
-    const ResultFromType result_from = obj->getEnforcementMethod();
+    const ResultFromType &result_from = obj->getEnforcementMethod();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -524,7 +524,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_dy
     }
 
     typedef typename DynamicPolicyInvocationEvent_allOf::EnforcementBitRateType ResultFromType;
-    const ResultFromType result_from = obj->getEnforcementBitRate();
+    const ResultFromType &result_from = obj->getEnforcementBitRate();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

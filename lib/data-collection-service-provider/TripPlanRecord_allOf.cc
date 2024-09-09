@@ -187,7 +187,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location
     }
 
     typedef typename TripPlanRecord_allOf::StartingPointType ResultFromType;
-    const ResultFromType result_from = obj->getStartingPoint();
+    const ResultFromType &result_from = obj->getStartingPoint();
     const data_collection_model_location_data_t *result = reinterpret_cast<const data_collection_model_location_data_t*>(&result_from);
     return result;
 }
@@ -252,7 +252,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_tr
     }
 
     typedef typename TripPlanRecord_allOf::WaypointsType ResultFromType;
-    const ResultFromType result_from = obj->getWaypoints();
+    const ResultFromType &result_from = obj->getWaypoints();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -384,7 +384,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location
     }
 
     typedef typename TripPlanRecord_allOf::DestinationType ResultFromType;
-    const ResultFromType result_from = obj->getDestination();
+    const ResultFromType &result_from = obj->getDestination();
     const data_collection_model_location_data_t *result = reinterpret_cast<const data_collection_model_location_data_t*>(&result_from);
     return result;
 }
@@ -449,7 +449,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_tr
     }
 
     typedef typename TripPlanRecord_allOf::EstimatedAverageSpeedType ResultFromType;
-    const ResultFromType result_from = obj->getEstimatedAverageSpeed();
+    const ResultFromType &result_from = obj->getEstimatedAverageSpeed();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -514,7 +514,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_tr
     }
 
     typedef typename TripPlanRecord_allOf::EstimatedArrivalTimeType ResultFromType;
-    const ResultFromType result_from = obj->getEstimatedArrivalTime();
+    const ResultFromType &result_from = obj->getEstimatedArrivalTime();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

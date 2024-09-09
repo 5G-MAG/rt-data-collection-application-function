@@ -195,7 +195,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_integrit
     }
 
     typedef typename IntegrityResult::ComputingEntityType ResultFromType;
-    const ResultFromType result_from = obj->getComputingEntity();
+    const ResultFromType &result_from = obj->getComputingEntity();
     const data_collection_model_integrity_computing_entity_t *result = reinterpret_cast<const data_collection_model_integrity_computing_entity_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -260,7 +260,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_integrit
     }
 
     typedef typename IntegrityResult::ProtectionLevelType ResultFromType;
-    const ResultFromType result_from = obj->getProtectionLevel();
+    const ResultFromType &result_from = obj->getProtectionLevel();
     const data_collection_model_integrity_protection_level_t *result = reinterpret_cast<const data_collection_model_integrity_protection_level_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -325,7 +325,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_int
     }
 
     typedef typename IntegrityResult::IntegrityReqMetIndType ResultFromType;
-    const ResultFromType result_from = obj->isIntegrityReqMetInd();
+    const ResultFromType &result_from = obj->isIntegrityReqMetInd();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -390,7 +390,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename IntegrityResult::AchievedTirType ResultFromType;
-    const ResultFromType result_from = obj->getAchievedTir();
+    const ResultFromType &result_from = obj->getAchievedTir();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }

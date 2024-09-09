@@ -213,7 +213,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pr
     }
 
     typedef typename ProblemDetails::TypeType ResultFromType;
-    const ResultFromType result_from = obj->getType();
+    const ResultFromType &result_from = obj->getType();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -278,7 +278,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pr
     }
 
     typedef typename ProblemDetails::TitleType ResultFromType;
-    const ResultFromType result_from = obj->getTitle();
+    const ResultFromType &result_from = obj->getTitle();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -343,7 +343,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename ProblemDetails::StatusType ResultFromType;
-    const ResultFromType result_from = obj->getStatus();
+    const ResultFromType &result_from = obj->getStatus();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -408,7 +408,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pr
     }
 
     typedef typename ProblemDetails::DetailType ResultFromType;
-    const ResultFromType result_from = obj->getDetail();
+    const ResultFromType &result_from = obj->getDetail();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -473,7 +473,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pr
     }
 
     typedef typename ProblemDetails::InstanceType ResultFromType;
-    const ResultFromType result_from = obj->getInstance();
+    const ResultFromType &result_from = obj->getInstance();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -538,7 +538,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pr
     }
 
     typedef typename ProblemDetails::CauseType ResultFromType;
-    const ResultFromType result_from = obj->getCause();
+    const ResultFromType &result_from = obj->getCause();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -603,7 +603,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_pr
     }
 
     typedef typename ProblemDetails::InvalidParamsType ResultFromType;
-    const ResultFromType result_from = obj->getInvalidParams();
+    const ResultFromType &result_from = obj->getInvalidParams();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -745,7 +745,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pr
     }
 
     typedef typename ProblemDetails::SupportedFeaturesType ResultFromType;
-    const ResultFromType result_from = obj->getSupportedFeatures();
+    const ResultFromType &result_from = obj->getSupportedFeatures();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -810,7 +810,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_access_t
     }
 
     typedef typename ProblemDetails::AccessTokenErrorType ResultFromType;
-    const ResultFromType result_from = obj->getAccessTokenError();
+    const ResultFromType &result_from = obj->getAccessTokenError();
     const data_collection_model_access_token_err_t *result = reinterpret_cast<const data_collection_model_access_token_err_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -875,7 +875,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_access_t
     }
 
     typedef typename ProblemDetails::AccessTokenRequestType ResultFromType;
-    const ResultFromType result_from = obj->getAccessTokenRequest();
+    const ResultFromType &result_from = obj->getAccessTokenRequest();
     const data_collection_model_access_token_req_t *result = reinterpret_cast<const data_collection_model_access_token_req_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -940,7 +940,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pr
     }
 
     typedef typename ProblemDetails::NrfIdType ResultFromType;
-    const ResultFromType result_from = obj->getNrfId();
+    const ResultFromType &result_from = obj->getNrfId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1005,7 +1005,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_pr
     }
 
     typedef typename ProblemDetails::SupportedApiVersionsType ResultFromType;
-    const ResultFromType result_from = obj->getSupportedApiVersions();
+    const ResultFromType &result_from = obj->getSupportedApiVersions();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -1144,7 +1144,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_no_profi
     }
 
     typedef typename ProblemDetails::NoProfileMatchInfoType ResultFromType;
-    const ResultFromType result_from = obj->getNoProfileMatchInfo();
+    const ResultFromType &result_from = obj->getNoProfileMatchInfo();
     const data_collection_model_no_profile_match_info_t *result = reinterpret_cast<const data_collection_model_no_profile_match_info_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }

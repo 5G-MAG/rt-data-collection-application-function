@@ -181,7 +181,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ne
     }
 
     typedef typename NetworkAssistanceInvocation_recommendedQoS::MaximumBitRateType ResultFromType;
-    const ResultFromType result_from = obj->getMaximumBitRate();
+    const ResultFromType &result_from = obj->getMaximumBitRate();
     const char *result = result_from.c_str();
     return result;
 }
@@ -236,7 +236,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ne
     }
 
     typedef typename NetworkAssistanceInvocation_recommendedQoS::MinimumBitRateType ResultFromType;
-    const ResultFromType result_from = obj->getMinimumBitRate();
+    const ResultFromType &result_from = obj->getMinimumBitRate();
     const char *result = result_from.c_str();
     return result;
 }

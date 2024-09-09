@@ -193,7 +193,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const double data_collection_model_r
     }
 
     typedef typename RangeDirection::DistanceType ResultFromType;
-    const ResultFromType result_from = obj->getDistance();
+    const ResultFromType &result_from = obj->getDistance();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -258,7 +258,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename RangeDirection::AzimuthDirectionType ResultFromType;
-    const ResultFromType result_from = obj->getAzimuthDirection();
+    const ResultFromType &result_from = obj->getAzimuthDirection();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -323,7 +323,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename RangeDirection::ElevationDirectionType ResultFromType;
-    const ResultFromType result_from = obj->getElevationDirection();
+    const ResultFromType &result_from = obj->getElevationDirection();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }

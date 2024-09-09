@@ -179,7 +179,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_me
     }
 
     typedef typename MediaStreamingAccessesCollection_allOf::RecordsType ResultFromType;
-    const ResultFromType result_from = obj->getRecords();
+    const ResultFromType &result_from = obj->getRecords();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;

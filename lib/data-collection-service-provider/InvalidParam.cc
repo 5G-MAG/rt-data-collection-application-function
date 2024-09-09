@@ -181,7 +181,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_in
     }
 
     typedef typename InvalidParam::ParamType ResultFromType;
-    const ResultFromType result_from = obj->getParam();
+    const ResultFromType &result_from = obj->getParam();
     const char *result = result_from.c_str();
     return result;
 }
@@ -246,7 +246,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_in
     }
 
     typedef typename InvalidParam::ReasonType ResultFromType;
-    const ResultFromType result_from = obj->getReason();
+    const ResultFromType &result_from = obj->getReason();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

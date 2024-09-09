@@ -181,7 +181,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename GNbId::BitLengthType ResultFromType;
-    const ResultFromType result_from = obj->getBitLength();
+    const ResultFromType &result_from = obj->getBitLength();
     const ResultFromType result = result_from;
     return result;
 }
@@ -236,7 +236,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_gn
     }
 
     typedef typename GNbId::GNBValueType ResultFromType;
-    const ResultFromType result_from = obj->getGNBValue();
+    const ResultFromType &result_from = obj->getGNBValue();
     const char *result = result_from.c_str();
     return result;
 }

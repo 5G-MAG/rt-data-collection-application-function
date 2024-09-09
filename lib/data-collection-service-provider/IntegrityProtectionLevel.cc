@@ -181,7 +181,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename IntegrityProtectionLevel::HorizontalProtectionLevelType ResultFromType;
-    const ResultFromType result_from = obj->getHorizontalProtectionLevel();
+    const ResultFromType &result_from = obj->getHorizontalProtectionLevel();
     const ResultFromType result = result_from;
     return result;
 }
@@ -246,7 +246,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename IntegrityProtectionLevel::VerticalProtectionLevelType ResultFromType;
-    const ResultFromType result_from = obj->getVerticalProtectionLevel();
+    const ResultFromType &result_from = obj->getVerticalProtectionLevel();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }

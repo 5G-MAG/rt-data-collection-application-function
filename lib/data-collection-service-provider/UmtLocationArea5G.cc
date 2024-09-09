@@ -197,7 +197,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_um
     }
 
     typedef typename UmtLocationArea5G::GeographicAreasType ResultFromType;
-    const ResultFromType result_from = obj->getGeographicAreas();
+    const ResultFromType &result_from = obj->getGeographicAreas();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -339,7 +339,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_um
     }
 
     typedef typename UmtLocationArea5G::CivicAddressesType ResultFromType;
-    const ResultFromType result_from = obj->getCivicAddresses();
+    const ResultFromType &result_from = obj->getCivicAddresses();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -481,7 +481,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_network_
     }
 
     typedef typename UmtLocationArea5G::NwAreaInfoType ResultFromType;
-    const ResultFromType result_from = obj->getNwAreaInfo();
+    const ResultFromType &result_from = obj->getNwAreaInfo();
     const data_collection_model_network_area_info_t *result = reinterpret_cast<const data_collection_model_network_area_info_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -546,7 +546,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_um
     }
 
     typedef typename UmtLocationArea5G::UmtTimeType ResultFromType;
-    const ResultFromType result_from = obj->getUmtTime();
+    const ResultFromType &result_from = obj->getUmtTime();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -611,7 +611,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename UmtLocationArea5G::UmtDurationType ResultFromType;
-    const ResultFromType result_from = obj->getUmtDuration();
+    const ResultFromType &result_from = obj->getUmtDuration();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }

@@ -189,7 +189,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_time_win
     }
 
     typedef typename CommunicationRecord_allOf::TimeIntervalType ResultFromType;
-    const ResultFromType result_from = obj->getTimeInterval();
+    const ResultFromType &result_from = obj->getTimeInterval();
     const data_collection_model_time_window_t *result = reinterpret_cast<const data_collection_model_time_window_t*>(&result_from);
     return result;
 }
@@ -254,7 +254,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_snssai_t
     }
 
     typedef typename CommunicationRecord_allOf::SliceInfoType ResultFromType;
-    const ResultFromType result_from = obj->getSliceInfo();
+    const ResultFromType &result_from = obj->getSliceInfo();
     const data_collection_model_snssai_t *result = reinterpret_cast<const data_collection_model_snssai_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -319,7 +319,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_co
     }
 
     typedef typename CommunicationRecord_allOf::DataNetworkNameType ResultFromType;
-    const ResultFromType result_from = obj->getDataNetworkName();
+    const ResultFromType &result_from = obj->getDataNetworkName();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -384,7 +384,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_co
     }
 
     typedef typename CommunicationRecord_allOf::LocationType ResultFromType;
-    const ResultFromType result_from = obj->getLocation();
+    const ResultFromType &result_from = obj->getLocation();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -526,7 +526,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_
     }
 
     typedef typename CommunicationRecord_allOf::UplinkVolumeType ResultFromType;
-    const ResultFromType result_from = obj->getUplinkVolume();
+    const ResultFromType &result_from = obj->getUplinkVolume();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -591,7 +591,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_
     }
 
     typedef typename CommunicationRecord_allOf::DownlinkVolumeType ResultFromType;
-    const ResultFromType result_from = obj->getDownlinkVolume();
+    const ResultFromType &result_from = obj->getDownlinkVolume();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }

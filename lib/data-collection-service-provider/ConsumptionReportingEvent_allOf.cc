@@ -187,7 +187,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_co
     }
 
     typedef typename ConsumptionReportingEvent_allOf::UnitDurationType ResultFromType;
-    const ResultFromType result_from = obj->getUnitDuration();
+    const ResultFromType &result_from = obj->getUnitDuration();
     const char *result = result_from.c_str();
     return result;
 }
@@ -252,7 +252,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_endpoint
     }
 
     typedef typename ConsumptionReportingEvent_allOf::ClientEndpointAddressType ResultFromType;
-    const ResultFromType result_from = obj->getClientEndpointAddress();
+    const ResultFromType &result_from = obj->getClientEndpointAddress();
     const data_collection_model_endpoint_address_t *result = reinterpret_cast<const data_collection_model_endpoint_address_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -317,7 +317,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_endpoint
     }
 
     typedef typename ConsumptionReportingEvent_allOf::ServerEndpointAddressType ResultFromType;
-    const ResultFromType result_from = obj->getServerEndpointAddress();
+    const ResultFromType &result_from = obj->getServerEndpointAddress();
     const data_collection_model_endpoint_address_t *result = reinterpret_cast<const data_collection_model_endpoint_address_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -372,7 +372,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_co
     }
 
     typedef typename ConsumptionReportingEvent_allOf::MediaPlayerEntryUrlType ResultFromType;
-    const ResultFromType result_from = obj->getMediaPlayerEntryUrl();
+    const ResultFromType &result_from = obj->getMediaPlayerEntryUrl();
     const char *result = result_from.c_str();
     return result;
 }
@@ -427,7 +427,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_co
     }
 
     typedef typename ConsumptionReportingEvent_allOf::MediaComponentIdentifierType ResultFromType;
-    const ResultFromType result_from = obj->getMediaComponentIdentifier();
+    const ResultFromType &result_from = obj->getMediaComponentIdentifier();
     const char *result = result_from.c_str();
     return result;
 }

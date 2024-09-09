@@ -191,7 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_um
     }
 
     typedef typename UmtLocationArea5G_allOf::UmtTimeType ResultFromType;
-    const ResultFromType result_from = obj->getUmtTime();
+    const ResultFromType &result_from = obj->getUmtTime();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -256,7 +256,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename UmtLocationArea5G_allOf::UmtDurationType ResultFromType;
-    const ResultFromType result_from = obj->getUmtDuration();
+    const ResultFromType &result_from = obj->getUmtDuration();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }

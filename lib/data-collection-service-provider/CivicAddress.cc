@@ -255,7 +255,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::CountryType ResultFromType;
-    const ResultFromType result_from = obj->getCountry();
+    const ResultFromType &result_from = obj->getCountry();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -320,7 +320,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::A1Type ResultFromType;
-    const ResultFromType result_from = obj->getA1();
+    const ResultFromType &result_from = obj->getA1();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -385,7 +385,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::A2Type ResultFromType;
-    const ResultFromType result_from = obj->getA2();
+    const ResultFromType &result_from = obj->getA2();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -450,7 +450,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::A3Type ResultFromType;
-    const ResultFromType result_from = obj->getA3();
+    const ResultFromType &result_from = obj->getA3();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -515,7 +515,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::A4Type ResultFromType;
-    const ResultFromType result_from = obj->getA4();
+    const ResultFromType &result_from = obj->getA4();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -580,7 +580,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::A5Type ResultFromType;
-    const ResultFromType result_from = obj->getA5();
+    const ResultFromType &result_from = obj->getA5();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -645,7 +645,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::A6Type ResultFromType;
-    const ResultFromType result_from = obj->getA6();
+    const ResultFromType &result_from = obj->getA6();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -710,7 +710,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::PRDType ResultFromType;
-    const ResultFromType result_from = obj->getPRD();
+    const ResultFromType &result_from = obj->getPRD();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -775,7 +775,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::PODType ResultFromType;
-    const ResultFromType result_from = obj->getPOD();
+    const ResultFromType &result_from = obj->getPOD();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -840,7 +840,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::STSType ResultFromType;
-    const ResultFromType result_from = obj->getSTS();
+    const ResultFromType &result_from = obj->getSTS();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -905,7 +905,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::HNOType ResultFromType;
-    const ResultFromType result_from = obj->getHNO();
+    const ResultFromType &result_from = obj->getHNO();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -970,7 +970,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::HNSType ResultFromType;
-    const ResultFromType result_from = obj->getHNS();
+    const ResultFromType &result_from = obj->getHNS();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1035,7 +1035,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::LMKType ResultFromType;
-    const ResultFromType result_from = obj->getLMK();
+    const ResultFromType &result_from = obj->getLMK();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1100,7 +1100,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::LOCType ResultFromType;
-    const ResultFromType result_from = obj->getLOC();
+    const ResultFromType &result_from = obj->getLOC();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1165,7 +1165,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::NAMType ResultFromType;
-    const ResultFromType result_from = obj->getNAM();
+    const ResultFromType &result_from = obj->getNAM();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1230,7 +1230,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::PCType ResultFromType;
-    const ResultFromType result_from = obj->getPC();
+    const ResultFromType &result_from = obj->getPC();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1295,7 +1295,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::BLDType ResultFromType;
-    const ResultFromType result_from = obj->getBLD();
+    const ResultFromType &result_from = obj->getBLD();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1360,7 +1360,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::UNITType ResultFromType;
-    const ResultFromType result_from = obj->getUNIT();
+    const ResultFromType &result_from = obj->getUNIT();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1425,7 +1425,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::FLRType ResultFromType;
-    const ResultFromType result_from = obj->getFLR();
+    const ResultFromType &result_from = obj->getFLR();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1490,7 +1490,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::ROOMType ResultFromType;
-    const ResultFromType result_from = obj->getROOM();
+    const ResultFromType &result_from = obj->getROOM();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1555,7 +1555,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::PLCType ResultFromType;
-    const ResultFromType result_from = obj->getPLC();
+    const ResultFromType &result_from = obj->getPLC();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1620,7 +1620,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::PCNType ResultFromType;
-    const ResultFromType result_from = obj->getPCN();
+    const ResultFromType &result_from = obj->getPCN();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1685,7 +1685,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::POBOXType ResultFromType;
-    const ResultFromType result_from = obj->getPOBOX();
+    const ResultFromType &result_from = obj->getPOBOX();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1750,7 +1750,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::ADDCODEType ResultFromType;
-    const ResultFromType result_from = obj->getADDCODE();
+    const ResultFromType &result_from = obj->getADDCODE();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1815,7 +1815,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::SEATType ResultFromType;
-    const ResultFromType result_from = obj->getSEAT();
+    const ResultFromType &result_from = obj->getSEAT();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1880,7 +1880,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::RDType ResultFromType;
-    const ResultFromType result_from = obj->getRD();
+    const ResultFromType &result_from = obj->getRD();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1945,7 +1945,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::RDSECType ResultFromType;
-    const ResultFromType result_from = obj->getRDSEC();
+    const ResultFromType &result_from = obj->getRDSEC();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -2010,7 +2010,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::RDBRType ResultFromType;
-    const ResultFromType result_from = obj->getRDBR();
+    const ResultFromType &result_from = obj->getRDBR();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -2075,7 +2075,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::RDSUBBRType ResultFromType;
-    const ResultFromType result_from = obj->getRDSUBBR();
+    const ResultFromType &result_from = obj->getRDSUBBR();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -2140,7 +2140,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::PRMType ResultFromType;
-    const ResultFromType result_from = obj->getPRM();
+    const ResultFromType &result_from = obj->getPRM();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -2205,7 +2205,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::POMType ResultFromType;
-    const ResultFromType result_from = obj->getPOM();
+    const ResultFromType &result_from = obj->getPOM();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -2270,7 +2270,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::UsageRulesType ResultFromType;
-    const ResultFromType result_from = obj->getUsageRules();
+    const ResultFromType &result_from = obj->getUsageRules();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -2335,7 +2335,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::MethodType ResultFromType;
-    const ResultFromType result_from = obj->getMethod();
+    const ResultFromType &result_from = obj->getMethod();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -2400,7 +2400,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ci
     }
 
     typedef typename CivicAddress::ProvidedByType ResultFromType;
-    const ResultFromType result_from = obj->getProvidedBy();
+    const ResultFromType &result_from = obj->getProvidedBy();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

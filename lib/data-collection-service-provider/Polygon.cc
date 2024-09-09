@@ -181,7 +181,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supporte
     }
 
     typedef typename Polygon::ShapeType ResultFromType;
-    const ResultFromType result_from = obj->getShape();
+    const ResultFromType &result_from = obj->getShape();
     const data_collection_model_supported_gad_shapes_t *result = reinterpret_cast<const data_collection_model_supported_gad_shapes_t*>(&result_from);
     return result;
 }
@@ -236,7 +236,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_po
     }
 
     typedef typename Polygon::PointListType ResultFromType;
-    const ResultFromType result_from = obj->getPointList();
+    const ResultFromType &result_from = obj->getPointList();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;

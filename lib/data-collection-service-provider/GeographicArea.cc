@@ -203,7 +203,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supporte
     }
 
     typedef typename GeographicArea::ShapeType ResultFromType;
-    const ResultFromType result_from = obj->getShape();
+    const ResultFromType &result_from = obj->getShape();
     const data_collection_model_supported_gad_shapes_t *result = reinterpret_cast<const data_collection_model_supported_gad_shapes_t*>(&result_from);
     return result;
 }
@@ -258,7 +258,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geograph
     }
 
     typedef typename GeographicArea::PointType ResultFromType;
-    const ResultFromType result_from = obj->getPoint();
+    const ResultFromType &result_from = obj->getPoint();
     const data_collection_model_geographical_coordinates_t *result = reinterpret_cast<const data_collection_model_geographical_coordinates_t*>(&result_from);
     return result;
 }
@@ -313,7 +313,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_ge
     }
 
     typedef typename GeographicArea::UncertaintyType ResultFromType;
-    const ResultFromType result_from = obj->getUncertainty();
+    const ResultFromType &result_from = obj->getUncertainty();
     const ResultFromType result = result_from;
     return result;
 }
@@ -368,7 +368,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_uncertai
     }
 
     typedef typename GeographicArea::UncertaintyEllipseType ResultFromType;
-    const ResultFromType result_from = obj->getUncertaintyEllipse();
+    const ResultFromType &result_from = obj->getUncertaintyEllipse();
     const data_collection_model_uncertainty_ellipse_t *result = reinterpret_cast<const data_collection_model_uncertainty_ellipse_t*>(&result_from);
     return result;
 }
@@ -423,7 +423,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename GeographicArea::ConfidenceType ResultFromType;
-    const ResultFromType result_from = obj->getConfidence();
+    const ResultFromType &result_from = obj->getConfidence();
     const ResultFromType result = result_from;
     return result;
 }
@@ -478,7 +478,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ge
     }
 
     typedef typename GeographicArea::PointListType ResultFromType;
-    const ResultFromType result_from = obj->getPointList();
+    const ResultFromType &result_from = obj->getPointList();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;
@@ -609,7 +609,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const double data_collection_model_g
     }
 
     typedef typename GeographicArea::AltitudeType ResultFromType;
-    const ResultFromType result_from = obj->getAltitude();
+    const ResultFromType &result_from = obj->getAltitude();
     const ResultFromType result = result_from;
     return result;
 }
@@ -664,7 +664,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_ge
     }
 
     typedef typename GeographicArea::UncertaintyAltitudeType ResultFromType;
-    const ResultFromType result_from = obj->getUncertaintyAltitude();
+    const ResultFromType &result_from = obj->getUncertaintyAltitude();
     const ResultFromType result = result_from;
     return result;
 }
@@ -729,7 +729,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename GeographicArea::VConfidenceType ResultFromType;
-    const ResultFromType result_from = obj->getVConfidence();
+    const ResultFromType &result_from = obj->getVConfidence();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -784,7 +784,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename GeographicArea::InnerRadiusType ResultFromType;
-    const ResultFromType result_from = obj->getInnerRadius();
+    const ResultFromType &result_from = obj->getInnerRadius();
     const ResultFromType result = result_from;
     return result;
 }
@@ -839,7 +839,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_ge
     }
 
     typedef typename GeographicArea::UncertaintyRadiusType ResultFromType;
-    const ResultFromType result_from = obj->getUncertaintyRadius();
+    const ResultFromType &result_from = obj->getUncertaintyRadius();
     const ResultFromType result = result_from;
     return result;
 }
@@ -894,7 +894,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename GeographicArea::OffsetAngleType ResultFromType;
-    const ResultFromType result_from = obj->getOffsetAngle();
+    const ResultFromType &result_from = obj->getOffsetAngle();
     const ResultFromType result = result_from;
     return result;
 }
@@ -949,7 +949,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename GeographicArea::IncludedAngleType ResultFromType;
-    const ResultFromType result_from = obj->getIncludedAngle();
+    const ResultFromType &result_from = obj->getIncludedAngle();
     const ResultFromType result = result_from;
     return result;
 }

@@ -199,7 +199,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_se
     }
 
     typedef typename ServiceExperienceInfoPerApp::AppIdType ResultFromType;
-    const ResultFromType result_from = obj->getAppId();
+    const ResultFromType &result_from = obj->getAppId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -264,7 +264,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_addr_fqd
     }
 
     typedef typename ServiceExperienceInfoPerApp::AppServerInsType ResultFromType;
-    const ResultFromType result_from = obj->getAppServerIns();
+    const ResultFromType &result_from = obj->getAppServerIns();
     const data_collection_model_addr_fqdn_t *result = reinterpret_cast<const data_collection_model_addr_fqdn_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -319,7 +319,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_se
     }
 
     typedef typename ServiceExperienceInfoPerApp::SvcExpPerFlowsType ResultFromType;
-    const ResultFromType result_from = obj->getSvcExpPerFlows();
+    const ResultFromType &result_from = obj->getSvcExpPerFlows();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;
@@ -460,7 +460,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_se
     }
 
     typedef typename ServiceExperienceInfoPerApp::GpsisType ResultFromType;
-    const ResultFromType result_from = obj->getGpsis();
+    const ResultFromType &result_from = obj->getGpsis();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -599,7 +599,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_se
     }
 
     typedef typename ServiceExperienceInfoPerApp::SupisType ResultFromType;
-    const ResultFromType result_from = obj->getSupis();
+    const ResultFromType &result_from = obj->getSupis();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -738,7 +738,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_se
     }
 
     typedef typename ServiceExperienceInfoPerApp::ContrWeightsType ResultFromType;
-    const ResultFromType result_from = obj->getContrWeights();
+    const ResultFromType &result_from = obj->getContrWeights();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 

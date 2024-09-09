@@ -195,7 +195,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_event_re
     }
 
     typedef typename BaseEventRecord::RecordTypeType ResultFromType;
-    const ResultFromType result_from = obj->getRecordType();
+    const ResultFromType &result_from = obj->getRecordType();
     const data_collection_model_event_record_type_t *result = reinterpret_cast<const data_collection_model_event_record_type_t*>(&result_from);
     return result;
 }
@@ -250,7 +250,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ba
     }
 
     typedef typename BaseEventRecord::RecordTimestampType ResultFromType;
-    const ResultFromType result_from = obj->getRecordTimestamp();
+    const ResultFromType &result_from = obj->getRecordTimestamp();
     const char *result = result_from.c_str();
     return result;
 }
@@ -305,7 +305,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ba
     }
 
     typedef typename BaseEventRecord::AppIdType ResultFromType;
-    const ResultFromType result_from = obj->getAppId();
+    const ResultFromType &result_from = obj->getAppId();
     const char *result = result_from.c_str();
     return result;
 }
@@ -370,7 +370,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ba
     }
 
     typedef typename BaseEventRecord::ProvisioningSessionIdType ResultFromType;
-    const ResultFromType result_from = obj->getProvisioningSessionId();
+    const ResultFromType &result_from = obj->getProvisioningSessionId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -435,7 +435,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ba
     }
 
     typedef typename BaseEventRecord::SessionIdType ResultFromType;
-    const ResultFromType result_from = obj->getSessionId();
+    const ResultFromType &result_from = obj->getSessionId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -500,7 +500,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ba
     }
 
     typedef typename BaseEventRecord::UeIdentificationType ResultFromType;
-    const ResultFromType result_from = obj->getUeIdentification();
+    const ResultFromType &result_from = obj->getUeIdentification();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -565,7 +565,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ba
     }
 
     typedef typename BaseEventRecord::DataNetworkNameType ResultFromType;
-    const ResultFromType result_from = obj->getDataNetworkName();
+    const ResultFromType &result_from = obj->getDataNetworkName();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -630,7 +630,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_snssai_t
     }
 
     typedef typename BaseEventRecord::SliceIdType ResultFromType;
-    const ResultFromType result_from = obj->getSliceId();
+    const ResultFromType &result_from = obj->getSliceId();
     const data_collection_model_snssai_t *result = reinterpret_cast<const data_collection_model_snssai_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -695,7 +695,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ba
     }
 
     typedef typename BaseEventRecord::UeLocationsType ResultFromType;
-    const ResultFromType result_from = obj->getUeLocations();
+    const ResultFromType &result_from = obj->getUeLocations();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 

@@ -193,7 +193,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename PduSetQosPara::PduSetDelayBudgetType ResultFromType;
-    const ResultFromType result_from = obj->getPduSetDelayBudget();
+    const ResultFromType &result_from = obj->getPduSetDelayBudget();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -258,7 +258,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pd
     }
 
     typedef typename PduSetQosPara::PduSetErrRateType ResultFromType;
-    const ResultFromType result_from = obj->getPduSetErrRate();
+    const ResultFromType &result_from = obj->getPduSetErrRate();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -323,7 +323,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_pdu_set_
     }
 
     typedef typename PduSetQosPara::PduSetHandlingInfoType ResultFromType;
-    const ResultFromType result_from = obj->getPduSetHandlingInfo();
+    const ResultFromType &result_from = obj->getPduSetHandlingInfo();
     const data_collection_model_pdu_set_handling_info_t *result = reinterpret_cast<const data_collection_model_pdu_set_handling_info_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }

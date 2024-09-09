@@ -181,7 +181,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ap
     }
 
     typedef typename ApplicationSpecificRecord_allOf::RecordTypeType ResultFromType;
-    const ResultFromType result_from = obj->getRecordType();
+    const ResultFromType &result_from = obj->getRecordType();
     const char *result = result_from.c_str();
     return result;
 }
@@ -236,7 +236,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_any_type
     }
 
     typedef typename ApplicationSpecificRecord_allOf::RecordContainerType ResultFromType;
-    const ResultFromType result_from = obj->getRecordContainer();
+    const ResultFromType &result_from = obj->getRecordContainer();
     const data_collection_model_any_type_t *result = reinterpret_cast<const data_collection_model_any_type_t*>(&result_from);
     return result;
 }

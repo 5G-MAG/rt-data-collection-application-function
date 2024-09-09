@@ -191,7 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_mi
     }
 
     typedef typename MinorLocationQoS::HAccuracyType ResultFromType;
-    const ResultFromType result_from = obj->getHAccuracy();
+    const ResultFromType &result_from = obj->getHAccuracy();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -256,7 +256,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_mi
     }
 
     typedef typename MinorLocationQoS::VAccuracyType ResultFromType;
-    const ResultFromType result_from = obj->getVAccuracy();
+    const ResultFromType &result_from = obj->getVAccuracy();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }

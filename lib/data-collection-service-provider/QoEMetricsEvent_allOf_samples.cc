@@ -195,7 +195,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_qo
     }
 
     typedef typename QoEMetricsEvent_allOf_samples::SampleTimestampType ResultFromType;
-    const ResultFromType result_from = obj->getSampleTimestamp();
+    const ResultFromType &result_from = obj->getSampleTimestamp();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -260,7 +260,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_qo
     }
 
     typedef typename QoEMetricsEvent_allOf_samples::SampleDurationType ResultFromType;
-    const ResultFromType result_from = obj->getSampleDuration();
+    const ResultFromType &result_from = obj->getSampleDuration();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -325,7 +325,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_qo
     }
 
     typedef typename QoEMetricsEvent_allOf_samples::MediaTimestampType ResultFromType;
-    const ResultFromType result_from = obj->getMediaTimestamp();
+    const ResultFromType &result_from = obj->getMediaTimestamp();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -380,7 +380,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_qo
     }
 
     typedef typename QoEMetricsEvent_allOf_samples::MetricsType ResultFromType;
-    const ResultFromType result_from = obj->getMetrics();
+    const ResultFromType &result_from = obj->getMetrics();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;

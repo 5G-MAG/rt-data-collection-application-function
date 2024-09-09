@@ -221,7 +221,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_af_event
     }
 
     typedef typename AfEventNotification::EventType ResultFromType;
-    const ResultFromType result_from = obj->getEvent();
+    const ResultFromType &result_from = obj->getEvent();
     const data_collection_model_af_event_t *result = reinterpret_cast<const data_collection_model_af_event_t*>(&result_from);
     return result;
 }
@@ -276,7 +276,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_af
     }
 
     typedef typename AfEventNotification::TimeStampType ResultFromType;
-    const ResultFromType result_from = obj->getTimeStamp();
+    const ResultFromType &result_from = obj->getTimeStamp();
     const char *result = result_from.c_str();
     return result;
 }
@@ -341,7 +341,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
     }
 
     typedef typename AfEventNotification::SvcExprcInfosType ResultFromType;
-    const ResultFromType result_from = obj->getSvcExprcInfos();
+    const ResultFromType &result_from = obj->getSvcExprcInfos();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -483,7 +483,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
     }
 
     typedef typename AfEventNotification::UeMobilityInfosType ResultFromType;
-    const ResultFromType result_from = obj->getUeMobilityInfos();
+    const ResultFromType &result_from = obj->getUeMobilityInfos();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -625,7 +625,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
     }
 
     typedef typename AfEventNotification::UeCommInfosType ResultFromType;
-    const ResultFromType result_from = obj->getUeCommInfos();
+    const ResultFromType &result_from = obj->getUeCommInfos();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -767,7 +767,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
     }
 
     typedef typename AfEventNotification::ExcepInfosType ResultFromType;
-    const ResultFromType result_from = obj->getExcepInfos();
+    const ResultFromType &result_from = obj->getExcepInfos();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -909,7 +909,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
     }
 
     typedef typename AfEventNotification::CongestionInfosType ResultFromType;
-    const ResultFromType result_from = obj->getCongestionInfos();
+    const ResultFromType &result_from = obj->getCongestionInfos();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -1051,7 +1051,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
     }
 
     typedef typename AfEventNotification::PerfDataInfosType ResultFromType;
-    const ResultFromType result_from = obj->getPerfDataInfos();
+    const ResultFromType &result_from = obj->getPerfDataInfos();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -1193,7 +1193,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
     }
 
     typedef typename AfEventNotification::DispersionInfosType ResultFromType;
-    const ResultFromType result_from = obj->getDispersionInfos();
+    const ResultFromType &result_from = obj->getDispersionInfos();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -1335,7 +1335,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
     }
 
     typedef typename AfEventNotification::CollBhvrInfsType ResultFromType;
-    const ResultFromType result_from = obj->getCollBhvrInfs();
+    const ResultFromType &result_from = obj->getCollBhvrInfs();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -1477,7 +1477,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
     }
 
     typedef typename AfEventNotification::MsQoeMetrInfosType ResultFromType;
-    const ResultFromType result_from = obj->getMsQoeMetrInfos();
+    const ResultFromType &result_from = obj->getMsQoeMetrInfos();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -1619,7 +1619,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
     }
 
     typedef typename AfEventNotification::MsQoeMetricsType ResultFromType;
-    const ResultFromType result_from = obj->getMsQoeMetrics();
+    const ResultFromType &result_from = obj->getMsQoeMetrics();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -1761,7 +1761,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
     }
 
     typedef typename AfEventNotification::MsConsumpInfosType ResultFromType;
-    const ResultFromType result_from = obj->getMsConsumpInfos();
+    const ResultFromType &result_from = obj->getMsConsumpInfos();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -1903,7 +1903,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
     }
 
     typedef typename AfEventNotification::MsConsumpRptsType ResultFromType;
-    const ResultFromType result_from = obj->getMsConsumpRpts();
+    const ResultFromType &result_from = obj->getMsConsumpRpts();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -2045,7 +2045,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
     }
 
     typedef typename AfEventNotification::MsNetAssInvInfosType ResultFromType;
-    const ResultFromType result_from = obj->getMsNetAssInvInfos();
+    const ResultFromType &result_from = obj->getMsNetAssInvInfos();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -2187,7 +2187,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
     }
 
     typedef typename AfEventNotification::MsNetAssistInvsType ResultFromType;
-    const ResultFromType result_from = obj->getMsNetAssistInvs();
+    const ResultFromType &result_from = obj->getMsNetAssistInvs();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -2329,7 +2329,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
     }
 
     typedef typename AfEventNotification::MsDynPlyInvInfosType ResultFromType;
-    const ResultFromType result_from = obj->getMsDynPlyInvInfos();
+    const ResultFromType &result_from = obj->getMsDynPlyInvInfos();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -2471,7 +2471,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
     }
 
     typedef typename AfEventNotification::MsDynPlyInvsType ResultFromType;
-    const ResultFromType result_from = obj->getMsDynPlyInvs();
+    const ResultFromType &result_from = obj->getMsDynPlyInvs();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -2613,7 +2613,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
     }
 
     typedef typename AfEventNotification::MsAccActInfosType ResultFromType;
-    const ResultFromType result_from = obj->getMsAccActInfos();
+    const ResultFromType &result_from = obj->getMsAccActInfos();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -2755,7 +2755,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
     }
 
     typedef typename AfEventNotification::MsAccessesType ResultFromType;
-    const ResultFromType result_from = obj->getMsAccesses();
+    const ResultFromType &result_from = obj->getMsAccesses();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -2897,7 +2897,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_gnss_ass
     }
 
     typedef typename AfEventNotification::GnssAssistDataInfoType ResultFromType;
-    const ResultFromType result_from = obj->getGnssAssistDataInfo();
+    const ResultFromType &result_from = obj->getGnssAssistDataInfo();
     const data_collection_model_gnss_assist_data_info_t *result = reinterpret_cast<const data_collection_model_gnss_assist_data_info_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -2962,7 +2962,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_af
     }
 
     typedef typename AfEventNotification::DatVolTransTimeInfosType ResultFromType;
-    const ResultFromType result_from = obj->getDatVolTransTimeInfos();
+    const ResultFromType &result_from = obj->getDatVolTransTimeInfos();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 

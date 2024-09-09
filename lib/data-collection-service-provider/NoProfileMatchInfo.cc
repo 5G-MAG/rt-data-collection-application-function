@@ -181,7 +181,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_no_profi
     }
 
     typedef typename NoProfileMatchInfo::ReasonType ResultFromType;
-    const ResultFromType result_from = obj->getReason();
+    const ResultFromType &result_from = obj->getReason();
     const data_collection_model_no_profile_match_reason_t *result = reinterpret_cast<const data_collection_model_no_profile_match_reason_t*>(&result_from);
     return result;
 }
@@ -246,7 +246,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_no
     }
 
     typedef typename NoProfileMatchInfo::QueryParamCombinationListType ResultFromType;
-    const ResultFromType result_from = obj->getQueryParamCombinationList();
+    const ResultFromType &result_from = obj->getQueryParamCombinationList();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 

@@ -215,7 +215,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename PerformanceData::PdbType ResultFromType;
-    const ResultFromType result_from = obj->getPdb();
+    const ResultFromType &result_from = obj->getPdb();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -280,7 +280,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename PerformanceData::PdbDlType ResultFromType;
-    const ResultFromType result_from = obj->getPdbDl();
+    const ResultFromType &result_from = obj->getPdbDl();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -345,7 +345,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename PerformanceData::MaxPdbUlType ResultFromType;
-    const ResultFromType result_from = obj->getMaxPdbUl();
+    const ResultFromType &result_from = obj->getMaxPdbUl();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -410,7 +410,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename PerformanceData::MaxPdbDlType ResultFromType;
-    const ResultFromType result_from = obj->getMaxPdbDl();
+    const ResultFromType &result_from = obj->getMaxPdbDl();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -475,7 +475,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename PerformanceData::PlrType ResultFromType;
-    const ResultFromType result_from = obj->getPlr();
+    const ResultFromType &result_from = obj->getPlr();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -540,7 +540,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename PerformanceData::PlrDlType ResultFromType;
-    const ResultFromType result_from = obj->getPlrDl();
+    const ResultFromType &result_from = obj->getPlrDl();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -605,7 +605,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename PerformanceData::MaxPlrUlType ResultFromType;
-    const ResultFromType result_from = obj->getMaxPlrUl();
+    const ResultFromType &result_from = obj->getMaxPlrUl();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -670,7 +670,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename PerformanceData::MaxPlrDlType ResultFromType;
-    const ResultFromType result_from = obj->getMaxPlrDl();
+    const ResultFromType &result_from = obj->getMaxPlrDl();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -735,7 +735,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
     }
 
     typedef typename PerformanceData::ThrputUlType ResultFromType;
-    const ResultFromType result_from = obj->getThrputUl();
+    const ResultFromType &result_from = obj->getThrputUl();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -800,7 +800,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
     }
 
     typedef typename PerformanceData::MaxThrputUlType ResultFromType;
-    const ResultFromType result_from = obj->getMaxThrputUl();
+    const ResultFromType &result_from = obj->getMaxThrputUl();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -865,7 +865,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
     }
 
     typedef typename PerformanceData::MinThrputUlType ResultFromType;
-    const ResultFromType result_from = obj->getMinThrputUl();
+    const ResultFromType &result_from = obj->getMinThrputUl();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -930,7 +930,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
     }
 
     typedef typename PerformanceData::ThrputDlType ResultFromType;
-    const ResultFromType result_from = obj->getThrputDl();
+    const ResultFromType &result_from = obj->getThrputDl();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -995,7 +995,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
     }
 
     typedef typename PerformanceData::MaxThrputDlType ResultFromType;
-    const ResultFromType result_from = obj->getMaxThrputDl();
+    const ResultFromType &result_from = obj->getMaxThrputDl();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1060,7 +1060,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
     }
 
     typedef typename PerformanceData::MinThrputDlType ResultFromType;
-    const ResultFromType result_from = obj->getMinThrputDl();
+    const ResultFromType &result_from = obj->getMinThrputDl();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

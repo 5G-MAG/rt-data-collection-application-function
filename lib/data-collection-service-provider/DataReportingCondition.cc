@@ -201,7 +201,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataReportingCondition::ContextIdsType ResultFromType;
-    const ResultFromType result_from = obj->getContextIds();
+    const ResultFromType &result_from = obj->getContextIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -330,7 +330,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_rep
     }
 
     typedef typename DataReportingCondition::TypeType ResultFromType;
-    const ResultFromType result_from = obj->getType();
+    const ResultFromType &result_from = obj->getType();
     const data_collection_model_data_reporting_condition_type_t *result = reinterpret_cast<const data_collection_model_data_reporting_condition_type_t*>(&result_from);
     return result;
 }
@@ -395,7 +395,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename DataReportingCondition::PeriodType ResultFromType;
-    const ResultFromType result_from = obj->getPeriod();
+    const ResultFromType &result_from = obj->getPeriod();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -460,7 +460,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_da
     }
 
     typedef typename DataReportingCondition::ParameterType ResultFromType;
-    const ResultFromType result_from = obj->getParameter();
+    const ResultFromType &result_from = obj->getParameter();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -525,7 +525,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_rep
     }
 
     typedef typename DataReportingCondition::ThresholdType ResultFromType;
-    const ResultFromType result_from = obj->getThreshold();
+    const ResultFromType &result_from = obj->getThreshold();
     const data_collection_model_data_reporting_condition_threshold_t *result = reinterpret_cast<const data_collection_model_data_reporting_condition_threshold_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -590,7 +590,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_dat
     }
 
     typedef typename DataReportingCondition::ReportWhenBelowType ResultFromType;
-    const ResultFromType result_from = obj->isReportWhenBelow();
+    const ResultFromType &result_from = obj->isReportWhenBelow();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -655,7 +655,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_rep
     }
 
     typedef typename DataReportingCondition::EventTriggerType ResultFromType;
-    const ResultFromType result_from = obj->getEventTrigger();
+    const ResultFromType &result_from = obj->getEventTrigger();
     const data_collection_model_data_reporting_event_trigger_t *result = reinterpret_cast<const data_collection_model_data_reporting_event_trigger_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }

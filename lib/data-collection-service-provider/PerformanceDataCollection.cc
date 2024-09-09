@@ -203,7 +203,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
     }
 
     typedef typename PerformanceDataCollection::AppIdType ResultFromType;
-    const ResultFromType result_from = obj->getAppId();
+    const ResultFromType &result_from = obj->getAppId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -268,7 +268,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ip_addr_
     }
 
     typedef typename PerformanceDataCollection::UeIpAddrType ResultFromType;
-    const ResultFromType result_from = obj->getUeIpAddr();
+    const ResultFromType &result_from = obj->getUeIpAddr();
     const data_collection_model_ip_addr_t *result = reinterpret_cast<const data_collection_model_ip_addr_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -333,7 +333,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_flow_inf
     }
 
     typedef typename PerformanceDataCollection::IpTrafficFilterType ResultFromType;
-    const ResultFromType result_from = obj->getIpTrafficFilter();
+    const ResultFromType &result_from = obj->getIpTrafficFilter();
     const data_collection_model_flow_info_t *result = reinterpret_cast<const data_collection_model_flow_info_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -398,7 +398,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location
     }
 
     typedef typename PerformanceDataCollection::UeLocType ResultFromType;
-    const ResultFromType result_from = obj->getUeLoc();
+    const ResultFromType &result_from = obj->getUeLoc();
     const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -463,7 +463,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_pe
     }
 
     typedef typename PerformanceDataCollection::AppLocsType ResultFromType;
-    const ResultFromType result_from = obj->getAppLocs();
+    const ResultFromType &result_from = obj->getAppLocs();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -602,7 +602,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_addr_fqd
     }
 
     typedef typename PerformanceDataCollection::AsAddrType ResultFromType;
-    const ResultFromType result_from = obj->getAsAddr();
+    const ResultFromType &result_from = obj->getAsAddr();
     const data_collection_model_addr_fqdn_t *result = reinterpret_cast<const data_collection_model_addr_fqdn_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -657,7 +657,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_performa
     }
 
     typedef typename PerformanceDataCollection::PerfDataType ResultFromType;
-    const ResultFromType result_from = obj->getPerfData();
+    const ResultFromType &result_from = obj->getPerfData();
     const data_collection_model_performance_data_t *result = reinterpret_cast<const data_collection_model_performance_data_t*>(&result_from);
     return result;
 }
@@ -712,7 +712,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
     }
 
     typedef typename PerformanceDataCollection::TimeStampType ResultFromType;
-    const ResultFromType result_from = obj->getTimeStamp();
+    const ResultFromType &result_from = obj->getTimeStamp();
     const char *result = result_from.c_str();
     return result;
 }

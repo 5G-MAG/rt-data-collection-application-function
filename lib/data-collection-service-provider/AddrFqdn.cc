@@ -191,7 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ip_addr_
     }
 
     typedef typename AddrFqdn::IpAddrType ResultFromType;
-    const ResultFromType result_from = obj->getIpAddr();
+    const ResultFromType &result_from = obj->getIpAddr();
     const data_collection_model_ip_addr_t *result = reinterpret_cast<const data_collection_model_ip_addr_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -256,7 +256,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ad
     }
 
     typedef typename AddrFqdn::FqdnType ResultFromType;
-    const ResultFromType result_from = obj->getFqdn();
+    const ResultFromType &result_from = obj->getFqdn();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

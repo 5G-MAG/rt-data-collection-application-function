@@ -207,7 +207,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ev
     }
 
     typedef typename EventFilter::GpsisType ResultFromType;
-    const ResultFromType result_from = obj->getGpsis();
+    const ResultFromType &result_from = obj->getGpsis();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -346,7 +346,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ev
     }
 
     typedef typename EventFilter::SupisType ResultFromType;
-    const ResultFromType result_from = obj->getSupis();
+    const ResultFromType &result_from = obj->getSupis();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -485,7 +485,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ev
     }
 
     typedef typename EventFilter::ExterGroupIdsType ResultFromType;
-    const ResultFromType result_from = obj->getExterGroupIds();
+    const ResultFromType &result_from = obj->getExterGroupIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -624,7 +624,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ev
     }
 
     typedef typename EventFilter::InterGroupIdsType ResultFromType;
-    const ResultFromType result_from = obj->getInterGroupIds();
+    const ResultFromType &result_from = obj->getInterGroupIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -763,7 +763,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_eve
     }
 
     typedef typename EventFilter::AnyUeIndType ResultFromType;
-    const ResultFromType result_from = obj->isAnyUeInd();
+    const ResultFromType &result_from = obj->isAnyUeInd();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -828,7 +828,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ip_addr_
     }
 
     typedef typename EventFilter::UeIpAddrType ResultFromType;
-    const ResultFromType result_from = obj->getUeIpAddr();
+    const ResultFromType &result_from = obj->getUeIpAddr();
     const data_collection_model_ip_addr_t *result = reinterpret_cast<const data_collection_model_ip_addr_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -893,7 +893,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ev
     }
 
     typedef typename EventFilter::AppIdsType ResultFromType;
-    const ResultFromType result_from = obj->getAppIds();
+    const ResultFromType &result_from = obj->getAppIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -1032,7 +1032,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location
     }
 
     typedef typename EventFilter::LocAreaType ResultFromType;
-    const ResultFromType result_from = obj->getLocArea();
+    const ResultFromType &result_from = obj->getLocArea();
     const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -1097,7 +1097,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ev
     }
 
     typedef typename EventFilter::CollAttrsType ResultFromType;
-    const ResultFromType result_from = obj->getCollAttrs();
+    const ResultFromType &result_from = obj->getCollAttrs();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -1239,7 +1239,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ev
     }
 
     typedef typename EventFilter::ExceptionReqsType ResultFromType;
-    const ResultFromType result_from = obj->getExceptionReqs();
+    const ResultFromType &result_from = obj->getExceptionReqs();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 

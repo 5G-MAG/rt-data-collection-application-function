@@ -189,7 +189,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_supporte
     }
 
     typedef typename Local3dPointUncertaintyEllipsoid::ShapeType ResultFromType;
-    const ResultFromType result_from = obj->getShape();
+    const ResultFromType &result_from = obj->getShape();
     const data_collection_model_supported_gad_shapes_t *result = reinterpret_cast<const data_collection_model_supported_gad_shapes_t*>(&result_from);
     return result;
 }
@@ -244,7 +244,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_local_or
     }
 
     typedef typename Local3dPointUncertaintyEllipsoid::LocalOriginType ResultFromType;
-    const ResultFromType result_from = obj->getLocalOrigin();
+    const ResultFromType &result_from = obj->getLocalOrigin();
     const data_collection_model_local_origin_t *result = reinterpret_cast<const data_collection_model_local_origin_t*>(&result_from);
     return result;
 }
@@ -299,7 +299,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_relative
     }
 
     typedef typename Local3dPointUncertaintyEllipsoid::PointType ResultFromType;
-    const ResultFromType result_from = obj->getPoint();
+    const ResultFromType &result_from = obj->getPoint();
     const data_collection_model_relative_cartesian_location_t *result = reinterpret_cast<const data_collection_model_relative_cartesian_location_t*>(&result_from);
     return result;
 }
@@ -354,7 +354,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_uncertai
     }
 
     typedef typename Local3dPointUncertaintyEllipsoid::UncertaintyEllipsoidType ResultFromType;
-    const ResultFromType result_from = obj->getUncertaintyEllipsoid();
+    const ResultFromType &result_from = obj->getUncertaintyEllipsoid();
     const data_collection_model_uncertainty_ellipsoid_t *result = reinterpret_cast<const data_collection_model_uncertainty_ellipsoid_t*>(&result_from);
     return result;
 }
@@ -409,7 +409,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename Local3dPointUncertaintyEllipsoid::ConfidenceType ResultFromType;
-    const ResultFromType result_from = obj->getConfidence();
+    const ResultFromType &result_from = obj->getConfidence();
     const ResultFromType result = result_from;
     return result;
 }
@@ -474,7 +474,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename Local3dPointUncertaintyEllipsoid::VConfidenceType ResultFromType;
-    const ResultFromType result_from = obj->getVConfidence();
+    const ResultFromType &result_from = obj->getVConfidence();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }

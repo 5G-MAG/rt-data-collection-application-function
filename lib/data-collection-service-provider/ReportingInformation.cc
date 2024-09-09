@@ -209,7 +209,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_rep
     }
 
     typedef typename ReportingInformation::ImmRepType ResultFromType;
-    const ResultFromType result_from = obj->isImmRep();
+    const ResultFromType &result_from = obj->isImmRep();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -274,7 +274,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_notifica
     }
 
     typedef typename ReportingInformation::NotifMethodType ResultFromType;
-    const ResultFromType result_from = obj->getNotifMethod();
+    const ResultFromType &result_from = obj->getNotifMethod();
     const data_collection_model_notification_method_t *result = reinterpret_cast<const data_collection_model_notification_method_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -339,7 +339,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename ReportingInformation::MaxReportNbrType ResultFromType;
-    const ResultFromType result_from = obj->getMaxReportNbr();
+    const ResultFromType &result_from = obj->getMaxReportNbr();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -404,7 +404,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_re
     }
 
     typedef typename ReportingInformation::MonDurType ResultFromType;
-    const ResultFromType result_from = obj->getMonDur();
+    const ResultFromType &result_from = obj->getMonDur();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -469,7 +469,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename ReportingInformation::RepPeriodType ResultFromType;
-    const ResultFromType result_from = obj->getRepPeriod();
+    const ResultFromType &result_from = obj->getRepPeriod();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -534,7 +534,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename ReportingInformation::SampRatioType ResultFromType;
-    const ResultFromType result_from = obj->getSampRatio();
+    const ResultFromType &result_from = obj->getSampRatio();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -599,7 +599,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_re
     }
 
     typedef typename ReportingInformation::PartitionCriteriaType ResultFromType;
-    const ResultFromType result_from = obj->getPartitionCriteria();
+    const ResultFromType &result_from = obj->getPartitionCriteria();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -741,7 +741,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename ReportingInformation::GrpRepTimeType ResultFromType;
-    const ResultFromType result_from = obj->getGrpRepTime();
+    const ResultFromType &result_from = obj->getGrpRepTime();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -806,7 +806,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_notifica
     }
 
     typedef typename ReportingInformation::NotifFlagType ResultFromType;
-    const ResultFromType result_from = obj->getNotifFlag();
+    const ResultFromType &result_from = obj->getNotifFlag();
     const data_collection_model_notification_flag_t *result = reinterpret_cast<const data_collection_model_notification_flag_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -871,7 +871,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_muting_e
     }
 
     typedef typename ReportingInformation::NotifFlagInstructType ResultFromType;
-    const ResultFromType result_from = obj->getNotifFlagInstruct();
+    const ResultFromType &result_from = obj->getNotifFlagInstruct();
     const data_collection_model_muting_exception_instructions_t *result = reinterpret_cast<const data_collection_model_muting_exception_instructions_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -936,7 +936,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_muting_n
     }
 
     typedef typename ReportingInformation::MutingSettingType ResultFromType;
-    const ResultFromType result_from = obj->getMutingSetting();
+    const ResultFromType &result_from = obj->getMutingSetting();
     const data_collection_model_muting_notifications_settings_t *result = reinterpret_cast<const data_collection_model_muting_notifications_settings_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }

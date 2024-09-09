@@ -181,7 +181,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_nwdaf_ev
     }
 
     typedef typename MlModelInterInd::AnalyticsIdType ResultFromType;
-    const ResultFromType result_from = obj->getAnalyticsId();
+    const ResultFromType &result_from = obj->getAnalyticsId();
     const data_collection_model_nwdaf_event_t *result = reinterpret_cast<const data_collection_model_nwdaf_event_t*>(&result_from);
     return result;
 }
@@ -236,7 +236,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ml
     }
 
     typedef typename MlModelInterInd::VendorListType ResultFromType;
-    const ResultFromType result_from = obj->getVendorList();
+    const ResultFromType &result_from = obj->getVendorList();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;

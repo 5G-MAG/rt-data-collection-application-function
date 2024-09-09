@@ -183,7 +183,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_re
     }
 
     typedef typename RelativeCartesianLocation::xType ResultFromType;
-    const ResultFromType result_from = obj->getX();
+    const ResultFromType &result_from = obj->getX();
     const ResultFromType result = result_from;
     return result;
 }
@@ -238,7 +238,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_re
     }
 
     typedef typename RelativeCartesianLocation::yType ResultFromType;
-    const ResultFromType result_from = obj->getY();
+    const ResultFromType &result_from = obj->getY();
     const ResultFromType result = result_from;
     return result;
 }
@@ -303,7 +303,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_re
     }
 
     typedef typename RelativeCartesianLocation::zType ResultFromType;
-    const ResultFromType result_from = obj->getZ();
+    const ResultFromType &result_from = obj->getZ();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }

@@ -201,7 +201,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_us
     }
 
     typedef typename UserDataCongestionCollection::AppIdType ResultFromType;
-    const ResultFromType result_from = obj->getAppId();
+    const ResultFromType &result_from = obj->getAppId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -266,7 +266,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_flow_inf
     }
 
     typedef typename UserDataCongestionCollection::IpTrafficFilterType ResultFromType;
-    const ResultFromType result_from = obj->getIpTrafficFilter();
+    const ResultFromType &result_from = obj->getIpTrafficFilter();
     const data_collection_model_flow_info_t *result = reinterpret_cast<const data_collection_model_flow_info_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -331,7 +331,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_time_win
     }
 
     typedef typename UserDataCongestionCollection::TimeIntervType ResultFromType;
-    const ResultFromType result_from = obj->getTimeInterv();
+    const ResultFromType &result_from = obj->getTimeInterv();
     const data_collection_model_time_window_t *result = reinterpret_cast<const data_collection_model_time_window_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -396,7 +396,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_us
     }
 
     typedef typename UserDataCongestionCollection::ThrputUlType ResultFromType;
-    const ResultFromType result_from = obj->getThrputUl();
+    const ResultFromType &result_from = obj->getThrputUl();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -461,7 +461,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_us
     }
 
     typedef typename UserDataCongestionCollection::ThrputDlType ResultFromType;
-    const ResultFromType result_from = obj->getThrputDl();
+    const ResultFromType &result_from = obj->getThrputDl();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -526,7 +526,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_us
     }
 
     typedef typename UserDataCongestionCollection::ThrputPkUlType ResultFromType;
-    const ResultFromType result_from = obj->getThrputPkUl();
+    const ResultFromType &result_from = obj->getThrputPkUl();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -591,7 +591,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_us
     }
 
     typedef typename UserDataCongestionCollection::ThrputPkDlType ResultFromType;
-    const ResultFromType result_from = obj->getThrputPkDl();
+    const ResultFromType &result_from = obj->getThrputPkDl();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

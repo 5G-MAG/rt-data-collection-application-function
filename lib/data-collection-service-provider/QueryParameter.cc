@@ -181,7 +181,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_qu
     }
 
     typedef typename QueryParameter::NameType ResultFromType;
-    const ResultFromType result_from = obj->getName();
+    const ResultFromType &result_from = obj->getName();
     const char *result = result_from.c_str();
     return result;
 }
@@ -236,7 +236,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_qu
     }
 
     typedef typename QueryParameter::ValueType ResultFromType;
-    const ResultFromType result_from = obj->getValue();
+    const ResultFromType &result_from = obj->getValue();
     const char *result = result_from.c_str();
     return result;
 }

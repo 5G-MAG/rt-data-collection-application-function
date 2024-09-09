@@ -199,7 +199,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue
     }
 
     typedef typename UeMobilityCollection::GpsiType ResultFromType;
-    const ResultFromType result_from = obj->getGpsi();
+    const ResultFromType &result_from = obj->getGpsi();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -264,7 +264,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue
     }
 
     typedef typename UeMobilityCollection::SupiType ResultFromType;
-    const ResultFromType result_from = obj->getSupi();
+    const ResultFromType &result_from = obj->getSupi();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -319,7 +319,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue
     }
 
     typedef typename UeMobilityCollection::AppIdType ResultFromType;
-    const ResultFromType result_from = obj->getAppId();
+    const ResultFromType &result_from = obj->getAppId();
     const char *result = result_from.c_str();
     return result;
 }
@@ -384,7 +384,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_ue_
     }
 
     typedef typename UeMobilityCollection::AllAppIndType ResultFromType;
-    const ResultFromType result_from = obj->isAllAppInd();
+    const ResultFromType &result_from = obj->isAllAppInd();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -439,7 +439,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ue
     }
 
     typedef typename UeMobilityCollection::UeTrajsType ResultFromType;
-    const ResultFromType result_from = obj->getUeTrajs();
+    const ResultFromType &result_from = obj->getUeTrajs();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;
@@ -580,7 +580,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ue
     }
 
     typedef typename UeMobilityCollection::AreasType ResultFromType;
-    const ResultFromType result_from = obj->getAreas();
+    const ResultFromType &result_from = obj->getAreas();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 

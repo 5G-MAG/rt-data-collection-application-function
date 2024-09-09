@@ -201,7 +201,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ap
     }
 
     typedef typename AppExpUeBehaviour::AppIdType ResultFromType;
-    const ResultFromType result_from = obj->getAppId();
+    const ResultFromType &result_from = obj->getAppId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -266,7 +266,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_time_win
     }
 
     typedef typename AppExpUeBehaviour::ExpPduSesInacTmType ResultFromType;
-    const ResultFromType result_from = obj->getExpPduSesInacTm();
+    const ResultFromType &result_from = obj->getExpPduSesInacTm();
     const data_collection_model_time_window_t *result = reinterpret_cast<const data_collection_model_time_window_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -331,7 +331,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ap
     }
 
     typedef typename AppExpUeBehaviour::FlowDescriptionsType ResultFromType;
-    const ResultFromType result_from = obj->getFlowDescriptions();
+    const ResultFromType &result_from = obj->getFlowDescriptions();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -470,7 +470,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ap
     }
 
     typedef typename AppExpUeBehaviour::ConfidenceLevelType ResultFromType;
-    const ResultFromType result_from = obj->getConfidenceLevel();
+    const ResultFromType &result_from = obj->getConfidenceLevel();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -535,7 +535,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ap
     }
 
     typedef typename AppExpUeBehaviour::AccuracyLevelType ResultFromType;
-    const ResultFromType result_from = obj->getAccuracyLevel();
+    const ResultFromType &result_from = obj->getAccuracyLevel();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -600,7 +600,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_cp_failu
     }
 
     typedef typename AppExpUeBehaviour::FailureCodeType ResultFromType;
-    const ResultFromType result_from = obj->getFailureCode();
+    const ResultFromType &result_from = obj->getFailureCode();
     const data_collection_model_cp_failure_code_t *result = reinterpret_cast<const data_collection_model_cp_failure_code_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -665,7 +665,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ap
     }
 
     typedef typename AppExpUeBehaviour::ValidityTimeType ResultFromType;
-    const ResultFromType result_from = obj->getValidityTime();
+    const ResultFromType &result_from = obj->getValidityTime();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

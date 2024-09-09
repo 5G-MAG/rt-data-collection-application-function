@@ -203,7 +203,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_da
     }
 
     typedef typename DatVolTransTimeCollection::AppIdType ResultFromType;
-    const ResultFromType result_from = obj->getAppId();
+    const ResultFromType &result_from = obj->getAppId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -268,7 +268,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_addr_fqd
     }
 
     typedef typename DatVolTransTimeCollection::AppServerInstType ResultFromType;
-    const ResultFromType result_from = obj->getAppServerInst();
+    const ResultFromType &result_from = obj->getAppServerInst();
     const data_collection_model_addr_fqdn_t *result = reinterpret_cast<const data_collection_model_addr_fqdn_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -333,7 +333,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_da
     }
 
     typedef typename DatVolTransTimeCollection::GpsiType ResultFromType;
-    const ResultFromType result_from = obj->getGpsi();
+    const ResultFromType &result_from = obj->getGpsi();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -398,7 +398,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_da
     }
 
     typedef typename DatVolTransTimeCollection::SupiType ResultFromType;
-    const ResultFromType result_from = obj->getSupi();
+    const ResultFromType &result_from = obj->getSupi();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -463,7 +463,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_
     }
 
     typedef typename DatVolTransTimeCollection::UlTransVolType ResultFromType;
-    const ResultFromType result_from = obj->getUlTransVol();
+    const ResultFromType &result_from = obj->getUlTransVol();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -528,7 +528,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_
     }
 
     typedef typename DatVolTransTimeCollection::DlTransVolType ResultFromType;
-    const ResultFromType result_from = obj->getDlTransVol();
+    const ResultFromType &result_from = obj->getDlTransVol();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -593,7 +593,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_time_win
     }
 
     typedef typename DatVolTransTimeCollection::UlTransTimeDurType ResultFromType;
-    const ResultFromType result_from = obj->getUlTransTimeDur();
+    const ResultFromType &result_from = obj->getUlTransTimeDur();
     const data_collection_model_time_window_t *result = reinterpret_cast<const data_collection_model_time_window_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -658,7 +658,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_time_win
     }
 
     typedef typename DatVolTransTimeCollection::DlTransTimeDurType ResultFromType;
-    const ResultFromType result_from = obj->getDlTransTimeDur();
+    const ResultFromType &result_from = obj->getDlTransTimeDur();
     const data_collection_model_time_window_t *result = reinterpret_cast<const data_collection_model_time_window_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }

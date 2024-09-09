@@ -179,7 +179,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_network_
     }
 
     typedef typename NetworkAssistanceInvocationEvent_allOf::NetworkAssistanceTypeType ResultFromType;
-    const ResultFromType result_from = obj->getNetworkAssistanceType();
+    const ResultFromType &result_from = obj->getNetworkAssistanceType();
     const data_collection_model_network_assistance_type_t *result = reinterpret_cast<const data_collection_model_network_assistance_type_t*>(&result_from);
     return result;
 }

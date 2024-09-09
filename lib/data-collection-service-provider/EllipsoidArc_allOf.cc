@@ -189,7 +189,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geograph
     }
 
     typedef typename EllipsoidArc_allOf::PointType ResultFromType;
-    const ResultFromType result_from = obj->getPoint();
+    const ResultFromType &result_from = obj->getPoint();
     const data_collection_model_geographical_coordinates_t *result = reinterpret_cast<const data_collection_model_geographical_coordinates_t*>(&result_from);
     return result;
 }
@@ -244,7 +244,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename EllipsoidArc_allOf::InnerRadiusType ResultFromType;
-    const ResultFromType result_from = obj->getInnerRadius();
+    const ResultFromType &result_from = obj->getInnerRadius();
     const ResultFromType result = result_from;
     return result;
 }
@@ -299,7 +299,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_el
     }
 
     typedef typename EllipsoidArc_allOf::UncertaintyRadiusType ResultFromType;
-    const ResultFromType result_from = obj->getUncertaintyRadius();
+    const ResultFromType &result_from = obj->getUncertaintyRadius();
     const ResultFromType result = result_from;
     return result;
 }
@@ -354,7 +354,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename EllipsoidArc_allOf::OffsetAngleType ResultFromType;
-    const ResultFromType result_from = obj->getOffsetAngle();
+    const ResultFromType &result_from = obj->getOffsetAngle();
     const ResultFromType result = result_from;
     return result;
 }
@@ -409,7 +409,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename EllipsoidArc_allOf::IncludedAngleType ResultFromType;
-    const ResultFromType result_from = obj->getIncludedAngle();
+    const ResultFromType &result_from = obj->getIncludedAngle();
     const ResultFromType result = result_from;
     return result;
 }
@@ -464,7 +464,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename EllipsoidArc_allOf::ConfidenceType ResultFromType;
-    const ResultFromType result_from = obj->getConfidence();
+    const ResultFromType &result_from = obj->getConfidence();
     const ResultFromType result = result_from;
     return result;
 }

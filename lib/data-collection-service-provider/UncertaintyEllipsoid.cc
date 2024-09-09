@@ -185,7 +185,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_un
     }
 
     typedef typename UncertaintyEllipsoid::SemiMajorType ResultFromType;
-    const ResultFromType result_from = obj->getSemiMajor();
+    const ResultFromType &result_from = obj->getSemiMajor();
     const ResultFromType result = result_from;
     return result;
 }
@@ -240,7 +240,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_un
     }
 
     typedef typename UncertaintyEllipsoid::SemiMinorType ResultFromType;
-    const ResultFromType result_from = obj->getSemiMinor();
+    const ResultFromType &result_from = obj->getSemiMinor();
     const ResultFromType result = result_from;
     return result;
 }
@@ -295,7 +295,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_un
     }
 
     typedef typename UncertaintyEllipsoid::VerticalType ResultFromType;
-    const ResultFromType result_from = obj->getVertical();
+    const ResultFromType &result_from = obj->getVertical();
     const ResultFromType result = result_from;
     return result;
 }
@@ -350,7 +350,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename UncertaintyEllipsoid::OrientationMajorType ResultFromType;
-    const ResultFromType result_from = obj->getOrientationMajor();
+    const ResultFromType &result_from = obj->getOrientationMajor();
     const ResultFromType result = result_from;
     return result;
 }

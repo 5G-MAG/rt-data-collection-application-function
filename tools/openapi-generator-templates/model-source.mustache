@@ -332,7 +332,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API {{#isContainer}}{{^isArray}}const {{
     }
 
     typedef typename {{{classname}}}::{{name}}Type ResultFromType;
-    const ResultFromType result_from = obj->{{{getter}}}();
+    const ResultFromType &result_from = obj->{{{getter}}}();
     {{>make-result}}
 
     return result;

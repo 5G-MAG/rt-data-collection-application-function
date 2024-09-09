@@ -195,7 +195,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ip
     }
 
     typedef typename IpPacketFilterSet::DirectionType ResultFromType;
-    const ResultFromType result_from = obj->getDirection();
+    const ResultFromType &result_from = obj->getDirection();
     const char *result = result_from.c_str();
     return result;
 }
@@ -260,7 +260,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ip_addr_
     }
 
     typedef typename IpPacketFilterSet::SourceAddressType ResultFromType;
-    const ResultFromType result_from = obj->getSourceAddress();
+    const ResultFromType &result_from = obj->getSourceAddress();
     const data_collection_model_ip_addr_t *result = reinterpret_cast<const data_collection_model_ip_addr_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -325,7 +325,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ip_addr_
     }
 
     typedef typename IpPacketFilterSet::DestinationAddressType ResultFromType;
-    const ResultFromType result_from = obj->getDestinationAddress();
+    const ResultFromType &result_from = obj->getDestinationAddress();
     const data_collection_model_ip_addr_t *result = reinterpret_cast<const data_collection_model_ip_addr_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -390,7 +390,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename IpPacketFilterSet::ProtocolNumberType ResultFromType;
-    const ResultFromType result_from = obj->getProtocolNumber();
+    const ResultFromType &result_from = obj->getProtocolNumber();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -455,7 +455,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename IpPacketFilterSet::SourcePortType ResultFromType;
-    const ResultFromType result_from = obj->getSourcePort();
+    const ResultFromType &result_from = obj->getSourcePort();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -520,7 +520,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename IpPacketFilterSet::DestinationPortType ResultFromType;
-    const ResultFromType result_from = obj->getDestinationPort();
+    const ResultFromType &result_from = obj->getDestinationPort();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -585,7 +585,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename IpPacketFilterSet::DifferentiatedServicesCodePointType ResultFromType;
-    const ResultFromType result_from = obj->getDifferentiatedServicesCodePoint();
+    const ResultFromType &result_from = obj->getDifferentiatedServicesCodePoint();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -650,7 +650,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename IpPacketFilterSet::FlowLabelType ResultFromType;
-    const ResultFromType result_from = obj->getFlowLabel();
+    const ResultFromType &result_from = obj->getFlowLabel();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -715,7 +715,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename IpPacketFilterSet::SecurityParametersIndexType ResultFromType;
-    const ResultFromType result_from = obj->getSecurityParametersIndex();
+    const ResultFromType &result_from = obj->getSecurityParametersIndex();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }

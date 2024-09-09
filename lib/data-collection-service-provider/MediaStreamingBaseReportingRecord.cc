@@ -193,7 +193,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_snssai_t
     }
 
     typedef typename MediaStreamingBaseReportingRecord::SliceInfoType ResultFromType;
-    const ResultFromType result_from = obj->getSliceInfo();
+    const ResultFromType &result_from = obj->getSliceInfo();
     const data_collection_model_snssai_t *result = reinterpret_cast<const data_collection_model_snssai_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -258,7 +258,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_me
     }
 
     typedef typename MediaStreamingBaseReportingRecord::DataNetworkNameType ResultFromType;
-    const ResultFromType result_from = obj->getDataNetworkName();
+    const ResultFromType &result_from = obj->getDataNetworkName();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -323,7 +323,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_typed_lo
     }
 
     typedef typename MediaStreamingBaseReportingRecord::LocationType ResultFromType;
-    const ResultFromType result_from = obj->getLocation();
+    const ResultFromType &result_from = obj->getLocation();
     const data_collection_model_typed_location_t *result = reinterpret_cast<const data_collection_model_typed_location_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }

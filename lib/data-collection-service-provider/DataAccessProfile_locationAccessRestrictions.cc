@@ -181,7 +181,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataAccessProfile_locationAccessRestrictions::LocationAreasType ResultFromType;
-    const ResultFromType result_from = obj->getLocationAreas();
+    const ResultFromType &result_from = obj->getLocationAreas();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;
@@ -312,7 +312,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataAccessProfile_locationAccessRestrictions::AggregationFunctionsType ResultFromType;
-    const ResultFromType result_from = obj->getAggregationFunctions();
+    const ResultFromType &result_from = obj->getAggregationFunctions();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;

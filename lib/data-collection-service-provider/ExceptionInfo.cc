@@ -193,7 +193,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_flow_inf
     }
 
     typedef typename ExceptionInfo::IpTrafficFilterType ResultFromType;
-    const ResultFromType result_from = obj->getIpTrafficFilter();
+    const ResultFromType &result_from = obj->getIpTrafficFilter();
     const data_collection_model_flow_info_t *result = reinterpret_cast<const data_collection_model_flow_info_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -258,7 +258,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_eth_flow
     }
 
     typedef typename ExceptionInfo::EthTrafficFilterType ResultFromType;
-    const ResultFromType result_from = obj->getEthTrafficFilter();
+    const ResultFromType &result_from = obj->getEthTrafficFilter();
     const data_collection_model_eth_flow_description_t *result = reinterpret_cast<const data_collection_model_eth_flow_description_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -313,7 +313,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ex
     }
 
     typedef typename ExceptionInfo::ExcepsType ResultFromType;
-    const ResultFromType result_from = obj->getExceps();
+    const ResultFromType &result_from = obj->getExceps();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;

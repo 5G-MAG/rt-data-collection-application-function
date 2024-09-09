@@ -183,7 +183,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_gn
     }
 
     typedef typename GNSSAssistDataInfo::GnssAssistDataType ResultFromType;
-    const ResultFromType result_from = obj->getGnssAssistData();
+    const ResultFromType &result_from = obj->getGnssAssistData();
     const char *result = result_from.c_str();
     return result;
 }
@@ -238,7 +238,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_gnss_ser
     }
 
     typedef typename GNSSAssistDataInfo::ServAreaType ResultFromType;
-    const ResultFromType result_from = obj->getServArea();
+    const ResultFromType &result_from = obj->getServArea();
     const data_collection_model_gnss_serv_area_t *result = reinterpret_cast<const data_collection_model_gnss_serv_area_t*>(&result_from);
     return result;
 }
@@ -303,7 +303,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geograph
     }
 
     typedef typename GNSSAssistDataInfo::SourceInfoType ResultFromType;
-    const ResultFromType result_from = obj->getSourceInfo();
+    const ResultFromType &result_from = obj->getSourceInfo();
     const data_collection_model_geographical_coordinates_t *result = reinterpret_cast<const data_collection_model_geographical_coordinates_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }

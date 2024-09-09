@@ -195,7 +195,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
     }
 
     typedef typename PerformanceDataRecord::TimestampType ResultFromType;
-    const ResultFromType result_from = obj->getTimestamp();
+    const ResultFromType &result_from = obj->getTimestamp();
     const char *result = result_from.c_str();
     return result;
 }
@@ -250,7 +250,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_pe
     }
 
     typedef typename PerformanceDataRecord::ContextIdsType ResultFromType;
-    const ResultFromType result_from = obj->getContextIds();
+    const ResultFromType &result_from = obj->getContextIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;
@@ -378,7 +378,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_time_win
     }
 
     typedef typename PerformanceDataRecord::TimeIntervalType ResultFromType;
-    const ResultFromType result_from = obj->getTimeInterval();
+    const ResultFromType &result_from = obj->getTimeInterval();
     const data_collection_model_time_window_t *result = reinterpret_cast<const data_collection_model_time_window_t*>(&result_from);
     return result;
 }
@@ -443,7 +443,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location
     }
 
     typedef typename PerformanceDataRecord::LocationType ResultFromType;
-    const ResultFromType result_from = obj->getLocation();
+    const ResultFromType &result_from = obj->getLocation();
     const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -508,7 +508,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_addr_fqd
     }
 
     typedef typename PerformanceDataRecord::RemoteEndpointType ResultFromType;
-    const ResultFromType result_from = obj->getRemoteEndpoint();
+    const ResultFromType &result_from = obj->getRemoteEndpoint();
     const data_collection_model_addr_fqdn_t *result = reinterpret_cast<const data_collection_model_addr_fqdn_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -573,7 +573,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename PerformanceDataRecord::PacketDelayBudgetType ResultFromType;
-    const ResultFromType result_from = obj->getPacketDelayBudget();
+    const ResultFromType &result_from = obj->getPacketDelayBudget();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -638,7 +638,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename PerformanceDataRecord::PacketLossRateType ResultFromType;
-    const ResultFromType result_from = obj->getPacketLossRate();
+    const ResultFromType &result_from = obj->getPacketLossRate();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -703,7 +703,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
     }
 
     typedef typename PerformanceDataRecord::UplinkThroughputType ResultFromType;
-    const ResultFromType result_from = obj->getUplinkThroughput();
+    const ResultFromType &result_from = obj->getUplinkThroughput();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -768,7 +768,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_pe
     }
 
     typedef typename PerformanceDataRecord::DownlinkThrougputType ResultFromType;
-    const ResultFromType result_from = obj->getDownlinkThrougput();
+    const ResultFromType &result_from = obj->getDownlinkThrougput();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

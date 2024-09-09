@@ -181,7 +181,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ti
     }
 
     typedef typename TimeWindow::StartTimeType ResultFromType;
-    const ResultFromType result_from = obj->getStartTime();
+    const ResultFromType &result_from = obj->getStartTime();
     const char *result = result_from.c_str();
     return result;
 }
@@ -236,7 +236,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ti
     }
 
     typedef typename TimeWindow::StopTimeType ResultFromType;
-    const ResultFromType result_from = obj->getStopTime();
+    const ResultFromType &result_from = obj->getStopTime();
     const char *result = result_from.c_str();
     return result;
 }

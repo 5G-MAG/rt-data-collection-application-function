@@ -185,7 +185,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_lo
     }
 
     typedef typename LocalOrigin::CoordinateIdType ResultFromType;
-    const ResultFromType result_from = obj->getCoordinateId();
+    const ResultFromType &result_from = obj->getCoordinateId();
     const char *result = result_from.c_str();
     return result;
 }
@@ -250,7 +250,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geograph
     }
 
     typedef typename LocalOrigin::PointType ResultFromType;
-    const ResultFromType result_from = obj->getPoint();
+    const ResultFromType &result_from = obj->getPoint();
     const data_collection_model_geographical_coordinates_t *result = reinterpret_cast<const data_collection_model_geographical_coordinates_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -315,7 +315,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geograph
     }
 
     typedef typename LocalOrigin::AreaType ResultFromType;
-    const ResultFromType result_from = obj->getArea();
+    const ResultFromType &result_from = obj->getArea();
     const data_collection_model_geographic_area_t *result = reinterpret_cast<const data_collection_model_geographic_area_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -380,7 +380,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename LocalOrigin::HorizAxesOrientationType ResultFromType;
-    const ResultFromType result_from = obj->getHorizAxesOrientation();
+    const ResultFromType &result_from = obj->getHorizAxesOrientation();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }

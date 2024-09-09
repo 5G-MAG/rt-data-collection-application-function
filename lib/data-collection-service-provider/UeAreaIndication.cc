@@ -191,7 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ue
     }
 
     typedef typename UeAreaIndication::CountryType ResultFromType;
-    const ResultFromType result_from = obj->getCountry();
+    const ResultFromType &result_from = obj->getCountry();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -256,7 +256,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_ue_
     }
 
     typedef typename UeAreaIndication::InternationalAreaIndType ResultFromType;
-    const ResultFromType result_from = obj->isInternationalAreaInd();
+    const ResultFromType &result_from = obj->isInternationalAreaInd();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }

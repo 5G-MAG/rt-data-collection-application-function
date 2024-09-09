@@ -191,7 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_rt
     }
 
     typedef typename RtpPayloadInfo::RtpPayloadTypeListType ResultFromType;
-    const ResultFromType result_from = obj->getRtpPayloadTypeList();
+    const ResultFromType &result_from = obj->getRtpPayloadTypeList();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -334,7 +334,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_rtp_payl
     }
 
     typedef typename RtpPayloadInfo::RtpPayloadFormatType ResultFromType;
-    const ResultFromType result_from = obj->getRtpPayloadFormat();
+    const ResultFromType &result_from = obj->getRtpPayloadFormat();
     const data_collection_model_rtp_payload_format_t *result = reinterpret_cast<const data_collection_model_rtp_payload_format_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }

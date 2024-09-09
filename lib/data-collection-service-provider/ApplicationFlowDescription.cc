@@ -187,7 +187,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_sdf_meth
     }
 
     typedef typename ApplicationFlowDescription::FilterMethodType ResultFromType;
-    const ResultFromType result_from = obj->getFilterMethod();
+    const ResultFromType &result_from = obj->getFilterMethod();
     const data_collection_model_sdf_method_t *result = reinterpret_cast<const data_collection_model_sdf_method_t*>(&result_from);
     return result;
 }
@@ -252,7 +252,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ip_packe
     }
 
     typedef typename ApplicationFlowDescription::PacketFilterType ResultFromType;
-    const ResultFromType result_from = obj->getPacketFilter();
+    const ResultFromType &result_from = obj->getPacketFilter();
     const data_collection_model_ip_packet_filter_set_t *result = reinterpret_cast<const data_collection_model_ip_packet_filter_set_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -317,7 +317,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ap
     }
 
     typedef typename ApplicationFlowDescription::DomainNameType ResultFromType;
-    const ResultFromType result_from = obj->getDomainName();
+    const ResultFromType &result_from = obj->getDomainName();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -382,7 +382,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_media_ty
     }
 
     typedef typename ApplicationFlowDescription::MediaTypeType ResultFromType;
-    const ResultFromType result_from = obj->getMediaType();
+    const ResultFromType &result_from = obj->getMediaType();
     const data_collection_model_media_type_t *result = reinterpret_cast<const data_collection_model_media_type_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -447,7 +447,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_protocol
     }
 
     typedef typename ApplicationFlowDescription::MediaTransportParametersType ResultFromType;
-    const ResultFromType result_from = obj->getMediaTransportParameters();
+    const ResultFromType &result_from = obj->getMediaTransportParameters();
     const data_collection_model_protocol_description_t *result = reinterpret_cast<const data_collection_model_protocol_description_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }

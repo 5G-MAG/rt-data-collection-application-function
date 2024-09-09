@@ -207,7 +207,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_co
     }
 
     typedef typename CollectiveBehaviourInfo::ColAttribType ResultFromType;
-    const ResultFromType result_from = obj->getColAttrib();
+    const ResultFromType &result_from = obj->getColAttrib();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -349,7 +349,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename CollectiveBehaviourInfo::NoOfUesType ResultFromType;
-    const ResultFromType result_from = obj->getNoOfUes();
+    const ResultFromType &result_from = obj->getNoOfUes();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -414,7 +414,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_co
     }
 
     typedef typename CollectiveBehaviourInfo::AppIdsType ResultFromType;
-    const ResultFromType result_from = obj->getAppIds();
+    const ResultFromType &result_from = obj->getAppIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -553,7 +553,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_co
     }
 
     typedef typename CollectiveBehaviourInfo::ExtUeIdsType ResultFromType;
-    const ResultFromType result_from = obj->getExtUeIds();
+    const ResultFromType &result_from = obj->getExtUeIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -692,7 +692,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_co
     }
 
     typedef typename CollectiveBehaviourInfo::UeIdsType ResultFromType;
-    const ResultFromType result_from = obj->getUeIds();
+    const ResultFromType &result_from = obj->getUeIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -831,7 +831,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename CollectiveBehaviourInfo::CollisionDistType ResultFromType;
-    const ResultFromType result_from = obj->getCollisionDist();
+    const ResultFromType &result_from = obj->getCollisionDist();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -896,7 +896,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_co
     }
 
     typedef typename CollectiveBehaviourInfo::AbsDirsType ResultFromType;
-    const ResultFromType result_from = obj->getAbsDirs();
+    const ResultFromType &result_from = obj->getAbsDirs();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -1038,7 +1038,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_co
     }
 
     typedef typename CollectiveBehaviourInfo::RelDirsType ResultFromType;
-    const ResultFromType result_from = obj->getRelDirs();
+    const ResultFromType &result_from = obj->getRelDirs();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -1180,7 +1180,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ue_traje
     }
 
     typedef typename CollectiveBehaviourInfo::UeTrajectoryType ResultFromType;
-    const ResultFromType result_from = obj->getUeTrajectory();
+    const ResultFromType &result_from = obj->getUeTrajectory();
     const data_collection_model_ue_trajectory_collection_t *result = reinterpret_cast<const data_collection_model_ue_trajectory_collection_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -1245,7 +1245,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename CollectiveBehaviourInfo::ConfidenceType ResultFromType;
-    const ResultFromType result_from = obj->getConfidence();
+    const ResultFromType &result_from = obj->getConfidence();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }

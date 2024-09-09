@@ -193,7 +193,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataSamplingRule::ContextIdsType ResultFromType;
-    const ResultFromType result_from = obj->getContextIds();
+    const ResultFromType &result_from = obj->getContextIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -332,7 +332,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_da
     }
 
     typedef typename DataSamplingRule::SamplingPeriodType ResultFromType;
-    const ResultFromType result_from = obj->getSamplingPeriod();
+    const ResultFromType &result_from = obj->getSamplingPeriod();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -397,7 +397,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location
     }
 
     typedef typename DataSamplingRule::LocationFilterType ResultFromType;
-    const ResultFromType result_from = obj->getLocationFilter();
+    const ResultFromType &result_from = obj->getLocationFilter();
     const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }

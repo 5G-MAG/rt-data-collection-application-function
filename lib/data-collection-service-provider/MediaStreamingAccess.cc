@@ -191,7 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_endpoint
     }
 
     typedef typename MediaStreamingAccess::MediaStreamHandlerEndpointAddressType ResultFromType;
-    const ResultFromType result_from = obj->getMediaStreamHandlerEndpointAddress();
+    const ResultFromType &result_from = obj->getMediaStreamHandlerEndpointAddress();
     const data_collection_model_endpoint_address_t *result = reinterpret_cast<const data_collection_model_endpoint_address_t*>(&result_from);
     return result;
 }
@@ -246,7 +246,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_endpoint
     }
 
     typedef typename MediaStreamingAccess::ApplicationServerEndpointAddressType ResultFromType;
-    const ResultFromType result_from = obj->getApplicationServerEndpointAddress();
+    const ResultFromType &result_from = obj->getApplicationServerEndpointAddress();
     const data_collection_model_endpoint_address_t *result = reinterpret_cast<const data_collection_model_endpoint_address_t*>(&result_from);
     return result;
 }
@@ -301,7 +301,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_media_st
     }
 
     typedef typename MediaStreamingAccess::RequestMessageType ResultFromType;
-    const ResultFromType result_from = obj->getRequestMessage();
+    const ResultFromType &result_from = obj->getRequestMessage();
     const data_collection_model_media_streaming_access_request_message_t *result = reinterpret_cast<const data_collection_model_media_streaming_access_request_message_t*>(&result_from);
     return result;
 }
@@ -366,7 +366,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_cache_st
     }
 
     typedef typename MediaStreamingAccess::CacheStatusType ResultFromType;
-    const ResultFromType result_from = obj->getCacheStatus();
+    const ResultFromType &result_from = obj->getCacheStatus();
     const data_collection_model_cache_status_t *result = reinterpret_cast<const data_collection_model_cache_status_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -421,7 +421,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_media_st
     }
 
     typedef typename MediaStreamingAccess::ResponseMessageType ResultFromType;
-    const ResultFromType result_from = obj->getResponseMessage();
+    const ResultFromType &result_from = obj->getResponseMessage();
     const data_collection_model_media_streaming_access_response_message_t *result = reinterpret_cast<const data_collection_model_media_streaming_access_response_message_t*>(&result_from);
     return result;
 }
@@ -476,7 +476,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const float data_collection_model_me
     }
 
     typedef typename MediaStreamingAccess::ProcessingLatencyType ResultFromType;
-    const ResultFromType result_from = obj->getProcessingLatency();
+    const ResultFromType &result_from = obj->getProcessingLatency();
     const ResultFromType result = result_from;
     return result;
 }
@@ -541,7 +541,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_media_st
     }
 
     typedef typename MediaStreamingAccess::ConnectionMetricsType ResultFromType;
-    const ResultFromType result_from = obj->getConnectionMetrics();
+    const ResultFromType &result_from = obj->getConnectionMetrics();
     const data_collection_model_media_streaming_access_connection_metrics_t *result = reinterpret_cast<const data_collection_model_media_streaming_access_connection_metrics_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }

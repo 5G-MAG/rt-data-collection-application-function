@@ -183,7 +183,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_m5
     }
 
     typedef typename M5BitRateSpecification::MaximumRequestedBitRateType ResultFromType;
-    const ResultFromType result_from = obj->getMaximumRequestedBitRate();
+    const ResultFromType &result_from = obj->getMaximumRequestedBitRate();
     const char *result = result_from.c_str();
     return result;
 }
@@ -238,7 +238,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_m5
     }
 
     typedef typename M5BitRateSpecification::MinimumDesiredBitRateType ResultFromType;
-    const ResultFromType result_from = obj->getMinimumDesiredBitRate();
+    const ResultFromType &result_from = obj->getMinimumDesiredBitRate();
     const char *result = result_from.c_str();
     return result;
 }
@@ -293,7 +293,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_m5
     }
 
     typedef typename M5BitRateSpecification::MinimumRequestedBitRateType ResultFromType;
-    const ResultFromType result_from = obj->getMinimumRequestedBitRate();
+    const ResultFromType &result_from = obj->getMinimumRequestedBitRate();
     const char *result = result_from.c_str();
     return result;
 }

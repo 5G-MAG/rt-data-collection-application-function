@@ -185,7 +185,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_co
     }
 
     typedef typename CommunicationCollection::StartTimeType ResultFromType;
-    const ResultFromType result_from = obj->getStartTime();
+    const ResultFromType &result_from = obj->getStartTime();
     const char *result = result_from.c_str();
     return result;
 }
@@ -240,7 +240,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_co
     }
 
     typedef typename CommunicationCollection::EndTimeType ResultFromType;
-    const ResultFromType result_from = obj->getEndTime();
+    const ResultFromType &result_from = obj->getEndTime();
     const char *result = result_from.c_str();
     return result;
 }
@@ -295,7 +295,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_
     }
 
     typedef typename CommunicationCollection::UlVolType ResultFromType;
-    const ResultFromType result_from = obj->getUlVol();
+    const ResultFromType &result_from = obj->getUlVol();
     const ResultFromType result = result_from;
     return result;
 }
@@ -350,7 +350,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int64_t data_collection_model_
     }
 
     typedef typename CommunicationCollection::DlVolType ResultFromType;
-    const ResultFromType result_from = obj->getDlVol();
+    const ResultFromType &result_from = obj->getDlVol();
     const ResultFromType result = result_from;
     return result;
 }

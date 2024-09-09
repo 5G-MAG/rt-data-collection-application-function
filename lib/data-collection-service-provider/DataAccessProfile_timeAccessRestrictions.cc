@@ -181,7 +181,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename DataAccessProfile_timeAccessRestrictions::DurationType ResultFromType;
-    const ResultFromType result_from = obj->getDuration();
+    const ResultFromType &result_from = obj->getDuration();
     const ResultFromType result = result_from;
     return result;
 }
@@ -236,7 +236,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_da
     }
 
     typedef typename DataAccessProfile_timeAccessRestrictions::AggregationFunctionsType ResultFromType;
-    const ResultFromType result_from = obj->getAggregationFunctions();
+    const ResultFromType &result_from = obj->getAggregationFunctions();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;

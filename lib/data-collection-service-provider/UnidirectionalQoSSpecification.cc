@@ -187,7 +187,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_un
     }
 
     typedef typename UnidirectionalQoSSpecification::MaximumRequestedBitRateType ResultFromType;
-    const ResultFromType result_from = obj->getMaximumRequestedBitRate();
+    const ResultFromType &result_from = obj->getMaximumRequestedBitRate();
     const char *result = result_from.c_str();
     return result;
 }
@@ -252,7 +252,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_un
     }
 
     typedef typename UnidirectionalQoSSpecification::MinimumDesiredBitRateType ResultFromType;
-    const ResultFromType result_from = obj->getMinimumDesiredBitRate();
+    const ResultFromType &result_from = obj->getMinimumDesiredBitRate();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -307,7 +307,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_un
     }
 
     typedef typename UnidirectionalQoSSpecification::MinimumRequestedBitRateType ResultFromType;
-    const ResultFromType result_from = obj->getMinimumRequestedBitRate();
+    const ResultFromType &result_from = obj->getMinimumRequestedBitRate();
     const char *result = result_from.c_str();
     return result;
 }
@@ -372,7 +372,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename UnidirectionalQoSSpecification::DesiredPacketLatencyType ResultFromType;
-    const ResultFromType result_from = obj->getDesiredPacketLatency();
+    const ResultFromType &result_from = obj->getDesiredPacketLatency();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -437,7 +437,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename UnidirectionalQoSSpecification::DesiredPacketLossRateType ResultFromType;
-    const ResultFromType result_from = obj->getDesiredPacketLossRate();
+    const ResultFromType &result_from = obj->getDesiredPacketLossRate();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }

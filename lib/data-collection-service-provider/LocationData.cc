@@ -239,7 +239,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geograph
     }
 
     typedef typename LocationData::LocationEstimateType ResultFromType;
-    const ResultFromType result_from = obj->getLocationEstimate();
+    const ResultFromType &result_from = obj->getLocationEstimate();
     const data_collection_model_geographic_area_t *result = reinterpret_cast<const data_collection_model_geographic_area_t*>(&result_from);
     return result;
 }
@@ -304,7 +304,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_accuracy
     }
 
     typedef typename LocationData::AccuracyFulfilmentIndicatorType ResultFromType;
-    const ResultFromType result_from = obj->getAccuracyFulfilmentIndicator();
+    const ResultFromType &result_from = obj->getAccuracyFulfilmentIndicator();
     const data_collection_model_accuracy_fulfilment_indicator_t *result = reinterpret_cast<const data_collection_model_accuracy_fulfilment_indicator_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -369,7 +369,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename LocationData::AgeOfLocationEstimateType ResultFromType;
-    const ResultFromType result_from = obj->getAgeOfLocationEstimate();
+    const ResultFromType &result_from = obj->getAgeOfLocationEstimate();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -434,7 +434,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_lo
     }
 
     typedef typename LocationData::TimestampOfLocationEstimateType ResultFromType;
-    const ResultFromType result_from = obj->getTimestampOfLocationEstimate();
+    const ResultFromType &result_from = obj->getTimestampOfLocationEstimate();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -499,7 +499,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_velocity
     }
 
     typedef typename LocationData::VelocityEstimateType ResultFromType;
-    const ResultFromType result_from = obj->getVelocityEstimate();
+    const ResultFromType &result_from = obj->getVelocityEstimate();
     const data_collection_model_velocity_estimate_t *result = reinterpret_cast<const data_collection_model_velocity_estimate_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -564,7 +564,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_civic_ad
     }
 
     typedef typename LocationData::CivicAddressType ResultFromType;
-    const ResultFromType result_from = obj->getCivicAddress();
+    const ResultFromType &result_from = obj->getCivicAddress();
     const data_collection_model_civic_address_t *result = reinterpret_cast<const data_collection_model_civic_address_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -629,7 +629,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_local_ar
     }
 
     typedef typename LocationData::LocalLocationEstimateType ResultFromType;
-    const ResultFromType result_from = obj->getLocalLocationEstimate();
+    const ResultFromType &result_from = obj->getLocalLocationEstimate();
     const data_collection_model_local_area_t *result = reinterpret_cast<const data_collection_model_local_area_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -694,7 +694,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_lo
     }
 
     typedef typename LocationData::PositioningDataListType ResultFromType;
-    const ResultFromType result_from = obj->getPositioningDataList();
+    const ResultFromType &result_from = obj->getPositioningDataList();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -836,7 +836,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_lo
     }
 
     typedef typename LocationData::GnssPositioningDataListType ResultFromType;
-    const ResultFromType result_from = obj->getGnssPositioningDataList();
+    const ResultFromType &result_from = obj->getGnssPositioningDataList();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -978,7 +978,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ecgi_t* 
     }
 
     typedef typename LocationData::EcgiType ResultFromType;
-    const ResultFromType result_from = obj->getEcgi();
+    const ResultFromType &result_from = obj->getEcgi();
     const data_collection_model_ecgi_t *result = reinterpret_cast<const data_collection_model_ecgi_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -1043,7 +1043,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ncgi_t* 
     }
 
     typedef typename LocationData::NcgiType ResultFromType;
-    const ResultFromType result_from = obj->getNcgi();
+    const ResultFromType &result_from = obj->getNcgi();
     const data_collection_model_ncgi_t *result = reinterpret_cast<const data_collection_model_ncgi_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -1108,7 +1108,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_loc
     }
 
     typedef typename LocationData::RemoteUeIndType ResultFromType;
-    const ResultFromType result_from = obj->isRemoteUeInd();
+    const ResultFromType &result_from = obj->isRemoteUeInd();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -1173,7 +1173,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const double data_collection_model_l
     }
 
     typedef typename LocationData::AltitudeType ResultFromType;
-    const ResultFromType result_from = obj->getAltitude();
+    const ResultFromType &result_from = obj->getAltitude();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -1238,7 +1238,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename LocationData::BarometricPressureType ResultFromType;
-    const ResultFromType result_from = obj->getBarometricPressure();
+    const ResultFromType &result_from = obj->getBarometricPressure();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -1303,7 +1303,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_lo
     }
 
     typedef typename LocationData::ServingLMFIdentificationType ResultFromType;
-    const ResultFromType result_from = obj->getServingLMFIdentification();
+    const ResultFromType &result_from = obj->getServingLMFIdentification();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1368,7 +1368,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const unsigned char* data_collection
     }
 
     typedef typename LocationData::UePositioningCapType ResultFromType;
-    const ResultFromType result_from = obj->getUePositioningCap();
+    const ResultFromType &result_from = obj->getUePositioningCap();
     const unsigned char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1433,7 +1433,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ue_area_
     }
 
     typedef typename LocationData::UeAreaIndType ResultFromType;
-    const ResultFromType result_from = obj->getUeAreaInd();
+    const ResultFromType &result_from = obj->getUeAreaInd();
     const data_collection_model_ue_area_indication_t *result = reinterpret_cast<const data_collection_model_ue_area_indication_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -1498,7 +1498,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_lo
     }
 
     typedef typename LocationData::SupportedFeaturesType ResultFromType;
-    const ResultFromType result_from = obj->getSupportedFeatures();
+    const ResultFromType &result_from = obj->getSupportedFeatures();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1563,7 +1563,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_minor_lo
     }
 
     typedef typename LocationData::AchievedQosType ResultFromType;
-    const ResultFromType result_from = obj->getAchievedQos();
+    const ResultFromType &result_from = obj->getAchievedQos();
     const data_collection_model_minor_location_qo_s_t *result = reinterpret_cast<const data_collection_model_minor_location_qo_s_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -1628,7 +1628,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const bool data_collection_model_loc
     }
 
     typedef typename LocationData::DirectReportIndType ResultFromType;
-    const ResultFromType result_from = obj->isDirectReportInd();
+    const ResultFromType &result_from = obj->isDirectReportInd();
     const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
     return result;
 }
@@ -1693,7 +1693,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_indoor_o
     }
 
     typedef typename LocationData::IndoorOutdoorIndType ResultFromType;
-    const ResultFromType result_from = obj->getIndoorOutdoorInd();
+    const ResultFromType &result_from = obj->getIndoorOutdoorInd();
     const data_collection_model_indoor_outdoor_ind_t *result = reinterpret_cast<const data_collection_model_indoor_outdoor_ind_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -1758,7 +1758,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_periodic
     }
 
     typedef typename LocationData::AcceptedPeriodicEventInfoType ResultFromType;
-    const ResultFromType result_from = obj->getAcceptedPeriodicEventInfo();
+    const ResultFromType &result_from = obj->getAcceptedPeriodicEventInfo();
     const data_collection_model_periodic_event_info_t *result = reinterpret_cast<const data_collection_model_periodic_event_info_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -1823,7 +1823,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_high_acc
     }
 
     typedef typename LocationData::HaGnssMetricsType ResultFromType;
-    const ResultFromType result_from = obj->getHaGnssMetrics();
+    const ResultFromType &result_from = obj->getHaGnssMetrics();
     const data_collection_model_high_accuracy_gnss_metrics_t *result = reinterpret_cast<const data_collection_model_high_accuracy_gnss_metrics_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -1888,7 +1888,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_los_nlos
     }
 
     typedef typename LocationData::LosNlosMeasureIndType ResultFromType;
-    const ResultFromType result_from = obj->getLosNlosMeasureInd();
+    const ResultFromType &result_from = obj->getLosNlosMeasureInd();
     const data_collection_model_los_nlos_measure_ind_t *result = reinterpret_cast<const data_collection_model_los_nlos_measure_ind_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -1953,7 +1953,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_lo
     }
 
     typedef typename LocationData::RelatedApplicationlayerIdType ResultFromType;
-    const ResultFromType result_from = obj->getRelatedApplicationlayerId();
+    const ResultFromType &result_from = obj->getRelatedApplicationlayerId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -2018,7 +2018,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_range_di
     }
 
     typedef typename LocationData::DistanceDirectionType ResultFromType;
-    const ResultFromType result_from = obj->getDistanceDirection();
+    const ResultFromType &result_from = obj->getDistanceDirection();
     const data_collection_model_range_direction_t *result = reinterpret_cast<const data_collection_model_range_direction_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -2083,7 +2083,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_r_2_d_re
     }
 
     typedef typename LocationData::r_2dRelativeLocationType ResultFromType;
-    const ResultFromType result_from = obj->getR2dRelativeLocation();
+    const ResultFromType &result_from = obj->getR2dRelativeLocation();
     const data_collection_model_r_2_d_relative_location_t *result = reinterpret_cast<const data_collection_model_r_2_d_relative_location_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -2148,7 +2148,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_r_3_d_re
     }
 
     typedef typename LocationData::r_3dRelativeLocationType ResultFromType;
-    const ResultFromType result_from = obj->getR3dRelativeLocation();
+    const ResultFromType &result_from = obj->getR3dRelativeLocation();
     const data_collection_model_r_3_d_relative_location_t *result = reinterpret_cast<const data_collection_model_r_3_d_relative_location_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -2213,7 +2213,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_velocity
     }
 
     typedef typename LocationData::RelativeVelocityType ResultFromType;
-    const ResultFromType result_from = obj->getRelativeVelocity();
+    const ResultFromType &result_from = obj->getRelativeVelocity();
     const data_collection_model_velocity_estimate_t *result = reinterpret_cast<const data_collection_model_velocity_estimate_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -2278,7 +2278,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const unsigned char* data_collection
     }
 
     typedef typename LocationData::RangingSlCapabilityType ResultFromType;
-    const ResultFromType result_from = obj->getRangingSlCapability();
+    const ResultFromType &result_from = obj->getRangingSlCapability();
     const unsigned char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -2343,7 +2343,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_integrit
     }
 
     typedef typename LocationData::IntegrityResultType ResultFromType;
-    const ResultFromType result_from = obj->getIntegrityResult();
+    const ResultFromType &result_from = obj->getIntegrityResult();
     const data_collection_model_integrity_result_t *result = reinterpret_cast<const data_collection_model_integrity_result_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }

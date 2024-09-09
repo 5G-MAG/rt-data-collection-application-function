@@ -193,7 +193,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_sc
     }
 
     typedef typename ScheduledCommunicationTime::DaysOfWeekType ResultFromType;
-    const ResultFromType result_from = obj->getDaysOfWeek();
+    const ResultFromType &result_from = obj->getDaysOfWeek();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -336,7 +336,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_sc
     }
 
     typedef typename ScheduledCommunicationTime::TimeOfDayStartType ResultFromType;
-    const ResultFromType result_from = obj->getTimeOfDayStart();
+    const ResultFromType &result_from = obj->getTimeOfDayStart();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -401,7 +401,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_sc
     }
 
     typedef typename ScheduledCommunicationTime::TimeOfDayEndType ResultFromType;
-    const ResultFromType result_from = obj->getTimeOfDayEnd();
+    const ResultFromType &result_from = obj->getTimeOfDayEnd();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

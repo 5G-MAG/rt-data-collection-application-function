@@ -191,7 +191,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_dy
     }
 
     typedef typename DynamicPolicyInvocationsCollection::CollectionTimestampType ResultFromType;
-    const ResultFromType result_from = obj->getCollectionTimestamp();
+    const ResultFromType &result_from = obj->getCollectionTimestamp();
     const char *result = result_from.c_str();
     return result;
 }
@@ -246,7 +246,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_dy
     }
 
     typedef typename DynamicPolicyInvocationsCollection::StartTimestampType ResultFromType;
-    const ResultFromType result_from = obj->getStartTimestamp();
+    const ResultFromType &result_from = obj->getStartTimestamp();
     const char *result = result_from.c_str();
     return result;
 }
@@ -301,7 +301,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_dy
     }
 
     typedef typename DynamicPolicyInvocationsCollection::EndTimestampType ResultFromType;
-    const ResultFromType result_from = obj->getEndTimestamp();
+    const ResultFromType &result_from = obj->getEndTimestamp();
     const char *result = result_from.c_str();
     return result;
 }
@@ -356,7 +356,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename DynamicPolicyInvocationsCollection::SampleCountType ResultFromType;
-    const ResultFromType result_from = obj->getSampleCount();
+    const ResultFromType &result_from = obj->getSampleCount();
     const ResultFromType result = result_from;
     return result;
 }
@@ -411,7 +411,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_provisio
     }
 
     typedef typename DynamicPolicyInvocationsCollection::StreamingDirectionType ResultFromType;
-    const ResultFromType result_from = obj->getStreamingDirection();
+    const ResultFromType &result_from = obj->getStreamingDirection();
     const data_collection_model_provisioning_session_type_t *result = reinterpret_cast<const data_collection_model_provisioning_session_type_t*>(&result_from);
     return result;
 }
@@ -466,7 +466,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_dy
     }
 
     typedef typename DynamicPolicyInvocationsCollection::SummarisationsType ResultFromType;
-    const ResultFromType result_from = obj->getSummarisations();
+    const ResultFromType &result_from = obj->getSummarisations();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;
@@ -597,7 +597,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_dy
     }
 
     typedef typename DynamicPolicyInvocationsCollection::RecordsType ResultFromType;
-    const ResultFromType result_from = obj->getRecords();
+    const ResultFromType &result_from = obj->getRecords();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(ogs_calloc(1, sizeof(*result)));
     
     typedef typename ResultFromType::value_type ItemType;

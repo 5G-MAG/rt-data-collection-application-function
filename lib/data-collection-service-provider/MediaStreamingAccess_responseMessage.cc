@@ -185,7 +185,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename MediaStreamingAccess_responseMessage::ResponseCodeType ResultFromType;
-    const ResultFromType result_from = obj->getResponseCode();
+    const ResultFromType &result_from = obj->getResponseCode();
     const ResultFromType result = result_from;
     return result;
 }
@@ -240,7 +240,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename MediaStreamingAccess_responseMessage::SizeType ResultFromType;
-    const ResultFromType result_from = obj->getSize();
+    const ResultFromType &result_from = obj->getSize();
     const ResultFromType result = result_from;
     return result;
 }
@@ -295,7 +295,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_
     }
 
     typedef typename MediaStreamingAccess_responseMessage::BodySizeType ResultFromType;
-    const ResultFromType result_from = obj->getBodySize();
+    const ResultFromType &result_from = obj->getBodySize();
     const ResultFromType result = result_from;
     return result;
 }
@@ -360,7 +360,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_me
     }
 
     typedef typename MediaStreamingAccess_responseMessage::ContentTypeType ResultFromType;
-    const ResultFromType result_from = obj->getContentType();
+    const ResultFromType &result_from = obj->getContentType();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }

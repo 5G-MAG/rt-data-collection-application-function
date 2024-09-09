@@ -221,7 +221,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ac
     }
 
     typedef typename AccessTokenReq::Grant_typeType ResultFromType;
-    const ResultFromType result_from = obj->getGrantType();
+    const ResultFromType &result_from = obj->getGrantType();
     const char *result = result_from.c_str();
     return result;
 }
@@ -276,7 +276,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ac
     }
 
     typedef typename AccessTokenReq::NfInstanceIdType ResultFromType;
-    const ResultFromType result_from = obj->getNfInstanceId();
+    const ResultFromType &result_from = obj->getNfInstanceId();
     const char *result = result_from.c_str();
     return result;
 }
@@ -341,7 +341,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_nf_type_
     }
 
     typedef typename AccessTokenReq::NfTypeType ResultFromType;
-    const ResultFromType result_from = obj->getNfType();
+    const ResultFromType &result_from = obj->getNfType();
     const data_collection_model_nf_type_t *result = reinterpret_cast<const data_collection_model_nf_type_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -406,7 +406,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_nf_type_
     }
 
     typedef typename AccessTokenReq::TargetNfTypeType ResultFromType;
-    const ResultFromType result_from = obj->getTargetNfType();
+    const ResultFromType &result_from = obj->getTargetNfType();
     const data_collection_model_nf_type_t *result = reinterpret_cast<const data_collection_model_nf_type_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -461,7 +461,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ac
     }
 
     typedef typename AccessTokenReq::ScopeType ResultFromType;
-    const ResultFromType result_from = obj->getScope();
+    const ResultFromType &result_from = obj->getScope();
     const char *result = result_from.c_str();
     return result;
 }
@@ -526,7 +526,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ac
     }
 
     typedef typename AccessTokenReq::TargetNfInstanceIdType ResultFromType;
-    const ResultFromType result_from = obj->getTargetNfInstanceId();
+    const ResultFromType &result_from = obj->getTargetNfInstanceId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -591,7 +591,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_plmn_id_
     }
 
     typedef typename AccessTokenReq::RequesterPlmnType ResultFromType;
-    const ResultFromType result_from = obj->getRequesterPlmn();
+    const ResultFromType &result_from = obj->getRequesterPlmn();
     const data_collection_model_plmn_id_t *result = reinterpret_cast<const data_collection_model_plmn_id_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -656,7 +656,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ac
     }
 
     typedef typename AccessTokenReq::RequesterPlmnListType ResultFromType;
-    const ResultFromType result_from = obj->getRequesterPlmnList();
+    const ResultFromType &result_from = obj->getRequesterPlmnList();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -798,7 +798,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ac
     }
 
     typedef typename AccessTokenReq::RequesterSnssaiListType ResultFromType;
-    const ResultFromType result_from = obj->getRequesterSnssaiList();
+    const ResultFromType &result_from = obj->getRequesterSnssaiList();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -940,7 +940,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ac
     }
 
     typedef typename AccessTokenReq::RequesterFqdnType ResultFromType;
-    const ResultFromType result_from = obj->getRequesterFqdn();
+    const ResultFromType &result_from = obj->getRequesterFqdn();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1005,7 +1005,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ac
     }
 
     typedef typename AccessTokenReq::RequesterSnpnListType ResultFromType;
-    const ResultFromType result_from = obj->getRequesterSnpnList();
+    const ResultFromType &result_from = obj->getRequesterSnpnList();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -1147,7 +1147,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_plmn_id_
     }
 
     typedef typename AccessTokenReq::TargetPlmnType ResultFromType;
-    const ResultFromType result_from = obj->getTargetPlmn();
+    const ResultFromType &result_from = obj->getTargetPlmn();
     const data_collection_model_plmn_id_t *result = reinterpret_cast<const data_collection_model_plmn_id_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -1212,7 +1212,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_plmn_id_
     }
 
     typedef typename AccessTokenReq::TargetSnpnType ResultFromType;
-    const ResultFromType result_from = obj->getTargetSnpn();
+    const ResultFromType &result_from = obj->getTargetSnpn();
     const data_collection_model_plmn_id_nid_t *result = reinterpret_cast<const data_collection_model_plmn_id_nid_t*>(result_from.has_value()?&result_from.value():nullptr);
     return result;
 }
@@ -1277,7 +1277,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ac
     }
 
     typedef typename AccessTokenReq::TargetSnssaiListType ResultFromType;
-    const ResultFromType result_from = obj->getTargetSnssaiList();
+    const ResultFromType &result_from = obj->getTargetSnssaiList();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -1419,7 +1419,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ac
     }
 
     typedef typename AccessTokenReq::TargetNsiListType ResultFromType;
-    const ResultFromType result_from = obj->getTargetNsiList();
+    const ResultFromType &result_from = obj->getTargetNsiList();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -1558,7 +1558,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ac
     }
 
     typedef typename AccessTokenReq::TargetNfSetIdType ResultFromType;
-    const ResultFromType result_from = obj->getTargetNfSetId();
+    const ResultFromType &result_from = obj->getTargetNfSetId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1623,7 +1623,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ac
     }
 
     typedef typename AccessTokenReq::TargetNfServiceSetIdType ResultFromType;
-    const ResultFromType result_from = obj->getTargetNfServiceSetId();
+    const ResultFromType &result_from = obj->getTargetNfServiceSetId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1688,7 +1688,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ac
     }
 
     typedef typename AccessTokenReq::HnrfAccessTokenUriType ResultFromType;
-    const ResultFromType result_from = obj->getHnrfAccessTokenUri();
+    const ResultFromType &result_from = obj->getHnrfAccessTokenUri();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1753,7 +1753,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ac
     }
 
     typedef typename AccessTokenReq::SourceNfInstanceIdType ResultFromType;
-    const ResultFromType result_from = obj->getSourceNfInstanceId();
+    const ResultFromType &result_from = obj->getSourceNfInstanceId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1818,7 +1818,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ac
     }
 
     typedef typename AccessTokenReq::VendorIdType ResultFromType;
-    const ResultFromType result_from = obj->getVendorId();
+    const ResultFromType &result_from = obj->getVendorId();
     const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
     return result;
 }
@@ -1883,7 +1883,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ac
     }
 
     typedef typename AccessTokenReq::AnalyticsIdsType ResultFromType;
-    const ResultFromType result_from = obj->getAnalyticsIds();
+    const ResultFromType &result_from = obj->getAnalyticsIds();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
@@ -2025,7 +2025,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_ac
     }
 
     typedef typename AccessTokenReq::RequesterInterIndListType ResultFromType;
-    const ResultFromType result_from = obj->getRequesterInterIndList();
+    const ResultFromType &result_from = obj->getRequesterInterIndList();
     ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
     if (result_from.has_value()) {
 
