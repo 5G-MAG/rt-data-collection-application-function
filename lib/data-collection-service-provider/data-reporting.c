@@ -258,6 +258,8 @@ static void data_reporting_session_add_or_update_sampling_rules(data_collection_
 	    }
             	    
 	    data_collection_adjust_sampling_rules(data_reporting_session, data_reporting_session_sampling_rules_data_domain, external_application_id, handler->event_type, data_domain, client_type);
+	    data_collection_reporting_session_add_sampling_rules(data_reporting_session, data_domain, data_reporting_session_sampling_rules_data_domain);
+
             /*
 	    ogs_list_t *data_reporting_provisioning_session_configurations;	
 	    data_reporting_configuration_sampling_rules = data_reporting_configuration_sampling_rules_get(data_collection_reporting_session->external_application_id, handler->event_type, data_collection_reporting_session->client_type);
@@ -306,6 +308,7 @@ static void data_reporting_session_add_or_update_reporting_rules(data_collection
 	    }
             	    
 	    data_collection_adjust_reporting_rules(data_reporting_session, data_reporting_session_reporting_rules_data_domain, external_application_id, handler->event_type, data_domain, client_type);
+	    data_collection_reporting_session_add_reporting_rules(data_reporting_session, data_domain, data_reporting_session_reporting_rules_data_domain);
 	}
     }
 
@@ -341,7 +344,9 @@ static void data_reporting_session_add_or_update_reporting_conditions(data_colle
             }
 
             data_collection_adjust_reporting_conditions(data_reporting_session, data_reporting_session_reporting_conditions_data_domain, external_application_id, handler->event_type, data_domain, client_type);
-        }
+	    data_collection_reporting_session_add_reporting_conditions(data_reporting_session, data_domain, data_reporting_session_reporting_conditions_data_domain);
+        
+	}
     }
 
 }

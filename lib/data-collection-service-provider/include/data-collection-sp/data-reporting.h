@@ -55,7 +55,7 @@ typedef enum {
 } data_collection_data_report_property_e;
 
 typedef enum {
-    DATA_COLLECTION_REPORTING_CLIENT_TYPE_DIRECT,
+    DATA_COLLECTION_REPORTING_CLIENT_TYPE_DIRECT = 1,
     DATA_COLLECTION_REPORTING_CLIENT_TYPE_INDIRECT,
     DATA_COLLECTION_REPORTING_CLIENT_TYPE_APPLICATION_SERVER
 } data_collection_reporting_client_type_e;
