@@ -85,6 +85,7 @@ typedef struct data_collection_data_report_handler_s {
     data_collection_data_report_property_e data_report_property;
     const char *data_domain;      /* derived from data_report_property if NULL */
     const char *event_type;       /* afEvent enumeration string value or any other string for custom events */
+    const char * const *applicable_aggregations; /* NULL terminated array of aggregation function names */
     void *(* const parse_report_data)(const data_collection_reporting_session_t *session, cJSON *json, char **error_return, char **error_classname, char **error_parameter);
     void *(* const clone_report_data)(const void *report_data);
     void (* const free_report_data)(void *report_data);

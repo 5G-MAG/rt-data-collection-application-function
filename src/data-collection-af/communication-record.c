@@ -31,11 +31,16 @@ static long int get_nsec_from_time_str(const char *time_str);
 
 /* data structures */
 
+static const char * const comm_record_aggregations[] = {
+    "NONE", "MEAN", "MIN", "MAX", "SUM", NULL
+};
+
 const data_collection_data_report_handler_t communication_record_data_report_type = {
     .type_name = "CommunicationRecord",
     .data_report_property = DATA_COLLECTION_DATA_REPORT_PROPERTY_COMMUNICATION,
     .data_domain = "COMMUNICATION",
     .event_type = "UE_COMM",
+    .applicable_aggregations = comm_record_aggregations,
     .parse_report_data = communication_record_parse,
     .clone_report_data = communication_record_clone,
     .free_report_data = communication_record_free,

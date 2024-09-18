@@ -36,6 +36,8 @@ extern void data_collection_report_destroy(data_collection_data_report_record_t 
 extern data_collection_reporting_client_type_e _report_client_type_from_ogs_server(ogs_sbi_server_t *server);
 extern data_collection_lnode_t *_data_report_record_make_lnode(data_collection_data_report_record_t *report);
 extern void data_report_event_subscriptions_remove_all(ogs_list_t *event_subscriptions);
+/** Check if an aggregation function name is applicable to a given data report handler */
+extern bool data_report_handler_valid_aggregation_function(const data_collection_data_report_handler_t *handler, const char *aggregation_name);
 
 #ifdef __cplusplus
 }

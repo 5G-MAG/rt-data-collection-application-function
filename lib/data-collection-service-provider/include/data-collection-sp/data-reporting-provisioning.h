@@ -109,6 +109,11 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_provision
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_provisioning_session_get_external_application_id(
                 const data_collection_reporting_provisioning_session_t *session);
 
+/** Get the Data Report handler for a provisioning session */
+DATA_COLLECTION_SVC_PRODUCER_API const data_collection_data_report_handler_t *
+data_collection_reporting_provisioning_session_get_data_report_handler(const data_collection_reporting_provisioning_session_t *session);
+
+
 /** Get the configurations map for a provisioning session */
 DATA_COLLECTION_SVC_PRODUCER_API const ogs_hash_t *data_collection_reporting_provisioning_session_get_configurations(
                 const data_collection_reporting_provisioning_session_t *session);

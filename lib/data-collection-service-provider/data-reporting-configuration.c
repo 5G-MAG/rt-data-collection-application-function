@@ -12,6 +12,7 @@
 #include "hash.h"
 #include "utilities.h"
 #include "data-reporting-configuration.h"
+#include "data-report.h"
 #include "data-collection-sp/data-collection.h"
 
 /***** Private function prototypes *****/
@@ -21,7 +22,8 @@ static void __reporting_configuration_update_cache_params(data_collection_report
 static void __provisioning_configuration_data_sampling_rules_add_context_ids(data_collection_model_data_reporting_configuration_t *data_reporting_configuration); 
 static void __provisioning_configuration_data_reporting_rules_add_context_ids(data_collection_model_data_reporting_configuration_t *data_reporting_configuration);
 static void __provisioning_configuration_data_reporting_conditions_add_context_ids(data_collection_model_data_reporting_configuration_t *data_reporting_configuration);
-
+static bool __check_for_location_and_user_restrictions(data_collection_model_data_reporting_configuration_t *data_reporting_configuration,  char **err_return, char **err_param, char **err_code);
+static bool __data_report_handler_valid_aggregation_function(data_collection_reporting_provisioning_session_t *parent_session, data_collection_model_data_reporting_configuration_t *data_reporting_configuration, char **err_return, char **err_param, char **err_code);
 /***** Enumerations *****/
 
 /***** Data Types *****/
@@ -93,7 +95,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_reporting_conf
  * @param err_param Filled in on error with the parameter name of the parameter that caused the parsing error.
  * @return A new reporting configuration object filled in from the JSON or `NULL` if there was a parsing error.
  */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_configuration_t *data_collection_reporting_configuration_parse_from_json(cJSON *json, data_collection_reporting_configuration_t *base, char **err_return, char **err_class, char **err_param)
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_configuration_t *data_collection_reporting_configuration_parse_from_json(cJSON *json, data_collection_reporting_provisioning_session_t *parent_session, data_collection_reporting_configuration_t *base, char **err_return, char **err_class, char **err_param, char **err_code)
 {
     data_collection_reporting_configuration_t *ret = ogs_calloc(1, sizeof(*ret));
 
@@ -103,6 +105,18 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_configuration_t *data
         ogs_free(ret);
         return NULL;
     }
+
+    if(__check_for_location_and_user_restrictions(ret->model, err_return, err_param, err_code)){
+        ogs_free(ret);
+        return NULL;
+    }
+
+    if(!__data_report_handler_valid_aggregation_function(parent_session, ret->model, err_return, err_param, err_code)){
+    
+        ogs_free(ret);
+        return NULL;
+    }
+
     
     if (base) {
         /* Copy read-only fields */
@@ -286,6 +300,77 @@ static void __reporting_configuration_update_cache_params(data_collection_report
     config->etag = calculate_hash(data);
     cJSON_free(data);
 }
+
+static bool __check_for_location_and_user_restrictions(data_collection_model_data_reporting_configuration_t *data_reporting_configuration,  char **err_return, char **err_param, char **err_code)
+{
+    ogs_list_t *data_access_profiles;
+
+    data_access_profiles = data_collection_model_data_reporting_configuration_get_data_access_profiles(data_reporting_configuration);
+    if(data_access_profiles) {
+        data_collection_lnode_t *data_access_profile_node;    
+        ogs_list_for_each(data_access_profiles, data_access_profile_node) {
+	    data_collection_model_data_access_profile_t *data_access_profile = data_access_profile_node->object;
+            if(data_collection_model_data_access_profile_has_location_access_restrictions(data_access_profile)) {
+	       if(err_return) *err_return = data_collection_strdup("Not Implemented: Field \"dataAccessProfiles.locationAccessRestrictions\" cannot be processed.");
+               if(err_param) *err_param = data_collection_strdup("dataAccessProfiles.locationAccessRestrictions");
+	       if(err_code) *err_code = data_collection_strdup("501");
+               return true; 
+	    }
+	    if(data_collection_model_data_access_profile_has_user_access_restrictions(data_access_profile)) {
+	    
+	       if(err_return) *err_return = data_collection_strdup("Not Implemented: Field \"dataAccessProfiles.userAccessRestrictions\" cannot be processed.");
+               if(err_param) *err_param = data_collection_strdup("dataAccessProfiles.userAccessRestrictions");
+	       if(err_code) *err_code = data_collection_strdup("501");
+               return true; 
+	    }
+
+  	    
+	}	
+    }
+    return false;
+
+}
+
+static bool __data_report_handler_valid_aggregation_function(data_collection_reporting_provisioning_session_t *parent_session, data_collection_model_data_reporting_configuration_t *data_reporting_configuration, char **err_return, char **err_param, char **err_code)
+{
+
+    data_collection_data_report_handler_t *handler = NULL;
+    ogs_list_t *data_access_profiles;
+    
+    handler = data_collection_reporting_provisioning_session_get_data_report_handler(parent_session);
+    if(handler) {
+        data_access_profiles = data_collection_model_data_reporting_configuration_get_data_access_profiles(data_reporting_configuration);
+        if(data_access_profiles) {
+            data_collection_lnode_t *data_access_profile_node;
+            ogs_list_for_each(data_access_profiles, data_access_profile_node) {
+                data_collection_model_data_access_profile_t *data_access_profile = data_access_profile_node->object;
+                if(data_collection_model_data_access_profile_has_time_access_restrictions(data_access_profile)) {
+	            const data_collection_model_data_access_profile_time_access_restrictions_t *data_access_profile_time_access_restrictions;
+		    ogs_list_t *aggregation_functions;
+                    data_collection_lnode_t *aggregation_function_node;
+		    data_access_profile_time_access_restrictions = 
+			    data_collection_model_data_access_profile_get_time_access_restrictions(data_access_profile);
+                    aggregation_functions = data_collection_model_data_access_profile_time_access_restrictions_get_aggregation_functions(data_access_profile_time_access_restrictions);  
+                    ogs_list_for_each(aggregation_functions, aggregation_function_node) {
+                        data_collection_model_data_aggregation_function_type_t *aggregation_function = aggregation_function_node->object;
+			const char *aggregation_name = data_collection_model_data_aggregation_function_type_get_string(aggregation_function); 
+			if(!data_report_handler_valid_aggregation_function(handler, aggregation_name)){
+			    if(err_return) *err_return = ogs_msprintf("Aggregation function '%s' is not appropriate for this event type.", aggregation_name);
+                            if(err_param) *err_param = data_collection_strdup("dataAccessProfiles.timeAccessRestrictions");
+			    return false;
+			}
+
+		    }
+		}
+	    }
+
+	    return true;
+	}
+    
+    }
+    return false;
+}
+
 
 static void __provisioning_configuration_data_sampling_rules_add_context_ids(data_collection_model_data_reporting_configuration_t *data_reporting_configuration){
 

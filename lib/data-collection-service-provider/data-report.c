@@ -245,6 +245,25 @@ data_collection_lnode_t *_data_report_record_make_lnode(data_collection_data_rep
     return data_collection_lnode_create(report, (void(*)(void*))data_collection_report_destroy);
 }
 
+bool data_report_handler_valid_aggregation_function(const data_collection_data_report_handler_t *handler, const char *aggregation_name)
+{
+    int i =0; 
+    char **handler_aggregations = (char **)handler->applicable_aggregations;
+    
+    if (!handler_aggregations[i]) {
+        return false;
+    }   
+
+    for (i = 0; handler_aggregations[i]; i++) {
+        if(!strcmp(handler_aggregations[i], aggregation_name)) return true;	    
+    }
+    return false;
+	
+
+}
+
+
+
 /******** Private functions ***********/
 
 static int __data_collection_report_destroy_expired(ogs_list_t *data_reports)

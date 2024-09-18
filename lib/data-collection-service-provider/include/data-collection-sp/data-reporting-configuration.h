@@ -77,7 +77,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_reporting_conf
  * @param err_param Filled in on error with the parameter name of the parameter that caused the parsing error.
  * @return A new reporting configuration object filled in from the JSON or `NULL` if there was a parsing error.
  */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_configuration_t *data_collection_reporting_configuration_parse_from_json(cJSON *json, data_collection_reporting_configuration_t *base, char **err_return, char **err_class, char **err_param);
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_configuration_t *data_collection_reporting_configuration_parse_from_json(cJSON *json, data_collection_reporting_provisioning_session_t *parent_session, data_collection_reporting_configuration_t *base, char **err_return, char **err_class, char **err_param, char **err_code);
 
 /** Replace an existing configuration with a new configuration
  *

@@ -604,9 +604,10 @@ bool _data_report_process_event(ogs_event_t *e)
                                                                 char *error_return = NULL;
                                                                 char *error_classname = NULL;
                                                                 char *error_param = NULL;
+								char *error_code = NULL;
                                                                 cJSON *json = cJSON_Parse(request->http.content);
                                                                 data_collection_reporting_configuration_t *new_config =
-                                                                    data_collection_reporting_configuration_parse_from_json(json, configuration, &error_return, &error_classname, &error_param);
+                                                                    data_collection_reporting_configuration_parse_from_json(json, session, configuration, &error_return, &error_classname, &error_param, &error_code);
                                                                 if (!new_config) {
                                                                     /* Report parse error */
                                                                     char *err = ogs_msprintf("DataReportingConfiguration parse failed at %s.%s: %s", error_classname, error_param, error_return);
@@ -688,24 +689,54 @@ bool _data_report_process_event(ogs_event_t *e)
                                                         char *error_return = NULL;
                                                         char *error_classname = NULL;
                                                         char *error_param = NULL;
+							char *error_code = NULL;
                                                         cJSON *json = cJSON_Parse(request->http.content);
                                                         data_collection_reporting_configuration_t *new_config =
-                                                                    data_collection_reporting_configuration_parse_from_json(json,
-                                                                                NULL, &error_return, &error_classname, &error_param);
+                                                                    data_collection_reporting_configuration_parse_from_json(json, session,
+                                                                                NULL, &error_return, &error_classname, &error_param, &error_code);
                                                         if (!new_config) {
                                                             /* report parse error */
                                                             char *err = ogs_msprintf(
                                                                             "Unable to parse DataReportingConfiguration JSON at %s.%s: %s",
                                                                             error_classname, error_param, error_return);
                                                             ogs_error("%s", err);
-                                                            ogs_assert(true == nf_server_send_error(stream,
-                                                                                        OGS_SBI_HTTP_STATUS_BAD_REQUEST, 4,
-                                                                                        &message, "Bad Request", err, NULL,
-                                                                                        NULL, NULL, api, app_meta));
-                                                            ogs_free(err);
+							    if(error_code && !strcmp(error_code, "501")){
+							    	OpenAPI_list_t *invalid_params;
+    
+                                                                char *error = ogs_msprintf(
+                                                                            "%s",
+                                                                             error_return);
+                                                                ogs_error("%s", error);
+
+                                                                invalid_params = nf_server_make_invalid_params(error_param, error);
+                                                                ogs_assert(true == nf_server_send_error(stream,
+                                                                                        501, 2,
+                                                                                        &message, "Not Implemented", error, NULL,
+                                                                                        invalid_params, NULL, api, app_meta));
+								ogs_free(error);
+							    } else {
+								    
+							    	OpenAPI_list_t *invalid_params;
+
+                                                                char *error = ogs_msprintf(
+                                                                            "%s",
+                                                                             error_return);
+                                                                ogs_error("%s", error);
+
+								invalid_params = nf_server_make_invalid_params(error_param, error);
+   
+                                                                ogs_assert(true == nf_server_send_error(stream,
+                                                                                        OGS_SBI_HTTP_STATUS_BAD_REQUEST, 2,
+                                                                                        &message, "Bad Request", error, NULL,
+                                                                                        invalid_params, NULL, api, app_meta));
+
+								ogs_free(error);
+							    }
+							    ogs_free(err);
                                                             if (error_return) ogs_free(error_return);
                                                             if (error_classname) ogs_free(error_classname);
                                                             if (error_param) ogs_free(error_param);
+                                                            if (error_code) ogs_free(error_code);
                                                             break;
                                                         }
                                                         data_collection_reporting_configuration_set_session(new_config, session);
