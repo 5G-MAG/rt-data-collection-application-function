@@ -311,14 +311,14 @@ static bool __check_for_location_and_user_restrictions(data_collection_model_dat
         ogs_list_for_each(data_access_profiles, data_access_profile_node) {
 	    data_collection_model_data_access_profile_t *data_access_profile = data_access_profile_node->object;
             if(data_collection_model_data_access_profile_has_location_access_restrictions(data_access_profile)) {
-	       if(err_return) *err_return = data_collection_strdup("Not Implemented: Field \"dataAccessProfiles.locationAccessRestrictions\" cannot be processed.");
+	       if(err_return) *err_return = data_collection_strdup("Filtering on the field \"dataAccessProfiles.locationAccessRestrictions\" not implemented.");
                if(err_param) *err_param = data_collection_strdup("dataAccessProfiles.locationAccessRestrictions");
 	       if(err_code) *err_code = data_collection_strdup("501");
                return true; 
 	    }
 	    if(data_collection_model_data_access_profile_has_user_access_restrictions(data_access_profile)) {
 	    
-	       if(err_return) *err_return = data_collection_strdup("Not Implemented: Field \"dataAccessProfiles.userAccessRestrictions\" cannot be processed.");
+	       if(err_return) *err_return = data_collection_strdup("Filtering on the field \"dataAccessProfiles.userAccessRestrictions\" not implemented.");
                if(err_param) *err_param = data_collection_strdup("dataAccessProfiles.userAccessRestrictions");
 	       if(err_code) *err_code = data_collection_strdup("501");
                return true; 
@@ -336,11 +336,10 @@ static bool __data_report_handler_valid_aggregation_function(data_collection_rep
 
     data_collection_data_report_handler_t *handler = NULL;
     ogs_list_t *data_access_profiles;
-    
     handler = data_collection_reporting_provisioning_session_get_data_report_handler(parent_session);
     if(handler) {
-        data_access_profiles = data_collection_model_data_reporting_configuration_get_data_access_profiles(data_reporting_configuration);
-        if(data_access_profiles) {
+	data_access_profiles = data_collection_model_data_reporting_configuration_get_data_access_profiles(data_reporting_configuration);
+	if(data_access_profiles) {
             data_collection_lnode_t *data_access_profile_node;
             ogs_list_for_each(data_access_profiles, data_access_profile_node) {
                 data_collection_model_data_access_profile_t *data_access_profile = data_access_profile_node->object;
@@ -353,14 +352,15 @@ static bool __data_report_handler_valid_aggregation_function(data_collection_rep
                     aggregation_functions = data_collection_model_data_access_profile_time_access_restrictions_get_aggregation_functions(data_access_profile_time_access_restrictions);  
                     ogs_list_for_each(aggregation_functions, aggregation_function_node) {
                         data_collection_model_data_aggregation_function_type_t *aggregation_function = aggregation_function_node->object;
-			const char *aggregation_name = data_collection_model_data_aggregation_function_type_get_string(aggregation_function); 
+		        const char *aggregation_name = data_collection_model_data_aggregation_function_type_get_string(aggregation_function); 
 			if(!data_report_handler_valid_aggregation_function(handler, aggregation_name)){
-			    if(err_return) *err_return = ogs_msprintf("Aggregation function '%s' is not appropriate for this event type.", aggregation_name);
+			    const char *event = data_collection_reporting_provisioning_session_get_af_event_type(parent_session);	
+			    if(err_return) *err_return = ogs_msprintf("Aggregation function '%s' is not appropriate for '%s' event type.", aggregation_name, event);
                             if(err_param) *err_param = data_collection_strdup("dataAccessProfiles.timeAccessRestrictions");
 			    return false;
 			}
-
 		    }
+
 		}
 	    }
 
