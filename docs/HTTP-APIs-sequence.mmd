@@ -1,0 +1,57 @@
+sequenceDiagram
+autonumber
+title Data Collection session
+
+participant UE as User Equipment
+participant AF as Application Function
+participant NRF as Network Registration Function
+participant AP as Application Provider
+
+%% == Start-up ==
+note over UE,AP: Start-up
+AF ->> NRF: <b>NF_Register</b><br/>NFInstance:<br/> * 3gpp-ndcaf_data-reporting-provisioning<br/> * 3gpp-ndcaf_data-provisioning<br/> * naf-eventexposure
+
+%% == Provisioning ==
+note over UE,AP: Provisioning
+AP ->> AF: <b>Create Data Reporting Provisioning Session</b><br/>POST /3gpp-ndcaf_data-reporting-provisioning/v1/sessions<br/>DataReportingProvisioningSession
+AF -->> AP: 201 Created<br/>Location: /3gpp-ndcaf_data-reporting-provisioning/v1/sessions/{sessionId}
+AP ->> AF: Create Data Reporting Configuration<br/>POST /3gpp-ndcaf_data-reporting-provisioning/v1/sessions/{sessionId}/configurations<br/>DataReportingConfiguration
+AF -->> AP: 201 Created<br/>Location: /3gpp-ndcaf_data-reporting-provisioning/v1/sessions/{sessionId}/configurations/{configurationId}
+
+%% == Event Subscription ==
+note over UE,AP: Event Subscription
+AP ->> AF: Register for events<br/>POST /naf-eventexposure/v1/...
+AF -->> AP: 200 OK<br/>Location: /naf-eventexposure/v1/...<br/>AfEvent...
+
+%% == Data Reporting ==
+note over UE,AP: Data Reporting
+UE ->> AF: Create Data Reporting Session<br/>POST /3gpp-ndcaf_data-reporting/v1/sessions<br/>DataReportingSession
+AF -->> UE: 201 Created<br/>Location: /3gpp-ndcaf_data-reporting/v1/sessions/{sessionId}<br/>DataReportingSession
+loop Operations according to rules in DataReportingSession
+  alt Report Data
+    UE ->> AF: Report data<br/>POST /3gpp-ndcaf_data-reporting/v1/sessions/{sessionId}/report<br/>DataReport
+    AF -->> UE: 200 OK<br/>DataReportingSession
+    opt If there is a subscription to an event that uses this report type
+      AF ->> AP: Event Notification<br/>POST {event-notification-url}<br/>AfEventNotification
+      AF -->> AP: 200 OK
+    end
+  else Refresh Data Reporting Session
+    UE ->> AF: Retrieve Data Reporting Session<br/>GET /3gpp-ndcaf_data-reporting/v1/sessions/{sessionId}
+    AF -->> UE: 200 OK<br/>DataReportingSession
+  end
+end
+
+%% == End Data Reporting ==
+note over UE,AP: End Data Reporting
+UE ->> AF: Destroy Data Reporting Session<br/>DELETE /3gpp-ndcaf_data-reporting/v1/sessions/{sessionId}
+AF -->> UE: 204 No Content
+
+%% == End Event Subscription ==
+note over UE,AP: End Event Subscription
+AP ->> AF: Destroy Event Subscription<br/>DELETE /naf-eventexposure/v1/...
+AF -->> AP: 204 No Content
+
+%% == End Data Reporting Provisioning Session ==
+note over UE,AP: End Data Reporting Provisioning Session
+AP ->> AF: Destroy Data Reporting Provisioning Session<br/>DELETE /3gpp-ndcaf_data-reporting-provisioning/v1/sessions/{sessionId}
+AF -->> AP: 204 No Content
