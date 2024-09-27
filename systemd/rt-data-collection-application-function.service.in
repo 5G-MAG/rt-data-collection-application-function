@@ -1,8 +1,8 @@
 # =============================================================================
-# 5G-MAG Reference Tools: 5GC Data Collection Application Function SystemD service unit
+# 5G-MAG Reference Tools: Data Collection Application Function SystemD service unit
 # =============================================================================
 #
-# File: 5gc-data-collection-application-function.service
+# File: rt-data-collection-application-function.service
 # License: 5G-MAG Public License (v1.0)
 # Copyright: (C) 2024 British Broadcasting Corporation
 #
@@ -12,14 +12,12 @@
 #
 # =============================================================================
 [Unit]
-Description=5G-MAG Reference Tools 5GC Data Collection Application Function
+Description=5G-MAG Reference Tools Data Collection Application Function
 
 [Service]
 Type=simple
-EnvironmentFile=-/etc/default/rt-5gc-dc-af
+EnvironmentFile=-/etc/default/rt-dc-af
 ExecStart=@bindir@/open5gs-dcafd
-ExecStartPost=/bin/sleep 2
-ExecStartPost=@bindir@/dcaf-configuration
 ExecReload=kill -HUP $MAINPID
 
 [Install]

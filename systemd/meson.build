@@ -32,11 +32,11 @@ summary({
   }, section : 'Systemd Directories')
 
 units = [
-  '5gc-data-collection-application-function.service'
+  'rt-data-collection-application-function.service'
 ]
 
 presets = files([
-  '90-5gc-data-collection-application-function.preset'
+  '90-rt-data-collection-application-function.preset'
 ])
 
 units_conf_data = configuration_data({
