@@ -18,8 +18,8 @@ extern "C" cJSON *_model_af_event_exposure_subsc_generate_response(const data_co
     if (af_events_notifications && !ogs_list_empty(af_events_notifications)) {
         data_collection_lnode_t *node;
         ogs_list_for_each(af_events_notifications, node) {
-            const AfEventExposureNotif::EventNotifsItemType &notif = *reinterpret_cast<const AfEventExposureNotif::EventNotifsItemType*>(node->object);
-            resp->addEventNotifs(notif);
+            const typename fiveg_mag_reftools::remove_std_optional<AfEventExposureSubsc::EventNotifsItemType>::type &notif = *reinterpret_cast<const typename fiveg_mag_reftools::remove_std_optional<AfEventExposureSubsc::EventNotifsItemType>::type *>(node->object);
+            resp->addEventNotifs(AfEventExposureSubsc::EventNotifsItemType(notif));
         }
     }
 
@@ -45,7 +45,7 @@ extern "C" cJSON *_model_af_event_exposure_subsc_generate_notification(const dat
 
     data_collection_lnode_t *node;
     ogs_list_for_each(af_events_notifications, node) {
-        notif->addEventNotifs(*reinterpret_cast<const AfEventExposureNotif::EventNotifsItemType*>(node->object));
+        notif->addEventNotifs(AfEventExposureNotif::EventNotifsItemType(*reinterpret_cast<const typename fiveg_mag_reftools::remove_std_optional<AfEventExposureNotif::EventNotifsItemType>::type*>(node->object)));
     }
 
     fiveg_mag_reftools::CJson json(notif->toJSON(true));
