@@ -4,7 +4,7 @@
 
 A 5G system may have several Application Functions (AFs) which are providing Data Collection services in one form or another.
 
-These Data Collection services usually consist of a Data Collection and storage function and an Event Exposure function which generates events based on the data collected. A standard set of these functions are defined in [3GPP TS 26.532](https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3915) and [3GPP TS 29.517](https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3603), and an extended set of these functions for media streaming is defined in [3GPP TS 26.512](https://portal.3gpp.org/desktopmodules/Specifications/SpecificationDetails.aspx?specificationId=3647).
+These Data Collection services usually consist of a Data Collection and storage function and an Event Exposure function which generates events based on the data collected. A standard set of these functions are defined in [3GPP TS 26.532](https://www.3gpp.org/DynaReport/26532.htm) and [3GPP TS 29.517](https://www.3gpp.org/DynaReport/29517.htm), and an extended set of these functions for media streaming is defined in [3GPP TS 26.512](https://www.3gpp.org/DynaReport/26512.htm).
 
 ## Service Provider interactions
 
