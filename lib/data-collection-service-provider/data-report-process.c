@@ -739,7 +739,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                                             if (error_code) ogs_free(error_code);
                                                             break;
                                                         }
-                                                        data_collection_reporting_configuration_set_session(new_config, session);
+                                                        //data_collection_reporting_configuration_set_session(new_config, session);
 
                                                         __send_data_reporting_configuration(stream, &message, new_config, 3, api,
                                                                                             app_meta);
@@ -768,6 +768,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                                     break;
                                                 END
                                             }
+                                            break;
                                         DEFAULT
                                             char *err = ogs_msprintf("DataReportingProvisioningSession sub-resource [%s] not "
                                                                      "available", subresource);
@@ -875,6 +876,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                     break;
                                 END
                             }
+                            break;
                         DEFAULT
                             /* First path resource name not known */
                             char *err = ogs_msprintf("DataReportingProvisioningSession resource [%s] not available", resource);

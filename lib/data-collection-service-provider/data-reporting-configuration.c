@@ -19,7 +19,7 @@
 
 static void __reporting_configuration_new_uuid(data_collection_reporting_configuration_t *config);
 static void __reporting_configuration_update_cache_params(data_collection_reporting_configuration_t *config);
-static void __provisioning_configuration_data_sampling_rules_add_context_ids(data_collection_model_data_reporting_configuration_t *data_reporting_configuration); 
+static void __provisioning_configuration_data_sampling_rules_add_context_ids(data_collection_model_data_reporting_configuration_t *data_reporting_configuration);
 static void __provisioning_configuration_data_reporting_rules_add_context_ids(data_collection_model_data_reporting_configuration_t *data_reporting_configuration);
 static void __provisioning_configuration_data_reporting_conditions_add_context_ids(data_collection_model_data_reporting_configuration_t *data_reporting_configuration);
 static bool __check_for_location_and_user_restrictions(data_collection_model_data_reporting_configuration_t *data_reporting_configuration,  char **err_return, char **err_param, char **err_code);
@@ -107,17 +107,18 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_configuration_t *data
     }
 
     if(__check_for_location_and_user_restrictions(ret->model, err_return, err_param, err_code)){
+        data_collection_model_data_reporting_configuration_free(ret->model);
         ogs_free(ret);
         return NULL;
     }
 
     if(!__data_report_handler_valid_aggregation_function(parent_session, ret->model, err_return, err_param, err_code)){
-    
+        data_collection_model_data_reporting_configuration_free(ret->model);
         ogs_free(ret);
         return NULL;
     }
 
-    
+
     if (base) {
         /* Copy read-only fields */
         data_collection_model_data_reporting_configuration_set_data_reporting_configuration_id(ret->model, data_collection_model_data_reporting_configuration_get_data_reporting_configuration_id(base->model));
@@ -126,21 +127,23 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_configuration_t *data
         __reporting_configuration_new_uuid(ret);
     }
 
-    
-
     if(data_collection_model_data_reporting_configuration_has_data_sampling_rules(ret->model)) {
-         __provisioning_configuration_data_sampling_rules_add_context_ids(ret->model); 
+         __provisioning_configuration_data_sampling_rules_add_context_ids(ret->model);
     }
-    
 
     if( data_collection_model_data_reporting_configuration_has_data_reporting_rules(ret->model)) {
         __provisioning_configuration_data_reporting_rules_add_context_ids(ret->model);
-	    
     }
 
     __provisioning_configuration_data_reporting_conditions_add_context_ids(ret->model);
 
     __reporting_configuration_update_cache_params(ret);
+
+    if (parent_session) {
+        data_collection_reporting_configuration_set_session(ret, parent_session);
+    }
+
+    //ogs_debug("data_collection_reporting_configuration_parse_from_json: created configuration %p (parent=%p)", ret, ret->parent);
 
     return ret;
 }
@@ -184,11 +187,9 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_reporting_configuration_up
  */
 DATA_COLLECTION_SVC_PRODUCER_API void data_collection_reporting_configuration_destroy(data_collection_reporting_configuration_t *configuration)
 {
+    //ogs_debug("data_collection_reporting_configuration_destroy(%p)", configuration);
     if (!configuration) return;
-    if (configuration->parent) {
-        data_collection_reporting_provisioning_session_remove_configuration(configuration->parent, configuration);
-        configuration->parent = NULL;
-    }
+    data_collection_reporting_configuration_set_session(configuration, NULL);
     data_collection_model_data_reporting_configuration_free(configuration->model);
     configuration->model = NULL;
     if (configuration->etag) {
@@ -211,16 +212,19 @@ DATA_COLLECTION_SVC_PRODUCER_API void data_collection_reporting_configuration_de
  */
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_reporting_configuration_set_session(data_collection_reporting_configuration_t *config, data_collection_reporting_provisioning_session_t *parent_session)
 {
+    //ogs_debug("data_collection_reporting_configuration_set_session(%p, %p)", config, parent_session);
     if (!config) return false;
     if (config->parent == parent_session) return true;
     if (config->parent) {
         /* detatch from existing parent */
+        //ogs_debug("data_collection_reporting_configuration_set_session: configuration %p detach from %p", config, config->parent);
         data_collection_reporting_provisioning_session_remove_configuration(config->parent, config);
         config->parent = NULL;
     }
     if (parent_session) {
         /* attach to session */
-        if (!data_collection_reporting_provisioning_session_add_configuration(parent_session, config)) return false;
+        //ogs_debug("data_collection_reporting_configuration_set_session: configuration %p attach to %p", config, parent_session);
+        if (data_collection_reporting_provisioning_session_add_configuration(parent_session, config) != OGS_OK) return false;
         config->parent = parent_session;
     }
     return true;
@@ -278,7 +282,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_configura
 static void __reporting_configuration_new_uuid(data_collection_reporting_configuration_t *config)
 {
     if (!config) return;
-    
+
     ogs_uuid_t uuid;
     char id[OGS_UUID_FORMATTED_LENGTH + 1];
 
@@ -307,25 +311,25 @@ static bool __check_for_location_and_user_restrictions(data_collection_model_dat
 
     data_access_profiles = data_collection_model_data_reporting_configuration_get_data_access_profiles(data_reporting_configuration);
     if(data_access_profiles) {
-        data_collection_lnode_t *data_access_profile_node;    
+        data_collection_lnode_t *data_access_profile_node;
         ogs_list_for_each(data_access_profiles, data_access_profile_node) {
 	    data_collection_model_data_access_profile_t *data_access_profile = data_access_profile_node->object;
             if(data_collection_model_data_access_profile_has_location_access_restrictions(data_access_profile)) {
 	       if(err_return) *err_return = data_collection_strdup("Filtering on the field \"dataAccessProfiles.locationAccessRestrictions\" not implemented.");
                if(err_param) *err_param = data_collection_strdup("dataAccessProfiles.locationAccessRestrictions");
 	       if(err_code) *err_code = data_collection_strdup("501");
-               return true; 
+               return true;
 	    }
 	    if(data_collection_model_data_access_profile_has_user_access_restrictions(data_access_profile)) {
-	    
+
 	       if(err_return) *err_return = data_collection_strdup("Filtering on the field \"dataAccessProfiles.userAccessRestrictions\" not implemented.");
                if(err_param) *err_param = data_collection_strdup("dataAccessProfiles.userAccessRestrictions");
 	       if(err_code) *err_code = data_collection_strdup("501");
-               return true; 
+               return true;
 	    }
 
-  	    
-	}	
+
+	}
     }
     return false;
 
@@ -334,10 +338,10 @@ static bool __check_for_location_and_user_restrictions(data_collection_model_dat
 static bool __data_report_handler_valid_aggregation_function(data_collection_reporting_provisioning_session_t *parent_session, data_collection_model_data_reporting_configuration_t *data_reporting_configuration, char **err_return, char **err_param, char **err_code)
 {
 
-    data_collection_data_report_handler_t *handler = NULL;
+    const data_collection_data_report_handler_t *handler = NULL;
     ogs_list_t *data_access_profiles;
     handler = data_collection_reporting_provisioning_session_get_data_report_handler(parent_session);
-    if(handler) {
+    if (handler) {
 	data_access_profiles = data_collection_model_data_reporting_configuration_get_data_access_profiles(data_reporting_configuration);
 	if(data_access_profiles) {
             data_collection_lnode_t *data_access_profile_node;
@@ -347,14 +351,14 @@ static bool __data_report_handler_valid_aggregation_function(data_collection_rep
 	            const data_collection_model_data_access_profile_time_access_restrictions_t *data_access_profile_time_access_restrictions;
 		    ogs_list_t *aggregation_functions;
                     data_collection_lnode_t *aggregation_function_node;
-		    data_access_profile_time_access_restrictions = 
+		    data_access_profile_time_access_restrictions =
 			    data_collection_model_data_access_profile_get_time_access_restrictions(data_access_profile);
-                    aggregation_functions = data_collection_model_data_access_profile_time_access_restrictions_get_aggregation_functions(data_access_profile_time_access_restrictions);  
+                    aggregation_functions = data_collection_model_data_access_profile_time_access_restrictions_get_aggregation_functions(data_access_profile_time_access_restrictions);
                     ogs_list_for_each(aggregation_functions, aggregation_function_node) {
                         data_collection_model_data_aggregation_function_type_t *aggregation_function = aggregation_function_node->object;
-		        const char *aggregation_name = data_collection_model_data_aggregation_function_type_get_string(aggregation_function); 
+		        const char *aggregation_name = data_collection_model_data_aggregation_function_type_get_string(aggregation_function);
 			if(!data_report_handler_valid_aggregation_function(handler, aggregation_name)){
-			    const char *event = data_collection_reporting_provisioning_session_get_af_event_type(parent_session);	
+			    const char *event = data_collection_reporting_provisioning_session_get_af_event_type(parent_session);
 			    if(err_return) *err_return = ogs_msprintf("Aggregation function '%s' is not appropriate for '%s' event type.", aggregation_name, event);
                             if(err_param) *err_param = data_collection_strdup("dataAccessProfiles.timeAccessRestrictions");
 			    return false;
@@ -366,7 +370,7 @@ static bool __data_report_handler_valid_aggregation_function(data_collection_rep
 
 	    return true;
 	}
-    
+
     }
     return false;
 }
@@ -379,10 +383,10 @@ static void __provisioning_configuration_data_sampling_rules_add_context_ids(dat
     if(configuration_sampling_rules) {
         data_collection_lnode_t *configuration_sampling_rule_node;
         const char *configuration_id;
-        
+
         ogs_list_for_each(configuration_sampling_rules, configuration_sampling_rule_node) {
             data_collection_model_data_sampling_rule_t *config_sampling_rule = configuration_sampling_rule_node->object;
-            
+
             configuration_id = data_collection_model_data_reporting_configuration_get_data_reporting_configuration_id(data_reporting_configuration);
             data_collection_model_data_sampling_rule_add_context_ids(config_sampling_rule, data_collection_strdup(configuration_id));
         }
@@ -398,10 +402,10 @@ static void __provisioning_configuration_data_reporting_rules_add_context_ids(da
     if(configuration_reporting_rules) {
         data_collection_lnode_t *configuration_reporting_rule_node;
 	const char *configuration_id;
-        
+
 	ogs_list_for_each(configuration_reporting_rules, configuration_reporting_rule_node) {
             data_collection_model_data_reporting_rule_t *config_reporting_rule = configuration_reporting_rule_node->object;
-  	    
+
             configuration_id = data_collection_model_data_reporting_configuration_get_data_reporting_configuration_id(data_reporting_configuration);
 	    data_collection_model_data_reporting_rule_add_context_ids(config_reporting_rule, data_collection_strdup(configuration_id));
         }
@@ -415,16 +419,16 @@ static void __provisioning_configuration_data_reporting_conditions_add_context_i
     if(configuration_reporting_conditions) {
         data_collection_lnode_t *configuration_reporting_condition_node;
         const char *configuration_id;
-        
+
         ogs_list_for_each(configuration_reporting_conditions, configuration_reporting_condition_node) {
             data_collection_model_data_reporting_condition_t *config_reporting_condition = configuration_reporting_condition_node->object;
-            
+
             configuration_id = data_collection_model_data_reporting_configuration_get_data_reporting_configuration_id(data_reporting_configuration);
             data_collection_model_data_reporting_condition_add_context_ids(config_reporting_condition, data_collection_strdup(configuration_id));
         }
     }
 }
-	
+
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

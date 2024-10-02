@@ -261,13 +261,17 @@ DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_provisioning_sess
     const char *config_id = data_collection_reporting_configuration_id(configuration);
     data_collection_reporting_configuration_t *existing = ogs_hash_get(session->configurations, config_id, OGS_HASH_KEY_STRING);
 
-    if (!existing) return OGS_OK; // no configuration with that ID so no need to delete
+    if (!existing) {
+        ogs_warn("data_collection_reporting_provisioning_session_remove_configuration: configuration \"%s\" does not exist", config_id);
+        return OGS_OK; // no configuration with that ID so no need to delete
+    }
 
     if (existing != configuration) {
         ogs_error("data_collection_reporting_provisioning_session_remove_configuration: attempt to remove wrong configuration object");
         return OGS_ERROR;
     }
 
+    //ogs_debug("Detaching configuration \"%s\" from session %p", config_id, session);
     data_collection_model_data_reporting_provisioning_session_remove_data_reporting_configuration_ids(session->session, config_id);
     ogs_hash_set(session->configurations, config_id, OGS_HASH_KEY_STRING, NULL);
     ogs_hash_set(data_collection_self()->data_reporting_configuration_contexts, config_id, OGS_HASH_KEY_STRING, NULL);
