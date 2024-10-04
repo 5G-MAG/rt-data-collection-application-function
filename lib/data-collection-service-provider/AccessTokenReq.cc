@@ -1501,6 +1501,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(value_from);
 
+    ogs_free(p_target_nsi_list);
 
     if (value) obj->addTargetNsiList(value.value());
     return obj_access_token_req;

@@ -600,6 +600,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
 
     ValueType value(value_from);
 
+    ogs_free(p_vlan_tags);
 
     if (value) obj->addVlanTags(value.value());
     return obj_eth_flow_description;

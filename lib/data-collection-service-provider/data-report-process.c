@@ -129,7 +129,7 @@ bool _data_report_process_event(ogs_event_t *e)
             static const data_collection_configuration_server_ifc_t server_types[] = {DATA_COLLECTION_SVR_DIRECT_DATA_REPORTING, DATA_COLLECTION_SVR_INDIRECT_DATA_REPORTING, DATA_COLLECTION_SVR_AS_DATA_REPORTING, DATA_COLLECTION_SVR_PROVISIONING};
             data_collection_configuration_server_ifc_t server_found = -1;
             int i;
- 
+
             ogs_assert(request);
             ogs_assert(stream);
 
@@ -187,7 +187,7 @@ bool _data_report_process_event(ogs_event_t *e)
                             data_reporting_server_found = data_reporting_server_types[i];
                             break;
                         }
-                    } 
+                    }
 
                     if (data_reporting_server_found == -1) {
                         ogs_error("3gpp-ndcaf_data-reporting request on wrong interface");
@@ -625,6 +625,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                                                                                         new_config, 4, api,
                                                                                                         app_meta);
                                                                 }
+                                                                cJSON_Delete(json);
                                                             }
                                                             break;
                                                         CASE(OGS_SBI_HTTP_METHOD_PATCH)
@@ -694,6 +695,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                                         data_collection_reporting_configuration_t *new_config =
                                                                     data_collection_reporting_configuration_parse_from_json(json, session,
                                                                                 NULL, &error_return, &error_classname, &error_param, &error_code);
+                                                        cJSON_Delete(json);
                                                         if (!new_config) {
                                                             /* report parse error */
                                                             char *err = ogs_msprintf(
@@ -702,7 +704,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                                             ogs_error("%s", err);
 							    if(error_code && !strcmp(error_code, "501")){
 							    	OpenAPI_list_t *invalid_params;
-    
+
                                                                 char *error = ogs_msprintf(
                                                                             "%s",
                                                                              error_return);
@@ -715,7 +717,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                                                                         invalid_params, NULL, api, app_meta));
 								ogs_free(error);
 							    } else {
-								    
+
 							    	OpenAPI_list_t *invalid_params;
 
                                                                 char *error = ogs_msprintf(
@@ -724,7 +726,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                                                 ogs_error("%s", error);
 
 								invalid_params = nf_server_make_invalid_params(error_param, error);
-   
+
                                                                 ogs_assert(true == nf_server_send_error(stream,
                                                                                         OGS_SBI_HTTP_STATUS_BAD_REQUEST, 2,
                                                                                         &message, "Bad Request", error, NULL,
@@ -831,12 +833,13 @@ bool _data_report_process_event(ogs_event_t *e)
                                 CASE(OGS_SBI_HTTP_METHOD_POST)
                                     /* CreateSession */
                                     {
-                                        const char *error_return = NULL;
-                                        const char *error_parameter = NULL;
+                                        char *error_return = NULL;
+                                        char *error_parameter = NULL;
                                         cJSON *json = cJSON_Parse(request->http.content);
                                         data_collection_reporting_provisioning_session_t *new_session =
                                                     data_collection_reporting_provisioning_session_parse_from_json(json,
                                                                                                  &error_return, &error_parameter);
+                                        cJSON_Delete(json);
                                         if (!new_session) {
                                             /* report parse error */
                                             OpenAPI_list_t *invalid_params = NULL;
@@ -849,6 +852,8 @@ bool _data_report_process_event(ogs_event_t *e)
                                             ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_BAD_REQUEST, 0,
                                                                         &message, "Bad Request", err, NULL, invalid_params, NULL,
                                                                         api, app_meta));
+                                            if (error_return) ogs_free(error_return);
+                                            if (error_parameter) ogs_free(error_parameter);
                                             ogs_free(err);
                                             break;
                                         }
@@ -893,7 +898,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                                     "Bad Request", err, NULL, NULL, NULL, NULL, app_meta));
                         break;
                     }
-                } 
+                }
 	    } else {
                     static const char *err = "Missing service name from URL path";
                     ogs_error("%s", err);
@@ -957,7 +962,7 @@ static void __send_data_reporting_configuration(ogs_sbi_stream_t *stream, ogs_sb
 
     char *body = cJSON_Print(json);
     cJSON_Delete(json);
-    
+
     location = ogs_msprintf("%s/%s", message->h.uri, data_collection_reporting_configuration_id(configuration));
 
     ogs_sbi_response_t *response = nf_server_new_response(location /* Location */, "application/json",

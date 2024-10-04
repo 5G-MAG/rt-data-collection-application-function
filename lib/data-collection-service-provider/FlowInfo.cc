@@ -330,6 +330,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *d
 
     ValueType value(value_from);
 
+    ogs_free(p_flow_descriptions);
 
     if (value) obj->addFlowDescriptions(value.value());
     return obj_flow_info;

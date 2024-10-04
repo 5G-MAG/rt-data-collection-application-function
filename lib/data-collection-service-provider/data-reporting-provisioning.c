@@ -28,7 +28,7 @@ extern "C" {
 static int __add_session_to_list(void *data, const void *key, int klen, const void *value);
 static void __restamp_session(data_collection_reporting_provisioning_session_t *session);
 static void __reporting_provisioning_session_free(data_collection_reporting_provisioning_session_t *session);
-static data_collection_data_report_handler_t *__get_data_report_handler_matching_provisioning_session_event_id(data_collection_model_data_reporting_provisioning_session_t *oa_sessioni, const char **error_reason, const char **error_parameter);
+static data_collection_data_report_handler_t *__get_data_report_handler_matching_provisioning_session_event_id(data_collection_model_data_reporting_provisioning_session_t *oa_sessioni, char **error_reason, char **error_parameter);
 /******* Private structures ********/
 
 typedef struct data_collection_reporting_provisioning_session_s {
@@ -85,16 +85,16 @@ data_collection_reporting_provisioning_session_create(const char *asp_id, const 
 
 /** Create a new data reporting provisioning session from JSON tree */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_provisioning_session_t*
-data_collection_reporting_provisioning_session_parse_from_json(cJSON *json, const char **error_reason, const char **error_parameter)
+data_collection_reporting_provisioning_session_parse_from_json(cJSON *json, char **error_reason, char **error_parameter)
 {
     data_collection_reporting_provisioning_session_t *session = NULL;
     ogs_uuid_t uuid;
     char id[OGS_UUID_FORMATTED_LENGTH + 1];
-    char *error_classname;
+    char *error_classname = NULL;
     data_collection_data_report_handler_t *handler = NULL;
 
     /* Try to interpret JSON */
-    data_collection_model_data_reporting_provisioning_session_t *oa_session = data_collection_model_data_reporting_provisioning_session_fromJSON(json, true, (char**)error_reason, &error_classname, (char**)error_parameter);
+    data_collection_model_data_reporting_provisioning_session_t *oa_session = data_collection_model_data_reporting_provisioning_session_fromJSON(json, true, error_reason, &error_classname, error_parameter);
     if (!oa_session) {
         ogs_error("Unable to parse JSON structure @ %s.%s: %s", error_classname, *error_parameter, *error_reason);
         goto err;
@@ -103,7 +103,6 @@ data_collection_reporting_provisioning_session_parse_from_json(cJSON *json, cons
     handler = __get_data_report_handler_matching_provisioning_session_event_id(oa_session, error_reason, error_parameter);
 
     if(!handler) {
-    
         ogs_error("Unable to get a suitable handler %s: %s", *error_parameter, *error_reason);
         goto err;
     }
@@ -127,12 +126,13 @@ data_collection_reporting_provisioning_session_parse_from_json(cJSON *json, cons
     __restamp_session(session);
 
     ogs_hash_set(data_collection_self()->data_reporting_provisioning_sessions,
-                data_collection_strdup(data_collection_model_data_reporting_provisioning_session_get_provisioning_session_id(session->session)),
+                data_collection_model_data_reporting_provisioning_session_get_provisioning_session_id(session->session),
                 OGS_HASH_KEY_STRING, session);
 
     return session;
 
 err:
+    if (error_classname) ogs_free(error_classname);
     if (oa_session) data_collection_model_data_reporting_provisioning_session_free(oa_session);
     if (session) {
         __reporting_provisioning_session_free(session);
@@ -356,12 +356,12 @@ static int __add_session_to_list(void *data, const void *key, int klen, const vo
     ogs_list_t *list = (ogs_list_t*)data;
     /* add value without free function, this list does not own its objects */
     data_collection_lnode_t *node = data_collection_lnode_create_ref(value);
-    ogs_list_add((ogs_list_t*)list, node);
+    ogs_list_add(list, node);
 
     return 1;
 }
 
-static data_collection_data_report_handler_t *__get_data_report_handler_matching_provisioning_session_event_id(data_collection_model_data_reporting_provisioning_session_t *oa_session, const char **error_reason, const char **error_parameter)
+static data_collection_data_report_handler_t *__get_data_report_handler_matching_provisioning_session_event_id(data_collection_model_data_reporting_provisioning_session_t *oa_session, char **error_reason, char **error_parameter)
 {
 
     int i = 0;
@@ -370,7 +370,7 @@ static data_collection_data_report_handler_t *__get_data_report_handler_matching
     
     if (!handlers[i]) {
         ogs_error("No handler found");
-        if (error_reason) *error_reason = "Bad Request: Field \"eventId\" cannot be handled by the library.";
+        if (error_reason) *error_reason = data_collection_strdup("Bad Request: Field \"eventId\" cannot be handled by the library.");
         if (error_parameter) *error_parameter = data_collection_strdup("eventId");
 	return NULL;
     }
@@ -379,7 +379,7 @@ static data_collection_data_report_handler_t *__get_data_report_handler_matching
     
     if (!event_id) {
         ogs_error("Provisioning Session has no eventId");
-        if (error_reason) *error_reason = "Bad Request: Field \"eventId\" is not in the Provisioning Session request";
+        if (error_reason) *error_reason = data_collection_strdup("Bad Request: Field \"eventId\" is not in the Provisioning Session request");
         if (error_parameter) *error_parameter = data_collection_strdup("eventId");
 	return NULL;
     }
@@ -388,7 +388,7 @@ static data_collection_data_report_handler_t *__get_data_report_handler_matching
         if(!strcmp(handlers[i]->event_type, event_id)) return handlers[i];
     }
 
-    if (error_reason) *error_reason = "Bad Request: Field \"eventId\" cannot be handled by the library.";
+    if (error_reason) *error_reason = data_collection_strdup("Bad Request: Field \"eventId\" cannot be handled by the library.");
     if (error_parameter) *error_parameter = data_collection_strdup("eventId");
 
     return NULL;
@@ -405,6 +405,7 @@ static void __restamp_session(data_collection_reporting_provisioning_session_t *
     cJSON *json = data_collection_reporting_provisioning_session_json(session);
     if (json) {
         char *objstr = cJSON_Print(json);
+        cJSON_Delete(json);
         if (objstr) {
             session->etag = calculate_hash(objstr);
             cJSON_free(objstr);

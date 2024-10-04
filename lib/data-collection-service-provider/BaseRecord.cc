@@ -317,6 +317,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_record_t 
 
     ValueType value(value_from);
 
+    ogs_free(p_context_ids);
 
     obj->addContextIds(value);
     return obj_base_record;

@@ -496,6 +496,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
 
     ValueType value(value_from);
 
+    ogs_free(p_app_ids);
 
     if (value) obj->addAppIds(value.value());
     return obj_collective_behaviour_info;
@@ -635,6 +636,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
 
     ValueType value(value_from);
 
+    ogs_free(p_ext_ue_ids);
 
     if (value) obj->addExtUeIds(value.value());
     return obj_collective_behaviour_info;
@@ -774,6 +776,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
 
     ValueType value(value_from);
 
+    ogs_free(p_ue_ids);
 
     if (value) obj->addUeIds(value.value());
     return obj_collective_behaviour_info;

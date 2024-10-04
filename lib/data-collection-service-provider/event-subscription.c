@@ -288,6 +288,7 @@ bool _event_subscriptions_process(void *data) {
         response = _event_subscription_generate_af_event_notification(data_collection_event_subscription);
 	if(response){
 	    rv = _event_subscription_send_af_event_exposure_notif(data_collection_event_subscription, response);
+            cJSON_Delete(response);
             ogs_info("RV: %d", rv);
 	}
         if(data_collection_event_subscription->send_notif) data_collection_event_subscription->send_notif = false;	

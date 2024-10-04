@@ -456,6 +456,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
 
     ValueType value(value_from);
 
+    ogs_free(p_parameters);
 
     obj->addParameters(value);
     return obj_data_access_profile;

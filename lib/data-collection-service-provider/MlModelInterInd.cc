@@ -317,6 +317,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ml_model_inter
 
     ValueType value(value_from);
 
+    ogs_free(p_vendor_list);
 
     obj->addVendorList(value);
     return obj_ml_model_inter_ind;

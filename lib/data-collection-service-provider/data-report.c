@@ -96,6 +96,7 @@ DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report(data_colle
 
     
     report = data_collection_model_data_report_fromJSON(data_report, true, error_return, error_classname, error_parameter);
+    cJSON_Delete(data_report);
     if (!report) {
         ogs_error("%s: %s (%s)", error_classname?*error_classname:"<null>", error_return?*error_return:"<null>", error_parameter?*error_parameter:"<null>");
         if (error_code) *error_code = "400";
@@ -129,8 +130,6 @@ DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report(data_colle
 
         }
     }
-
-    cJSON_Delete(data_report);
     
     return OGS_OK;
 }
@@ -331,6 +330,7 @@ static data_collection_data_report_record_t *__data_collection_report_create(dat
 
     char *report_time = dc_strdup(get_current_time("%Y-%m-%dT%H:%M:%SZ"));
     char *body = cJSON_Print(data_report_json);
+    cJSON_Delete(data_report_json);
 
     data_collection_report_store(data_collection_strdup(session->data_reporting_session_id), data_collection_strdup(handler->data_domain), report_time, "json", body);
     cJSON_free(body);

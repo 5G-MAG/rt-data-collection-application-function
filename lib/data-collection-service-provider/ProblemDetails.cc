@@ -1087,6 +1087,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
 
     ValueType value(value_from);
 
+    ogs_free(p_supported_api_versions);
 
     if (value) obj->addSupportedApiVersions(value.value());
     return obj_problem_details;

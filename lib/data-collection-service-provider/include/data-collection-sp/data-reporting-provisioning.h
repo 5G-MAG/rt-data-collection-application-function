@@ -46,8 +46,8 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_provisioning_session_
 
 /** Create a new data reporting provisioning session from JSON tree */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_provisioning_session_t*
-    data_collection_reporting_provisioning_session_parse_from_json(cJSON *json, const char **error_reason,
-                                                                   const char **error_parameter);
+    data_collection_reporting_provisioning_session_parse_from_json(cJSON *json, char **error_reason /*[output, transfer]*/,
+                                                                   char **error_parameter /*[output, transfer]*/);
 
 /** Destroy a data reporting provisioning session */
 DATA_COLLECTION_SVC_PRODUCER_API void data_collection_reporting_provisioning_session_destroy(

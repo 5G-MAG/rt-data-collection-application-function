@@ -542,6 +542,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
 
     ValueType value(value_from);
 
+    ogs_free(p_gpsis);
 
     if (value) obj->addGpsis(value.value());
     return obj_service_experience_info_per_app;
@@ -681,6 +682,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
 
     ValueType value(value_from);
 
+    ogs_free(p_supis);
 
     if (value) obj->addSupis(value.value());
     return obj_service_experience_info_per_app;

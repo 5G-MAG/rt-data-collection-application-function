@@ -264,6 +264,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
 
     ValueType value(value_from);
 
+    ogs_free(p_group_ids);
 
     obj->addGroupIds(value);
     return obj_data_access_profile_user_access_restrictions;

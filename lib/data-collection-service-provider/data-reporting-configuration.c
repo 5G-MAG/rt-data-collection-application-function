@@ -318,6 +318,7 @@ static bool __check_for_location_and_user_restrictions(data_collection_model_dat
 	       if(err_return) *err_return = data_collection_strdup("Filtering on the field \"dataAccessProfiles.locationAccessRestrictions\" not implemented.");
                if(err_param) *err_param = data_collection_strdup("dataAccessProfiles.locationAccessRestrictions");
 	       if(err_code) *err_code = data_collection_strdup("501");
+               data_collection_list_free(data_access_profiles);
                return true;
 	    }
 	    if(data_collection_model_data_access_profile_has_user_access_restrictions(data_access_profile)) {
@@ -325,11 +326,11 @@ static bool __check_for_location_and_user_restrictions(data_collection_model_dat
 	       if(err_return) *err_return = data_collection_strdup("Filtering on the field \"dataAccessProfiles.userAccessRestrictions\" not implemented.");
                if(err_param) *err_param = data_collection_strdup("dataAccessProfiles.userAccessRestrictions");
 	       if(err_code) *err_code = data_collection_strdup("501");
+               data_collection_list_free(data_access_profiles);
                return true;
 	    }
-
-
 	}
+        data_collection_list_free(data_access_profiles);
     }
     return false;
 
@@ -361,16 +362,17 @@ static bool __data_report_handler_valid_aggregation_function(data_collection_rep
 			    const char *event = data_collection_reporting_provisioning_session_get_af_event_type(parent_session);
 			    if(err_return) *err_return = ogs_msprintf("Aggregation function '%s' is not appropriate for '%s' event type.", aggregation_name, event);
                             if(err_param) *err_param = data_collection_strdup("dataAccessProfiles.timeAccessRestrictions");
+                            data_collection_list_free(aggregation_functions);
+                            data_collection_list_free(data_access_profiles);
 			    return false;
 			}
 		    }
-
+                    data_collection_list_free(aggregation_functions);
 		}
 	    }
-
+            data_collection_list_free(data_access_profiles);
 	    return true;
 	}
-
     }
     return false;
 }
@@ -390,9 +392,8 @@ static void __provisioning_configuration_data_sampling_rules_add_context_ids(dat
             configuration_id = data_collection_model_data_reporting_configuration_get_data_reporting_configuration_id(data_reporting_configuration);
             data_collection_model_data_sampling_rule_add_context_ids(config_sampling_rule, data_collection_strdup(configuration_id));
         }
+        data_collection_list_free(configuration_sampling_rules);
     }
-
-
 }
 
 static void __provisioning_configuration_data_reporting_rules_add_context_ids(data_collection_model_data_reporting_configuration_t *data_reporting_configuration)
@@ -409,6 +410,7 @@ static void __provisioning_configuration_data_reporting_rules_add_context_ids(da
             configuration_id = data_collection_model_data_reporting_configuration_get_data_reporting_configuration_id(data_reporting_configuration);
 	    data_collection_model_data_reporting_rule_add_context_ids(config_reporting_rule, data_collection_strdup(configuration_id));
         }
+        data_collection_list_free(configuration_reporting_rules);
     }
 }
 
@@ -426,6 +428,7 @@ static void __provisioning_configuration_data_reporting_conditions_add_context_i
             configuration_id = data_collection_model_data_reporting_configuration_get_data_reporting_configuration_id(data_reporting_configuration);
             data_collection_model_data_reporting_condition_add_context_ids(config_reporting_condition, data_collection_strdup(configuration_id));
         }
+        data_collection_list_free(configuration_reporting_conditions);
     }
 }
 
