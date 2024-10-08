@@ -2,7 +2,7 @@
 
 create_ue_comm_provisioning_session() {
   inc total_count
-  http_post_json "$dcaf_provisioning_address" "/3gpp-ndcaf_data-reporting-provisioning/v1/sessions" '{"aspId": "MyASPId", "externalApplicationId": "MyAppId", "eventId": "UE_COMM"}'
+  http_post_json "$dcaf_provisioning_address" "/3gpp-ndcaf_data-reporting-provisioning/v1/sessions" '{"aspId": "MyASPId", "externalApplicationId": "'"$external_app_id"'", "eventId": "UE_COMM"}'
 
   if [ "$resp_statuscode" = "200" ]; then
     inc ok_count
@@ -20,7 +20,7 @@ fetch_ue_comm_provisioning_session() {
     if [ "$resp_statuscode" = "200" ]; then
       if cmp_field_str provisioningSessionId "$provisioning_session_id" && \
          cmp_field_str aspId MyASPId && \
-         cmp_field_str externalApplicationId MyAppId && \
+         cmp_field_str externalApplicationId "$external_app_id" && \
          cmp_field_str eventId UE_COMM; then
          inc ok_count
       else
@@ -118,11 +118,11 @@ delete_err_provisioning_session() {
 }
 
 create_custom_provisioning_session() {
-  create_provisioning_session_expect_bad_request '{"aspId": "MyASPId", "externalApplicationId": "MyAppId", "eventId": "CUSTOM_EVENT"}' eventId
+  create_provisioning_session_expect_bad_request '{"aspId": "MyASPId", "externalApplicationId": "'"$external_app_id"'", "eventId": "CUSTOM_EVENT"}' eventId
 }
 
 fetch_custom_provisioning_session() {
-  fetch_err_provisioning_session eventId MyASPId MyAppId CUSTOM_EVENT
+  fetch_err_provisioning_session eventId MyASPId "$external_app_id" CUSTOM_EVENT
 }
 
 delete_custom_provisioning_session() {
@@ -130,7 +130,7 @@ delete_custom_provisioning_session() {
 }
 
 create_bad_asp_id_provisioning_session() {
-  create_provisioning_session_expect_bad_request '{"externalApplicationId": "MyAppId", "eventId": "UE_COMM"}' aspId
+  create_provisioning_session_expect_bad_request '{"externalApplicationId": "'"$external_app_id"'", "eventId": "UE_COMM"}' aspId
 }
 
 delete_bad_asp_id_provisioning_session() {

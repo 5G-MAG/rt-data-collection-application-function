@@ -1,5 +1,6 @@
 #!/bin/sh
 
+# Constants
 dcaf_sbi_address="127.0.0.32:7777"
 dcaf_provisioning_address="127.0.0.33:7777"
 dcaf_applicationServerDataReporting_address="127.0.0.34:7777"
@@ -8,6 +9,9 @@ dcaf_indirectDataReporting_address="127.0.0.36:7777"
 dcaf_eventConsumerApplicationFunctionEventExposure_address="127.0.0.37:7777"
 dcaf_networkDataAnalyticsFunctionEventExposure_address="127.0.0.38:7777"
 
+external_app_id="MyAppID"
+
+# Global variables
 script_dir=`dirname "$0"`
 script_dir=`realpath "$script_dir"`
 
@@ -37,7 +41,7 @@ esac
 
 inc() {
    declare -n vname="$1"
-   incre="${2:-1}"
+   local incre="${2:-1}"
    vname=$((vname + incre))
 }
 
@@ -54,7 +58,7 @@ log_info() {
 }
 
 log_bad_response() {
-    fn="$1"
+    local fn="$1"
     log_error "${fn}: Unexpected response code $resp_statuscode"
     if [ "$resp_content_type" = "application/problem+json" ]; then
         log_error "${fn}: $response"
@@ -86,9 +90,9 @@ http_delete() {
 }
 
 cmp_field_str() {
-    field_path="$1"
-    expected_value="$2"
-    field_value=`echo "$response" | jq ".$field_path"`
+    local field_path="$1"
+    local expected_value="$2"
+    local field_value=`echo "$response" | jq ".$field_path"`
     case "$field_value" in
     \"*\")
         field_value="${field_value%\"}"
@@ -111,9 +115,9 @@ cmp_field_str() {
 }
 
 cmp_field_bool() {
-    field_path="$1"
-    expected_value="$2"
-    field_value=`echo "$response" | jq ".$field_path"`
+    local field_path="$1"
+    local expected_value="$2"
+    local field_value=`echo "$response" | jq ".$field_path"`
     case "$field_value" in
     true|false)
         ;;
@@ -148,10 +152,10 @@ cmp_field_false() {
 }
 
 cmp_field_int() {
-    field_path="$1"
-    expected_value="$2"
-    field_value=`echo "$response" | jq ".$field_path"`
-    if echo "$field_value" | grep '^-?[0-9][0-9]*$'; then
+    local field_path="$1"
+    local expected_value="$2"
+    local field_value=`echo "$response" | jq ".$field_path"`
+    if echo "$field_value" | grep -q '^-\?[0-9][0-9]*$'; then
         :
     elif [ "$field_value" = "null" ]; then
         log_error "Response field \"$field_path\" does not exist"
@@ -160,7 +164,7 @@ cmp_field_int() {
         log_error "Response field \"$field_path\": is not an integer"
         return 1
     fi
-    if [ "$field_value" -eq "$expected_value" ]; then
+    if [ "$field_value" -ne "$expected_value" ]; then
         log_error "Response field \"$field_path\": expected $expected_value, got $field_value"
         return 1
     fi
@@ -168,10 +172,10 @@ cmp_field_int() {
 }
 
 cmp_field_float() {
-    field_path="$1"
-    expected_value="$2"
-    field_value=`echo "$response" | jq ".$field_path"`
-    if echo "$field_value" | grep '^-?([0-9][0-9]*(\.[0-9]*)?(e-?[0-9][0-9]*)?|\.[0-9][0-9]*(e-?[0-9][0-9]*)?)$'; then
+    local field_path="$1"
+    local expected_value="$2"
+    local field_value=`echo "$response" | jq ".$field_path"`
+    if echo "$field_value" | grep -qE '^-?([0-9][0-9]*(\.[0-9]*)?(e-?[0-9][0-9]*)?|\.[0-9][0-9]*(e-?[0-9][0-9]*)?)$'; then
         :
     elif [ "$field_value" = "null" ]; then
         log_error "Response field \"$field_path\" does not exist"
@@ -180,7 +184,7 @@ cmp_field_float() {
         log_error "Response field \"$field_path\": is not a floating point number"
         return 1
     fi
-    if [ "$field_value" -eq "$expected_value" ]; then
+    if [ "$field_value" -ne "$expected_value" ]; then
         log_error "Response field \"$field_path\": expected $expected_value, got $field_value"
         return 1
     fi
@@ -188,8 +192,8 @@ cmp_field_float() {
 }
 
 cmp_field_exists() {
-    field_path="$1"
-    field_value=`echo "$response" | jq ".$field_path"`
+    local field_path="$1"
+    local field_value=`echo "$response" | jq ".$field_path"`
     if [ "$field_value" == "null" ]; then
         log_error "Response field \"$field_path\" does not exist"
         return 1
@@ -198,10 +202,40 @@ cmp_field_exists() {
 }
 
 cmp_field_not_exists() {
-    field_path="$1"
-    field_value=`echo "$response" | jq ".$field_path"`
+    local field_path="$1"
+    local field_value=`echo "$response" | jq ".$field_path"`
     if [ "$field_value" != "null" ]; then
         log_error "Response field \"$field_path\" exists"
+        return 1
+    fi
+    return 0
+}
+
+cmp_field_array_size() {
+    local field_path="$1"
+    local expected_value="$2"
+    local field_value=`echo "$response" | jq ".$field_path | length"`
+    if [ "$field_value" -ne "$expected_value" ]; then
+        log_error "Response field \"$field_path\" does not contain the expected number of elements"
+        return 1
+    fi
+    return 0
+}
+
+cmp_field_array_str() {
+    local field_path="$1"
+    shift
+    local i=0
+    while [ $# -gt 0 ]; do
+        if ! cmp_field_str "${field_path}[$i]" "$1"; then
+            log_error "Response field \"$field_path\" element $i bad value"
+            return 1
+        fi
+        shift
+        inc i
+    done
+    if ! cmp_field_not_exists "${field_path}[$i]"; then
+        log_error "Response field \"$field_path\" has more elements than expected"
         return 1
     fi
     return 0
