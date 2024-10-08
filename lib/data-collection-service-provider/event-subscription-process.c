@@ -92,11 +92,10 @@ bool _evex_subscription_process_event(ogs_event_t *e)
                     server_found = server_types[i];
                     break;
                 }
-           }
-           if (server_found == -1) {
-               return false;
-           }
-
+            }
+            if (server_found == -1) {
+                return false;
+            }
 
             rv = ogs_sbi_parse_header(&message, &request->h);
             if (rv != OGS_OK) {
@@ -119,7 +118,7 @@ bool _evex_subscription_process_event(ogs_event_t *e)
                                                 "Invalid API name", err, NULL, NULL, NULL, NULL, app_meta));
                     ogs_free(err);
                     */
-                     ogs_sbi_message_free(&message);
+                    ogs_sbi_message_free(&message);
                     ogs_sbi_request_free(request);
 
                     return true;
@@ -127,13 +126,6 @@ bool _evex_subscription_process_event(ogs_event_t *e)
                 if (api == naf_eventexposure_api) {
 
                     /******** naf-eventexposure ********/
-                    //if (!__does_stream_server_match_server(server, DATA_COLLECTION_SVR_EVENT)) {
-                    if (server_found == -1) {
-                        ogs_error("naf-eventexposure request on wrong interface");
-                        ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_NOT_FOUND, 0, &message,
-                                                "Not found", NULL, NULL, NULL, NULL, api, app_meta));
-                    }
-
                     if (strcmp(message.h.api.version, OGS_SBI_API_V1) != 0) {
                         ogs_error("Unsupported API version [%s]", message.h.api.version);
                         ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_BAD_REQUEST, 0, &message,
@@ -152,68 +144,23 @@ bool _evex_subscription_process_event(ogs_event_t *e)
                                                                         &message, "Bad Request", NULL, NULL, NULL, NULL,
                                                                         api, app_meta));
 
-                                    ogs_debug("Event Subscription id = %s", message.h.resource.component[1]);
-
+                                    ogs_debug("Additional path element on POST = %s", message.h.resource.component[1]);
                                 } else {
-                                    data_collection_model_af_event_exposure_subsc_t *data_collection_af_event_exposure_subscription = NULL;
+                                    data_collection_model_af_event_exposure_subsc_t *af_event_exposure_subsc = NULL;
                                     data_collection_event_subscription_t *data_collection_event_subscription;
-                                    cJSON *af_event_exposure_subscription;
                                     char *error_reason = NULL;
                                     char *error_classname = NULL;
                                     char *error_parameter = NULL;
                                     cJSON *response_body_json =  NULL;
                                     char *location;
 
+                                    af_event_exposure_subsc = __af_event_exposure_subscription_request_process(request, stream,
+                                                                                                          &message, api, app_meta);
+                                    if (!af_event_exposure_subsc) break; /* Errors already reported */
 
-                                    ogs_debug("Request body: %s", request->http.content);
-
-                                    if (!check_http_content_type(request->http,"application/json")){
-                                        ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_UNSUPPORTED_MEDIA_TYPE,
-                                                                    0, &message, "Unsupported Media Type",
-                                                                    "Expected content type: application/json", NULL, NULL, NULL,
-                                                                    api, app_meta));
-                                        break;
-                                    }
-
-                                    af_event_exposure_subscription = cJSON_Parse(request->http.content);
-                                    {
-                                        char *txt = cJSON_Print(af_event_exposure_subscription);
-                                        ogs_debug("Parsed JSON: %s", txt);
-                                        cJSON_free(txt);
-                                    }
-                                    if (!af_event_exposure_subscription) {
-                                        char *err = NULL;
-                                        err = ogs_msprintf("Unable to parse Data Reporting Session as JSON.");
-                                        ogs_error("%s", err);
-                                        ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_BAD_REQUEST, 0,
-                                                                    &message, "Bad Data Reporting Session", err, NULL, NULL, NULL,
-                                                                    api, app_meta));
-                                        ogs_free(err);
-                                        break;
-                                    }
-
-                                    data_collection_af_event_exposure_subscription = data_collection_model_af_event_exposure_subsc_fromJSON(af_event_exposure_subscription, true, &error_reason, &error_classname, &error_parameter);
-                                    cJSON_Delete(af_event_exposure_subscription);
-
-                                    if(!data_collection_af_event_exposure_subscription) {
-                                        OpenAPI_list_t *invalid_params = NULL;
-                                        char *err = ogs_msprintf("Unable to parse Event Exposure Subscriptions JSON at %s.%s: %s", error_classname, error_parameter, error_reason);
-                                        ogs_error("%s", err);
-                                        if (error_parameter) {
-                                                invalid_params = nf_server_make_invalid_params(error_parameter, error_reason);
-                                        }
-                                        ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_BAD_REQUEST, 0,
-                                                                        &message, "Bad Request", err, NULL, invalid_params, NULL,
-                                                                        api, app_meta));
-                                        if (error_reason) ogs_free(error_reason);
-                                        if (error_parameter) ogs_free(error_parameter);
-                                        if (error_classname) ogs_free(error_classname);
-                                        ogs_free(err);
-                                        break;
-                                    }
-                                    data_collection_event_subscription = data_collection_event_subscription_subscribe(data_collection_af_event_exposure_subscription, &error_reason, &error_classname, &error_parameter);
-
-
+                                    data_collection_event_subscription =
+                                            data_collection_event_subscription_subscribe(af_event_exposure_subsc, &error_reason,
+                                                                                         &error_classname, &error_parameter);
                                     if(!data_collection_event_subscription) {
                                         OpenAPI_list_t *invalid_params = NULL;
                                         char *err = ogs_msprintf("Bad Request %s", error_reason);
@@ -234,16 +181,11 @@ bool _evex_subscription_process_event(ogs_event_t *e)
                                     response_body_json = data_collection_event_subscription_generate_af_event_exposure_subsc(data_collection_event_subscription);
                                     location = ogs_msprintf("%s/%s", request->h.uri, data_collection_event_subscription_get_id(data_collection_event_subscription));
                                     __send_af_event_exposure_subscription(stream, &message, data_collection_event_subscription, location, response_body_json, 0, api, app_meta);
-                                    /* TODO: check if we need to insert a notification event for the subscription here */
-                                    /*af_event_notif_json = data_collection_event_subscription_generate_af_event_exposure_notif(data_collection_event_subscription);
-                                    if(af_event_notif_json){
-                                        rc = __send_af_event_exposure_notif(data_collection_event_subscription, af_event_notif_json);
-                                        ogs_info("RC: %d", rc);
-                                    }*/
                                 }
                                 break;
 
                             CASE(OGS_SBI_HTTP_METHOD_GET)
+                                /* Note: This operation is not specified in TS 29.517 and is an additional operation added by us */
                                 {
                                     data_collection_event_subscription_t *event_subscription =
                                             __event_subscription_retrieve(message.h.resource.component[1], stream, &message,
@@ -252,7 +194,7 @@ bool _evex_subscription_process_event(ogs_event_t *e)
                                         __send_af_event_exposure_subscription(stream, &message, event_subscription,
                                                                               data_collection_strdup(message.h.uri), NULL, 0, api,
                                                                               app_meta);
-                                    }
+                                    } /* no else needed, errors already reported back to client */
                                 }
                                 break;
 
@@ -263,9 +205,10 @@ bool _evex_subscription_process_event(ogs_event_t *e)
                                     const char *subscription_id = message.h.resource.component[1];
 
                                     af_event_exposure_subsc = __af_event_exposure_subscription_request_process(request, stream, &message, api, app_meta);
-                                    if (!af_event_exposure_subsc) break;
+                                    if (!af_event_exposure_subsc) break; /* Errors already reported back to client */
+
                                     event_subscription = __event_subscription_retrieve(subscription_id, stream, &message, api, app_meta);
-                                    if (!event_subscription) break;
+                                    if (!event_subscription) break; /* Errors already reported back to client */
                                     data_collection_event_subscription_set_af_event_exposure_subsc(event_subscription, af_event_exposure_subsc);
                                     __send_af_event_exposure_subscription(stream, &message, event_subscription, data_collection_strdup(message.h.uri), NULL, 0, api, app_meta);
                                 }
@@ -284,7 +227,7 @@ bool _evex_subscription_process_event(ogs_event_t *e)
                                         nf_server_populate_response(response, 0, NULL, OGS_SBI_HTTP_STATUS_NO_CONTENT);
                                         ogs_assert(response);
                                         ogs_assert(true == ogs_sbi_server_send_response(stream, response));
-                                    }
+                                    } /* no else needed, errors already reported back to client */
                                 }
                                 break;
 
@@ -304,7 +247,7 @@ bool _evex_subscription_process_event(ogs_event_t *e)
                                             ogs_assert(response);
                                             nf_server_populate_response(response, 0, NULL, OGS_SBI_HTTP_STATUS_NO_CONTENT);
                                             ogs_assert(true == ogs_sbi_server_send_response(stream, response));
-                                        }
+                                        } /* no else needed, errors already reported back to client */
                                     } else {
                                         ogs_sbi_response_t *response = nf_server_new_response(
                                                     NULL, NULL, 0, NULL, 0,

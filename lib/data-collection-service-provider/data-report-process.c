@@ -849,7 +849,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                             if (error_parameter) {
                                                 invalid_params = nf_server_make_invalid_params(error_parameter, error_return);
                                             }
-                                            ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_BAD_REQUEST, 0,
+                                            ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_BAD_REQUEST, 1,
                                                                         &message, "Bad Request", err, NULL, invalid_params, NULL,
                                                                         api, app_meta));
                                             if (error_return) ogs_free(error_return);
@@ -857,7 +857,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                             ogs_free(err);
                                             break;
                                         }
-                                        __send_data_reporting_provisioning_session(stream, &message, new_session, 3, api, app_meta);
+                                        __send_data_reporting_provisioning_session(stream, &message, new_session, 1, api, app_meta);
                                     }
                                     break;
                                 CASE(OGS_SBI_HTTP_METHOD_OPTIONS)
