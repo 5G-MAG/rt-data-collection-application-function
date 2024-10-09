@@ -78,14 +78,14 @@ static void __data_collection_adjust_reporting_conditions(data_collection_model_
 	configuration_client_type = data_collection_model_data_reporting_configuration_get_data_collection_client_type(data_report_config);
         config_client_type =  data_collection_model_data_collection_client_type_get_enum(configuration_client_type);
 	if(config_client_type == client_type) {
-	    ogs_list_t *config_reporting_conditions;	
+	    ogs_list_t *config_reporting_conditions;
 	    config_reporting_conditions = data_collection_model_data_reporting_configuration_get_data_reporting_conditions(data_report_config);
             if(config_reporting_conditions) {
 		configuration_id = data_collection_model_data_reporting_configuration_get_data_reporting_configuration_id(data_report_config);
-    
-	        __adjust_reporting_conditions(data_reporting_session, config_reporting_conditions, configuration_id, data_reporting_session_reporting_conditions_data_domain, data_domain);	    
-                
-	    }	    
+
+	        __adjust_reporting_conditions(data_reporting_session, config_reporting_conditions, configuration_id, data_reporting_session_reporting_conditions_data_domain, data_domain);
+
+	    }
 	}
     }
 
@@ -97,35 +97,46 @@ static void __adjust_reporting_conditions(data_collection_model_data_reporting_s
     data_collection_lnode_t *data_reporting_session_reporting_condition_node;
     ogs_hash_index_t *it;
 
-    ogs_list_for_each(configuration_reporting_conditions, configuration_reporting_condition_node) {
-        data_collection_lnode_t *data_reporting_session_reporting_condition;
-        data_collection_model_data_reporting_condition_t *config_reporting_condition = configuration_reporting_condition_node->object;
-        if(data_reporting_session_reporting_conditions_data_domain &&  !ogs_list_first(data_reporting_session_reporting_conditions_data_domain)) {
-             data_collection_lnode_t *data_reporting_session_reporting_condition_node;
-             if(!data_collection_model_data_reporting_condition_has_context_ids(config_reporting_condition))
+    ogs_assert(data_reporting_session_reporting_conditions_data_domain);
+
+    if (!ogs_list_first(data_reporting_session_reporting_conditions_data_domain)) {
+        /* existing list is empty we just copy over the items */
+        ogs_list_for_each(configuration_reporting_conditions, configuration_reporting_condition_node) {
+            data_collection_model_data_reporting_condition_t *config_reporting_condition = configuration_reporting_condition_node->object;
+            data_collection_lnode_t *new_lnode;
+
+            if(!data_collection_model_data_reporting_condition_has_context_ids(config_reporting_condition)) {
+                /* add the context id if it's missing */
                 data_collection_model_data_reporting_condition_add_context_ids(config_reporting_condition, data_collection_strdup(configuration_id));
-             data_reporting_session_reporting_condition_node = data_collection_model_data_reporting_condition_make_lnode(config_reporting_condition);
-             ogs_list_add(data_reporting_session_reporting_conditions_data_domain, data_reporting_session_reporting_condition_node);
-
-	} else {	
+            }
+            /* move the DataReportingCondition to the output list */
+            new_lnode = data_collection_lnode_copy_move(configuration_reporting_condition_node);
+            ogs_list_add(data_reporting_session_reporting_conditions_data_domain, new_lnode);
+        }
+    } else {
+        ogs_list_for_each(configuration_reporting_conditions, configuration_reporting_condition_node) {
+            bool found = false;
+            data_collection_model_data_reporting_condition_t *config_reporting_condition = configuration_reporting_condition_node->object;
             ogs_list_for_each(data_reporting_session_reporting_conditions_data_domain, data_reporting_session_reporting_condition_node) {
-	        data_collection_model_data_reporting_condition_t *data_reporting_session_reporting_condition = data_reporting_session_reporting_condition_node->object;    
+	        data_collection_model_data_reporting_condition_t *data_reporting_session_reporting_condition = data_reporting_session_reporting_condition_node->object;
 
-	        if(data_collection_model_data_reporting_condition_is_equal_to_sans_context_ids(config_reporting_condition, data_reporting_session_reporting_condition)) {
-	            data_collection_model_data_reporting_condition_add_context_ids(data_reporting_session_reporting_condition, data_collection_strdup(configuration_id));	    
-	            break; 	    
-	        } else {
-		    data_collection_lnode_t *data_reporting_session_reporting_condition_lnode;
-		    if(!data_collection_model_data_reporting_condition_has_context_ids(config_reporting_condition))
-		        data_collection_model_data_reporting_condition_add_context_ids(config_reporting_condition, data_collection_strdup(configuration_id));    
-		    data_reporting_session_reporting_condition_lnode = data_collection_model_data_reporting_condition_make_lnode(config_reporting_condition);
-		    ogs_list_add(data_reporting_session_reporting_conditions_data_domain, data_reporting_session_reporting_condition_lnode);
-		    break;
+	        if (data_collection_model_data_reporting_condition_is_equal_to_sans_context_ids(config_reporting_condition, data_reporting_session_reporting_condition)) {
+	            data_collection_model_data_reporting_condition_add_context_ids(data_reporting_session_reporting_condition, data_collection_strdup(configuration_id));
+                    found = true;
+	            break;
 	        }
+            }
+            if (!found) {
+                data_collection_lnode_t *new_lnode = data_collection_lnode_copy_move(configuration_reporting_condition_node);
+                if (!data_collection_model_data_reporting_condition_has_context_ids(config_reporting_condition)) {
+                    data_collection_model_data_reporting_condition_add_context_ids(config_reporting_condition, data_collection_strdup(configuration_id));
+                }
+		ogs_list_add(data_reporting_session_reporting_conditions_data_domain, new_lnode);
 	    }
 	}
-
     }
+    /* tidy up the input list */
+    data_collection_list_free(configuration_reporting_conditions);
 }
 
 #ifdef __cplusplus

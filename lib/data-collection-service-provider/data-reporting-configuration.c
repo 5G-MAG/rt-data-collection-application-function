@@ -495,7 +495,7 @@ static void __provisioning_configuration_data_reporting_conditions_add_context_i
 {
     ogs_list_t *configuration_reporting_conditions;
     configuration_reporting_conditions = data_collection_model_data_reporting_configuration_get_data_reporting_conditions(data_reporting_configuration);
-    if(configuration_reporting_conditions) {
+    if (configuration_reporting_conditions) {
         data_collection_lnode_t *configuration_reporting_condition_node;
         const char *configuration_id;
 
