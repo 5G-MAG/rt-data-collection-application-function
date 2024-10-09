@@ -76,6 +76,8 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info_t *data_co
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info_t *data_collection_model_exception_info_remove_exceps(data_collection_model_exception_info_t *exception_info, const data_collection_model_exception_t* exceps);
 
+DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_exception_t* data_collection_model_exception_info_get_entry_exceps(const data_collection_model_exception_info_t *exception_info, size_t idx);
+
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info_t *data_collection_model_exception_info_clear_exceps(data_collection_model_exception_info_t *exception_info);
 
 /* lnode helper for generating ogs_list_t nodes's of type ExceptionInfo */

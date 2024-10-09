@@ -358,6 +358,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_trip_plan_reco
     return obj_trip_plan_record_all_of;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location_data_t* data_collection_model_trip_plan_record_all_of_get_entry_waypoints(const data_collection_model_trip_plan_record_all_of_t *obj_trip_plan_record_all_of, size_t idx)
+{
+    if (!obj_trip_plan_record_all_of) {
+        const data_collection_model_location_data_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<TripPlanRecord_allOf > &obj = *reinterpret_cast<const std::shared_ptr<TripPlanRecord_allOf >*>(obj_trip_plan_record_all_of);
+    if (!obj) {
+        const data_collection_model_location_data_t *result = NULL;
+
+        return result;
+    }
+
+    const TripPlanRecord_allOf::WaypointsType &container = obj->getWaypoints();
+    if (!container.has_value()) {
+        const data_collection_model_location_data_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_location_data_t *result = NULL;
+
+        return result;
+    }
+    typedef typename TripPlanRecord_allOf::WaypointsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_location_data_t *result = reinterpret_cast<const data_collection_model_location_data_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_trip_plan_record_all_of_t *data_collection_model_trip_plan_record_all_of_clear_waypoints(data_collection_model_trip_plan_record_all_of_t *obj_trip_plan_record_all_of)
 {
     if (!obj_trip_plan_record_all_of) return NULL;

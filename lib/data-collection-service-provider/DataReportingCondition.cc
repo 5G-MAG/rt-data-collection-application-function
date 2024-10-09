@@ -305,6 +305,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     return obj_data_reporting_condition;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_data_reporting_condition_get_entry_context_ids(const data_collection_model_data_reporting_condition_t *obj_data_reporting_condition, size_t idx)
+{
+    if (!obj_data_reporting_condition) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DataReportingCondition > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingCondition >*>(obj_data_reporting_condition);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const DataReportingCondition::ContextIdsType &container = obj->getContextIds();
+    if (!container.has_value()) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename DataReportingCondition::ContextIdsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_condition_t *data_collection_model_data_reporting_condition_clear_context_ids(data_collection_model_data_reporting_condition_t *obj_data_reporting_condition)
 {
     if (!obj_data_reporting_condition) return NULL;

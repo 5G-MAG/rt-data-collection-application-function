@@ -339,6 +339,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ml_model_inter
     return obj_ml_model_inter_ind;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ml_model_inter_ind_get_entry_vendor_list(const data_collection_model_ml_model_inter_ind_t *obj_ml_model_inter_ind, size_t idx)
+{
+    if (!obj_ml_model_inter_ind) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<MlModelInterInd > &obj = *reinterpret_cast<const std::shared_ptr<MlModelInterInd >*>(obj_ml_model_inter_ind);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const MlModelInterInd::VendorListType &container = obj->getVendorList();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename MlModelInterInd::VendorListItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ml_model_inter_ind_t *data_collection_model_ml_model_inter_ind_clear_vendor_list(data_collection_model_ml_model_inter_ind_t *obj_ml_model_inter_ind)
 {
     if (!obj_ml_model_inter_ind) return NULL;

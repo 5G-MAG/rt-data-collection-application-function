@@ -429,6 +429,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_descr
     return obj_protocol_description;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_rtp_payload_info_t* data_collection_model_protocol_description_get_entry_rtp_payload_info_list(const data_collection_model_protocol_description_t *obj_protocol_description, size_t idx)
+{
+    if (!obj_protocol_description) {
+        const data_collection_model_rtp_payload_info_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<ProtocolDescription > &obj = *reinterpret_cast<const std::shared_ptr<ProtocolDescription >*>(obj_protocol_description);
+    if (!obj) {
+        const data_collection_model_rtp_payload_info_t *result = NULL;
+
+        return result;
+    }
+
+    const ProtocolDescription::RtpPayloadInfoListType &container = obj->getRtpPayloadInfoList();
+    if (!container.has_value()) {
+        const data_collection_model_rtp_payload_info_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_rtp_payload_info_t *result = NULL;
+
+        return result;
+    }
+    typedef typename ProtocolDescription::RtpPayloadInfoListItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_rtp_payload_info_t *result = reinterpret_cast<const data_collection_model_rtp_payload_info_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_description_t *data_collection_model_protocol_description_clear_rtp_payload_info_list(data_collection_model_protocol_description_t *obj_protocol_description)
 {
     if (!obj_protocol_description) return NULL;

@@ -352,6 +352,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_mat
     return obj_no_profile_match_info;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_query_param_combination_t* data_collection_model_no_profile_match_info_get_entry_query_param_combination_list(const data_collection_model_no_profile_match_info_t *obj_no_profile_match_info, size_t idx)
+{
+    if (!obj_no_profile_match_info) {
+        const data_collection_model_query_param_combination_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<NoProfileMatchInfo > &obj = *reinterpret_cast<const std::shared_ptr<NoProfileMatchInfo >*>(obj_no_profile_match_info);
+    if (!obj) {
+        const data_collection_model_query_param_combination_t *result = NULL;
+
+        return result;
+    }
+
+    const NoProfileMatchInfo::QueryParamCombinationListType &container = obj->getQueryParamCombinationList();
+    if (!container.has_value()) {
+        const data_collection_model_query_param_combination_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_query_param_combination_t *result = NULL;
+
+        return result;
+    }
+    typedef typename NoProfileMatchInfo::QueryParamCombinationListItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_query_param_combination_t *result = reinterpret_cast<const data_collection_model_query_param_combination_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_clear_query_param_combination_list(data_collection_model_no_profile_match_info_t *obj_no_profile_match_info)
 {
     if (!obj_no_profile_match_info) return NULL;

@@ -571,6 +571,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_c
     return obj_qo_e_metrics_collection;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_aggregation_function_type_t* data_collection_model_qo_e_metrics_collection_get_entry_summarisations(const data_collection_model_qo_e_metrics_collection_t *obj_qo_e_metrics_collection, size_t idx)
+{
+    if (!obj_qo_e_metrics_collection) {
+        const data_collection_model_data_aggregation_function_type_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<QoEMetricsCollection > &obj = *reinterpret_cast<const std::shared_ptr<QoEMetricsCollection >*>(obj_qo_e_metrics_collection);
+    if (!obj) {
+        const data_collection_model_data_aggregation_function_type_t *result = NULL;
+
+        return result;
+    }
+
+    const QoEMetricsCollection::SummarisationsType &container = obj->getSummarisations();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const data_collection_model_data_aggregation_function_type_t *result = NULL;
+
+        return result;
+    }
+    typedef typename QoEMetricsCollection::SummarisationsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_data_aggregation_function_type_t *result = reinterpret_cast<const data_collection_model_data_aggregation_function_type_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_collection_t *data_collection_model_qo_e_metrics_collection_clear_summarisations(data_collection_model_qo_e_metrics_collection_t *obj_qo_e_metrics_collection)
 {
     if (!obj_qo_e_metrics_collection) return NULL;
@@ -700,6 +735,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_c
 
     obj->removeRecords(value);
     return obj_qo_e_metrics_collection;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_qo_e_metrics_event_t* data_collection_model_qo_e_metrics_collection_get_entry_records(const data_collection_model_qo_e_metrics_collection_t *obj_qo_e_metrics_collection, size_t idx)
+{
+    if (!obj_qo_e_metrics_collection) {
+        const data_collection_model_qo_e_metrics_event_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<QoEMetricsCollection > &obj = *reinterpret_cast<const std::shared_ptr<QoEMetricsCollection >*>(obj_qo_e_metrics_collection);
+    if (!obj) {
+        const data_collection_model_qo_e_metrics_event_t *result = NULL;
+
+        return result;
+    }
+
+    const QoEMetricsCollection::RecordsType &container = obj->getRecords();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const data_collection_model_qo_e_metrics_event_t *result = NULL;
+
+        return result;
+    }
+    typedef typename QoEMetricsCollection::RecordsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_qo_e_metrics_event_t *result = reinterpret_cast<const data_collection_model_qo_e_metrics_event_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_collection_t *data_collection_model_qo_e_metrics_collection_clear_records(data_collection_model_qo_e_metrics_collection_t *obj_qo_e_metrics_collection)

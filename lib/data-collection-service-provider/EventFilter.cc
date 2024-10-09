@@ -311,6 +311,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     return obj_event_filter;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_event_filter_get_entry_gpsis(const data_collection_model_event_filter_t *obj_event_filter, size_t idx)
+{
+    if (!obj_event_filter) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<EventFilter > &obj = *reinterpret_cast<const std::shared_ptr<EventFilter >*>(obj_event_filter);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const EventFilter::GpsisType &container = obj->getGpsis();
+    if (!container.has_value()) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename EventFilter::GpsisItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t *data_collection_model_event_filter_clear_gpsis(data_collection_model_event_filter_t *obj_event_filter)
 {
     if (!obj_event_filter) return NULL;
@@ -449,6 +488,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
 
     obj->removeSupis(value);
     return obj_event_filter;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_event_filter_get_entry_supis(const data_collection_model_event_filter_t *obj_event_filter, size_t idx)
+{
+    if (!obj_event_filter) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<EventFilter > &obj = *reinterpret_cast<const std::shared_ptr<EventFilter >*>(obj_event_filter);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const EventFilter::SupisType &container = obj->getSupis();
+    if (!container.has_value()) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename EventFilter::SupisItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t *data_collection_model_event_filter_clear_supis(data_collection_model_event_filter_t *obj_event_filter)
@@ -591,6 +669,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     return obj_event_filter;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_event_filter_get_entry_exter_group_ids(const data_collection_model_event_filter_t *obj_event_filter, size_t idx)
+{
+    if (!obj_event_filter) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<EventFilter > &obj = *reinterpret_cast<const std::shared_ptr<EventFilter >*>(obj_event_filter);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const EventFilter::ExterGroupIdsType &container = obj->getExterGroupIds();
+    if (!container.has_value()) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename EventFilter::ExterGroupIdsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t *data_collection_model_event_filter_clear_exter_group_ids(data_collection_model_event_filter_t *obj_event_filter)
 {
     if (!obj_event_filter) return NULL;
@@ -729,6 +846,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
 
     obj->removeInterGroupIds(value);
     return obj_event_filter;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_event_filter_get_entry_inter_group_ids(const data_collection_model_event_filter_t *obj_event_filter, size_t idx)
+{
+    if (!obj_event_filter) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<EventFilter > &obj = *reinterpret_cast<const std::shared_ptr<EventFilter >*>(obj_event_filter);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const EventFilter::InterGroupIdsType &container = obj->getInterGroupIds();
+    if (!container.has_value()) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename EventFilter::InterGroupIdsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t *data_collection_model_event_filter_clear_inter_group_ids(data_collection_model_event_filter_t *obj_event_filter)
@@ -1001,6 +1157,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     return obj_event_filter;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_event_filter_get_entry_app_ids(const data_collection_model_event_filter_t *obj_event_filter, size_t idx)
+{
+    if (!obj_event_filter) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<EventFilter > &obj = *reinterpret_cast<const std::shared_ptr<EventFilter >*>(obj_event_filter);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const EventFilter::AppIdsType &container = obj->getAppIds();
+    if (!container.has_value()) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename EventFilter::AppIdsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t *data_collection_model_event_filter_clear_app_ids(data_collection_model_event_filter_t *obj_event_filter)
 {
     if (!obj_event_filter) return NULL;
@@ -1208,6 +1403,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     return obj_event_filter;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_collective_behaviour_filter_t* data_collection_model_event_filter_get_entry_coll_attrs(const data_collection_model_event_filter_t *obj_event_filter, size_t idx)
+{
+    if (!obj_event_filter) {
+        const data_collection_model_collective_behaviour_filter_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<EventFilter > &obj = *reinterpret_cast<const std::shared_ptr<EventFilter >*>(obj_event_filter);
+    if (!obj) {
+        const data_collection_model_collective_behaviour_filter_t *result = NULL;
+
+        return result;
+    }
+
+    const EventFilter::CollAttrsType &container = obj->getCollAttrs();
+    if (!container.has_value()) {
+        const data_collection_model_collective_behaviour_filter_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_collective_behaviour_filter_t *result = NULL;
+
+        return result;
+    }
+    typedef typename EventFilter::CollAttrsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_collective_behaviour_filter_t *result = reinterpret_cast<const data_collection_model_collective_behaviour_filter_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t *data_collection_model_event_filter_clear_coll_attrs(data_collection_model_event_filter_t *obj_event_filter)
 {
     if (!obj_event_filter) return NULL;
@@ -1348,6 +1582,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
 
     obj->removeExceptionReqs(value);
     return obj_event_filter;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_exception_t* data_collection_model_event_filter_get_entry_exception_reqs(const data_collection_model_event_filter_t *obj_event_filter, size_t idx)
+{
+    if (!obj_event_filter) {
+        const data_collection_model_exception_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<EventFilter > &obj = *reinterpret_cast<const std::shared_ptr<EventFilter >*>(obj_event_filter);
+    if (!obj) {
+        const data_collection_model_exception_t *result = NULL;
+
+        return result;
+    }
+
+    const EventFilter::ExceptionReqsType &container = obj->getExceptionReqs();
+    if (!container.has_value()) {
+        const data_collection_model_exception_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_exception_t *result = NULL;
+
+        return result;
+    }
+    typedef typename EventFilter::ExceptionReqsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_exception_t *result = reinterpret_cast<const data_collection_model_exception_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t *data_collection_model_event_filter_clear_exception_reqs(data_collection_model_event_filter_t *obj_event_filter)

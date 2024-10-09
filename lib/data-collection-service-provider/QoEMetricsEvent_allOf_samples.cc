@@ -485,6 +485,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
     return obj_qo_e_metrics_event_all_of_samples;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_qo_e_metrics_event_all_of_metrics_t* data_collection_model_qo_e_metrics_event_all_of_samples_get_entry_metrics(const data_collection_model_qo_e_metrics_event_all_of_samples_t *obj_qo_e_metrics_event_all_of_samples, size_t idx)
+{
+    if (!obj_qo_e_metrics_event_all_of_samples) {
+        const data_collection_model_qo_e_metrics_event_all_of_metrics_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<QoEMetricsEvent_allOf_samples > &obj = *reinterpret_cast<const std::shared_ptr<QoEMetricsEvent_allOf_samples >*>(obj_qo_e_metrics_event_all_of_samples);
+    if (!obj) {
+        const data_collection_model_qo_e_metrics_event_all_of_metrics_t *result = NULL;
+
+        return result;
+    }
+
+    const QoEMetricsEvent_allOf_samples::MetricsType &container = obj->getMetrics();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const data_collection_model_qo_e_metrics_event_all_of_metrics_t *result = NULL;
+
+        return result;
+    }
+    typedef typename QoEMetricsEvent_allOf_samples::MetricsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_qo_e_metrics_event_all_of_metrics_t *result = reinterpret_cast<const data_collection_model_qo_e_metrics_event_all_of_metrics_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_event_all_of_samples_t *data_collection_model_qo_e_metrics_event_all_of_samples_clear_metrics(data_collection_model_qo_e_metrics_event_all_of_samples_t *obj_qo_e_metrics_event_all_of_samples)
 {
     if (!obj_qo_e_metrics_event_all_of_samples) return NULL;

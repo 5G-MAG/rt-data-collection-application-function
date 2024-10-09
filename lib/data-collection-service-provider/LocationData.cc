@@ -800,6 +800,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
     return obj_location_data;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_positioning_method_and_usage_t* data_collection_model_location_data_get_entry_positioning_data_list(const data_collection_model_location_data_t *obj_location_data, size_t idx)
+{
+    if (!obj_location_data) {
+        const data_collection_model_positioning_method_and_usage_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<LocationData > &obj = *reinterpret_cast<const std::shared_ptr<LocationData >*>(obj_location_data);
+    if (!obj) {
+        const data_collection_model_positioning_method_and_usage_t *result = NULL;
+
+        return result;
+    }
+
+    const LocationData::PositioningDataListType &container = obj->getPositioningDataList();
+    if (!container.has_value()) {
+        const data_collection_model_positioning_method_and_usage_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_positioning_method_and_usage_t *result = NULL;
+
+        return result;
+    }
+    typedef typename LocationData::PositioningDataListItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_positioning_method_and_usage_t *result = reinterpret_cast<const data_collection_model_positioning_method_and_usage_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_clear_positioning_data_list(data_collection_model_location_data_t *obj_location_data)
 {
     if (!obj_location_data) return NULL;
@@ -940,6 +979,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     obj->removeGnssPositioningDataList(value);
     return obj_location_data;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_gnss_positioning_method_and_usage_t* data_collection_model_location_data_get_entry_gnss_positioning_data_list(const data_collection_model_location_data_t *obj_location_data, size_t idx)
+{
+    if (!obj_location_data) {
+        const data_collection_model_gnss_positioning_method_and_usage_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<LocationData > &obj = *reinterpret_cast<const std::shared_ptr<LocationData >*>(obj_location_data);
+    if (!obj) {
+        const data_collection_model_gnss_positioning_method_and_usage_t *result = NULL;
+
+        return result;
+    }
+
+    const LocationData::GnssPositioningDataListType &container = obj->getGnssPositioningDataList();
+    if (!container.has_value()) {
+        const data_collection_model_gnss_positioning_method_and_usage_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_gnss_positioning_method_and_usage_t *result = NULL;
+
+        return result;
+    }
+    typedef typename LocationData::GnssPositioningDataListItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_gnss_positioning_method_and_usage_t *result = reinterpret_cast<const data_collection_model_gnss_positioning_method_and_usage_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_clear_gnss_positioning_data_list(data_collection_model_location_data_t *obj_location_data)

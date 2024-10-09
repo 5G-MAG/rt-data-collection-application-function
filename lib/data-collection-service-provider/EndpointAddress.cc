@@ -353,6 +353,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_addre
     return obj_endpoint_address;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_endpoint_address_get_entry_port_numbers(const data_collection_model_endpoint_address_t *obj_endpoint_address, size_t idx)
+{
+    if (!obj_endpoint_address) {
+        const int32_t result = 0;
+
+        return result;
+    }
+
+    const std::shared_ptr<EndpointAddress > &obj = *reinterpret_cast<const std::shared_ptr<EndpointAddress >*>(obj_endpoint_address);
+    if (!obj) {
+        const int32_t result = 0;
+
+        return result;
+    }
+
+    const EndpointAddress::PortNumbersType &container = obj->getPortNumbers();
+    if (!container.has_value()) {
+        const int32_t result = 0;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const int32_t result = 0;
+
+        return result;
+    }
+    typedef typename EndpointAddress::PortNumbersItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_clear_port_numbers(data_collection_model_endpoint_address_t *obj_endpoint_address)
 {
     if (!obj_endpoint_address) return NULL;

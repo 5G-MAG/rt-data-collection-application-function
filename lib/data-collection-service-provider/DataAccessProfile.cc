@@ -349,6 +349,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     return obj_data_access_profile;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_event_consumer_type_t* data_collection_model_data_access_profile_get_entry_target_event_consumer_types(const data_collection_model_data_access_profile_t *obj_data_access_profile, size_t idx)
+{
+    if (!obj_data_access_profile) {
+        const data_collection_model_event_consumer_type_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DataAccessProfile > &obj = *reinterpret_cast<const std::shared_ptr<DataAccessProfile >*>(obj_data_access_profile);
+    if (!obj) {
+        const data_collection_model_event_consumer_type_t *result = NULL;
+
+        return result;
+    }
+
+    const DataAccessProfile::TargetEventConsumerTypesType &container = obj->getTargetEventConsumerTypes();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const data_collection_model_event_consumer_type_t *result = NULL;
+
+        return result;
+    }
+    typedef typename DataAccessProfile::TargetEventConsumerTypesItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_event_consumer_type_t *result = reinterpret_cast<const data_collection_model_event_consumer_type_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_t *data_collection_model_data_access_profile_clear_target_event_consumer_types(data_collection_model_data_access_profile_t *obj_data_access_profile)
 {
     if (!obj_data_access_profile) return NULL;
@@ -476,6 +511,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
 
     obj->removeParameters(value);
     return obj_data_access_profile;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_data_access_profile_get_entry_parameters(const data_collection_model_data_access_profile_t *obj_data_access_profile, size_t idx)
+{
+    if (!obj_data_access_profile) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DataAccessProfile > &obj = *reinterpret_cast<const std::shared_ptr<DataAccessProfile >*>(obj_data_access_profile);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const DataAccessProfile::ParametersType &container = obj->getParameters();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename DataAccessProfile::ParametersItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_t *data_collection_model_data_access_profile_clear_parameters(data_collection_model_data_access_profile_t *obj_data_access_profile)

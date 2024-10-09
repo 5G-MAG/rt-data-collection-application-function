@@ -805,6 +805,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
     return obj_qo_e_metrics_event;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location_area5_g_t* data_collection_model_qo_e_metrics_event_get_entry_ue_locations(const data_collection_model_qo_e_metrics_event_t *obj_qo_e_metrics_event, size_t idx)
+{
+    if (!obj_qo_e_metrics_event) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<QoEMetricsEvent > &obj = *reinterpret_cast<const std::shared_ptr<QoEMetricsEvent >*>(obj_qo_e_metrics_event);
+    if (!obj) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+
+    const QoEMetricsEvent::UeLocationsType &container = obj->getUeLocations();
+    if (!container.has_value()) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+    typedef typename QoEMetricsEvent::UeLocationsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_event_t *data_collection_model_qo_e_metrics_event_clear_ue_locations(data_collection_model_qo_e_metrics_event_t *obj_qo_e_metrics_event)
 {
     if (!obj_qo_e_metrics_event) return NULL;
@@ -1000,6 +1039,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
 
     obj->removeSamples(value);
     return obj_qo_e_metrics_event;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_qo_e_metrics_event_all_of_samples_t* data_collection_model_qo_e_metrics_event_get_entry_samples(const data_collection_model_qo_e_metrics_event_t *obj_qo_e_metrics_event, size_t idx)
+{
+    if (!obj_qo_e_metrics_event) {
+        const data_collection_model_qo_e_metrics_event_all_of_samples_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<QoEMetricsEvent > &obj = *reinterpret_cast<const std::shared_ptr<QoEMetricsEvent >*>(obj_qo_e_metrics_event);
+    if (!obj) {
+        const data_collection_model_qo_e_metrics_event_all_of_samples_t *result = NULL;
+
+        return result;
+    }
+
+    const QoEMetricsEvent::SamplesType &container = obj->getSamples();
+    if (!container.has_value()) {
+        const data_collection_model_qo_e_metrics_event_all_of_samples_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_qo_e_metrics_event_all_of_samples_t *result = NULL;
+
+        return result;
+    }
+    typedef typename QoEMetricsEvent::SamplesItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_qo_e_metrics_event_all_of_samples_t *result = reinterpret_cast<const data_collection_model_qo_e_metrics_event_all_of_samples_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_event_t *data_collection_model_qo_e_metrics_event_clear_samples(data_collection_model_qo_e_metrics_event_t *obj_qo_e_metrics_event)

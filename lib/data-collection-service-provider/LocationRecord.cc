@@ -341,6 +341,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_recor
     return obj_location_record;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_location_record_get_entry_context_ids(const data_collection_model_location_record_t *obj_location_record, size_t idx)
+{
+    if (!obj_location_record) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<LocationRecord > &obj = *reinterpret_cast<const std::shared_ptr<LocationRecord >*>(obj_location_record);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const LocationRecord::ContextIdsType &container = obj->getContextIds();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename LocationRecord::ContextIdsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_record_t *data_collection_model_location_record_clear_context_ids(data_collection_model_location_record_t *obj_location_record)
 {
     if (!obj_location_record) return NULL;

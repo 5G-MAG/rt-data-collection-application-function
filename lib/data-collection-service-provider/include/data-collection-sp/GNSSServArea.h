@@ -68,6 +68,8 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_serv_area_t *data_co
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_serv_area_t *data_collection_model_gnss_serv_area_remove_tai_list(data_collection_model_gnss_serv_area_t *gnss_serv_area, const data_collection_model_tai_t* tai_list);
 
+DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_tai_t* data_collection_model_gnss_serv_area_get_entry_tai_list(const data_collection_model_gnss_serv_area_t *gnss_serv_area, size_t idx);
+
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_serv_area_t *data_collection_model_gnss_serv_area_clear_tai_list(data_collection_model_gnss_serv_area_t *gnss_serv_area);
 
 /* lnode helper for generating ogs_list_t nodes's of type GNSSServArea */

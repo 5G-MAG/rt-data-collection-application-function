@@ -341,6 +341,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     return obj_service_experience_record;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_service_experience_record_get_entry_context_ids(const data_collection_model_service_experience_record_t *obj_service_experience_record, size_t idx)
+{
+    if (!obj_service_experience_record) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<ServiceExperienceRecord > &obj = *reinterpret_cast<const std::shared_ptr<ServiceExperienceRecord >*>(obj_service_experience_record);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const ServiceExperienceRecord::ContextIdsType &container = obj->getContextIds();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename ServiceExperienceRecord::ContextIdsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_record_t *data_collection_model_service_experience_record_clear_context_ids(data_collection_model_service_experience_record_t *obj_service_experience_record)
 {
     if (!obj_service_experience_record) return NULL;
@@ -470,6 +505,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
 
     obj->removeServiceExperienceInfos(value);
     return obj_service_experience_record;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_per_flow_service_experience_info_t* data_collection_model_service_experience_record_get_entry_service_experience_infos(const data_collection_model_service_experience_record_t *obj_service_experience_record, size_t idx)
+{
+    if (!obj_service_experience_record) {
+        const data_collection_model_per_flow_service_experience_info_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<ServiceExperienceRecord > &obj = *reinterpret_cast<const std::shared_ptr<ServiceExperienceRecord >*>(obj_service_experience_record);
+    if (!obj) {
+        const data_collection_model_per_flow_service_experience_info_t *result = NULL;
+
+        return result;
+    }
+
+    const ServiceExperienceRecord::ServiceExperienceInfosType &container = obj->getServiceExperienceInfos();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const data_collection_model_per_flow_service_experience_info_t *result = NULL;
+
+        return result;
+    }
+    typedef typename ServiceExperienceRecord::ServiceExperienceInfosItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_per_flow_service_experience_info_t *result = reinterpret_cast<const data_collection_model_per_flow_service_experience_info_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_record_t *data_collection_model_service_experience_record_clear_service_experience_infos(data_collection_model_service_experience_record_t *obj_service_experience_record)

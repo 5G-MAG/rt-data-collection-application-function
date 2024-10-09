@@ -811,6 +811,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
     return obj_dynamic_policy_invocation_event;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location_area5_g_t* data_collection_model_dynamic_policy_invocation_event_get_entry_ue_locations(const data_collection_model_dynamic_policy_invocation_event_t *obj_dynamic_policy_invocation_event, size_t idx)
+{
+    if (!obj_dynamic_policy_invocation_event) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DynamicPolicyInvocationEvent > &obj = *reinterpret_cast<const std::shared_ptr<DynamicPolicyInvocationEvent >*>(obj_dynamic_policy_invocation_event);
+    if (!obj) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+
+    const DynamicPolicyInvocationEvent::UeLocationsType &container = obj->getUeLocations();
+    if (!container.has_value()) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+    typedef typename DynamicPolicyInvocationEvent::UeLocationsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_invocation_event_t *data_collection_model_dynamic_policy_invocation_event_clear_ue_locations(data_collection_model_dynamic_policy_invocation_event_t *obj_dynamic_policy_invocation_event)
 {
     if (!obj_dynamic_policy_invocation_event) return NULL;
@@ -1006,6 +1045,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
 
     obj->removeApplicationFlowDescriptions(value);
     return obj_dynamic_policy_invocation_event;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_application_flow_description_t* data_collection_model_dynamic_policy_invocation_event_get_entry_application_flow_descriptions(const data_collection_model_dynamic_policy_invocation_event_t *obj_dynamic_policy_invocation_event, size_t idx)
+{
+    if (!obj_dynamic_policy_invocation_event) {
+        const data_collection_model_application_flow_description_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DynamicPolicyInvocationEvent > &obj = *reinterpret_cast<const std::shared_ptr<DynamicPolicyInvocationEvent >*>(obj_dynamic_policy_invocation_event);
+    if (!obj) {
+        const data_collection_model_application_flow_description_t *result = NULL;
+
+        return result;
+    }
+
+    const DynamicPolicyInvocationEvent::ApplicationFlowDescriptionsType &container = obj->getApplicationFlowDescriptions();
+    if (!container.has_value()) {
+        const data_collection_model_application_flow_description_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_application_flow_description_t *result = NULL;
+
+        return result;
+    }
+    typedef typename DynamicPolicyInvocationEvent::ApplicationFlowDescriptionsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_application_flow_description_t *result = reinterpret_cast<const data_collection_model_application_flow_description_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_invocation_event_t *data_collection_model_dynamic_policy_invocation_event_clear_application_flow_descriptions(data_collection_model_dynamic_policy_invocation_event_t *obj_dynamic_policy_invocation_event)

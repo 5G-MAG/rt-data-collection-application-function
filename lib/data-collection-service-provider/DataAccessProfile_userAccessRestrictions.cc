@@ -286,6 +286,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     return obj_data_access_profile_user_access_restrictions;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_data_access_profile_user_access_restrictions_get_entry_group_ids(const data_collection_model_data_access_profile_user_access_restrictions_t *obj_data_access_profile_user_access_restrictions, size_t idx)
+{
+    if (!obj_data_access_profile_user_access_restrictions) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DataAccessProfile_userAccessRestrictions > &obj = *reinterpret_cast<const std::shared_ptr<DataAccessProfile_userAccessRestrictions >*>(obj_data_access_profile_user_access_restrictions);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const DataAccessProfile_userAccessRestrictions::GroupIdsType &container = obj->getGroupIds();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename DataAccessProfile_userAccessRestrictions::GroupIdsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_clear_group_ids(data_collection_model_data_access_profile_user_access_restrictions_t *obj_data_access_profile_user_access_restrictions)
 {
     if (!obj_data_access_profile_user_access_restrictions) return NULL;
@@ -417,6 +452,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     return obj_data_access_profile_user_access_restrictions;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_access_profile_user_access_restrictions_user_ids_inner_t* data_collection_model_data_access_profile_user_access_restrictions_get_entry_user_ids(const data_collection_model_data_access_profile_user_access_restrictions_t *obj_data_access_profile_user_access_restrictions, size_t idx)
+{
+    if (!obj_data_access_profile_user_access_restrictions) {
+        const data_collection_model_data_access_profile_user_access_restrictions_user_ids_inner_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DataAccessProfile_userAccessRestrictions > &obj = *reinterpret_cast<const std::shared_ptr<DataAccessProfile_userAccessRestrictions >*>(obj_data_access_profile_user_access_restrictions);
+    if (!obj) {
+        const data_collection_model_data_access_profile_user_access_restrictions_user_ids_inner_t *result = NULL;
+
+        return result;
+    }
+
+    const DataAccessProfile_userAccessRestrictions::UserIdsType &container = obj->getUserIds();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const data_collection_model_data_access_profile_user_access_restrictions_user_ids_inner_t *result = NULL;
+
+        return result;
+    }
+    typedef typename DataAccessProfile_userAccessRestrictions::UserIdsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_data_access_profile_user_access_restrictions_user_ids_inner_t *result = reinterpret_cast<const data_collection_model_data_access_profile_user_access_restrictions_user_ids_inner_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_clear_user_ids(data_collection_model_data_access_profile_user_access_restrictions_t *obj_data_access_profile_user_access_restrictions)
 {
     if (!obj_data_access_profile_user_access_restrictions) return NULL;
@@ -546,6 +616,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
 
     obj->removeAggregationFunctions(value);
     return obj_data_access_profile_user_access_restrictions;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_aggregation_function_type_t* data_collection_model_data_access_profile_user_access_restrictions_get_entry_aggregation_functions(const data_collection_model_data_access_profile_user_access_restrictions_t *obj_data_access_profile_user_access_restrictions, size_t idx)
+{
+    if (!obj_data_access_profile_user_access_restrictions) {
+        const data_collection_model_data_aggregation_function_type_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DataAccessProfile_userAccessRestrictions > &obj = *reinterpret_cast<const std::shared_ptr<DataAccessProfile_userAccessRestrictions >*>(obj_data_access_profile_user_access_restrictions);
+    if (!obj) {
+        const data_collection_model_data_aggregation_function_type_t *result = NULL;
+
+        return result;
+    }
+
+    const DataAccessProfile_userAccessRestrictions::AggregationFunctionsType &container = obj->getAggregationFunctions();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const data_collection_model_data_aggregation_function_type_t *result = NULL;
+
+        return result;
+    }
+    typedef typename DataAccessProfile_userAccessRestrictions::AggregationFunctionsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_data_aggregation_function_type_t *result = reinterpret_cast<const data_collection_model_data_aggregation_function_type_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_t *data_collection_model_data_access_profile_user_access_restrictions_clear_aggregation_functions(data_collection_model_data_access_profile_user_access_restrictions_t *obj_data_access_profile_user_access_restrictions)

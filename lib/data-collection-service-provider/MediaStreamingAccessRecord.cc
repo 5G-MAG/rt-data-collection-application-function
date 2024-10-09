@@ -361,6 +361,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     return obj_media_streaming_access_record;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_media_streaming_access_record_get_entry_context_ids(const data_collection_model_media_streaming_access_record_t *obj_media_streaming_access_record, size_t idx)
+{
+    if (!obj_media_streaming_access_record) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<MediaStreamingAccessRecord > &obj = *reinterpret_cast<const std::shared_ptr<MediaStreamingAccessRecord >*>(obj_media_streaming_access_record);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const MediaStreamingAccessRecord::ContextIdsType &container = obj->getContextIds();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename MediaStreamingAccessRecord::ContextIdsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_record_t *data_collection_model_media_streaming_access_record_clear_context_ids(data_collection_model_media_streaming_access_record_t *obj_media_streaming_access_record)
 {
     if (!obj_media_streaming_access_record) return NULL;

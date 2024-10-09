@@ -339,6 +339,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_record_1_
     return obj_base_record_1;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_base_record_1_get_entry_context_ids(const data_collection_model_base_record_1_t *obj_base_record_1, size_t idx)
+{
+    if (!obj_base_record_1) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<BaseRecord_1 > &obj = *reinterpret_cast<const std::shared_ptr<BaseRecord_1 >*>(obj_base_record_1);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const BaseRecord_1::ContextIdsType &container = obj->getContextIds();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename BaseRecord_1::ContextIdsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_record_1_t *data_collection_model_base_record_1_clear_context_ids(data_collection_model_base_record_1_t *obj_base_record_1)
 {
     if (!obj_base_record_1) return NULL;

@@ -435,6 +435,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
     return obj_app_exp_ue_behaviour;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_app_exp_ue_behaviour_get_entry_flow_descriptions(const data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour, size_t idx)
+{
+    if (!obj_app_exp_ue_behaviour) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AppExpUeBehaviour > &obj = *reinterpret_cast<const std::shared_ptr<AppExpUeBehaviour >*>(obj_app_exp_ue_behaviour);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const AppExpUeBehaviour::FlowDescriptionsType &container = obj->getFlowDescriptions();
+    if (!container.has_value()) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename AppExpUeBehaviour::FlowDescriptionsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_clear_flow_descriptions(data_collection_model_app_exp_ue_behaviour_t *obj_app_exp_ue_behaviour)
 {
     if (!obj_app_exp_ue_behaviour) return NULL;

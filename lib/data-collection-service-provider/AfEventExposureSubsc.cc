@@ -361,6 +361,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_expos
     return obj_af_event_exposure_subsc;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_events_subs_t* data_collection_model_af_event_exposure_subsc_get_entry_events_subs(const data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc, size_t idx)
+{
+    if (!obj_af_event_exposure_subsc) {
+        const data_collection_model_events_subs_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<const std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) {
+        const data_collection_model_events_subs_t *result = NULL;
+
+        return result;
+    }
+
+    const AfEventExposureSubsc::EventsSubsType &container = obj->getEventsSubs();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const data_collection_model_events_subs_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AfEventExposureSubsc::EventsSubsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_events_subs_t *result = reinterpret_cast<const data_collection_model_events_subs_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_clear_events_subs(data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc)
 {
     if (!obj_af_event_exposure_subsc) return NULL;
@@ -666,6 +701,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_expos
 
     obj->removeEventNotifs(value);
     return obj_af_event_exposure_subsc;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_af_event_notification_t* data_collection_model_af_event_exposure_subsc_get_entry_event_notifs(const data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc, size_t idx)
+{
+    if (!obj_af_event_exposure_subsc) {
+        const data_collection_model_af_event_notification_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AfEventExposureSubsc > &obj = *reinterpret_cast<const std::shared_ptr<AfEventExposureSubsc >*>(obj_af_event_exposure_subsc);
+    if (!obj) {
+        const data_collection_model_af_event_notification_t *result = NULL;
+
+        return result;
+    }
+
+    const AfEventExposureSubsc::EventNotifsType &container = obj->getEventNotifs();
+    if (!container.has_value()) {
+        const data_collection_model_af_event_notification_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_af_event_notification_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AfEventExposureSubsc::EventNotifsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_af_event_notification_t *result = reinterpret_cast<const data_collection_model_af_event_notification_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_exposure_subsc_t *data_collection_model_af_event_exposure_subsc_clear_event_notifs(data_collection_model_af_event_exposure_subsc_t *obj_af_event_exposure_subsc)

@@ -362,6 +362,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_serv_area
     return obj_gnss_serv_area;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_tai_t* data_collection_model_gnss_serv_area_get_entry_tai_list(const data_collection_model_gnss_serv_area_t *obj_gnss_serv_area, size_t idx)
+{
+    if (!obj_gnss_serv_area) {
+        const data_collection_model_tai_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<GNSSServArea > &obj = *reinterpret_cast<const std::shared_ptr<GNSSServArea >*>(obj_gnss_serv_area);
+    if (!obj) {
+        const data_collection_model_tai_t *result = NULL;
+
+        return result;
+    }
+
+    const GNSSServArea::TaiListType &container = obj->getTaiList();
+    if (!container.has_value()) {
+        const data_collection_model_tai_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_tai_t *result = NULL;
+
+        return result;
+    }
+    typedef typename GNSSServArea::TaiListItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_tai_t *result = reinterpret_cast<const data_collection_model_tai_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_serv_area_t *data_collection_model_gnss_serv_area_clear_tai_list(data_collection_model_gnss_serv_area_t *obj_gnss_serv_area)
 {
     if (!obj_gnss_serv_area) return NULL;

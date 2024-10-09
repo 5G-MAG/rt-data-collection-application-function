@@ -298,6 +298,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_in
     return obj_rtp_payload_info;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_rtp_payload_info_get_entry_rtp_payload_type_list(const data_collection_model_rtp_payload_info_t *obj_rtp_payload_info, size_t idx)
+{
+    if (!obj_rtp_payload_info) {
+        const int32_t result = 0;
+
+        return result;
+    }
+
+    const std::shared_ptr<RtpPayloadInfo > &obj = *reinterpret_cast<const std::shared_ptr<RtpPayloadInfo >*>(obj_rtp_payload_info);
+    if (!obj) {
+        const int32_t result = 0;
+
+        return result;
+    }
+
+    const RtpPayloadInfo::RtpPayloadTypeListType &container = obj->getRtpPayloadTypeList();
+    if (!container.has_value()) {
+        const int32_t result = 0;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const int32_t result = 0;
+
+        return result;
+    }
+    typedef typename RtpPayloadInfo::RtpPayloadTypeListItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_clear_rtp_payload_type_list(data_collection_model_rtp_payload_info_t *obj_rtp_payload_info)
 {
     if (!obj_rtp_payload_info) return NULL;

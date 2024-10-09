@@ -705,6 +705,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
     return obj_reporting_information;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_partitioning_criteria_t* data_collection_model_reporting_information_get_entry_partition_criteria(const data_collection_model_reporting_information_t *obj_reporting_information, size_t idx)
+{
+    if (!obj_reporting_information) {
+        const data_collection_model_partitioning_criteria_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<ReportingInformation > &obj = *reinterpret_cast<const std::shared_ptr<ReportingInformation >*>(obj_reporting_information);
+    if (!obj) {
+        const data_collection_model_partitioning_criteria_t *result = NULL;
+
+        return result;
+    }
+
+    const ReportingInformation::PartitionCriteriaType &container = obj->getPartitionCriteria();
+    if (!container.has_value()) {
+        const data_collection_model_partitioning_criteria_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_partitioning_criteria_t *result = NULL;
+
+        return result;
+    }
+    typedef typename ReportingInformation::PartitionCriteriaItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_partitioning_criteria_t *result = reinterpret_cast<const data_collection_model_partitioning_criteria_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_information_t *data_collection_model_reporting_information_clear_partition_criteria(data_collection_model_reporting_information_t *obj_reporting_information)
 {
     if (!obj_reporting_information) return NULL;

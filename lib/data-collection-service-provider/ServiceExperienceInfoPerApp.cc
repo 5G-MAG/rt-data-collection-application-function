@@ -424,6 +424,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_service_experience_info_per_flow_t* data_collection_model_service_experience_info_per_app_get_entry_svc_exp_per_flows(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, size_t idx)
+{
+    if (!obj_service_experience_info_per_app) {
+        const data_collection_model_service_experience_info_per_flow_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<ServiceExperienceInfoPerApp > &obj = *reinterpret_cast<const std::shared_ptr<ServiceExperienceInfoPerApp >*>(obj_service_experience_info_per_app);
+    if (!obj) {
+        const data_collection_model_service_experience_info_per_flow_t *result = NULL;
+
+        return result;
+    }
+
+    const ServiceExperienceInfoPerApp::SvcExpPerFlowsType &container = obj->getSvcExpPerFlows();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const data_collection_model_service_experience_info_per_flow_t *result = NULL;
+
+        return result;
+    }
+    typedef typename ServiceExperienceInfoPerApp::SvcExpPerFlowsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_service_experience_info_per_flow_t *result = reinterpret_cast<const data_collection_model_service_experience_info_per_flow_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_clear_svc_exp_per_flows(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
 {
     if (!obj_service_experience_info_per_app) return NULL;
@@ -564,6 +599,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     return obj_service_experience_info_per_app;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_service_experience_info_per_app_get_entry_gpsis(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, size_t idx)
+{
+    if (!obj_service_experience_info_per_app) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<ServiceExperienceInfoPerApp > &obj = *reinterpret_cast<const std::shared_ptr<ServiceExperienceInfoPerApp >*>(obj_service_experience_info_per_app);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const ServiceExperienceInfoPerApp::GpsisType &container = obj->getGpsis();
+    if (!container.has_value()) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename ServiceExperienceInfoPerApp::GpsisItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_clear_gpsis(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
 {
     if (!obj_service_experience_info_per_app) return NULL;
@@ -702,6 +776,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
 
     obj->removeSupis(value);
     return obj_service_experience_info_per_app;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_service_experience_info_per_app_get_entry_supis(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, size_t idx)
+{
+    if (!obj_service_experience_info_per_app) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<ServiceExperienceInfoPerApp > &obj = *reinterpret_cast<const std::shared_ptr<ServiceExperienceInfoPerApp >*>(obj_service_experience_info_per_app);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const ServiceExperienceInfoPerApp::SupisType &container = obj->getSupis();
+    if (!container.has_value()) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename ServiceExperienceInfoPerApp::SupisItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_clear_supis(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)
@@ -845,6 +958,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
 
     obj->removeContrWeights(value);
     return obj_service_experience_info_per_app;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_service_experience_info_per_app_get_entry_contr_weights(const data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app, size_t idx)
+{
+    if (!obj_service_experience_info_per_app) {
+        const int32_t result = 0;
+
+        return result;
+    }
+
+    const std::shared_ptr<ServiceExperienceInfoPerApp > &obj = *reinterpret_cast<const std::shared_ptr<ServiceExperienceInfoPerApp >*>(obj_service_experience_info_per_app);
+    if (!obj) {
+        const int32_t result = 0;
+
+        return result;
+    }
+
+    const ServiceExperienceInfoPerApp::ContrWeightsType &container = obj->getContrWeights();
+    if (!container.has_value()) {
+        const int32_t result = 0;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const int32_t result = 0;
+
+        return result;
+    }
+    typedef typename ServiceExperienceInfoPerApp::ContrWeightsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_clear_contr_weights(data_collection_model_service_experience_info_per_app_t *obj_service_experience_info_per_app)

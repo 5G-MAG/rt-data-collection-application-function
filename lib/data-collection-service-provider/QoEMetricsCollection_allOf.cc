@@ -284,6 +284,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_c
     return obj_qo_e_metrics_collection_all_of;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_qo_e_metrics_event_t* data_collection_model_qo_e_metrics_collection_all_of_get_entry_records(const data_collection_model_qo_e_metrics_collection_all_of_t *obj_qo_e_metrics_collection_all_of, size_t idx)
+{
+    if (!obj_qo_e_metrics_collection_all_of) {
+        const data_collection_model_qo_e_metrics_event_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<QoEMetricsCollection_allOf > &obj = *reinterpret_cast<const std::shared_ptr<QoEMetricsCollection_allOf >*>(obj_qo_e_metrics_collection_all_of);
+    if (!obj) {
+        const data_collection_model_qo_e_metrics_event_t *result = NULL;
+
+        return result;
+    }
+
+    const QoEMetricsCollection_allOf::RecordsType &container = obj->getRecords();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const data_collection_model_qo_e_metrics_event_t *result = NULL;
+
+        return result;
+    }
+    typedef typename QoEMetricsCollection_allOf::RecordsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_qo_e_metrics_event_t *result = reinterpret_cast<const data_collection_model_qo_e_metrics_event_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_collection_all_of_t *data_collection_model_qo_e_metrics_collection_all_of_clear_records(data_collection_model_qo_e_metrics_collection_all_of_t *obj_qo_e_metrics_collection_all_of)
 {
     if (!obj_qo_e_metrics_collection_all_of) return NULL;

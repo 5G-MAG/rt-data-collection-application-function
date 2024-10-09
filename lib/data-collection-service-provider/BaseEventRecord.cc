@@ -801,6 +801,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_event_rec
     return obj_base_event_record;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location_area5_g_t* data_collection_model_base_event_record_get_entry_ue_locations(const data_collection_model_base_event_record_t *obj_base_event_record, size_t idx)
+{
+    if (!obj_base_event_record) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<BaseEventRecord > &obj = *reinterpret_cast<const std::shared_ptr<BaseEventRecord >*>(obj_base_event_record);
+    if (!obj) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+
+    const BaseEventRecord::UeLocationsType &container = obj->getUeLocations();
+    if (!container.has_value()) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+    typedef typename BaseEventRecord::UeLocationsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_event_record_t *data_collection_model_base_event_record_clear_ue_locations(data_collection_model_base_event_record_t *obj_base_event_record)
 {
     if (!obj_base_event_record) return NULL;

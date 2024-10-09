@@ -284,6 +284,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_access_acti
     return obj_ms_access_activity_collection;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_media_streaming_access_record_t* data_collection_model_ms_access_activity_collection_get_entry_ms_acc_acts(const data_collection_model_ms_access_activity_collection_t *obj_ms_access_activity_collection, size_t idx)
+{
+    if (!obj_ms_access_activity_collection) {
+        const data_collection_model_media_streaming_access_record_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<MSAccessActivityCollection > &obj = *reinterpret_cast<const std::shared_ptr<MSAccessActivityCollection >*>(obj_ms_access_activity_collection);
+    if (!obj) {
+        const data_collection_model_media_streaming_access_record_t *result = NULL;
+
+        return result;
+    }
+
+    const MSAccessActivityCollection::MsAccActsType &container = obj->getMsAccActs();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const data_collection_model_media_streaming_access_record_t *result = NULL;
+
+        return result;
+    }
+    typedef typename MSAccessActivityCollection::MsAccActsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_media_streaming_access_record_t *result = reinterpret_cast<const data_collection_model_media_streaming_access_record_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_clear_ms_acc_acts(data_collection_model_ms_access_activity_collection_t *obj_ms_access_activity_collection)
 {
     if (!obj_ms_access_activity_collection) return NULL;

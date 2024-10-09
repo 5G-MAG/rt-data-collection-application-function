@@ -902,6 +902,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
     return obj_cp_parameter_set;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_battery_indication_t* data_collection_model_cp_parameter_set_get_entry_battery_inds(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set, size_t idx)
+{
+    if (!obj_cp_parameter_set) {
+        const data_collection_model_battery_indication_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<const std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
+    if (!obj) {
+        const data_collection_model_battery_indication_t *result = NULL;
+
+        return result;
+    }
+
+    const CpParameterSet::BatteryIndsType &container = obj->getBatteryInds();
+    if (!container.has_value()) {
+        const data_collection_model_battery_indication_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_battery_indication_t *result = NULL;
+
+        return result;
+    }
+    typedef typename CpParameterSet::BatteryIndsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_battery_indication_t *result = reinterpret_cast<const data_collection_model_battery_indication_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_clear_battery_inds(data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
 {
     if (!obj_cp_parameter_set) return NULL;
@@ -1107,6 +1146,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
 
     obj->removeExpectedUmts(value);
     return obj_cp_parameter_set;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_umt_location_area5_g_t* data_collection_model_cp_parameter_set_get_entry_expected_umts(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set, size_t idx)
+{
+    if (!obj_cp_parameter_set) {
+        const data_collection_model_umt_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<const std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
+    if (!obj) {
+        const data_collection_model_umt_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+
+    const CpParameterSet::ExpectedUmtsType &container = obj->getExpectedUmts();
+    if (!container.has_value()) {
+        const data_collection_model_umt_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_umt_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+    typedef typename CpParameterSet::ExpectedUmtsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_umt_location_area5_g_t *result = reinterpret_cast<const data_collection_model_umt_location_area5_g_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_clear_expected_umts(data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)
@@ -1315,6 +1393,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
 
     obj->removeExpectedUmtDaysAdd(value);
     return obj_cp_parameter_set;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_cp_parameter_set_get_entry_expected_umt_days_add(const data_collection_model_cp_parameter_set_t *obj_cp_parameter_set, size_t idx)
+{
+    if (!obj_cp_parameter_set) {
+        const int32_t result = 0;
+
+        return result;
+    }
+
+    const std::shared_ptr<CpParameterSet > &obj = *reinterpret_cast<const std::shared_ptr<CpParameterSet >*>(obj_cp_parameter_set);
+    if (!obj) {
+        const int32_t result = 0;
+
+        return result;
+    }
+
+    const CpParameterSet::ExpectedUmtDaysAddType &container = obj->getExpectedUmtDaysAdd();
+    if (!container.has_value()) {
+        const int32_t result = 0;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const int32_t result = 0;
+
+        return result;
+    }
+    typedef typename CpParameterSet::ExpectedUmtDaysAddItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_set_t *data_collection_model_cp_parameter_set_clear_expected_umt_days_add(data_collection_model_cp_parameter_set_t *obj_cp_parameter_set)

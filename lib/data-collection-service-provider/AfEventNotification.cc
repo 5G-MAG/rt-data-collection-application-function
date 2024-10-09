@@ -447,6 +447,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_service_experience_info_per_app_t* data_collection_model_af_event_notification_get_entry_svc_exprc_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification, size_t idx)
+{
+    if (!obj_af_event_notification) {
+        const data_collection_model_service_experience_info_per_app_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) {
+        const data_collection_model_service_experience_info_per_app_t *result = NULL;
+
+        return result;
+    }
+
+    const AfEventNotification::SvcExprcInfosType &container = obj->getSvcExprcInfos();
+    if (!container.has_value()) {
+        const data_collection_model_service_experience_info_per_app_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_service_experience_info_per_app_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AfEventNotification::SvcExprcInfosItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_service_experience_info_per_app_t *result = reinterpret_cast<const data_collection_model_service_experience_info_per_app_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_svc_exprc_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
@@ -587,6 +626,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     obj->removeUeMobilityInfos(value);
     return obj_af_event_notification;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ue_mobility_collection_t* data_collection_model_af_event_notification_get_entry_ue_mobility_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification, size_t idx)
+{
+    if (!obj_af_event_notification) {
+        const data_collection_model_ue_mobility_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) {
+        const data_collection_model_ue_mobility_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const AfEventNotification::UeMobilityInfosType &container = obj->getUeMobilityInfos();
+    if (!container.has_value()) {
+        const data_collection_model_ue_mobility_collection_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_ue_mobility_collection_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AfEventNotification::UeMobilityInfosItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_ue_mobility_collection_t *result = reinterpret_cast<const data_collection_model_ue_mobility_collection_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ue_mobility_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
@@ -731,6 +809,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ue_communication_collection_t* data_collection_model_af_event_notification_get_entry_ue_comm_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification, size_t idx)
+{
+    if (!obj_af_event_notification) {
+        const data_collection_model_ue_communication_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) {
+        const data_collection_model_ue_communication_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const AfEventNotification::UeCommInfosType &container = obj->getUeCommInfos();
+    if (!container.has_value()) {
+        const data_collection_model_ue_communication_collection_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_ue_communication_collection_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AfEventNotification::UeCommInfosItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_ue_communication_collection_t *result = reinterpret_cast<const data_collection_model_ue_communication_collection_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ue_comm_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
@@ -871,6 +988,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     obj->removeExcepInfos(value);
     return obj_af_event_notification;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_exception_info_t* data_collection_model_af_event_notification_get_entry_excep_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification, size_t idx)
+{
+    if (!obj_af_event_notification) {
+        const data_collection_model_exception_info_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) {
+        const data_collection_model_exception_info_t *result = NULL;
+
+        return result;
+    }
+
+    const AfEventNotification::ExcepInfosType &container = obj->getExcepInfos();
+    if (!container.has_value()) {
+        const data_collection_model_exception_info_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_exception_info_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AfEventNotification::ExcepInfosItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_exception_info_t *result = reinterpret_cast<const data_collection_model_exception_info_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_excep_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
@@ -1015,6 +1171,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_user_data_congestion_collection_t* data_collection_model_af_event_notification_get_entry_congestion_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification, size_t idx)
+{
+    if (!obj_af_event_notification) {
+        const data_collection_model_user_data_congestion_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) {
+        const data_collection_model_user_data_congestion_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const AfEventNotification::CongestionInfosType &container = obj->getCongestionInfos();
+    if (!container.has_value()) {
+        const data_collection_model_user_data_congestion_collection_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_user_data_congestion_collection_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AfEventNotification::CongestionInfosItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_user_data_congestion_collection_t *result = reinterpret_cast<const data_collection_model_user_data_congestion_collection_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_congestion_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
@@ -1155,6 +1350,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     obj->removePerfDataInfos(value);
     return obj_af_event_notification;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_performance_data_collection_t* data_collection_model_af_event_notification_get_entry_perf_data_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification, size_t idx)
+{
+    if (!obj_af_event_notification) {
+        const data_collection_model_performance_data_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) {
+        const data_collection_model_performance_data_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const AfEventNotification::PerfDataInfosType &container = obj->getPerfDataInfos();
+    if (!container.has_value()) {
+        const data_collection_model_performance_data_collection_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_performance_data_collection_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AfEventNotification::PerfDataInfosItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_performance_data_collection_t *result = reinterpret_cast<const data_collection_model_performance_data_collection_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_perf_data_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
@@ -1299,6 +1533,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_dispersion_collection_t* data_collection_model_af_event_notification_get_entry_dispersion_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification, size_t idx)
+{
+    if (!obj_af_event_notification) {
+        const data_collection_model_dispersion_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) {
+        const data_collection_model_dispersion_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const AfEventNotification::DispersionInfosType &container = obj->getDispersionInfos();
+    if (!container.has_value()) {
+        const data_collection_model_dispersion_collection_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_dispersion_collection_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AfEventNotification::DispersionInfosItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_dispersion_collection_t *result = reinterpret_cast<const data_collection_model_dispersion_collection_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_dispersion_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
@@ -1439,6 +1712,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     obj->removeCollBhvrInfs(value);
     return obj_af_event_notification;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_collective_behaviour_info_t* data_collection_model_af_event_notification_get_entry_coll_bhvr_infs(const data_collection_model_af_event_notification_t *obj_af_event_notification, size_t idx)
+{
+    if (!obj_af_event_notification) {
+        const data_collection_model_collective_behaviour_info_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) {
+        const data_collection_model_collective_behaviour_info_t *result = NULL;
+
+        return result;
+    }
+
+    const AfEventNotification::CollBhvrInfsType &container = obj->getCollBhvrInfs();
+    if (!container.has_value()) {
+        const data_collection_model_collective_behaviour_info_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_collective_behaviour_info_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AfEventNotification::CollBhvrInfsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_collective_behaviour_info_t *result = reinterpret_cast<const data_collection_model_collective_behaviour_info_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_coll_bhvr_infs(data_collection_model_af_event_notification_t *obj_af_event_notification)
@@ -1583,6 +1895,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ms_qoe_metrics_collection_t* data_collection_model_af_event_notification_get_entry_ms_qoe_metr_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification, size_t idx)
+{
+    if (!obj_af_event_notification) {
+        const data_collection_model_ms_qoe_metrics_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) {
+        const data_collection_model_ms_qoe_metrics_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const AfEventNotification::MsQoeMetrInfosType &container = obj->getMsQoeMetrInfos();
+    if (!container.has_value()) {
+        const data_collection_model_ms_qoe_metrics_collection_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_ms_qoe_metrics_collection_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AfEventNotification::MsQoeMetrInfosItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_ms_qoe_metrics_collection_t *result = reinterpret_cast<const data_collection_model_ms_qoe_metrics_collection_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_qoe_metr_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
@@ -1723,6 +2074,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     obj->removeMsQoeMetrics(value);
     return obj_af_event_notification;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_qo_e_metrics_collection_t* data_collection_model_af_event_notification_get_entry_ms_qoe_metrics(const data_collection_model_af_event_notification_t *obj_af_event_notification, size_t idx)
+{
+    if (!obj_af_event_notification) {
+        const data_collection_model_qo_e_metrics_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) {
+        const data_collection_model_qo_e_metrics_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const AfEventNotification::MsQoeMetricsType &container = obj->getMsQoeMetrics();
+    if (!container.has_value()) {
+        const data_collection_model_qo_e_metrics_collection_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_qo_e_metrics_collection_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AfEventNotification::MsQoeMetricsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_qo_e_metrics_collection_t *result = reinterpret_cast<const data_collection_model_qo_e_metrics_collection_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_qoe_metrics(data_collection_model_af_event_notification_t *obj_af_event_notification)
@@ -1867,6 +2257,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ms_consumption_collection_t* data_collection_model_af_event_notification_get_entry_ms_consump_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification, size_t idx)
+{
+    if (!obj_af_event_notification) {
+        const data_collection_model_ms_consumption_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) {
+        const data_collection_model_ms_consumption_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const AfEventNotification::MsConsumpInfosType &container = obj->getMsConsumpInfos();
+    if (!container.has_value()) {
+        const data_collection_model_ms_consumption_collection_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_ms_consumption_collection_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AfEventNotification::MsConsumpInfosItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_ms_consumption_collection_t *result = reinterpret_cast<const data_collection_model_ms_consumption_collection_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_consump_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
@@ -2007,6 +2436,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     obj->removeMsConsumpRpts(value);
     return obj_af_event_notification;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_consumption_reporting_units_collection_t* data_collection_model_af_event_notification_get_entry_ms_consump_rpts(const data_collection_model_af_event_notification_t *obj_af_event_notification, size_t idx)
+{
+    if (!obj_af_event_notification) {
+        const data_collection_model_consumption_reporting_units_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) {
+        const data_collection_model_consumption_reporting_units_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const AfEventNotification::MsConsumpRptsType &container = obj->getMsConsumpRpts();
+    if (!container.has_value()) {
+        const data_collection_model_consumption_reporting_units_collection_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_consumption_reporting_units_collection_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AfEventNotification::MsConsumpRptsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_consumption_reporting_units_collection_t *result = reinterpret_cast<const data_collection_model_consumption_reporting_units_collection_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_consump_rpts(data_collection_model_af_event_notification_t *obj_af_event_notification)
@@ -2151,6 +2619,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ms_net_ass_invocation_collection_t* data_collection_model_af_event_notification_get_entry_ms_net_ass_inv_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification, size_t idx)
+{
+    if (!obj_af_event_notification) {
+        const data_collection_model_ms_net_ass_invocation_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) {
+        const data_collection_model_ms_net_ass_invocation_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const AfEventNotification::MsNetAssInvInfosType &container = obj->getMsNetAssInvInfos();
+    if (!container.has_value()) {
+        const data_collection_model_ms_net_ass_invocation_collection_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_ms_net_ass_invocation_collection_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AfEventNotification::MsNetAssInvInfosItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_ms_net_ass_invocation_collection_t *result = reinterpret_cast<const data_collection_model_ms_net_ass_invocation_collection_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_net_ass_inv_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
@@ -2291,6 +2798,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     obj->removeMsNetAssistInvs(value);
     return obj_af_event_notification;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_network_assistance_invocations_collection_t* data_collection_model_af_event_notification_get_entry_ms_net_assist_invs(const data_collection_model_af_event_notification_t *obj_af_event_notification, size_t idx)
+{
+    if (!obj_af_event_notification) {
+        const data_collection_model_network_assistance_invocations_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) {
+        const data_collection_model_network_assistance_invocations_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const AfEventNotification::MsNetAssistInvsType &container = obj->getMsNetAssistInvs();
+    if (!container.has_value()) {
+        const data_collection_model_network_assistance_invocations_collection_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_network_assistance_invocations_collection_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AfEventNotification::MsNetAssistInvsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_network_assistance_invocations_collection_t *result = reinterpret_cast<const data_collection_model_network_assistance_invocations_collection_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_net_assist_invs(data_collection_model_af_event_notification_t *obj_af_event_notification)
@@ -2435,6 +2981,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ms_dyn_policy_invocation_collection_t* data_collection_model_af_event_notification_get_entry_ms_dyn_ply_inv_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification, size_t idx)
+{
+    if (!obj_af_event_notification) {
+        const data_collection_model_ms_dyn_policy_invocation_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) {
+        const data_collection_model_ms_dyn_policy_invocation_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const AfEventNotification::MsDynPlyInvInfosType &container = obj->getMsDynPlyInvInfos();
+    if (!container.has_value()) {
+        const data_collection_model_ms_dyn_policy_invocation_collection_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_ms_dyn_policy_invocation_collection_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AfEventNotification::MsDynPlyInvInfosItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_ms_dyn_policy_invocation_collection_t *result = reinterpret_cast<const data_collection_model_ms_dyn_policy_invocation_collection_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_dyn_ply_inv_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
@@ -2575,6 +3160,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     obj->removeMsDynPlyInvs(value);
     return obj_af_event_notification;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_dynamic_policy_invocations_collection_t* data_collection_model_af_event_notification_get_entry_ms_dyn_ply_invs(const data_collection_model_af_event_notification_t *obj_af_event_notification, size_t idx)
+{
+    if (!obj_af_event_notification) {
+        const data_collection_model_dynamic_policy_invocations_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) {
+        const data_collection_model_dynamic_policy_invocations_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const AfEventNotification::MsDynPlyInvsType &container = obj->getMsDynPlyInvs();
+    if (!container.has_value()) {
+        const data_collection_model_dynamic_policy_invocations_collection_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_dynamic_policy_invocations_collection_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AfEventNotification::MsDynPlyInvsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_dynamic_policy_invocations_collection_t *result = reinterpret_cast<const data_collection_model_dynamic_policy_invocations_collection_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_dyn_ply_invs(data_collection_model_af_event_notification_t *obj_af_event_notification)
@@ -2719,6 +3343,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
     return obj_af_event_notification;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ms_access_activity_collection_t* data_collection_model_af_event_notification_get_entry_ms_acc_act_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification, size_t idx)
+{
+    if (!obj_af_event_notification) {
+        const data_collection_model_ms_access_activity_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) {
+        const data_collection_model_ms_access_activity_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const AfEventNotification::MsAccActInfosType &container = obj->getMsAccActInfos();
+    if (!container.has_value()) {
+        const data_collection_model_ms_access_activity_collection_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_ms_access_activity_collection_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AfEventNotification::MsAccActInfosItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_ms_access_activity_collection_t *result = reinterpret_cast<const data_collection_model_ms_access_activity_collection_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_acc_act_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)
 {
     if (!obj_af_event_notification) return NULL;
@@ -2859,6 +3522,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     obj->removeMsAccesses(value);
     return obj_af_event_notification;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_media_streaming_accesses_collection_t* data_collection_model_af_event_notification_get_entry_ms_accesses(const data_collection_model_af_event_notification_t *obj_af_event_notification, size_t idx)
+{
+    if (!obj_af_event_notification) {
+        const data_collection_model_media_streaming_accesses_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) {
+        const data_collection_model_media_streaming_accesses_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const AfEventNotification::MsAccessesType &container = obj->getMsAccesses();
+    if (!container.has_value()) {
+        const data_collection_model_media_streaming_accesses_collection_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_media_streaming_accesses_collection_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AfEventNotification::MsAccessesItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_media_streaming_accesses_collection_t *result = reinterpret_cast<const data_collection_model_media_streaming_accesses_collection_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_ms_accesses(data_collection_model_af_event_notification_t *obj_af_event_notification)
@@ -3066,6 +3768,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     obj->removeDatVolTransTimeInfos(value);
     return obj_af_event_notification;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_dat_vol_trans_time_collection_t* data_collection_model_af_event_notification_get_entry_dat_vol_trans_time_infos(const data_collection_model_af_event_notification_t *obj_af_event_notification, size_t idx)
+{
+    if (!obj_af_event_notification) {
+        const data_collection_model_dat_vol_trans_time_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AfEventNotification > &obj = *reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(obj_af_event_notification);
+    if (!obj) {
+        const data_collection_model_dat_vol_trans_time_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const AfEventNotification::DatVolTransTimeInfosType &container = obj->getDatVolTransTimeInfos();
+    if (!container.has_value()) {
+        const data_collection_model_dat_vol_trans_time_collection_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_dat_vol_trans_time_collection_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AfEventNotification::DatVolTransTimeInfosItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_dat_vol_trans_time_collection_t *result = reinterpret_cast<const data_collection_model_dat_vol_trans_time_collection_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_clear_dat_vol_trans_time_infos(data_collection_model_af_event_notification_t *obj_af_event_notification)

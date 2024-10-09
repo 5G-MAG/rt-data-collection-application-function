@@ -413,6 +413,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     return obj_collective_behaviour_filter;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_per_ue_attribute_t* data_collection_model_collective_behaviour_filter_get_entry_coll_beh_attr(const data_collection_model_collective_behaviour_filter_t *obj_collective_behaviour_filter, size_t idx)
+{
+    if (!obj_collective_behaviour_filter) {
+        const data_collection_model_per_ue_attribute_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<CollectiveBehaviourFilter > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourFilter >*>(obj_collective_behaviour_filter);
+    if (!obj) {
+        const data_collection_model_per_ue_attribute_t *result = NULL;
+
+        return result;
+    }
+
+    const CollectiveBehaviourFilter::CollBehAttrType &container = obj->getCollBehAttr();
+    if (!container.has_value()) {
+        const data_collection_model_per_ue_attribute_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_per_ue_attribute_t *result = NULL;
+
+        return result;
+    }
+    typedef typename CollectiveBehaviourFilter::CollBehAttrItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_per_ue_attribute_t *result = reinterpret_cast<const data_collection_model_per_ue_attribute_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_behaviour_filter_t *data_collection_model_collective_behaviour_filter_clear_coll_beh_attr(data_collection_model_collective_behaviour_filter_t *obj_collective_behaviour_filter)
 {
     if (!obj_collective_behaviour_filter) return NULL;

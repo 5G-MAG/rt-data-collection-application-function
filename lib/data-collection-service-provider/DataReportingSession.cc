@@ -489,6 +489,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     return obj_data_reporting_session;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_domain_t* data_collection_model_data_reporting_session_get_entry_supported_domains(const data_collection_model_data_reporting_session_t *obj_data_reporting_session, size_t idx)
+{
+    if (!obj_data_reporting_session) {
+        const data_collection_model_data_domain_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) {
+        const data_collection_model_data_domain_t *result = NULL;
+
+        return result;
+    }
+
+    const DataReportingSession::SupportedDomainsType &container = obj->getSupportedDomains();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const data_collection_model_data_domain_t *result = NULL;
+
+        return result;
+    }
+    typedef typename DataReportingSession::SupportedDomainsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_data_domain_t *result = reinterpret_cast<const data_collection_model_data_domain_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_clear_supported_domains(data_collection_model_data_reporting_session_t *obj_data_reporting_session)
 {
     if (!obj_data_reporting_session) return NULL;
@@ -511,7 +546,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_repo
 }
 
 
-extern "C" DATA_COLLECTION_SVC_PRODUCER_API const ogs_hash_t* data_collection_model_data_reporting_session_get_sampling_rules(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_hash_t* data_collection_model_data_reporting_session_get_sampling_rules(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
 {
     if (!obj_data_reporting_session) {
         ogs_hash_t *result = NULL;
@@ -692,6 +727,53 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     return obj_data_reporting_session;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_reporting_session_get_entry_sampling_rules(const data_collection_model_data_reporting_session_t *obj_data_reporting_session, const char *p_key)
+{
+    if (!obj_data_reporting_session) {
+        ogs_list_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) {
+        ogs_list_t *result = NULL;
+
+        return result;
+    }
+
+    const DataReportingSession::SamplingRulesType &container = obj->getSamplingRules();
+    if (!container.has_value()) {
+        ogs_list_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().find(std::string(p_key));
+    if (itr == container.value().cend()) {
+        ogs_list_t *result = NULL;
+
+        return result;
+    }
+    typedef typename DataReportingSession::SamplingRulesItemType ResultFromType;
+    const ResultFromType &result_from = itr->second;
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+if (result_from.has_value()) {
+
+typedef typename ResultFromType::value_type::value_type ItemType;
+for (const ItemType &item : result_from.value()) {
+    data_collection_lnode_t *node = nullptr;
+    data_collection_model_data_sampling_rule_t *item_obj = reinterpret_cast<data_collection_model_data_sampling_rule_t*>(item.has_value()?new std::shared_ptr<DataSamplingRule >(item.value()):nullptr);
+    if (item_obj) {
+	node = data_collection_model_data_sampling_rule_make_lnode(item_obj);
+    }
+    
+    if (node) ogs_list_add(result, node);
+}}
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_clear_sampling_rules(data_collection_model_data_reporting_session_t *obj_data_reporting_session)
 {
     if (!obj_data_reporting_session) return NULL;
@@ -714,7 +796,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_repo
 }
 
 
-extern "C" DATA_COLLECTION_SVC_PRODUCER_API const ogs_hash_t* data_collection_model_data_reporting_session_get_reporting_conditions(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_hash_t* data_collection_model_data_reporting_session_get_reporting_conditions(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
 {
     if (!obj_data_reporting_session) {
         ogs_hash_t *result = NULL;
@@ -895,6 +977,53 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     return obj_data_reporting_session;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_reporting_session_get_entry_reporting_conditions(const data_collection_model_data_reporting_session_t *obj_data_reporting_session, const char *p_key)
+{
+    if (!obj_data_reporting_session) {
+        ogs_list_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) {
+        ogs_list_t *result = NULL;
+
+        return result;
+    }
+
+    const DataReportingSession::ReportingConditionsType &container = obj->getReportingConditions();
+    if (!container.has_value()) {
+        ogs_list_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().find(std::string(p_key));
+    if (itr == container.value().cend()) {
+        ogs_list_t *result = NULL;
+
+        return result;
+    }
+    typedef typename DataReportingSession::ReportingConditionsItemType ResultFromType;
+    const ResultFromType &result_from = itr->second;
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+if (result_from.has_value()) {
+
+typedef typename ResultFromType::value_type::value_type ItemType;
+for (const ItemType &item : result_from.value()) {
+    data_collection_lnode_t *node = nullptr;
+    data_collection_model_data_reporting_condition_t *item_obj = reinterpret_cast<data_collection_model_data_reporting_condition_t*>(item.has_value()?new std::shared_ptr<DataReportingCondition >(item.value()):nullptr);
+    if (item_obj) {
+	node = data_collection_model_data_reporting_condition_make_lnode(item_obj);
+    }
+    
+    if (node) ogs_list_add(result, node);
+}}
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_clear_reporting_conditions(data_collection_model_data_reporting_session_t *obj_data_reporting_session)
 {
     if (!obj_data_reporting_session) return NULL;
@@ -917,7 +1046,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_data_repo
 }
 
 
-extern "C" DATA_COLLECTION_SVC_PRODUCER_API const ogs_hash_t* data_collection_model_data_reporting_session_get_reporting_rules(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_hash_t* data_collection_model_data_reporting_session_get_reporting_rules(const data_collection_model_data_reporting_session_t *obj_data_reporting_session)
 {
     if (!obj_data_reporting_session) {
         ogs_hash_t *result = NULL;
@@ -1096,6 +1225,53 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     
     obj->removeReportingRules(std::string(p_key));
     return obj_data_reporting_session;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t* data_collection_model_data_reporting_session_get_entry_reporting_rules(const data_collection_model_data_reporting_session_t *obj_data_reporting_session, const char *p_key)
+{
+    if (!obj_data_reporting_session) {
+        ogs_list_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DataReportingSession > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingSession >*>(obj_data_reporting_session);
+    if (!obj) {
+        ogs_list_t *result = NULL;
+
+        return result;
+    }
+
+    const DataReportingSession::ReportingRulesType &container = obj->getReportingRules();
+    if (!container.has_value()) {
+        ogs_list_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().find(std::string(p_key));
+    if (itr == container.value().cend()) {
+        ogs_list_t *result = NULL;
+
+        return result;
+    }
+    typedef typename DataReportingSession::ReportingRulesItemType ResultFromType;
+    const ResultFromType &result_from = itr->second;
+    ogs_list_t *result = reinterpret_cast<ogs_list_t*>(result_from.has_value()?ogs_calloc(1, sizeof(*result)):nullptr);
+if (result_from.has_value()) {
+
+typedef typename ResultFromType::value_type::value_type ItemType;
+for (const ItemType &item : result_from.value()) {
+    data_collection_lnode_t *node = nullptr;
+    data_collection_model_data_reporting_rule_t *item_obj = reinterpret_cast<data_collection_model_data_reporting_rule_t*>(item.has_value()?new std::shared_ptr<DataReportingRule >(item.value()):nullptr);
+    if (item_obj) {
+	node = data_collection_model_data_reporting_rule_make_lnode(item_obj);
+    }
+    
+    if (node) ogs_list_add(result, node);
+}}
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_session_t *data_collection_model_data_reporting_session_clear_reporting_rules(data_collection_model_data_reporting_session_t *obj_data_reporting_session)

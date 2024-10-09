@@ -709,6 +709,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     return obj_problem_details;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_invalid_param_t* data_collection_model_problem_details_get_entry_invalid_params(const data_collection_model_problem_details_t *obj_problem_details, size_t idx)
+{
+    if (!obj_problem_details) {
+        const data_collection_model_invalid_param_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) {
+        const data_collection_model_invalid_param_t *result = NULL;
+
+        return result;
+    }
+
+    const ProblemDetails::InvalidParamsType &container = obj->getInvalidParams();
+    if (!container.has_value()) {
+        const data_collection_model_invalid_param_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_invalid_param_t *result = NULL;
+
+        return result;
+    }
+    typedef typename ProblemDetails::InvalidParamsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_invalid_param_t *result = reinterpret_cast<const data_collection_model_invalid_param_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_clear_invalid_params(data_collection_model_problem_details_t *obj_problem_details)
 {
     if (!obj_problem_details) return NULL;
@@ -1107,6 +1146,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
 
     obj->removeSupportedApiVersions(value);
     return obj_problem_details;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_problem_details_get_entry_supported_api_versions(const data_collection_model_problem_details_t *obj_problem_details, size_t idx)
+{
+    if (!obj_problem_details) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<ProblemDetails > &obj = *reinterpret_cast<const std::shared_ptr<ProblemDetails >*>(obj_problem_details);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const ProblemDetails::SupportedApiVersionsType &container = obj->getSupportedApiVersions();
+    if (!container.has_value()) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename ProblemDetails::SupportedApiVersionsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_clear_supported_api_versions(data_collection_model_problem_details_t *obj_problem_details)

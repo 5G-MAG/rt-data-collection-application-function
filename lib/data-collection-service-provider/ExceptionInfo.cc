@@ -418,6 +418,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info
     return obj_exception_info;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_exception_t* data_collection_model_exception_info_get_entry_exceps(const data_collection_model_exception_info_t *obj_exception_info, size_t idx)
+{
+    if (!obj_exception_info) {
+        const data_collection_model_exception_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<ExceptionInfo > &obj = *reinterpret_cast<const std::shared_ptr<ExceptionInfo >*>(obj_exception_info);
+    if (!obj) {
+        const data_collection_model_exception_t *result = NULL;
+
+        return result;
+    }
+
+    const ExceptionInfo::ExcepsType &container = obj->getExceps();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const data_collection_model_exception_t *result = NULL;
+
+        return result;
+    }
+    typedef typename ExceptionInfo::ExcepsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_exception_t *result = reinterpret_cast<const data_collection_model_exception_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info_t *data_collection_model_exception_info_clear_exceps(data_collection_model_exception_info_t *obj_exception_info)
 {
     if (!obj_exception_info) return NULL;

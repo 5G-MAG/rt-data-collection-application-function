@@ -301,6 +301,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
     return obj_network_area_info;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ecgi_t* data_collection_model_network_area_info_get_entry_ecgis(const data_collection_model_network_area_info_t *obj_network_area_info, size_t idx)
+{
+    if (!obj_network_area_info) {
+        const data_collection_model_ecgi_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<NetworkAreaInfo > &obj = *reinterpret_cast<const std::shared_ptr<NetworkAreaInfo >*>(obj_network_area_info);
+    if (!obj) {
+        const data_collection_model_ecgi_t *result = NULL;
+
+        return result;
+    }
+
+    const NetworkAreaInfo::EcgisType &container = obj->getEcgis();
+    if (!container.has_value()) {
+        const data_collection_model_ecgi_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_ecgi_t *result = NULL;
+
+        return result;
+    }
+    typedef typename NetworkAreaInfo::EcgisItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_ecgi_t *result = reinterpret_cast<const data_collection_model_ecgi_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_clear_ecgis(data_collection_model_network_area_info_t *obj_network_area_info)
 {
     if (!obj_network_area_info) return NULL;
@@ -441,6 +480,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
 
     obj->removeNcgis(value);
     return obj_network_area_info;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ncgi_t* data_collection_model_network_area_info_get_entry_ncgis(const data_collection_model_network_area_info_t *obj_network_area_info, size_t idx)
+{
+    if (!obj_network_area_info) {
+        const data_collection_model_ncgi_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<NetworkAreaInfo > &obj = *reinterpret_cast<const std::shared_ptr<NetworkAreaInfo >*>(obj_network_area_info);
+    if (!obj) {
+        const data_collection_model_ncgi_t *result = NULL;
+
+        return result;
+    }
+
+    const NetworkAreaInfo::NcgisType &container = obj->getNcgis();
+    if (!container.has_value()) {
+        const data_collection_model_ncgi_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_ncgi_t *result = NULL;
+
+        return result;
+    }
+    typedef typename NetworkAreaInfo::NcgisItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_ncgi_t *result = reinterpret_cast<const data_collection_model_ncgi_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_clear_ncgis(data_collection_model_network_area_info_t *obj_network_area_info)
@@ -585,6 +663,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
     return obj_network_area_info;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_global_ran_node_id_t* data_collection_model_network_area_info_get_entry_g_ran_node_ids(const data_collection_model_network_area_info_t *obj_network_area_info, size_t idx)
+{
+    if (!obj_network_area_info) {
+        const data_collection_model_global_ran_node_id_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<NetworkAreaInfo > &obj = *reinterpret_cast<const std::shared_ptr<NetworkAreaInfo >*>(obj_network_area_info);
+    if (!obj) {
+        const data_collection_model_global_ran_node_id_t *result = NULL;
+
+        return result;
+    }
+
+    const NetworkAreaInfo::GRanNodeIdsType &container = obj->getGRanNodeIds();
+    if (!container.has_value()) {
+        const data_collection_model_global_ran_node_id_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_global_ran_node_id_t *result = NULL;
+
+        return result;
+    }
+    typedef typename NetworkAreaInfo::GRanNodeIdsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_global_ran_node_id_t *result = reinterpret_cast<const data_collection_model_global_ran_node_id_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_clear_g_ran_node_ids(data_collection_model_network_area_info_t *obj_network_area_info)
 {
     if (!obj_network_area_info) return NULL;
@@ -725,6 +842,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
 
     obj->removeTais(value);
     return obj_network_area_info;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_tai_t* data_collection_model_network_area_info_get_entry_tais(const data_collection_model_network_area_info_t *obj_network_area_info, size_t idx)
+{
+    if (!obj_network_area_info) {
+        const data_collection_model_tai_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<NetworkAreaInfo > &obj = *reinterpret_cast<const std::shared_ptr<NetworkAreaInfo >*>(obj_network_area_info);
+    if (!obj) {
+        const data_collection_model_tai_t *result = NULL;
+
+        return result;
+    }
+
+    const NetworkAreaInfo::TaisType &container = obj->getTais();
+    if (!container.has_value()) {
+        const data_collection_model_tai_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_tai_t *result = NULL;
+
+        return result;
+    }
+    typedef typename NetworkAreaInfo::TaisItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_tai_t *result = reinterpret_cast<const data_collection_model_tai_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_clear_tais(data_collection_model_network_area_info_t *obj_network_area_info)

@@ -571,6 +571,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_event_col
     return obj_base_event_collection;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_aggregation_function_type_t* data_collection_model_base_event_collection_get_entry_summarisations(const data_collection_model_base_event_collection_t *obj_base_event_collection, size_t idx)
+{
+    if (!obj_base_event_collection) {
+        const data_collection_model_data_aggregation_function_type_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<BaseEventCollection > &obj = *reinterpret_cast<const std::shared_ptr<BaseEventCollection >*>(obj_base_event_collection);
+    if (!obj) {
+        const data_collection_model_data_aggregation_function_type_t *result = NULL;
+
+        return result;
+    }
+
+    const BaseEventCollection::SummarisationsType &container = obj->getSummarisations();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const data_collection_model_data_aggregation_function_type_t *result = NULL;
+
+        return result;
+    }
+    typedef typename BaseEventCollection::SummarisationsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_data_aggregation_function_type_t *result = reinterpret_cast<const data_collection_model_data_aggregation_function_type_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_event_collection_t *data_collection_model_base_event_collection_clear_summarisations(data_collection_model_base_event_collection_t *obj_base_event_collection)
 {
     if (!obj_base_event_collection) return NULL;
@@ -699,6 +734,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_event_col
 
     obj->removeRecords(value);
     return obj_base_event_collection;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_any_type_t* data_collection_model_base_event_collection_get_entry_records(const data_collection_model_base_event_collection_t *obj_base_event_collection, size_t idx)
+{
+    if (!obj_base_event_collection) {
+        const data_collection_model_any_type_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<BaseEventCollection > &obj = *reinterpret_cast<const std::shared_ptr<BaseEventCollection >*>(obj_base_event_collection);
+    if (!obj) {
+        const data_collection_model_any_type_t *result = NULL;
+
+        return result;
+    }
+
+    const BaseEventCollection::RecordsType &container = obj->getRecords();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const data_collection_model_any_type_t *result = NULL;
+
+        return result;
+    }
+    typedef typename BaseEventCollection::RecordsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_any_type_t *result = reinterpret_cast<const data_collection_model_any_type_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_event_collection_t *data_collection_model_base_event_collection_clear_records(data_collection_model_base_event_collection_t *obj_base_event_collection)

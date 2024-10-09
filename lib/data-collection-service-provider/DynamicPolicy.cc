@@ -408,6 +408,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
     return obj_dynamic_policy;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_application_flow_description_t* data_collection_model_dynamic_policy_get_entry_service_data_flow_descriptions(const data_collection_model_dynamic_policy_t *obj_dynamic_policy, size_t idx)
+{
+    if (!obj_dynamic_policy) {
+        const data_collection_model_application_flow_description_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DynamicPolicy > &obj = *reinterpret_cast<const std::shared_ptr<DynamicPolicy >*>(obj_dynamic_policy);
+    if (!obj) {
+        const data_collection_model_application_flow_description_t *result = NULL;
+
+        return result;
+    }
+
+    const DynamicPolicy::ServiceDataFlowDescriptionsType &container = obj->getServiceDataFlowDescriptions();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const data_collection_model_application_flow_description_t *result = NULL;
+
+        return result;
+    }
+    typedef typename DynamicPolicy::ServiceDataFlowDescriptionsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_application_flow_description_t *result = reinterpret_cast<const data_collection_model_application_flow_description_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_clear_service_data_flow_descriptions(data_collection_model_dynamic_policy_t *obj_dynamic_policy)
 {
     if (!obj_dynamic_policy) return NULL;

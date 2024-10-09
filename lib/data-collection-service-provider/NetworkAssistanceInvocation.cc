@@ -366,6 +366,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
     return obj_network_assistance_invocation;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_application_flow_description_t* data_collection_model_network_assistance_invocation_get_entry_application_flow_descriptions(const data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation, size_t idx)
+{
+    if (!obj_network_assistance_invocation) {
+        const data_collection_model_application_flow_description_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<NetworkAssistanceInvocation > &obj = *reinterpret_cast<const std::shared_ptr<NetworkAssistanceInvocation >*>(obj_network_assistance_invocation);
+    if (!obj) {
+        const data_collection_model_application_flow_description_t *result = NULL;
+
+        return result;
+    }
+
+    const NetworkAssistanceInvocation::ApplicationFlowDescriptionsType &container = obj->getApplicationFlowDescriptions();
+    if (!container.has_value()) {
+        const data_collection_model_application_flow_description_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_application_flow_description_t *result = NULL;
+
+        return result;
+    }
+    typedef typename NetworkAssistanceInvocation::ApplicationFlowDescriptionsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_application_flow_description_t *result = reinterpret_cast<const data_collection_model_application_flow_description_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_t *data_collection_model_network_assistance_invocation_clear_application_flow_descriptions(data_collection_model_network_assistance_invocation_t *obj_network_assistance_invocation)
 {
     if (!obj_network_assistance_invocation) return NULL;

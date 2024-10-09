@@ -676,6 +676,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
     return obj_ue_communication_collection;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_communication_collection_t* data_collection_model_ue_communication_collection_get_entry_comms(const data_collection_model_ue_communication_collection_t *obj_ue_communication_collection, size_t idx)
+{
+    if (!obj_ue_communication_collection) {
+        const data_collection_model_communication_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<UeCommunicationCollection > &obj = *reinterpret_cast<const std::shared_ptr<UeCommunicationCollection >*>(obj_ue_communication_collection);
+    if (!obj) {
+        const data_collection_model_communication_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const UeCommunicationCollection::CommsType &container = obj->getComms();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const data_collection_model_communication_collection_t *result = NULL;
+
+        return result;
+    }
+    typedef typename UeCommunicationCollection::CommsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_communication_collection_t *result = reinterpret_cast<const data_collection_model_communication_collection_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communication_collection_t *data_collection_model_ue_communication_collection_clear_comms(data_collection_model_ue_communication_collection_t *obj_ue_communication_collection)
 {
     if (!obj_ue_communication_collection) return NULL;

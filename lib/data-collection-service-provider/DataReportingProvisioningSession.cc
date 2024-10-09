@@ -602,6 +602,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     return obj_data_reporting_provisioning_session;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_data_reporting_provisioning_session_get_entry_data_reporting_configuration_ids(const data_collection_model_data_reporting_provisioning_session_t *obj_data_reporting_provisioning_session, size_t idx)
+{
+    if (!obj_data_reporting_provisioning_session) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DataReportingProvisioningSession > &obj = *reinterpret_cast<const std::shared_ptr<DataReportingProvisioningSession >*>(obj_data_reporting_provisioning_session);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const DataReportingProvisioningSession::DataReportingConfigurationIdsType &container = obj->getDataReportingConfigurationIds();
+    if (!container.has_value()) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename DataReportingProvisioningSession::DataReportingConfigurationIdsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_provisioning_session_t *data_collection_model_data_reporting_provisioning_session_clear_data_reporting_configuration_ids(data_collection_model_data_reporting_provisioning_session_t *obj_data_reporting_provisioning_session)
 {
     if (!obj_data_reporting_provisioning_session) return NULL;

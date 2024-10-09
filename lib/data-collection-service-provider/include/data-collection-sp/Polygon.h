@@ -65,6 +65,8 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_polygon_t *data_collectio
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_polygon_t *data_collection_model_polygon_remove_point_list(data_collection_model_polygon_t *polygon, const data_collection_model_geographical_coordinates_t* point_list);
 
+DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geographical_coordinates_t* data_collection_model_polygon_get_entry_point_list(const data_collection_model_polygon_t *polygon, size_t idx);
+
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_polygon_t *data_collection_model_polygon_clear_point_list(data_collection_model_polygon_t *polygon);
 
 /* lnode helper for generating ogs_list_t nodes's of type Polygon */

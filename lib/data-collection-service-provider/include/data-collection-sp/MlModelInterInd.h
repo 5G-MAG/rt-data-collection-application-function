@@ -63,6 +63,8 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ml_model_inter_ind_t *dat
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ml_model_inter_ind_t *data_collection_model_ml_model_inter_ind_remove_vendor_list(data_collection_model_ml_model_inter_ind_t *ml_model_inter_ind, const char* vendor_list);
 
+DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ml_model_inter_ind_get_entry_vendor_list(const data_collection_model_ml_model_inter_ind_t *ml_model_inter_ind, size_t idx);
+
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ml_model_inter_ind_t *data_collection_model_ml_model_inter_ind_clear_vendor_list(data_collection_model_ml_model_inter_ind_t *ml_model_inter_ind);
 
 /* lnode helper for generating ogs_list_t nodes's of type MlModelInterInd */

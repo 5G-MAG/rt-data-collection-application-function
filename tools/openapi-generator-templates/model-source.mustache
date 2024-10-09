@@ -318,7 +318,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda
 }
 
 {{/yes}}{{/is-optional}}
-extern "C" DATA_COLLECTION_SVC_PRODUCER_API {{#isContainer}}{{^isArray}}const {{/isArray}}{{/isContainer}}{{^isContainer}}const {{/isContainer}}{{>data-type}} data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_{{#lambda.lowercase}}{{#lambda.snakecase}}{{getter}}{{/lambda.snakecase}}{{/lambda.lowercase}}(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API {{^isContainer}}const {{/isContainer}}{{>data-type}} data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_{{#lambda.lowercase}}{{#lambda.snakecase}}{{getter}}{{/lambda.snakecase}}{{/lambda.lowercase}}(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})
 {
     if (!obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}) {
         {{>make-empty-result}}
@@ -400,11 +400,46 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowe
     if (!obj) return NULL;
 
     {{^isMap}}typedef typename {{{classname}}}::{{name}}Type{{<is-optional}}{{$yes}}::value_type{{/yes}}{{/is-optional}} ContainerType;
-    typedef typename ContainerType::{{#isMap}}mapped_type{{/isMap}}{{#isArray}}value_type{{/isArray}} ValueType;
+    typedef typename ContainerType::value_type ValueType;
     auto &value_from = p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}};
     {{#items}}{{>make-value}}{{/items}}{{/isMap}}
     obj->remove{{name}}({{#isMap}}std::string(p_key){{/isMap}}{{^isMap}}value{{/isMap}});
     return obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}};
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API {{#items}}{{^isContainer}}const {{/isContainer}}{{>data-type}}{{/items}} data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_get_entry_{{#lambda.lowercase}}{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}{{/lambda.lowercase}}(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, {{#isMap}}const char *p_key{{/isMap}}{{#isArray}}size_t idx{{/isArray}})
+{
+    if (!obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}) {
+        {{#items}}{{>make-empty-result}}{{/items}}
+        return result;
+    }
+
+    const std::shared_ptr<{{classname}} > &obj = *reinterpret_cast<const std::shared_ptr<{{classname}} >*>(obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
+    if (!obj) {
+        {{#items}}{{>make-empty-result}}{{/items}}
+        return result;
+    }
+
+    const {{{classname}}}::{{name}}Type &container = obj->{{getter}}();
+    {{<is-optional}}{{$yes}}if (!container.has_value()) {
+        {{#items}}{{>make-empty-result}}{{/items}}
+        return result;
+    }{{/yes}}{{/is-optional}}
+
+    auto itr = container{{<is-optional}}{{$yes}}.value(){{/yes}}{{/is-optional}}.{{#isMap}}find(std::string(p_key));{{/isMap}}{{#isArray}}cbegin();
+    while (idx > 0 && itr != container{{<is-optional}}{{$yes}}.value(){{/yes}}{{/is-optional}}.cend()) {
+        ++itr;
+        --idx;
+    }{{/isArray}}
+    if (itr == container{{<is-optional}}{{$yes}}.value(){{/yes}}{{/is-optional}}.cend()) {
+        {{#items}}{{>make-empty-result}}{{/items}}
+        return result;
+    }
+    typedef typename {{{classname}}}::{{name}}ItemType ResultFromType;
+    const ResultFromType &result_from = {{#isMap}}itr->second{{/isMap}}{{#isArray}}*itr{{/isArray}};
+    {{#items}}{{>make-result}}{{/items}}
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_clear_{{#lambda.lowercase}}{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}{{/lambda.lowercase}}(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}})

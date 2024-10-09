@@ -544,6 +544,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
     return obj_ue_mobility_collection;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ue_trajectory_collection_t* data_collection_model_ue_mobility_collection_get_entry_ue_trajs(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, size_t idx)
+{
+    if (!obj_ue_mobility_collection) {
+        const data_collection_model_ue_trajectory_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<UeMobilityCollection > &obj = *reinterpret_cast<const std::shared_ptr<UeMobilityCollection >*>(obj_ue_mobility_collection);
+    if (!obj) {
+        const data_collection_model_ue_trajectory_collection_t *result = NULL;
+
+        return result;
+    }
+
+    const UeMobilityCollection::UeTrajsType &container = obj->getUeTrajs();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const data_collection_model_ue_trajectory_collection_t *result = NULL;
+
+        return result;
+    }
+    typedef typename UeMobilityCollection::UeTrajsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_ue_trajectory_collection_t *result = reinterpret_cast<const data_collection_model_ue_trajectory_collection_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_clear_ue_trajs(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)
 {
     if (!obj_ue_mobility_collection) return NULL;
@@ -684,6 +719,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
 
     obj->removeAreas(value);
     return obj_ue_mobility_collection;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location_area5_g_t* data_collection_model_ue_mobility_collection_get_entry_areas(const data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection, size_t idx)
+{
+    if (!obj_ue_mobility_collection) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<UeMobilityCollection > &obj = *reinterpret_cast<const std::shared_ptr<UeMobilityCollection >*>(obj_ue_mobility_collection);
+    if (!obj) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+
+    const UeMobilityCollection::AreasType &container = obj->getAreas();
+    if (!container.has_value()) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+    typedef typename UeMobilityCollection::AreasItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_clear_areas(data_collection_model_ue_mobility_collection_t *obj_ue_mobility_collection)

@@ -299,6 +299,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_area5
     return obj_location_area5_g;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_geographic_area_t* data_collection_model_location_area5_g_get_entry_geographic_areas(const data_collection_model_location_area5_g_t *obj_location_area5_g, size_t idx)
+{
+    if (!obj_location_area5_g) {
+        const data_collection_model_geographic_area_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<const std::shared_ptr<LocationArea5G >*>(obj_location_area5_g);
+    if (!obj) {
+        const data_collection_model_geographic_area_t *result = NULL;
+
+        return result;
+    }
+
+    const LocationArea5G::GeographicAreasType &container = obj->getGeographicAreas();
+    if (!container.has_value()) {
+        const data_collection_model_geographic_area_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_geographic_area_t *result = NULL;
+
+        return result;
+    }
+    typedef typename LocationArea5G::GeographicAreasItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_geographic_area_t *result = reinterpret_cast<const data_collection_model_geographic_area_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_area5_g_t *data_collection_model_location_area5_g_clear_geographic_areas(data_collection_model_location_area5_g_t *obj_location_area5_g)
 {
     if (!obj_location_area5_g) return NULL;
@@ -439,6 +478,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_area5
 
     obj->removeCivicAddresses(value);
     return obj_location_area5_g;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_civic_address_t* data_collection_model_location_area5_g_get_entry_civic_addresses(const data_collection_model_location_area5_g_t *obj_location_area5_g, size_t idx)
+{
+    if (!obj_location_area5_g) {
+        const data_collection_model_civic_address_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<LocationArea5G > &obj = *reinterpret_cast<const std::shared_ptr<LocationArea5G >*>(obj_location_area5_g);
+    if (!obj) {
+        const data_collection_model_civic_address_t *result = NULL;
+
+        return result;
+    }
+
+    const LocationArea5G::CivicAddressesType &container = obj->getCivicAddresses();
+    if (!container.has_value()) {
+        const data_collection_model_civic_address_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_civic_address_t *result = NULL;
+
+        return result;
+    }
+    typedef typename LocationArea5G::CivicAddressesItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_civic_address_t *result = reinterpret_cast<const data_collection_model_civic_address_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_area5_g_t *data_collection_model_location_area5_g_clear_civic_addresses(data_collection_model_location_area5_g_t *obj_location_area5_g)

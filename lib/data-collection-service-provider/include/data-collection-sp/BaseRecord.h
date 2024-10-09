@@ -62,6 +62,8 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_record_t *data_colle
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_record_t *data_collection_model_base_record_remove_context_ids(data_collection_model_base_record_t *base_record, const char* context_ids);
 
+DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_base_record_get_entry_context_ids(const data_collection_model_base_record_t *base_record, size_t idx);
+
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_record_t *data_collection_model_base_record_clear_context_ids(data_collection_model_base_record_t *base_record);
 
 /* lnode helper for generating ogs_list_t nodes's of type BaseRecord */

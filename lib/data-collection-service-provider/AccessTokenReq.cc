@@ -762,6 +762,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_plmn_id_t* data_collection_model_access_token_req_get_entry_requester_plmn_list(const data_collection_model_access_token_req_t *obj_access_token_req, size_t idx)
+{
+    if (!obj_access_token_req) {
+        const data_collection_model_plmn_id_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AccessTokenReq > &obj = *reinterpret_cast<const std::shared_ptr<AccessTokenReq >*>(obj_access_token_req);
+    if (!obj) {
+        const data_collection_model_plmn_id_t *result = NULL;
+
+        return result;
+    }
+
+    const AccessTokenReq::RequesterPlmnListType &container = obj->getRequesterPlmnList();
+    if (!container.has_value()) {
+        const data_collection_model_plmn_id_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_plmn_id_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AccessTokenReq::RequesterPlmnListItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_plmn_id_t *result = reinterpret_cast<const data_collection_model_plmn_id_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_clear_requester_plmn_list(data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) return NULL;
@@ -902,6 +941,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     obj->removeRequesterSnssaiList(value);
     return obj_access_token_req;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_snssai_t* data_collection_model_access_token_req_get_entry_requester_snssai_list(const data_collection_model_access_token_req_t *obj_access_token_req, size_t idx)
+{
+    if (!obj_access_token_req) {
+        const data_collection_model_snssai_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AccessTokenReq > &obj = *reinterpret_cast<const std::shared_ptr<AccessTokenReq >*>(obj_access_token_req);
+    if (!obj) {
+        const data_collection_model_snssai_t *result = NULL;
+
+        return result;
+    }
+
+    const AccessTokenReq::RequesterSnssaiListType &container = obj->getRequesterSnssaiList();
+    if (!container.has_value()) {
+        const data_collection_model_snssai_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_snssai_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AccessTokenReq::RequesterSnssaiListItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_snssai_t *result = reinterpret_cast<const data_collection_model_snssai_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_clear_requester_snssai_list(data_collection_model_access_token_req_t *obj_access_token_req)
@@ -1109,6 +1187,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     obj->removeRequesterSnpnList(value);
     return obj_access_token_req;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_plmn_id_nid_t* data_collection_model_access_token_req_get_entry_requester_snpn_list(const data_collection_model_access_token_req_t *obj_access_token_req, size_t idx)
+{
+    if (!obj_access_token_req) {
+        const data_collection_model_plmn_id_nid_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AccessTokenReq > &obj = *reinterpret_cast<const std::shared_ptr<AccessTokenReq >*>(obj_access_token_req);
+    if (!obj) {
+        const data_collection_model_plmn_id_nid_t *result = NULL;
+
+        return result;
+    }
+
+    const AccessTokenReq::RequesterSnpnListType &container = obj->getRequesterSnpnList();
+    if (!container.has_value()) {
+        const data_collection_model_plmn_id_nid_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_plmn_id_nid_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AccessTokenReq::RequesterSnpnListItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_plmn_id_nid_t *result = reinterpret_cast<const data_collection_model_plmn_id_nid_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_clear_requester_snpn_list(data_collection_model_access_token_req_t *obj_access_token_req)
@@ -1383,6 +1500,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_snssai_t* data_collection_model_access_token_req_get_entry_target_snssai_list(const data_collection_model_access_token_req_t *obj_access_token_req, size_t idx)
+{
+    if (!obj_access_token_req) {
+        const data_collection_model_snssai_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AccessTokenReq > &obj = *reinterpret_cast<const std::shared_ptr<AccessTokenReq >*>(obj_access_token_req);
+    if (!obj) {
+        const data_collection_model_snssai_t *result = NULL;
+
+        return result;
+    }
+
+    const AccessTokenReq::TargetSnssaiListType &container = obj->getTargetSnssaiList();
+    if (!container.has_value()) {
+        const data_collection_model_snssai_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_snssai_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AccessTokenReq::TargetSnssaiListItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_snssai_t *result = reinterpret_cast<const data_collection_model_snssai_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_clear_target_snssai_list(data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) return NULL;
@@ -1521,6 +1677,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     obj->removeTargetNsiList(value);
     return obj_access_token_req;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_access_token_req_get_entry_target_nsi_list(const data_collection_model_access_token_req_t *obj_access_token_req, size_t idx)
+{
+    if (!obj_access_token_req) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AccessTokenReq > &obj = *reinterpret_cast<const std::shared_ptr<AccessTokenReq >*>(obj_access_token_req);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const AccessTokenReq::TargetNsiListType &container = obj->getTargetNsiList();
+    if (!container.has_value()) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename AccessTokenReq::TargetNsiListItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_clear_target_nsi_list(data_collection_model_access_token_req_t *obj_access_token_req)
@@ -1990,6 +2185,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
     return obj_access_token_req;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_nwdaf_event_t* data_collection_model_access_token_req_get_entry_analytics_ids(const data_collection_model_access_token_req_t *obj_access_token_req, size_t idx)
+{
+    if (!obj_access_token_req) {
+        const data_collection_model_nwdaf_event_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AccessTokenReq > &obj = *reinterpret_cast<const std::shared_ptr<AccessTokenReq >*>(obj_access_token_req);
+    if (!obj) {
+        const data_collection_model_nwdaf_event_t *result = NULL;
+
+        return result;
+    }
+
+    const AccessTokenReq::AnalyticsIdsType &container = obj->getAnalyticsIds();
+    if (!container.has_value()) {
+        const data_collection_model_nwdaf_event_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_nwdaf_event_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AccessTokenReq::AnalyticsIdsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_nwdaf_event_t *result = reinterpret_cast<const data_collection_model_nwdaf_event_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_clear_analytics_ids(data_collection_model_access_token_req_t *obj_access_token_req)
 {
     if (!obj_access_token_req) return NULL;
@@ -2130,6 +2364,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     obj->removeRequesterInterIndList(value);
     return obj_access_token_req;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ml_model_inter_ind_t* data_collection_model_access_token_req_get_entry_requester_inter_ind_list(const data_collection_model_access_token_req_t *obj_access_token_req, size_t idx)
+{
+    if (!obj_access_token_req) {
+        const data_collection_model_ml_model_inter_ind_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<AccessTokenReq > &obj = *reinterpret_cast<const std::shared_ptr<AccessTokenReq >*>(obj_access_token_req);
+    if (!obj) {
+        const data_collection_model_ml_model_inter_ind_t *result = NULL;
+
+        return result;
+    }
+
+    const AccessTokenReq::RequesterInterIndListType &container = obj->getRequesterInterIndList();
+    if (!container.has_value()) {
+        const data_collection_model_ml_model_inter_ind_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_ml_model_inter_ind_t *result = NULL;
+
+        return result;
+    }
+    typedef typename AccessTokenReq::RequesterInterIndListItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_ml_model_inter_ind_t *result = reinterpret_cast<const data_collection_model_ml_model_inter_ind_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_clear_requester_inter_ind_list(data_collection_model_access_token_req_t *obj_access_token_req)

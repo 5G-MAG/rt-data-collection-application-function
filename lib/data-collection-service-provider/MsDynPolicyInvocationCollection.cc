@@ -284,6 +284,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_dyn_policy_
     return obj_ms_dyn_policy_invocation_collection;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_dynamic_policy_t* data_collection_model_ms_dyn_policy_invocation_collection_get_entry_ms_dyn_ply_invocs(const data_collection_model_ms_dyn_policy_invocation_collection_t *obj_ms_dyn_policy_invocation_collection, size_t idx)
+{
+    if (!obj_ms_dyn_policy_invocation_collection) {
+        const data_collection_model_dynamic_policy_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<MsDynPolicyInvocationCollection > &obj = *reinterpret_cast<const std::shared_ptr<MsDynPolicyInvocationCollection >*>(obj_ms_dyn_policy_invocation_collection);
+    if (!obj) {
+        const data_collection_model_dynamic_policy_t *result = NULL;
+
+        return result;
+    }
+
+    const MsDynPolicyInvocationCollection::MsDynPlyInvocsType &container = obj->getMsDynPlyInvocs();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const data_collection_model_dynamic_policy_t *result = NULL;
+
+        return result;
+    }
+    typedef typename MsDynPolicyInvocationCollection::MsDynPlyInvocsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_dynamic_policy_t *result = reinterpret_cast<const data_collection_model_dynamic_policy_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_clear_ms_dyn_ply_invocs(data_collection_model_ms_dyn_policy_invocation_collection_t *obj_ms_dyn_policy_invocation_collection)
 {
     if (!obj_ms_dyn_policy_invocation_collection) return NULL;

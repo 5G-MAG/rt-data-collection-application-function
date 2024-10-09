@@ -352,6 +352,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *d
     return obj_flow_info;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_flow_info_get_entry_flow_descriptions(const data_collection_model_flow_info_t *obj_flow_info, size_t idx)
+{
+    if (!obj_flow_info) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<FlowInfo > &obj = *reinterpret_cast<const std::shared_ptr<FlowInfo >*>(obj_flow_info);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const FlowInfo::FlowDescriptionsType &container = obj->getFlowDescriptions();
+    if (!container.has_value()) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename FlowInfo::FlowDescriptionsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *data_collection_model_flow_info_clear_flow_descriptions(data_collection_model_flow_info_t *obj_flow_info)
 {
     if (!obj_flow_info) return NULL;

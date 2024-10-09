@@ -433,6 +433,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     return obj_data_report;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_service_experience_record_t* data_collection_model_data_report_get_entry_service_experience_records(const data_collection_model_data_report_t *obj_data_report, size_t idx)
+{
+    if (!obj_data_report) {
+        const data_collection_model_service_experience_record_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DataReport > &obj = *reinterpret_cast<const std::shared_ptr<DataReport >*>(obj_data_report);
+    if (!obj) {
+        const data_collection_model_service_experience_record_t *result = NULL;
+
+        return result;
+    }
+
+    const DataReport::ServiceExperienceRecordsType &container = obj->getServiceExperienceRecords();
+    if (!container.has_value()) {
+        const data_collection_model_service_experience_record_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_service_experience_record_t *result = NULL;
+
+        return result;
+    }
+    typedef typename DataReport::ServiceExperienceRecordsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_service_experience_record_t *result = reinterpret_cast<const data_collection_model_service_experience_record_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_clear_service_experience_records(data_collection_model_data_report_t *obj_data_report)
 {
     if (!obj_data_report) return NULL;
@@ -573,6 +612,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
 
     obj->removeLocationRecords(value);
     return obj_data_report;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location_record_t* data_collection_model_data_report_get_entry_location_records(const data_collection_model_data_report_t *obj_data_report, size_t idx)
+{
+    if (!obj_data_report) {
+        const data_collection_model_location_record_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DataReport > &obj = *reinterpret_cast<const std::shared_ptr<DataReport >*>(obj_data_report);
+    if (!obj) {
+        const data_collection_model_location_record_t *result = NULL;
+
+        return result;
+    }
+
+    const DataReport::LocationRecordsType &container = obj->getLocationRecords();
+    if (!container.has_value()) {
+        const data_collection_model_location_record_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_location_record_t *result = NULL;
+
+        return result;
+    }
+    typedef typename DataReport::LocationRecordsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_location_record_t *result = reinterpret_cast<const data_collection_model_location_record_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_clear_location_records(data_collection_model_data_report_t *obj_data_report)
@@ -717,6 +795,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     return obj_data_report;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_communication_record_t* data_collection_model_data_report_get_entry_communication_records(const data_collection_model_data_report_t *obj_data_report, size_t idx)
+{
+    if (!obj_data_report) {
+        const data_collection_model_communication_record_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DataReport > &obj = *reinterpret_cast<const std::shared_ptr<DataReport >*>(obj_data_report);
+    if (!obj) {
+        const data_collection_model_communication_record_t *result = NULL;
+
+        return result;
+    }
+
+    const DataReport::CommunicationRecordsType &container = obj->getCommunicationRecords();
+    if (!container.has_value()) {
+        const data_collection_model_communication_record_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_communication_record_t *result = NULL;
+
+        return result;
+    }
+    typedef typename DataReport::CommunicationRecordsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_communication_record_t *result = reinterpret_cast<const data_collection_model_communication_record_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_clear_communication_records(data_collection_model_data_report_t *obj_data_report)
 {
     if (!obj_data_report) return NULL;
@@ -857,6 +974,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
 
     obj->removePerformanceDataRecords(value);
     return obj_data_report;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_performance_data_record_t* data_collection_model_data_report_get_entry_performance_data_records(const data_collection_model_data_report_t *obj_data_report, size_t idx)
+{
+    if (!obj_data_report) {
+        const data_collection_model_performance_data_record_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DataReport > &obj = *reinterpret_cast<const std::shared_ptr<DataReport >*>(obj_data_report);
+    if (!obj) {
+        const data_collection_model_performance_data_record_t *result = NULL;
+
+        return result;
+    }
+
+    const DataReport::PerformanceDataRecordsType &container = obj->getPerformanceDataRecords();
+    if (!container.has_value()) {
+        const data_collection_model_performance_data_record_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_performance_data_record_t *result = NULL;
+
+        return result;
+    }
+    typedef typename DataReport::PerformanceDataRecordsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_performance_data_record_t *result = reinterpret_cast<const data_collection_model_performance_data_record_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_clear_performance_data_records(data_collection_model_data_report_t *obj_data_report)
@@ -1001,6 +1157,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     return obj_data_report;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_application_specific_record_t* data_collection_model_data_report_get_entry_application_specific_records(const data_collection_model_data_report_t *obj_data_report, size_t idx)
+{
+    if (!obj_data_report) {
+        const data_collection_model_application_specific_record_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DataReport > &obj = *reinterpret_cast<const std::shared_ptr<DataReport >*>(obj_data_report);
+    if (!obj) {
+        const data_collection_model_application_specific_record_t *result = NULL;
+
+        return result;
+    }
+
+    const DataReport::ApplicationSpecificRecordsType &container = obj->getApplicationSpecificRecords();
+    if (!container.has_value()) {
+        const data_collection_model_application_specific_record_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_application_specific_record_t *result = NULL;
+
+        return result;
+    }
+    typedef typename DataReport::ApplicationSpecificRecordsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_application_specific_record_t *result = reinterpret_cast<const data_collection_model_application_specific_record_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_clear_application_specific_records(data_collection_model_data_report_t *obj_data_report)
 {
     if (!obj_data_report) return NULL;
@@ -1141,6 +1336,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
 
     obj->removeTripPlanRecords(value);
     return obj_data_report;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_trip_plan_record_t* data_collection_model_data_report_get_entry_trip_plan_records(const data_collection_model_data_report_t *obj_data_report, size_t idx)
+{
+    if (!obj_data_report) {
+        const data_collection_model_trip_plan_record_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DataReport > &obj = *reinterpret_cast<const std::shared_ptr<DataReport >*>(obj_data_report);
+    if (!obj) {
+        const data_collection_model_trip_plan_record_t *result = NULL;
+
+        return result;
+    }
+
+    const DataReport::TripPlanRecordsType &container = obj->getTripPlanRecords();
+    if (!container.has_value()) {
+        const data_collection_model_trip_plan_record_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_trip_plan_record_t *result = NULL;
+
+        return result;
+    }
+    typedef typename DataReport::TripPlanRecordsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_trip_plan_record_t *result = reinterpret_cast<const data_collection_model_trip_plan_record_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_clear_trip_plan_records(data_collection_model_data_report_t *obj_data_report)
@@ -1285,6 +1519,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
     return obj_data_report;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_anbr_network_assistance_invocation_record_t* data_collection_model_data_report_get_entry_anbr_network_assistance_invocation_records(const data_collection_model_data_report_t *obj_data_report, size_t idx)
+{
+    if (!obj_data_report) {
+        const data_collection_model_anbr_network_assistance_invocation_record_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DataReport > &obj = *reinterpret_cast<const std::shared_ptr<DataReport >*>(obj_data_report);
+    if (!obj) {
+        const data_collection_model_anbr_network_assistance_invocation_record_t *result = NULL;
+
+        return result;
+    }
+
+    const DataReport::ANBRNetworkAssistanceInvocationRecordsType &container = obj->getANBRNetworkAssistanceInvocationRecords();
+    if (!container.has_value()) {
+        const data_collection_model_anbr_network_assistance_invocation_record_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_anbr_network_assistance_invocation_record_t *result = NULL;
+
+        return result;
+    }
+    typedef typename DataReport::ANBRNetworkAssistanceInvocationRecordsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_anbr_network_assistance_invocation_record_t *result = reinterpret_cast<const data_collection_model_anbr_network_assistance_invocation_record_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_clear_anbr_network_assistance_invocation_records(data_collection_model_data_report_t *obj_data_report)
 {
     if (!obj_data_report) return NULL;
@@ -1425,6 +1698,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
 
     obj->removeMediaStreamingAccessRecords(value);
     return obj_data_report;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_media_streaming_access_record_t* data_collection_model_data_report_get_entry_media_streaming_access_records(const data_collection_model_data_report_t *obj_data_report, size_t idx)
+{
+    if (!obj_data_report) {
+        const data_collection_model_media_streaming_access_record_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DataReport > &obj = *reinterpret_cast<const std::shared_ptr<DataReport >*>(obj_data_report);
+    if (!obj) {
+        const data_collection_model_media_streaming_access_record_t *result = NULL;
+
+        return result;
+    }
+
+    const DataReport::MediaStreamingAccessRecordsType &container = obj->getMediaStreamingAccessRecords();
+    if (!container.has_value()) {
+        const data_collection_model_media_streaming_access_record_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_media_streaming_access_record_t *result = NULL;
+
+        return result;
+    }
+    typedef typename DataReport::MediaStreamingAccessRecordsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_media_streaming_access_record_t *result = reinterpret_cast<const data_collection_model_media_streaming_access_record_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_clear_media_streaming_access_records(data_collection_model_data_report_t *obj_data_report)

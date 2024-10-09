@@ -313,6 +313,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     return obj_collective_behaviour_info;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_per_ue_attribute_t* data_collection_model_collective_behaviour_info_get_entry_col_attrib(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info, size_t idx)
+{
+    if (!obj_collective_behaviour_info) {
+        const data_collection_model_per_ue_attribute_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
+    if (!obj) {
+        const data_collection_model_per_ue_attribute_t *result = NULL;
+
+        return result;
+    }
+
+    const CollectiveBehaviourInfo::ColAttribType &container = obj->getColAttrib();
+    if (!container.has_value()) {
+        const data_collection_model_per_ue_attribute_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_per_ue_attribute_t *result = NULL;
+
+        return result;
+    }
+    typedef typename CollectiveBehaviourInfo::ColAttribItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_per_ue_attribute_t *result = reinterpret_cast<const data_collection_model_per_ue_attribute_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_behaviour_info_t *data_collection_model_collective_behaviour_info_clear_col_attrib(data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
 {
     if (!obj_collective_behaviour_info) return NULL;
@@ -518,6 +557,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     return obj_collective_behaviour_info;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_collective_behaviour_info_get_entry_app_ids(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info, size_t idx)
+{
+    if (!obj_collective_behaviour_info) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const CollectiveBehaviourInfo::AppIdsType &container = obj->getAppIds();
+    if (!container.has_value()) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename CollectiveBehaviourInfo::AppIdsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_behaviour_info_t *data_collection_model_collective_behaviour_info_clear_app_ids(data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
 {
     if (!obj_collective_behaviour_info) return NULL;
@@ -658,6 +736,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     return obj_collective_behaviour_info;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_collective_behaviour_info_get_entry_ext_ue_ids(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info, size_t idx)
+{
+    if (!obj_collective_behaviour_info) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const CollectiveBehaviourInfo::ExtUeIdsType &container = obj->getExtUeIds();
+    if (!container.has_value()) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename CollectiveBehaviourInfo::ExtUeIdsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_behaviour_info_t *data_collection_model_collective_behaviour_info_clear_ext_ue_ids(data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
 {
     if (!obj_collective_behaviour_info) return NULL;
@@ -796,6 +913,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
 
     obj->removeUeIds(value);
     return obj_collective_behaviour_info;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_collective_behaviour_info_get_entry_ue_ids(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info, size_t idx)
+{
+    if (!obj_collective_behaviour_info) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const CollectiveBehaviourInfo::UeIdsType &container = obj->getUeIds();
+    if (!container.has_value()) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename CollectiveBehaviourInfo::UeIdsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_behaviour_info_t *data_collection_model_collective_behaviour_info_clear_ue_ids(data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
@@ -1005,6 +1161,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     return obj_collective_behaviour_info;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_direction_t* data_collection_model_collective_behaviour_info_get_entry_abs_dirs(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info, size_t idx)
+{
+    if (!obj_collective_behaviour_info) {
+        const data_collection_model_direction_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
+    if (!obj) {
+        const data_collection_model_direction_t *result = NULL;
+
+        return result;
+    }
+
+    const CollectiveBehaviourInfo::AbsDirsType &container = obj->getAbsDirs();
+    if (!container.has_value()) {
+        const data_collection_model_direction_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_direction_t *result = NULL;
+
+        return result;
+    }
+    typedef typename CollectiveBehaviourInfo::AbsDirsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_direction_t *result = reinterpret_cast<const data_collection_model_direction_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_behaviour_info_t *data_collection_model_collective_behaviour_info_clear_abs_dirs(data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)
 {
     if (!obj_collective_behaviour_info) return NULL;
@@ -1145,6 +1340,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
 
     obj->removeRelDirs(value);
     return obj_collective_behaviour_info;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_relative_direction_t* data_collection_model_collective_behaviour_info_get_entry_rel_dirs(const data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info, size_t idx)
+{
+    if (!obj_collective_behaviour_info) {
+        const data_collection_model_relative_direction_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<CollectiveBehaviourInfo > &obj = *reinterpret_cast<const std::shared_ptr<CollectiveBehaviourInfo >*>(obj_collective_behaviour_info);
+    if (!obj) {
+        const data_collection_model_relative_direction_t *result = NULL;
+
+        return result;
+    }
+
+    const CollectiveBehaviourInfo::RelDirsType &container = obj->getRelDirs();
+    if (!container.has_value()) {
+        const data_collection_model_relative_direction_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_relative_direction_t *result = NULL;
+
+        return result;
+    }
+    typedef typename CollectiveBehaviourInfo::RelDirsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_relative_direction_t *result = reinterpret_cast<const data_collection_model_relative_direction_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_behaviour_info_t *data_collection_model_collective_behaviour_info_clear_rel_dirs(data_collection_model_collective_behaviour_info_t *obj_collective_behaviour_info)

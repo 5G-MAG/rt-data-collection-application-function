@@ -286,6 +286,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     return obj_data_access_profile_location_access_restrictions;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location_area5_g_t* data_collection_model_data_access_profile_location_access_restrictions_get_entry_location_areas(const data_collection_model_data_access_profile_location_access_restrictions_t *obj_data_access_profile_location_access_restrictions, size_t idx)
+{
+    if (!obj_data_access_profile_location_access_restrictions) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DataAccessProfile_locationAccessRestrictions > &obj = *reinterpret_cast<const std::shared_ptr<DataAccessProfile_locationAccessRestrictions >*>(obj_data_access_profile_location_access_restrictions);
+    if (!obj) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+
+    const DataAccessProfile_locationAccessRestrictions::LocationAreasType &container = obj->getLocationAreas();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+    typedef typename DataAccessProfile_locationAccessRestrictions::LocationAreasItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_location_access_restrictions_t *data_collection_model_data_access_profile_location_access_restrictions_clear_location_areas(data_collection_model_data_access_profile_location_access_restrictions_t *obj_data_access_profile_location_access_restrictions)
 {
     if (!obj_data_access_profile_location_access_restrictions) return NULL;
@@ -415,6 +450,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
 
     obj->removeAggregationFunctions(value);
     return obj_data_access_profile_location_access_restrictions;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_aggregation_function_type_t* data_collection_model_data_access_profile_location_access_restrictions_get_entry_aggregation_functions(const data_collection_model_data_access_profile_location_access_restrictions_t *obj_data_access_profile_location_access_restrictions, size_t idx)
+{
+    if (!obj_data_access_profile_location_access_restrictions) {
+        const data_collection_model_data_aggregation_function_type_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<DataAccessProfile_locationAccessRestrictions > &obj = *reinterpret_cast<const std::shared_ptr<DataAccessProfile_locationAccessRestrictions >*>(obj_data_access_profile_location_access_restrictions);
+    if (!obj) {
+        const data_collection_model_data_aggregation_function_type_t *result = NULL;
+
+        return result;
+    }
+
+    const DataAccessProfile_locationAccessRestrictions::AggregationFunctionsType &container = obj->getAggregationFunctions();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const data_collection_model_data_aggregation_function_type_t *result = NULL;
+
+        return result;
+    }
+    typedef typename DataAccessProfile_locationAccessRestrictions::AggregationFunctionsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_data_aggregation_function_type_t *result = reinterpret_cast<const data_collection_model_data_aggregation_function_type_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
 }
 
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_location_access_restrictions_t *data_collection_model_data_access_profile_location_access_restrictions_clear_aggregation_functions(data_collection_model_data_access_profile_location_access_restrictions_t *obj_data_access_profile_location_access_restrictions)

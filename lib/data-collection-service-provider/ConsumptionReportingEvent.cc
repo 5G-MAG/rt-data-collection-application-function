@@ -811,6 +811,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
     return obj_consumption_reporting_event;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_location_area5_g_t* data_collection_model_consumption_reporting_event_get_entry_ue_locations(const data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event, size_t idx)
+{
+    if (!obj_consumption_reporting_event) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<ConsumptionReportingEvent > &obj = *reinterpret_cast<const std::shared_ptr<ConsumptionReportingEvent >*>(obj_consumption_reporting_event);
+    if (!obj) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+
+    const ConsumptionReportingEvent::UeLocationsType &container = obj->getUeLocations();
+    if (!container.has_value()) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const data_collection_model_location_area5_g_t *result = NULL;
+
+        return result;
+    }
+    typedef typename ConsumptionReportingEvent::UeLocationsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const data_collection_model_location_area5_g_t *result = reinterpret_cast<const data_collection_model_location_area5_g_t*>(result_from.has_value()?&result_from.value():nullptr);
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_event_t *data_collection_model_consumption_reporting_event_clear_ue_locations(data_collection_model_consumption_reporting_event_t *obj_consumption_reporting_event)
 {
     if (!obj_consumption_reporting_event) return NULL;

@@ -300,6 +300,45 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_comm
     return obj_scheduled_communication_time;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_scheduled_communication_time_get_entry_days_of_week(const data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time, size_t idx)
+{
+    if (!obj_scheduled_communication_time) {
+        const int32_t result = 0;
+
+        return result;
+    }
+
+    const std::shared_ptr<ScheduledCommunicationTime > &obj = *reinterpret_cast<const std::shared_ptr<ScheduledCommunicationTime >*>(obj_scheduled_communication_time);
+    if (!obj) {
+        const int32_t result = 0;
+
+        return result;
+    }
+
+    const ScheduledCommunicationTime::DaysOfWeekType &container = obj->getDaysOfWeek();
+    if (!container.has_value()) {
+        const int32_t result = 0;
+
+        return result;
+    }
+
+    auto itr = container.value().cbegin();
+    while (idx > 0 && itr != container.value().cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.value().cend()) {
+        const int32_t result = 0;
+
+        return result;
+    }
+    typedef typename ScheduledCommunicationTime::DaysOfWeekItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const ResultFromType::value_type result = result_from.has_value()?result_from.value():ResultFromType::value_type();
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_clear_days_of_week(data_collection_model_scheduled_communication_time_t *obj_scheduled_communication_time)
 {
     if (!obj_scheduled_communication_time) return NULL;

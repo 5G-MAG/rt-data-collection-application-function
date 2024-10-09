@@ -282,6 +282,41 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_consumption
     return obj_ms_consumption_collection;
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_ms_consumption_collection_get_entry_ms_consumps(const data_collection_model_ms_consumption_collection_t *obj_ms_consumption_collection, size_t idx)
+{
+    if (!obj_ms_consumption_collection) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const std::shared_ptr<MsConsumptionCollection > &obj = *reinterpret_cast<const std::shared_ptr<MsConsumptionCollection >*>(obj_ms_consumption_collection);
+    if (!obj) {
+        const char *result = NULL;
+
+        return result;
+    }
+
+    const MsConsumptionCollection::MsConsumpsType &container = obj->getMsConsumps();
+    
+
+    auto itr = container.cbegin();
+    while (idx > 0 && itr != container.cend()) {
+        ++itr;
+        --idx;
+    }
+    if (itr == container.cend()) {
+        const char *result = NULL;
+
+        return result;
+    }
+    typedef typename MsConsumptionCollection::MsConsumpsItemType ResultFromType;
+    const ResultFromType &result_from = *itr;
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+
+    return result;
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_consumption_collection_t *data_collection_model_ms_consumption_collection_clear_ms_consumps(data_collection_model_ms_consumption_collection_t *obj_ms_consumption_collection)
 {
     if (!obj_ms_consumption_collection) return NULL;
