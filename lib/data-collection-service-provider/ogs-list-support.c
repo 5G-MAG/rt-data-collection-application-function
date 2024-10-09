@@ -35,10 +35,29 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_lnode_
     return data_collection_lnode_create((void*)object, NULL);
 }
 
+/** Copy the lnode but leave ownership with the original */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_lnode_copy(const data_collection_lnode_t *other)
+{
+    return data_collection_lnode_create_ref(other->object);
+}
+
+/** Copy the lnode, transferring ownership if the original had it */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_lnode_copy_move(data_collection_lnode_t *other)
+{
+    data_collection_lnode_t *ret;
+
+    ret = data_collection_lnode_create_ref(other->object);
+    if (other->free) {
+        ret->free = other->free;
+        other->free = NULL;
+    }
+    return ret;
+}
+
 DATA_COLLECTION_SVC_PRODUCER_API void data_collection_list_free(ogs_list_t *list)
 {
     data_collection_lnode_t *node, *next;
-    
+
     if (!list) return;
 
     ogs_list_for_each_safe(list, next, node) {
