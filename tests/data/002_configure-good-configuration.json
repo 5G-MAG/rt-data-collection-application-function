@@ -1,0 +1,33 @@
+{
+  "dataCollectionClientType": "DIRECT",
+  "dataSamplingRules": [
+    {
+      "samplingPeriod": 10.0
+    }
+  ],
+  "dataReportingRules": [
+    {}
+  ],
+  "dataReportingConditions": [
+    {
+      "type": "INTERVAL",
+      "period": 60
+    }
+  ],
+  "dataAccessProfiles": [
+    {
+      "dataAccessProfileId": "per_min_totals",
+      "targetEventConsumerTypes": [
+        "NWDAF",
+        "EVENT_CONSUMER_AF"
+      ],
+      "parameters": [],
+      "timeAccessRestrictions": {
+        "duration": 60,
+        "aggregationFunctions": [
+          "SUM"
+        ]
+      }
+    }
+  ]
+}

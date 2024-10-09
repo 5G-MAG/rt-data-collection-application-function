@@ -3,7 +3,7 @@
 create_provisioning_session_configuration() {
   inc total_count
   if [ -n "$provisioning_session_id" ]; then
-    http_post_json "$dcaf_provisioning_address" "/3gpp-ndcaf_data-reporting-provisioning/v1/sessions/$provisioning_session_id/configurations" '{"dataCollectionClientType": "DIRECT", "dataReportingConditions": [{"type": "INTERVAL", "period": 60}], "dataAccessProfiles": [{"dataAccessProfileId": "per_min_totals", "targetEventConsumerTypes": ["NWDAF","EVENT_CONSUMER_AF"], "parameters": [], "timeAccessRestrictions": {"duration": 60, "aggregationFunctions": ["SUM"]}}]}'
+    http_post_file "$dcaf_provisioning_address" "/3gpp-ndcaf_data-reporting-provisioning/v1/sessions/$provisioning_session_id/configurations" 002_configure-good-configuration.json
 
     if [ "$resp_statuscode" = "200" ]; then
       inc ok_count
@@ -20,7 +20,9 @@ create_provisioning_session_configuration() {
 
 check_sampling_rules() {
   field="$1"
-  if cmp_field_not_exists "$field"; then
+  if cmp_field_exists "$field" && cmp_field_array_size "$field" 1 && \
+     cmp_field_array_size "$field[0].contextIds" 1 && \
+     cmp_field_float "${field}[0].samplingPeriod" 10.0; then
     return 0
   fi
   return 1
@@ -28,7 +30,8 @@ check_sampling_rules() {
 
 check_reporting_rules() {
   field="$1"
-  if cmp_field_not_exists "$field"; then
+  if cmp_field_exists "$field" && cmp_field_array_size "$field" 1 && \
+     cmp_field_array_size "$field[0].contextIds" 1; then
     return 0
   fi
   return 1

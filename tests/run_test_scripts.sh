@@ -46,39 +46,82 @@ inc() {
 }
 
 log_error() {
-    echo -e "(${colour_red}E${colour_reset}): $@" >&2
+    local err_path=
+    if [ "${FUNCNAME[1]}" != "main" ]; then
+        err_path=":$testname:${FUNCNAME[1]}"
+    fi
+    echo -e "(${colour_red}E${colour_reset})$err_path: $@" >&2
 }
 
 log_warn() {
-    echo -e "(${colour_amber}W${colour_reset}): $@" >&2
+    local err_path=
+    if [ "${FUNCNAME[1]}" != "main" ]; then
+        err_path=":$testname:${FUNCNAME[1]}"
+    fi
+    echo -e "(${colour_amber}W${colour_reset})$err_path: $@" >&2
 }
 
 log_info() {
-    echo -e "(${colour_green}I${colour_reset}): $@" >&2
+    local err_path=
+    if [ "${FUNCNAME[1]}" != "main" ]; then
+        err_path=":$testname:${FUNCNAME[1]}"
+    fi
+    echo -e "(${colour_green}I${colour_reset})$err_path: $@" >&2
 }
 
 log_bad_response() {
-    local fn="$1"
-    log_error "${fn}: Unexpected response code $resp_statuscode"
+    local fn="$testname:${FUNCNAME[1]}"
+    
+    echo -e "(${colour_red}E${colour_reset}):${fn}: Unexpected response code $resp_statuscode" >&2
     if [ "$resp_content_type" = "application/problem+json" ]; then
-        log_error "${fn}: $response"
+        echo "$response" | sed 's/^/\t/' >&2
     fi
 }
 
 http_get() {
-    response=`curl -s --http2-prior-knowledge --fail-with-body -w "%output{$tmp_headers_file}resp_content_type=\"%header{content-type}\"\nresp_statuscode=%{response_code}\n" "http://${1}${2}"`
+    local last_modified="$3"
+    local etag="$4"
+    response=`curl -s --http2-prior-knowledge --fail-with-body ${last_modified:+-H "If-Modified-Since: $last_modified"} ${etag:+-H "If-None-Match: $etag"} -w "%output{$tmp_headers_file}resp_content_type=\"%header{content-type}\"\nresp_statuscode=%{response_code}\nresp_etag=\"%header{etag}\"\nresp_last_modified=\"%header{last-modified}\"\n" "http://${1}${2}"`
     . "$tmp_headers_file"
     rm -f "$tmp_headers_file"
 }
 
 http_post_file() {
-    response=`curl -s --http2-prior-knowledge --fail-with-body -w "%output{$tmp_headers_file}resp_location=\"%header{location}\"\nresp_content_type=\"%header{content-type}\"\nresp_statuscode=%{response_code}\n" -H 'Content-Type: application/json' --data-binary=@"$3" "http://${1}${2}"`
+    local authority="$1"
+    local url_path="$2"
+    local data_file="$3"
+    case "$data_file" in
+    /*)
+        ;;
+    *)
+        data_file="$data_dir/$data_file"
+        ;;
+    esac
+    local content_type='application/octet-stream'
+    case "$data_file" in
+    *.json)
+        content_type='application/json'
+        ;;
+    *.txt)
+        content_type='text/plain'
+        ;;
+    *.html)
+        content_type='text/html'
+        ;;
+    *.pem)
+        content_type='application/x-pem-file'
+        ;;
+    *.crt)
+        content_type='application/x-x509-ca-cert'
+        ;;
+    esac
+    response=`curl -s --http2-prior-knowledge --fail-with-body -w "%output{$tmp_headers_file}resp_location=\"%header{location}\"\nresp_content_type=\"%header{content-type}\"\nresp_statuscode=%{response_code}\nresp_etag=\"%header{etag}\"\nresp_last_modified=\"%header{last-modified}\"\n" -H "Content-Type: $content_type" --data-binary "@$data_file" "http://${authority}${url_path}"`
     . "$tmp_headers_file"
     rm -f "$tmp_headers_file"
 }
 
 http_post_json() {
-    response=`curl -s --http2-prior-knowledge --fail-with-body -w "%output{$tmp_headers_file}resp_location=\"%header{location}\"\nresp_content_type=\"%header{content-type}\"\nresp_statuscode=%{response_code}\n" -H 'Content-Type: application/json' --data "$3" "http://${1}${2}"`
+    response=`curl -s --http2-prior-knowledge --fail-with-body -w "%output{$tmp_headers_file}resp_location=\"%header{location}\"\nresp_content_type=\"%header{content-type}\"\nresp_statuscode=%{response_code}\nresp_etag=\"%header{etag}\"\nresp_last_modified=\"%header{last-modified}\"\n" -H 'Content-Type: application/json' --data "$3" "http://${1}${2}"`
     . "$tmp_headers_file"
     rm -f "$tmp_headers_file"
 }
@@ -184,7 +227,7 @@ cmp_field_float() {
         log_error "Response field \"$field_path\": is not a floating point number"
         return 1
     fi
-    if [ "$field_value" -ne "$expected_value" ]; then
+    if awk -v "a=$field_value" -v "b=$expected_value" 'BEGIN {exit(a==b)}' /dev/null; then
         log_error "Response field \"$field_path\": expected $expected_value, got $field_value"
         return 1
     fi

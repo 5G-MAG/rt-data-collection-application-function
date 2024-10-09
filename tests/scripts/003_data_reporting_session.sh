@@ -15,6 +15,8 @@ create_data_reporting_session() {
        cmp_field_exists 'reportingConditions' && cmp_field_not_exists 'reportingConditions.BOGUS_DATA_DOMAIN' && \
        check_reporting_rules 'reportingConditions.COMMUNICATION'; then
       inc ok_count
+      data_reporting_session_etag="$resp_etag"
+      data_reporting_session_last_modified="$resp_last_modified"
       data_reporting_session_id="${resp_location##*/}"
     else
       inc fail_count
@@ -22,7 +24,7 @@ create_data_reporting_session() {
     fi
   else
     inc fail_count
-    log_error "create_data_reporting_session: Unexpected response $resp_statuscode"
+    log_error "Unexpected response $resp_statuscode"
     log_error "$response"
   fi
 }
@@ -30,7 +32,7 @@ create_data_reporting_session() {
 fetch_data_reporting_session() {
   inc total_count
   if [ -n "$data_reporting_session_id" ]; then
-    http_get "$dcaf_directDataReporting_address" "/3gpp-ndcaf_data-reporting/v1/sessions/$data_reporting_session_id"
+    http_get "$dcaf_directDataReporting_address" "/3gpp-ndcaf_data-reporting/v1/sessions/$data_reporting_session_id" "$data_reporting_session_last_modified" "$data_reporting_session_etag"
     if [ "$resp_statuscode" = "200" ]; then
         if cmp_field_str 'sessionId' "$data_reporting_session_id" && cmp_field_not_exists 'validUntil' && \
            cmp_field_str 'externalApplicationId' "$external_app_id" && \
@@ -41,14 +43,19 @@ fetch_data_reporting_session() {
            check_reporting_rules 'reportingRules.COMMUNICATION' && \
            cmp_field_exists 'reportingConditions' && cmp_field_not_exists 'reportingConditions.BOGUS_DATA_DOMAIN' && \
            check_reporting_conditions 'reportingConditions.COMMUNICATION'; then 
+      	  data_reporting_session_etag="$resp_etag"
+          data_reporting_session_last_modified="$resp_last_modified"
           inc ok_count
         else
           inc fail_count
           log_error "$response"
 	fi
+    elif [ "$resp_statuscode" = "304" ]; then
+      inc ok_count
+      log_info "DataReportingSession unmodified"
     else
       inc fail_count
-      log_error "fetch_data_reporting_session: Unexpected response $resp_statuscode"
+      log_error "Unexpected response $resp_statuscode"
       log_error "$response"
     fi
   else
@@ -64,7 +71,7 @@ fetch_bad_data_reporting_session() {
     inc ok_count
   else
     inc fail_count
-    log_error "fetch_data_reporting_session: Unexpected response $resp_statuscode"
+    log_error "Unexpected response $resp_statuscode"
     log_error "$response"
   fi
 }
@@ -75,9 +82,10 @@ delete_data_reporting_session() {
     http_delete "$dcaf_directDataReporting_address" "/3gpp-ndcaf_data-reporting/v1/sessions/$data_reporting_session_id"
     if [ "$resp_statuscode" = "204" ]; then
       inc ok_count
+      data_reporting_session_id=
     else
       inc fail_count
-      log_error "fetch_data_reporting_session: Unexpected response $resp_statuscode"
+      log_error "Unexpected response $resp_statuscode"
       log_error "$response"
     fi
   else
@@ -90,4 +98,5 @@ create_data_reporting_session
 fetch_data_reporting_session
 fetch_bad_data_reporting_session
 delete_data_reporting_session
+create_data_reporting_session
 
