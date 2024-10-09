@@ -52,6 +52,7 @@ libspdc_dist_sources = files('''
     data-reporting-provisioning.h
     data-reporting-session-cache.c
     data-reporting-session-cache.h
+    aggregation-function.c
     event-subscription.h
     event-subscription.c
     ogs-memory-helper.h

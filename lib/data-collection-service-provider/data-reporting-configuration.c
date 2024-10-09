@@ -24,6 +24,9 @@ static void __provisioning_configuration_data_reporting_rules_add_context_ids(da
 static void __provisioning_configuration_data_reporting_conditions_add_context_ids(data_collection_model_data_reporting_configuration_t *data_reporting_configuration);
 static bool __check_for_location_and_user_restrictions(data_collection_model_data_reporting_configuration_t *data_reporting_configuration,  char **err_return, char **err_param, char **err_code);
 static bool __data_report_handler_valid_aggregation_function(data_collection_reporting_provisioning_session_t *parent_session, data_collection_model_data_reporting_configuration_t *data_reporting_configuration, char **err_return, char **err_param, char **err_code);
+static data_collection_lnode_t *__aggregation_function_make_lnode(char *aggregation_function);
+static void  __aggregation_node_destroy(char *aggregation_function);
+
 /***** Enumerations *****/
 
 /***** Data Types *****/
@@ -277,6 +280,80 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_configura
     return config->etag;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_provisioning_configurations_aggregations_functions_get(const char *external_application_id, const char *event_type, ogs_list_t *aggregation_functions)
+{
+    ogs_hash_index_t *it;
+    ogs_hash_t *data_reporting_provisioning_session = data_collection_self()->data_reporting_provisioning_sessions;
+    data_collection_reporting_provisioning_session_t *session;
+    for (it = ogs_hash_first(data_reporting_provisioning_session); it; it = ogs_hash_next(it)) {
+        const char *key;
+        int key_len;
+
+        ogs_hash_this(it, (const void **)&key, &key_len, (void**)(&session));
+
+        if(!strcmp(data_collection_reporting_provisioning_session_get_af_event_type(session), event_type) && !strcmp(data_collection_reporting_provisioning_session_get_external_application_id(session), external_application_id)) {
+
+            ogs_hash_index_t *hit;
+            ogs_hash_t *configurations = data_collection_reporting_provisioning_session_get_configurations(session);
+            data_collection_reporting_configuration_t *configuration;
+	   
+            for (hit = ogs_hash_first(configurations); hit; hit = ogs_hash_next(hit)) {
+                const char *ckey;
+                int ckey_len;
+		ogs_list_t *data_access_profiles;
+
+	       data_access_profiles = (ogs_list_t*) ogs_calloc(1,sizeof(*data_access_profiles));
+               ogs_assert(data_access_profiles);
+               ogs_list_init(data_access_profiles);
+
+
+		ogs_list_init(data_access_profiles);
+
+                ogs_hash_this(hit, (const void **)&ckey, &ckey_len, (void**)(&configuration));
+		data_access_profiles = data_collection_model_data_reporting_configuration_get_data_access_profiles(configuration->model);
+		if(data_access_profiles) {
+                    data_collection_lnode_t *data_access_profile_node;
+                    ogs_list_for_each(data_access_profiles, data_access_profile_node) {
+                        data_collection_model_data_access_profile_t *data_access_profile = data_access_profile_node->object;
+			if(data_collection_model_data_access_profile_has_location_access_restrictions(data_access_profile)) {
+			    ogs_debug("Filtering by location not implemented");
+			}
+			if(data_collection_model_data_access_profile_has_user_access_restrictions(data_access_profile)) {
+			    ogs_debug("Filtering by user Ids not implemented");
+			}
+                        if(data_collection_model_data_access_profile_has_time_access_restrictions(data_access_profile)) {
+                            const data_collection_model_data_access_profile_time_access_restrictions_t *data_access_profile_time_access_restrictions;
+                            ogs_list_t *aggregation_functions_time_access_restrictions;
+			    //ogs_list_t *aggregation_functions;
+                            data_collection_lnode_t *aggregation_function_node;
+                            data_access_profile_time_access_restrictions =
+                                data_collection_model_data_access_profile_get_time_access_restrictions(data_access_profile);
+                            aggregation_functions_time_access_restrictions = data_collection_model_data_access_profile_time_access_restrictions_get_aggregation_functions(data_access_profile_time_access_restrictions);
+                            ogs_list_for_each(aggregation_functions_time_access_restrictions, aggregation_function_node) {
+                                data_collection_model_data_aggregation_function_type_t *aggregation_function = aggregation_function_node->object;
+                                const char *aggregation_name = data_collection_model_data_aggregation_function_type_get_string(aggregation_function);
+				if(aggregation_name) {
+				    //data_collection_lnode_t *aggregation_function = data_collection_lnode_create(data_collection_strdup(aggregation_name), (void(*)(void*))ogs_free);
+				    //data_collection_lnode_t *aggregation_function = data_collection_lnode_create(data_collection_strdup(aggregation_name), NULL);
+				    data_collection_lnode_t *aggregation_function = __aggregation_function_make_lnode(data_collection_strdup(aggregation_name));
+				    ogs_list_add(aggregation_functions, aggregation_function); 
+	
+				}	
+		            }
+			}
+		    }
+		}
+
+	        if(data_access_profiles) ogs_free(data_access_profiles);
+	    }
+
+	}
+    }
+    return aggregation_functions;
+			
+
+}
+
 /*************** Private functions ******************/
 
 static void __reporting_configuration_new_uuid(data_collection_reporting_configuration_t *config)
@@ -432,6 +509,15 @@ static void __provisioning_configuration_data_reporting_conditions_add_context_i
     }
 }
 
+static data_collection_lnode_t *__aggregation_function_make_lnode(char *aggregation_function){
+     return data_collection_lnode_create(aggregation_function, (void(*)(void*))__aggregation_node_destroy);
+}
+
+static void  __aggregation_node_destroy(char *aggregation_function){
+    ogs_free(aggregation_function);
+}
+
+	
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

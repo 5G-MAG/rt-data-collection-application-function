@@ -48,6 +48,7 @@
 #include "data-reporting-provisioning.h"
 #include "data-reporting-configuration.h"
 #include "lifecycle.h"
+#include "aggregation-function.h"
 #include "ogs-list-support.h"
 
 #include "AccessTokenErr.h"

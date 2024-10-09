@@ -82,6 +82,15 @@ ogs_list_t *generate_af_event_notifications(ogs_list_t *data_reports, data_colle
 
 	af_event_notification = data_collection_model_af_event_notification_create();
         data_collection_model_af_event_notification_add_ue_comm_infos(af_event_notification, ue_communication_collection);
+	const char *timestamp = data_collection_strdup(get_current_time("%Y-%m-%dT%H:%M:%SZ"));
+        data_collection_model_af_event_notification_set_time_stamp(af_event_notification, timestamp);
+        data_collection_model_af_event_t *af_event = data_collection_model_af_event_create();
+
+        if(data_collection_model_af_event_is_not_set(af_event)){
+            data_collection_model_af_event_set_string(af_event, data_collection_strdup("UE_COMM"));
+        }
+        data_collection_model_af_event_notification_set_event(af_event_notification, af_event);
+
 	ogs_list_add(af_event_notifications, data_collection_model_af_event_notification_make_lnode(af_event_notification));
 
         //add ue_communication_collection to ogs_list

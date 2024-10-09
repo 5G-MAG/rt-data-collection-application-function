@@ -137,6 +137,10 @@ DATA_COLLECTION_SVC_PRODUCER_API ogs_time_t data_collection_reporting_configurat
  */
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_configuration_etag(data_collection_reporting_configuration_t *);
 
+/*** Get aggregation functions from the provisioned configurations***/
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_provisioning_configurations_aggregations_functions_get(const char *external_application_id, const char *event_type, ogs_list_t *aggregation_functions);
+
+
 #ifdef __cplusplus
 }
 #endif

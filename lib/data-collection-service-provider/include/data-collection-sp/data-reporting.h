@@ -93,6 +93,10 @@ typedef struct data_collection_data_report_handler_s {
     struct timespec *(* const timestamp_for_report_data)(const void *report_data);
     char *(* const tag_for_report_data)(const void *report_data);
     char *(* const serialise_report_data)(const void *report_data);
+    ogs_list_t *(*apply_aggregation)(const char *function_name, const ogs_list_t *records);
+    void *(*proportion_record)(const void *record, const struct timespec *start, const struct timespec *end);
+    struct timespec *(*sample_start)(const void *record);
+    struct timespec *(*sample_end)(const void *record);
 } data_collection_data_report_handler_t;
 
 typedef struct data_domain_node_s {
@@ -142,6 +146,12 @@ DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report_expire(dat
 
 /** Get the AF managed data block for this report */
 DATA_COLLECTION_SVC_PRODUCER_API void *data_collection_reporting_data_report_get(data_collection_data_report_record_t *data_report_record);
+
+/**Create a copy of Data Report*/
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_collection_data_report_record_copy(data_collection_data_report_record_t *data_report_record);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_collection_aggregation_functions_report_create(void *data_report_record, const char *external_application_id);
+
 
 #ifdef __cplusplus
 }

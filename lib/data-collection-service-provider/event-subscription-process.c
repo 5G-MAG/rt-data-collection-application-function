@@ -447,7 +447,7 @@ static void __send_af_event_exposure_subscription(ogs_sbi_stream_t *stream, ogs_
     ogs_assert(response);
     nf_server_populate_response(response, strlen(body), body, OGS_SBI_HTTP_STATUS_OK);
     ogs_assert(true == ogs_sbi_server_send_response(stream, response));
-    cJSON_free(body);
+    //cJSON_free(body);
 
     if (location) ogs_free(location);
 }

@@ -230,7 +230,7 @@ static ogs_list_t *event_exposure_generate_cb(data_collection_event_subscription
         af_event_notifications = generate_af_event_notifications(data_reports, data_collection_event_subscription);
     }
 
-    if(data_reports) ogs_free(data_reports);
+    //if(data_reports) ogs_free(data_reports);
 
     return af_event_notifications;
 }
