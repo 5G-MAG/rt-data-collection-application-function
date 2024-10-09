@@ -105,8 +105,6 @@ DATA_COLLECTION_SVC_PRODUCER_API const struct timespec* data_collection_reportin
 
 data_collection_reporting_session_t *data_reporting_session_populate(data_collection_reporting_session_t *data_collection_reporting_session, data_collection_model_data_reporting_session_t *data_reporting_session)
 {
-    data_collection_data_report_handler_t *handler = NULL;
-    data_collection_reporting_provisioning_session_t *provisioning_session = NULL;
     ogs_list_t *supported_domains;
 	
     data_collection_reporting_session->data_reporting_session = data_reporting_session;
@@ -115,15 +113,6 @@ data_collection_reporting_session_t *data_reporting_session_populate(data_collec
     data_reporting_session_add_or_update_sampling_rules(data_reporting_session, supported_domains, data_collection_reporting_session->client_type); 
     data_reporting_session_add_or_update_reporting_rules(data_reporting_session, supported_domains, data_collection_reporting_session->client_type); 
     data_reporting_session_add_or_update_reporting_conditions(data_reporting_session, supported_domains, data_collection_reporting_session->client_type); 
-    //handler = data_report_handler_get(supported_domains);
-    //ogs_assert(handler);
-
-
-    //TODO: Use Reporting conditions from provisioning session once it is implemented
-
-    // data_collection_model_data_reporting_session_add_reporting_condition(data_reporting_session, reporting_condition);
-    // data_collection_model_data_reporting_session_add_reporting_rule(data_reporting_session, reporting_rule);
-    // data_collection_model_data_reporting_session_add_sampling_rule(data_reporting_session, sampling_rule);
 
     //data_collection_model_data_reporting_session_set_valid_until(ogs_time_now() + ogs_time_from_sec(data_collection_self()->config.server_response_cache_control->data_collection_reporting_report_response_max_age)); // Do not set valid_until, it messes with HTTP caching
     data_collection_reporting_session->hash = calculate_data_reporting_session_hash(data_collection_reporting_session->data_reporting_session);
@@ -179,34 +168,19 @@ const data_reporting_session_cache_entry_t *data_collection_context_retrieve_rep
     return data_reporting_session_cache_entry;
 }
 
-void data_collection_reporting_session_add_sampling_rules(data_collection_model_data_reporting_session_t *data_reporting_session, const char *data_domain, const ogs_list_t *data_reporting_session_sampling_rules)
+void _reporting_session_add_sampling_rules(data_collection_reporting_session_t *data_reporting_session, const char *data_domain, const ogs_list_t *data_reporting_session_sampling_rules)
 {
-    ogs_hash_t *sampling_rules;  
-
-    sampling_rules = data_collection_model_data_reporting_session_get_sampling_rules(data_reporting_session);
-    if(sampling_rules) ogs_hash_set(sampling_rules, data_domain, OGS_HASH_KEY_STRING, NULL);
-    data_collection_model_data_reporting_session_add_sampling_rules(data_reporting_session, data_collection_strdup(data_domain), data_reporting_session_sampling_rules);
-
+    data_collection_model_data_reporting_session_add_sampling_rules(data_reporting_session->data_reporting_session, data_domain, data_reporting_session_sampling_rules);
 }
 
-void data_collection_reporting_session_add_reporting_rules(data_collection_model_data_reporting_session_t *data_reporting_session, const char *data_domain, const ogs_list_t *data_reporting_session_reporting_rules)
+void _reporting_session_add_reporting_rules(data_collection_reporting_session_t *data_reporting_session, const char *data_domain, const ogs_list_t *data_reporting_session_reporting_rules)
 {
-    ogs_hash_t *reporting_rules;  
-
-    reporting_rules = data_collection_model_data_reporting_session_get_reporting_rules(data_reporting_session);
-    if(reporting_rules) ogs_hash_set(reporting_rules, data_domain, OGS_HASH_KEY_STRING, NULL);
-    data_collection_model_data_reporting_session_add_reporting_rules(data_reporting_session, data_collection_strdup(data_domain), data_reporting_session_reporting_rules);
-
+    data_collection_model_data_reporting_session_add_reporting_rules(data_reporting_session->data_reporting_session, data_domain, data_reporting_session_reporting_rules);
 }
 
-void data_collection_reporting_session_add_reporting_conditions(data_collection_model_data_reporting_session_t *data_reporting_session, const char *data_domain, const ogs_list_t *data_reporting_session_reporting_conditions)
+void _reporting_session_add_reporting_conditions(data_collection_reporting_session_t *data_reporting_session, const char *data_domain, const ogs_list_t *data_reporting_session_reporting_conditions)
 {
-    ogs_hash_t *reporting_conditions;
-
-    reporting_conditions = data_collection_model_data_reporting_session_get_reporting_conditions(data_reporting_session);
-    if(reporting_conditions) ogs_hash_set(reporting_conditions, data_domain, OGS_HASH_KEY_STRING, NULL);
-    data_collection_model_data_reporting_session_add_reporting_conditions(data_reporting_session, data_collection_strdup(data_domain), data_reporting_session_reporting_conditions);
-
+    data_collection_model_data_reporting_session_add_reporting_conditions(data_reporting_session->data_reporting_session, data_domain, data_reporting_session_reporting_conditions);
 }
 
 
@@ -239,26 +213,21 @@ static void data_reporting_session_add_or_update_sampling_rules(data_collection_
     
         handler = get_matching_data_report_handler(data_domain);
 	if(handler) {
-	    ogs_hash_t *data_reporting_session_sampling_rules;	
 	    ogs_list_t *data_reporting_session_sampling_rules_data_domain = NULL;
             const char *external_application_id;
 
 	    external_application_id = data_collection_model_data_reporting_session_get_external_application_id(data_reporting_session);
 
-	    data_reporting_session_sampling_rules = data_collection_model_data_reporting_session_get_sampling_rules(data_reporting_session);
+	    data_reporting_session_sampling_rules_data_domain = data_collection_model_data_reporting_session_get_entry_sampling_rules(data_reporting_session, data_domain);
 
-            if(data_reporting_session_sampling_rules) {
-	        data_reporting_session_sampling_rules_data_domain = ogs_hash_get(data_reporting_session_sampling_rules, data_domain, OGS_HASH_KEY_STRING);
-            }
-
-	    if(!data_reporting_session_sampling_rules_data_domain || !ogs_list_first(data_reporting_session_sampling_rules_data_domain)) {
-                 data_reporting_session_sampling_rules_data_domain = (ogs_list_t*) ogs_calloc(1,sizeof(*data_reporting_session_sampling_rules_data_domain));
+	    if(!data_reporting_session_sampling_rules_data_domain) {
+                 data_reporting_session_sampling_rules_data_domain = (ogs_list_t*) ogs_malloc(sizeof(*data_reporting_session_sampling_rules_data_domain));
                  ogs_assert(data_reporting_session_sampling_rules_data_domain);
                  ogs_list_init(data_reporting_session_sampling_rules_data_domain);
 	    }
             	    
 	    data_collection_adjust_sampling_rules(data_reporting_session, data_reporting_session_sampling_rules_data_domain, external_application_id, handler->event_type, data_domain, client_type);
-	    data_collection_reporting_session_add_sampling_rules(data_reporting_session, data_domain, data_reporting_session_sampling_rules_data_domain);
+	    data_collection_model_data_reporting_session_add_sampling_rules(data_reporting_session, data_domain, data_reporting_session_sampling_rules_data_domain);
 
             /*
 	    ogs_list_t *data_reporting_provisioning_session_configurations;	
@@ -308,7 +277,7 @@ static void data_reporting_session_add_or_update_reporting_rules(data_collection
 	    }
             	    
 	    data_collection_adjust_reporting_rules(data_reporting_session, data_reporting_session_reporting_rules_data_domain, external_application_id, handler->event_type, data_domain, client_type);
-	    data_collection_reporting_session_add_reporting_rules(data_reporting_session, data_domain, data_reporting_session_reporting_rules_data_domain);
+	    data_collection_model_data_reporting_session_add_reporting_rules(data_reporting_session, data_domain, data_reporting_session_reporting_rules_data_domain);
 	}
     }
 
@@ -344,7 +313,7 @@ static void data_reporting_session_add_or_update_reporting_conditions(data_colle
             }
 
             data_collection_adjust_reporting_conditions(data_reporting_session, data_reporting_session_reporting_conditions_data_domain, external_application_id, handler->event_type, data_domain, client_type);
-	    data_collection_reporting_session_add_reporting_conditions(data_reporting_session, data_domain, data_reporting_session_reporting_conditions_data_domain);
+	    data_collection_model_data_reporting_session_add_reporting_conditions(data_reporting_session, data_domain, data_reporting_session_reporting_conditions_data_domain);
         
 	}
     }
