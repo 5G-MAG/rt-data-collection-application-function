@@ -34,12 +34,12 @@ static struct timespec *aggregate_time_interval_start_get(struct timespec *start
 static struct timespec *aggregate_time_interval_stop_get(struct timespec *stop_time, data_collection_model_communication_record_t *communication_record);
 static data_collection_data_report_record_t *generate_aggregate_communication_collection_record(struct timespec *start_time, struct timespec *stop_time, int64_t uplink_volume, int64_t downlink_volume, const char *external_application_id);
 static data_collection_data_report_record_t *generate_aggregate_communication_record(char *start_time, char *stop_time, int64_t uplink_volume, int64_t downlink_volume, const char *external_application_id);
-static char *communication_record_sample_start_time(data_collection_model_communication_record_t *record);
-static char *communication_record_sample_stop_time(data_collection_model_communication_record_t *record);
+static const char *communication_record_sample_start_time(const data_collection_model_communication_record_t *record);
+static const char *communication_record_sample_stop_time(const data_collection_model_communication_record_t *record);
 const char *get_communication_record_start_time(int64_t *input_uplink_array, int64_t *input_downlink_array, char **record_start_time, size_t number_of_records, int64_t aggregated_uplink_result, int64_t aggregated_downlink_result);
 static long int get_nsec_from_time_str(const char *time_str);
 static int timespec_compare(struct timespec *ts1, struct timespec *ts2);
-static struct timespec *populate_time_spec_from_communication_record(data_collection_model_communication_record_t *communication_record);
+static struct timespec *populate_time_spec_from_communication_record(const data_collection_model_communication_record_t *communication_record);
 
 /* data structures */
 
@@ -128,8 +128,10 @@ static struct timespec *communication_record_sample_start(const void *record)
 
     static struct timespec ts;
     const char *start_time;
-    data_collection_model_time_window_t* time_window;
-    data_collection_model_communication_record_t *communication_record = (data_collection_model_communication_record_t *)record;
+    const data_collection_model_time_window_t* time_window;
+    const data_collection_model_communication_record_t *communication_record =
+                                                                (const data_collection_model_communication_record_t *)record;
+
     time_window = data_collection_model_communication_record_get_time_interval(communication_record);
     start_time = data_collection_model_time_window_get_start_time(time_window);
     ts.tv_sec = str_to_rfc3339_time(start_time);
@@ -140,40 +142,35 @@ static struct timespec *communication_record_sample_start(const void *record)
 }
 
 
-static char *communication_record_sample_start_time(data_collection_model_communication_record_t *record)
+static const char *communication_record_sample_start_time(const data_collection_model_communication_record_t *record)
 {
-
     const char *start_time;
-    data_collection_model_time_window_t* time_window;
+    const data_collection_model_time_window_t* time_window;
     time_window = data_collection_model_communication_record_get_time_interval(record);
     start_time = data_collection_model_time_window_get_start_time(time_window);
     return start_time;
-
 }
 
-static char *communication_record_sample_stop_time(data_collection_model_communication_record_t *record){
+static const char *communication_record_sample_stop_time(const data_collection_model_communication_record_t *record){
     const char *stop_time;
-    data_collection_model_time_window_t* time_window;
+    const data_collection_model_time_window_t* time_window;
     time_window = data_collection_model_communication_record_get_time_interval(record);
     stop_time = data_collection_model_time_window_get_stop_time(time_window);
     return stop_time;
-
 }
-
-
 
 static struct timespec *communication_record_sample_stop(const void *record){
     static struct timespec ts;
     const char *stop_time;
-    data_collection_model_time_window_t* time_window;
-    data_collection_model_communication_record_t *communication_record = (data_collection_model_communication_record_t *)record;
+    const data_collection_model_time_window_t* time_window;
+    const data_collection_model_communication_record_t *communication_record =
+                                                                (const data_collection_model_communication_record_t *)record;
     time_window = data_collection_model_communication_record_get_time_interval(communication_record);
     stop_time = data_collection_model_time_window_get_stop_time(time_window);
     ts.tv_sec = str_to_rfc3339_time(stop_time);
     ts.tv_nsec = get_nsec_from_time_str(stop_time);
     
     return &ts;
-
 }
 
 static char *communication_record_make_tag(const void *report)
@@ -181,7 +178,8 @@ static char *communication_record_make_tag(const void *report)
     cJSON *report_json;
     char *data_report_to_hash;
     char *data_report_hashed = NULL;
-    const data_collection_model_communication_record_t *communication_record = (const data_collection_model_communication_record_t*)report;
+    const data_collection_model_communication_record_t *communication_record =
+                                                                (const data_collection_model_communication_record_t*)report;
 
     report_json = data_collection_model_communication_record_toJSON(communication_record, false);
     if (!report_json) return NULL;
@@ -193,12 +191,12 @@ static char *communication_record_make_tag(const void *report)
     cJSON_free(data_report_to_hash);
 
     return data_report_hashed;
-	
 }
 
 static char *communication_record_serialise(const void *report)
 {
-    const data_collection_model_communication_record_t *existing_report = (const data_collection_model_communication_record_t*)report;
+    const data_collection_model_communication_record_t *existing_report =
+                                                                 (const data_collection_model_communication_record_t*)report;
     char *comm_rec_json_str;
     cJSON *json;
 
@@ -213,8 +211,6 @@ static char *communication_record_serialise(const void *report)
 
 static ogs_list_t *communication_records_apply_aggregation_function(const char *function_name, const ogs_list_t *records)
 {
-    data_collection_lnode_t *communication_record_node;
-    data_collection_lnode_t *communication_record_aggregate_node;
     data_collection_data_report_record_t *data_report_record;
     data_collection_data_report_record_t *data_report_record_aggregated;
     struct timespec *aggregate_time_interval_start = NULL;
@@ -232,7 +228,6 @@ static ogs_list_t *communication_records_apply_aggregation_function(const char *
     record_stop_time = ogs_calloc(number_of_records, sizeof(**record_stop_time));
     data_collection_aggregate_result_t *uplink_aggregation_result;
     data_collection_aggregate_result_t *downlink_aggregation_result;
-    data_collection_model_communication_record_t *communication_record;
     int i = 0;
 
     ogs_list_t *aggregation_results = NULL;
@@ -325,18 +320,16 @@ static void *communication_record_proportional_data(const void *record, const st
  return NULL;	
 }
 
-static struct timespec *populate_time_spec_from_communication_record(data_collection_model_communication_record_t *communication_record)
+static struct timespec *populate_time_spec_from_communication_record(const data_collection_model_communication_record_t *communication_record)
 {
     const char *time_str;
     struct timespec *time = ogs_calloc(1, sizeof(*time));
-    data_collection_model_time_window_t* time_window;
+    const data_collection_model_time_window_t* time_window;
     time_window = data_collection_model_communication_record_get_time_interval(communication_record);
     time_str = data_collection_model_time_window_get_start_time(time_window);
     time->tv_sec = str_to_rfc3339_time(time_str);
     time->tv_nsec = get_nsec_from_time_str(time_str);
     return time;
-
-
 }
 
 static struct timespec *aggregate_time_interval_start_get(struct timespec *start_time, data_collection_model_communication_record_t *communication_record){
