@@ -248,8 +248,8 @@ static ogs_list_t *communication_records_apply_aggregation_function(const char *
         if(!external_application_id) {
 	    external_application_id = data_collection_strdup(data_collection_data_report_get_application_id(data_report_record));
 	}
-	aggregate_time_interval_start_get(aggregate_time_interval_start, communication_record);
-	aggregate_time_interval_stop_get(aggregate_time_interval_stop, communication_record);
+	aggregate_time_interval_start = aggregate_time_interval_start_get(aggregate_time_interval_start, communication_record);
+	aggregate_time_interval_stop = aggregate_time_interval_stop_get(aggregate_time_interval_stop, communication_record);
 	
 	input_array_uplink[i] = data_collection_model_communication_record_get_uplink_volume(communication_record);
         input_array_downlink[i] = data_collection_model_communication_record_get_downlink_volume(communication_record);
