@@ -55,7 +55,7 @@ static void __send_af_event_exposure_subscription(ogs_sbi_stream_t *stream, ogs_
 bool _evex_subscription_process_event(ogs_event_t *e)
 {
 
-    ogs_debug("_event_exposure_subscription_process_event %s", __event_get_name(e));
+    ogs_debug("_evex_subscription_process_event %s", __event_get_name(e));
 
     static const nf_server_interface_metadata_t *naf_eventexposure_api = &naf_eventexposure_api_metadata;
     const nf_server_app_metadata_t *app_meta = data_collection_lib_metadata();

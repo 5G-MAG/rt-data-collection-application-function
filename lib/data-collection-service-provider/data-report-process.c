@@ -193,13 +193,14 @@ bool _data_report_process_event(ogs_event_t *e)
                         ogs_error("3gpp-ndcaf_data-reporting request on wrong interface");
                         ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_NOT_FOUND, 0, &message,
                                                 "Not found", NULL, NULL, NULL, NULL, api, app_meta));
+                        return true;
                     }
 
 		    if (strcmp(message.h.api.version, OGS_SBI_API_V1) != 0) {
                         ogs_error("Unsupported API version [%s]", message.h.api.version);
                         ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_BAD_REQUEST, 0, &message,
                                                 "Unsupported API version", NULL, NULL, NULL, NULL, api, app_meta));
-                        break;
+                        return true;
                     }
 
                     if (message.h.resource.component[0]) {
@@ -371,42 +372,30 @@ bool _data_report_process_event(ogs_event_t *e)
                                         data_collection_model_data_reporting_session_free(data_reporting_session);
                                         break;
                                     } else {
-					cJSON *data_collection_reporting_sess;
 					char *location;
 					ogs_sbi_response_t *response;
-					char *body;
+					const char *body;
+                                        const data_reporting_session_cache_entry_t *data_reporting_session_cache_entry;
 
 					data_reporting_session_populate(data_collection_reporting_session, data_reporting_session);
                                         //data_collection_model_data_reporting_session_free(data_reporting_session);
+                                        data_reporting_session_cache_entry = data_collection_context_retrieve_reporting_session(data_collection_reporting_session->data_reporting_session_id);
 
-					data_collection_reporting_sess = data_collection_reporting_session_json(data_collection_reporting_session);
-
-					if (!data_collection_reporting_sess) {
-					    ogs_assert(true == nf_server_send_error(stream,
-                                                                        OGS_SBI_HTTP_STATUS_INTERNAL_SERVER_ERROR, 1, &message,
-                                                                        "Internal Server Error",
-                                                                        "Unable to convert data reporting session to JSON", NULL,
-                                                                        NULL, NULL, api, app_meta));
-                                            break;
-					}
-
-					body = cJSON_Print(data_collection_reporting_sess);
-                                        cJSON_Delete(data_collection_reporting_sess);
-
+                                        body = data_reporting_session_cache_entry->reporting_session;
                                         location = ogs_msprintf("%s/%s", request->h.uri, data_collection_reporting_session->data_reporting_session_id);
-
-
-					response = nf_server_new_response(location, "application/json",  data_collection_reporting_session->received, data_collection_reporting_session->hash, data_collection_self()->config.server_response_cache_control-> data_collection_reporting_report_response_max_age, NULL, api, app_meta);
-
-                                        nf_server_populate_response(response, strlen(body), body, OGS_SBI_HTTP_STATUS_CREATED);
+                                        response = nf_server_new_response(location, body?"application/json":NULL,
+                                                        data_reporting_session_cache_entry->generated,
+                                                        data_reporting_session_cache_entry->hash,
+                                                        data_collection_self()->config.server_response_cache_control->data_collection_reporting_report_response_max_age,
+                                                        NULL, api, app_meta);
                                         ogs_assert(response);
+                                        nf_server_populate_response(response, body?strlen(body):0,
+                                                                    data_collection_strdup(body), OGS_SBI_HTTP_STATUS_CREATED);
                                         ogs_assert(true == ogs_sbi_server_send_response(stream, response));
 
 					ogs_free(location);
 					break;
-
 				    }
-
 		                }
 			        break;
 		            CASE(OGS_SBI_HTTP_METHOD_GET)
@@ -521,21 +510,20 @@ bool _data_report_process_event(ogs_event_t *e)
                             ogs_free(err);
 			END
 		    }
-	            break;
                 } else if (api == ndcaf_datareportingprovisioning_api) {
                     /******** 3gpp-ndcaf_data-reporting-provisioning ********/
                     if (!__does_stream_server_match_server(server, DATA_COLLECTION_SVR_PROVISIONING)) {
                         ogs_error("3gpp-ndcaf_data-reporting-provisioning request on wrong interface");
                         ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_NOT_FOUND, 0, &message, "Not found",
                                                     NULL, NULL, NULL, NULL, api, app_meta));
-                        break;
+                        return true;
                     }
 
                     if (strcmp(message.h.api.version, OGS_SBI_API_V1) != 0) {
                         ogs_error("Unsupported API version [%s]", message.h.api.version);
                         ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_BAD_REQUEST, 0, &message,
                                                     "Bad Request", "Unsupported API version", NULL, NULL, NULL, api, app_meta));
-                        break;
+                        return true;
                     }
 
                     if (message.h.resource.component[0]) {
@@ -896,7 +884,6 @@ bool _data_report_process_event(ogs_event_t *e)
                         ogs_error("%s", err);
                         ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_BAD_REQUEST, 0, &message,
                                                     "Bad Request", err, NULL, NULL, NULL, NULL, app_meta));
-                        break;
                     }
                 }
 	    } else {
@@ -1011,12 +998,14 @@ static void __send_data_reporting_provisioning_session(ogs_sbi_stream_t *stream,
 
 static bool __resource_updated(ogs_sbi_request_t *request, const char *etag, ogs_time_t last_modified)
 {
-    const char *if_none_match = ogs_hash_get(request->http.headers, "If-None-Match", OGS_HASH_KEY_STRING);
+    
+    const char *if_none_match = ogs_hash_get(request->http.headers, "if-none-match", OGS_HASH_KEY_STRING);
     if (if_none_match) {
-        return (strcmp(etag, if_none_match) == 0);
+        ogs_debug("If-None-Match: %s == %s", etag, if_none_match);
+        return (strcmp(etag, if_none_match) != 0);
     }
 
-    const char *if_modified_since = ogs_hash_get(request->http.headers, "If-Modified-Since", OGS_HASH_KEY_STRING);
+    const char *if_modified_since = ogs_hash_get(request->http.headers, "if-modified-since", OGS_HASH_KEY_STRING);
     if (if_modified_since) {
         struct tm tm = {0};
         ogs_time_t modified_since;
@@ -1026,10 +1015,10 @@ static bool __resource_updated(ogs_sbi_request_t *request, const char *etag, ogs
                   tm.tm_sec, tm.tm_min, tm.tm_hour, tm.tm_mday, tm.tm_mon, tm.tm_year, tm.tm_gmtoff);
         ogs_time_from_gmt(&modified_since, &tm, 0);
         ogs_debug("If-Modified-Since: %li < %li?", modified_since, last_modified);
-        return (modified_since >= last_modified);
+        return (modified_since < last_modified);
     }
 
-    return false;
+    return true;
 }
 
 #ifdef __cplusplus
