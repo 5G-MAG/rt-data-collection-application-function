@@ -517,7 +517,5 @@ static void  __aggregation_node_destroy(char *aggregation_function){
     ogs_free(aggregation_function);
 }
 
-	
-
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */

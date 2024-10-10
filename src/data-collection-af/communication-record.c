@@ -39,7 +39,8 @@ static const char *communication_record_sample_stop_time(const data_collection_m
 const char *get_communication_record_start_time(int64_t *input_uplink_array, int64_t *input_downlink_array, char **record_start_time, size_t number_of_records, int64_t aggregated_uplink_result, int64_t aggregated_downlink_result);
 static long int get_nsec_from_time_str(const char *time_str);
 static int timespec_compare(struct timespec *ts1, struct timespec *ts2);
-static struct timespec *populate_time_spec_from_communication_record(const data_collection_model_communication_record_t *communication_record);
+static struct timespec *populate_start_time_spec_from_communication_record(const data_collection_model_communication_record_t *communication_record);
+static struct timespec *populate_stop_time_spec_from_communication_record(const data_collection_model_communication_record_t *communication_record);
 
 /* data structures */
 
@@ -131,7 +132,6 @@ static struct timespec *communication_record_sample_start(const void *record)
     const data_collection_model_time_window_t* time_window;
     const data_collection_model_communication_record_t *communication_record =
                                                                 (const data_collection_model_communication_record_t *)record;
-
     time_window = data_collection_model_communication_record_get_time_interval(communication_record);
     start_time = data_collection_model_time_window_get_start_time(time_window);
     ts.tv_sec = str_to_rfc3339_time(start_time);
@@ -140,7 +140,6 @@ static struct timespec *communication_record_sample_start(const void *record)
     return &ts;
 
 }
-
 
 static const char *communication_record_sample_start_time(const data_collection_model_communication_record_t *record)
 {
@@ -228,6 +227,7 @@ static ogs_list_t *communication_records_apply_aggregation_function(const char *
     record_stop_time = ogs_calloc(number_of_records, sizeof(**record_stop_time));
     data_collection_aggregate_result_t *uplink_aggregation_result;
     data_collection_aggregate_result_t *downlink_aggregation_result;
+    data_collection_model_communication_record_t *communication_record;
     int i = 0;
 
     ogs_list_t *aggregation_results = NULL;
@@ -258,26 +258,14 @@ static ogs_list_t *communication_records_apply_aggregation_function(const char *
     
     if(DATA_COLLECTION_AGGREGATION_RESULT_IS_VALUE(*uplink_aggregation_result)){
         data_report_record_aggregated = generate_aggregate_communication_collection_record(aggregate_time_interval_start, aggregate_time_interval_stop, DATA_COLLECTION_AGGREGATION_RESULT_INT64(*uplink_aggregation_result),  DATA_COLLECTION_AGGREGATION_RESULT_INT64(*downlink_aggregation_result), external_application_id); 	    
-	//communication_record_aggregate_node = data_collection_model_communication_record_make_lnode(communication_record);
         ogs_list_add(aggregation_results, data_report_record_aggregated);
     } else if(DATA_COLLECTION_AGGREGATION_RESULT_IS_DOUBLE(*uplink_aggregation_result)){
         data_report_record_aggregated = generate_aggregate_communication_collection_record(aggregate_time_interval_start, aggregate_time_interval_stop, DATA_COLLECTION_AGGREGATION_RESULT_INT64(*uplink_aggregation_result),  DATA_COLLECTION_AGGREGATION_RESULT_INT64(*downlink_aggregation_result), external_application_id);
-        //communication_record_aggregate_node = data_collection_model_communication_record_make_lnode(communication_record);
         ogs_list_add(aggregation_results, data_report_record_aggregated);
     } else if(DATA_COLLECTION_AGGREGATION_RESULT_IS_SIZE(*uplink_aggregation_result)){
         data_report_record_aggregated = generate_aggregate_communication_collection_record(aggregate_time_interval_start, aggregate_time_interval_stop, DATA_COLLECTION_AGGREGATION_RESULT_INT64(*uplink_aggregation_result),  DATA_COLLECTION_AGGREGATION_RESULT_INT64(*downlink_aggregation_result), external_application_id);
-        //communication_record_aggregate_node = data_collection_model_communication_record_make_lnode(communication_record);
         ogs_list_add(aggregation_results, data_report_record_aggregated);
     } else if(DATA_COLLECTION_AGGREGATION_RESULT_IS_ARRAY(*uplink_aggregation_result)){
-        /*
-	int len_array;
-	if(DATA_COLLECTION_AGGREGATION_RESULT_ARRAY_SIZE(*uplink_aggregation_result) <= DATA_COLLECTION_AGGREGATION_RESULT_ARRAY_SIZE(*downlink_aggregation_result)) {
-	    len_array = DATA_COLLECTION_AGGREGATION_RESULT_ARRAY_SIZE(*downlink_aggregation_result);
-	} else {
-	
-	    len_array = DATA_COLLECTION_AGGREGATION_RESULT_ARRAY_SIZE(*uplink_aggregation_result);
-	}
-	*/
 	int j;    
         int64_t *uplink_array = DATA_COLLECTION_AGGREGATION_RESULT_INT64_ARRAY_PTR(*uplink_aggregation_result);
 	int64_t *downlink_array = DATA_COLLECTION_AGGREGATION_RESULT_INT64_ARRAY_PTR(*downlink_aggregation_result);
@@ -311,6 +299,10 @@ static ogs_list_t *communication_records_apply_aggregation_function(const char *
 
     data_collection_aggregation_function_result_free(uplink_aggregation_result);
     data_collection_aggregation_function_result_free(downlink_aggregation_result);
+    
+    if(aggregate_time_interval_start) ogs_free(aggregate_time_interval_start);
+    if(aggregate_time_interval_stop) ogs_free(aggregate_time_interval_stop);
+
     return aggregation_results; 
 
 }
@@ -320,40 +312,57 @@ static void *communication_record_proportional_data(const void *record, const st
  return NULL;	
 }
 
-static struct timespec *populate_time_spec_from_communication_record(const data_collection_model_communication_record_t *communication_record)
+
+static struct timespec *populate_start_time_spec_from_communication_record(const data_collection_model_communication_record_t *communication_record)
 {
     const char *time_str;
     struct timespec *time = ogs_calloc(1, sizeof(*time));
-    const data_collection_model_time_window_t* time_window;
+    data_collection_model_time_window_t* time_window;
     time_window = data_collection_model_communication_record_get_time_interval(communication_record);
     time_str = data_collection_model_time_window_get_start_time(time_window);
     time->tv_sec = str_to_rfc3339_time(time_str);
     time->tv_nsec = get_nsec_from_time_str(time_str);
     return time;
+
+
 }
+static struct timespec *populate_stop_time_spec_from_communication_record(const data_collection_model_communication_record_t *communication_record)
+{
+    const char *time_str;
+    struct timespec *time = ogs_calloc(1, sizeof(*time));
+    data_collection_model_time_window_t* time_window;
+    time_window = data_collection_model_communication_record_get_time_interval(communication_record);
+    time_str = data_collection_model_time_window_get_stop_time(time_window);
+    time->tv_sec = str_to_rfc3339_time(time_str);
+    time->tv_nsec = get_nsec_from_time_str(time_str);
+    return time;
+
+
+}
+
 
 static struct timespec *aggregate_time_interval_start_get(struct timespec *start_time, data_collection_model_communication_record_t *communication_record){
 
      size_t rv = 0;
     struct timespec *communication_record_start_time;
     if(!start_time){
-        start_time = populate_time_spec_from_communication_record(communication_record);
+        start_time = populate_start_time_spec_from_communication_record(communication_record);
         return start_time;
     } else {
-        communication_record_start_time = populate_time_spec_from_communication_record(communication_record);
+        communication_record_start_time = populate_start_time_spec_from_communication_record(communication_record);
 
         rv = timespec_compare(start_time, communication_record_start_time);
-        ogs_info("start RV: %ld", rv);
         if(rv == 1) {
             if(start_time) ogs_free(start_time);
              start_time = communication_record_start_time;
-             return start_time;      
+             return start_time;
         } else {
             if(rv == -1 || rv == 0) return start_time;
         }
-        
-    }
 
+    }
+    if(start_time) ogs_free(start_time);
+    start_time = populate_start_time_spec_from_communication_record(communication_record);
     return start_time;
 }
 
@@ -361,23 +370,24 @@ static struct timespec *aggregate_time_interval_stop_get(struct timespec *stop_t
     size_t rv = 0;
     struct timespec *communication_record_stop_time;
     if(!stop_time){
-        stop_time = populate_time_spec_from_communication_record(communication_record);
+        stop_time = populate_stop_time_spec_from_communication_record(communication_record);
         return stop_time;
     } else {
 
-        communication_record_stop_time = populate_time_spec_from_communication_record(communication_record);
+        communication_record_stop_time = populate_stop_time_spec_from_communication_record(communication_record);
 
         rv = timespec_compare(stop_time, communication_record_stop_time);
-        ogs_info("start RV: %ld", rv);
         if(rv == 1) {
             return stop_time;
         } else if(rv == -1 || rv == 0) {
-                if(stop_time) ogs_free(stop_time);
+             if(stop_time) ogs_free(stop_time);
              stop_time = communication_record_stop_time;
              return stop_time;
 
         }
     }
+    if(stop_time) ogs_free(stop_time);
+    stop_time = populate_stop_time_spec_from_communication_record(communication_record);
     return stop_time;
 
 }
@@ -390,9 +400,12 @@ static data_collection_data_report_record_t *generate_aggregate_communication_co
     char *timestamp;
     data_collection_model_communication_record_t *communication_record;
     data_collection_data_report_record_t *data_report_record;
+    
+    time_start = ogs_time_to_string(get_time_from_timespec(start_time), "%Y-%m-%dT%H:%M:%SZ");
+    time_stop = ogs_time_to_string(get_time_from_timespec(stop_time), "%Y-%m-%dT%H:%M:%SZ");
 
-    time_start = ogs_time_to_string(get_time_from_timespec(start_time));
-    time_stop = ogs_time_to_string(get_time_from_timespec(stop_time));
+    //time_start = ogs_time_to_string(get_time_from_timespec(start_time));
+    //time_stop = ogs_time_to_string(get_time_from_timespec(stop_time));
     timestamp = data_collection_strdup(get_current_time("%Y-%m-%dT%H:%M:%SZ"));
 
     time_window = data_collection_model_time_window_create();

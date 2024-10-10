@@ -42,7 +42,8 @@ ogs_sbi_response_t *nf_server_new_response(const char *location, const char *con
     }
 
     if (last_modified) {
-        char *modified = ogs_time_to_string(last_modified);
+        char *modified = ogs_time_to_string(last_modified, "%a, %d %b %Y %H:%M:%S %Z");
+	//char *modified = ogs_time_to_string(last_modified);
         ogs_sbi_header_set(response->http.headers, "Last-Modified", modified);
 	ogs_free(modified);
     }
