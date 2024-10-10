@@ -34,13 +34,13 @@ typedef struct ue_user_id_s {
 } ue_user_id_t;
 
 typedef struct data_report_hash_record_s{
-    data_collection_data_report_handler_t *handler;
+    const data_collection_data_report_handler_t *handler;
     ogs_list_t list;
-}data_report_hash_record_t;
+} data_report_hash_record_t;
 
 
 typedef struct data_report_handler_aggregation_functions_s {
-    data_collection_data_report_handler_t *handler;	
+    const data_collection_data_report_handler_t *handler;	
     data_collection_data_report_record_t *data_record;
     ogs_list_t *aggregation_functions;
 } data_report_handler_aggregation_functions_t;
@@ -344,23 +344,22 @@ int data_collection_report_remove(data_report_hash_record_t *report_hash_record)
 
 static int __data_collection_report_destroy_expired(ogs_list_t *data_reports)
 {
-    data_collection_lnode_t *data_report_next, *data_report_node;
+    data_collection_data_report_record_t *data_report_next, *data_report;
     const ogs_time_t current_time = ogs_time_now();
 
     if (!data_reports) return 0;
 
-    ogs_list_for_each_safe(data_reports, data_report_next, data_report_node) {
-        data_collection_data_report_record_t *data_report = data_report_node->object;
+    ogs_list_for_each_safe(data_reports, data_report_next, data_report) {
 	if(data_report->expired ||
 	   (current_time >= data_report->last_used +  
 	    ( 3 * ogs_time_from_sec(data_collection_self()->config.server_response_cache_control->data_collection_reporting_report_response_max_age)))) {    
-                ogs_list_remove(data_reports, data_report_node);
-                data_collection_lnode_free(data_report_node);
+                ogs_list_remove(data_reports, data_report);
+                data_collection_report_destroy(data_report);
 	}
     }
     /* free the list if empty */
     if(!ogs_list_first(data_reports)) { 
-        data_collection_list_free(data_reports);
+        ogs_free(data_reports);
 	return 0;
     }
     /* list still has entries */
@@ -494,7 +493,6 @@ static ogs_list_t *__get_data_reports_allowed_for_event_subscription(const data_
 
 static ogs_list_t *__apply_aggregation(ogs_list_t *data_records) {
     data_collection_data_report_record_t *data_record;
-    ogs_list_t *aggregated_data_records;
     data_report_handler_aggregation_functions_t *data_report_handler_aggregation_functions;
     data_report_handler_aggregation_functions_t *data_report_handler_aggregation;
     ogs_hash_t *handlers = ogs_hash_make();
@@ -702,7 +700,6 @@ static data_collection_data_report_property_e __get_report_properties(data_colle
 
 static void __populate_communication_records (data_collection_model_data_report_t *report, ogs_list_t *data_reports) {
 
-    OpenAPI_lnode_t *node = NULL;
     data_report_t *data_report;
     ogs_list_t *communication_list;
     data_collection_lnode_t *communication_record_node;

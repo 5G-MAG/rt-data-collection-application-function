@@ -39,8 +39,6 @@ libdcaf_dist_sources = files('''
     communication-record.c
     event-notification.h
     event-notification.c
-    regexpr.h
-    regexpr.c
 '''.split())
 
 version_conf = configuration_data()

@@ -47,7 +47,8 @@ static bool __does_stream_server_match_server(ogs_sbi_server_t *server, data_col
 static data_collection_model_af_event_exposure_subsc_t* __af_event_exposure_subscription_request_process(ogs_sbi_request_t *request, ogs_sbi_stream_t *stream, ogs_sbi_message_t *message, const nf_server_interface_metadata_t *api, const nf_server_app_metadata_t *app_meta);
 static data_collection_event_subscription_t* __event_subscription_retrieve(const char *subscription_id, ogs_sbi_stream_t *stream, ogs_sbi_message_t *message, const nf_server_interface_metadata_t *api, const nf_server_app_metadata_t *app_meta);
 static void __send_af_event_exposure_subscription(ogs_sbi_stream_t *stream, ogs_sbi_message_t *message,
-                                                data_collection_event_subscription_t *data_collection_event_subscription, char *location, cJSON *response_body, int path_length,
+                                                data_collection_event_subscription_t *data_collection_event_subscription,
+                                                int status_code, char *location, cJSON *response_body, int path_length,
                                                 const nf_server_interface_metadata_t *api, const nf_server_app_metadata_t *app_meta);
 
 
@@ -180,18 +181,17 @@ bool _evex_subscription_process_event(ogs_event_t *e)
 
                                     response_body_json = data_collection_event_subscription_generate_af_event_exposure_subsc(data_collection_event_subscription);
                                     location = ogs_msprintf("%s/%s", request->h.uri, data_collection_event_subscription_get_id(data_collection_event_subscription));
-                                    __send_af_event_exposure_subscription(stream, &message, data_collection_event_subscription, location, response_body_json, 0, api, app_meta);
+                                    __send_af_event_exposure_subscription(stream, &message, data_collection_event_subscription, OGS_SBI_HTTP_STATUS_CREATED, location, response_body_json, 0, api, app_meta);
                                 }
                                 break;
 
                             CASE(OGS_SBI_HTTP_METHOD_GET)
-                                /* Note: This operation is not specified in TS 29.517 and is an additional operation added by us */
                                 {
                                     data_collection_event_subscription_t *event_subscription =
                                             __event_subscription_retrieve(message.h.resource.component[1], stream, &message,
                                                                           api, app_meta);
                                     if (event_subscription) {
-                                        __send_af_event_exposure_subscription(stream, &message, event_subscription,
+                                        __send_af_event_exposure_subscription(stream, &message, event_subscription, OGS_SBI_HTTP_STATUS_OK, 
                                                                               data_collection_strdup(message.h.uri), NULL, 0, api,
                                                                               app_meta);
                                     } /* no else needed, errors already reported back to client */
@@ -210,7 +210,7 @@ bool _evex_subscription_process_event(ogs_event_t *e)
                                     event_subscription = __event_subscription_retrieve(subscription_id, stream, &message, api, app_meta);
                                     if (!event_subscription) break; /* Errors already reported back to client */
                                     data_collection_event_subscription_set_af_event_exposure_subsc(event_subscription, af_event_exposure_subsc);
-                                    __send_af_event_exposure_subscription(stream, &message, event_subscription, data_collection_strdup(message.h.uri), NULL, 0, api, app_meta);
+                                    __send_af_event_exposure_subscription(stream, &message, event_subscription, OGS_SBI_HTTP_STATUS_OK, data_collection_strdup(message.h.uri), NULL, 0, api, app_meta);
                                 }
                                 break;
 
@@ -416,7 +416,7 @@ static data_collection_event_subscription_t* __event_subscription_retrieve(const
 
 static void __send_af_event_exposure_subscription(ogs_sbi_stream_t *stream, ogs_sbi_message_t *message,
                                                 data_collection_event_subscription_t *data_collection_event_subscription,
-                                                char *location, cJSON *response_body, int path_length,
+                                                int status_code, char *location, cJSON *response_body, int path_length,
                                                 const nf_server_interface_metadata_t *api, const nf_server_app_metadata_t *app_meta)
 {
     cJSON *json = NULL;
@@ -445,7 +445,7 @@ static void __send_af_event_exposure_subscription(ogs_sbi_stream_t *stream, ogs_
                                 data_collection_reporting_provisioning_session_response_max_age, NULL, api, app_meta);
 
     ogs_assert(response);
-    nf_server_populate_response(response, strlen(body), body, OGS_SBI_HTTP_STATUS_OK);
+    nf_server_populate_response(response, strlen(body), body, status_code);
     ogs_assert(true == ogs_sbi_server_send_response(stream, response));
     //cJSON_free(body);
 

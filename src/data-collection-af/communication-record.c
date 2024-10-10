@@ -8,7 +8,6 @@
  */
 
 #include "communication-record.h"
-#include "regexpr.h"
 #include "utilities.h"
 
 #ifndef max
@@ -472,22 +471,21 @@ static int timespec_compare(struct timespec *ts1, struct timespec *ts2)
 static long int get_nsec_from_time_str(const char *time_str) {
 
     long int time_nsec = 0; 
-    if(!time_nsec_check(time_str)) {
-        ogs_error("Malformed time [%s]", time_str);
-    } else {
-        char *ns;
-        char *time;
-        char ms[] = "000000000";
+    char *ns;
+    char *time;
+    char ms[] = "000000000";
+    int i;
 
-        time = dcaf_strdup(time_str);
-        strtok_r(time, ".", &ns);
-        memcpy(ms, ns, max(9,strlen(ns)));
-
-        time_nsec = ascii_to_long(ms);
-        ogs_free(time);
+    time = dcaf_strdup(time_str);
+    strtok_r(time, ".", &ns);
+    for (i=0; i<(sizeof(ms)-1) && ns[i]>='0' && ns[i]<='9'; i++) {
+        ms[i] = ns[i];
     }
-    return time_nsec;
 
+    time_nsec = ascii_to_long(ms);
+    ogs_free(time);
+
+    return time_nsec;
 }
 
 /* vim:ts=8:sts=4:sw=4:expandtab:

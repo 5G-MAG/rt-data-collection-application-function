@@ -10,7 +10,6 @@
 #include <stdlib.h>
 
 #include "event-notification.h"
-#include "regexpr.h"
 #include "utilities.h"
 #include "data-collection-sp/data-collection.h"
 
