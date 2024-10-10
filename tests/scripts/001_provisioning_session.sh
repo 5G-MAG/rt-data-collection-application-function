@@ -1,4 +1,24 @@
 :
+#
+# 5G-MAG Reference Tools: DCAF regression test 1: Provisioning
+# ============================================================
+#
+# Author(s): David Waring <david.waring2@bbc.co.uk>
+# Copyright: ©2024 British Broadcasting Corporation
+#   License: 5G-MAG Public License v1.0
+#
+# For full license terms please see the LICENSE file distributed with this
+# program. If this file is missing then the license can be retrieved from
+# https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+#
+# ============================================================================
+# This script provides regression tests to test basic provisioning session API
+# functionality.
+#
+# This will leave behind a provisioning session with $provisioning_session_id
+# containing the resource id value of the provisioning session.
+#
+
 
 create_ue_comm_provisioning_session() {
   inc total_count

@@ -1,4 +1,26 @@
 :
+#
+# 5G-MAG Reference Tools: DCAF regression test 2: Configuration
+# =============================================================
+#
+# Author(s): David Waring <david.waring2@bbc.co.uk>
+# Copyright: ©2024 British Broadcasting Corporation
+#   License: 5G-MAG Public License v1.0
+#
+# For full license terms please see the LICENSE file distributed with this
+# program. If this file is missing then the license can be retrieved from
+# https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+#
+# ============================================================================
+# This script provides regression tests to test basic configuration of a
+# provisioning session.
+#
+# This will leave behind a single configuration on the provisioning session
+# identified by $provisioning_session_id and will record the configuration id
+# in the $configuration_id variable.
+#
+# These tests will be skipped if the provisioning session failed.
+#
 
 create_provisioning_session_configuration() {
   inc total_count

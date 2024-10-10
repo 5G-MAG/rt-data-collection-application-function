@@ -1,4 +1,32 @@
 :
+#
+# 5G-MAG Reference Tools: DCAF regression test 3: Data Reporting Provisioning
+# ===========================================================================
+#
+# Author(s): David Waring <david.waring2@bbc.co.uk>
+# Copyright: ©2024 British Broadcasting Corporation
+#   License: 5G-MAG Public License v1.0
+#
+# For full license terms please see the LICENSE file distributed with this
+# program. If this file is missing then the license can be retrieved from
+# https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+#
+# ============================================================================
+# This script provides regression tests to test provisioning of a data
+# reporting session for a direct client.
+#
+# This will leave behind a single data reporting session and will record the
+# following information about the data reporting session:
+#  | Variable                              | Contents                                |
+#  | ===================================== | ======================================= |
+#  | $data_reporting_session_etag          | The ETag of the data reporting session. |
+#  | $data_reporting_session_last_modified | Last modified time of the session.      |
+#  | $data_reporting_session_id            | The ResourceId of the session.          |
+#
+# These tests will be skipped if the provisioning session failed and the
+# variables above will remain unset.
+#
+
 
 create_data_reporting_session() {
   inc total_count

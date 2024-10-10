@@ -1,4 +1,27 @@
 #!/bin/sh
+#
+# 5G-MAG Reference Tools: Data Collection AF regresssion tests
+# ============================================================
+#
+# Author(s): David Waring <david.waring2@bbc.co.uk>
+# Copyright: ©2024 British Broadcasting Corporation
+#   License: 5G-MAG Public License v1.0
+#
+# Prerequisites:
+#   - curl
+#   - jq
+#   - ncat
+#
+# For full license terms please see the LICENSE file distributed with this
+# program. If this file is missing then the license can be retrieved from
+# https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+#
+# ============================================================================
+# This script provides functions for running regression tests on the Data
+# Collection AF. It will run the tests from the `scripts` directory relative
+# to this script in alpha numeric order of filename.
+#
+
 
 # Constants
 dcaf_sbi_address="127.0.0.32:7777"
@@ -56,7 +79,7 @@ log_error() {
 log_warn() {
     local err_path=
     if [ "${FUNCNAME[1]}" != "main" ]; then
-        err_path=":$testname:${FUNCNAME[1]}"
+        err_path=": $testname:${FUNCNAME[1]}"
     fi
     echo -e "(${colour_amber}W${colour_reset})$err_path: $@" >&2
 }
@@ -64,15 +87,15 @@ log_warn() {
 log_info() {
     local err_path=
     if [ "${FUNCNAME[1]}" != "main" ]; then
-        err_path=":$testname:${FUNCNAME[1]}"
+        err_path=": $testname:${FUNCNAME[1]}"
     fi
     echo -e "(${colour_green}I${colour_reset})$err_path: $@" >&2
 }
 
 log_bad_response() {
     local fn="$testname:${FUNCNAME[1]}"
-    
-    echo -e "(${colour_red}E${colour_reset}):${fn}: Unexpected response code $resp_statuscode" >&2
+
+    echo -e "(${colour_red}E${colour_reset}): ${fn}: Unexpected response code $resp_statuscode" >&2
     if [ "$resp_content_type" = "application/problem+json" ]; then
         echo "$response" | sed 's/^/\t/' >&2
     fi

@@ -1,6 +1,6 @@
 :
 #
-# 5G-MAG Reference Tools: DCAF regression test 988: Tidy up Data Reporting
+# 5G-MAG Reference Tools: DCAF regression test 988: Tidy up Event Exposure
 # ========================================================================
 #
 # Author(s): David Waring <david.waring2@bbc.co.uk>
@@ -12,10 +12,13 @@
 # https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #
 # ============================================================================
-# This script tidies up the data reporting session.
+# This script tidies up the event exposure subscription and the notification
+# server.
 #
-# This test will be skipped if the data reporting session provisioning failed.
+# These tests will be skipped if the notification server or event exposure
+# subscription are not present.
 #
 
 
-delete_data_reporting_session
+delete_event_exposure_subscription
+stop_notification_server
