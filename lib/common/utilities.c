@@ -53,7 +53,7 @@ time_t str_to_rfc3339_time(const char *str_time)
     return time;
 }
 
-/*
+
 const char *get_current_time(const char *format) {
 
     time_t rawtime;
@@ -68,7 +68,6 @@ const char *get_current_time(const char *format) {
     strftime(buf, sizeof(buf), format, ts);
     return buf;
 }
-*/
 
 char *ogs_time_to_string(ogs_time_t timestamp, const char *format)
 {
@@ -81,7 +80,7 @@ char *ogs_time_to_string(ogs_time_t timestamp, const char *format)
     return ogs_msprintf("%s", datetime);
 }
 
-
+/*
 char *ogs_time_to_string(ogs_time_t timestamp)
 {
     struct tm tm;
@@ -92,6 +91,7 @@ char *ogs_time_to_string(ogs_time_t timestamp)
 
     return ogs_msprintf("%s", datetime);
 }
+*/
 
 
 char *read_file(const char *filename)
