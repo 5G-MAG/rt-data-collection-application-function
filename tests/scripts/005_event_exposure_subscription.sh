@@ -25,6 +25,7 @@
 #
 
 notification_path="/path/to/my/notification/handler"
+event_rep_period=5
 
 start_notification_server() {
   inc total_count
@@ -43,7 +44,8 @@ start_notification_server() {
 stop_notification_server() {
   inc total_count
   if [ -n "$af_event_exposure_notif_pid" ]; then
-    kill -INT "$af_event_exposure_notif_pid"
+    sleep $((event_rep_period + 5))
+    kill "$af_event_exposure_notif_pid"
     #wait -f "$af_event_exposure_notif_pid"
     rm -f "$notification_logfile"
     af_event_exposure_notif_pid=
@@ -55,7 +57,7 @@ stop_notification_server() {
 
 create_event_exposure_subscription() {
   inc total_count
-  http_post_json "$dcaf_eventConsumerApplicationFunctionEventExposure_address" "/naf-eventexposure/v1/subscriptions" '{"eventsSubs":[{"event": "UE_COMM", "eventFilter": {"anyUeInd": true}}], "eventsRepInfo": {"immRep": true, "notifMethod": "PERIODIC", "repPeriod": 30}, "notifUri": "'"$af_event_exposure_notif_url"'", "notifId": "events-notifications-id", "suppFeat": "04"}'
+  http_post_json "$dcaf_eventConsumerApplicationFunctionEventExposure_address" "/naf-eventexposure/v1/subscriptions" '{"eventsSubs":[{"event": "UE_COMM", "eventFilter": {"anyUeInd": true}}], "eventsRepInfo": {"immRep": true, "notifMethod": "PERIODIC", "repPeriod": '"$event_rep_period"'}, "notifUri": "'"$af_event_exposure_notif_url"'", "notifId": "events-notifications-id", "suppFeat": "04"}'
 
   if [ "$resp_statuscode" = "201" ]; then
     if cmp_field_array_size 'eventNotifs' 1; then
@@ -95,3 +97,4 @@ start_notification_server
 create_event_exposure_subscription
 delete_event_exposure_subscription
 create_event_exposure_subscription
+submit_alt_communications_report

@@ -21,14 +21,16 @@
 iso_datetime_format='+%Y-%m-%dT%H:%M:%SZ'
 
 submit_communications_report() {
+  local timestart="$1"
+  local uplink_vol="$2"
+  local downlink_vol="$3"
   inc total_count
   if [ -n "$data_reporting_session_id" ]; then
     local now="$(TZ=UTC date $iso_datetime_format)"
-    local timeend="$(echo "10*($(date +'%s')/10)" | bc)"
-    local timestart="$((timeend - 10))"
+    local timeend="$((timestart + 10))"
     local ts_start="$(TZ=UTC date --date="@$timestart" $iso_datetime_format)"
     local ts_end="$(TZ=UTC date --date="@$timeend" $iso_datetime_format)"
-    http_post_json "$dcaf_directDataReporting_address" "/3gpp-ndcaf_data-reporting/v1/sessions/$data_reporting_session_id/report" '{"externalApplicationId": "'"$external_app_id"'", "communicationRecords": [{"timestamp": "'"$now"'", "contextIds": ["'"$configuration_id"'"], "timeInterval": {"startTime": "'"$ts_start"'", "stopTime": "'"$ts_end"'"}, "uplinkVolume": 600, "downlinkVolume": 65536}]}'
+    http_post_json "$dcaf_directDataReporting_address" "/3gpp-ndcaf_data-reporting/v1/sessions/$data_reporting_session_id/report" '{"externalApplicationId": "'"$external_app_id"'", "communicationRecords": [{"timestamp": "'"$now"'", "contextIds": ["'"$configuration_id"'"], "timeInterval": {"startTime": "'"$ts_start"'", "stopTime": "'"$ts_end"'"}, "uplinkVolume": '"$uplink_vol"', "downlinkVolume": '"$downlink_vol"'}]}'
 
     if [ "$resp_statuscode" = "200" ]; then
       if cmp_field_str 'sessionId' "$data_reporting_session_id" && cmp_field_not_exists 'validUntil' && \
@@ -58,4 +60,12 @@ submit_communications_report() {
   fi
 }
 
-submit_communications_report
+submit_first_communications_report() {
+    submit_communications_report "$(echo "10*($(date +'%s')/10)-10" | bc)" 600 65536
+}
+
+submit_alt_communications_report() {
+    submit_communications_report "$(echo "10*($(date +'%s')/10)-10" | bc)" 1200 32768
+}
+
+submit_first_communications_report
