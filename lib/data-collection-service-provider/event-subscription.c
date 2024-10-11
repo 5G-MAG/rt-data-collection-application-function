@@ -423,6 +423,11 @@ static int __client_notify_cb(int status, ogs_sbi_response_t *response, void *da
     data_collection_event_subscription_t *data_collection_event_subscription = (data_collection_event_subscription_t *)data;
     ogs_event_t *event;
 
+    if (status == OGS_TIMEUP) {
+        /* ignore timeouts */
+        return OGS_OK;
+    }
+
     if (status != OGS_OK) {
         ogs_log_message(
                 status == OGS_DONE ? OGS_LOG_DEBUG : OGS_LOG_WARN, 0,

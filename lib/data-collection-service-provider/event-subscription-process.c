@@ -294,7 +294,41 @@ bool _evex_subscription_process_event(ogs_event_t *e)
             ogs_sbi_message_free(&message);
             return true;
         }
-        default:
+    case OGS_EVENT_SBI_CLIENT:
+        {
+            ogs_sbi_message_t message;
+            data_collection_event_subscription_t *event_subsc;
+            ogs_sbi_response_t *response;
+            ogs_hash_index_t *hash_it;
+
+            ogs_assert(e);
+
+            /* check if this is one of ours */
+            event_subsc = (data_collection_event_subscription_t*)e->sbi.data;
+            for (hash_it = ogs_hash_first(data_collection_self()->event_subscriptions); hash_it; hash_it = ogs_hash_next(hash_it)) {
+                if (event_subsc == (data_collection_event_subscription_t*)ogs_hash_this_val(hash_it)) break;
+            }
+            if (!hash_it) return false;
+
+            /* ok this is a notification response */
+            response = e->sbi.response;
+            ogs_assert(response);
+
+            if (ogs_sbi_parse_header(&message, &response->h) != OGS_OK) {
+                ogs_error("ogs_sbi_parse_header() failed");
+                ogs_sbi_message_free(&message);
+                break;
+            }
+            message.res_status = response->status;
+
+            if (message.res_status != OGS_SBI_HTTP_STATUS_NO_CONTENT) {
+                ogs_error("Received notification response with non-OK status code: %i", message.res_status);
+            }
+
+            ogs_sbi_message_free(&message);
+        }
+        return true;
+    default:
         break;
     }
     return false;
