@@ -249,7 +249,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                             break;
                                         }
 
-					rv = data_collection_reporting_report(data_collection_reporting_session,mime_type?(const char *)mime_type: NULL, (const void *)request->http.content, strlen(request->http.content), &error_return, &error_classname, &error_parameter, &error_code);
+					rv = data_collection_reporting_report(data_collection_reporting_session, mime_type, request->http.content, strlen(request->http.content), &error_return, &error_classname, &error_parameter, &error_code);
 
 					if(rv == OGS_ERROR) {
 
