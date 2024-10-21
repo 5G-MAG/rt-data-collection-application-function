@@ -31,8 +31,12 @@ static struct timespec *communication_record_sample_start(const void *record);
 static struct timespec *communication_record_sample_stop(const void *record);
 static struct timespec *aggregate_time_interval_start_get(struct timespec *start_time, data_collection_model_communication_record_t *communication_record);
 static struct timespec *aggregate_time_interval_stop_get(struct timespec *stop_time, data_collection_model_communication_record_t *communication_record);
+/*
 static data_collection_data_report_record_t *generate_aggregate_communication_collection_record(struct timespec *start_time, struct timespec *stop_time, int64_t uplink_volume, int64_t downlink_volume, const char *external_application_id);
 static data_collection_data_report_record_t *generate_aggregate_communication_record(char *start_time, char *stop_time, int64_t uplink_volume, int64_t downlink_volume, const char *external_application_id);
+*/
+static data_collection_data_report_record_t *generate_aggregate_communication_collection_record(struct timespec *start_time, struct timespec *stop_time, int64_t uplink_volume, int64_t downlink_volume, data_collection_data_report_record_t *aggregated_data_report_record);
+static data_collection_data_report_record_t *generate_aggregate_communication_record(char *start_time, char *stop_time, int64_t uplink_volume, int64_t downlink_volume, data_collection_data_report_record_t *aggregated_data_report_record);
 static const char *communication_record_sample_start_time(const data_collection_model_communication_record_t *record);
 static const char *communication_record_sample_stop_time(const data_collection_model_communication_record_t *record);
 const char *get_communication_record_start_time(int64_t *input_uplink_array, int64_t *input_downlink_array, char **record_start_time, size_t number_of_records, int64_t aggregated_uplink_result, int64_t aggregated_downlink_result);
@@ -86,7 +90,9 @@ static void *communication_record_parse(const data_collection_reporting_session_
 static void *communication_record_clone(const void *to_copy)
 {
    
-    const data_collection_model_communication_record_t *existing_report = (const data_collection_model_communication_record_t*)to_copy;
+    //const data_collection_model_communication_record_t *existing_report = (const data_collection_model_communication_record_t*)to_copy;
+    const data_collection_model_communication_record_t *existing_report = data_collection_model_communication_record_create_copy((const data_collection_model_communication_record_t*)to_copy);
+
     return (void*)existing_report;
 
 }
@@ -209,8 +215,8 @@ static char *communication_record_serialise(const void *report)
 
 static ogs_list_t *communication_records_apply_aggregation_function(const char *function_name, const ogs_list_t *records)
 {
-    data_collection_data_report_record_t *data_report_record;
-    data_collection_data_report_record_t *data_report_record_aggregated;
+    data_collection_data_report_record_t *data_report_record = NULL;
+    data_collection_data_report_record_t *data_report_record_aggregated = NULL;
     struct timespec *aggregate_time_interval_start = NULL;
     struct timespec *aggregate_time_interval_stop= NULL;
     size_t number_of_records = ogs_list_count(records);
@@ -218,16 +224,15 @@ static ogs_list_t *communication_records_apply_aggregation_function(const char *
     int64_t *input_array_downlink;
     char **record_start_time;
     char **record_stop_time;
-    const char *external_application_id = NULL;
 
     input_array_uplink = ogs_calloc(number_of_records, sizeof(*input_array_uplink));
     input_array_downlink = ogs_calloc(number_of_records, sizeof(*input_array_downlink));
-    record_start_time = ogs_calloc(number_of_records, sizeof(**record_start_time));
-    record_stop_time = ogs_calloc(number_of_records, sizeof(**record_stop_time));
+    record_start_time = ogs_calloc(number_of_records, sizeof(char **));
+    record_stop_time = ogs_calloc(number_of_records, sizeof(char **));
     data_collection_aggregate_result_t *uplink_aggregation_result;
     data_collection_aggregate_result_t *downlink_aggregation_result;
     data_collection_model_communication_record_t *communication_record;
-    int i = 0;
+    int i = 0, k = 0;
 
     ogs_list_t *aggregation_results = NULL;
 
@@ -239,9 +244,11 @@ static ogs_list_t *communication_records_apply_aggregation_function(const char *
 	
 	data_collection_model_communication_record_t *communication_record = 
 		(data_collection_model_communication_record_t *)data_collection_reporting_data_report_get(data_report_record);    
-        if(!external_application_id) {
-	    external_application_id = data_collection_strdup(data_collection_data_report_get_application_id(data_report_record));
-	}
+       
+       	if(!data_report_record_aggregated){
+            data_report_record_aggregated = data_collection_aggregated_data_report_record(data_report_record);
+        }
+
 	aggregate_time_interval_start = aggregate_time_interval_start_get(aggregate_time_interval_start, communication_record);
 	aggregate_time_interval_stop = aggregate_time_interval_stop_get(aggregate_time_interval_stop, communication_record);
 	
@@ -249,20 +256,21 @@ static ogs_list_t *communication_records_apply_aggregation_function(const char *
         input_array_downlink[i] = data_collection_model_communication_record_get_downlink_volume(communication_record);
         record_start_time[i] = data_collection_strdup(communication_record_sample_start_time(communication_record));
         record_stop_time[i] = data_collection_strdup(communication_record_sample_stop_time(communication_record));
-        i++;
+	data_report_record_aggregated = data_collection_reporting_add_report_record(data_report_record_aggregated, data_report_record);
+	i++;
     }
 
     uplink_aggregation_result = data_collection_aggregation_function_int64(function_name, input_array_uplink, number_of_records);
     downlink_aggregation_result = data_collection_aggregation_function_int64(function_name, input_array_downlink, number_of_records);
     
     if(DATA_COLLECTION_AGGREGATION_RESULT_IS_VALUE(*uplink_aggregation_result)){
-        data_report_record_aggregated = generate_aggregate_communication_collection_record(aggregate_time_interval_start, aggregate_time_interval_stop, DATA_COLLECTION_AGGREGATION_RESULT_INT64(*uplink_aggregation_result),  DATA_COLLECTION_AGGREGATION_RESULT_INT64(*downlink_aggregation_result), external_application_id); 	    
+        data_report_record_aggregated = generate_aggregate_communication_collection_record(aggregate_time_interval_start, aggregate_time_interval_stop, DATA_COLLECTION_AGGREGATION_RESULT_INT64(*uplink_aggregation_result),  DATA_COLLECTION_AGGREGATION_RESULT_INT64(*downlink_aggregation_result), data_report_record_aggregated); 	    
         ogs_list_add(aggregation_results, data_report_record_aggregated);
     } else if(DATA_COLLECTION_AGGREGATION_RESULT_IS_DOUBLE(*uplink_aggregation_result)){
-        data_report_record_aggregated = generate_aggregate_communication_collection_record(aggregate_time_interval_start, aggregate_time_interval_stop, DATA_COLLECTION_AGGREGATION_RESULT_INT64(*uplink_aggregation_result),  DATA_COLLECTION_AGGREGATION_RESULT_INT64(*downlink_aggregation_result), external_application_id);
+        data_report_record_aggregated = generate_aggregate_communication_collection_record(aggregate_time_interval_start, aggregate_time_interval_stop, DATA_COLLECTION_AGGREGATION_RESULT_INT64(*uplink_aggregation_result),  DATA_COLLECTION_AGGREGATION_RESULT_INT64(*downlink_aggregation_result), data_report_record_aggregated);
         ogs_list_add(aggregation_results, data_report_record_aggregated);
     } else if(DATA_COLLECTION_AGGREGATION_RESULT_IS_SIZE(*uplink_aggregation_result)){
-        data_report_record_aggregated = generate_aggregate_communication_collection_record(aggregate_time_interval_start, aggregate_time_interval_stop, DATA_COLLECTION_AGGREGATION_RESULT_INT64(*uplink_aggregation_result),  DATA_COLLECTION_AGGREGATION_RESULT_INT64(*downlink_aggregation_result), external_application_id);
+        data_report_record_aggregated = generate_aggregate_communication_collection_record(aggregate_time_interval_start, aggregate_time_interval_stop, DATA_COLLECTION_AGGREGATION_RESULT_INT64(*uplink_aggregation_result),  DATA_COLLECTION_AGGREGATION_RESULT_INT64(*downlink_aggregation_result), data_report_record_aggregated);
         ogs_list_add(aggregation_results, data_report_record_aggregated);
     } else if(DATA_COLLECTION_AGGREGATION_RESULT_IS_ARRAY(*uplink_aggregation_result)){
 	int j;    
@@ -279,22 +287,23 @@ static ogs_list_t *communication_records_apply_aggregation_function(const char *
 	}
 
 	for(j=0; j < DATA_COLLECTION_AGGREGATION_RESULT_INT64_ARRAY_SIZE(*uplink_aggregation_result); j++) {
-            data_report_record_aggregated = generate_aggregate_communication_record(record_start_time[j], record_stop_time[j], uplink_array[j], downlink_array[j], external_application_id);
+            data_report_record_aggregated = generate_aggregate_communication_record(record_start_time[j], record_stop_time[j], uplink_array[j], downlink_array[j], data_report_record_aggregated);
             //communication_record_aggregate_node = data_collection_model_communication_record_make_lnode(communication_record);
             ogs_list_add(aggregation_results, data_report_record_aggregated);
         }
     }
-    
-    ogs_free(input_array_uplink);
-    ogs_free(input_array_downlink);
 
-    for(i=0; i < number_of_records; i++) {
-        ogs_free(record_start_time[i]);
-        ogs_free(record_stop_time[i]);
+    for(k = 0; k < number_of_records; k++) {
+        ogs_free((*(record_start_time + k)));
+        ogs_free((*(record_stop_time + k)));
     }
+
 
     if(record_start_time) ogs_free(record_start_time);
     if(record_stop_time) ogs_free(record_stop_time);
+
+    if(input_array_uplink) ogs_free(input_array_uplink);
+    if(input_array_downlink) ogs_free(input_array_downlink);
 
     data_collection_aggregation_function_result_free(uplink_aggregation_result);
     data_collection_aggregation_function_result_free(downlink_aggregation_result);
@@ -391,7 +400,7 @@ static struct timespec *aggregate_time_interval_stop_get(struct timespec *stop_t
 
 }
 
-static data_collection_data_report_record_t *generate_aggregate_communication_collection_record(struct timespec *start_time, struct timespec *stop_time, int64_t uplink_volume, int64_t downlink_volume, const char *external_application_id)
+static data_collection_data_report_record_t *generate_aggregate_communication_collection_record(struct timespec *start_time, struct timespec *stop_time, int64_t uplink_volume, int64_t downlink_volume, data_collection_data_report_record_t *aggregated_data_report_record)
 {
     data_collection_model_time_window_t* time_window;
     char *time_start;
@@ -405,7 +414,7 @@ static data_collection_data_report_record_t *generate_aggregate_communication_co
 
     //time_start = ogs_time_to_string(get_time_from_timespec(start_time));
     //time_stop = ogs_time_to_string(get_time_from_timespec(stop_time));
-    timestamp = data_collection_strdup(get_current_time("%Y-%m-%dT%H:%M:%SZ"));
+    timestamp = get_current_time("%Y-%m-%dT%H:%M:%SZ");
 
     time_window = data_collection_model_time_window_create();
     data_collection_model_time_window_set_start_time(time_window, time_start);
@@ -420,12 +429,14 @@ static data_collection_data_report_record_t *generate_aggregate_communication_co
 
     data_collection_model_communication_record_set_time_interval_move(communication_record, time_window);
     
-    data_report_record = data_collection_aggregation_functions_report_create((void *)communication_record, external_application_id);
+    data_report_record = data_collection_reporting_set_report(aggregated_data_report_record, (void *)communication_record); 
+    ogs_free(time_start);
+    ogs_free(time_stop);
  
     return data_report_record; 
 }
 
-static data_collection_data_report_record_t *generate_aggregate_communication_record(char *start_time, char *stop_time, int64_t uplink_volume, int64_t downlink_volume, const char *external_application_id)
+static data_collection_data_report_record_t *generate_aggregate_communication_record(char *start_time, char *stop_time, int64_t uplink_volume, int64_t downlink_volume, data_collection_data_report_record_t *aggregated_data_report_record)
 {
     data_collection_model_time_window_t* time_window;
     char *timestamp;
@@ -447,8 +458,7 @@ static data_collection_data_report_record_t *generate_aggregate_communication_re
 
     data_collection_model_communication_record_set_time_interval_move(communication_record, time_window);
 
-    data_report_record = data_collection_aggregation_functions_report_create((void *)communication_record, external_application_id);
-
+    data_report_record = data_collection_reporting_set_report(aggregated_data_report_record, (void *)communication_record);
 
     return data_report_record;
 }

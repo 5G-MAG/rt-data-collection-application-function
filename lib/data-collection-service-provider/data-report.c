@@ -59,6 +59,7 @@ static int __data_collection_report_destroy_expired(ogs_list_t *data_reports);
 static ogs_list_t *__apply_aggregation(ogs_list_t *data_reports);
 static void __data_report_handler_aggregation_functions_remove(data_report_handler_aggregation_functions_t *aggregation_functions);
 static void __populate_communication_records (data_collection_model_data_report_t *report, ogs_list_t *data_reports);
+static int __free_local_data_report_records(ogs_list_t *data_report_records);
 
 //static ogs_list_t *__provisioning_sessions_event_filter_match(ogs_list_t *user_identifiers, data_collection_model_events_subs_t *events_subs);
 //static char *__check_for_user_ids(data_collection_model_events_subs_t *events_subscription, data_collection_data_report_t *data_report, char *event_type);
@@ -147,18 +148,68 @@ DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report(data_colle
 
         }
     }
+    if(external_application_id) ogs_free(external_application_id);
+    //cJSON_Delete(external_application_id_node);
+    __free_local_data_report_records(&data_reports);
+
     
     return OGS_OK;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report_used(data_collection_data_report_record_t *report_record, const data_collection_event_subscription_t *event_subscription) {
- 
-    if (!report_record->usage) report_record->usage = ogs_calloc(1, sizeof(*report_record->usage));
 
-    ogs_list_add(report_record->usage, data_collection_lnode_create_ref(event_subscription));
+    data_collection_lnode_t *event_subscription_node = NULL;
+
+    if(event_subscription) {
+        event_subscription_node = data_collection_lnode_create_ref(event_subscription);
+        data_collection_event_subscription_set_original_event_subscription((data_collection_event_subscription_t *)event_subscription_node->object, event_subscription);
+    }       
+    if(!event_subscription_node) return 0;
+	
+    if(data_collection_reporting_session_get(report_record)) {
+        if(report_record->copied_from) { 
+            if (!report_record->copied_from->usage) report_record->copied_from->usage = ogs_calloc(1, sizeof(*report_record->copied_from->usage));
+            ogs_list_add(report_record->copied_from->usage, event_subscription_node);
+        } else {
+            if (!report_record->usage) report_record->usage = ogs_calloc(1, sizeof(*report_record->usage));
+            ogs_list_add(report_record->usage, event_subscription_node);
+        }
+    } else {
+        size_t number_of_original_records = 0;
+        number_of_original_records  = data_collection_reporting_get_number_of_original_records(report_record);
+        if(number_of_original_records) {
+	    size_t  i = 0;
+            for(i = 0; i < number_of_original_records; i++) {
+                if(report_record->original_records[i]->copied_from) {
+                    if (!report_record->original_records[i]->copied_from->usage) {
+                        report_record->original_records[i]->copied_from->usage = ogs_calloc(1, sizeof(ogs_list_t));
+                        ogs_assert(report_record->original_records[i]->copied_from->usage);
+                        ogs_list_init(report_record->original_records[i]->copied_from->usage);
+                    }
+
+                    ogs_list_add(report_record->original_records[i]->copied_from->usage, event_subscription_node);
+
+                } else {
+                    if (!report_record->original_records[i]->usage && !ogs_list_first(report_record->original_records[i]->usage)) {
+                        report_record->original_records[i]->usage = ogs_calloc(1, sizeof(ogs_list_t));
+                        ogs_assert(report_record->original_records[i]->usage);
+                        ogs_list_init(report_record->original_records[i]->usage);
+                    }
+                    ogs_list_add(report_record->original_records[i]->usage, event_subscription_node);
+                }
+            }
+	
+        }
+
+    }
     return 1;
-
 }
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_session_t *data_collection_reporting_session_get(data_collection_data_report_record_t *report_record) {
+    if(!report_record || !report_record->session) return NULL;
+    return report_record->session;
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_reporting_report_find(const data_collection_data_report_handler_t* const *report_handlers, 
 		data_collection_event_subscription_t *event_subscription, bool omit_used) {
@@ -168,9 +219,25 @@ DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_reporting_report_fi
     ogs_list_t *data_reports_aggregated = NULL;
 
     data_reports_allowed =  __get_data_reports_allowed_for_event_subscription(report_handlers, event_subscription, omit_used);
+    if(!data_reports_allowed) return NULL;
     data_reports_aggregated = __apply_aggregation(data_reports_allowed);
     //return data_reports_allowed;
-   if(!data_reports_aggregated) return data_reports_allowed;
+   if(!data_reports_aggregated) {
+       return data_reports_allowed;
+   } else {
+       data_collection_data_report_record_t *data_rep = NULL, *data_report_node = NULL;
+       ogs_list_for_each_safe(data_reports_allowed, data_rep, data_report_node) {
+           ogs_list_remove(data_reports_allowed, data_report_node);
+           if(data_report_node->external_application_id) ogs_free(data_report_node->external_application_id);
+           /*
+	   data_report_node->data_report_handler->free_report_data(data_report_node->data_report_record);
+           data_report_node->data_report_record = NULL;
+           */
+           ogs_free(data_report_node);
+        }
+        ogs_free(data_reports_allowed);
+   }
+
    return data_reports_aggregated;
 }
 
@@ -204,15 +271,84 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_coll
     report->data_report_handler = data_report_record->data_report_handler; 
     report->generated = data_report_record->generated;
     report->last_used = data_report_record->last_used;
-    report->session = NULL;
+    report->hash= data_report_record->hash;
+    report->session = data_report_record->session;
     report->data_report_record = data_report_record->data_report_record;
+    report->copied_from = data_report_record;
     report->external_application_id = data_collection_strdup(data_report_record->external_application_id);
-
+    /*
+    report->data_report_record =  data_report_record->data_report_handler->clone_report_data(data_report_record->data_report_record);
+    report->external_application_id = data_collection_strdup(data_report_record->external_application_id);
+    
+    report->number_of_original_records = 0;
     report->original_records = ogs_realloc(report->original_records, sizeof(*report->original_records) * (data_report_record->number_of_original_records + 1));
     report->original_records[data_report_record->number_of_original_records] = data_report_record;
-    report->number_of_original_records += 1; 		    
+    report->number_of_original_records += 1;
+    */
+    report->usage = data_report_record->usage;
+    report->expired = data_report_record->expired;
+    report->data_report_record_owner = false;
     return report;
 
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API int data_collection_data_report_record_copy_delete(data_collection_data_report_record_t *data_report_record)
+{
+    if(data_report_record->external_application_id) ogs_free(data_report_record->external_application_id);
+    ogs_free(data_report_record);
+    return 1;
+}
+
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_collection_aggregated_data_report_record(data_collection_data_report_record_t *data_report_record)
+{
+
+    data_collection_data_report_record_t *report;
+
+    report = ogs_calloc(1, sizeof(data_collection_data_report_record_t));
+    ogs_assert(report);
+
+    report->data_report_handler = data_report_record->data_report_handler;
+    report->generated = data_report_record->generated;
+    report->last_used = ogs_time_now();
+    report->session = NULL;
+    report->external_application_id = data_collection_strdup(data_report_record->external_application_id);
+    report->number_of_original_records = 0;
+    /*
+    report->original_records = ogs_realloc(report->original_records, sizeof(*report->original_records) * (report->number_of_original_records + 1));
+    //report->original_records[report->number_of_original_records] = data_collection_data_report_record_copy(data_report_record);
+    report->original_records[report->number_of_original_records] = data_report_record;
+    report->number_of_original_records +=  1;
+    */
+
+    report->usage = data_report_record->usage;
+    report->data_report_record_owner = false;
+
+    return report;
+
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_collection_reporting_add_report_record(data_collection_data_report_record_t *data_report_record_aggregated, data_collection_data_report_record_t *original_data_report_record)
+{
+    data_report_record_aggregated->original_records = ogs_realloc(data_report_record_aggregated->original_records, sizeof(*data_report_record_aggregated->original_records) * (data_report_record_aggregated->number_of_original_records + 1));
+    //report->original_records[report->number_of_original_records] = data_collection_data_report_record_copy(data_report_record);
+    data_report_record_aggregated->original_records[data_report_record_aggregated->number_of_original_records] = original_data_report_record;
+    data_report_record_aggregated->number_of_original_records +=  1;
+    return data_report_record_aggregated;
+}
+
+
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_collection_reporting_set_report(data_collection_data_report_record_t *aggregated_data_report_record, void *data_report_record)
+{
+        aggregated_data_report_record->data_report_record = data_report_record;
+        return aggregated_data_report_record;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API size_t data_collection_reporting_get_number_of_original_records(data_collection_data_report_record_t *data_report_record)
+{
+   if(!data_report_record) return 0;
+   return data_report_record->number_of_original_records; 
 }
 
 
@@ -231,6 +367,31 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_coll
     
     return report;	
 }
+
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_report_destroy(data_collection_data_report_record_t *report)
+{
+    ogs_assert(report);
+
+    if (report->hash) {
+        ogs_free(report->hash);
+        report->hash = NULL;
+    }
+    if (report->data_report_record) {
+        report->data_report_handler->free_report_data(report->data_report_record);
+        report->data_report_record = NULL;
+    }
+    if(report->external_application_id) ogs_free(report->external_application_id);
+
+    if(report->original_records) ogs_free(report->original_records);
+
+    if(report->usage) {
+	//data_collection_list_free(report->usage);
+        ogs_free(report->usage);
+	report->usage = NULL;
+    }
+    ogs_free(report);
+}
+
 
 /******** Internal library API *********/
 
@@ -262,6 +423,8 @@ bool remove_expired_data_reports(ogs_hash_t *data_reports)
     return true;
 }
 
+/*
+
 void data_collection_report_destroy(data_collection_data_report_record_t *report)
 {
     ogs_assert(report);
@@ -274,10 +437,15 @@ void data_collection_report_destroy(data_collection_data_report_record_t *report
 	report->data_report_handler->free_report_data(report->data_report_record);    
 	report->data_report_record = NULL;
     }
+    if(report->external_application_id) ogs_free(report->external_application_id);
+
+    if(report->original_records) ogs_free(report->original_records);
+
     data_collection_list_free(report->usage);
     report->usage = NULL;
     ogs_free(report);
 }
+*/
 
 data_collection_reporting_client_type_e _report_client_type_from_ogs_server(ogs_sbi_server_t *server)
 {
@@ -383,12 +551,13 @@ static data_collection_data_report_record_t *__data_collection_report_create(dat
     report->generated = get_time_from_timespec(handler->timestamp_for_report_data(data_report_record)); // this function returns timespec so change to ogs_time_t;
     report->last_used = ogs_time_now();
     report->session = session;
-    report->hash = data_collection_strdup(handler->tag_for_report_data(data_report_record));
+    report->hash = handler->tag_for_report_data(data_report_record);
     report->data_report_record = data_report_record;
+    report->copied_from = NULL;
     report->external_application_id = data_collection_strdup(external_application_id);
     report->number_of_original_records = 0;
     report->data_report_record_owner = true;
-    report->file_path = data_collection_strdup(data_collection_self()->config.data_collection_dir);
+    report->file_path = data_collection_self()->config.data_collection_dir;
     
     data_reports = (data_report_hash_record_t *)ogs_hash_get(data_collection_self()->data_reports, &report->data_report_handler, sizeof(data_collection_data_report_handler_t*));
     if(!data_reports) {
@@ -411,7 +580,7 @@ static data_collection_data_report_record_t *__data_collection_report_create(dat
     char *body = cJSON_Print(data_report_json);
     cJSON_Delete(data_report_json);
 
-    data_collection_report_store(data_collection_strdup(session->data_reporting_session_id), data_collection_strdup(handler->data_domain), report_time, "json", body);
+    data_collection_report_store(session->data_reporting_session_id, handler->data_domain, report_time, "json", body);
     cJSON_free(body);
     ogs_free(report_time);
 
@@ -468,6 +637,12 @@ static ogs_list_t *__get_data_reports_allowed_for_event_subscription(const data_
 	data_report_hash_record_t *data_reports;
 
 	data_reports = (data_report_hash_record_t *)ogs_hash_get(data_collection_self()->data_reports, handlers+i, sizeof(handlers[i]));
+       
+       	if(!data_reports || !ogs_list_first(&data_reports->list)) {
+            if (events_subs) data_collection_list_free(events_subs);
+            if (allowed_handlers) ogs_free(allowed_handlers);
+            return NULL;
+        }
 
 	ogs_list_for_each(&data_reports->list, data_report) {
             if(omit_used) {
@@ -498,10 +673,10 @@ static ogs_list_t *__apply_aggregation(ogs_list_t *data_records) {
     ogs_hash_t *handlers = ogs_hash_make();
     ogs_hash_index_t *it;
     ogs_list_t *data_records_aggregated = NULL;
-
+    ogs_list_t *aggregation_functions = NULL;
+    
     ogs_list_for_each(data_records, data_record) {
 	const char *external_application_id;    
-        ogs_list_t *aggregation_functions = NULL;
 	const char *event_type = data_record->data_report_handler->event_type;
 
 	data_collection_model_data_report_t *report = (data_collection_model_data_report_t *)data_record->data_report_record;
@@ -691,6 +866,7 @@ static data_collection_data_report_property_e __get_report_properties(data_colle
         ret = properties[i].property_fn(report);
         if (ret) {
 	    if(properties[i].property_enum == DATA_COLLECTION_DATA_REPORT_PROPERTY_COMMUNICATION) __populate_communication_records(report, data_reports);	
+	    data_collection_list_free(ret);
 	    return properties[i].property_enum;
 	}
     }
@@ -720,6 +896,7 @@ static void __populate_communication_records (data_collection_model_data_report_
         }
 
     }
+    data_collection_list_free(communication_list);
 }
 
 static data_collection_data_report_property_e __data_report_handler_report_property(const data_collection_data_report_handler_t *handler)
@@ -748,6 +925,18 @@ static data_collection_data_report_property_e __data_domain_to_data_report_prope
     END
     return 0;
 }
+
+static int __free_local_data_report_records(ogs_list_t *data_report_records) {
+    data_report_t *data_report = NULL, *data_report_node = NULL;
+    ogs_list_for_each_safe(data_report_records, data_report, data_report_node) {
+        ogs_list_remove(data_report_records, data_report_node);
+        cJSON_Delete(data_report_node->data_report);
+        ogs_free(data_report_node);
+    }
+    return 1;
+
+}
+
 
 static void __data_reports_timer_activate(void) {
 

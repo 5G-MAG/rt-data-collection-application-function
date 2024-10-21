@@ -56,6 +56,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_session_t *data_colle
 
     ogs_hash_set(data_collection_self()->data_reporting_sessions, data_collection_reporting_session->data_reporting_session_id, OGS_HASH_KEY_STRING, data_collection_reporting_session);
 
+    data_collection_list_free(supported_domains);
     return data_collection_reporting_session;
 }
 
@@ -116,6 +117,7 @@ data_collection_reporting_session_t *data_reporting_session_populate(data_collec
 
     //data_collection_model_data_reporting_session_set_valid_until(ogs_time_now() + ogs_time_from_sec(data_collection_self()->config.server_response_cache_control->data_collection_reporting_report_response_max_age)); // Do not set valid_until, it messes with HTTP caching
     data_collection_reporting_session->hash = calculate_data_reporting_session_hash(data_collection_reporting_session->data_reporting_session);
+    data_collection_list_free(supported_domains);
 
     return data_collection_reporting_session;
 }

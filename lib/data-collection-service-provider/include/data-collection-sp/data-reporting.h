@@ -150,7 +150,29 @@ DATA_COLLECTION_SVC_PRODUCER_API void *data_collection_reporting_data_report_get
 /**Create a copy of Data Report*/
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_collection_data_report_record_copy(data_collection_data_report_record_t *data_report_record);
 
+/** Delete copied Data Report */
+
+DATA_COLLECTION_SVC_PRODUCER_API int data_collection_data_report_record_copy_delete(data_collection_data_report_record_t *data_report_record);
+
+/** Create a minimal Data Report structure for aggregation */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_collection_aggregation_functions_report_create(void *data_report_record, const char *external_application_id);
+
+/** Prepare a Data Report record for aggregation */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_collection_aggregated_data_report_record(data_collection_data_report_record_t *data_report_record);
+
+/** Set Data Report Record to a Aggregrated Data Report */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_collection_reporting_set_report(data_collection_data_report_record_t *aggregated_data_report_record, void *data_report_record);
+
+/** Get the Data Reporting Session for a Data Report */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_session_t *data_collection_reporting_session_get(data_collection_data_report_record_t *report_record);
+
+/** Destroy a Data Report */
+
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_report_destroy(data_collection_data_report_record_t *report_record);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_collection_reporting_add_report_record(data_collection_data_report_record_t *data_report_record_aggregated, data_collection_data_report_record_t *original_data_report_record);
+
+DATA_COLLECTION_SVC_PRODUCER_API size_t data_collection_reporting_get_number_of_original_records(data_collection_data_report_record_t *data_report_record);
 
 
 #ifdef __cplusplus

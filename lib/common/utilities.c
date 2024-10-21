@@ -75,7 +75,7 @@ char *ogs_time_to_string(ogs_time_t timestamp, const char *format)
     char datetime[128];
 
     ogs_localtime(ogs_time_sec(timestamp), &tm);
-    ogs_strftime(datetime, sizeof datetime, data_collection_strdup(format), &tm);
+    ogs_strftime(datetime, sizeof datetime, format, &tm);
 
     return ogs_msprintf("%s", datetime);
 }

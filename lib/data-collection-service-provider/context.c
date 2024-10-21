@@ -16,6 +16,7 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #include "utilities.h"
 #include "lib-metadata.h"
 #include "data-reporting.h"
+#include "data-report.h"
 #include "data-reporting-session-cache.h"
 #include "data-reporting-provisioning.h"
 #include "event-subscription.h"
@@ -640,7 +641,7 @@ static void data_collection_context_data_reporting_sessions_remove(void) {
 static void data_collection_context_data_reports_remove(void) {
     ogs_info("Removing all Data Reports");
     
-    data_collection_hash_free(self->data_reports, (void(*)(void*))data_collection_model_data_report_free);
+    data_collection_hash_free(self->data_reports, (void(*)(void*))data_report_hash_record_free);
     self->data_reports = NULL;
 	
 }

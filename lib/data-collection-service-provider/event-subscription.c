@@ -30,6 +30,7 @@ typedef struct data_collection_event_subscription_s {
     char *hash;
     ogs_sbi_client_t  *client;
     data_collection_model_af_event_exposure_subsc_t *af_event_exposure_subscription;
+    struct data_collection_event_subscription_s *original_event_subscription;
     ogs_timer_t *event_notification_timer;
     bool send_notif;
 } data_collection_event_subscription_t;
@@ -81,6 +82,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_event_subscription_t *data_coll
     }
 
     data_collection_event_subscription->send_notif = false;
+    data_collection_event_subscription->original_event_subscription = NULL;
 
     __event_subscription_process_notif_method(data_collection_event_subscription);
 
@@ -131,6 +133,21 @@ DATA_COLLECTION_SVC_PRODUCER_API void data_collection_event_subscription_unsubsc
 
     _event_subscription_free(event_subscription);
 }
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_event_subscription_t *data_collection_event_subscription_set_original_event_subscription(data_collection_event_subscription_t *event_subscription, const data_collection_event_subscription_t *event_subscription_original /* not-null */)
+{
+    if (!event_subscription || !event_subscription_original) return NULL;
+    event_subscription->original_event_subscription = event_subscription_original;
+    return event_subscription;   
+
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_event_subscription_t *data_collection_event_subscription_get_original_event_subscription(const data_collection_event_subscription_t *event_subscription /* not-null */)
+{
+    if (!event_subscription) return NULL;
+    return event_subscription->original_event_subscription;
+}
+
 
 DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_af_event_exposure_subsc_t *data_collection_event_subscription_get_af_event_exposure_subsc(const data_collection_event_subscription_t *event_subscription /* not-null */)
 {

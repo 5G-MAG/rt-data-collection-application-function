@@ -41,7 +41,7 @@ static void application_ids_remove(ogs_list_t *application_ids);
 
 ogs_list_t *generate_af_event_notifications(ogs_list_t *data_reports, data_collection_event_subscription_t *data_collection_event_subscription) {
      
-    data_collection_data_report_record_t *data_report;
+    data_collection_data_report_record_t *data_report, *data_rep = NULL, *data_report_node = NULL;
     ogs_list_t application_ids;
     application_id_node_t *application_id_node;
     ogs_list_t communication_collection_records;
@@ -100,6 +100,15 @@ ogs_list_t *generate_af_event_notifications(ogs_list_t *data_reports, data_colle
 
     application_ids_remove(&application_ids);
 
+     ogs_list_for_each_safe(data_reports, data_rep, data_report_node) {
+         ogs_list_remove(data_reports, data_report_node);
+        if(!data_collection_reporting_session_get(data_report_node)) {
+            data_collection_report_destroy(data_report_node);
+        } else {
+            data_collection_data_report_record_copy_delete(data_report_node);
+	}
+    }
+
     return af_event_notifications;
     //return that list;
 }
@@ -123,8 +132,8 @@ communication_collection_record_t *generate_communication_collection_from_data_r
     const data_collection_model_time_window_t* time_interval =
                 data_collection_model_communication_record_get_time_interval(communication_record);
     if (time_interval) {
-        start_time = data_collection_strdup(data_collection_model_time_window_get_start_time(time_interval));
-        end_time = data_collection_strdup(data_collection_model_time_window_get_stop_time(time_interval));
+        start_time = data_collection_model_time_window_get_start_time(time_interval);
+        end_time = data_collection_model_time_window_get_stop_time(time_interval);
     }
 
     ul_vol = data_collection_model_communication_record_get_uplink_volume(communication_record);

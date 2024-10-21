@@ -144,6 +144,11 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_event_subscription_gener
 /** Generate AfEventExposureNotif request for the event subscription */
 DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_event_subscription_generate_af_event_exposure_notif(data_collection_event_subscription_t *data_collection_event_subscription);
 
+/** Reference to original event subscription */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_event_subscription_t *data_collection_event_subscription_set_original_event_subscription(data_collection_event_subscription_t *event_subscription, const data_collection_event_subscription_t *event_subscription_original /* not-null */);
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_event_subscription_t *data_collection_event_subscription_get_original_event_subscription(const data_collection_event_subscription_t *event_subscription /* not-null */);
+
 #ifdef __cplusplus
 }
 #endif

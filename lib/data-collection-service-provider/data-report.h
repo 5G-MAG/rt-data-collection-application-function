@@ -30,6 +30,7 @@ typedef struct data_collection_data_report_record_s {
     char *external_application_id;
     data_collection_reporting_session_t *session;
     void *data_report_record;
+    struct data_collection_data_report_record_s *copied_from;    
     struct data_collection_data_report_record_s **original_records;    
     size_t number_of_original_records;
     char *file_path;
