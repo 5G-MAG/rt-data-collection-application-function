@@ -21,17 +21,7 @@
 #include "ogs-core.h"
 
 #ifdef __cplusplus
-#ifndef OGS_CORE_INSIDE
-#define OGS_CORE_INSIDE
-#endif
-#ifndef OGS_USE_TALLOC
-#define OGS_USE_TALLOC 1
-#endif
-#include "ogs-list.h"
-
 extern "C" {
-#else
-#include "ogs-core.h"
 #endif
 
 /***** Enumerations *****/
@@ -174,6 +164,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_coll
 
 DATA_COLLECTION_SVC_PRODUCER_API size_t data_collection_reporting_get_number_of_original_records(data_collection_data_report_record_t *data_report_record);
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_reporting_client_type_cmp_to_model(data_collection_reporting_client_type_e reporting_client_type, data_collection_model_data_collection_client_type_e model_client_type);
 
 #ifdef __cplusplus
 }

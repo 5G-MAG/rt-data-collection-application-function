@@ -24,7 +24,7 @@ extern "C" {
 
 /******* Local prototypes ********/
 
-static void __data_collection_adjust_reporting_conditions(data_collection_model_data_reporting_session_t *data_reporting_session, ogs_hash_t *configurations, ogs_list_t *data_reporting_session_reporting_conditions_data_domain, const char *data_domain, data_collection_reporting_client_type_e client_type);
+static void __data_collection_adjust_reporting_conditions(data_collection_model_data_reporting_session_t *data_reporting_session, const ogs_hash_t *configurations, ogs_list_t *data_reporting_session_reporting_conditions_data_domain, const char *data_domain, data_collection_reporting_client_type_e client_type);
 static void __adjust_reporting_conditions(data_collection_model_data_reporting_session_t *data_reporting_session, ogs_list_t *configuration_reporting_conditions, const char *configuration_id, ogs_list_t *data_reporting_session_reporting_conditions_data_domain, const char *data_domain);
 
 /******* Private structures ********/
@@ -49,7 +49,7 @@ void data_collection_adjust_reporting_conditions(data_collection_model_data_repo
 	const char *af_event_type = data_collection_reporting_provisioning_session_get_af_event_type(session);
 
         if(af_event_type && external_app_id && !strcmp(af_event_type, event_type) && !strcmp(external_app_id, external_application_id)) {
-	    ogs_hash_t *configurations;
+	    const ogs_hash_t *configurations;
 	    configurations = data_collection_reporting_provisioning_session_get_configurations(session);
 	    __data_collection_adjust_reporting_conditions(data_reporting_session, configurations, data_reporting_session_reporting_conditions_data_domain, data_domain, client_type);
         }
@@ -60,15 +60,16 @@ void data_collection_adjust_reporting_conditions(data_collection_model_data_repo
 
 /******* Local private functions ********/
 
-static void __data_collection_adjust_reporting_conditions(data_collection_model_data_reporting_session_t *data_reporting_session, ogs_hash_t *configurations, ogs_list_t *data_reporting_session_reporting_conditions_data_domain, const char *data_domain, data_collection_reporting_client_type_e client_type)
+static void __data_collection_adjust_reporting_conditions(data_collection_model_data_reporting_session_t *data_reporting_session, const ogs_hash_t *configurations, ogs_list_t *data_reporting_session_reporting_conditions_data_domain, const char *data_domain, data_collection_reporting_client_type_e client_type)
 {
 
-    ogs_hash_index_t *it;
+    ogs_hash_index_t *it, *save_it;
     data_collection_reporting_configuration_t *configuration;
-    for (it = ogs_hash_first(configurations); it; it = ogs_hash_next(it)) {
+    save_it = it = ogs_hash_index_make(configurations);
+    for (it = ogs_hash_next(it); it; it = ogs_hash_next(it)) {
         const char *key;
         int key_len;
-	data_collection_model_data_collection_client_type_t *configuration_client_type = NULL;
+	const data_collection_model_data_collection_client_type_t *configuration_client_type = NULL;
 	data_collection_model_data_collection_client_type_e config_client_type;
 	const char *configuration_id = NULL;
 
@@ -77,7 +78,7 @@ static void __data_collection_adjust_reporting_conditions(data_collection_model_
             data_collection_reporting_configuration_model(configuration);
 	configuration_client_type = data_collection_model_data_reporting_configuration_get_data_collection_client_type(data_report_config);
         config_client_type =  data_collection_model_data_collection_client_type_get_enum(configuration_client_type);
-	if(config_client_type == client_type) {
+	if (data_collection_reporting_client_type_cmp_to_model(client_type, config_client_type)) {
 	    ogs_list_t *config_reporting_conditions;
 	    config_reporting_conditions = data_collection_model_data_reporting_configuration_get_data_reporting_conditions(data_report_config);
             if(config_reporting_conditions) {
@@ -88,14 +89,13 @@ static void __data_collection_adjust_reporting_conditions(data_collection_model_
 	    }
 	}
     }
-
+    ogs_free(save_it);
 }
 
 static void __adjust_reporting_conditions(data_collection_model_data_reporting_session_t *data_reporting_session, ogs_list_t *configuration_reporting_conditions, const char *configuration_id, ogs_list_t *data_reporting_session_reporting_conditions_data_domain, const char *data_domain)
 {
     data_collection_lnode_t *configuration_reporting_condition_node;
     data_collection_lnode_t *data_reporting_session_reporting_condition_node;
-    ogs_hash_index_t *it;
 
     ogs_assert(data_reporting_session_reporting_conditions_data_domain);
 

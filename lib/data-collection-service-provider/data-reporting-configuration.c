@@ -293,21 +293,19 @@ DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_provisioning_config
 
         if(!strcmp(data_collection_reporting_provisioning_session_get_af_event_type(session), event_type) && !strcmp(data_collection_reporting_provisioning_session_get_external_application_id(session), external_application_id)) {
 
-            ogs_hash_index_t *hit;
-            ogs_hash_t *configurations = data_collection_reporting_provisioning_session_get_configurations(session);
+            ogs_hash_index_t *hit, *save_hit;
+            const ogs_hash_t *configurations = data_collection_reporting_provisioning_session_get_configurations(session);
             data_collection_reporting_configuration_t *configuration;
-	   
-            for (hit = ogs_hash_first(configurations); hit; hit = ogs_hash_next(hit)) {
+
+            save_hit = hit = ogs_hash_index_make(configurations);
+            for (hit = ogs_hash_next(hit); hit; hit = ogs_hash_next(hit)) {
                 const char *ckey;
                 int ckey_len;
 		ogs_list_t *data_access_profiles;
 
-	       data_access_profiles = (ogs_list_t*) ogs_calloc(1,sizeof(*data_access_profiles));
-               ogs_assert(data_access_profiles);
-               ogs_list_init(data_access_profiles);
-
-
-		ogs_list_init(data_access_profiles);
+	        data_access_profiles = (ogs_list_t*) ogs_calloc(1,sizeof(*data_access_profiles));
+                ogs_assert(data_access_profiles);
+                ogs_list_init(data_access_profiles);
 
                 ogs_hash_this(hit, (const void **)&ckey, &ckey_len, (void**)(&configuration));
 		data_access_profiles = data_collection_model_data_reporting_configuration_get_data_access_profiles(configuration->model);
@@ -346,7 +344,7 @@ DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_provisioning_config
 
 	        if(data_access_profiles) ogs_free(data_access_profiles);
 	    }
-
+            ogs_free(save_hit);
 	}
     }
     return aggregation_functions;

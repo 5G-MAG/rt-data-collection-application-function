@@ -81,13 +81,10 @@ ogs_list_t *generate_af_event_notifications(ogs_list_t *data_reports, data_colle
 
 	af_event_notification = data_collection_model_af_event_notification_create();
         data_collection_model_af_event_notification_add_ue_comm_infos(af_event_notification, ue_communication_collection);
-	const char *timestamp = data_collection_strdup(get_current_time("%Y-%m-%dT%H:%M:%SZ"));
-        data_collection_model_af_event_notification_set_time_stamp(af_event_notification, timestamp);
-        data_collection_model_af_event_t *af_event = data_collection_model_af_event_create();
+        data_collection_model_af_event_notification_set_time_stamp(af_event_notification, get_current_time("%Y-%m-%dT%H:%M:%SZ"));
 
-        if(data_collection_model_af_event_is_not_set(af_event)){
-            data_collection_model_af_event_set_string(af_event, data_collection_strdup("UE_COMM"));
-        }
+        data_collection_model_af_event_t *af_event = data_collection_model_af_event_create();
+        data_collection_model_af_event_set_string(af_event, "UE_COMM");
         data_collection_model_af_event_notification_set_event(af_event_notification, af_event);
 
 	ogs_list_add(af_event_notifications, data_collection_model_af_event_notification_make_lnode(af_event_notification));
@@ -100,9 +97,9 @@ ogs_list_t *generate_af_event_notifications(ogs_list_t *data_reports, data_colle
 
     application_ids_remove(&application_ids);
 
-     ogs_list_for_each_safe(data_reports, data_rep, data_report_node) {
-         ogs_list_remove(data_reports, data_report_node);
-        if(!data_collection_reporting_session_get(data_report_node)) {
+    ogs_list_for_each_safe(data_reports, data_rep, data_report_node) {
+        ogs_list_remove(data_reports, data_report_node);
+        if (!data_collection_reporting_session_get(data_report_node)) {
             data_collection_report_destroy(data_report_node);
         } else {
             data_collection_data_report_record_copy_delete(data_report_node);

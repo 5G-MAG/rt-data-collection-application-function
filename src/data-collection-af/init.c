@@ -226,7 +226,7 @@ static ogs_list_t *event_exposure_generate_cb(data_collection_event_subscription
 
     data_reports = data_collection_reporting_report_find(NULL, data_collection_event_subscription, true);
     
-    if(data_reports && ogs_list_first(data_reports)) {
+    if (data_reports && ogs_list_first(data_reports)) {
         af_event_notifications = generate_af_event_notifications(data_reports, data_collection_event_subscription);
     }
 

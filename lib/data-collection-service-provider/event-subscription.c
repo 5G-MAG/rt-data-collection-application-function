@@ -86,7 +86,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_event_subscription_t *data_coll
 
     __event_subscription_process_notif_method(data_collection_event_subscription);
 
-    ogs_hash_set(data_collection_self()->event_subscriptions, data_collection_strdup(data_collection_event_subscription->subscription_id), OGS_HASH_KEY_STRING, data_collection_event_subscription);
+    ogs_hash_set(data_collection_self()->event_subscriptions, data_collection_event_subscription->subscription_id, OGS_HASH_KEY_STRING, data_collection_event_subscription);
 
     return data_collection_event_subscription;
 }

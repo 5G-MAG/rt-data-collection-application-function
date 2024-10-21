@@ -124,6 +124,8 @@ DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report(data_colle
     ogs_list_init(&data_reports);
     found_property = __get_report_properties(report, &data_reports);
 
+    data_collection_model_data_report_free(report);
+
     data_collection_data_report_handler_t **handlers = (data_collection_data_report_handler_t **)data_collection_self()->config.data_collection_configuration->data_report_handlers;
     
     if (!handlers[i]) {

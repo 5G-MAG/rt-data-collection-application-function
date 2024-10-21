@@ -44,10 +44,6 @@
 
 #include "macros.h"
 #include "event-exposure.h"
-#include "data-reporting.h"
-#include "data-reporting-provisioning.h"
-#include "data-reporting-configuration.h"
-#include "lifecycle.h"
 #include "aggregation-function.h"
 #include "ogs-list-support.h"
 
@@ -329,6 +325,11 @@
 #include "UserDataCongestionCollection.h"
 #include "VelocityEstimate.h"
 #include "VerticalDirection.h"
+
+#include "data-reporting.h"
+#include "data-reporting-provisioning.h"
+#include "data-reporting-configuration.h"
+#include "lifecycle.h"
 
 #undef INCLUDED_FROM_DATA_COLLECTION_H
 

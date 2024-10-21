@@ -19,6 +19,7 @@
     typedef typename ValueType{{<is-optional}}{{$yes}}::value_type{{/yes}}{{/is-optional}}::mapped_type ItemType;
     {{<is-optional}}{{$yes}}value = std::move(typename ValueType::value_type());{{/yes}}{{/is-optional}}
     ogs_hash_index_t *entry = ogs_hash_index_make(value_from);
+    ogs_hash_index_t *save_entry = entry;
     auto &container(value{{<is-optional}}{{$yes}}.value(){{/yes}}{{/is-optional}});
     for (entry = ogs_hash_next(entry); entry; entry = ogs_hash_next(entry)) {
 	const char *key;
@@ -32,5 +33,5 @@
             {{<is-optional}}{{$yes}}if (value.has_value()) {{/yes}}{{/is-optional}}container.insert(std::make_pair(std::string(key), {{<is-optional}}{{$yes}}ItemType(std::move({{/yes}}{{/is-optional}}value{{<is-optional}}{{$yes}})){{/yes}}{{/is-optional}}));
 	}{{/isContainer}}{{^isContainer}}if (item) container.insert(std::make_pair(std::string(key), {{<is-optional}}{{$yes}}ItemType(std::move({{/yes}}{{/is-optional}}*item{{<is-optional}}{{$yes}})){{/yes}}{{/is-optional}}));{{/isContainer}}{{/isString}}{{/items}}
     }
-    ogs_free(entry);
+    ogs_free(save_entry);
 }{{/isMap}}{{/isContainer}}{{^isContainer}}{{#isPrimitiveType}}ValueType value(value_from);{{/isPrimitiveType}}{{^isPrimitiveType}}{{#isString}}ValueType value(value_from);{{/isString}}{{#isDate}}ValueType value(value_from);{{/isDate}}{{#isDateTime}}ValueType value(value_from);{{/isDateTime}}{{#isByteArray}}ValueType value(value_from);{{/isByteArray}}{{^isString}}{{^isDate}}{{^isDateTime}}{{^isByteArray}}ValueType value(*reinterpret_cast<const ValueType{{<is-optional}}{{$yes}}::value_type{{/yes}}{{/is-optional}}*>(value_from));{{/isByteArray}}{{/isDateTime}}{{/isDate}}{{/isString}}{{/isPrimitiveType}}{{/isContainer}}{{/composedSchemas}}

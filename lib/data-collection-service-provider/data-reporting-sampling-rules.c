@@ -24,7 +24,7 @@ extern "C" {
 
 /******* Local prototypes ********/
 
-static void __data_collection_adjust_sampling_rules(data_collection_model_data_reporting_session_t *data_reporting_session, ogs_hash_t *configurations, ogs_list_t *data_reporting_session_sampling_rules_data_domain, const char *data_domain, data_collection_reporting_client_type_e client_type);
+static void __data_collection_adjust_sampling_rules(data_collection_model_data_reporting_session_t *data_reporting_session, const ogs_hash_t *configurations, ogs_list_t *data_reporting_session_sampling_rules_data_domain, const char *data_domain, data_collection_reporting_client_type_e client_type);
 static void __adjust_sampling_rules(data_collection_model_data_reporting_session_t *data_reporting_session, ogs_list_t *configuration_sampling_rules, const char *configuration_id, ogs_list_t *data_reporting_session_sampling_rules_data_domain, const char *data_domain);
 
 /******* Private structures ********/
@@ -49,7 +49,7 @@ void data_collection_adjust_sampling_rules(data_collection_model_data_reporting_
 	const char *af_event_type = data_collection_reporting_provisioning_session_get_af_event_type(session);
 
         if(af_event_type && external_app_id && !strcmp(af_event_type, event_type) && !strcmp(external_app_id, external_application_id)) {
-	    ogs_hash_t *configurations;
+	    const ogs_hash_t *configurations;
 	    configurations = data_collection_reporting_provisioning_session_get_configurations(session);
 	     __data_collection_adjust_sampling_rules(data_reporting_session, configurations, data_reporting_session_sampling_rules_data_domain, data_domain, client_type);
         }
@@ -60,15 +60,16 @@ void data_collection_adjust_sampling_rules(data_collection_model_data_reporting_
 
 /******* Local private functions ********/
 
-static void __data_collection_adjust_sampling_rules(data_collection_model_data_reporting_session_t *data_reporting_session, ogs_hash_t *configurations, ogs_list_t *data_reporting_session_sampling_rules_data_domain, const char *data_domain, data_collection_reporting_client_type_e client_type)
+static void __data_collection_adjust_sampling_rules(data_collection_model_data_reporting_session_t *data_reporting_session, const ogs_hash_t *configurations, ogs_list_t *data_reporting_session_sampling_rules_data_domain, const char *data_domain, data_collection_reporting_client_type_e client_type)
 {
 
-    ogs_hash_index_t *it;
+    ogs_hash_index_t *it, *save_it;
     data_collection_reporting_configuration_t *configuration;
-    for (it = ogs_hash_first(configurations); it; it = ogs_hash_next(it)) {
+    save_it = it = ogs_hash_index_make(configurations);
+    for (it = ogs_hash_next(it); it; it = ogs_hash_next(it)) {
         const char *key;
         int key_len;
-	data_collection_model_data_collection_client_type_t *configuration_client_type = NULL;
+	const data_collection_model_data_collection_client_type_t *configuration_client_type = NULL;
 	data_collection_model_data_collection_client_type_e config_client_type;
 	const char *configuration_id = NULL;
 
@@ -77,7 +78,7 @@ static void __data_collection_adjust_sampling_rules(data_collection_model_data_r
             data_collection_reporting_configuration_model(configuration);
 	configuration_client_type = data_collection_model_data_reporting_configuration_get_data_collection_client_type(data_report_config);
         config_client_type =  data_collection_model_data_collection_client_type_get_enum(configuration_client_type);
-	if(config_client_type == client_type) {
+	if (data_collection_reporting_client_type_cmp_to_model(client_type, config_client_type)) {
 	    ogs_list_t *config_sampling_rules;	
 	    config_sampling_rules = data_collection_model_data_reporting_configuration_get_data_sampling_rules(data_report_config);
             if(config_sampling_rules) {
@@ -88,47 +89,54 @@ static void __data_collection_adjust_sampling_rules(data_collection_model_data_r
 	    }	    
 	}
     }
-
+    ogs_free(save_it);
 }
 
 static void __adjust_sampling_rules(data_collection_model_data_reporting_session_t *data_reporting_session, ogs_list_t *configuration_sampling_rules, const char *configuration_id, ogs_list_t *data_reporting_session_sampling_rules_data_domain, const char *data_domain)
 {
     data_collection_lnode_t *configuration_sampling_rule_node;
     data_collection_lnode_t *data_reporting_session_sampling_rule_node;
-    ogs_hash_index_t *it;
 
-    ogs_list_for_each(configuration_sampling_rules, configuration_sampling_rule_node) {
-        data_collection_lnode_t *data_reporting_session_sampling_rule;
-        data_collection_model_data_sampling_rule_t *config_sampling_rule = configuration_sampling_rule_node->object;
+    ogs_assert(data_reporting_session_sampling_rules_data_domain);
 
-	if(data_reporting_session_sampling_rules_data_domain &&  !ogs_list_first(data_reporting_session_sampling_rules_data_domain)) {
-            data_collection_lnode_t *data_reporting_session_sampling_rule_node;
-            if(!data_collection_model_data_sampling_rule_has_context_ids(config_sampling_rule))
+    if (!ogs_list_first(data_reporting_session_sampling_rules_data_domain)) {
+        /* existing list is empty we just copy over the items */
+        ogs_list_for_each(configuration_sampling_rules, configuration_sampling_rule_node) {
+            data_collection_model_data_sampling_rule_t *config_sampling_rule = configuration_sampling_rule_node->object;
+            data_collection_lnode_t *new_lnode;
+
+            if(!data_collection_model_data_sampling_rule_has_context_ids(config_sampling_rule)) {
+                /* add the context id if it's missing */
                 data_collection_model_data_sampling_rule_add_context_ids(config_sampling_rule, data_collection_strdup(configuration_id));
-            data_reporting_session_sampling_rule_node = data_collection_model_data_sampling_rule_make_lnode(config_sampling_rule);
-            ogs_list_add(data_reporting_session_sampling_rules_data_domain, data_reporting_session_sampling_rule_node);
-        } else {
-	
+            }
+            /* move the DataReportingCondition to the output list */
+            new_lnode = data_collection_lnode_copy_move(configuration_sampling_rule_node);
+            ogs_list_add(data_reporting_session_sampling_rules_data_domain, new_lnode);
+        }
+    } else {
+        ogs_list_for_each(configuration_sampling_rules, configuration_sampling_rule_node) {
+            bool found = false;
+            data_collection_model_data_sampling_rule_t *config_sampling_rule = configuration_sampling_rule_node->object;
             ogs_list_for_each(data_reporting_session_sampling_rules_data_domain, data_reporting_session_sampling_rule_node) {
-	        data_collection_model_data_sampling_rule_t *data_reporting_session_sampling_rule = data_reporting_session_sampling_rule_node->object;    
+                data_collection_model_data_sampling_rule_t *data_reporting_session_sampling_rule = data_reporting_session_sampling_rule_node->object;
 
-                if(data_collection_model_data_sampling_rule_is_equal_to_sans_context_ids(data_reporting_session_sampling_rule, config_sampling_rule)) {
-
-	            data_collection_model_data_sampling_rule_add_context_ids(data_reporting_session_sampling_rule, data_collection_strdup(configuration_id));
-	            break;	    
-	        	    
-	        } else {
-		    data_collection_lnode_t *data_reporting_session_sampling_rule_lnode;
-                    if(!data_collection_model_data_sampling_rule_has_context_ids(config_sampling_rule))
-		        data_collection_model_data_sampling_rule_add_context_ids(config_sampling_rule, data_collection_strdup(configuration_id));    
-		    data_reporting_session_sampling_rule_lnode = data_collection_model_data_sampling_rule_make_lnode(config_sampling_rule);
-		    ogs_list_add(data_reporting_session_sampling_rules_data_domain, data_reporting_session_sampling_rule_lnode);
-		    break;
-	        }
-	    }
-	}
-
+                if (data_collection_model_data_sampling_rule_is_equal_to_sans_context_ids(config_sampling_rule, data_reporting_session_sampling_rule)) {
+                    data_collection_model_data_sampling_rule_add_context_ids(data_reporting_session_sampling_rule, data_collection_strdup(configuration_id));
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                data_collection_lnode_t *new_lnode = data_collection_lnode_copy_move(configuration_sampling_rule_node);
+                if (!data_collection_model_data_sampling_rule_has_context_ids(config_sampling_rule)) {
+                    data_collection_model_data_sampling_rule_add_context_ids(config_sampling_rule, data_collection_strdup(configuration_id));
+                }
+                ogs_list_add(data_reporting_session_sampling_rules_data_domain, new_lnode);
+            }
+        }
     }
+    /* tidy up the input list */
+    data_collection_list_free(configuration_sampling_rules);
 }
 
 #ifdef __cplusplus

@@ -102,6 +102,17 @@ DATA_COLLECTION_SVC_PRODUCER_API const struct timespec* data_collection_reportin
     return &ts;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_reporting_client_type_cmp_to_model(data_collection_reporting_client_type_e reporting_client_type, data_collection_model_data_collection_client_type_e model_client_type)
+{
+    if (reporting_client_type == DATA_COLLECTION_REPORTING_CLIENT_TYPE_DIRECT &&
+        model_client_type == DCM_DATA_COLLECTION_CLIENT_TYPE_VAL_DIRECT) return true;
+    if (reporting_client_type == DATA_COLLECTION_REPORTING_CLIENT_TYPE_INDIRECT &&
+        model_client_type == DCM_DATA_COLLECTION_CLIENT_TYPE_VAL_INDIRECT) return true;
+    if (reporting_client_type == DATA_COLLECTION_REPORTING_CLIENT_TYPE_APPLICATION_SERVER &&
+        model_client_type == DCM_DATA_COLLECTION_CLIENT_TYPE_VAL_APPLICATION_SERVER) return true;
+    return false;
+}
+
 /********** Library internal functions ***********/
 
 data_collection_reporting_session_t *data_reporting_session_populate(data_collection_reporting_session_t *data_collection_reporting_session, data_collection_model_data_reporting_session_t *data_reporting_session)

@@ -609,6 +609,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
         typedef typename ValueType::value_type::mapped_type ItemType;
         value = std::move(typename ValueType::value_type());
         ogs_hash_index_t *entry = ogs_hash_index_make(value_from);
+        ogs_hash_index_t *save_entry = entry;
         auto &container(value.value());
         for (entry = ogs_hash_next(entry); entry; entry = ogs_hash_next(entry)) {
     	const char *key;
@@ -632,7 +633,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
                 if (value.has_value()) container.insert(std::make_pair(std::string(key), ItemType(std::move(value))));
     	}
         }
-        ogs_free(entry);
+        ogs_free(save_entry);
     }
 
     if (!obj->setSamplingRules(value)) return NULL;
@@ -655,6 +656,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
         typedef typename ValueType::value_type::mapped_type ItemType;
         value = std::move(typename ValueType::value_type());
         ogs_hash_index_t *entry = ogs_hash_index_make(value_from);
+        ogs_hash_index_t *save_entry = entry;
         auto &container(value.value());
         for (entry = ogs_hash_next(entry); entry; entry = ogs_hash_next(entry)) {
     	const char *key;
@@ -678,7 +680,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
                 if (value.has_value()) container.insert(std::make_pair(std::string(key), ItemType(std::move(value))));
     	}
         }
-        ogs_free(entry);
+        ogs_free(save_entry);
     }
 
     data_collection_hash_free(p_sampling_rules, reinterpret_cast<void(*)(void*)>(data_collection_model_data_sampling_rule_free));
@@ -859,6 +861,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
         typedef typename ValueType::value_type::mapped_type ItemType;
         value = std::move(typename ValueType::value_type());
         ogs_hash_index_t *entry = ogs_hash_index_make(value_from);
+        ogs_hash_index_t *save_entry = entry;
         auto &container(value.value());
         for (entry = ogs_hash_next(entry); entry; entry = ogs_hash_next(entry)) {
     	const char *key;
@@ -882,7 +885,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
                 if (value.has_value()) container.insert(std::make_pair(std::string(key), ItemType(std::move(value))));
     	}
         }
-        ogs_free(entry);
+        ogs_free(save_entry);
     }
 
     if (!obj->setReportingConditions(value)) return NULL;
@@ -905,6 +908,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
         typedef typename ValueType::value_type::mapped_type ItemType;
         value = std::move(typename ValueType::value_type());
         ogs_hash_index_t *entry = ogs_hash_index_make(value_from);
+        ogs_hash_index_t *save_entry = entry;
         auto &container(value.value());
         for (entry = ogs_hash_next(entry); entry; entry = ogs_hash_next(entry)) {
     	const char *key;
@@ -928,7 +932,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
                 if (value.has_value()) container.insert(std::make_pair(std::string(key), ItemType(std::move(value))));
     	}
         }
-        ogs_free(entry);
+        ogs_free(save_entry);
     }
 
     data_collection_hash_free(p_reporting_conditions, reinterpret_cast<void(*)(void*)>(data_collection_model_data_reporting_condition_free));
@@ -1109,6 +1113,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
         typedef typename ValueType::value_type::mapped_type ItemType;
         value = std::move(typename ValueType::value_type());
         ogs_hash_index_t *entry = ogs_hash_index_make(value_from);
+        ogs_hash_index_t *save_entry = entry;
         auto &container(value.value());
         for (entry = ogs_hash_next(entry); entry; entry = ogs_hash_next(entry)) {
     	const char *key;
@@ -1132,7 +1137,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
                 if (value.has_value()) container.insert(std::make_pair(std::string(key), ItemType(std::move(value))));
     	}
         }
-        ogs_free(entry);
+        ogs_free(save_entry);
     }
 
     if (!obj->setReportingRules(value)) return NULL;
@@ -1155,6 +1160,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
         typedef typename ValueType::value_type::mapped_type ItemType;
         value = std::move(typename ValueType::value_type());
         ogs_hash_index_t *entry = ogs_hash_index_make(value_from);
+        ogs_hash_index_t *save_entry = entry;
         auto &container(value.value());
         for (entry = ogs_hash_next(entry); entry; entry = ogs_hash_next(entry)) {
     	const char *key;
@@ -1178,7 +1184,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
                 if (value.has_value()) container.insert(std::make_pair(std::string(key), ItemType(std::move(value))));
     	}
         }
-        ogs_free(entry);
+        ogs_free(save_entry);
     }
 
     data_collection_hash_free(p_reporting_rules, reinterpret_cast<void(*)(void*)>(data_collection_model_data_reporting_rule_free));
