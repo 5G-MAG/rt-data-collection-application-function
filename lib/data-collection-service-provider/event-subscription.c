@@ -344,8 +344,7 @@ bool _event_exposure_notification_send_local_event(void *data){
     ogs_event_t *event;
     int rv;
 
-    event = (ogs_event_t*)ogs_event_new(DC_LOCAL_EVENT_EXPOSURE_NOTIFICATION);
-    event->sbi.data = data;
+    event = _local_event_create(DC_LOCAL_EVENT_EXPOSURE_NOTIFICATION, data);
 
     rv = ogs_queue_push(ogs_app()->queue, event);
     if (rv !=OGS_OK) {

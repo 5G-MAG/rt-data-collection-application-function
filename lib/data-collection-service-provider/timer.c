@@ -84,7 +84,7 @@ static void timer_send_event(int timer_id, void *data)
         e->timer_id = timer_id;
         break;
     case DC_TIMER_EVENT_EXPOSURE_NOTIF:
-        e = (ogs_event_t *)ogs_event_new(DC_LOCAL_EVENT_EXPOSURE_NOTIFICATION);
+        e = _local_event_create(DC_LOCAL_EVENT_EXPOSURE_NOTIFICATION, NULL);
         ogs_assert(e);
         e->timer_id = timer_id;
         break;

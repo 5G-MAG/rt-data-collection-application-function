@@ -15,6 +15,7 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #include "context.h"
 #include "utilities.h"
 #include "lib-metadata.h"
+#include "data-report.h"
 #include "data-reporting.h"
 #include "data-report.h"
 #include "data-reporting-session-cache.h"

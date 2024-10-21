@@ -30,11 +30,11 @@ libdc_common_libinc = include_directories('.')
 libdccommon = static_library('common',
     sources : libdc_common_sources,
     include_directories : [libdc_common_libinc, libinc],
+    dependencies : [libapp_dep.partial_dependency(compile_args: true, includes: true),
+                    libcore_dep.partial_dependency(compile_args: true, includes: true),
+                    libcrypt_dep.partial_dependency(compile_args: true, includes: true),
+                    libsbi_dep.partial_dependency(compile_args: true, includes: true)],
     gnu_symbol_visibility : 'hidden',
-    dependencies : [libapp_dep,
-                    libcore_dep,
-                    libcrypt_dep,
-		    libsbi_dep],
     install : false)
 
 libdccommon_dep = declare_dependency(

@@ -13,37 +13,38 @@
 extern "C" {
 #endif
 
+typedef data_collection_aggregate_result_t *(*__aggregation_fn_t)(void *array, size_t array_len);
 typedef struct fn_lookup_s {
     const char *name;
-    data_collection_aggregate_result_t *(*fn)(void *array, size_t array_len);
+    __aggregation_fn_t fn;
 } fn_lookup_t;
 
 static data_collection_aggregate_result_t *_generic_none(void *array, size_t item_size, size_t entries);
-static data_collection_aggregate_result_t *_int32_none_fn(int32_t *array, size_t entries);
+static data_collection_aggregate_result_t *_int32_none_fn(void *array, size_t entries);
 static data_collection_aggregate_result_t *_count_fn(void *array, size_t entries);
 static data_collection_aggregate_result_t *_int32_min_fn(void *array, size_t entries);
-static data_collection_aggregate_result_t *_int32_max_fn(int32_t *array, size_t entries);
-static data_collection_aggregate_result_t *_int32_sum_fn(int32_t *array, size_t entries);
-static data_collection_aggregate_result_t *_int32_mean_fn(int32_t *array, size_t entries);
+static data_collection_aggregate_result_t *_int32_max_fn(void *array, size_t entries);
+static data_collection_aggregate_result_t *_int32_sum_fn(void *array, size_t entries);
+static data_collection_aggregate_result_t *_int32_mean_fn(void *array, size_t entries);
 
-static data_collection_aggregate_result_t *_int64_none_fn(int64_t *array, size_t entries);
-static data_collection_aggregate_result_t *_int64_min_fn(int64_t *array, size_t entries);
-static data_collection_aggregate_result_t *_int64_max_fn(int64_t *array, size_t entries);
-static data_collection_aggregate_result_t *_int64_sum_fn(int64_t *array, size_t entries);
-static data_collection_aggregate_result_t *_int64_mean_fn(int64_t *array, size_t entries);
+static data_collection_aggregate_result_t *_int64_none_fn(void *array, size_t entries);
+static data_collection_aggregate_result_t *_int64_min_fn(void *array, size_t entries);
+static data_collection_aggregate_result_t *_int64_max_fn(void *array, size_t entries);
+static data_collection_aggregate_result_t *_int64_sum_fn(void *array, size_t entries);
+static data_collection_aggregate_result_t *_int64_mean_fn(void *array, size_t entries);
 
-static data_collection_aggregate_result_t *_float_none_fn(float *array, size_t entries);
-static data_collection_aggregate_result_t *_float_min_fn(float *array, size_t entries);
-static data_collection_aggregate_result_t *_float_max_fn(float *array, size_t entries);
-static data_collection_aggregate_result_t *_float_sum_fn(float *array, size_t entries);
-static data_collection_aggregate_result_t *_float_mean_fn(float *array, size_t entries);
+static data_collection_aggregate_result_t *_float_none_fn(void *array, size_t entries);
+static data_collection_aggregate_result_t *_float_min_fn(void *array, size_t entries);
+static data_collection_aggregate_result_t *_float_max_fn(void *array, size_t entries);
+static data_collection_aggregate_result_t *_float_sum_fn(void *array, size_t entries);
+static data_collection_aggregate_result_t *_float_mean_fn(void *array, size_t entries);
 
 
-static data_collection_aggregate_result_t *_double_none_fn(double *array, size_t entries);
-static data_collection_aggregate_result_t *_double_min_fn(double *array, size_t entries);
-static data_collection_aggregate_result_t *_double_max_fn(double *array, size_t entries);
-static data_collection_aggregate_result_t *_double_sum_fn(double *array, size_t entries);
-static data_collection_aggregate_result_t *_double_mean_fn(double *array, size_t entries);
+static data_collection_aggregate_result_t *_double_none_fn(void *array, size_t entries);
+static data_collection_aggregate_result_t *_double_min_fn(void *array, size_t entries);
+static data_collection_aggregate_result_t *_double_max_fn(void *array, size_t entries);
+static data_collection_aggregate_result_t *_double_sum_fn(void *array, size_t entries);
+static data_collection_aggregate_result_t *_double_mean_fn(void *array, size_t entries);
 
 
 static fn_lookup_t _int_32_fns[] = {
@@ -157,7 +158,7 @@ static data_collection_aggregate_result_t *_generic_none(void *array, size_t ite
     return ret;
 }
 
-static data_collection_aggregate_result_t *_int32_none_fn(int32_t *array, size_t entries)
+static data_collection_aggregate_result_t *_int32_none_fn(void *array, size_t entries)
 {
     return _generic_none(array, sizeof(int32_t), entries);
 }
@@ -177,29 +178,31 @@ static data_collection_aggregate_result_t *_int32_min_fn(void *array, size_t ent
     return ret;   
 }
 
-static data_collection_aggregate_result_t *_int32_max_fn(int32_t *array, size_t entries)
+static data_collection_aggregate_result_t *_int32_max_fn(void *array, size_t entries)
 {
     if (entries == 0) return NULL;
+    int32_t *int_array = (int32_t*)array;
     size_t i;
     data_collection_aggregate_result_t *ret = ogs_calloc(1, sizeof(*ret));
-    int32_t max = array[0];
+    int32_t max = int_array[0];
     for (i=1; i<entries; i++) {
-        if (array[i] > max) max = array[i];
+        if (int_array[i] > max) max = int_array[i];
     }
     DATA_COLLECTION_AGGREGATION_RESULT_TYPE(*ret) = DATA_COLLECTION_AGGREGATE_RESULT_VALUE;
     DATA_COLLECTION_AGGREGATION_RESULT_INT32(*ret) = max;
-    return ret;	
+    return ret;
 }
 
-static data_collection_aggregate_result_t *_int32_sum_fn(int32_t *array, size_t entries)
+static data_collection_aggregate_result_t *_int32_sum_fn(void *array, size_t entries)
 {
     if (entries == 0) return NULL;
+    int32_t *int_array = (int32_t*)array;
     size_t i;
     int32_t sum;
     data_collection_aggregate_result_t *ret = ogs_calloc(1, sizeof(*ret));
     DATA_COLLECTION_AGGREGATION_RESULT_TYPE(*ret) = DATA_COLLECTION_AGGREGATE_RESULT_VALUE;
     for(i = 0; i < entries; i++) {
-        sum += array[i];
+        sum += int_array[i];
     }
     
     DATA_COLLECTION_AGGREGATION_RESULT_TYPE(*ret) = DATA_COLLECTION_AGGREGATE_RESULT_VALUE;
@@ -207,59 +210,62 @@ static data_collection_aggregate_result_t *_int32_sum_fn(int32_t *array, size_t 
     return ret;
 }
 
-static data_collection_aggregate_result_t *_int32_mean_fn(int32_t *array, size_t entries)
+static data_collection_aggregate_result_t *_int32_mean_fn(void *array, size_t entries)
 {
     data_collection_aggregate_result_t *ret = _int32_sum_fn(array, entries);
     if (ret) {
         DATA_COLLECTION_AGGREGATION_RESULT_TYPE(*ret) = DATA_COLLECTION_AGGREGATE_RESULT_DOUBLE;
         DATA_COLLECTION_AGGREGATION_RESULT_DOUBLE(*ret) = (double)(DATA_COLLECTION_AGGREGATION_RESULT_INT32(*ret))/(double)entries;
     }
-    return ret;	
+    return ret;
 }
 
 /****int64_t functions***/
 
-static data_collection_aggregate_result_t *_int64_none_fn(int64_t *array, size_t entries)
+static data_collection_aggregate_result_t *_int64_none_fn(void *array, size_t entries)
 {
     return _generic_none(array, sizeof(int64_t), entries);
 }
 
-static data_collection_aggregate_result_t *_int64_min_fn(int64_t *array, size_t entries)
+static data_collection_aggregate_result_t *_int64_min_fn(void *array, size_t entries)
 {
     if (entries == 0) return NULL;
+    int64_t *int_array = (int64_t*)array;
     size_t i;
     data_collection_aggregate_result_t *ret = ogs_calloc(1, sizeof(*ret));
-    int64_t min = array[0];
+    int64_t min = int_array[0];
     for (i=1; i<entries; i++) {
-        if (array[i] < min) min = array[i];
+        if (int_array[i] < min) min = int_array[i];
     }
     DATA_COLLECTION_AGGREGATION_RESULT_TYPE(*ret) = DATA_COLLECTION_AGGREGATE_RESULT_VALUE;
     DATA_COLLECTION_AGGREGATION_RESULT_INT64(*ret) = min;
     return ret;   
 }
 
-static data_collection_aggregate_result_t *_int64_max_fn(int64_t *array, size_t entries)
+static data_collection_aggregate_result_t *_int64_max_fn(void *array, size_t entries)
 {
     if (entries == 0) return NULL;
+    int64_t *int_array = (int64_t*)array;
     size_t i;
     data_collection_aggregate_result_t *ret = ogs_calloc(1, sizeof(*ret));
-    int64_t max = array[0];
+    int64_t max = int_array[0];
     for (i=1; i<entries; i++) {
-        if (array[i] > max) max = array[i];
+        if (int_array[i] > max) max = int_array[i];
     }
     DATA_COLLECTION_AGGREGATION_RESULT_TYPE(*ret) = DATA_COLLECTION_AGGREGATE_RESULT_VALUE;
     DATA_COLLECTION_AGGREGATION_RESULT_INT64(*ret) = max;
     return ret;	
 }
 
-static data_collection_aggregate_result_t *_int64_sum_fn(int64_t *array, size_t entries)
+static data_collection_aggregate_result_t *_int64_sum_fn(void *array, size_t entries)
 {
     if (entries == 0) return NULL;
+    int64_t *int_array = (int64_t*)array;
     size_t i;
     int64_t sum = 0;
     data_collection_aggregate_result_t *ret = ogs_calloc(1, sizeof(*ret));
     for(i = 0; i < entries; i++) {
-        sum += array[i];
+        sum += int_array[i];
     }
     
     DATA_COLLECTION_AGGREGATION_RESULT_TYPE(*ret) = DATA_COLLECTION_AGGREGATE_RESULT_VALUE;
@@ -267,7 +273,7 @@ static data_collection_aggregate_result_t *_int64_sum_fn(int64_t *array, size_t 
     return ret;
 }
 
-static data_collection_aggregate_result_t *_int64_mean_fn(int64_t *array, size_t entries)
+static data_collection_aggregate_result_t *_int64_mean_fn(void *array, size_t entries)
 {
     data_collection_aggregate_result_t *ret = _int64_sum_fn(array, entries);
     if (ret) {
@@ -281,47 +287,50 @@ static data_collection_aggregate_result_t *_int64_mean_fn(int64_t *array, size_t
 
 /****float_pt functions***/
 
-static data_collection_aggregate_result_t *_float_none_fn(float *array, size_t entries)
+static data_collection_aggregate_result_t *_float_none_fn(void *array, size_t entries)
 {
     return _generic_none(array, sizeof(float), entries);
 }
 
-static data_collection_aggregate_result_t *_float_min_fn(float *array, size_t entries)
+static data_collection_aggregate_result_t *_float_min_fn(void *array, size_t entries)
 {
     if (entries == 0) return NULL;
+    float *float_array = (float*)array;
     size_t i;
     data_collection_aggregate_result_t *ret = ogs_calloc(1, sizeof(*ret));
-    float min = array[0];
+    float min = float_array[0];
     for (i=1; i<entries; i++) {
-        if (array[i] < min) min = array[i];
+        if (float_array[i] < min) min = float_array[i];
     }
     DATA_COLLECTION_AGGREGATION_RESULT_TYPE(*ret) = DATA_COLLECTION_AGGREGATE_RESULT_VALUE;
     DATA_COLLECTION_AGGREGATION_RESULT_FLOAT(*ret) = min;
     return ret;   
 }
 
-static data_collection_aggregate_result_t *_float_max_fn(float *array, size_t entries)
+static data_collection_aggregate_result_t *_float_max_fn(void *array, size_t entries)
 {
     if (entries == 0) return NULL;
+    float *float_array = (float*)array;
     size_t i;
     data_collection_aggregate_result_t *ret = ogs_calloc(1, sizeof(*ret));
-    float max = array[0];
+    float max = float_array[0];
     for (i=1; i<entries; i++) {
-        if (array[i] > max) max = array[i];
+        if (float_array[i] > max) max = float_array[i];
     }
     DATA_COLLECTION_AGGREGATION_RESULT_TYPE(*ret) = DATA_COLLECTION_AGGREGATE_RESULT_VALUE;
     DATA_COLLECTION_AGGREGATION_RESULT_FLOAT(*ret) = max;
     return ret;	
 }
 
-static data_collection_aggregate_result_t *_float_sum_fn(float *array, size_t entries)
+static data_collection_aggregate_result_t *_float_sum_fn(void *array, size_t entries)
 {
     if (entries == 0) return NULL;
+    float *float_array = (float*)array;
     size_t i;
     float sum;
     data_collection_aggregate_result_t *ret = ogs_calloc(1, sizeof(*ret));
     for(i = 0; i < entries; i++) {
-        sum += array[i];
+        sum += float_array[i];
     }
     
     DATA_COLLECTION_AGGREGATION_RESULT_TYPE(*ret) = DATA_COLLECTION_AGGREGATE_RESULT_VALUE;
@@ -329,7 +338,7 @@ static data_collection_aggregate_result_t *_float_sum_fn(float *array, size_t en
     return ret;
 }
 
-static data_collection_aggregate_result_t *_float_mean_fn(float *array, size_t entries)
+static data_collection_aggregate_result_t *_float_mean_fn(void *array, size_t entries)
 {
     data_collection_aggregate_result_t *ret = _float_sum_fn(array, entries);
     if (ret) {
@@ -344,47 +353,50 @@ static data_collection_aggregate_result_t *_float_mean_fn(float *array, size_t e
 /****Aggregation functions to handle Double**/
 
 
-static data_collection_aggregate_result_t *_double_none_fn(double *array, size_t entries)
+static data_collection_aggregate_result_t *_double_none_fn(void *array, size_t entries)
 {
     return _generic_none(array, sizeof(double), entries);
 }
 
-static data_collection_aggregate_result_t *_double_min_fn(double *array, size_t entries)
+static data_collection_aggregate_result_t *_double_min_fn(void *array, size_t entries)
 {
     if (entries == 0) return NULL;
+    double *double_array = (double*)array;
     size_t i;
     data_collection_aggregate_result_t *ret = ogs_calloc(1, sizeof(*ret));
-    double min = array[0];
+    double min = double_array[0];
     for (i=1; i<entries; i++) {
-        if (array[i] < min) min = array[i];
+        if (double_array[i] < min) min = double_array[i];
     }
     DATA_COLLECTION_AGGREGATION_RESULT_TYPE(*ret) = DATA_COLLECTION_AGGREGATE_RESULT_VALUE;
     DATA_COLLECTION_AGGREGATION_RESULT_DOUBLE(*ret) = min;
     return ret;   
 }
 
-static data_collection_aggregate_result_t *_double_max_fn(double *array, size_t entries)
+static data_collection_aggregate_result_t *_double_max_fn(void *array, size_t entries)
 {
     if (entries == 0) return NULL;
+    double *double_array = (double*)array;
     size_t i;
     data_collection_aggregate_result_t *ret = ogs_calloc(1, sizeof(*ret));
-    double max = array[0];
+    double max = double_array[0];
     for (i=1; i<entries; i++) {
-        if (array[i] > max) max = array[i];
+        if (double_array[i] > max) max = double_array[i];
     }
     DATA_COLLECTION_AGGREGATION_RESULT_TYPE(*ret) = DATA_COLLECTION_AGGREGATE_RESULT_VALUE;
     DATA_COLLECTION_AGGREGATION_RESULT_DOUBLE(*ret) = max;
     return ret;	
 }
 
-static data_collection_aggregate_result_t *_double_sum_fn(double *array, size_t entries)
+static data_collection_aggregate_result_t *_double_sum_fn(void *array, size_t entries)
 {
     if (entries == 0) return NULL;
+    double *double_array = (double*)array;
     size_t i;
     double sum;
     data_collection_aggregate_result_t *ret = ogs_calloc(1, sizeof(*ret));
     for(i = 0; i < entries; i++) {
-        sum += array[i];
+        sum += double_array[i];
     }
     
     DATA_COLLECTION_AGGREGATION_RESULT_TYPE(*ret) = DATA_COLLECTION_AGGREGATE_RESULT_VALUE;
@@ -392,7 +404,7 @@ static data_collection_aggregate_result_t *_double_sum_fn(double *array, size_t 
     return ret;
 }
 
-static data_collection_aggregate_result_t *_double_mean_fn(double *array, size_t entries)
+static data_collection_aggregate_result_t *_double_mean_fn(void *array, size_t entries)
 {
     data_collection_aggregate_result_t *ret = _double_sum_fn(array, entries);
     if (ret) {

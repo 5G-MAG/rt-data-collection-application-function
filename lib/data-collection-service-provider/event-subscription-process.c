@@ -56,6 +56,7 @@ static void __send_af_event_exposure_subscription(ogs_sbi_stream_t *stream, ogs_
 bool _evex_subscription_process_event(ogs_event_t *e)
 {
 
+    ogs_assert(e);
     ogs_debug("_evex_subscription_process_event %s", __event_get_name(e));
 
     static const nf_server_interface_metadata_t *naf_eventexposure_api = &naf_eventexposure_api_metadata;
@@ -63,10 +64,14 @@ bool _evex_subscription_process_event(ogs_event_t *e)
 
     switch (e->id) {
 
-    case DC_LOCAL_EVENT_EXPOSURE_NOTIFICATION:
-        ogs_assert(e);
-        {
-            _event_subscriptions_process(e->sbi.data);
+    case DC_EVENT_LOCAL:
+        if ((intptr_t)(e->sbi.data) == DC_LOCAL_EVENT_MARKER) {
+            dc_local_event_t *local_event = (dc_local_event_t*)e;
+            switch (local_event->local_id) {
+            case DC_LOCAL_EVENT_EXPOSURE_NOTIFICATION:
+                _event_subscriptions_process(local_event->data);
+                break;
+            }
         }
         break;
 

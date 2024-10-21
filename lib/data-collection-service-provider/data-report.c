@@ -689,6 +689,7 @@ static ogs_list_t *__apply_aggregation(ogs_list_t *data_records) {
         data_collection_provisioning_configurations_aggregations_functions_get(external_application_id, event_type, aggregation_functions);
         if(!ogs_list_first(aggregation_functions)) {
             data_collection_list_free(aggregation_functions);
+            data_collection_hash_free(handlers, (void(*)(void*))__data_report_handler_aggregation_functions_remove);
             return NULL;
         }
         data_report_handler_aggregation_functions = ogs_calloc(1, sizeof(data_report_handler_aggregation_functions_t));
