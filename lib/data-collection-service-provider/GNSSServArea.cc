@@ -341,7 +341,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_serv_area
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_tai_free(p_tai_list);
     if (value) obj->addTaiList(value.value());
     return obj_gnss_serv_area;
 }

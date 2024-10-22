@@ -284,7 +284,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     ValueType value(value_from);
 
     ogs_free(p_context_ids);
-
     if (value) obj->addContextIds(value.value());
     return obj_data_reporting_condition;
 }

@@ -320,7 +320,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_expos
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_af_event_notification_free(p_event_notifs);
     obj->addEventNotifs(value);
     return obj_af_event_exposure_notif;
 }

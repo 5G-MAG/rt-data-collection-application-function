@@ -261,7 +261,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_qoe_metrics
     ValueType value(value_from);
 
     ogs_free(p_ms_qoe_metrics);
-
     obj->addMsQoeMetrics(value);
     return obj_ms_qoe_metrics_collection;
 }

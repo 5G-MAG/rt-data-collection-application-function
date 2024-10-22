@@ -688,7 +688,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_invalid_param_free(p_invalid_params);
     if (value) obj->addInvalidParams(value.value());
     return obj_problem_details;
 }
@@ -1127,7 +1127,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
     ValueType value(value_from);
 
     ogs_free(p_supported_api_versions);
-
     if (value) obj->addSupportedApiVersions(value.value());
     return obj_problem_details;
 }

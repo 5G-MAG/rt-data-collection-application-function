@@ -282,7 +282,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_geographic_area_free(p_geographic_areas);
     if (value) obj->addGeographicAreas(value.value());
     return obj_umt_location_area5_g;
 }
@@ -463,7 +463,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_civic_address_free(p_civic_addresses);
     if (value) obj->addCivicAddresses(value.value());
     return obj_umt_location_area5_g;
 }

@@ -331,7 +331,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_mat
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_query_param_combination_free(p_query_param_combination_list);
     if (value) obj->addQueryParamCombinationList(value.value());
     return obj_no_profile_match_info;
 }

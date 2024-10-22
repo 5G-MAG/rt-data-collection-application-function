@@ -581,7 +581,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     ValueType value(value_from);
 
     ogs_free(p_data_reporting_configuration_ids);
-
     if (value) obj->addDataReportingConfigurationIds(value.value());
     return obj_data_reporting_provisioning_session;
 }

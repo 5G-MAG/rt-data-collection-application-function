@@ -280,7 +280,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_ecgi_free(p_ecgis);
     if (value) obj->addEcgis(value.value());
     return obj_network_area_info;
 }
@@ -461,7 +461,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_ncgi_free(p_ncgis);
     if (value) obj->addNcgis(value.value());
     return obj_network_area_info;
 }
@@ -642,7 +642,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_global_ran_node_id_free(p_g_ran_node_ids);
     if (value) obj->addGRanNodeIds(value.value());
     return obj_network_area_info;
 }
@@ -823,7 +823,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_tai_free(p_tais);
     if (value) obj->addTais(value.value());
     return obj_network_area_info;
 }

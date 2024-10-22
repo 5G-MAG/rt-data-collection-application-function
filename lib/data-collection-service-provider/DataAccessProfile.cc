@@ -328,7 +328,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_event_consumer_type_free(p_target_event_consumer_types);
     obj->addTargetEventConsumerTypes(value);
     return obj_data_access_profile;
 }
@@ -492,7 +492,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
     ValueType value(value_from);
 
     ogs_free(p_parameters);
-
     obj->addParameters(value);
     return obj_data_access_profile;
 }

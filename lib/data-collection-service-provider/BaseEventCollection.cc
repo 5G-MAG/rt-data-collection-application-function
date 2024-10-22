@@ -550,7 +550,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_event_col
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_data_aggregation_function_type_free(p_summarisations);
     obj->addSummarisations(value);
     return obj_base_event_collection;
 }
@@ -715,7 +715,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_event_col
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_any_type_free(p_records);
     obj->addRecords(value);
     return obj_base_event_collection;
 }

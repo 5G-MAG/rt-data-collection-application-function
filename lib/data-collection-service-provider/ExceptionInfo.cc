@@ -397,7 +397,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_exception_free(p_exceps);
     obj->addExceps(value);
     return obj_exception_info;
 }

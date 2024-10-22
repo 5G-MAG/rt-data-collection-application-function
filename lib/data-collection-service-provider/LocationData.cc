@@ -779,7 +779,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_positioning_method_and_usage_free(p_positioning_data_list);
     if (value) obj->addPositioningDataList(value.value());
     return obj_location_data;
 }
@@ -960,7 +960,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_gnss_positioning_method_and_usage_free(p_gnss_positioning_data_list);
     if (value) obj->addGnssPositioningDataList(value.value());
     return obj_location_data;
 }

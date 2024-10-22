@@ -468,7 +468,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_data_domain_free(p_supported_domains);
     obj->addSupportedDomains(value);
     return obj_data_reporting_session;
 }
@@ -711,7 +711,6 @@ if (value_from) {
 	
     }
 }
-
 
     if (value) obj->addSamplingRules(std::string(p_key), value.value());
     return obj_data_reporting_session;
@@ -964,7 +963,6 @@ if (value_from) {
     }
 }
 
-
     if (value) obj->addReportingConditions(std::string(p_key), value.value());
     return obj_data_reporting_session;
 }
@@ -1215,7 +1213,6 @@ if (value_from) {
 	
     }
 }
-
 
     if (value) obj->addReportingRules(std::string(p_key), value.value());
     return obj_data_reporting_session;

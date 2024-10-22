@@ -881,7 +881,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_battery_indication_free(p_battery_inds);
     if (value) obj->addBatteryInds(value.value());
     return obj_cp_parameter_set;
 }
@@ -1127,7 +1127,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_umt_location_area5_g_free(p_expected_umts);
     if (value) obj->addExpectedUmts(value.value());
     return obj_cp_parameter_set;
 }
@@ -1374,7 +1374,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
 
     ValueType value(value_from);
 
-
+    (p_expected_umt_days_add);
     if (value) obj->addExpectedUmtDaysAdd(value.value());
     return obj_cp_parameter_set;
 }

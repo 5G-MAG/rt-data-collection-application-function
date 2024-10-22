@@ -331,7 +331,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_qo_e_metrics_event_all_of_samples_free(p_samples);
     if (value) obj->addSamples(value.value());
     return obj_qo_e_metrics_event_all_of;
 }

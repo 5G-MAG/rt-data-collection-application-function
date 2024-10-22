@@ -85,7 +85,8 @@ ogs_list_t *generate_af_event_notifications(ogs_list_t *data_reports, data_colle
 
         data_collection_model_af_event_t *af_event = data_collection_model_af_event_create();
         data_collection_model_af_event_set_string(af_event, "UE_COMM");
-        data_collection_model_af_event_notification_set_event(af_event_notification, af_event);
+        data_collection_model_af_event_notification_set_event_move(af_event_notification, af_event);
+        data_collection_model_af_event_free(af_event);
 
 	ogs_list_add(af_event_notifications, data_collection_model_af_event_notification_make_lnode(af_event_notification));
 
@@ -99,11 +100,7 @@ ogs_list_t *generate_af_event_notifications(ogs_list_t *data_reports, data_colle
 
     ogs_list_for_each_safe(data_reports, data_rep, data_report_node) {
         ogs_list_remove(data_reports, data_report_node);
-        if (!data_collection_reporting_session_get(data_report_node)) {
-            data_collection_report_destroy(data_report_node);
-        } else {
-            data_collection_data_report_record_copy_delete(data_report_node);
-	}
+        data_collection_report_destroy(data_report_node);
     }
 
     return af_event_notifications;

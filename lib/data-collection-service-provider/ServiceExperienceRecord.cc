@@ -320,7 +320,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
     ValueType value(value_from);
 
     ogs_free(p_context_ids);
-
     obj->addContextIds(value);
     return obj_service_experience_record;
 }
@@ -486,7 +485,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_per_flow_service_experience_info_free(p_service_experience_infos);
     obj->addServiceExperienceInfos(value);
     return obj_service_experience_record;
 }

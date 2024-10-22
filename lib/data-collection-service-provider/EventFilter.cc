@@ -290,7 +290,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     ValueType value(value_from);
 
     ogs_free(p_gpsis);
-
     if (value) obj->addGpsis(value.value());
     return obj_event_filter;
 }
@@ -469,7 +468,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     ValueType value(value_from);
 
     ogs_free(p_supis);
-
     if (value) obj->addSupis(value.value());
     return obj_event_filter;
 }
@@ -648,7 +646,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     ValueType value(value_from);
 
     ogs_free(p_exter_group_ids);
-
     if (value) obj->addExterGroupIds(value.value());
     return obj_event_filter;
 }
@@ -827,7 +824,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     ValueType value(value_from);
 
     ogs_free(p_inter_group_ids);
-
     if (value) obj->addInterGroupIds(value.value());
     return obj_event_filter;
 }
@@ -1136,7 +1132,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
     ValueType value(value_from);
 
     ogs_free(p_app_ids);
-
     if (value) obj->addAppIds(value.value());
     return obj_event_filter;
 }
@@ -1382,7 +1377,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_collective_behaviour_filter_free(p_coll_attrs);
     if (value) obj->addCollAttrs(value.value());
     return obj_event_filter;
 }
@@ -1563,7 +1558,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_exception_free(p_exception_reqs);
     if (value) obj->addExceptionReqs(value.value());
     return obj_event_filter;
 }

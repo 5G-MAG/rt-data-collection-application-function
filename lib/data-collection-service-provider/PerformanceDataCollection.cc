@@ -546,7 +546,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     ValueType value(value_from);
 
     ogs_free(p_app_locs);
-
     if (value) obj->addAppLocs(value.value());
     return obj_performance_data_collection;
 }

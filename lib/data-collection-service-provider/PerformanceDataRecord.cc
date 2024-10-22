@@ -332,7 +332,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
     ValueType value(value_from);
 
     ogs_free(p_context_ids);
-
     obj->addContextIds(value);
     return obj_performance_data_record;
 }

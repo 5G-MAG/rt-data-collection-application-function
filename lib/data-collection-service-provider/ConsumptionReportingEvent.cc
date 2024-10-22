@@ -790,7 +790,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_location_area5_g_free(p_ue_locations);
     if (value) obj->addUeLocations(value.value());
     return obj_consumption_reporting_event;
 }

@@ -385,9 +385,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowe
     typedef typename ContainerType::{{#isMap}}mapped_type{{/isMap}}{{#isArray}}value_type{{/isArray}} ValueType;
     const auto &value_from = p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}};
 
-    {{#items}}{{>make-value}}{{#isString}}
-    ogs_free(p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}});{{/isString}}{{/items}}
-
+    {{#items}}{{>make-value}}{{/items}}{{#isArray}}
+    {{#items}}{{>free-data}}{{/items}}(p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}});{{/isArray}}{{^isContainer}}{{^isPrimitiveType}}
+    {{#items}}{{>free-data}}{{/items}}(p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}});{{/isPrimitiveType}}{{/isContainer}}
     {{<is-optional}}{{$yes}}if (value) {{/yes}}{{/is-optional}}obj->add{{name}}({{#isMap}}std::string(p_key), {{/isMap}}value{{<is-optional}}{{$yes}}.value(){{/yes}}{{/is-optional}});
     return obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}};
 }

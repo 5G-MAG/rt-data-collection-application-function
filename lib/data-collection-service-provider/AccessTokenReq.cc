@@ -741,7 +741,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_plmn_id_free(p_requester_plmn_list);
     if (value) obj->addRequesterPlmnList(value.value());
     return obj_access_token_req;
 }
@@ -922,7 +922,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_snssai_free(p_requester_snssai_list);
     if (value) obj->addRequesterSnssaiList(value.value());
     return obj_access_token_req;
 }
@@ -1168,7 +1168,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_plmn_id_nid_free(p_requester_snpn_list);
     if (value) obj->addRequesterSnpnList(value.value());
     return obj_access_token_req;
 }
@@ -1479,7 +1479,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_snssai_free(p_target_snssai_list);
     if (value) obj->addTargetSnssaiList(value.value());
     return obj_access_token_req;
 }
@@ -1658,7 +1658,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
     ValueType value(value_from);
 
     ogs_free(p_target_nsi_list);
-
     if (value) obj->addTargetNsiList(value.value());
     return obj_access_token_req;
 }
@@ -2164,7 +2163,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_nwdaf_event_free(p_analytics_ids);
     if (value) obj->addAnalyticsIds(value.value());
     return obj_access_token_req;
 }
@@ -2345,7 +2344,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_ml_model_inter_ind_free(p_requester_inter_ind_list);
     if (value) obj->addRequesterInterIndList(value.value());
     return obj_access_token_req;
 }

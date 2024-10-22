@@ -550,7 +550,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_data_aggregation_function_type_free(p_summarisations);
     obj->addSummarisations(value);
     return obj_network_assistance_invocations_collection;
 }
@@ -716,7 +716,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_network_assistance_invocation_event_free(p_records);
     obj->addRecords(value);
     return obj_network_assistance_invocations_collection;
 }

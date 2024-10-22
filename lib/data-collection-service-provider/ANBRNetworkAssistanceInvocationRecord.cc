@@ -334,7 +334,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
     ValueType value(value_from);
 
     ogs_free(p_context_ids);
-
     obj->addContextIds(value);
     return obj_anbr_network_assistance_invocation_record;
 }
@@ -826,7 +825,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_application_flow_description_free(p_application_flow_descriptions);
     if (value) obj->addApplicationFlowDescriptions(value.value());
     return obj_anbr_network_assistance_invocation_record;
 }

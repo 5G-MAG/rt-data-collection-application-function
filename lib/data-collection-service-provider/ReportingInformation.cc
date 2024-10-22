@@ -684,7 +684,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_partitioning_criteria_free(p_partition_criteria);
     if (value) obj->addPartitionCriteria(value.value());
     return obj_reporting_information;
 }

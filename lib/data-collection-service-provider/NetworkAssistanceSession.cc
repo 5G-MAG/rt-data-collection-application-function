@@ -387,7 +387,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_application_flow_description_free(p_service_data_flow_descriptions);
     obj->addServiceDataFlowDescriptions(value);
     return obj_network_assistance_session;
 }

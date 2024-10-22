@@ -414,7 +414,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
     ValueType value(value_from);
 
     ogs_free(p_flow_descriptions);
-
     if (value) obj->addFlowDescriptions(value.value());
     return obj_app_exp_ue_behaviour;
 }

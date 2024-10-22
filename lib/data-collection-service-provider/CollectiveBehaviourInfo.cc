@@ -292,7 +292,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_per_ue_attribute_free(p_col_attrib);
     if (value) obj->addColAttrib(value.value());
     return obj_collective_behaviour_info;
 }
@@ -536,7 +536,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     ValueType value(value_from);
 
     ogs_free(p_app_ids);
-
     if (value) obj->addAppIds(value.value());
     return obj_collective_behaviour_info;
 }
@@ -715,7 +714,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     ValueType value(value_from);
 
     ogs_free(p_ext_ue_ids);
-
     if (value) obj->addExtUeIds(value.value());
     return obj_collective_behaviour_info;
 }
@@ -894,7 +892,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     ValueType value(value_from);
 
     ogs_free(p_ue_ids);
-
     if (value) obj->addUeIds(value.value());
     return obj_collective_behaviour_info;
 }
@@ -1140,7 +1137,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_direction_free(p_abs_dirs);
     if (value) obj->addAbsDirs(value.value());
     return obj_collective_behaviour_info;
 }
@@ -1321,7 +1318,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_relative_direction_free(p_rel_dirs);
     if (value) obj->addRelDirs(value.value());
     return obj_collective_behaviour_info;
 }

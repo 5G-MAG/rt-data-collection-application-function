@@ -263,7 +263,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_dyn_policy_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_dynamic_policy_free(p_ms_dyn_ply_invocs);
     obj->addMsDynPlyInvocs(value);
     return obj_ms_dyn_policy_invocation_collection;
 }

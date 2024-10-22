@@ -523,7 +523,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_ue_trajectory_collection_free(p_ue_trajs);
     obj->addUeTrajs(value);
     return obj_ue_mobility_collection;
 }
@@ -700,7 +700,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_location_area5_g_free(p_areas);
     if (value) obj->addAreas(value.value());
     return obj_ue_mobility_collection;
 }

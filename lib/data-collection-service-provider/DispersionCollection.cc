@@ -733,7 +733,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dispersion_col
     ValueType value(value_from);
 
     ogs_free(p_dnais);
-
     if (value) obj->addDnais(value.value());
     return obj_dispersion_collection;
 }

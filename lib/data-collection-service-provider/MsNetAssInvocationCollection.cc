@@ -263,7 +263,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_net_ass_inv
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_network_assistance_session_free(p_ms_net_ass_invocs);
     obj->addMsNetAssInvocs(value);
     return obj_ms_net_ass_invocation_collection;
 }

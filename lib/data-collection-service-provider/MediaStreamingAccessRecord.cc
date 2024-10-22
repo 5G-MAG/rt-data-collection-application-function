@@ -340,7 +340,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
     ValueType value(value_from);
 
     ogs_free(p_context_ids);
-
     obj->addContextIds(value);
     return obj_media_streaming_access_record;
 }

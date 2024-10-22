@@ -408,7 +408,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_descr
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_rtp_payload_info_free(p_rtp_payload_info_list);
     if (value) obj->addRtpPayloadInfoList(value.value());
     return obj_protocol_description;
 }

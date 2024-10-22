@@ -412,7 +412,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_service_experience_record_free(p_service_experience_records);
     if (value) obj->addServiceExperienceRecords(value.value());
     return obj_data_report;
 }
@@ -593,7 +593,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_location_record_free(p_location_records);
     if (value) obj->addLocationRecords(value.value());
     return obj_data_report;
 }
@@ -774,7 +774,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_communication_record_free(p_communication_records);
     if (value) obj->addCommunicationRecords(value.value());
     return obj_data_report;
 }
@@ -955,7 +955,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_performance_data_record_free(p_performance_data_records);
     if (value) obj->addPerformanceDataRecords(value.value());
     return obj_data_report;
 }
@@ -1136,7 +1136,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_application_specific_record_free(p_application_specific_records);
     if (value) obj->addApplicationSpecificRecords(value.value());
     return obj_data_report;
 }
@@ -1317,7 +1317,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_trip_plan_record_free(p_trip_plan_records);
     if (value) obj->addTripPlanRecords(value.value());
     return obj_data_report;
 }
@@ -1498,7 +1498,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_anbr_network_assistance_invocation_record_free(p_anbr_network_assistance_invocation_records);
     if (value) obj->addANBRNetworkAssistanceInvocationRecords(value.value());
     return obj_data_report;
 }
@@ -1679,7 +1679,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t 
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_media_streaming_access_record_free(p_media_streaming_access_records);
     if (value) obj->addMediaStreamingAccessRecords(value.value());
     return obj_data_report;
 }

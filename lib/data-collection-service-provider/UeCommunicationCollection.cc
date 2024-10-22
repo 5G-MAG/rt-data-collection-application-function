@@ -655,7 +655,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-
+    data_collection_model_communication_collection_free(p_comms);
     obj->addComms(value);
     return obj_ue_communication_collection;
 }

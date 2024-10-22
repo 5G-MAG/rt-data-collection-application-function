@@ -277,7 +277,7 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_in
 
     ValueType value(value_from);
 
-
+    (p_rtp_payload_type_list);
     if (value) obj->addRtpPayloadTypeList(value.value());
     return obj_rtp_payload_info;
 }
