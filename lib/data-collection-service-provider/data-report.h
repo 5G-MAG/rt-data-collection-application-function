@@ -25,6 +25,7 @@ typedef struct data_collection_data_report_record_s {
     const data_collection_data_report_handler_t *data_report_handler;
     ogs_time_t generated;
     ogs_time_t last_used;
+    ogs_list_t *context_ids;
     ogs_list_t *usage; //Type: data_collection_lnode_t with object=data_collection_event_subscription_t
     char *hash;
     char *external_application_id;

@@ -280,7 +280,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_configura
     return config->etag;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_provisioning_configurations_aggregations_functions_get(const char *external_application_id, const char *event_type, ogs_list_t *aggregation_functions)
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_provisioning_configurations_aggregations_functions_get(const char *external_application_id, const char *event_type, ogs_list_t *context_ids, ogs_list_t *aggregation_functions)
 {
     ogs_hash_index_t *it;
     ogs_hash_t *data_reporting_provisioning_session = data_collection_self()->data_reporting_provisioning_sessions;
@@ -308,6 +308,7 @@ DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_provisioning_config
                 ogs_list_init(data_access_profiles);
 
                 ogs_hash_this(hit, (const void **)&ckey, &ckey_len, (void**)(&configuration));
+
 		data_access_profiles = data_collection_model_data_reporting_configuration_get_data_access_profiles(configuration->model);
 		if(data_access_profiles) {
                     data_collection_lnode_t *data_access_profile_node;
@@ -324,20 +325,34 @@ DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_provisioning_config
                             ogs_list_t *aggregation_functions_time_access_restrictions;
 			    //ogs_list_t *aggregation_functions;
                             data_collection_lnode_t *aggregation_function_node;
-                            data_access_profile_time_access_restrictions =
-                                data_collection_model_data_access_profile_get_time_access_restrictions(data_access_profile);
-                            aggregation_functions_time_access_restrictions = data_collection_model_data_access_profile_time_access_restrictions_get_aggregation_functions(data_access_profile_time_access_restrictions);
-                            ogs_list_for_each(aggregation_functions_time_access_restrictions, aggregation_function_node) {
-                                data_collection_model_data_aggregation_function_type_t *aggregation_function = aggregation_function_node->object;
-                                const char *aggregation_name = data_collection_model_data_aggregation_function_type_get_string(aggregation_function);
-				if(aggregation_name) {
-				    //data_collection_lnode_t *aggregation_function = data_collection_lnode_create(data_collection_strdup(aggregation_name), (void(*)(void*))ogs_free);
-				    //data_collection_lnode_t *aggregation_function = data_collection_lnode_create(data_collection_strdup(aggregation_name), NULL);
-				    data_collection_lnode_t *aggregation_function = __aggregation_function_make_lnode(data_collection_strdup(aggregation_name));
-				    ogs_list_add(aggregation_functions, aggregation_function); 
+                            
+                            data_collection_lnode_t *context_id = NULL;
+
+		           const data_collection_model_data_reporting_configuration_t *data_report_config =
+				   data_collection_reporting_configuration_model(configuration);
+		           const char *configuration_id = data_collection_model_data_reporting_configuration_get_data_reporting_configuration_id(data_report_config);
+
+			   ogs_list_for_each(context_ids, context_id) {
+			      if(!strcmp(configuration_id, context_id->object))
+			           break;	      
+			    		      
+			   }
+			   if(context_id) {
+                                data_access_profile_time_access_restrictions =
+                                    data_collection_model_data_access_profile_get_time_access_restrictions(data_access_profile);
+                                aggregation_functions_time_access_restrictions = data_collection_model_data_access_profile_time_access_restrictions_get_aggregation_functions(data_access_profile_time_access_restrictions);
+                                ogs_list_for_each(aggregation_functions_time_access_restrictions, aggregation_function_node) {
+                                    data_collection_model_data_aggregation_function_type_t *aggregation_function = aggregation_function_node->object;
+                                    const char *aggregation_name = data_collection_model_data_aggregation_function_type_get_string(aggregation_function);
+				    if(aggregation_name) {
+				        //data_collection_lnode_t *aggregation_function = data_collection_lnode_create(data_collection_strdup(aggregation_name), (void(*)(void*))ogs_free);
+				        //data_collection_lnode_t *aggregation_function = data_collection_lnode_create(data_collection_strdup(aggregation_name), NULL);
+				        data_collection_lnode_t *aggregation_function = __aggregation_function_make_lnode(data_collection_strdup(aggregation_name));
+				        ogs_list_add(aggregation_functions, aggregation_function); 
 	
-				}	
-		            }
+				    }	
+		                }
+			   }
 			}
 		    }
 		}

@@ -83,6 +83,7 @@ typedef struct data_collection_data_report_handler_s {
     struct timespec *(* const timestamp_for_report_data)(const void *report_data);
     char *(* const tag_for_report_data)(const void *report_data);
     char *(* const serialise_report_data)(const void *report_data);
+    ogs_list_t *(*context_ids)(const void *report);
     ogs_list_t *(*apply_aggregation)(const char *function_name, const ogs_list_t *records);
     void *(*proportion_record)(const void *record, const struct timespec *start, const struct timespec *end);
     struct timespec *(*sample_start)(const void *record);

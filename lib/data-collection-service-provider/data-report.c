@@ -251,6 +251,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_coll
     report->original_records = ogs_malloc(sizeof(data_report_record));
     report->original_records[0] = data_report_record;
     report->number_of_original_records = 1;
+    report->context_ids = data_report_record->context_ids;
     report->external_application_id = data_collection_strdup(data_report_record->external_application_id);
     //report->usage = data_report_record->usage;
     report->expired = data_report_record->expired;
@@ -341,6 +342,7 @@ DATA_COLLECTION_SVC_PRODUCER_API void data_collection_report_destroy(data_collec
 	data_collection_list_free(report->usage);
 	report->usage = NULL;
     }
+    if(report->context_ids) data_collection_list_free(report->context_ids);
     ogs_free(report);
 }
 
@@ -511,6 +513,7 @@ static data_collection_data_report_record_t *__data_collection_report_create(dat
     report->session = session;
     report->hash = handler->tag_for_report_data(data_report_record);
     report->data_report_record = data_report_record;
+    report->context_ids =  handler->context_ids(data_report_record);
     report->external_application_id = data_collection_strdup(external_application_id);
     report->data_report_record_owner = true;
     report->file_path = data_collection_self()->config.data_collection_dir;
@@ -642,7 +645,7 @@ static ogs_list_t *__apply_aggregation(ogs_list_t *data_records) {
         ogs_assert(aggregation_functions);
         ogs_list_init(aggregation_functions);
 
-        data_collection_provisioning_configurations_aggregations_functions_get(external_application_id, event_type, aggregation_functions);
+        data_collection_provisioning_configurations_aggregations_functions_get(external_application_id, event_type, data_record->context_ids, aggregation_functions);
         if(!ogs_list_first(aggregation_functions)) {
             data_collection_list_free(aggregation_functions);
             data_collection_hash_free(handlers, (void(*)(void*))__data_report_handler_aggregation_functions_remove);

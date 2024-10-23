@@ -31,6 +31,8 @@ static struct timespec *communication_record_sample_start(const void *record);
 static struct timespec *communication_record_sample_stop(const void *record);
 static struct timespec *aggregate_time_interval_start_get(struct timespec *start_time, data_collection_model_communication_record_t *communication_record);
 static struct timespec *aggregate_time_interval_stop_get(struct timespec *stop_time, data_collection_model_communication_record_t *communication_record);
+static ogs_list_t *communication_record_context_ids_get(const void *report);
+
 /*
 static data_collection_data_report_record_t *generate_aggregate_communication_collection_record(struct timespec *start_time, struct timespec *stop_time, int64_t uplink_volume, int64_t downlink_volume, const char *external_application_id);
 static data_collection_data_report_record_t *generate_aggregate_communication_record(char *start_time, char *stop_time, int64_t uplink_volume, int64_t downlink_volume, const char *external_application_id);
@@ -64,6 +66,7 @@ const data_collection_data_report_handler_t communication_record_data_report_typ
     .timestamp_for_report_data = communication_record_timestamp,
     .tag_for_report_data = communication_record_make_tag,
     .serialise_report_data = communication_record_serialise,
+    .context_ids = communication_record_context_ids_get,
     .apply_aggregation = communication_records_apply_aggregation_function,
     .proportion_record = communication_record_proportional_data,
     .sample_start = communication_record_sample_start,
@@ -211,6 +214,13 @@ static char *communication_record_serialise(const void *report)
     cJSON_Delete(json);
 
     return comm_rec_json_str;
+}
+
+static ogs_list_t *communication_record_context_ids_get(const void *report)
+{
+    const data_collection_model_communication_record_t *communication_record =
+                                                                 (const data_collection_model_communication_record_t*)report;
+    return data_collection_model_communication_record_get_context_ids(communication_record);
 }
 
 static ogs_list_t *communication_records_apply_aggregation_function(const char *function_name, const ogs_list_t *records)
