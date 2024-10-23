@@ -1,1 +1,15 @@
-{{#composedSchemas}}{{^oneOf}}{{^not}}{{^anyOf}}{{^allOf.2}}{{#allOf}}{{>data-type}}{{/allOf}}{{/allOf.2}}{{#allOf.2.name}}void*{{/allOf.2.name}}{{/anyOf}}{{^allOf}}{{^anyOf.2}}{{#anyOf}}{{>data-type}}{{/anyOf}}{{/anyOf.2}}{{^anyOf.3}}{{#anyOf.2.isString}}{{#anyOf.1.isEnum}}char*{{/anyOf.1.isEnum}}{{/anyOf.2.isString}}{{^anyOf.1.isEnum}}void*{{/anyOf.1.isEnum}}{{^anyOf.2.isString}}{{#anyOf.1.isEnum}}void*{{/anyOf.1.isEnum}}{{/anyOf.2.isString}}{{/anyOf.3}}{{#anyOf.3.name}}void*{{/anyOf.3.name}}{{/allOf}}{{/not}}{{/oneOf}}{{/composedSchemas}}{{^composedSchemas}}{{#isContainer}}{{#isArray}}ogs_list_t*{{/isArray}}{{#isMap}}ogs_hash_t*{{/isMap}}{{/isContainer}}{{^isContainer}}{{#isPrimitiveType}}{{datatype}}{{/isPrimitiveType}}{{^isPrimitiveType}}{{#isString}}char*{{/isString}}{{#isDate}}char*{{/isDate}}{{#isDateTime}}char*{{/isDateTime}}{{#isByteArray}}unsigned char*{{/isByteArray}}{{^isString}}{{^isDate}}{{^isDateTime}}{{^isByteArray}}data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{datatype}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t*{{/isByteArray}}{{/isDateTime}}{{/isDate}}{{/isString}}{{/isPrimitiveType}}{{/isContainer}}{{/composedSchemas}}
+{{#fivegmagheader}}
+###################################################################################################
+# data-type.mustache - Template to insert the C API data type for the current model var
+###################################################################################################
+# License: 5G-MAG Public License (v1.0)
+# Authors: David Waring <david.waring2@bbc.co.uk>
+# Copyright: (C) 2024 British Broadcasting Corporation
+#
+# For full license terms please see the LICENSE file distributed with this
+# program. If this file is missing then the license can be retrieved from
+# https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+###################################################################################################
+# vim:nofixeol:noeol:
+###################################################################################################
+{{/fivegmagheader}}{{#composedSchemas}}{{^oneOf}}{{^not}}{{^anyOf}}{{^allOf.2}}{{#allOf}}{{>data-type}}{{/allOf}}{{/allOf.2}}{{#allOf.2.name}}void*{{/allOf.2.name}}{{/anyOf}}{{^allOf}}{{^anyOf.2}}{{#anyOf}}{{>data-type}}{{/anyOf}}{{/anyOf.2}}{{^anyOf.3}}{{#anyOf.2.isString}}{{#anyOf.1.isEnum}}char*{{/anyOf.1.isEnum}}{{/anyOf.2.isString}}{{^anyOf.1.isEnum}}void*{{/anyOf.1.isEnum}}{{^anyOf.2.isString}}{{#anyOf.1.isEnum}}void*{{/anyOf.1.isEnum}}{{/anyOf.2.isString}}{{/anyOf.3}}{{#anyOf.3.name}}void*{{/anyOf.3.name}}{{/allOf}}{{/not}}{{/oneOf}}{{/composedSchemas}}{{^composedSchemas}}{{#isContainer}}{{#isArray}}ogs_list_t*{{/isArray}}{{#isMap}}ogs_hash_t*{{/isMap}}{{/isContainer}}{{^isContainer}}{{#isPrimitiveType}}{{datatype}}{{/isPrimitiveType}}{{^isPrimitiveType}}{{#isString}}char*{{/isString}}{{#isDate}}char*{{/isDate}}{{#isDateTime}}char*{{/isDateTime}}{{#isByteArray}}unsigned char*{{/isByteArray}}{{^isString}}{{^isDate}}{{^isDateTime}}{{^isByteArray}}data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{datatype}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t*{{/isByteArray}}{{/isDateTime}}{{/isDate}}{{/isString}}{{/isPrimitiveType}}{{/isContainer}}{{/composedSchemas}}

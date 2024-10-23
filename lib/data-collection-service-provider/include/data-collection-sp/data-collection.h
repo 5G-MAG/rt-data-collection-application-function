@@ -42,6 +42,20 @@
 
 #define INCLUDED_FROM_DATA_COLLECTION_H 1
 
+/** \defgroup dcsp Data Collection Service Provider library
+ * \brief `#include <data-collection-sp/data-collection.h>`
+ *
+ * The Data Collection Service Provider library contains data types and functions common to
+ * data collection in all Application Functions.
+ */
+
+/** \defgroup dcsp_model Data Collection Service Provider library: Data Model
+ * \brief `#include <data-collection-sp/data-collection.h>`
+ *
+ * The Data Collection Service Provider library data model reflects the data structures and types defined by 3GPP in
+ * [3GPP TS 26.532](https://www.3gpp.org/DynaReport/26532.htm) and [3GPP TS 29.517](https://www.3gpp.org/DynaReport/29517.htm).
+ */
+
 #include "macros.h"
 #include "event-exposure.h"
 #include "aggregation-function.h"

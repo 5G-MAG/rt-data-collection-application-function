@@ -1,4 +1,16 @@
-{{#models}}{{#model}}#ifndef _DATA_COLLECTION_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_H_
+{{#fivegmagheader}}
+#############################################################################################
+# model-header.mustache - Template to create public C API library interface to OpenAPI models
+#############################################################################################
+# License: 5G-MAG Public License (v1.0)
+# Authors: David Waring <david.waring2@bbc.co.uk>
+# Copyright: (C) 2024 British Broadcasting Corporation
+#
+# For full license terms please see the LICENSE file distributed with this
+# program. If this file is missing then the license can be retrieved from
+# https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+#############################################################################################
+{{/fivegmagheader}}{{#models}}{{#model}}#ifndef _DATA_COLLECTION_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_H_
 #define _DATA_COLLECTION_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_H_
 
 /**********************************************************************************************************************************
@@ -21,91 +33,342 @@
 {{{this}}}
 {{/imports}}
 
+/** \addtogroup dcsp_model
+ * @{
+ */
+
 #ifdef __cplusplus
 extern "C" {
 #endif
 
-typedef struct data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_s data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t;
+/** A 3GPP {{classname}} object reference
+ */
+typedef struct data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_s
+#ifdef DOXYGEN_ONLY
+{
+    int dummy; /**< \private placeholder */
+}
+#endif
+data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t;
+
 {{^hasVars}}{{#isEnum}}{{#allowableValues}}
+/** {{classname}} enumerated values */
 typedef enum {
-    DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_NO_VAL,
-{{#values}}    DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_VAL_{{#lambda.uppercase}}{{#lambda.snakecase}}{{.}}{{/lambda.snakecase}}{{/lambda.uppercase}}{{^-last}},{{/-last}}
+    DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_NO_VAL, /**< No value */
+{{#values}}    DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_VAL_{{#lambda.uppercase}}{{#lambda.snakecase}}{{.}}{{/lambda.snakecase}}{{/lambda.uppercase}}{{^-last}},{{/-last}} /**< {{{.}}} */
 {{/values}}
 } data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_e;
 {{/allowableValues}}{{/isEnum}}{{^isEnum}}{{#composedSchemas}}{{^oneOf}}{{^allOf}}{{^anyOf.2.name}}{{#anyOf.1.isString}}{{#anyOf.0.isEnumRef}}{{#anyOf.0}}
+/** {{classname}} enumerated values */
 typedef enum {
-    DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_NO_VAL,
-{{#allowableValues.values}}    DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_VAL_{{#lambda.uppercase}}{{#lambda.snakecase}}{{.}}{{/lambda.snakecase}}{{/lambda.uppercase}},
+    DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_NO_VAL, /**< No value */
+{{#allowableValues.values}}    DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_VAL_{{#lambda.uppercase}}{{#lambda.snakecase}}{{.}}{{/lambda.snakecase}}{{/lambda.uppercase}}, /**< {{{.}}} */
 {{/allowableValues.values}}
-    DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_OTHER
+    DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_OTHER  /**< Custom value (future expansion) */
 } data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_e;
 {{/anyOf.0}}{{/anyOf.0.isEnumRef}}{{/anyOf.1.isString}}{{/anyOf.2.name}}{{/allOf}}{{/oneOf}}{{/composedSchemas}}{{/isEnum}}{{/hasVars}}
-    
+
+/** Create a new {{classname}}
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+{{#vars}}{{#isRequired}}{{^readOnly}}{{^writeOnly}} * @param {{name}} Mandatory {{{baseName}}} field.
+{{/writeOnly}}{{/readOnly}}{{/isRequired}}{{/vars}} * @return a new {{classname}} object pointer.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_create({{#vars}}{{#isRequired}}{{^readOnly}}{{^writeOnly}}{{datatype}} {{name}}{{^-last}},{{/-last}}{{/writeOnly}}{{/readOnly}}{{/isRequired}}{{/vars}});
 
+/** Create a new copy of a {{classname}} object
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ * Creates a new copy of the given @a other object
+ * @param other The {{classname}} to copy.
+ * @return a new {{classname}} object pointer.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_create_copy(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *other);
 
+/** Create a new reference of a {{classname}} object
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ * Creates a reference to the same underlying @a other object.
+ * @param other The {{classname}} to create a new reference to.
+ * @return a new {{classname}} object pointer reference.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_create_move(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *other);
 
+/** Copy the value of another {{classname}} into this object
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ * Copies the value of @a other {{classname} object into @a {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}.
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} object to copy @a other into.
+ * @param other The {{classname}} to copy the value from.
+ * @return @a {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_copy(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *other);
 
+/** Move the value of another {{classname}} into this object
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ * Discards the current value of @a {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} and moves the value of @a other
+ * into @a {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}. This will leave @a other as an empty reference.
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} object to move @a other into.
+ * @param other The {{classname}} to move the value from.
+ *
+ * @return @a {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_move(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *other);
 
+/** Delete a {{classname}} object
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ * Destroys the reference to the {{classname}} object and frees the value of {{classname}} if this is the last reference.
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} to free.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API void data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_free(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
 
+/** Get a cJSON tree representation of a {{classname}}
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ *
+ * Create a cJSON tree representation of the {{classname}} object as either an API request or response. This respects fields marked
+ * as Read-only (only in responses) or Write-only (only in requests) in the OpenAPI model description. The resulting cJSON tree
+ * must be freed by the caller using the cJSON_Delete() function.
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} to represent as a cJSON tree.
+ * @param as_request `true` for an API request or `false` for an API response.
+ *
+ * @return a cJSON tree or `NULL`.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_toJSON(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, bool as_request);
 
+/** Parse a cJSON tree into a {{classname}} object
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ *
+ * Attempts to interpret a cJSON tree as a {{classname}} API request or response (dependent on @a as_request value). If successful
+ * will return a new referenced {{classname}} object containing the value represented by the cJSON tree. On failure will return
+ * `NULL` and will set @a error_reason, @a error_class and @a error_parameter output parameters to indicate the reason for the
+ * failure. The @a error_reason, @a error_class and @a error_parameter strings must be freed using ogs_free().
+ *
+ * @param json The cJSON tree object to interpret.
+ * @param as_request `true` to interpret the @a json as an API request or `false` for interpretation as an API response.
+ * @param[out] error_reason On failure will be set to a new nul terminated string indicating the reason for the failure.
+ * @param[out] error_class On failure will be set to the class name of the object where the failure happened if available or `NULL`.
+ * @param[out] error_parameter On failure will be set to the JSON path of the field where the failure happened if available or
+                               `NULL`.
+ *
+ * @return a new {{classname}} object or `NULL` if the parsing failed.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_fromJSON(cJSON *json, bool as_request, char **error_reason, char **error_class, char **error_parameter);
 
+/** Compare two {{classname}} objects to see if they are equivalent
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ *
+ * This will return `true` if the two objects are referencing the same object or the two objects have the same value.
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The first {{classname}} object to compare.
+ * @param other_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The second {{classname}} object to compare.
+ *
+ * @return `true` if the two objects are the same or have equal values, `false` otherwise.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_is_equal_to(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *other_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
 
 {{^hasVars}}{{#isEnum}}{{#allowableValues}}
+/** Check if the {{classname}} enumeration object has a value set
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} enumeration object to check.
+ * @return `true` if the enumeration object has no value set (i.e. is equivalent to `NULL`)
+ */
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_is_not_set(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
 
+/** Get the enumeration value for a {{classname}} object
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} object to extract the enumeration value from.
+ *
+ * @return the data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_e value represented by the {{classname}} object.
+ */ 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_e data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_get_enum(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
 
+/** Get the string representation of the enumeration value for a {{classname}} object
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t 
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} object to extract the enumeration value from.
+ *
+ * @return the API string for the enumeration or `NULL` if no value set.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_get_string(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
 
+/** Set the enumeration value for a {{classname}} object
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} object to set the enumeration value for.
+ * @param value The value to set.
+ *
+ * @return `true` if the value was set.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_set_enum(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_e value);
 
+/** Set the enumeration value as a string for a {{classname}} object
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} object to set the enumeration value for.
+ * @param value The value to set.
+ *
+ * @return `true` if the value was recognised and set or `false` if the string did not represent a known enumeration value.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_set_string(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, const char *value);
 
 {{/allowableValues}}{{/isEnum}}{{^isEnum}}{{#composedSchemas}}{{^oneOf}}{{^allOf}}{{^anyOf.2.name}}{{#anyOf.1.isString}}{{#anyOf.0.isEnumRef}}
+/** Check if the {{classname}} enumeration object has a value set
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} enumeration object to check.
+ * @return `true` if the enumeration object has no value set (i.e. is equivalent to `NULL`)
+ */
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_is_not_set(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
 
+/** Check if the {{classname}} enumeration object has a custom value set
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} enumeration object to check.
+ * @return `true` if the enumeration object has an unknown string value set.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_is_non_standard(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
 
+/** Get the enumeration value for a {{classname}} object
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} object to extract the enumeration value from.
+ *
+ * @return the data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_e value represented by the {{classname}} object.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_e data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_get_enum(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
 
+/** Get the string representation of the enumeration value for a {{classname}} object
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} object to extract the enumeration value from.
+ *
+ * @return the API string for the enumeration or `NULL` if no value set.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_get_string(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
 
+/** Set the enumeration value for a {{classname}} object
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} object to set the enumeration value for.
+ * @param value The value to set.
+ *
+ * @return `true` if the value was set.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_set_enum(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_e value);
 
+/** Set the enumeration value as a string for a {{classname}} object
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ *
+ * Sets the enumeration value from the string given. If the string is a non-standard, custom value then the
+ * data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_get_enum
+ * function will return DCM_{{#lambda.uppercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.uppercase}}_OTHER
+ * while this value is set to indicate that this is a custom value.
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} object to set the enumeration value for.
+ * @param value The value to set.
+ *
+ * @return `true` to indicate that the value was set.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_set_string(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, const char *value);
 
 {{/anyOf.0.isEnumRef}}{{/anyOf.1.isString}}{{/anyOf.2.name}}{{/allOf}}{{/oneOf}}{{/composedSchemas}}{{/isEnum}}{{/hasVars}}
 {{#vars}}{{<is-optional}}{{$yes}}
+/** Check if the {{baseName}} field of a {{classname}} object is set
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} object to examine.
+ *
+ * @return `true` if the optional {{baseName}} field is set.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_has_{{#lambda.lowercase}}{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}{{/lambda.lowercase}}(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
 
 {{/yes}}{{/is-optional}}
+/** Get the value of the {{baseName}} field of a {{classname}} object
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} object to examine.
+ *
+ * @return the value current set for the {{baseName}} field.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API {{^isContainer}}const {{/isContainer}}{{>data-type}} data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_{{#lambda.lowercase}}{{#lambda.snakecase}}{{getter}}{{/lambda.snakecase}}{{/lambda.lowercase}}(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
 
+/** Set the value of the {{baseName}} field in a {{classname}} object
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} object to set the field in.
+ * @param p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}} The value to copy into the {{classname}} object.
+ *
+ * @return @a {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_{{#lambda.lowercase}}{{#lambda.snakecase}}{{setter}}{{/lambda.snakecase}}{{/lambda.lowercase}}(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, const {{>data-type}} p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}});
 
+/** Move a value to the {{baseName}} field in a {{classname}} object
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} object to set the field in.
+ * @param p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}} The value to move into the {{classname}} object.
+ *
+ * @return @a {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_{{#lambda.lowercase}}{{#lambda.snakecase}}{{setter}}{{/lambda.snakecase}}{{/lambda.lowercase}}_move(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, {{>data-type}} p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}});
 
 {{#isContainer}}
+/** Add a new item to the {{baseName}} {{#isArray}}array{{/isArray}}{{#isMap}}map object{{/isMap}} in a {{classname}} object
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} object to add the {{#isArray}}array{{/isArray}}{{#isMap}}map object{{/isMap}} item to.{{#isMap}}
+ * @param key The object key name to map the @a {{#lambda.snakecase}}{{name}}{{/lambda.snakecase}} value to.{{/isMap}}
+ * @param {{#lambda.snakecase}}{{name}}{{/lambda.snakecase}} The value to add.
+ *
+ * @return @a {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_add_{{#lambda.lowercase}}{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}{{/lambda.lowercase}}(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, {{#isMap}} const char *key, const {{/isMap}}{{#items}}{{>data-type}}{{/items}} {{#lambda.snakecase}}{{name}}{{/lambda.snakecase}});
 
+/** Remove an item from the {{baseName}} {{#isArray}}array{{/isArray}}{{#isMap}}map object{{/isMap}} in a {{classname}} object
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} object to remove the {{#isArray}}array{{/isArray}}{{#isMap}}map object{{/isMap}} value from.{{#isMap}}
+ * @param key The map key name to remove.{{/isMap}}{{^isMap}}
+ * @param {{#lambda.snakecase}}{{name}}{{/lambda.snakecase}} The value to remove.{{/isMap}}
+ *
+ * @return @a {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_remove_{{#lambda.lowercase}}{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}{{/lambda.lowercase}}(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, const {{#isMap}}char *key{{/isMap}}{{^isMap}}{{#items}}{{>data-type}}{{/items}} {{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}{{/isMap}});
 
+/** Get an item from the {{baseName}} {{#isArray}}array{{/isArray}}{{#isMap}}map object{{/isMap}} in a {{classname}} object
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} object to examine.{{#isMap}} 
+ * @param key The map key name of the value to retrieve.{{/isMap}}{{^isMap}}
+ * @param idx The index of the value to retrieve.{{/isMap}}
+ *
+ * @return The value found at the @a {{#isMap}}key{{/isMap}}{{^isMap}}idx{{/isMap}} entry.
+ */
 DATA_COLLECTION_SVC_PRODUCER_API {{#items}}{{^isContainer}}const {{/isContainer}}{{>data-type}}{{/items}} data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_get_entry_{{#lambda.lowercase}}{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}{{/lambda.lowercase}}(const data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}, {{#isMap}}const char *key{{/isMap}}{{#isArray}}size_t idx{{/isArray}});
 
+/** Remove all entries from the {{baseName}} {{#isArray}}array{{/isArray}}{{#isMap}}map object{{/isMap}} in a {{classname}} object
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} object to empty {{baseName}} for.
+ *
+ * @return @a {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}
+ */ 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_clear_{{#lambda.lowercase}}{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}{{/lambda.lowercase}}(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}});
 
 {{/isContainer}}
 {{/vars}}
-/* lnode helper for generating ogs_list_t nodes's of type {{classname}} */
+/** lnode helper for generating ogs_list_t nodes's of type {{classname}}
+ * \public \memberof data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t
+ *
+ * Creates a new data_collection_lnode_t object containing the @a {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} object.
+ * The @a {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} will be deleted when the data_collection_lnode_t is freed. Use
+ * data_collection_lnode_create_ref() if you want an list node that will not delete the object when it is freed.
+ *
+ * @param {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}} The {{classname}} object to create an data_collection_lnode_t object for.
+ *
+ * @return a new data_collection_lnode_t object containing the @a {{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}
+ */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_make_lnode(data_collection_model_{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}}_t *{{#lambda.lowercase}}{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}}{{/lambda.lowercase}});
 
 /***** Internal library protected functions *****/
@@ -113,6 +376,8 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_model_
 #ifdef __cplusplus
 }
 #endif
+
+/** @} */
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */
