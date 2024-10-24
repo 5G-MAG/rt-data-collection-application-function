@@ -28,7 +28,7 @@ typedef struct application_id_node_s {
     char *application_id;
 } application_id_node_t;
 
-static data_collection_model_communication_collection_t *__communication_collection_create(char *start_time, char *end_time, long ul_vol, long dl_vol);
+static data_collection_model_communication_collection_t *__communication_collection_create(const char *start_time, const char *end_time, long ul_vol, long dl_vol);
 static data_collection_model_ue_communication_collection_t *ue_communication_collection_create(const char *application_id, ogs_list_t *communication_collection_records);
 static void data_report_application_ids(ogs_list_t *data_reports, ogs_list_t *application_ids);
 static communication_collection_record_t *generate_communication_collection_from_data_report(data_collection_data_report_record_t *data_report, void *report);
@@ -53,13 +53,13 @@ ogs_list_t *generate_af_event_notifications(ogs_list_t *data_reports, data_colle
 
     ogs_list_for_each(data_reports, data_report) {
 	//does_application_in_data_report_and_evex_match(data_report, data_collection_event_subscription);   
-        void *report = data_collection_reporting_data_report_get(data_report);
+        void *report = data_collection_data_report_record_get_data_sample(data_report);
         if(report) {
             communication_collection_record_t *communication_collection_record =
                             generate_communication_collection_from_data_report(data_report, report);
 	    if(communication_collection_record) {
                 ogs_list_add(&communication_collection_records, communication_collection_record);
-	        data_collection_reporting_report_used(data_report, data_collection_event_subscription); 
+	        data_collection_data_report_record_mark_used(data_report, data_collection_event_subscription); 
 	    }
 	}
     }
@@ -100,7 +100,7 @@ ogs_list_t *generate_af_event_notifications(ogs_list_t *data_reports, data_colle
 
     ogs_list_for_each_safe(data_reports, data_rep, data_report_node) {
         ogs_list_remove(data_reports, data_report_node);
-        data_collection_report_destroy(data_report_node);
+        data_collection_data_report_record_destroy(data_report_node);
     }
 
     return af_event_notifications;
@@ -111,8 +111,8 @@ communication_collection_record_t *generate_communication_collection_from_data_r
  
     data_collection_model_communication_collection_t *communication_collection = NULL;
     long dl_vol = 0;
-    char *end_time = NULL;
-    char *start_time = NULL;
+    const char *end_time = NULL;
+    const char *start_time = NULL;
     long ul_vol = 0;
     const char *application_id;
     communication_collection_record_t *communication_collection_record;
@@ -134,12 +134,10 @@ communication_collection_record_t *generate_communication_collection_from_data_r
 
     if (!dl_vol && !ul_vol) {
         ogs_error("At least one of Uplink or Downlink volume shall be provided.");
-	if(start_time) ogs_free(start_time);
-	if(end_time) ogs_free(end_time);
         return NULL;	
     }
 
-    application_id = data_collection_data_report_get_application_id(data_report); 
+    application_id = data_collection_data_report_record_get_external_application_id(data_report);
    
     communication_collection_record = ogs_calloc(1, sizeof(communication_collection_record_t));
     ogs_assert(communication_collection_record);
@@ -153,17 +151,17 @@ communication_collection_record_t *generate_communication_collection_from_data_r
 
 }
 
-static data_collection_model_communication_collection_t *__communication_collection_create(char *start_time, char *end_time, long ul_vol, long dl_vol) {
+static data_collection_model_communication_collection_t *__communication_collection_create(const char *start_time, const char *end_time, long ul_vol, long dl_vol) {
     data_collection_model_communication_collection_t *communication_collection;
 
     communication_collection = data_collection_model_communication_collection_create();
     ogs_assert(communication_collection);
 
     if (start_time) {
-        data_collection_model_communication_collection_set_start_time_move(communication_collection, start_time);
+        data_collection_model_communication_collection_set_start_time(communication_collection, start_time);
     }
     if (end_time) {
-        data_collection_model_communication_collection_set_end_time_move(communication_collection, end_time);
+        data_collection_model_communication_collection_set_end_time(communication_collection, end_time);
     }
     data_collection_model_communication_collection_set_dl_vol(communication_collection, dl_vol);
     data_collection_model_communication_collection_set_ul_vol(communication_collection, ul_vol);
@@ -178,7 +176,7 @@ static void data_report_application_ids(ogs_list_t *data_reports, ogs_list_t *ap
 
     ogs_list_for_each(data_reports, data_report) {
         bool exists = false;
-        const char *report_app_id = data_collection_data_report_get_application_id(data_report);
+        const char *report_app_id = data_collection_data_report_record_get_external_application_id(data_report);
         ogs_list_for_each(application_ids, application_id_node) {
 	    if(!strcmp(report_app_id, application_id_node->application_id)) {
                 exists = true;	        

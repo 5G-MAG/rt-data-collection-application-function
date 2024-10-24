@@ -30,34 +30,19 @@ typedef enum {
 
     DC_TIMER_EVENT_EXPOSURE_NOTIF,
 
+    DC_TIMER_REPORTING_SESSION_EXPIRY,
+
     MAX_NUM_OF_DC_TIMER,
 
 } dc_timer_e;
 
-/*
-
-typedef enum {
-    DC_EVENT_BASE = OGS_MAX_NUM_OF_PROTO_EVENT,
-
-    DC_EVENT_SBI_LOCAL,
-
-    DC_EVENT_REPORTING_SESSION_CACHE,
-
-    DC_EVENT_DATA_REPORTS_EXPIRY,
-
-    DC_EVENT_DATA_REPORTS_CLEAR,
-
-    MAX_NUM_OF_DC_EVENT,
-
-} dc_event_e;
-*/
-
 const char *data_collection_timer_get_name(int timer_id);
 
-void dc_timer_reporting_session_cache(void *data);
-void dc_timer_data_reports_expire(void *data); 
-void dc_timer_data_reports_clear(void *data); 
-void dc_timer_event_exposure_notif(void *data);
+extern void dc_timer_reporting_session_cache(void *data);
+extern void dc_timer_data_reports_expire(void *data); 
+extern void dc_timer_data_reports_clear(void *data); 
+extern void dc_timer_event_exposure_notif(void *data);
+extern void dc_timer_reporting_session_expiry(void *data);
 
 #ifdef __cplusplus
 }

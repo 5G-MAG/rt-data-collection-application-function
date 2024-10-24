@@ -32,6 +32,8 @@ libspdc_dist_sources = files('''
     data-collection-process.h
     data-report.c
     data-report.h
+    data-report-record.c
+    data-report-record.h
     data-report-store.c
     data-report-store.h
     data-report-process.c

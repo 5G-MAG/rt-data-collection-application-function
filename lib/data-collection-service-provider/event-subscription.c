@@ -30,7 +30,7 @@ typedef struct data_collection_event_subscription_s {
     char *hash;
     ogs_sbi_client_t  *client;
     data_collection_model_af_event_exposure_subsc_t *af_event_exposure_subscription;
-    struct data_collection_event_subscription_s *original_event_subscription;
+    const struct data_collection_event_subscription_s *original_event_subscription;
     ogs_timer_t *event_notification_timer;
     bool send_notif;
 } data_collection_event_subscription_t;
@@ -142,7 +142,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_event_subscription_t *data_coll
 
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_event_subscription_t *data_collection_event_subscription_get_original_event_subscription(const data_collection_event_subscription_t *event_subscription /* not-null */)
+DATA_COLLECTION_SVC_PRODUCER_API const data_collection_event_subscription_t *data_collection_event_subscription_get_original_event_subscription(const data_collection_event_subscription_t *event_subscription /* not-null */)
 {
     if (!event_subscription) return NULL;
     return event_subscription->original_event_subscription;

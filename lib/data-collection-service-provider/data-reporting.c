@@ -7,6 +7,8 @@ program. If this file is missing then the license can be retrieved from
 https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 */
 
+#include <time.h>
+
 #include "ogs-core.h"
 
 #include "utilities.h"
@@ -34,30 +36,31 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_session_t *data_colle
 {
     ogs_uuid_t uuid;
     char id[OGS_UUID_FORMATTED_LENGTH + 1];
-    data_collection_reporting_session_t *data_collection_reporting_session;
+    data_collection_reporting_session_t *reporting_session;
 
     ogs_info("In data_collection_reporting_session_create");
 
     ogs_uuid_get(&uuid);
     ogs_uuid_format(id, &uuid);
 
-    data_collection_reporting_session = ogs_calloc(1, sizeof(data_collection_reporting_session_t));
-    ogs_assert(data_collection_reporting_session);
+    reporting_session = ogs_calloc(1, sizeof(*reporting_session));
+    ogs_assert(reporting_session);
 
-    data_collection_reporting_session->data_reporting_session_id = data_collection_strdup(id);
+    reporting_session->data_reporting_session_id = data_collection_strdup(id);
 
-    data_collection_reporting_session->external_application_id = data_collection_strdup(external_app_id);
+    reporting_session->external_application_id = data_collection_strdup(external_app_id);
 
-    data_collection_reporting_session->supported_domains =
+    reporting_session->supported_domains =
                  (data_domain_list_t*)list_clone(supported_domains, copy_data_domain_node);
 
-    data_collection_reporting_session->received = ogs_time_now();
-    data_collection_reporting_session->client_type =  client_type;
+    reporting_session->received = ogs_time_now();
+    reporting_session->client_type =  client_type;
 
-    ogs_hash_set(data_collection_self()->data_reporting_sessions, data_collection_reporting_session->data_reporting_session_id, OGS_HASH_KEY_STRING, data_collection_reporting_session);
+    ogs_hash_set(data_collection_self()->data_reporting_sessions, reporting_session->data_reporting_session_id, OGS_HASH_KEY_STRING, reporting_session);
 
-    data_collection_list_free(supported_domains);
-    return data_collection_reporting_session;
+    data_collection_reporting_session_refresh(reporting_session);
+
+    return reporting_session;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API void data_collection_reporting_session_destroy(data_collection_reporting_session_t *session)
@@ -97,9 +100,10 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_session_g
 
 
 DATA_COLLECTION_SVC_PRODUCER_API const struct timespec* data_collection_reporting_session_refresh(data_collection_reporting_session_t *session){
+    if (!session) return NULL;
 
-    static struct timespec ts;
-    return &ts;
+    clock_gettime(CLOCK_MONOTONIC, &session->last_access);
+    return &session->last_access;
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_reporting_client_type_cmp_to_model(data_collection_reporting_client_type_e reporting_client_type, data_collection_model_data_collection_client_type_e model_client_type)
@@ -114,6 +118,23 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_reporting_client_type_cmp_
 }
 
 /********** Library internal functions ***********/
+
+void _reporting_session_expire_old_sessions()
+{
+    struct timespec now;
+    ogs_hash_index_t *idx, *idx_obj = ogs_hash_index_make(data_collection_self()->data_reporting_sessions);
+
+    clock_gettime(CLOCK_MONOTONIC, &now);
+    for (idx = ogs_hash_next(idx_obj); idx; idx = ogs_hash_next(idx)) {
+        data_collection_reporting_session_t *session = ogs_hash_this_val(idx);
+        time_t session_sec = session->last_access.tv_sec + data_collection_self()->config.timeouts.reporting_session;
+        long session_nsec = session->last_access.tv_nsec;
+        if (session_sec < now.tv_sec || (session_sec == now.tv_sec && session_nsec < now.tv_nsec)) {
+            /* reporting session has expired - destroy it */
+            data_collection_reporting_session_destroy(session);
+        }
+    }
+}
 
 data_collection_reporting_session_t *data_reporting_session_populate(data_collection_reporting_session_t *data_collection_reporting_session, data_collection_model_data_reporting_session_t *data_reporting_session)
 {
@@ -137,8 +158,13 @@ data_collection_reporting_session_t *data_reporting_session_populate(data_collec
 
 const data_reporting_session_cache_entry_t *data_collection_context_retrieve_reporting_session(const char *reporting_session_id)
 {
-
     data_reporting_session_cache_entry_t *data_reporting_session_cache_entry = NULL;
+    data_collection_reporting_session_t *data_collection_reporting_session =
+                        data_collection_reporting_session_find(reporting_session_id);
+    if (data_collection_reporting_session) {
+        /* If the reporting session exists mark is as accessed */
+        data_collection_reporting_session_refresh(data_collection_reporting_session);
+    }
 
     if (!data_collection_self()->data_reporting_sessions_cache) {
         data_collection_self()->data_reporting_sessions_cache = data_reporting_session_cache_new();
@@ -151,10 +177,7 @@ const data_reporting_session_cache_entry_t *data_collection_context_retrieve_rep
     }
 
     if (!data_reporting_session_cache_entry) {
-        data_collection_reporting_session_t *data_collection_reporting_session = NULL;
         int rv =0;
-
-        data_collection_reporting_session = data_collection_reporting_session_find(reporting_session_id);
 
         if (data_collection_reporting_session == NULL){
             ogs_error("Couldn't find the Data Reporting Session [%s]", reporting_session_id);
@@ -376,14 +399,14 @@ static char *calculate_data_reporting_session_hash(data_collection_model_data_re
 
 static ogs_lnode_t *copy_data_domain_node(const ogs_lnode_t *to_copy)
 {
-    const data_domain_node_t *existing_dd_node = (const data_domain_node_t*)to_copy;
+    const data_collection_lnode_t *existing_dd_node = (const data_collection_lnode_t*)to_copy;
 
     if (!existing_dd_node) return NULL;
 
     data_domain_node_t *new_dd_node = (data_domain_node_t*)ogs_calloc(1, sizeof(data_domain_node_t));
     ogs_assert(new_dd_node);
 
-    new_dd_node->data_domain = data_collection_strdup(existing_dd_node->data_domain);
+    new_dd_node->data_domain = data_collection_strdup((const char *)existing_dd_node->object);
 
     return &new_dd_node->node;
 }

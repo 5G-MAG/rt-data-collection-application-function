@@ -341,6 +341,7 @@
 #include "VerticalDirection.h"
 
 #include "data-reporting.h"
+#include "data-report-record.h"
 #include "data-reporting-provisioning.h"
 #include "data-reporting-configuration.h"
 #include "lifecycle.h"

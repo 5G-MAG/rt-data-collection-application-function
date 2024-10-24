@@ -937,7 +937,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
 
     ValueType value(value_from);
 
-    (p_contr_weights);
     if (value) obj->addContrWeights(value.value());
     return obj_service_experience_info_per_app;
 }

@@ -118,6 +118,20 @@ bool _data_report_process_event(ogs_event_t *e)
         }
         break;
 
+    case DC_EVENT_LOCAL:
+        if ((intptr_t)(e->sbi.data) == DC_LOCAL_EVENT_MARKER) {
+            dc_local_event_t *local_event = (dc_local_event_t*)e;
+            switch (local_event->local_id) {
+            case DC_LOCAL_EVENT_REPORTING_SESSION_EXPIRY:
+                _reporting_session_expire_old_sessions();
+                return true;
+            default:
+                /* non-data-reporting local event so ignore */
+                break;
+            }
+        }
+        break;
+
     case OGS_EVENT_SBI_SERVER:
         {
             int rv = 0;
@@ -248,6 +262,8 @@ bool _data_report_process_event(ogs_event_t *e)
                                             ogs_free(reason);
                                             break;
                                         }
+                                        /* mark session active */
+                                        data_collection_reporting_session_refresh(data_collection_reporting_session);
 
 					rv = data_collection_reporting_report(data_collection_reporting_session, mime_type, request->http.content, strlen(request->http.content), &error_return, &error_classname, &error_parameter, &error_code);
 
@@ -359,12 +375,13 @@ bool _data_report_process_event(ogs_event_t *e)
                                         break;
                                     }
 				    client_type = _report_client_type_from_ogs_server(server);
+                                    ogs_list_t *supported_domains = data_collection_model_data_reporting_session_get_supported_domains(data_reporting_session);
 				    data_collection_reporting_session = data_collection_reporting_session_create(
                                                 data_collection_model_data_reporting_session_get_external_application_id(
                                                             data_reporting_session),
-                                                data_collection_model_data_reporting_session_get_supported_domains(
-                                                            data_reporting_session),
+                                                supported_domains,
                                                 client_type);
+                                    data_collection_list_free(supported_domains);
 				    if (!data_collection_reporting_session) {
                                         ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_INTERNAL_SERVER_ERROR,
                                                                     1, &message, "Internal Server Error", NULL, NULL, NULL, NULL,
@@ -487,6 +504,49 @@ bool _data_report_process_event(ogs_event_t *e)
 				    }
 
 				}
+                                break;
+
+                            CASE(OGS_SBI_HTTP_METHOD_OPTIONS)
+                                {
+                                    if (message.h.resource.component[1]) {
+                                        /* OPTIONS .../sessions/{reportingSessionId} */
+                                        const char *data_reporting_session_id = message.h.resource.component[1];
+                                        data_collection_reporting_session_t *data_collection_reporting_session;
+                                        ogs_sbi_response_t *response;
+
+                                        data_collection_reporting_session =
+                                                    data_collection_reporting_session_find(data_reporting_session_id);
+
+                                        if (!data_collection_reporting_session) {
+                                            char *err = NULL;
+                                            err = ogs_msprintf("Data reporting Session [%s] is not found.",
+                                                                data_reporting_session_id);
+                                            ogs_error("%s", err);
+                                            ogs_assert(true == nf_server_send_error(stream, OGS_SBI_HTTP_STATUS_NOT_FOUND, 1,
+                                                                        &message, "Data reporting session does not exist", err,
+                                                                        NULL, NULL, NULL, api, app_meta));
+                                            ogs_free(err);
+                                            break;
+                                        }
+
+                                        data_collection_reporting_session_refresh(data_collection_reporting_session);
+                                        response = nf_server_new_response(NULL, NULL, 0, NULL, 0,
+                                                                          OGS_SBI_HTTP_METHOD_GET ","
+                                                                          OGS_SBI_HTTP_METHOD_DELETE ","
+                                                                          OGS_SBI_HTTP_METHOD_OPTIONS, api, app_meta);
+                                        ogs_assert(response);
+                                        nf_server_populate_response(response, 0, NULL, OGS_SBI_HTTP_STATUS_OK);
+                                        ogs_assert(true == ogs_sbi_server_send_response(stream, response));
+                                    } else {
+                                        /* OPTIONS .../sessions */
+                                        ogs_sbi_response_t *response = nf_server_new_response(NULL, NULL, 0, NULL, 0,
+                                                                          OGS_SBI_HTTP_METHOD_POST ","
+                                                                          OGS_SBI_HTTP_METHOD_OPTIONS, api, app_meta);
+                                        ogs_assert(response);
+                                        nf_server_populate_response(response, 0, NULL, OGS_SBI_HTTP_STATUS_OK);
+                                        ogs_assert(true == ogs_sbi_server_send_response(stream, response));
+                                    }
+                                }
                                 break;
 
 			    DEFAULT

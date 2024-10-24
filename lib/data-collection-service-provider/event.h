@@ -37,6 +37,7 @@ typedef enum {
 typedef enum {
 
     DC_LOCAL_EVENT_EXPOSURE_NOTIFICATION,
+    DC_LOCAL_EVENT_REPORTING_SESSION_EXPIRY,
 
 } dc_local_event_e;
 

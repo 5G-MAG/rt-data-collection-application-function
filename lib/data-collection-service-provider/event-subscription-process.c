@@ -70,6 +70,9 @@ bool _evex_subscription_process_event(ogs_event_t *e)
             switch (local_event->local_id) {
             case DC_LOCAL_EVENT_EXPOSURE_NOTIFICATION:
                 _event_subscriptions_process(local_event->data);
+                return true;
+            default:
+                /* non-event-exposure local event, so ignore here */
                 break;
             }
         }

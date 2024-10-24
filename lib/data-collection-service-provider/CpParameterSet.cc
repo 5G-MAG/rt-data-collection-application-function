@@ -1374,7 +1374,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
 
     ValueType value(value_from);
 
-    (p_expected_umt_days_add);
     if (value) obj->addExpectedUmtDaysAdd(value.value());
     return obj_cp_parameter_set;
 }

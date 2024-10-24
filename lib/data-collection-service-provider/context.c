@@ -21,6 +21,7 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #include "data-reporting-session-cache.h"
 #include "data-reporting-provisioning.h"
 #include "event-subscription.h"
+#include "timer.h"
 
 #include "data-collection-sp/data-collection.h"
 
@@ -57,6 +58,12 @@ int _data_collection_initialise(const data_collection_configuration_t* const con
         ogs_error("Failed to configure data collection library");
         return rv;
     }
+    self->reporting_session_expiry_timer = ogs_timer_add(ogs_app()->timer_mgr, dc_timer_reporting_session_expiry, NULL);
+    if (self->reporting_session_expiry_timer) {
+        /* check for expired reporting sessions after 1 minute */
+        ogs_timer_start(self->reporting_session_expiry_timer, ogs_time_from_sec(60));
+    }
+
     return OGS_OK;
 }
 void data_collection_context_init(void)
@@ -86,6 +93,11 @@ void data_collection_context_final(void)
 
     if (self->config.data_collection_dir)
         ogs_free(self->config.data_collection_dir);
+
+    if (self->reporting_session_expiry_timer) {
+        ogs_timer_delete(self->reporting_session_expiry_timer);
+        self->reporting_session_expiry_timer = NULL;
+    }
 
     data_collection_context_data_reporting_provisioning_sessions_remove();
     data_collection_context_data_reporting_sessions_remove();
@@ -123,6 +135,7 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
     }
 
     self->config.data_collection_configuration = configuration;
+    self->config.timeouts.reporting_session = 120; /* Default reportingSession timeout will be 2 minutes */
 
     ogs_yaml_iter_init(&root_iter, document);
     while (ogs_yaml_iter_next(&root_iter)) {
@@ -579,6 +592,18 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
                     } while (ogs_yaml_iter_type(&sbi_array) == YAML_SEQUENCE_NODE);
 
                     /* handle config in sbi library */
+                } else if (!strcmp(dc_key, "timeouts")) {
+                    ogs_yaml_iter_t tmout_iter;
+                    ogs_yaml_iter_recurse(&dc_iter, &tmout_iter);
+                    while (ogs_yaml_iter_next(&tmout_iter)) {
+                        const char *tmout_key = ogs_yaml_iter_key(&tmout_iter);
+                        ogs_assert(tmout_key);
+                        if (!strcmp(tmout_key, "reportingSession")) {
+                            self->config.timeouts.reporting_session = ascii_to_long(ogs_yaml_iter_value(&tmout_iter));
+                        } else {
+                            ogs_warn("unknown key in timeouts `%s`", tmout_key);
+                        }
+                    }
                 } else if (!strcmp(dc_key, "service_name")) {
                     /* handle config in sbi library */
                 } else if (!strcmp(dc_key, "discovery")) {

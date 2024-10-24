@@ -40,6 +40,7 @@ static const char *_event_get_name(ogs_event_t *e)
 {
     if (e->id < OGS_MAX_NUM_OF_PROTO_EVENT)
         return ogs_event_get_name(e);
+
     return "Unknown Event Type";
 }
 

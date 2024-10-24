@@ -279,7 +279,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_comm
 
     ValueType value(value_from);
 
-    (p_days_of_week);
     if (value) obj->addDaysOfWeek(value.value());
     return obj_scheduled_communication_time;
 }

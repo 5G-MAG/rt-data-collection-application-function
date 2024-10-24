@@ -332,7 +332,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_addre
 
     ValueType value(value_from);
 
-    (p_port_numbers);
     if (value) obj->addPortNumbers(value.value());
     return obj_endpoint_address;
 }

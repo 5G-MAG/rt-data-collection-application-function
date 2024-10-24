@@ -54,6 +54,8 @@ const char *data_collection_timer_get_name(int timer_id)
         return "DC_TIMER_DATA_REPORTS_CLEAR";
     case DC_TIMER_EVENT_EXPOSURE_NOTIF:
         return "DC_TIMER_EVENT_EXPOSURE_NOTIF";
+    case DC_TIMER_REPORTING_SESSION_EXPIRY:
+	return "DC_TIMER_REPORTING_SESSION_EXPIRY";
     default: 
        break;
     }
@@ -84,10 +86,13 @@ static void timer_send_event(int timer_id, void *data)
         e->timer_id = timer_id;
         break;
     case DC_TIMER_EVENT_EXPOSURE_NOTIF:
-        e = _local_event_create(DC_LOCAL_EVENT_EXPOSURE_NOTIFICATION, NULL);
+        e = _local_event_create(DC_LOCAL_EVENT_EXPOSURE_NOTIFICATION, data);
         ogs_assert(e);
         e->timer_id = timer_id;
         break;
+    case DC_TIMER_REPORTING_SESSION_EXPIRY:
+	e = _local_event_create(DC_LOCAL_EVENT_REPORTING_SESSION_EXPIRY, NULL);
+	ogs_assert(e);
     default:
         ogs_fatal("Unknown timer id[%d]", timer_id);
         ogs_assert_if_reached();
@@ -102,8 +107,6 @@ static void timer_send_event(int timer_id, void *data)
     }
 }
 
-
-
 void dc_timer_reporting_session_cache(void *data)
 {
     timer_send_event(DC_TIMER_REPORTING_SESSION_CACHE, data);
@@ -114,9 +117,7 @@ void dc_timer_data_reports_expire(void *data)
 {
     timer_send_event(DC_TIMER_DATA_REPORTS_EXPIRY, data);
     ogs_timer_start(data_collection_self()->data_reports_timer, ogs_time_from_sec(data_collection_self()->config.server_response_cache_control->data_collection_reporting_report_response_max_age));
-
 }
-
 
 void dc_timer_data_reports_clear(void *data)
 {
@@ -134,4 +135,10 @@ void dc_timer_event_exposure_notif(void *data)
     _event_subscription_set_send_notif(event_subscription);
     timer_send_event(DC_TIMER_EVENT_EXPOSURE_NOTIF, data);
     _event_subscription_notification_timer_activate(event_subscription);
+}
+
+void dc_timer_reporting_session_expiry(void *data)
+{
+    timer_send_event(DC_TIMER_REPORTING_SESSION_EXPIRY, NULL);
+    ogs_timer_start(data_collection_self()->reporting_session_expiry_timer, ogs_time_from_sec(60));
 }

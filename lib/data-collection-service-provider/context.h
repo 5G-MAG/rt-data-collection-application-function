@@ -62,11 +62,15 @@ typedef struct data_collection_configuration_server_hdr_s {
     data_collection_configuration_server_t ogs_server[DATA_COLLECTION_SVR_MAX_SERVERS_PER_IFC];
 } data_collection_configuration_server_hdr_t;
 
+typedef struct data_collection_lib_config_timeouts_s {
+    int reporting_session;   /**< Time in seconds a reporting session can be idle before being expired */
+} data_collection_lib_config_timeouts_t;
+
 typedef struct data_collection_lib_configuration_s {
     const data_collection_configuration_t *data_collection_configuration;
     data_collection_configuration_server_hdr_t servers[DATA_COLLECTION_SVR_NUM_IFCS];
     data_collection_server_response_cache_control_t *server_response_cache_control;
-
+    data_collection_lib_config_timeouts_t timeouts; /**< Timeout values for various things (not cache control aging) */
     char *data_collection_dir;
 } data_collection_lib_configuration_t;
 
@@ -81,6 +85,7 @@ typedef struct data_collection_context_s {
     ogs_timer_t *reporting_sessions_cache_timer;
     ogs_timer_t *data_reports_timer;
     ogs_timer_t *data_reports_clear_timer;
+    ogs_timer_t *reporting_session_expiry_timer;
     char server_name[NI_MAXHOST];
 } data_collection_context_t;
 

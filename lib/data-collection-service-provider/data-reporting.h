@@ -10,6 +10,8 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 #ifndef DATA_REPORTING_H
 #define DATA_REPORTING_H
 
+#include <time.h>
+
 #include "ogs-core.h"
 #include "ogs-proto.h"
 
@@ -31,12 +33,14 @@ typedef struct data_collection_reporting_session_s {
     char *data_reporting_session_id;
     char *external_application_id;
     data_domain_list_t *supported_domains;
+    struct timespec last_access;
     ogs_time_t received;
     char *hash;
     data_collection_model_data_reporting_session_t *data_reporting_session;
     data_collection_reporting_client_type_e client_type;
 } data_collection_reporting_session_t;
 
+extern void _reporting_session_expire_old_sessions();
 extern data_collection_reporting_session_t *data_reporting_session_populate(data_collection_reporting_session_t *data_collection_reporting_session, data_collection_model_data_reporting_session_t *data_reporting_session);
 
 extern const data_reporting_session_cache_entry_t *data_collection_context_retrieve_reporting_session(const char *reporting_session_id);
