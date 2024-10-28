@@ -19,6 +19,10 @@
 #include "ogs-core.h"
 #include "sbi/openapi/external/cJSON.h"
 
+/** \addtogroup dcsp
+ * @{
+ */
+
 #ifdef __cplusplus
 extern "C" {
 #endif
@@ -27,11 +31,35 @@ extern "C" {
 
 /***** Opaque Types *****/
 
+/** \cond FORWARD_DECL
+ * \struct data_collection_reporting_configuration_s lib/data-collection-service-provider/data-reporting-configuration.c
+ * Data Collection Library internal structure.
+ * \see lib/data-collection-service-provider/data-reporting-configuration.c
+ */
+
 typedef struct data_collection_reporting_configuration_s data_collection_reporting_configuration_t;
+/** \endcond */
 
 /***** Forward declarations *****/
+
+/** \cond FORWARD_DECL
+ * \struct data_collection_reporting_provisioning_session_s lib/data-collection-service-provider/data-reporting-provisioning.c
+ * Data Collection Library internal structure.
+ * \see lib/data-collection-service-provider/data-reporting-provisioning.c
+ */
+
 typedef struct data_collection_reporting_provisioning_session_s data_collection_reporting_provisioning_session_t;
+/** \endcond */
+
+
+/** \cond FORWARD_DECL
+ * \struct data_collection_model_data_reporting_configuration_s DataReportingConfiguration.h
+ * Data Reporting Configuration model.
+ * \see DataReportingConfiguration.h
+ */
+
 typedef struct data_collection_model_data_reporting_configuration_s data_collection_model_data_reporting_configuration_t;
+/** \endcond */
 
 /***** Interface callbacks *****/
 
@@ -71,10 +99,12 @@ DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_reporting_conf
  * error strings if they have been set due to a parsing error.
  *
  * @param json The JSON tree to parse.
+ * @param parent_session The Provisioning Session to which the configuration is associated with.
  * @param base An existing reporting configuration object to copy read-only fields from or `NULL`.
  * @param err_return Filled in on error with a human readable error string.
  * @param err_class Filled in on error with the classname of the class that generated the parsing error.
  * @param err_param Filled in on error with the parameter name of the parameter that caused the parsing error.
+ * @param err_code Error code to be returned depending on the cause of the parsing error.
  * @return A new reporting configuration object filled in from the JSON or `NULL` if there was a parsing error.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_configuration_t *data_collection_reporting_configuration_parse_from_json(cJSON *json, data_collection_reporting_provisioning_session_t *parent_session, data_collection_reporting_configuration_t *base, char **err_return, char **err_class, char **err_param, char **err_code);
@@ -94,7 +124,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_reporting_configuration_up
  *
  * @param configuration The configuration to destroy.
  */
-DATA_COLLECTION_SVC_PRODUCER_API void data_collection_reporting_configuration_destroy(data_collection_reporting_configuration_t*);
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_reporting_configuration_destroy(data_collection_reporting_configuration_t *configuration);
 
 /** Set the parent data reporting provisioning session for a configuration
  *
@@ -124,22 +154,41 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_reporting_configuration_
  */
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_configuration_id(data_collection_reporting_configuration_t *config);
 
-/** Get the date-time timestamp for the last modification of this configuration
+/** Get the date-time timestamp for the last modification of this configuratio
+ * 
+ * @param configuration to return the instance id tag for.
+ *
  * @return The timestamp when this object was last modified.
  */
-DATA_COLLECTION_SVC_PRODUCER_API ogs_time_t data_collection_reporting_configuration_last_modified(data_collection_reporting_configuration_t *);
+DATA_COLLECTION_SVC_PRODUCER_API ogs_time_t data_collection_reporting_configuration_last_modified(data_collection_reporting_configuration_t *configuration);
 
-/** Get the instance id for the configuration
+/** Get the instance id tag for the configuration
  *
  * This tag will change when the configuration is changed.
  *
+ * @param configuration The configuration to return the instance id tag for.
+ *
  * @return An entity instance id tag suitable for an HTTP "ETag" header.
  */
-DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_configuration_etag(data_collection_reporting_configuration_t *);
+DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_configuration_etag(data_collection_reporting_configuration_t *configuration);
 
-/*** Get aggregation functions from the provisioned configurations***/
+/** Get the value of the aggregationFunctions field from the dataAccessProfiles of the provisioned configurations
+ *
+ * @param external_application_id The value of the externalApplicationId from the Data Report.
+ *
+ * @param event_type The event type from the handler associated with the Data Report.
+ *
+ * @param context_ids The contextIds from Data Report to match against configurationId of the provisioned configurations.
+ *
+ * @param aggregation_functions List to hold the value of the aggregationFunctions.
+ *
+ * @return the value current set for the aggregationFunctions field.
+ *
+ */
+
 DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_provisioning_configurations_aggregations_functions_get(const char *external_application_id, const char *event_type, ogs_list_t *context_ids, ogs_list_t *aggregation_functions);
 
+/** @} */
 
 #ifdef __cplusplus
 }
