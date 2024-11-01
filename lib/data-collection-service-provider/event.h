@@ -41,7 +41,7 @@ typedef enum {
 
 } dc_local_event_e;
 
-#if INTPTR_WIDTH >= 64
+#if INT64_MAX <= INTPTR_MAX
 #define DC_LOCAL_EVENT_MARKER 0x35474d41472d4443
 #else
 #define DC_LOCAL_EVENT_MARKER 0x35474443

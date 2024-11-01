@@ -101,11 +101,17 @@ log_bad_response() {
     fi
 }
 
+get_cache_control_max_age() {
+  max_age=$(echo "$resp_cache_control" | grep -oP '(?<=\=)\d+')
+}
+
+
 http_get() {
     local last_modified="$3"
     local etag="$4"
-    response=`curl -s --http2-prior-knowledge --fail-with-body ${last_modified:+-H "If-Modified-Since: $last_modified"} ${etag:+-H "If-None-Match: $etag"} -w "%output{$tmp_headers_file}resp_content_type=\"%header{content-type}\"\nresp_statuscode=%{response_code}\nresp_etag=\"%header{etag}\"\nresp_last_modified=\"%header{last-modified}\"\n" "http://${1}${2}"`
+    response=`curl -s --http2-prior-knowledge --fail-with-body ${last_modified:+-H "If-Modified-Since: $last_modified"} ${etag:+-H "If-None-Match: $etag"} -w "%output{$tmp_headers_file}resp_content_type=\"%header{content-type}\"\nresp_statuscode=%{response_code}\nresp_etag=\"%header{etag}\"\nresp_last_modified=\"%header{last-modified}\"\nresp_cache_control=\"%header{cache-control}\"\n" "http://${1}${2}"`
     . "$tmp_headers_file"
+    get_cache_control_max_age
     rm -f "$tmp_headers_file"
 }
 
@@ -138,14 +144,16 @@ http_post_file() {
         content_type='application/x-x509-ca-cert'
         ;;
     esac
-    response=`curl -s --http2-prior-knowledge --fail-with-body -w "%output{$tmp_headers_file}resp_location=\"%header{location}\"\nresp_content_type=\"%header{content-type}\"\nresp_statuscode=%{response_code}\nresp_etag=\"%header{etag}\"\nresp_last_modified=\"%header{last-modified}\"\n" -H "Content-Type: $content_type" --data-binary "@$data_file" "http://${authority}${url_path}"`
+    response=`curl -s --http2-prior-knowledge --fail-with-body -w "%output{$tmp_headers_file}resp_location=\"%header{location}\"\nresp_content_type=\"%header{content-type}\"\nresp_statuscode=%{response_code}\nresp_etag=\"%header{etag}\"\nresp_last_modified=\"%header{last-modified}\"\nresp_cache_control=\"%header{cache-control}\"\n" -H "Content-Type: $content_type" --data-binary "@$data_file" "http://${authority}${url_path}"`
     . "$tmp_headers_file"
+    get_cache_control_max_age
     rm -f "$tmp_headers_file"
 }
 
 http_post_json() {
-    response=`curl -s --http2-prior-knowledge --fail-with-body -w "%output{$tmp_headers_file}resp_location=\"%header{location}\"\nresp_content_type=\"%header{content-type}\"\nresp_statuscode=%{response_code}\nresp_etag=\"%header{etag}\"\nresp_last_modified=\"%header{last-modified}\"\n" -H 'Content-Type: application/json' --data "$3" "http://${1}${2}"`
+    response=`curl -s --http2-prior-knowledge --fail-with-body -w "%output{$tmp_headers_file}resp_location=\"%header{location}\"\nresp_content_type=\"%header{content-type}\"\nresp_statuscode=%{response_code}\nresp_etag=\"%header{etag}\"\nresp_last_modified=\"%header{last-modified}\"\nresp_cache_control=\"%header{cache-control}\"\n" -H 'Content-Type: application/json' --data "$3" "http://${1}${2}"`
     . "$tmp_headers_file"
+    get_cache_control_max_age
     rm -f "$tmp_headers_file"
 }
 

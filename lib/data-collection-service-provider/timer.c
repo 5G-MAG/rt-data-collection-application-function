@@ -93,6 +93,7 @@ static void timer_send_event(int timer_id, void *data)
     case DC_TIMER_REPORTING_SESSION_EXPIRY:
 	e = _local_event_create(DC_LOCAL_EVENT_REPORTING_SESSION_EXPIRY, NULL);
 	ogs_assert(e);
+	break;
     default:
         ogs_fatal("Unknown timer id[%d]", timer_id);
         ogs_assert_if_reached();

@@ -289,11 +289,12 @@ static int __data_collection_report_destroy_expired(ogs_list_t *data_reports)
             data_collection_data_report_record_destroy(data_report);
 	}
     }
-    /* free the list if empty */
+    /* free the list if empty 
     if(!ogs_list_first(data_reports)) { 
         ogs_free(data_reports);
 	return 0;
     }
+    */
     /* list still has entries */
     return 1;
 }
@@ -352,6 +353,7 @@ static ogs_list_t *__get_data_reports_allowed_for_event_subscription(const data_
        	if(!data_reports || !ogs_list_first(&data_reports->list)) {
             if (events_subs) data_collection_list_free(events_subs);
             if (allowed_handlers) ogs_free(allowed_handlers);
+	    if (data_reports_allowed) ogs_free(data_reports_allowed);
             return NULL;
         }
 

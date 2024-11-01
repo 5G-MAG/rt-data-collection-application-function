@@ -78,8 +78,8 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_provisioning_session_
  * error strings if they have been set due to a parsing error.
  *
  * @param json The JSON tree to parse.
- * @param error_reason Filled in on error with a human readable error string.
- * @param error_parameter Filled in on error with the parameter name of the parameter that caused the parsing error.
+ * @param[out] error_reason Filled in on error with a human readable error string.
+ * @param[out] error_parameter Filled in on error with the parameter name of the parameter that caused the parsing error.
  * @return A new Provisioning Session object filled in from the JSON or `NULL` if there was a parsing error.
  */
 
@@ -201,7 +201,7 @@ DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_provisioning_sess
  * @param session The Provisioning Session to which the reporting configuration to be replaced is associated with.
  * @param configuration The reporting configuration to be replaced.
  *
- * @return Returns OGS_OK if the configuration is removed successfully, else returns OGS_ERROR.
+ * @return Returns OGS_OK if the configuration is replaced successfully, else returns OGS_ERROR.
  *
  */
 

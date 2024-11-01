@@ -27,6 +27,7 @@
 # variables above will remain unset.
 #
 
+data_reporting_session_timeout=130
 
 create_data_reporting_session() {
   inc total_count
@@ -104,6 +105,24 @@ fetch_bad_data_reporting_session() {
   fi
 }
 
+fetch_expired_data_reporting_session() {
+  inc total_count
+  if [ -n "$data_reporting_session_id" ]; then
+    sleep $((data_reporting_session_timeout + 5))
+    http_get "$dcaf_directDataReporting_address" "/3gpp-ndcaf_data-reporting/v1/sessions/$data_reporting_session_id"
+    if [ "$resp_statuscode" = "404" ]; then
+      inc ok_count
+      log_info "DataReportingSession has expired"
+    else
+      inc fail_count
+      log_bad_response
+    fi
+  else
+    inc skip_count
+    log_warn "skipping fetch_expired_data_reporting_session due to missing DataReportingSession id"
+  fi
+}
+
 delete_data_reporting_session() {
   inc total_count
   if [ -n "$data_reporting_session_id" ]; then
@@ -127,4 +146,5 @@ fetch_data_reporting_session
 fetch_bad_data_reporting_session
 delete_data_reporting_session
 create_data_reporting_session
-
+fetch_expired_data_reporting_session
+create_data_reporting_session

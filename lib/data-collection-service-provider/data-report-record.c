@@ -76,7 +76,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_coll
     report->original_records = ogs_malloc(sizeof(data_report_record));
     report->original_records[0] = data_report_record;
     report->number_of_original_records = 1;
-    report->context_ids = data_report_record->context_ids;
+    //report->context_ids = data_report_record->context_ids;
     report->external_application_id = data_collection_strdup(data_report_record->external_application_id);
     //report->usage = data_report_record->usage;
     report->expired = data_report_record->expired;
@@ -155,7 +155,10 @@ DATA_COLLECTION_SVC_PRODUCER_API void data_collection_data_report_record_destroy
 	data_collection_list_free(report->usage);
 	report->usage = NULL;
     }
-    if(report->context_ids) data_collection_list_free(report->context_ids);
+    if(report->context_ids) {
+        data_collection_list_free(report->context_ids);
+	report->context_ids = NULL;
+    }
     ogs_free(report);
 }
 

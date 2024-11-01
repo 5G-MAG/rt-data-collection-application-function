@@ -156,9 +156,9 @@ typedef struct data_collection_data_event_s {
 
 /** Subscribe to an event subscription
  * @param subscription AfEvent Subscription.
- * @param error_return Filled in on error with a human readable error string.
- * @param error_classname Filled in on error with the classname of the class that generated the parsing error.
- * @param error_parameter Filled in on error with the parameter name of the parameter that caused the parsing error.
+ * @param[out] error_return Filled in on error with a human readable error string.
+ * @param[out] error_classname Filled in on error with the classname of the class that generated the parsing error.
+ * @param[out] error_parameter Filled in on error with the parameter name of the parameter that caused the parsing error.
  * @return a new event subscription object.
  */
 

@@ -101,10 +101,10 @@ DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_data_reporting_conf
  * @param json The JSON tree to parse.
  * @param parent_session The Provisioning Session to which the configuration is associated with.
  * @param base An existing reporting configuration object to copy read-only fields from or `NULL`.
- * @param err_return Filled in on error with a human readable error string.
- * @param err_class Filled in on error with the classname of the class that generated the parsing error.
- * @param err_param Filled in on error with the parameter name of the parameter that caused the parsing error.
- * @param err_code Error code to be returned depending on the cause of the parsing error.
+ * @param[out] err_return Filled in on error with a human readable error string.
+ * @param[out] err_class Filled in on error with the classname of the class that generated the parsing error.
+ * @param[out] err_param Filled in on error with the parameter name of the parameter that caused the parsing error.
+ * @param[out] err_code Error code to be returned depending on the cause of the parsing error.
  * @return A new reporting configuration object filled in from the JSON or `NULL` if there was a parsing error.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_configuration_t *data_collection_reporting_configuration_parse_from_json(cJSON *json, data_collection_reporting_provisioning_session_t *parent_session, data_collection_reporting_configuration_t *base, char **err_return, char **err_class, char **err_param, char **err_code);
@@ -112,8 +112,8 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_configuration_t *data
 /** Replace an existing configuration with a new configuration
  *
  * The new configuration will be attached to the same data reporting provisioning session as the original @a old configuration.
- * @param old The configuration to replace.
- * @param replace_with The new configuration to use instead.
+ * @param[in] old The configuration to replace.
+ * @param[in,out] replace_with The new configuration to use instead.
  * @return `true` if the replacement was successful or `false` if there was an error.
  */
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_reporting_configuration_update(data_collection_reporting_configuration_t *old, data_collection_reporting_configuration_t *replace_with);
@@ -132,8 +132,8 @@ DATA_COLLECTION_SVC_PRODUCER_API void data_collection_reporting_configuration_de
  * @a parent_session. Use a @a parent_session of `NULL` to detatch the configuration from all data reporting provisioning sessions.
  * This may fail if the configuration has an id matching an existing configuration in @a parent_session.
  *
- * @param config The configuration to change the parent for.
- * @param parent_session The data reporting provisioning session to set as parent, use `NULL` to detatch the configuration.
+ * @param config The configuration to set.
+ * @param parent_session The data reporting provisioning session to set the configuration, use `NULL` to detatch the configuration.
  * @return `true` if the configuration is attached to the parent, `false` if there was already another configuration withthe same
  *         id already attached to @a parent_session.
  */
@@ -180,7 +180,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_reporting_configura
  *
  * @param context_ids The contextIds from Data Report to match against configurationId of the provisioned configurations.
  *
- * @param aggregation_functions List to hold the value of the aggregationFunctions.
+ * @param[in, out] aggregation_functions List to hold the value of the aggregationFunctions.
  *
  * @return the value current set for the aggregationFunctions field.
  *

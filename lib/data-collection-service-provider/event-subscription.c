@@ -336,6 +336,8 @@ cJSON *_event_subscription_generate_af_event_notification(data_collection_event_
                                                                             af_events_notifications);
         }
     }
+    
+    if(af_events_notifications) data_collection_list_free(af_events_notifications);
 
     return response;
 }
