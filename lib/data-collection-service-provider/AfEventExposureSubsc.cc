@@ -235,8 +235,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_expos
 
     ValueType value(value_from);
 
-    
     if (!obj->setDataAccProfId(std::move(value))) return NULL;
+    ogs_free
+(p_data_acc_prof_id);
 
     return obj_af_event_exposure_subsc;
 }
@@ -321,8 +322,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_expos
         }
     }
 
-    data_collection_list_free(p_events_subs);
     if (!obj->setEventsSubs(std::move(value))) return NULL;
+    data_collection_list_free
+(p_events_subs);
 
     return obj_af_event_exposure_subsc;
 }
@@ -340,7 +342,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_expos
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_events_subs_free(p_events_subs);
+    data_collection_model_events_subs_free
+(p_events_subs);
     obj->addEventsSubs(value);
     return obj_af_event_exposure_subsc;
 }
@@ -456,8 +459,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_expos
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setEventsRepInfo(std::move(value))) return NULL;
+    data_collection_model_reporting_information_free
+(p_events_rep_info);
 
     return obj_af_event_exposure_subsc;
 }
@@ -511,8 +515,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_expos
 
     ValueType value(value_from);
 
-    
     if (!obj->setNotifUri(std::move(value))) return NULL;
+    ogs_free
+(p_notif_uri);
 
     return obj_af_event_exposure_subsc;
 }
@@ -566,8 +571,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_expos
 
     ValueType value(value_from);
 
-    
     if (!obj->setNotifId(std::move(value))) return NULL;
+    ogs_free
+(p_notif_id);
 
     return obj_af_event_exposure_subsc;
 }
@@ -663,8 +669,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_expos
         }
     }
 
-    data_collection_list_free(p_event_notifs);
     if (!obj->setEventNotifs(std::move(value))) return NULL;
+    data_collection_list_free
+(p_event_notifs);
 
     return obj_af_event_exposure_subsc;
 }
@@ -682,7 +689,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_expos
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_af_event_notification_free(p_event_notifs);
+    data_collection_model_af_event_notification_free
+(p_event_notifs);
     if (value) obj->addEventNotifs(value.value());
     return obj_af_event_exposure_subsc;
 }
@@ -812,8 +820,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_expos
 
     ValueType value(value_from);
 
-    
     if (!obj->setSuppFeat(std::move(value))) return NULL;
+    ogs_free
+(p_supp_feat);
 
     return obj_af_event_exposure_subsc;
 }

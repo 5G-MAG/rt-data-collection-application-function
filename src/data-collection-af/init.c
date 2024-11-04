@@ -219,18 +219,16 @@ static void event_termination(void)
 static ogs_list_t *event_exposure_generate_cb(data_collection_event_subscription_t *data_collection_event_subscription)
 {
     ogs_info("EVEX CB");
-    ogs_list_t *data_reports;
+    ogs_list_t *data_buckets;
     ogs_list_t *af_event_notifications = NULL;
-    //data_collection_data_report_record_t *data_report;
-    //void *report = NULL;
 
-    data_reports = data_collection_reporting_report_find(NULL, data_collection_event_subscription, true);
+    data_buckets = data_collection_reporting_report_find(dc_config_report_types, data_collection_event_subscription, true);
     
-    if (data_reports && ogs_list_first(data_reports)) {
-        af_event_notifications = generate_af_event_notifications(data_reports, data_collection_event_subscription);
+    if (data_buckets && ogs_list_first(data_buckets)) {
+        af_event_notifications = generate_af_event_notifications(data_buckets, data_collection_event_subscription);
     }
 
-    if(data_reports) ogs_free(data_reports);
+    if (data_buckets) data_collection_bucketed_data_list_free(data_buckets);
 
     return af_event_notifications;
 }

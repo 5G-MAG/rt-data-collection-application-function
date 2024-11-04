@@ -244,8 +244,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_access_acti
         }
     }
 
-    data_collection_list_free(p_ms_acc_acts);
     if (!obj->setMsAccActs(std::move(value))) return NULL;
+    data_collection_list_free
+(p_ms_acc_acts);
 
     return obj_ms_access_activity_collection;
 }
@@ -263,7 +264,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_access_acti
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_media_streaming_access_record_free(p_ms_acc_acts);
+    data_collection_model_media_streaming_access_record_free
+(p_ms_acc_acts);
     obj->addMsAccActs(value);
     return obj_ms_access_activity_collection;
 }

@@ -289,8 +289,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setCountry(std::move(value))) return NULL;
+    ogs_free
+(p_country);
 
     return obj_civic_address;
 }
@@ -354,8 +355,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setA1(std::move(value))) return NULL;
+    ogs_free
+(p_a1);
 
     return obj_civic_address;
 }
@@ -419,8 +421,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setA2(std::move(value))) return NULL;
+    ogs_free
+(p_a2);
 
     return obj_civic_address;
 }
@@ -484,8 +487,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setA3(std::move(value))) return NULL;
+    ogs_free
+(p_a3);
 
     return obj_civic_address;
 }
@@ -549,8 +553,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setA4(std::move(value))) return NULL;
+    ogs_free
+(p_a4);
 
     return obj_civic_address;
 }
@@ -614,8 +619,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setA5(std::move(value))) return NULL;
+    ogs_free
+(p_a5);
 
     return obj_civic_address;
 }
@@ -679,8 +685,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setA6(std::move(value))) return NULL;
+    ogs_free
+(p_a6);
 
     return obj_civic_address;
 }
@@ -744,8 +751,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setPRD(std::move(value))) return NULL;
+    ogs_free
+(p_prd);
 
     return obj_civic_address;
 }
@@ -809,8 +817,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setPOD(std::move(value))) return NULL;
+    ogs_free
+(p_pod);
 
     return obj_civic_address;
 }
@@ -874,8 +883,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setSTS(std::move(value))) return NULL;
+    ogs_free
+(p_sts);
 
     return obj_civic_address;
 }
@@ -939,8 +949,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setHNO(std::move(value))) return NULL;
+    ogs_free
+(p_hno);
 
     return obj_civic_address;
 }
@@ -1004,8 +1015,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setHNS(std::move(value))) return NULL;
+    ogs_free
+(p_hns);
 
     return obj_civic_address;
 }
@@ -1069,8 +1081,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setLMK(std::move(value))) return NULL;
+    ogs_free
+(p_lmk);
 
     return obj_civic_address;
 }
@@ -1134,8 +1147,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setLOC(std::move(value))) return NULL;
+    ogs_free
+(p_loc);
 
     return obj_civic_address;
 }
@@ -1199,8 +1213,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setNAM(std::move(value))) return NULL;
+    ogs_free
+(p_nam);
 
     return obj_civic_address;
 }
@@ -1264,8 +1279,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setPC(std::move(value))) return NULL;
+    ogs_free
+(p_pc);
 
     return obj_civic_address;
 }
@@ -1329,8 +1345,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setBLD(std::move(value))) return NULL;
+    ogs_free
+(p_bld);
 
     return obj_civic_address;
 }
@@ -1394,8 +1411,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setUNIT(std::move(value))) return NULL;
+    ogs_free
+(p_unit);
 
     return obj_civic_address;
 }
@@ -1459,8 +1477,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setFLR(std::move(value))) return NULL;
+    ogs_free
+(p_flr);
 
     return obj_civic_address;
 }
@@ -1524,8 +1543,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setROOM(std::move(value))) return NULL;
+    ogs_free
+(p_room);
 
     return obj_civic_address;
 }
@@ -1589,8 +1609,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setPLC(std::move(value))) return NULL;
+    ogs_free
+(p_plc);
 
     return obj_civic_address;
 }
@@ -1654,8 +1675,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setPCN(std::move(value))) return NULL;
+    ogs_free
+(p_pcn);
 
     return obj_civic_address;
 }
@@ -1719,8 +1741,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setPOBOX(std::move(value))) return NULL;
+    ogs_free
+(p_pobox);
 
     return obj_civic_address;
 }
@@ -1784,8 +1807,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setADDCODE(std::move(value))) return NULL;
+    ogs_free
+(p_addcode);
 
     return obj_civic_address;
 }
@@ -1849,8 +1873,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setSEAT(std::move(value))) return NULL;
+    ogs_free
+(p_seat);
 
     return obj_civic_address;
 }
@@ -1914,8 +1939,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setRD(std::move(value))) return NULL;
+    ogs_free
+(p_rd);
 
     return obj_civic_address;
 }
@@ -1979,8 +2005,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setRDSEC(std::move(value))) return NULL;
+    ogs_free
+(p_rdsec);
 
     return obj_civic_address;
 }
@@ -2044,8 +2071,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setRDBR(std::move(value))) return NULL;
+    ogs_free
+(p_rdbr);
 
     return obj_civic_address;
 }
@@ -2109,8 +2137,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setRDSUBBR(std::move(value))) return NULL;
+    ogs_free
+(p_rdsubbr);
 
     return obj_civic_address;
 }
@@ -2174,8 +2203,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setPRM(std::move(value))) return NULL;
+    ogs_free
+(p_prm);
 
     return obj_civic_address;
 }
@@ -2239,8 +2269,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setPOM(std::move(value))) return NULL;
+    ogs_free
+(p_pom);
 
     return obj_civic_address;
 }
@@ -2304,8 +2335,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setUsageRules(std::move(value))) return NULL;
+    ogs_free
+(p_usage_rules);
 
     return obj_civic_address;
 }
@@ -2369,8 +2401,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setMethod(std::move(value))) return NULL;
+    ogs_free
+(p_method);
 
     return obj_civic_address;
 }
@@ -2434,8 +2467,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 
     ValueType value(value_from);
 
-    
     if (!obj->setProvidedBy(std::move(value))) return NULL;
+    ogs_free
+(p_provided_by);
 
     return obj_civic_address;
 }

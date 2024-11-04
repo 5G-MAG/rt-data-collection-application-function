@@ -227,7 +227,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_r_2_d_relative
 
     ValueType value(value_from);
 
-    
     if (!obj->setSemiMinor(std::move(value))) return NULL;
 
     return obj_r_2_d_relative_location;
@@ -292,7 +291,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_r_2_d_relative
 
     ValueType value(value_from);
 
-    
     if (!obj->setSemiMajor(std::move(value))) return NULL;
 
     return obj_r_2_d_relative_location;
@@ -357,7 +355,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_r_2_d_relative
 
     ValueType value(value_from);
 
-    
     if (!obj->setOrientationAngle(std::move(value))) return NULL;
 
     return obj_r_2_d_relative_location;

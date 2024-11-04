@@ -255,8 +255,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(value_from);
 
-    
     if (!obj->setGrantType(std::move(value))) return NULL;
+    ogs_free
+(p_grant_type);
 
     return obj_access_token_req;
 }
@@ -310,8 +311,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(value_from);
 
-    
     if (!obj->setNfInstanceId(std::move(value))) return NULL;
+    ogs_free
+(p_nf_instance_id);
 
     return obj_access_token_req;
 }
@@ -375,8 +377,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setNfType(std::move(value))) return NULL;
+    data_collection_model_nf_type_free
+(p_nf_type);
 
     return obj_access_token_req;
 }
@@ -440,8 +443,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setTargetNfType(std::move(value))) return NULL;
+    data_collection_model_nf_type_free
+(p_target_nf_type);
 
     return obj_access_token_req;
 }
@@ -495,8 +499,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(value_from);
 
-    
     if (!obj->setScope(std::move(value))) return NULL;
+    ogs_free
+(p_scope);
 
     return obj_access_token_req;
 }
@@ -560,8 +565,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(value_from);
 
-    
     if (!obj->setTargetNfInstanceId(std::move(value))) return NULL;
+    ogs_free
+(p_target_nf_instance_id);
 
     return obj_access_token_req;
 }
@@ -625,8 +631,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setRequesterPlmn(std::move(value))) return NULL;
+    data_collection_model_plmn_id_free
+(p_requester_plmn);
 
     return obj_access_token_req;
 }
@@ -722,8 +729,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
         }
     }
 
-    data_collection_list_free(p_requester_plmn_list);
     if (!obj->setRequesterPlmnList(std::move(value))) return NULL;
+    data_collection_list_free
+(p_requester_plmn_list);
 
     return obj_access_token_req;
 }
@@ -741,7 +749,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_plmn_id_free(p_requester_plmn_list);
+    data_collection_model_plmn_id_free
+(p_requester_plmn_list);
     if (value) obj->addRequesterPlmnList(value.value());
     return obj_access_token_req;
 }
@@ -903,8 +912,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
         }
     }
 
-    data_collection_list_free(p_requester_snssai_list);
     if (!obj->setRequesterSnssaiList(std::move(value))) return NULL;
+    data_collection_list_free
+(p_requester_snssai_list);
 
     return obj_access_token_req;
 }
@@ -922,7 +932,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_snssai_free(p_requester_snssai_list);
+    data_collection_model_snssai_free
+(p_requester_snssai_list);
     if (value) obj->addRequesterSnssaiList(value.value());
     return obj_access_token_req;
 }
@@ -1052,8 +1063,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(value_from);
 
-    
     if (!obj->setRequesterFqdn(std::move(value))) return NULL;
+    ogs_free
+(p_requester_fqdn);
 
     return obj_access_token_req;
 }
@@ -1149,8 +1161,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
         }
     }
 
-    data_collection_list_free(p_requester_snpn_list);
     if (!obj->setRequesterSnpnList(std::move(value))) return NULL;
+    data_collection_list_free
+(p_requester_snpn_list);
 
     return obj_access_token_req;
 }
@@ -1168,7 +1181,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_plmn_id_nid_free(p_requester_snpn_list);
+    data_collection_model_plmn_id_nid_free
+(p_requester_snpn_list);
     if (value) obj->addRequesterSnpnList(value.value());
     return obj_access_token_req;
 }
@@ -1298,8 +1312,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setTargetPlmn(std::move(value))) return NULL;
+    data_collection_model_plmn_id_free
+(p_target_plmn);
 
     return obj_access_token_req;
 }
@@ -1363,8 +1378,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setTargetSnpn(std::move(value))) return NULL;
+    data_collection_model_plmn_id_nid_free
+(p_target_snpn);
 
     return obj_access_token_req;
 }
@@ -1460,8 +1476,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
         }
     }
 
-    data_collection_list_free(p_target_snssai_list);
     if (!obj->setTargetSnssaiList(std::move(value))) return NULL;
+    data_collection_list_free
+(p_target_snssai_list);
 
     return obj_access_token_req;
 }
@@ -1479,7 +1496,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_snssai_free(p_target_snssai_list);
+    data_collection_model_snssai_free
+(p_target_snssai_list);
     if (value) obj->addTargetSnssaiList(value.value());
     return obj_access_token_req;
 }
@@ -1638,8 +1656,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
         }
     }
 
-    data_collection_list_free(p_target_nsi_list);
     if (!obj->setTargetNsiList(std::move(value))) return NULL;
+    data_collection_list_free
+(p_target_nsi_list);
 
     return obj_access_token_req;
 }
@@ -1657,7 +1676,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(value_from);
 
-    ogs_free(p_target_nsi_list);
+    ogs_free
+(p_target_nsi_list);
     if (value) obj->addTargetNsiList(value.value());
     return obj_access_token_req;
 }
@@ -1787,8 +1807,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(value_from);
 
-    
     if (!obj->setTargetNfSetId(std::move(value))) return NULL;
+    ogs_free
+(p_target_nf_set_id);
 
     return obj_access_token_req;
 }
@@ -1852,8 +1873,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(value_from);
 
-    
     if (!obj->setTargetNfServiceSetId(std::move(value))) return NULL;
+    ogs_free
+(p_target_nf_service_set_id);
 
     return obj_access_token_req;
 }
@@ -1917,8 +1939,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(value_from);
 
-    
     if (!obj->setHnrfAccessTokenUri(std::move(value))) return NULL;
+    ogs_free
+(p_hnrf_access_token_uri);
 
     return obj_access_token_req;
 }
@@ -1982,8 +2005,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(value_from);
 
-    
     if (!obj->setSourceNfInstanceId(std::move(value))) return NULL;
+    ogs_free
+(p_source_nf_instance_id);
 
     return obj_access_token_req;
 }
@@ -2047,8 +2071,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(value_from);
 
-    
     if (!obj->setVendorId(std::move(value))) return NULL;
+    ogs_free
+(p_vendor_id);
 
     return obj_access_token_req;
 }
@@ -2144,8 +2169,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
         }
     }
 
-    data_collection_list_free(p_analytics_ids);
     if (!obj->setAnalyticsIds(std::move(value))) return NULL;
+    data_collection_list_free
+(p_analytics_ids);
 
     return obj_access_token_req;
 }
@@ -2163,7 +2189,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_nwdaf_event_free(p_analytics_ids);
+    data_collection_model_nwdaf_event_free
+(p_analytics_ids);
     if (value) obj->addAnalyticsIds(value.value());
     return obj_access_token_req;
 }
@@ -2325,8 +2352,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
         }
     }
 
-    data_collection_list_free(p_requester_inter_ind_list);
     if (!obj->setRequesterInterIndList(std::move(value))) return NULL;
+    data_collection_list_free
+(p_requester_inter_ind_list);
 
     return obj_access_token_req;
 }
@@ -2344,7 +2372,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_ml_model_inter_ind_free(p_requester_inter_ind_list);
+    data_collection_model_ml_model_inter_ind_free
+(p_requester_inter_ind_list);
     if (value) obj->addRequesterInterIndList(value.value());
     return obj_access_token_req;
 }

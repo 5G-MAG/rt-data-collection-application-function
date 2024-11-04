@@ -239,8 +239,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dispersion_col
 
     ValueType value(value_from);
 
-    
     if (!obj->setGpsi(std::move(value))) return NULL;
+    ogs_free
+(p_gpsi);
 
     return obj_dispersion_collection;
 }
@@ -304,8 +305,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dispersion_col
 
     ValueType value(value_from);
 
-    
     if (!obj->setSupi(std::move(value))) return NULL;
+    ogs_free
+(p_supi);
 
     return obj_dispersion_collection;
 }
@@ -369,8 +371,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dispersion_col
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setUeAddr(std::move(value))) return NULL;
+    data_collection_model_ip_addr_free
+(p_ue_addr);
 
     return obj_dispersion_collection;
 }
@@ -434,8 +437,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dispersion_col
 
     ValueType value(value_from);
 
-    
     if (!obj->setTimeStamp(std::move(value))) return NULL;
+    ogs_free
+(p_time_stamp);
 
     return obj_dispersion_collection;
 }
@@ -489,8 +493,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dispersion_col
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setDataUsage(std::move(value))) return NULL;
+    data_collection_model_usage_threshold_free
+(p_data_usage);
 
     return obj_dispersion_collection;
 }
@@ -554,8 +559,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dispersion_col
 
     ValueType value(value_from);
 
-    
     if (!obj->setFlowDesp(std::move(value))) return NULL;
+    ogs_free
+(p_flow_desp);
 
     return obj_dispersion_collection;
 }
@@ -619,8 +625,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dispersion_col
 
     ValueType value(value_from);
 
-    
     if (!obj->setAppId(std::move(value))) return NULL;
+    ogs_free
+(p_app_id);
 
     return obj_dispersion_collection;
 }
@@ -713,8 +720,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dispersion_col
         }
     }
 
-    data_collection_list_free(p_dnais);
     if (!obj->setDnais(std::move(value))) return NULL;
+    data_collection_list_free
+(p_dnais);
 
     return obj_dispersion_collection;
 }
@@ -732,7 +740,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dispersion_col
 
     ValueType value(value_from);
 
-    ogs_free(p_dnais);
+    ogs_free
+(p_dnais);
     if (value) obj->addDnais(value.value());
     return obj_dispersion_collection;
 }
@@ -862,7 +871,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dispersion_col
 
     ValueType value(value_from);
 
-    
     if (!obj->setAppDur(std::move(value))) return NULL;
 
     return obj_dispersion_collection;

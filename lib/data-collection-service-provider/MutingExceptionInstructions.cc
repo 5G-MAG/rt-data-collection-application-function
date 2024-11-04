@@ -225,8 +225,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_excepti
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setBufferedNotifs(std::move(value))) return NULL;
+    data_collection_model_buffered_notifications_action_free
+(p_buffered_notifs);
 
     return obj_muting_exception_instructions;
 }
@@ -290,8 +291,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_excepti
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setSubscription(std::move(value))) return NULL;
+    data_collection_model_subscription_action_free
+(p_subscription);
 
     return obj_muting_exception_instructions;
 }

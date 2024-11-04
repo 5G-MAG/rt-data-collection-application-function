@@ -261,8 +261,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
         }
     }
 
-    data_collection_list_free(p_ecgis);
     if (!obj->setEcgis(std::move(value))) return NULL;
+    data_collection_list_free
+(p_ecgis);
 
     return obj_network_area_info;
 }
@@ -280,7 +281,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_ecgi_free(p_ecgis);
+    data_collection_model_ecgi_free
+(p_ecgis);
     if (value) obj->addEcgis(value.value());
     return obj_network_area_info;
 }
@@ -442,8 +444,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
         }
     }
 
-    data_collection_list_free(p_ncgis);
     if (!obj->setNcgis(std::move(value))) return NULL;
+    data_collection_list_free
+(p_ncgis);
 
     return obj_network_area_info;
 }
@@ -461,7 +464,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_ncgi_free(p_ncgis);
+    data_collection_model_ncgi_free
+(p_ncgis);
     if (value) obj->addNcgis(value.value());
     return obj_network_area_info;
 }
@@ -623,8 +627,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
         }
     }
 
-    data_collection_list_free(p_g_ran_node_ids);
     if (!obj->setGRanNodeIds(std::move(value))) return NULL;
+    data_collection_list_free
+(p_g_ran_node_ids);
 
     return obj_network_area_info;
 }
@@ -642,7 +647,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_global_ran_node_id_free(p_g_ran_node_ids);
+    data_collection_model_global_ran_node_id_free
+(p_g_ran_node_ids);
     if (value) obj->addGRanNodeIds(value.value());
     return obj_network_area_info;
 }
@@ -804,8 +810,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
         }
     }
 
-    data_collection_list_free(p_tais);
     if (!obj->setTais(std::move(value))) return NULL;
+    data_collection_list_free
+(p_tais);
 
     return obj_network_area_info;
 }
@@ -823,7 +830,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_i
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_tai_free(p_tais);
+    data_collection_model_tai_free
+(p_tais);
     if (value) obj->addTais(value.value());
     return obj_network_area_info;
 }

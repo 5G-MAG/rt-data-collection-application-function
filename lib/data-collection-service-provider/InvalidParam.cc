@@ -215,8 +215,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_invalid_param_
 
     ValueType value(value_from);
 
-    
     if (!obj->setParam(std::move(value))) return NULL;
+    ogs_free
+(p_param);
 
     return obj_invalid_param;
 }
@@ -280,8 +281,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_invalid_param_
 
     ValueType value(value_from);
 
-    
     if (!obj->setReason(std::move(value))) return NULL;
+    ogs_free
+(p_reason);
 
     return obj_invalid_param;
 }

@@ -237,8 +237,10 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     ValueType value(value_from);
 
 
-    
     if (!obj->setProvisioningSessionId(std::move(value))) return NULL;
+    ogs_free
+
+(p_provisioning_session_id);
 
     return obj_data_reporting_provisioning_session;
 }
@@ -292,8 +294,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(value_from);
 
-    
     if (!obj->setAspId(std::move(value))) return NULL;
+    ogs_free
+(p_asp_id);
 
     return obj_data_reporting_provisioning_session;
 }
@@ -347,8 +350,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(value_from);
 
-    
     if (!obj->setExternalApplicationId(std::move(value))) return NULL;
+    ogs_free
+(p_external_application_id);
 
     return obj_data_reporting_provisioning_session;
 }
@@ -412,8 +416,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(value_from);
 
-    
     if (!obj->setInternalApplicationId(std::move(value))) return NULL;
+    ogs_free
+(p_internal_application_id);
 
     return obj_data_reporting_provisioning_session;
 }
@@ -467,8 +472,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setEventId(std::move(value))) return NULL;
+    data_collection_model_af_event_free
+(p_event_id);
 
     return obj_data_reporting_provisioning_session;
 }
@@ -561,8 +567,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
         }
     }
 
-    data_collection_list_free(p_data_reporting_configuration_ids);
     if (!obj->setDataReportingConfigurationIds(std::move(value))) return NULL;
+    data_collection_list_free
+(p_data_reporting_configuration_ids);
 
     return obj_data_reporting_provisioning_session;
 }
@@ -580,7 +587,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(value_from);
 
-    ogs_free(p_data_reporting_configuration_ids);
+    ogs_free
+(p_data_reporting_configuration_ids);
     if (value) obj->addDataReportingConfigurationIds(value.value());
     return obj_data_reporting_provisioning_session;
 }

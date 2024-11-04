@@ -239,8 +239,10 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     ValueType value(value_from);
 
 
-    
     if (!obj->setSessionId(std::move(value))) return NULL;
+    ogs_free
+
+(p_session_id);
 
     return obj_data_reporting_session;
 }
@@ -308,8 +310,10 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     ValueType value(value_from);
 
 
-    
     if (!obj->setValidUntil(std::move(value))) return NULL;
+    ogs_free
+
+(p_valid_until);
 
     return obj_data_reporting_session;
 }
@@ -363,8 +367,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(value_from);
 
-    
     if (!obj->setExternalApplicationId(std::move(value))) return NULL;
+    ogs_free
+(p_external_application_id);
 
     return obj_data_reporting_session;
 }
@@ -449,8 +454,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
         }
     }
 
-    data_collection_list_free(p_supported_domains);
     if (!obj->setSupportedDomains(std::move(value))) return NULL;
+    data_collection_list_free
+(p_supported_domains);
 
     return obj_data_reporting_session;
 }
@@ -468,7 +474,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_data_domain_free(p_supported_domains);
+    data_collection_model_data_domain_free
+(p_supported_domains);
     obj->addSupportedDomains(value);
     return obj_data_reporting_session;
 }
@@ -683,8 +690,10 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
         ogs_free(save_entry);
     }
 
-    data_collection_hash_free(p_sampling_rules, reinterpret_cast<void(*)(void*)>(data_collection_model_data_sampling_rule_free));
     if (!obj->setSamplingRules(std::move(value))) return NULL;
+    data_collection_hash_free
+(p_sampling_rules, reinterpret_cast<void(*)(void*)>(data_collection_list_free
+));
 
     return obj_data_reporting_session;
 }
@@ -934,8 +943,10 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
         ogs_free(save_entry);
     }
 
-    data_collection_hash_free(p_reporting_conditions, reinterpret_cast<void(*)(void*)>(data_collection_model_data_reporting_condition_free));
     if (!obj->setReportingConditions(std::move(value))) return NULL;
+    data_collection_hash_free
+(p_reporting_conditions, reinterpret_cast<void(*)(void*)>(data_collection_list_free
+));
 
     return obj_data_reporting_session;
 }
@@ -1185,8 +1196,10 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
         ogs_free(save_entry);
     }
 
-    data_collection_hash_free(p_reporting_rules, reinterpret_cast<void(*)(void*)>(data_collection_model_data_reporting_rule_free));
     if (!obj->setReportingRules(std::move(value))) return NULL;
+    data_collection_hash_free
+(p_reporting_rules, reinterpret_cast<void(*)(void*)>(data_collection_list_free
+));
 
     return obj_data_reporting_session;
 }

@@ -54,6 +54,7 @@ typedef struct dc_local_event_s {
 } dc_local_event_t;
 
 extern ogs_event_t *_local_event_create(dc_local_event_e event_type, void *data);
+extern const char *_dc_event_name(ogs_event_t *e);
 
 #ifdef __cplusplus
 }

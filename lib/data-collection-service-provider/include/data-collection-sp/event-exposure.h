@@ -50,11 +50,9 @@ extern "C" {
  * The feature numbers come from TS 29.517 v18.4.0 Table 5.8-1
  */
 
-/** \enum data_collection_supported_features_event_e
- * \brief Event Exposure supported feature bit masks. The feature numbers come from TS 29.517 v18.4.0 Table 5.8-1
+/** Event Exposure supported feature bit masks. The feature numbers come from TS 29.517 v18.4.0 Table 5.8-1.
  * \headerfile event-exposure.h <data-collection-sp/data-collection.h>
  */
-
 typedef enum {
     DATA_COLLECTION_SUPPORTED_FEATURE_EVENT_SERVICE_EXPERIENCE=DATA_COLLECTION_FEATURE_BIT(1),      /**< Bit mask to support Service Experience event. */
     DATA_COLLECTION_SUPPORTED_FEATURE_EVENT_UE_MOBILITY=DATA_COLLECTION_FEATURE_BIT(2),             /**< Bit mask to support UE Mobility event. */
@@ -92,50 +90,45 @@ typedef enum {
  *
  * Use data_collection_event_subscription_*() functions to access this type.
  */
+typedef struct data_collection_event_subscription_s
+#ifdef DOXYGEN_ONLY
+{
+    int dummy; /**< \private */
+}
+#endif
+data_collection_event_subscription_t;
 
-/** \cond FORWARD_DECL
- * \struct data_collection_model_events_subs_s lib/data-collection-service-provider/include/data-collection-sp/EventsSubs.h
- * Event Subscription: Use data_collection_event_subscription_*() functions to access this type.
+/** \cond FORWARD_DECL */
+/** 3GPP Event Subscription object.
+ * Use data_collection_model_events_subs_*() functions to access this type.
+ *
  * \see lib/data-collection-service-provider/include/data-collection-sp/EventsSubs.h
  */
-
 typedef struct data_collection_model_events_subs_s data_collection_model_events_subs_t;
-/** \endcond */
 
-/** \cond FORWARD_DECL
- * \struct data_collection_model_events_subs_s lib/data-collection-service-provider/include/data-collection-sp/EventsSubs.h
- * Event Subscription: Use data_collection_event_subscription_*() functions to access this type.
- * \see lib/data-collection-service-provider/include/data-collection-sp/EventsSubs.h
+/** 3GPP AfEventExposureSubsc object.
+ * Use data_collection_model_af_event_exposure_subsc_*() functions to access this type.
+ * \see lib/data-collection-service-provider/include/data-collection-sp/AfEventExposureSubsc.h
  */
-
 typedef struct data_collection_model_af_event_exposure_subsc_s data_collection_model_af_event_exposure_subsc_t;
-/** \endcond */
 
-/** \cond FORWARD_DECL
- * \struct data_collection_model_events_subs_s lib/data-collection-service-provider/include/data-collection-sp/EventsSubs.h
- * Event Subscription: Use data_collection_event_subscription_*() functions to access this type.
- * \see lib/data-collection-service-provider/include/data-collection-sp/EventsSubs.h
+/** 3GPP EventFilter object.
+ * Use data_collection_model_event_filter_*() functions to access this type.
+ * \see lib/data-collection-service-provider/include/data-collection-sp/EventFilter.h
  */
-
 typedef struct data_collection_model_event_filter_s data_collection_model_event_filter_t;
-/** \endcond */
 
-/** \cond FORWARD_DECL
- * \struct data_collection_model_events_subs_s lib/data-collection-service-provider/include/data-collection-sp/EventsSubs.h
- * Event Subscription: Use data_collection_event_subscription_*() functions to access this type.
- * \see lib/data-collection-service-provider/include/data-collection-sp/EventsSubs.h
- */
-
-typedef struct data_collection_event_subscription_s data_collection_event_subscription_t;
 /** \endcond */
 
 /***** Interface callbacks *****/
 
-/** \cond FORWARD_DECL
-** Callback to generate events using the given subscription as a filter 
-*/
-typedef ogs_list_t* (*data_collection_event_generation_cb)(data_collection_event_subscription_t *);
-/** \endcond */
+/** Callback to generate events using the given subscription as a filter.
+ *
+ * @param event_subscription The event subscription to generate AfEventNotifications for.
+ *
+ * @return A list of data_collection_lnode_t where the `object` field points to a data_collection_model_af_event_notification_t.
+ */
+typedef ogs_list_t* (*data_collection_event_generation_cb)(data_collection_event_subscription_t *event_subscription);
 
 /***** Interface structures *****/
 
@@ -155,33 +148,43 @@ typedef struct data_collection_data_event_s {
 /** Subscribe to event exposure session */
 
 /** Subscribe to an event subscription
+ *
+ * Subscribe to event notifications for a client of type \a client_type. The standard \a client_type strings are "NWDAF",
+ * "EVENT_CONSUMER_AF" and "NEF", but custom values are allowed.
+ *
  * @param subscription AfEvent Subscription.
+ * @param client_type The EventConsumerType enumeration string (custom values allowed).
  * @param[out] error_return Filled in on error with a human readable error string.
  * @param[out] error_classname Filled in on error with the classname of the class that generated the parsing error.
  * @param[out] error_parameter Filled in on error with the parameter name of the parameter that caused the parsing error.
- * @return a new event subscription object.
+ * @return a new event subscription object or `NULL` on error.
  */
-
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_event_subscription_t *data_collection_event_subscription_subscribe(data_collection_model_af_event_exposure_subsc_t *subscription, char **error_return /* output */, char **error_classname /* output */, char **error_parameter /* output */);
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_event_subscription_t *data_collection_event_subscription_subscribe(data_collection_model_af_event_exposure_subsc_t *subscription, const char *client_type, char **error_return /* output */, char **error_classname /* output */, char **error_parameter /* output */);
 
 /** Unsubscribe an event exposure session 
  * @param event_subscription AfEvent Subscription.
  */
-
 DATA_COLLECTION_SVC_PRODUCER_API void data_collection_event_subscription_unsubscribe(data_collection_event_subscription_t *event_subscription);
+
+/** Return the client type string.
+ * Returns the client type string, for the client that requested the event exposure subscription, that was registed when creating
+ * the subscription. This will normally be either "NWDAF", "EVENT_CONSUMER_AF" or "NEF".
+ *
+ * @param event_subscription AfEvent Subscription.
+ * @return The client type string.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_event_subscription_get_client_type(const data_collection_event_subscription_t *event_subscription /* not-null */);
 
 /** Find an event subscription by the {subscriptionId}
  * @param subscription_id Identifier of the Subscription to find.
  * @return Either an event subscription object or NULL if an event subscription cannot be found for the id provided.
  */
-
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_event_subscription_t *data_collection_event_subscription_find_by_id(const char *subscription_id /* not-null */);
 
 /** Get the AF Event Exposure Subscription for the event subscription context
  * @param event_subscription event Subscription.
  * @return AfEventSubsc object.
  */
-
 DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_af_event_exposure_subsc_t *data_collection_event_subscription_get_af_event_exposure_subsc(const data_collection_event_subscription_t *event_subscription /* not-null */);
 
 /** Set the AF Event Exposure Subscription for the event subscription context 
@@ -189,35 +192,30 @@ DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_af_event_exposure_s
  * @param af_event_exposure_subscription AfEventExposureSubsc object.
  * @return returns "true" if the AfEventExposureSubsc object is set successfully, if not returns "false".
  */
-
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_event_subscription_set_af_event_exposure_subsc(data_collection_event_subscription_t *event_subscription /* not-null */, data_collection_model_af_event_exposure_subsc_t *af_event_exposure_subscription /* not-null, transfer */);
 
 /** Get the event subscription id
  * @param event_subscription event Subscription for which the id needs to be obtained.
  * @return returns subscription id if the event subscription is found, otherwise returns NULL.
  */
-
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_event_subscription_get_id(const data_collection_event_subscription_t *event_subscription);
 
 /** Get the Event Exposure Subscription last modified date-time (for HTTP) 
  * @param event_subscription event Subscription for which the last modified time needs to be obtained.
  * @return last modified time.
 */
-
 DATA_COLLECTION_SVC_PRODUCER_API ogs_time_t data_collection_event_subscription_get_last_modified(const data_collection_event_subscription_t *event_subscription);
 
 /** Get the Event Exposure Subscription last used date-time (for session expiry)
  * @param event_subscription event Subscription for which the last used time needs to be obtained.
  * @return last used time.
 */
-
 DATA_COLLECTION_SVC_PRODUCER_API ogs_time_t data_collection_event_subscription_get_last_used(const data_collection_event_subscription_t *event_subscription);
 
 /** Get the Event Exposure Subscription entity instance tag 
  * @param event_subscription event Subscription for which etag needs to be obtained.
  * @return returns etag (for HTTP).
 */
-
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_event_subscription_get_etag(const data_collection_event_subscription_t *event_subscription);
 
 /** Get the immediate reports flag 
@@ -230,14 +228,12 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_event_subscription_get_imm
  * @param data_collection_event_subscription Event subscription for which the AfEventExposureSubsc response needs to be generated.
  * @return AfEventExposureSubsc JSON Object.
  */
-
 DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_event_subscription_generate_af_event_exposure_subsc(data_collection_event_subscription_t *data_collection_event_subscription);
 
 /** Generate AfEventExposureNotif request for the event subscription
  * @param data_collection_event_subscription Event subscription for notification.
  * @return AfEventExposureNotif JSON Object.
  */
-
 DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_event_subscription_generate_af_event_exposure_notif(data_collection_event_subscription_t *data_collection_event_subscription);
 
 /** Reference to original event subscription 
@@ -245,7 +241,6 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_event_subscription_gener
  * @param event_subscription_original Original event Subscription.
  * @return Copied event subscription object.
  */
-
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_event_subscription_t *data_collection_event_subscription_set_original_event_subscription(data_collection_event_subscription_t *event_subscription, const data_collection_event_subscription_t *event_subscription_original /* not-null */);
 
 
@@ -253,7 +248,6 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_event_subscription_t *data_coll
  * @param event_subscription Event Subscription to which the orignal is linked to.
  * @return Original event subscription object.
  */
-
 DATA_COLLECTION_SVC_PRODUCER_API const data_collection_event_subscription_t *data_collection_event_subscription_get_original_event_subscription(const data_collection_event_subscription_t *event_subscription /* not-null */);
 
 /** @} */

@@ -225,7 +225,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_notific
 
     ValueType value(value_from);
 
-    
     if (!obj->setMaxNoOfNotif(std::move(value))) return NULL;
 
     return obj_muting_notifications_settings;
@@ -290,7 +289,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_notific
 
     ValueType value(value_from);
 
-    
     if (!obj->setDurationBufferedNotif(std::move(value))) return NULL;
 
     return obj_muting_notifications_settings;

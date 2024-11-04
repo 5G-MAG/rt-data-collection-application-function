@@ -51,7 +51,6 @@ ndcaf_datareportingprovisioning_api_metadata = {
     NDCAF_DATAREPORTINGPROVISIONING_API_VERSION
 };
 
-static const char *__event_get_name(ogs_event_t *e);
 static bool __does_stream_server_match_server(ogs_sbi_server_t *server, data_collection_configuration_server_ifc_t ifc);
 static void __send_data_reporting_configuration(ogs_sbi_stream_t *stream, ogs_sbi_message_t *message,
                                                 data_collection_reporting_configuration_t *configuration, int path_length,
@@ -66,7 +65,7 @@ static bool __resource_updated(ogs_sbi_request_t *request, const char *etag, ogs
 bool _data_report_process_event(ogs_event_t *e)
 {
 
-    ogs_debug("_data_reporting_process_event: %s", __event_get_name(e));
+    ogs_debug("_data_reporting_process_event: %s", _dc_event_name(e));
 
     static const nf_server_interface_metadata_t *ndcaf_datareporting_api = &ndcaf_datareporting_api_metadata;
     static const nf_server_interface_metadata_t *ndcaf_datareportingprovisioning_api = &ndcaf_datareportingprovisioning_api_metadata;
@@ -82,7 +81,7 @@ bool _data_report_process_event(ogs_event_t *e)
                 }
                 break;
             default:
-                ogs_error("Invalid timer for event %s", __event_get_name(e));
+                ogs_error("Invalid timer for event %s", _dc_event_name(e));
                 break;
 
         }
@@ -97,7 +96,7 @@ bool _data_report_process_event(ogs_event_t *e)
                 }
                 break;
             default:
-                ogs_error("Invalid timer for event %s", __event_get_name(e));
+                ogs_error("Invalid timer for event %s", _dc_event_name(e));
                 break;
 
         }
@@ -112,7 +111,7 @@ bool _data_report_process_event(ogs_event_t *e)
                 }
                 break;
             default:
-                ogs_error("Invalid timer for event %s", __event_get_name(e));
+                ogs_error("Invalid timer for event %s", _dc_event_name(e));
                 break;
 
         }
@@ -959,13 +958,6 @@ bool _data_report_process_event(ogs_event_t *e)
         break;
     }
     return false;
-}
-
-static const char *__event_get_name(ogs_event_t *e)
-{
-    if (e->id < OGS_MAX_NUM_OF_PROTO_EVENT)
-        return ogs_event_get_name(e);
-    return "Unknown Event Type";
 }
 
 static bool __does_stream_server_match_server(ogs_sbi_server_t *server, data_collection_configuration_server_ifc_t ifc)

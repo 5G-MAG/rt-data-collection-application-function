@@ -59,7 +59,7 @@ typedef struct data_collection_data_report_handler_s data_collection_data_report
 
 /***** Library function API *****/
 
-/** Create a new Data Report Record
+/** Create a new Data Report Record.
  * \public \memberof data_collection_data_report_record_t
  *
  * Creates a data report record that owns the @a data_sample. The @a session must point to a current data reporting session if this
@@ -74,7 +74,7 @@ typedef struct data_collection_data_report_handler_s data_collection_data_report
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_collection_data_report_record_new(data_collection_reporting_session_t *session, const data_collection_data_report_handler_t *data_handler, void *data_sample, const char *external_application_id);
 
-/** Create a reference copy of a Data Report Record
+/** Create a reference copy of a Data Report Record.
  * \public \memberof data_collection_data_report_record_t
  *
  * Creates a duplicate of the data report that can then be placed into results lists. The duplicate does not own the sample data,
@@ -94,7 +94,19 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_coll
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_collection_data_report_record_copy(data_collection_data_report_record_t *data_report_record);
 
-/** Create a new aggregated Data Report Record
+/** Create a copy of a data record with new sample data.
+ *
+ * Creates a data report record that owns the @a data_sample. This record will refer to the original \a record that it is based on.
+ * This is mostly used when creating a record which is a proportion of another.
+ *
+ * @param record The Data Report Record this is derived from.
+ * @param data_sample The new derived data sample.
+ *
+ * @return the new Data Report Record.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_collection_data_report_record_copy_new_result(data_collection_data_report_record_t *record, void *data_sample);
+
+/** Create a new aggregated Data Report Record.
  * \public \memberof data_collection_data_report_record_t
  *
  * Creates a data report record that owns the @a data_sample. This record will refer to the list of original data report records
@@ -109,7 +121,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_coll
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_collection_data_report_record_create_aggregated(void *data_sample, const ogs_list_t *original_reports);
 
-/** Destroy a Data Report
+/** Destroy a Data Report.
  * \public \memberof data_collection_data_report_record_t
  *
  * Free resources owned by this data report record and delete the record object. This will also remove the record from the library
@@ -119,7 +131,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_coll
  */
 DATA_COLLECTION_SVC_PRODUCER_API void data_collection_data_report_record_destroy(data_collection_data_report_record_t *report_record);
 
-/** Get the AF managed data sample record from the data report record
+/** Get the AF managed data sample record from the data report record.
  * \public \memberof data_collection_data_report_record_t
  *
  * This will return the data sample, as understood by the AF, that is attached to the @a data_report.
@@ -128,9 +140,9 @@ DATA_COLLECTION_SVC_PRODUCER_API void data_collection_data_report_record_destroy
  *
  * @return A pointer to the sample data.
  */
-DATA_COLLECTION_SVC_PRODUCER_API void *data_collection_data_report_record_get_data_sample(data_collection_data_report_record_t *data_report);
+DATA_COLLECTION_SVC_PRODUCER_API void *data_collection_data_report_record_get_data_sample(const data_collection_data_report_record_t *data_report);
 
-/** Get the external application id of the Data Report
+/** Get the external application id of the Data Report.
  * \public \memberof data_collection_data_report_record_t
  *
  * This will return the external application id associated with the data sample attached to the @a data_report.
@@ -141,7 +153,7 @@ DATA_COLLECTION_SVC_PRODUCER_API void *data_collection_data_report_record_get_da
  */
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_data_report_record_get_external_application_id(const data_collection_data_report_record_t *data_report);
 
-/** Get the data reporting session associated with this Data Report Record
+/** Get the data reporting session associated with this Data Report Record.
  * \public \memberof data_collection_data_report_record_t
  *
  * Returns the Data Reporting Session associated with this Data Report Record. This will be `NULL` if this Data Report Record is
@@ -151,9 +163,9 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_data_report_record_
  *
  * @return The Data Reporting Session associated with this data report or `NULL`.
  */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_session_t *data_collection_data_report_record_get_session(data_collection_data_report_record_t *report_record);
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_session_t *data_collection_data_report_record_get_session(const data_collection_data_report_record_t *report_record);
 
-/** Get the number of data report records that this result derives from
+/** Get the number of data report records that this result derives from.
  * \public \memberof data_collection_data_report_record_t
  *
  * This will return 0 for original results, 1 or more for copies of originals or aggregated results.
@@ -162,9 +174,28 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_session_t *data_colle
  *
  * @return The number of reports this data report record is derived from.
  */
-DATA_COLLECTION_SVC_PRODUCER_API size_t data_collection_data_report_record_get_number_of_original_records(data_collection_data_report_record_t *data_report_record);
+DATA_COLLECTION_SVC_PRODUCER_API size_t data_collection_data_report_record_get_number_of_original_records(const data_collection_data_report_record_t *data_report_record);
 
-/** Mark a data report as having been used
+/** Get the list of context ids the data sample was recorded for.
+ * \public \memberof data_collection_data_report_record_t
+ *
+ * @param report_record The data report record to get the list of context ids for.
+ *
+ * @return A list of context ids that the data sample was collected for. The caller must use data_collection_list_free() on the
+ *         result once it is no longer needed.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_data_report_record_get_context_ids(const data_collection_data_report_record_t *report_record);
+
+/** Get the report handler responsible for the sample data.
+ * \public \memberof data_collection_data_report_record_t
+ *
+ * @param report_record The data report record to get the data sample handler for.
+ *
+ * @return The data report handler for this report record.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API const data_collection_data_report_handler_t *data_collection_data_report_record_get_data_report_handler(const data_collection_data_report_record_t *report_record);
+
+/** Mark a data report as having been used.
  * \public \memberof data_collection_data_report_record_t
  *
  * Mark a @a data_report as having been used in an event exposure notification for the @a event_subscription. This allows
@@ -186,7 +217,7 @@ DATA_COLLECTION_SVC_PRODUCER_API size_t data_collection_data_report_record_get_n
  */
 DATA_COLLECTION_SVC_PRODUCER_API int data_collection_data_report_record_mark_used(data_collection_data_report_record_t *data_report, const data_collection_event_subscription_t *event_subscription);
 
-/** Expire a data report
+/** Expire a data report.
  * \public \memberof data_collection_data_report_record_t
  *
  * Mark a data record as being expired. Data records will be expired by the library after a configured amount of time anyway, but
@@ -200,6 +231,19 @@ DATA_COLLECTION_SVC_PRODUCER_API int data_collection_data_report_record_mark_use
  * @return OGS_OK on success.
  */
 DATA_COLLECTION_SVC_PRODUCER_API int data_collection_data_report_record_mark_expired(data_collection_data_report_record_t *data_report);
+
+/** Check if a data report record is marked as used by a given event subscription.
+ * \public \memberof data_collection_data_report_record_t
+ *
+ * Checks the list of event subscriptions that have used this report record to see if the list contains the given event
+ * subscription.
+ *
+ * @param data_report The data report to check.
+ * @param event_subscription The event subscription to look for a mark for.
+ *
+ * @return `true` if the report record is marked as used by the event subscription, or `false` otherwise.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_data_report_record_used_by(const data_collection_data_report_record_t *data_report, const data_collection_event_subscription_t *event_subscription);
 
 #ifdef __cplusplus
 }

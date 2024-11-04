@@ -227,8 +227,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
 
     ValueType value(value_from);
 
-    
     if (!obj->setDynamicPolicyId(std::move(value))) return NULL;
+    ogs_free
+(p_dynamic_policy_id);
 
     return obj_dynamic_policy;
 }
@@ -282,8 +283,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
 
     ValueType value(value_from);
 
-    
     if (!obj->setPolicyTemplateId(std::move(value))) return NULL;
+    ogs_free
+(p_policy_template_id);
 
     return obj_dynamic_policy;
 }
@@ -368,8 +370,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
         }
     }
 
-    data_collection_list_free(p_service_data_flow_descriptions);
     if (!obj->setServiceDataFlowDescriptions(std::move(value))) return NULL;
+    data_collection_list_free
+(p_service_data_flow_descriptions);
 
     return obj_dynamic_policy;
 }
@@ -387,7 +390,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_application_flow_description_free(p_service_data_flow_descriptions);
+    data_collection_model_application_flow_description_free
+(p_service_data_flow_descriptions);
     obj->addServiceDataFlowDescriptions(value);
     return obj_dynamic_policy;
 }
@@ -513,8 +517,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setMediaType(std::move(value))) return NULL;
+    data_collection_model_media_type_free
+(p_media_type);
 
     return obj_dynamic_policy;
 }
@@ -568,8 +573,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
 
     ValueType value(value_from);
 
-    
     if (!obj->setProvisioningSessionId(std::move(value))) return NULL;
+    ogs_free
+(p_provisioning_session_id);
 
     return obj_dynamic_policy;
 }
@@ -633,8 +639,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setQosSpecification(std::move(value))) return NULL;
+    data_collection_model_m5_qo_s_specification_free
+(p_qos_specification);
 
     return obj_dynamic_policy;
 }
@@ -698,8 +705,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
 
     ValueType value(value_from);
 
-    
     if (!obj->setEnforcementMethod(std::move(value))) return NULL;
+    ogs_free
+(p_enforcement_method);
 
     return obj_dynamic_policy;
 }
@@ -763,7 +771,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
 
     ValueType value(value_from);
 
-    
     if (!obj->setEnforcementBitRate(std::move(value))) return NULL;
 
     return obj_dynamic_policy;

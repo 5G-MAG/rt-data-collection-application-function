@@ -55,7 +55,37 @@ static void __data_reports_timer_activate(void);
 /* data_collection_data_report_record_new */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_collection_data_report_record_new(data_collection_reporting_session_t *session, const data_collection_data_report_handler_t *data_handler, void *data_sample, const char *external_application_id)
 {
-    return __data_collection_report_create(session, data_handler, data_sample, external_application_id);
+    data_collection_data_report_record_t *report = __data_collection_report_create(session, data_handler, data_sample, external_application_id);
+
+    /* Add the new report to the database */
+
+    data_report_hash_record_t *data_reports = (data_report_hash_record_t *)ogs_hash_get(data_collection_self()->data_reports, &report->data_report_handler, sizeof(data_collection_data_report_handler_t*));
+
+    if(!data_reports) {
+        data_reports = (data_report_hash_record_t *) ogs_calloc(1,sizeof(*data_reports));
+        ogs_assert(data_reports);
+	data_reports->handler = report->data_report_handler;
+        ogs_list_init(&data_reports->list);
+    }
+
+    ogs_list_add(&data_reports->list, report);
+
+    ogs_hash_set(data_collection_self()->data_reports, &data_reports->handler, sizeof(data_collection_data_report_handler_t*), data_reports);
+    __data_reports_timer_activate();
+
+    cJSON *data_report_json = data_handler->json_for_report_data(data_sample);
+    
+    //dump to disk report data_collection_data_report_t stored to disk
+
+    char *report_time = dc_strdup(get_current_time("%Y-%m-%dT%H:%M:%SZ"));
+    char *body = cJSON_Print(data_report_json);
+    cJSON_Delete(data_report_json);
+
+    data_collection_report_store(data_collection_reporting_session_get_id(session), data_handler->data_domain, report_time, "json", body);
+    cJSON_free(body);
+    ogs_free(report_time);
+
+    return report;
 }
 
 /*data_collection_data_report_record_copy */
@@ -76,13 +106,22 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_coll
     report->original_records = ogs_malloc(sizeof(data_report_record));
     report->original_records[0] = data_report_record;
     report->number_of_original_records = 1;
-    //report->context_ids = data_report_record->context_ids;
+    /* report->context_ids is handled by original record */
     report->external_application_id = data_collection_strdup(data_report_record->external_application_id);
-    //report->usage = data_report_record->usage;
+    /* report->usage is handled by original record */
     report->expired = data_report_record->expired;
     report->data_report_record_owner = false;
     return report;
 
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_collection_data_report_record_copy_new_result(data_collection_data_report_record_t *record, void *sample)
+{
+    data_collection_data_report_record_t *report = __data_collection_report_create(record->session, record->data_report_handler, sample, record->external_application_id);
+    report->original_records = ogs_malloc(sizeof(record));
+    report->original_records[0] = record;
+    report->number_of_original_records = 1;
+    return report;
 }
 
 /* data_collection_data_report_record_create_aggregated */
@@ -163,7 +202,7 @@ DATA_COLLECTION_SVC_PRODUCER_API void data_collection_data_report_record_destroy
 }
 
 /* data_collection_data_report_record_get_data_sample */
-DATA_COLLECTION_SVC_PRODUCER_API void *data_collection_data_report_record_get_data_sample(data_collection_data_report_record_t *data_report_record) {
+DATA_COLLECTION_SVC_PRODUCER_API void *data_collection_data_report_record_get_data_sample(const data_collection_data_report_record_t *data_report_record) {
     
     if(!data_report_record) return NULL;
     return data_report_record->data_report_record;
@@ -177,17 +216,31 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_data_report_record_
 }
 
 /* data_collection_data_report_record_get_session */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_session_t *data_collection_data_report_record_get_session(data_collection_data_report_record_t *report_record)
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_session_t *data_collection_data_report_record_get_session(const data_collection_data_report_record_t *report_record)
 {
     if (!report_record) return NULL;
     return report_record->session;
 }
 
 /* data_collection_data_report_record_get_number_of_original_records */
-DATA_COLLECTION_SVC_PRODUCER_API size_t data_collection_data_report_record_get_number_of_original_records(data_collection_data_report_record_t *data_report_record)
+DATA_COLLECTION_SVC_PRODUCER_API size_t data_collection_data_report_record_get_number_of_original_records(const data_collection_data_report_record_t *data_report_record)
 {
    if(!data_report_record) return 0;
    return data_report_record->number_of_original_records; 
+}
+
+/* data_collection_data_report_record_get_context_ids */
+DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_data_report_record_get_context_ids(const data_collection_data_report_record_t *report_record)
+{
+    if (!report_record) return NULL;
+    return report_record->data_report_handler->context_ids(report_record->data_report_record);
+}
+
+/*data_collection_data_report_record_get_data_report_handler */
+DATA_COLLECTION_SVC_PRODUCER_API const data_collection_data_report_handler_t *data_collection_data_report_record_get_data_report_handler(const data_collection_data_report_record_t *report_record)
+{
+    if (!report_record) return NULL;
+    return report_record->data_report_handler;
 }
 
 /* data_collection_data_report_record_mark_used */
@@ -220,6 +273,20 @@ DATA_COLLECTION_SVC_PRODUCER_API int data_collection_data_report_record_mark_exp
     return 1;
 }
 
+/* data_collection_data_report_record_used_by */
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_data_report_record_used_by(const data_collection_data_report_record_t *data_report, const data_collection_event_subscription_t *event_subscription)
+{
+    if (!data_report || !event_subscription || !data_report->usage) return false;
+
+    data_collection_lnode_t *node;
+
+    ogs_list_for_each(data_report->usage, node) {
+        if ((void*)event_subscription == node->object) return true;
+    }
+
+    return false;
+}
+
 /******** Internal library API *********/
 
 bool _data_report_record_is_event_subscription_used(const data_collection_data_report_record_t *data_report, const data_collection_event_subscription_t *event_subscription)
@@ -239,10 +306,6 @@ bool _data_report_record_is_event_subscription_used(const data_collection_data_r
 
 static data_collection_data_report_record_t *__data_collection_report_create(data_collection_reporting_session_t *session, const data_collection_data_report_handler_t *handler, void *data_report_record, const char *external_application_id) {
     data_collection_data_report_record_t *report;
-    //cJSON *report_json;
-    cJSON *data_report_json;
-    
-    data_report_hash_record_t *data_reports = NULL;
 
     report = ogs_calloc(1, sizeof(data_collection_data_report_record_t));
     ogs_assert(report);
@@ -253,36 +316,11 @@ static data_collection_data_report_record_t *__data_collection_report_create(dat
     report->session = session;
     report->hash = handler->tag_for_report_data(data_report_record);
     report->data_report_record = data_report_record;
-    report->context_ids =  handler->context_ids(data_report_record);
+    report->context_ids = handler->context_ids(data_report_record);
     report->external_application_id = data_collection_strdup(external_application_id);
     report->data_report_record_owner = true;
     report->file_path = data_collection_self()->config.data_collection_dir;
     
-    data_reports = (data_report_hash_record_t *)ogs_hash_get(data_collection_self()->data_reports, &report->data_report_handler, sizeof(data_collection_data_report_handler_t*));
-    if(!data_reports) {
-        data_reports = (data_report_hash_record_t *) ogs_calloc(1,sizeof(*data_reports));
-        ogs_assert(data_reports);
-	data_reports->handler = report->data_report_handler;
-        ogs_list_init(&data_reports->list);
-    }
-
-    ogs_list_add(&data_reports->list, report);
-
-    ogs_hash_set(data_collection_self()->data_reports, &data_reports->handler, sizeof(data_collection_data_report_handler_t*), data_reports);
-    __data_reports_timer_activate();
-
-    data_report_json = handler->json_for_report_data(data_report_record);
-    
-    //dump to disk report data_collection_data_report_t stored to disk
-
-    char *report_time = dc_strdup(get_current_time("%Y-%m-%dT%H:%M:%SZ"));
-    char *body = cJSON_Print(data_report_json);
-    cJSON_Delete(data_report_json);
-
-    data_collection_report_store(data_collection_reporting_session_get_id(session), handler->data_domain, report_time, "json", body);
-    cJSON_free(body);
-    ogs_free(report_time);
-
     return report;
 }
 

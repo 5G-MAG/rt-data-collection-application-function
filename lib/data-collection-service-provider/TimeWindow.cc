@@ -215,8 +215,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_time_window_t 
 
     ValueType value(value_from);
 
-    
     if (!obj->setStartTime(std::move(value))) return NULL;
+    ogs_free
+(p_start_time);
 
     return obj_time_window;
 }
@@ -270,8 +271,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_time_window_t 
 
     ValueType value(value_from);
 
-    
     if (!obj->setStopTime(std::move(value))) return NULL;
+    ogs_free
+(p_stop_time);
 
     return obj_time_window;
 }

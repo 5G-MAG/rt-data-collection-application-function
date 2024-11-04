@@ -215,8 +215,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_paramete
 
     ValueType value(value_from);
 
-    
     if (!obj->setName(std::move(value))) return NULL;
+    ogs_free
+(p_name);
 
     return obj_query_parameter;
 }
@@ -270,8 +271,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_paramete
 
     ValueType value(value_from);
 
-    
     if (!obj->setValue(std::move(value))) return NULL;
+    ogs_free
+(p_value);
 
     return obj_query_parameter;
 }

@@ -244,8 +244,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_param_co
         }
     }
 
-    data_collection_list_free(p_query_params);
     if (!obj->setQueryParams(std::move(value))) return NULL;
+    data_collection_list_free
+(p_query_params);
 
     return obj_query_param_combination;
 }
@@ -263,7 +264,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_param_co
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_query_parameter_free(p_query_params);
+    data_collection_model_query_parameter_free
+(p_query_params);
     obj->addQueryParams(value);
     return obj_query_param_combination;
 }

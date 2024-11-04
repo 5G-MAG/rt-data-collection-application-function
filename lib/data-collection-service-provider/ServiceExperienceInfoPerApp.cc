@@ -233,8 +233,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
 
     ValueType value(value_from);
 
-    
     if (!obj->setAppId(std::move(value))) return NULL;
+    ogs_free
+(p_app_id);
 
     return obj_service_experience_info_per_app;
 }
@@ -298,8 +299,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setAppServerIns(std::move(value))) return NULL;
+    data_collection_model_addr_fqdn_free
+(p_app_server_ins);
 
     return obj_service_experience_info_per_app;
 }
@@ -384,8 +386,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
         }
     }
 
-    data_collection_list_free(p_svc_exp_per_flows);
     if (!obj->setSvcExpPerFlows(std::move(value))) return NULL;
+    data_collection_list_free
+(p_svc_exp_per_flows);
 
     return obj_service_experience_info_per_app;
 }
@@ -403,7 +406,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_service_experience_info_per_flow_free(p_svc_exp_per_flows);
+    data_collection_model_service_experience_info_per_flow_free
+(p_svc_exp_per_flows);
     obj->addSvcExpPerFlows(value);
     return obj_service_experience_info_per_app;
 }
@@ -558,8 +562,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
         }
     }
 
-    data_collection_list_free(p_gpsis);
     if (!obj->setGpsis(std::move(value))) return NULL;
+    data_collection_list_free
+(p_gpsis);
 
     return obj_service_experience_info_per_app;
 }
@@ -577,7 +582,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
 
     ValueType value(value_from);
 
-    ogs_free(p_gpsis);
+    ogs_free
+(p_gpsis);
     if (value) obj->addGpsis(value.value());
     return obj_service_experience_info_per_app;
 }
@@ -736,8 +742,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
         }
     }
 
-    data_collection_list_free(p_supis);
     if (!obj->setSupis(std::move(value))) return NULL;
+    data_collection_list_free
+(p_supis);
 
     return obj_service_experience_info_per_app;
 }
@@ -755,7 +762,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
 
     ValueType value(value_from);
 
-    ogs_free(p_supis);
+    ogs_free
+(p_supis);
     if (value) obj->addSupis(value.value());
     return obj_service_experience_info_per_app;
 }
@@ -918,8 +926,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
         }
     }
 
-    data_collection_list_free(p_contr_weights);
     if (!obj->setContrWeights(std::move(value))) return NULL;
+    data_collection_list_free
+(p_contr_weights);
 
     return obj_service_experience_info_per_app;
 }

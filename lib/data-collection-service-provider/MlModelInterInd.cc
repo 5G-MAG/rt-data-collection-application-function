@@ -215,8 +215,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ml_model_inter
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setAnalyticsId(std::move(value))) return NULL;
+    data_collection_model_nwdaf_event_free
+(p_analytics_id);
 
     return obj_ml_model_inter_ind;
 }
@@ -298,8 +299,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ml_model_inter
         }
     }
 
-    data_collection_list_free(p_vendor_list);
     if (!obj->setVendorList(std::move(value))) return NULL;
+    data_collection_list_free
+(p_vendor_list);
 
     return obj_ml_model_inter_ind;
 }
@@ -317,7 +319,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ml_model_inter
 
     ValueType value(value_from);
 
-    ogs_free(p_vendor_list);
+    ogs_free
+(p_vendor_list);
     obj->addVendorList(value);
     return obj_ml_model_inter_ind;
 }

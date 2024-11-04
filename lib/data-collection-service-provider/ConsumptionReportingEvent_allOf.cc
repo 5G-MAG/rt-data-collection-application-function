@@ -221,8 +221,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
 
     ValueType value(value_from);
 
-    
     if (!obj->setUnitDuration(std::move(value))) return NULL;
+    ogs_free
+(p_unit_duration);
 
     return obj_consumption_reporting_event_all_of;
 }
@@ -286,8 +287,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setClientEndpointAddress(std::move(value))) return NULL;
+    data_collection_model_endpoint_address_free
+(p_client_endpoint_address);
 
     return obj_consumption_reporting_event_all_of;
 }
@@ -351,8 +353,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setServerEndpointAddress(std::move(value))) return NULL;
+    data_collection_model_endpoint_address_free
+(p_server_endpoint_address);
 
     return obj_consumption_reporting_event_all_of;
 }
@@ -406,8 +409,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
 
     ValueType value(value_from);
 
-    
     if (!obj->setMediaPlayerEntryUrl(std::move(value))) return NULL;
+    ogs_free
+(p_media_player_entry_url);
 
     return obj_consumption_reporting_event_all_of;
 }
@@ -461,8 +465,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
 
     ValueType value(value_from);
 
-    
     if (!obj->setMediaComponentIdentifier(std::move(value))) return NULL;
+    ogs_free
+(p_media_component_identifier);
 
     return obj_consumption_reporting_event_all_of;
 }

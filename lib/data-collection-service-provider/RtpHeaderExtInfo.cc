@@ -229,8 +229,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setRtpHeaderExtType(std::move(value))) return NULL;
+    data_collection_model_rtp_header_ext_type_free
+(p_rtp_header_ext_type);
 
     return obj_rtp_header_ext_info;
 }
@@ -294,7 +295,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext
 
     ValueType value(value_from);
 
-    
     if (!obj->setRtpHeaderExtId(std::move(value))) return NULL;
 
     return obj_rtp_header_ext_info;
@@ -359,7 +359,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext
 
     ValueType value(value_from);
 
-    
     if (!obj->setLongFormat(std::move(value))) return NULL;
 
     return obj_rtp_header_ext_info;
@@ -424,7 +423,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext
 
     ValueType value(value_from);
 
-    
     if (!obj->setPduSetSizeActive(std::move(value))) return NULL;
 
     return obj_rtp_header_ext_info;

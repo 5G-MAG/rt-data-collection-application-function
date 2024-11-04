@@ -247,8 +247,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
 
     ValueType value(value_from);
 
-    
     if (!obj->setType(std::move(value))) return NULL;
+    ogs_free
+(p_type);
 
     return obj_problem_details;
 }
@@ -312,8 +313,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
 
     ValueType value(value_from);
 
-    
     if (!obj->setTitle(std::move(value))) return NULL;
+    ogs_free
+(p_title);
 
     return obj_problem_details;
 }
@@ -377,7 +379,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
 
     ValueType value(value_from);
 
-    
     if (!obj->setStatus(std::move(value))) return NULL;
 
     return obj_problem_details;
@@ -442,8 +443,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
 
     ValueType value(value_from);
 
-    
     if (!obj->setDetail(std::move(value))) return NULL;
+    ogs_free
+(p_detail);
 
     return obj_problem_details;
 }
@@ -507,8 +509,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
 
     ValueType value(value_from);
 
-    
     if (!obj->setInstance(std::move(value))) return NULL;
+    ogs_free
+(p_instance);
 
     return obj_problem_details;
 }
@@ -572,8 +575,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
 
     ValueType value(value_from);
 
-    
     if (!obj->setCause(std::move(value))) return NULL;
+    ogs_free
+(p_cause);
 
     return obj_problem_details;
 }
@@ -669,8 +673,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
         }
     }
 
-    data_collection_list_free(p_invalid_params);
     if (!obj->setInvalidParams(std::move(value))) return NULL;
+    data_collection_list_free
+(p_invalid_params);
 
     return obj_problem_details;
 }
@@ -688,7 +693,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_invalid_param_free(p_invalid_params);
+    data_collection_model_invalid_param_free
+(p_invalid_params);
     if (value) obj->addInvalidParams(value.value());
     return obj_problem_details;
 }
@@ -818,8 +824,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
 
     ValueType value(value_from);
 
-    
     if (!obj->setSupportedFeatures(std::move(value))) return NULL;
+    ogs_free
+(p_supported_features);
 
     return obj_problem_details;
 }
@@ -883,8 +890,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setAccessTokenError(std::move(value))) return NULL;
+    data_collection_model_access_token_err_free
+(p_access_token_error);
 
     return obj_problem_details;
 }
@@ -948,8 +956,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setAccessTokenRequest(std::move(value))) return NULL;
+    data_collection_model_access_token_req_free
+(p_access_token_request);
 
     return obj_problem_details;
 }
@@ -1013,8 +1022,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
 
     ValueType value(value_from);
 
-    
     if (!obj->setNrfId(std::move(value))) return NULL;
+    ogs_free
+(p_nrf_id);
 
     return obj_problem_details;
 }
@@ -1107,8 +1117,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
         }
     }
 
-    data_collection_list_free(p_supported_api_versions);
     if (!obj->setSupportedApiVersions(std::move(value))) return NULL;
+    data_collection_list_free
+(p_supported_api_versions);
 
     return obj_problem_details;
 }
@@ -1126,7 +1137,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
 
     ValueType value(value_from);
 
-    ogs_free(p_supported_api_versions);
+    ogs_free
+(p_supported_api_versions);
     if (value) obj->addSupportedApiVersions(value.value());
     return obj_problem_details;
 }
@@ -1256,8 +1268,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_detail
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setNoProfileMatchInfo(std::move(value))) return NULL;
+    data_collection_model_no_profile_match_info_free
+(p_no_profile_match_info);
 
     return obj_problem_details;
 }

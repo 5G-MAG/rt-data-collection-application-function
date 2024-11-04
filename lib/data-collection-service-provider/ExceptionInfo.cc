@@ -227,8 +227,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setIpTrafficFilter(std::move(value))) return NULL;
+    data_collection_model_flow_info_free
+(p_ip_traffic_filter);
 
     return obj_exception_info;
 }
@@ -292,8 +293,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setEthTrafficFilter(std::move(value))) return NULL;
+    data_collection_model_eth_flow_description_free
+(p_eth_traffic_filter);
 
     return obj_exception_info;
 }
@@ -378,8 +380,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info
         }
     }
 
-    data_collection_list_free(p_exceps);
     if (!obj->setExceps(std::move(value))) return NULL;
+    data_collection_list_free
+(p_exceps);
 
     return obj_exception_info;
 }
@@ -397,7 +400,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_exception_free(p_exceps);
+    data_collection_model_exception_free
+(p_exceps);
     obj->addExceps(value);
     return obj_exception_info;
 }

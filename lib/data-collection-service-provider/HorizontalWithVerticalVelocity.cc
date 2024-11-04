@@ -219,7 +219,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_wit
 
     ValueType value(value_from);
 
-    
     if (!obj->setHSpeed(std::move(value))) return NULL;
 
     return obj_horizontal_with_vertical_velocity;
@@ -274,7 +273,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_wit
 
     ValueType value(value_from);
 
-    
     if (!obj->setBearing(std::move(value))) return NULL;
 
     return obj_horizontal_with_vertical_velocity;
@@ -329,7 +327,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_wit
 
     ValueType value(value_from);
 
-    
     if (!obj->setVSpeed(std::move(value))) return NULL;
 
     return obj_horizontal_with_vertical_velocity;
@@ -384,8 +381,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_wit
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setVDirection(std::move(value))) return NULL;
+    data_collection_model_vertical_direction_free
+(p_v_direction);
 
     return obj_horizontal_with_vertical_velocity;
 }

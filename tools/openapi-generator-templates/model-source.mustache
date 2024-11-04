@@ -379,9 +379,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_{{#lambda.lowe
 
     {{>make-value}}
 
-    {{#isContainer}}{{#isArray}}data_collection_list_free(p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}});{{/isArray}}{{#isMap}}data_collection_hash_free(p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}, reinterpret_cast<void(*)(void*)>({{#items}}{{#isString}}_ogs_free{{/isString}}{{^isString}}data_collection_model_{{#lambda.snakecase}}{{{complexType}}}{{/lambda.snakecase}}_free{{/isString}}{{/items}}));{{/isMap}}{{/isContainer}}
     if (!obj->{{setter}}(std::move(value))) return NULL;
-
+{{#isArray}}    {{>free-data}}(p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}});
+{{/isArray}}{{#isMap}}    {{>free-data}}(p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}}, reinterpret_cast<void(*)(void*)>({{#items}}{{>free-data}}{{/items}}));
+{{/isMap}}{{^isContainer}}{{^isPrimitiveType}}    {{>free-data}}(p_{{#lambda.snakecase}}{{name}}{{/lambda.snakecase}});
+{{/isPrimitiveType}}{{/isContainer}}
     return obj_{{#lambda.snakecase}}{{classname}}{{/lambda.snakecase}};
 }
 

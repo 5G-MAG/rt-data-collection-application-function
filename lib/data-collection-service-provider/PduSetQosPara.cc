@@ -227,7 +227,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_qos_pa
 
     ValueType value(value_from);
 
-    
     if (!obj->setPduSetDelayBudget(std::move(value))) return NULL;
 
     return obj_pdu_set_qos_para;
@@ -292,8 +291,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_qos_pa
 
     ValueType value(value_from);
 
-    
     if (!obj->setPduSetErrRate(std::move(value))) return NULL;
+    ogs_free
+(p_pdu_set_err_rate);
 
     return obj_pdu_set_qos_para;
 }
@@ -357,8 +357,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_qos_pa
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setPduSetHandlingInfo(std::move(value))) return NULL;
+    data_collection_model_pdu_set_handling_info_free
+(p_pdu_set_handling_info);
 
     return obj_pdu_set_qos_para;
 }

@@ -217,8 +217,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_assist_da
 
     ValueType value(value_from);
 
-    
     if (!obj->setGnssAssistData(std::move(value))) return NULL;
+    ogs_free
+(p_gnss_assist_data);
 
     return obj_gnss_assist_data_info;
 }
@@ -272,8 +273,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_assist_da
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setServArea(std::move(value))) return NULL;
+    data_collection_model_gnss_serv_area_free
+(p_serv_area);
 
     return obj_gnss_assist_data_info;
 }
@@ -337,8 +339,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_assist_da
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setSourceInfo(std::move(value))) return NULL;
+    data_collection_model_geographical_coordinates_free
+(p_source_info);
 
     return obj_gnss_assist_data_info;
 }

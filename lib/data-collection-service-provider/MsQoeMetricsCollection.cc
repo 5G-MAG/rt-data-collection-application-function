@@ -241,8 +241,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_qoe_metrics
         }
     }
 
-    data_collection_list_free(p_ms_qoe_metrics);
     if (!obj->setMsQoeMetrics(std::move(value))) return NULL;
+    data_collection_list_free
+(p_ms_qoe_metrics);
 
     return obj_ms_qoe_metrics_collection;
 }
@@ -260,7 +261,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_qoe_metrics
 
     ValueType value(value_from);
 
-    ogs_free(p_ms_qoe_metrics);
+    ogs_free
+(p_ms_qoe_metrics);
     obj->addMsQoeMetrics(value);
     return obj_ms_qoe_metrics_collection;
 }

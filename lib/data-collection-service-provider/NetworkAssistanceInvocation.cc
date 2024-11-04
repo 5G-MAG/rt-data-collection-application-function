@@ -229,8 +229,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(value_from);
 
-    
     if (!obj->setPolicyTemplateId(std::move(value))) return NULL;
+    ogs_free
+(p_policy_template_id);
 
     return obj_network_assistance_invocation;
 }
@@ -326,8 +327,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
         }
     }
 
-    data_collection_list_free(p_application_flow_descriptions);
     if (!obj->setApplicationFlowDescriptions(std::move(value))) return NULL;
+    data_collection_list_free
+(p_application_flow_descriptions);
 
     return obj_network_assistance_invocation;
 }
@@ -345,7 +347,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_application_flow_description_free(p_application_flow_descriptions);
+    data_collection_model_application_flow_description_free
+(p_application_flow_descriptions);
     if (value) obj->addApplicationFlowDescriptions(value.value());
     return obj_network_assistance_invocation;
 }
@@ -475,8 +478,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setRequestedQoS(std::move(value))) return NULL;
+    data_collection_model_unidirectional_qo_s_specification_free
+(p_requested_qo_s);
 
     return obj_network_assistance_invocation;
 }
@@ -540,8 +544,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setRecommendedQoS(std::move(value))) return NULL;
+    data_collection_model_network_assistance_invocation_recommended_qo_s_free
+(p_recommended_qo_s);
 
     return obj_network_assistance_invocation;
 }

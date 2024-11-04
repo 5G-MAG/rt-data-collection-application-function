@@ -235,8 +235,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_user_data_cong
 
     ValueType value(value_from);
 
-    
     if (!obj->setAppId(std::move(value))) return NULL;
+    ogs_free
+(p_app_id);
 
     return obj_user_data_congestion_collection;
 }
@@ -300,8 +301,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_user_data_cong
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setIpTrafficFilter(std::move(value))) return NULL;
+    data_collection_model_flow_info_free
+(p_ip_traffic_filter);
 
     return obj_user_data_congestion_collection;
 }
@@ -365,8 +367,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_user_data_cong
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setTimeInterv(std::move(value))) return NULL;
+    data_collection_model_time_window_free
+(p_time_interv);
 
     return obj_user_data_congestion_collection;
 }
@@ -430,8 +433,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_user_data_cong
 
     ValueType value(value_from);
 
-    
     if (!obj->setThrputUl(std::move(value))) return NULL;
+    ogs_free
+(p_thrput_ul);
 
     return obj_user_data_congestion_collection;
 }
@@ -495,8 +499,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_user_data_cong
 
     ValueType value(value_from);
 
-    
     if (!obj->setThrputDl(std::move(value))) return NULL;
+    ogs_free
+(p_thrput_dl);
 
     return obj_user_data_congestion_collection;
 }
@@ -560,8 +565,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_user_data_cong
 
     ValueType value(value_from);
 
-    
     if (!obj->setThrputPkUl(std::move(value))) return NULL;
+    ogs_free
+(p_thrput_pk_ul);
 
     return obj_user_data_congestion_collection;
 }
@@ -625,8 +631,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_user_data_cong
 
     ValueType value(value_from);
 
-    
     if (!obj->setThrputPkDl(std::move(value))) return NULL;
+    ogs_free
+(p_thrput_pk_dl);
 
     return obj_user_data_congestion_collection;
 }

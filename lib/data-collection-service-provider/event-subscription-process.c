@@ -42,7 +42,6 @@ naf_eventexposure_api_metadata = {
     NAF_EVENTEXPOSURE_API_VERSION
 };
 
-static const char *__event_get_name(ogs_event_t *e);
 static bool __does_stream_server_match_server(ogs_sbi_server_t *server, data_collection_configuration_server_ifc_t ifc);
 static data_collection_model_af_event_exposure_subsc_t* __af_event_exposure_subscription_request_process(ogs_sbi_request_t *request, ogs_sbi_stream_t *stream, ogs_sbi_message_t *message, const nf_server_interface_metadata_t *api, const nf_server_app_metadata_t *app_meta);
 static data_collection_event_subscription_t* __event_subscription_retrieve(const char *subscription_id, ogs_sbi_stream_t *stream, ogs_sbi_message_t *message, const nf_server_interface_metadata_t *api, const nf_server_app_metadata_t *app_meta);
@@ -57,7 +56,7 @@ bool _evex_subscription_process_event(ogs_event_t *e)
 {
 
     ogs_assert(e);
-    ogs_debug("_evex_subscription_process_event %s", __event_get_name(e));
+    ogs_debug("_evex_subscription_process_event %s", _dc_event_name(e));
 
     static const nf_server_interface_metadata_t *naf_eventexposure_api = &naf_eventexposure_api_metadata;
     const nf_server_app_metadata_t *app_meta = data_collection_lib_metadata();
@@ -162,14 +161,28 @@ bool _evex_subscription_process_event(ogs_event_t *e)
                                     char *error_parameter = NULL;
                                     cJSON *response_body_json =  NULL;
                                     char *location;
+                                    const char *client_type;
+
+
+                                    switch (server_found) {
+                                    case DATA_COLLECTION_SVR_NWDAF_EVENT_EXPOSURE:
+                                        client_type = "NWDAF";
+                                        break;
+                                    case DATA_COLLECTION_SVR_AF_EVENT_EXPOSURE:
+                                        client_type = "EVENT_CONSUMER_AF";
+                                        break;
+                                    default:
+                                        client_type = "NEF";
+                                    }
 
                                     af_event_exposure_subsc = __af_event_exposure_subscription_request_process(request, stream,
                                                                                                           &message, api, app_meta);
                                     if (!af_event_exposure_subsc) break; /* Errors already reported */
 
                                     data_collection_event_subscription =
-                                            data_collection_event_subscription_subscribe(af_event_exposure_subsc, &error_reason,
-                                                                                         &error_classname, &error_parameter);
+                                            data_collection_event_subscription_subscribe(af_event_exposure_subsc, client_type,
+                                                                                         &error_reason, &error_classname,
+                                                                                         &error_parameter);
                                     if(!data_collection_event_subscription) {
                                         OpenAPI_list_t *invalid_params = NULL;
                                         char *err = ogs_msprintf("Bad Request %s", error_reason);
@@ -340,12 +353,6 @@ bool _evex_subscription_process_event(ogs_event_t *e)
         break;
     }
     return false;
-}
-
-static const char *__event_get_name(ogs_event_t *e)
-{
-    if (e->id < OGS_MAX_NUM_OF_PROTO_EVENT) return ogs_event_get_name(e);
-    return "Unknown Event Type";
 }
 
 static bool __does_stream_server_match_server(ogs_sbi_server_t *server, data_collection_configuration_server_ifc_t ifc)

@@ -245,8 +245,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
 
     ValueType value(value_from);
 
-    
     if (!obj->setSetId(std::move(value))) return NULL;
+    ogs_free
+(p_set_id);
 
     return obj_cp_parameter_set;
 }
@@ -310,8 +311,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
 
     ValueType value(value_from);
 
-    
     if (!obj->setSelf(std::move(value))) return NULL;
+    ogs_free
+(p_self);
 
     return obj_cp_parameter_set;
 }
@@ -375,8 +377,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
 
     ValueType value(value_from);
 
-    
     if (!obj->setValidityTime(std::move(value))) return NULL;
+    ogs_free
+(p_validity_time);
 
     return obj_cp_parameter_set;
 }
@@ -440,8 +443,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setPeriodicCommunicationIndicator(std::move(value))) return NULL;
+    data_collection_model_communication_indicator_free
+(p_periodic_communication_indicator);
 
     return obj_cp_parameter_set;
 }
@@ -505,7 +509,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
 
     ValueType value(value_from);
 
-    
     if (!obj->setCommunicationDurationTime(std::move(value))) return NULL;
 
     return obj_cp_parameter_set;
@@ -570,7 +573,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
 
     ValueType value(value_from);
 
-    
     if (!obj->setPeriodicTime(std::move(value))) return NULL;
 
     return obj_cp_parameter_set;
@@ -635,8 +637,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setScheduledCommunicationTime(std::move(value))) return NULL;
+    data_collection_model_scheduled_communication_time_free
+(p_scheduled_communication_time);
 
     return obj_cp_parameter_set;
 }
@@ -700,8 +703,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setScheduledCommunicationType(std::move(value))) return NULL;
+    data_collection_model_scheduled_communication_type_free
+(p_scheduled_communication_type);
 
     return obj_cp_parameter_set;
 }
@@ -765,8 +769,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setStationaryIndication(std::move(value))) return NULL;
+    data_collection_model_stationary_indication_free
+(p_stationary_indication);
 
     return obj_cp_parameter_set;
 }
@@ -862,8 +867,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
         }
     }
 
-    data_collection_list_free(p_battery_inds);
     if (!obj->setBatteryInds(std::move(value))) return NULL;
+    data_collection_list_free
+(p_battery_inds);
 
     return obj_cp_parameter_set;
 }
@@ -881,7 +887,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_battery_indication_free(p_battery_inds);
+    data_collection_model_battery_indication_free
+(p_battery_inds);
     if (value) obj->addBatteryInds(value.value());
     return obj_cp_parameter_set;
 }
@@ -1011,8 +1018,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setTrafficProfile(std::move(value))) return NULL;
+    data_collection_model_traffic_profile_free
+(p_traffic_profile);
 
     return obj_cp_parameter_set;
 }
@@ -1108,8 +1116,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
         }
     }
 
-    data_collection_list_free(p_expected_umts);
     if (!obj->setExpectedUmts(std::move(value))) return NULL;
+    data_collection_list_free
+(p_expected_umts);
 
     return obj_cp_parameter_set;
 }
@@ -1127,7 +1136,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_umt_location_area5_g_free(p_expected_umts);
+    data_collection_model_umt_location_area5_g_free
+(p_expected_umts);
     if (value) obj->addExpectedUmts(value.value());
     return obj_cp_parameter_set;
 }
@@ -1257,7 +1267,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
 
     ValueType value(value_from);
 
-    
     if (!obj->setExpectedUmtDays(std::move(value))) return NULL;
 
     return obj_cp_parameter_set;
@@ -1355,8 +1364,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
         }
     }
 
-    data_collection_list_free(p_expected_umt_days_add);
     if (!obj->setExpectedUmtDaysAdd(std::move(value))) return NULL;
+    data_collection_list_free
+(p_expected_umt_days_add);
 
     return obj_cp_parameter_set;
 }
@@ -1503,8 +1513,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setAppExpUeBehv(std::move(value))) return NULL;
+    data_collection_model_app_exp_ue_behaviour_free
+(p_app_exp_ue_behv);
 
     return obj_cp_parameter_set;
 }
@@ -1568,8 +1579,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
 
     ValueType value(value_from);
 
-    
     if (!obj->setConfidenceLevel(std::move(value))) return NULL;
+    ogs_free
+(p_confidence_level);
 
     return obj_cp_parameter_set;
 }
@@ -1633,8 +1645,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_parameter_s
 
     ValueType value(value_from);
 
-    
     if (!obj->setAccuracyLevel(std::move(value))) return NULL;
+    ogs_free
+(p_accuracy_level);
 
     return obj_cp_parameter_set;
 }

@@ -219,8 +219,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
 
     ValueType value(value_from);
 
-    
     if (!obj->setStartTime(std::move(value))) return NULL;
+    ogs_free
+(p_start_time);
 
     return obj_communication_collection;
 }
@@ -274,8 +275,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
 
     ValueType value(value_from);
 
-    
     if (!obj->setEndTime(std::move(value))) return NULL;
+    ogs_free
+(p_end_time);
 
     return obj_communication_collection;
 }
@@ -329,7 +331,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
 
     ValueType value(value_from);
 
-    
     if (!obj->setUlVol(std::move(value))) return NULL;
 
     return obj_communication_collection;
@@ -384,7 +385,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
 
     ValueType value(value_from);
 
-    
     if (!obj->setDlVol(std::move(value))) return NULL;
 
     return obj_communication_collection;

@@ -227,8 +227,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_redirect_respo
 
     ValueType value(value_from);
 
-    
     if (!obj->setCause(std::move(value))) return NULL;
+    ogs_free
+(p_cause);
 
     return obj_redirect_response;
 }
@@ -292,8 +293,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_redirect_respo
 
     ValueType value(value_from);
 
-    
     if (!obj->setTargetScp(std::move(value))) return NULL;
+    ogs_free
+(p_target_scp);
 
     return obj_redirect_response;
 }
@@ -357,8 +359,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_redirect_respo
 
     ValueType value(value_from);
 
-    
     if (!obj->setTargetSepp(std::move(value))) return NULL;
+    ogs_free
+(p_target_sepp);
 
     return obj_redirect_response;
 }

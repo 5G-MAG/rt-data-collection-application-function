@@ -225,8 +225,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setShape(std::move(value))) return NULL;
+    data_collection_model_supported_gad_shapes_free
+(p_shape);
 
     return obj_ellipsoid_arc;
 }
@@ -280,8 +281,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setPoint(std::move(value))) return NULL;
+    data_collection_model_geographical_coordinates_free
+(p_point);
 
     return obj_ellipsoid_arc;
 }
@@ -335,7 +337,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_
 
     ValueType value(value_from);
 
-    
     if (!obj->setInnerRadius(std::move(value))) return NULL;
 
     return obj_ellipsoid_arc;
@@ -390,7 +391,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_
 
     ValueType value(value_from);
 
-    
     if (!obj->setUncertaintyRadius(std::move(value))) return NULL;
 
     return obj_ellipsoid_arc;
@@ -445,7 +445,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_
 
     ValueType value(value_from);
 
-    
     if (!obj->setOffsetAngle(std::move(value))) return NULL;
 
     return obj_ellipsoid_arc;
@@ -500,7 +499,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_
 
     ValueType value(value_from);
 
-    
     if (!obj->setIncludedAngle(std::move(value))) return NULL;
 
     return obj_ellipsoid_arc;
@@ -555,7 +553,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_
 
     ValueType value(value_from);
 
-    
     if (!obj->setConfidence(std::move(value))) return NULL;
 
     return obj_ellipsoid_arc;

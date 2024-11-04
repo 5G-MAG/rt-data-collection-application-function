@@ -225,8 +225,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setMediaStreamHandlerEndpointAddress(std::move(value))) return NULL;
+    data_collection_model_endpoint_address_free
+(p_media_stream_handler_endpoint_address);
 
     return obj_media_streaming_access;
 }
@@ -280,8 +281,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setApplicationServerEndpointAddress(std::move(value))) return NULL;
+    data_collection_model_endpoint_address_free
+(p_application_server_endpoint_address);
 
     return obj_media_streaming_access;
 }
@@ -335,8 +337,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setRequestMessage(std::move(value))) return NULL;
+    data_collection_model_media_streaming_access_request_message_free
+(p_request_message);
 
     return obj_media_streaming_access;
 }
@@ -400,8 +403,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setCacheStatus(std::move(value))) return NULL;
+    data_collection_model_cache_status_free
+(p_cache_status);
 
     return obj_media_streaming_access;
 }
@@ -455,8 +459,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setResponseMessage(std::move(value))) return NULL;
+    data_collection_model_media_streaming_access_response_message_free
+(p_response_message);
 
     return obj_media_streaming_access;
 }
@@ -510,7 +515,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setProcessingLatency(std::move(value))) return NULL;
 
     return obj_media_streaming_access;
@@ -575,8 +579,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setConnectionMetrics(std::move(value))) return NULL;
+    data_collection_model_media_streaming_access_connection_metrics_free
+(p_connection_metrics);
 
     return obj_media_streaming_access;
 }

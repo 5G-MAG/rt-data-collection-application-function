@@ -225,8 +225,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_serv_area
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setGeographicalArea(std::move(value))) return NULL;
+    data_collection_model_geographic_area_free
+(p_geographical_area);
 
     return obj_gnss_serv_area;
 }
@@ -322,8 +323,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_serv_area
         }
     }
 
-    data_collection_list_free(p_tai_list);
     if (!obj->setTaiList(std::move(value))) return NULL;
+    data_collection_list_free
+(p_tai_list);
 
     return obj_gnss_serv_area;
 }
@@ -341,7 +343,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_serv_area
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_tai_free(p_tai_list);
+    data_collection_model_tai_free
+(p_tai_list);
     if (value) obj->addTaiList(value.value());
     return obj_gnss_serv_area;
 }

@@ -221,8 +221,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_fl
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setFilterMethod(std::move(value))) return NULL;
+    data_collection_model_sdf_method_free
+(p_filter_method);
 
     return obj_application_flow_description;
 }
@@ -286,8 +287,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_fl
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setPacketFilter(std::move(value))) return NULL;
+    data_collection_model_ip_packet_filter_set_free
+(p_packet_filter);
 
     return obj_application_flow_description;
 }
@@ -351,8 +353,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_fl
 
     ValueType value(value_from);
 
-    
     if (!obj->setDomainName(std::move(value))) return NULL;
+    ogs_free
+(p_domain_name);
 
     return obj_application_flow_description;
 }
@@ -416,8 +419,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_fl
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setMediaType(std::move(value))) return NULL;
+    data_collection_model_media_type_free
+(p_media_type);
 
     return obj_application_flow_description;
 }
@@ -481,8 +485,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_fl
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setMediaTransportParameters(std::move(value))) return NULL;
+    data_collection_model_protocol_description_free
+(p_media_transport_parameters);
 
     return obj_application_flow_description;
 }

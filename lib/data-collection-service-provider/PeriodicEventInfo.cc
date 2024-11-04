@@ -219,7 +219,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event
 
     ValueType value(value_from);
 
-    
     if (!obj->setReportingAmount(std::move(value))) return NULL;
 
     return obj_periodic_event_info;
@@ -274,7 +273,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event
 
     ValueType value(value_from);
 
-    
     if (!obj->setReportingInterval(std::move(value))) return NULL;
 
     return obj_periodic_event_info;
@@ -339,7 +337,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event
 
     ValueType value(value_from);
 
-    
     if (!obj->setReportingInfiniteInd(std::move(value))) return NULL;
 
     return obj_periodic_event_info;
@@ -404,7 +401,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_periodic_event
 
     ValueType value(value_from);
 
-    
     if (!obj->setReportingIntervalMs(std::move(value))) return NULL;
 
     return obj_periodic_event_info;

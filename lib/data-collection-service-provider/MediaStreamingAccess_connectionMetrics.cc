@@ -217,7 +217,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setMeanNetworkRoundTripTime(std::move(value))) return NULL;
 
     return obj_media_streaming_access_connection_metrics;
@@ -272,7 +271,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setNetworkRoundTripTimeVariation(std::move(value))) return NULL;
 
     return obj_media_streaming_access_connection_metrics;
@@ -327,7 +325,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setCongestionWindowSize(std::move(value))) return NULL;
 
     return obj_media_streaming_access_connection_metrics;

@@ -219,7 +219,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setResponseCode(std::move(value))) return NULL;
 
     return obj_media_streaming_access_response_message;
@@ -274,7 +273,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setSize(std::move(value))) return NULL;
 
     return obj_media_streaming_access_response_message;
@@ -329,7 +327,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setBodySize(std::move(value))) return NULL;
 
     return obj_media_streaming_access_response_message;
@@ -394,8 +391,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setContentType(std::move(value))) return NULL;
+    ogs_free
+(p_content_type);
 
     return obj_media_streaming_access_response_message;
 }

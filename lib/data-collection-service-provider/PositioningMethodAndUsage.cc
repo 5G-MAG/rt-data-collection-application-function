@@ -219,8 +219,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_me
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setMethod(std::move(value))) return NULL;
+    data_collection_model_positioning_method_free
+(p_method);
 
     return obj_positioning_method_and_usage;
 }
@@ -274,8 +275,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_me
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setMode(std::move(value))) return NULL;
+    data_collection_model_positioning_mode_free
+(p_mode);
 
     return obj_positioning_method_and_usage;
 }
@@ -329,8 +331,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_me
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setUsage(std::move(value))) return NULL;
+    data_collection_model_usage_free
+(p_usage);
 
     return obj_positioning_method_and_usage;
 }
@@ -394,7 +397,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_me
 
     ValueType value(value_from);
 
-    
     if (!obj->setMethodCode(std::move(value))) return NULL;
 
     return obj_positioning_method_and_usage;

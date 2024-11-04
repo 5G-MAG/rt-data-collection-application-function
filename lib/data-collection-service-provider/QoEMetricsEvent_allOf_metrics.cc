@@ -215,8 +215,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
 
     ValueType value(value_from);
 
-    
     if (!obj->setKey(std::move(value))) return NULL;
+    ogs_free
+(p_key);
 
     return obj_qo_e_metrics_event_all_of_metrics;
 }
@@ -280,8 +281,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setValue(std::move(value))) return NULL;
+    data_collection_model_any_type_free
+(p_value);
 
     return obj_qo_e_metrics_event_all_of_metrics;
 }

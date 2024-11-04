@@ -221,8 +221,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
 
     ValueType value(value_from);
 
-    
     if (!obj->setPolicyTemplateId(std::move(value))) return NULL;
+    ogs_free
+(p_policy_template_id);
 
     return obj_dynamic_policy_invocation_event_all_of;
 }
@@ -318,8 +319,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
         }
     }
 
-    data_collection_list_free(p_application_flow_descriptions);
     if (!obj->setApplicationFlowDescriptions(std::move(value))) return NULL;
+    data_collection_list_free
+(p_application_flow_descriptions);
 
     return obj_dynamic_policy_invocation_event_all_of;
 }
@@ -337,7 +339,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_application_flow_description_free(p_application_flow_descriptions);
+    data_collection_model_application_flow_description_free
+(p_application_flow_descriptions);
     if (value) obj->addApplicationFlowDescriptions(value.value());
     return obj_dynamic_policy_invocation_event_all_of;
 }
@@ -467,8 +470,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setRequestedQoS(std::move(value))) return NULL;
+    data_collection_model_unidirectional_qo_s_specification_free
+(p_requested_qo_s);
 
     return obj_dynamic_policy_invocation_event_all_of;
 }
@@ -532,8 +536,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
 
     ValueType value(value_from);
 
-    
     if (!obj->setEnforcementMethod(std::move(value))) return NULL;
+    ogs_free
+(p_enforcement_method);
 
     return obj_dynamic_policy_invocation_event_all_of;
 }
@@ -597,8 +602,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
 
     ValueType value(value_from);
 
-    
     if (!obj->setEnforcementBitRate(std::move(value))) return NULL;
+    ogs_free
+(p_enforcement_bit_rate);
 
     return obj_dynamic_policy_invocation_event_all_of;
 }

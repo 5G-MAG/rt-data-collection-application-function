@@ -225,8 +225,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setCollectionTimestamp(std::move(value))) return NULL;
+    ogs_free
+(p_collection_timestamp);
 
     return obj_media_streaming_accesses_collection;
 }
@@ -280,8 +281,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setStartTimestamp(std::move(value))) return NULL;
+    ogs_free
+(p_start_timestamp);
 
     return obj_media_streaming_accesses_collection;
 }
@@ -335,8 +337,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setEndTimestamp(std::move(value))) return NULL;
+    ogs_free
+(p_end_timestamp);
 
     return obj_media_streaming_accesses_collection;
 }
@@ -390,7 +393,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setSampleCount(std::move(value))) return NULL;
 
     return obj_media_streaming_accesses_collection;
@@ -445,8 +447,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setStreamingDirection(std::move(value))) return NULL;
+    data_collection_model_provisioning_session_type_free
+(p_streaming_direction);
 
     return obj_media_streaming_accesses_collection;
 }
@@ -531,8 +534,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
         }
     }
 
-    data_collection_list_free(p_summarisations);
     if (!obj->setSummarisations(std::move(value))) return NULL;
+    data_collection_list_free
+(p_summarisations);
 
     return obj_media_streaming_accesses_collection;
 }
@@ -550,7 +554,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_data_aggregation_function_type_free(p_summarisations);
+    data_collection_model_data_aggregation_function_type_free
+(p_summarisations);
     obj->addSummarisations(value);
     return obj_media_streaming_accesses_collection;
 }
@@ -697,8 +702,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
         }
     }
 
-    data_collection_list_free(p_records);
     if (!obj->setRecords(std::move(value))) return NULL;
+    data_collection_list_free
+(p_records);
 
     return obj_media_streaming_accesses_collection;
 }
@@ -716,7 +722,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_media_streaming_access_event_free(p_records);
+    data_collection_model_media_streaming_access_event_free
+(p_records);
     obj->addRecords(value);
     return obj_media_streaming_accesses_collection;
 }

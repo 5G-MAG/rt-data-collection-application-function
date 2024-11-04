@@ -270,8 +270,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
         }
     }
 
-    data_collection_list_free(p_gpsis);
     if (!obj->setGpsis(std::move(value))) return NULL;
+    data_collection_list_free
+(p_gpsis);
 
     return obj_event_filter;
 }
@@ -289,7 +290,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
 
     ValueType value(value_from);
 
-    ogs_free(p_gpsis);
+    ogs_free
+(p_gpsis);
     if (value) obj->addGpsis(value.value());
     return obj_event_filter;
 }
@@ -448,8 +450,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
         }
     }
 
-    data_collection_list_free(p_supis);
     if (!obj->setSupis(std::move(value))) return NULL;
+    data_collection_list_free
+(p_supis);
 
     return obj_event_filter;
 }
@@ -467,7 +470,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
 
     ValueType value(value_from);
 
-    ogs_free(p_supis);
+    ogs_free
+(p_supis);
     if (value) obj->addSupis(value.value());
     return obj_event_filter;
 }
@@ -626,8 +630,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
         }
     }
 
-    data_collection_list_free(p_exter_group_ids);
     if (!obj->setExterGroupIds(std::move(value))) return NULL;
+    data_collection_list_free
+(p_exter_group_ids);
 
     return obj_event_filter;
 }
@@ -645,7 +650,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
 
     ValueType value(value_from);
 
-    ogs_free(p_exter_group_ids);
+    ogs_free
+(p_exter_group_ids);
     if (value) obj->addExterGroupIds(value.value());
     return obj_event_filter;
 }
@@ -804,8 +810,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
         }
     }
 
-    data_collection_list_free(p_inter_group_ids);
     if (!obj->setInterGroupIds(std::move(value))) return NULL;
+    data_collection_list_free
+(p_inter_group_ids);
 
     return obj_event_filter;
 }
@@ -823,7 +830,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
 
     ValueType value(value_from);
 
-    ogs_free(p_inter_group_ids);
+    ogs_free
+(p_inter_group_ids);
     if (value) obj->addInterGroupIds(value.value());
     return obj_event_filter;
 }
@@ -953,7 +961,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
 
     ValueType value(value_from);
 
-    
     if (!obj->setAnyUeInd(std::move(value))) return NULL;
 
     return obj_event_filter;
@@ -1018,8 +1025,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setUeIpAddr(std::move(value))) return NULL;
+    data_collection_model_ip_addr_free
+(p_ue_ip_addr);
 
     return obj_event_filter;
 }
@@ -1112,8 +1120,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
         }
     }
 
-    data_collection_list_free(p_app_ids);
     if (!obj->setAppIds(std::move(value))) return NULL;
+    data_collection_list_free
+(p_app_ids);
 
     return obj_event_filter;
 }
@@ -1131,7 +1140,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
 
     ValueType value(value_from);
 
-    ogs_free(p_app_ids);
+    ogs_free
+(p_app_ids);
     if (value) obj->addAppIds(value.value());
     return obj_event_filter;
 }
@@ -1261,8 +1271,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setLocArea(std::move(value))) return NULL;
+    data_collection_model_location_area5_g_free
+(p_loc_area);
 
     return obj_event_filter;
 }
@@ -1358,8 +1369,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
         }
     }
 
-    data_collection_list_free(p_coll_attrs);
     if (!obj->setCollAttrs(std::move(value))) return NULL;
+    data_collection_list_free
+(p_coll_attrs);
 
     return obj_event_filter;
 }
@@ -1377,7 +1389,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_collective_behaviour_filter_free(p_coll_attrs);
+    data_collection_model_collective_behaviour_filter_free
+(p_coll_attrs);
     if (value) obj->addCollAttrs(value.value());
     return obj_event_filter;
 }
@@ -1539,8 +1552,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
         }
     }
 
-    data_collection_list_free(p_exception_reqs);
     if (!obj->setExceptionReqs(std::move(value))) return NULL;
+    data_collection_list_free
+(p_exception_reqs);
 
     return obj_event_filter;
 }
@@ -1558,7 +1572,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_exception_free(p_exception_reqs);
+    data_collection_model_exception_free
+(p_exception_reqs);
     if (value) obj->addExceptionReqs(value.value());
     return obj_event_filter;
 }

@@ -1,25 +1,73 @@
+/*
+ * License: 5G-MAG Public License (v1.0)
+ * Copyright: (C) 2024 British Broadcasting Corporation
+ * Authors: David Waring <david.waring2@bbc.co.uk>
+ *          Dev Audsin <dev.audsin@bbc.co.uk>
+ *
+ * For full license terms please see the LICENSE file distributed with this
+ * program. If this file is missing then the license can be retrieved from
+ * https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+ */
+#ifndef _DATA_COLLECTION_SP_VERSION_H_
+#define _DATA_COLLECTION_SP_VERSION_H_
 
+/** \addtogroup dcsp
+ * @{
+ */
+
+/** Library name string */
 #define DATA_COLLECTION_NAME @DATA_COLLECTION_NAME@
+/** Library version string */
 #define DATA_COLLECTION_VERSION @DATA_COLLECTION_VERSION@
+/** Library major vesion number */
 #define DATA_COLLECTION_MAJOR @DATA_COLLECTION_MAJOR@
+/** Library minor vesion number */
 #define DATA_COLLECTION_MINOR @DATA_COLLECTION_MINOR@
+/** Library micro vesion number */
 #define DATA_COLLECTION_MICRO @DATA_COLLECTION_MICRO@
+/** The 3GPP 5G specification major release version the data model is based on */
 #define FIVEG_API_RELEASE @FIVEG_API_RELEASE@
 
+/** Create a combined numeric value for a version
+ *
+ * Creates a combined value for a "<major>.<minor>.<micro>" style version number to be used in version comparisons
+ */
 #define DATA_COLLECTION_VERSION_COMBINED(major, minor, micro) \
     ((major)*0x01000000+(minor)*0x00000100+(micro)*0x00000001)
+
+/** Compare this library version to a given version number
+ *
+ * This will return a -ve value if the given major, minor & micro represent a version number later than this library, a +ve value
+ * if the major, minor & micro represent a version number earlier than this library and 0 if they are the same.
+ */
 #define DATA_COLLECTION_VERSION_CMP(major,minor,micro) \
     (DATA_COLLECTION_VERSION_COMBINED(DATA_COLLECTION_MAJOR, DATA_COLLECTION_MINOR, DATA_COLLECTION_MICRO) - \
      DATA_COLLECTION_VERSION_COMBINED(major, minor, micro))
+
+/** Check if the library is a version earlier than the given version */
 #define DATA_COLLECTION_VERSION_CMP_LT(major,minor,micro) \
     (DATA_COLLECTION_VERSION_CMP(major,minor,micro) < 0)
+
+/** Check if the library is a version earlier than or equal to the given version */
 #define DATA_COLLECTION_VERSION_CMP_LE(major,minor,micro) \
     (DATA_COLLECTION_VERSION_CMP(major,minor,micro) <= 0)
+
+/** Check if the library version is the same as the given version */
 #define DATA_COLLECTION_VERSION_CMP_EQ(major,minor,micro) \
     (DATA_COLLECTION_VERSION_CMP(major,minor,micro) == 0)
+
+/** Check if the library version is not the same as the given version */
 #define DATA_COLLECTION_VERSION_CMP_NE(major,minor,micro) \
     (DATA_COLLECTION_VERSION_CMP(major,minor,micro) != 0)
+
+/** Check if the library is a version later than the given version */
 #define DATA_COLLECTION_VERSION_CMP_GT(major,minor,micro) \
     (DATA_COLLECTION_VERSION_CMP(major,minor,micro) > 0)
+
+/** Check if the library is a version later than or equal to the given version */
 #define DATA_COLLECTION_VERSION_CMP_GE(major,minor,micro) \
     (DATA_COLLECTION_VERSION_CMP(major,minor,micro) >= 0)
+
+/** @} */
+
+#endif /* _DATA_COLLECTION_SP_VERSION_H_ */

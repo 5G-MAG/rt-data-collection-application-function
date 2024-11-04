@@ -215,7 +215,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_vel
 
     ValueType value(value_from);
 
-    
     if (!obj->setHSpeed(std::move(value))) return NULL;
 
     return obj_horizontal_velocity;
@@ -270,7 +269,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_vel
 
     ValueType value(value_from);
 
-    
     if (!obj->setBearing(std::move(value))) return NULL;
 
     return obj_horizontal_velocity;

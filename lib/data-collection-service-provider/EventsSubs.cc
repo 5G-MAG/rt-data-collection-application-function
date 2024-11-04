@@ -217,8 +217,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_events_subs_t 
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setEvent(std::move(value))) return NULL;
+    data_collection_model_af_event_free
+(p_event);
 
     return obj_events_subs;
 }
@@ -272,8 +273,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_events_subs_t 
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setEventFilter(std::move(value))) return NULL;
+    data_collection_model_event_filter_free
+(p_event_filter);
 
     return obj_events_subs;
 }
@@ -337,8 +339,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_events_subs_t 
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setEventRepInfo(std::move(value))) return NULL;
+    data_collection_model_reporting_information_free
+(p_event_rep_info);
 
     return obj_events_subs;
 }

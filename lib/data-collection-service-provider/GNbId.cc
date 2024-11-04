@@ -215,7 +215,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnb_id_t *data
 
     ValueType value(value_from);
 
-    
     if (!obj->setBitLength(std::move(value))) return NULL;
 
     return obj_gnb_id;
@@ -270,8 +269,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnb_id_t *data
 
     ValueType value(value_from);
 
-    
     if (!obj->setGNBValue(std::move(value))) return NULL;
+    ogs_free
+(p_gnb_value);
 
     return obj_gnb_id;
 }

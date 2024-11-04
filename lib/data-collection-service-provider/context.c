@@ -99,6 +99,9 @@ void data_collection_context_final(void)
         self->reporting_session_expiry_timer = NULL;
     }
 
+    /* drop contextId => configuration index */
+    if (self->data_reporting_configuration_contexts) ogs_hash_clear(self->data_reporting_configuration_contexts);
+
     data_collection_context_data_reporting_provisioning_sessions_remove();
     data_collection_context_data_reporting_sessions_remove();
     data_collection_context_data_reporting_sessions_cache_remove();
@@ -106,7 +109,8 @@ void data_collection_context_final(void)
     data_collection_context_event_exposure_subscriptions_unsubscribe();
     data_collection_free_agent_name();
 
-    ogs_hash_destroy(self->data_reporting_configuration_contexts); // just an index map, no need to free values
+    ogs_hash_destroy(self->data_reporting_configuration_contexts);
+    self->data_reporting_configuration_contexts = NULL;
 
     data_collection_context_server_sockaddr_remove();
 

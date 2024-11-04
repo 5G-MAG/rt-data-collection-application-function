@@ -231,8 +231,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setMethod(std::move(value))) return NULL;
+    ogs_free
+(p_method);
 
     return obj_media_streaming_access_request_message;
 }
@@ -286,8 +287,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setUrl(std::move(value))) return NULL;
+    ogs_free
+(p_url);
 
     return obj_media_streaming_access_request_message;
 }
@@ -341,8 +343,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setProtocolVersion(std::move(value))) return NULL;
+    ogs_free
+(p_protocol_version);
 
     return obj_media_streaming_access_request_message;
 }
@@ -406,8 +409,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setRange(std::move(value))) return NULL;
+    ogs_free
+(p_range);
 
     return obj_media_streaming_access_request_message;
 }
@@ -461,7 +465,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setSize(std::move(value))) return NULL;
 
     return obj_media_streaming_access_request_message;
@@ -516,7 +519,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setBodySize(std::move(value))) return NULL;
 
     return obj_media_streaming_access_request_message;
@@ -581,8 +583,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setContentType(std::move(value))) return NULL;
+    ogs_free
+(p_content_type);
 
     return obj_media_streaming_access_request_message;
 }
@@ -646,8 +649,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setUserAgent(std::move(value))) return NULL;
+    ogs_free
+(p_user_agent);
 
     return obj_media_streaming_access_request_message;
 }
@@ -711,8 +715,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setUserIdentity(std::move(value))) return NULL;
+    ogs_free
+(p_user_identity);
 
     return obj_media_streaming_access_request_message;
 }
@@ -776,8 +781,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setReferer(std::move(value))) return NULL;
+    ogs_free
+(p_referer);
 
     return obj_media_streaming_access_request_message;
 }

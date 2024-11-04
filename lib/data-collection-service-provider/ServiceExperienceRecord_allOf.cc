@@ -244,8 +244,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
         }
     }
 
-    data_collection_list_free(p_service_experience_infos);
     if (!obj->setServiceExperienceInfos(std::move(value))) return NULL;
+    data_collection_list_free
+(p_service_experience_infos);
 
     return obj_service_experience_record_all_of;
 }
@@ -263,7 +264,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_per_flow_service_experience_info_free(p_service_experience_infos);
+    data_collection_model_per_flow_service_experience_info_free
+(p_service_experience_infos);
     obj->addServiceExperienceInfos(value);
     return obj_service_experience_record_all_of;
 }

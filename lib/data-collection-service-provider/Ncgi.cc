@@ -217,8 +217,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ncgi_t *data_c
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setPlmnId(std::move(value))) return NULL;
+    data_collection_model_plmn_id_free
+(p_plmn_id);
 
     return obj_ncgi;
 }
@@ -272,8 +273,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ncgi_t *data_c
 
     ValueType value(value_from);
 
-    
     if (!obj->setNrCellId(std::move(value))) return NULL;
+    ogs_free
+(p_nr_cell_id);
 
     return obj_ncgi;
 }
@@ -337,8 +339,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ncgi_t *data_c
 
     ValueType value(value_from);
 
-    
     if (!obj->setNid(std::move(value))) return NULL;
+    ogs_free
+(p_nid);
 
     return obj_ncgi;
 }

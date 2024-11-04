@@ -243,7 +243,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
 
     ValueType value(value_from);
 
-    
     if (!obj->setImmRep(std::move(value))) return NULL;
 
     return obj_reporting_information;
@@ -308,8 +307,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setNotifMethod(std::move(value))) return NULL;
+    data_collection_model_notification_method_free
+(p_notif_method);
 
     return obj_reporting_information;
 }
@@ -373,7 +373,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
 
     ValueType value(value_from);
 
-    
     if (!obj->setMaxReportNbr(std::move(value))) return NULL;
 
     return obj_reporting_information;
@@ -438,8 +437,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
 
     ValueType value(value_from);
 
-    
     if (!obj->setMonDur(std::move(value))) return NULL;
+    ogs_free
+(p_mon_dur);
 
     return obj_reporting_information;
 }
@@ -503,7 +503,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
 
     ValueType value(value_from);
 
-    
     if (!obj->setRepPeriod(std::move(value))) return NULL;
 
     return obj_reporting_information;
@@ -568,7 +567,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
 
     ValueType value(value_from);
 
-    
     if (!obj->setSampRatio(std::move(value))) return NULL;
 
     return obj_reporting_information;
@@ -665,8 +663,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
         }
     }
 
-    data_collection_list_free(p_partition_criteria);
     if (!obj->setPartitionCriteria(std::move(value))) return NULL;
+    data_collection_list_free
+(p_partition_criteria);
 
     return obj_reporting_information;
 }
@@ -684,7 +683,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_partitioning_criteria_free(p_partition_criteria);
+    data_collection_model_partitioning_criteria_free
+(p_partition_criteria);
     if (value) obj->addPartitionCriteria(value.value());
     return obj_reporting_information;
 }
@@ -814,7 +814,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
 
     ValueType value(value_from);
 
-    
     if (!obj->setGrpRepTime(std::move(value))) return NULL;
 
     return obj_reporting_information;
@@ -879,8 +878,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setNotifFlag(std::move(value))) return NULL;
+    data_collection_model_notification_flag_free
+(p_notif_flag);
 
     return obj_reporting_information;
 }
@@ -944,8 +944,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setNotifFlagInstruct(std::move(value))) return NULL;
+    data_collection_model_muting_exception_instructions_free
+(p_notif_flag_instruct);
 
     return obj_reporting_information;
 }
@@ -1009,8 +1010,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_info
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setMutingSetting(std::move(value))) return NULL;
+    data_collection_model_muting_notifications_settings_free
+(p_muting_setting);
 
     return obj_reporting_information;
 }

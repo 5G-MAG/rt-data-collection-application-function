@@ -235,8 +235,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
 
     ValueType value(value_from);
 
-    
     if (!obj->setGpsi(std::move(value))) return NULL;
+    ogs_free
+(p_gpsi);
 
     return obj_ue_communication_collection;
 }
@@ -300,8 +301,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
 
     ValueType value(value_from);
 
-    
     if (!obj->setSupi(std::move(value))) return NULL;
+    ogs_free
+(p_supi);
 
     return obj_ue_communication_collection;
 }
@@ -365,8 +367,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
 
     ValueType value(value_from);
 
-    
     if (!obj->setExterGroupId(std::move(value))) return NULL;
+    ogs_free
+(p_exter_group_id);
 
     return obj_ue_communication_collection;
 }
@@ -430,8 +433,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
 
     ValueType value(value_from);
 
-    
     if (!obj->setInterGroupId(std::move(value))) return NULL;
+    ogs_free
+(p_inter_group_id);
 
     return obj_ue_communication_collection;
 }
@@ -485,8 +489,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
 
     ValueType value(value_from);
 
-    
     if (!obj->setAppId(std::move(value))) return NULL;
+    ogs_free
+(p_app_id);
 
     return obj_ue_communication_collection;
 }
@@ -550,8 +555,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setExpectedUeBehavePara(std::move(value))) return NULL;
+    data_collection_model_cp_parameter_set_free
+(p_expected_ue_behave_para);
 
     return obj_ue_communication_collection;
 }
@@ -636,8 +642,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
         }
     }
 
-    data_collection_list_free(p_comms);
     if (!obj->setComms(std::move(value))) return NULL;
+    data_collection_list_free
+(p_comms);
 
     return obj_ue_communication_collection;
 }
@@ -655,7 +662,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_communicati
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_communication_collection_free(p_comms);
+    data_collection_model_communication_collection_free
+(p_comms);
     obj->addComms(value);
     return obj_ue_communication_collection;
 }

@@ -221,8 +221,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional
 
     ValueType value(value_from);
 
-    
     if (!obj->setMaximumRequestedBitRate(std::move(value))) return NULL;
+    ogs_free
+(p_maximum_requested_bit_rate);
 
     return obj_unidirectional_qo_s_specification;
 }
@@ -286,8 +287,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional
 
     ValueType value(value_from);
 
-    
     if (!obj->setMinimumDesiredBitRate(std::move(value))) return NULL;
+    ogs_free
+(p_minimum_desired_bit_rate);
 
     return obj_unidirectional_qo_s_specification;
 }
@@ -341,8 +343,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional
 
     ValueType value(value_from);
 
-    
     if (!obj->setMinimumRequestedBitRate(std::move(value))) return NULL;
+    ogs_free
+(p_minimum_requested_bit_rate);
 
     return obj_unidirectional_qo_s_specification;
 }
@@ -406,7 +409,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional
 
     ValueType value(value_from);
 
-    
     if (!obj->setDesiredPacketLatency(std::move(value))) return NULL;
 
     return obj_unidirectional_qo_s_specification;
@@ -471,7 +473,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional
 
     ValueType value(value_from);
 
-    
     if (!obj->setDesiredPacketLossRate(std::move(value))) return NULL;
 
     return obj_unidirectional_qo_s_specification;

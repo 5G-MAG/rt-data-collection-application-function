@@ -217,8 +217,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_flow_servi
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setServiceExperience(std::move(value))) return NULL;
+    data_collection_model_svc_experience_free
+(p_service_experience);
 
     return obj_per_flow_service_experience_info;
 }
@@ -272,8 +273,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_flow_servi
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setTimeInterval(std::move(value))) return NULL;
+    data_collection_model_time_window_free
+(p_time_interval);
 
     return obj_per_flow_service_experience_info;
 }
@@ -327,8 +329,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_flow_servi
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setRemoteEndpoint(std::move(value))) return NULL;
+    data_collection_model_addr_fqdn_free
+(p_remote_endpoint);
 
     return obj_per_flow_service_experience_info;
 }

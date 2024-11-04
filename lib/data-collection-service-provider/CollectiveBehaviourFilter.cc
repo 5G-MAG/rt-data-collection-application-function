@@ -221,8 +221,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setType(std::move(value))) return NULL;
+    data_collection_model_collective_behaviour_filter_type_free
+(p_type);
 
     return obj_collective_behaviour_filter;
 }
@@ -276,8 +277,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
 
     ValueType value(value_from);
 
-    
     if (!obj->setValue(std::move(value))) return NULL;
+    ogs_free
+(p_value);
 
     return obj_collective_behaviour_filter;
 }
@@ -373,8 +375,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
         }
     }
 
-    data_collection_list_free(p_coll_beh_attr);
     if (!obj->setCollBehAttr(std::move(value))) return NULL;
+    data_collection_list_free
+(p_coll_beh_attr);
 
     return obj_collective_behaviour_filter;
 }
@@ -392,7 +395,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_per_ue_attribute_free(p_coll_beh_attr);
+    data_collection_model_per_ue_attribute_free
+(p_coll_beh_attr);
     if (value) obj->addCollBehAttr(value.value());
     return obj_collective_behaviour_filter;
 }
@@ -522,8 +526,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setDataProcType(std::move(value))) return NULL;
+    data_collection_model_data_processing_type_free
+(p_data_proc_type);
 
     return obj_collective_behaviour_filter;
 }
@@ -587,7 +592,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
 
     ValueType value(value_from);
 
-    
     if (!obj->setListOfUeInd(std::move(value))) return NULL;
 
     return obj_collective_behaviour_filter;

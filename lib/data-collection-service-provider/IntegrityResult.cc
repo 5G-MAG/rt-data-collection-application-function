@@ -229,8 +229,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_resu
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setComputingEntity(std::move(value))) return NULL;
+    data_collection_model_integrity_computing_entity_free
+(p_computing_entity);
 
     return obj_integrity_result;
 }
@@ -294,8 +295,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_resu
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setProtectionLevel(std::move(value))) return NULL;
+    data_collection_model_integrity_protection_level_free
+(p_protection_level);
 
     return obj_integrity_result;
 }
@@ -359,7 +361,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_resu
 
     ValueType value(value_from);
 
-    
     if (!obj->setIntegrityReqMetInd(std::move(value))) return NULL;
 
     return obj_integrity_result;
@@ -424,7 +425,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_resu
 
     ValueType value(value_from);
 
-    
     if (!obj->setAchievedTir(std::move(value))) return NULL;
 
     return obj_integrity_result;

@@ -233,8 +233,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
 
     ValueType value(value_from);
 
-    
     if (!obj->setGpsi(std::move(value))) return NULL;
+    ogs_free
+(p_gpsi);
 
     return obj_ue_mobility_collection;
 }
@@ -298,8 +299,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
 
     ValueType value(value_from);
 
-    
     if (!obj->setSupi(std::move(value))) return NULL;
+    ogs_free
+(p_supi);
 
     return obj_ue_mobility_collection;
 }
@@ -353,8 +355,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
 
     ValueType value(value_from);
 
-    
     if (!obj->setAppId(std::move(value))) return NULL;
+    ogs_free
+(p_app_id);
 
     return obj_ue_mobility_collection;
 }
@@ -418,7 +421,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
 
     ValueType value(value_from);
 
-    
     if (!obj->setAllAppInd(std::move(value))) return NULL;
 
     return obj_ue_mobility_collection;
@@ -504,8 +506,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
         }
     }
 
-    data_collection_list_free(p_ue_trajs);
     if (!obj->setUeTrajs(std::move(value))) return NULL;
+    data_collection_list_free
+(p_ue_trajs);
 
     return obj_ue_mobility_collection;
 }
@@ -523,7 +526,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_ue_trajectory_collection_free(p_ue_trajs);
+    data_collection_model_ue_trajectory_collection_free
+(p_ue_trajs);
     obj->addUeTrajs(value);
     return obj_ue_mobility_collection;
 }
@@ -681,8 +685,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
         }
     }
 
-    data_collection_list_free(p_areas);
     if (!obj->setAreas(std::move(value))) return NULL;
+    data_collection_list_free
+(p_areas);
 
     return obj_ue_mobility_collection;
 }
@@ -700,7 +705,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_co
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_location_area5_g_free(p_areas);
+    data_collection_model_location_area5_g_free
+(p_areas);
     if (value) obj->addAreas(value.value());
     return obj_ue_mobility_collection;
 }

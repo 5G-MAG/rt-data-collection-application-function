@@ -225,8 +225,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_area_indica
 
     ValueType value(value_from);
 
-    
     if (!obj->setCountry(std::move(value))) return NULL;
+    ogs_free
+(p_country);
 
     return obj_ue_area_indication;
 }
@@ -290,7 +291,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_area_indica
 
     ValueType value(value_from);
 
-    
     if (!obj->setInternationalAreaInd(std::move(value))) return NULL;
 
     return obj_ue_area_indication;

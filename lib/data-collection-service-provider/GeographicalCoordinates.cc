@@ -215,7 +215,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographical_c
 
     ValueType value(value_from);
 
-    
     if (!obj->setLon(std::move(value))) return NULL;
 
     return obj_geographical_coordinates;
@@ -270,7 +269,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographical_c
 
     ValueType value(value_from);
 
-    
     if (!obj->setLat(std::move(value))) return NULL;
 
     return obj_geographical_coordinates;

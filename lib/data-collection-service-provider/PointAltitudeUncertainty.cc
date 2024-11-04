@@ -225,8 +225,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setShape(std::move(value))) return NULL;
+    data_collection_model_supported_gad_shapes_free
+(p_shape);
 
     return obj_point_altitude_uncertainty;
 }
@@ -280,8 +281,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setPoint(std::move(value))) return NULL;
+    data_collection_model_geographical_coordinates_free
+(p_point);
 
     return obj_point_altitude_uncertainty;
 }
@@ -335,7 +337,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
 
     ValueType value(value_from);
 
-    
     if (!obj->setAltitude(std::move(value))) return NULL;
 
     return obj_point_altitude_uncertainty;
@@ -390,8 +391,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setUncertaintyEllipse(std::move(value))) return NULL;
+    data_collection_model_uncertainty_ellipse_free
+(p_uncertainty_ellipse);
 
     return obj_point_altitude_uncertainty;
 }
@@ -445,7 +447,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
 
     ValueType value(value_from);
 
-    
     if (!obj->setUncertaintyAltitude(std::move(value))) return NULL;
 
     return obj_point_altitude_uncertainty;
@@ -500,7 +501,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
 
     ValueType value(value_from);
 
-    
     if (!obj->setConfidence(std::move(value))) return NULL;
 
     return obj_point_altitude_uncertainty;
@@ -565,7 +565,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude
 
     ValueType value(value_from);
 
-    
     if (!obj->setVConfidence(std::move(value))) return NULL;
 
     return obj_point_altitude_uncertainty;

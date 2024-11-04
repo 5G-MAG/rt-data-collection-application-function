@@ -192,6 +192,13 @@ DATA_COLLECTION_SVC_PRODUCER_API void data_collection_reporting_configuration_de
 {
     //ogs_debug("data_collection_reporting_configuration_destroy(%p)", configuration);
     if (!configuration) return;
+    if (configuration->model) {
+        /* remove any contextId mapping for this configuration */
+        const char *id = data_collection_model_data_reporting_configuration_get_data_reporting_configuration_id(configuration->model);
+        if (id) {
+            ogs_hash_set(data_collection_self()->data_reporting_configuration_contexts, id, OGS_HASH_KEY_STRING, NULL);
+        }
+    }
     data_collection_reporting_configuration_set_session(configuration, NULL);
     data_collection_model_data_reporting_configuration_free(configuration->model);
     configuration->model = NULL;

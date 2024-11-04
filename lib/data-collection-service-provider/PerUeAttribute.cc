@@ -229,8 +229,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribu
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setUeDest(std::move(value))) return NULL;
+    data_collection_model_location_area5_g_free
+(p_ue_dest);
 
     return obj_per_ue_attribute;
 }
@@ -294,8 +295,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribu
 
     ValueType value(value_from);
 
-    
     if (!obj->setRoute(std::move(value))) return NULL;
+    ogs_free
+(p_route);
 
     return obj_per_ue_attribute;
 }
@@ -359,8 +361,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribu
 
     ValueType value(value_from);
 
-    
     if (!obj->setAvgSpeed(std::move(value))) return NULL;
+    ogs_free
+(p_avg_speed);
 
     return obj_per_ue_attribute;
 }
@@ -424,8 +427,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribu
 
     ValueType value(value_from);
 
-    
     if (!obj->setTimeOfArrival(std::move(value))) return NULL;
+    ogs_free
+(p_time_of_arrival);
 
     return obj_per_ue_attribute;
 }

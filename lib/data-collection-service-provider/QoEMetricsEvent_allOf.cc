@@ -215,8 +215,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
 
     ValueType value(value_from);
 
-    
     if (!obj->setMetricType(std::move(value))) return NULL;
+    ogs_free
+(p_metric_type);
 
     return obj_qo_e_metrics_event_all_of;
 }
@@ -312,8 +313,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
         }
     }
 
-    data_collection_list_free(p_samples);
     if (!obj->setSamples(std::move(value))) return NULL;
+    data_collection_list_free
+(p_samples);
 
     return obj_qo_e_metrics_event_all_of;
 }
@@ -331,7 +333,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_qo_e_metrics_event_all_of_samples_free(p_samples);
+    data_collection_model_qo_e_metrics_event_all_of_samples_free
+(p_samples);
     if (value) obj->addSamples(value.value());
     return obj_qo_e_metrics_event_all_of;
 }

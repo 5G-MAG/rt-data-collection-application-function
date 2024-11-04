@@ -239,8 +239,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setRecordType(std::move(value))) return NULL;
+    data_collection_model_event_record_type_free
+(p_record_type);
 
     return obj_network_assistance_invocation_event;
 }
@@ -294,8 +295,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(value_from);
 
-    
     if (!obj->setRecordTimestamp(std::move(value))) return NULL;
+    ogs_free
+(p_record_timestamp);
 
     return obj_network_assistance_invocation_event;
 }
@@ -349,8 +351,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(value_from);
 
-    
     if (!obj->setAppId(std::move(value))) return NULL;
+    ogs_free
+(p_app_id);
 
     return obj_network_assistance_invocation_event;
 }
@@ -414,8 +417,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(value_from);
 
-    
     if (!obj->setProvisioningSessionId(std::move(value))) return NULL;
+    ogs_free
+(p_provisioning_session_id);
 
     return obj_network_assistance_invocation_event;
 }
@@ -479,8 +483,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(value_from);
 
-    
     if (!obj->setSessionId(std::move(value))) return NULL;
+    ogs_free
+(p_session_id);
 
     return obj_network_assistance_invocation_event;
 }
@@ -544,8 +549,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(value_from);
 
-    
     if (!obj->setUeIdentification(std::move(value))) return NULL;
+    ogs_free
+(p_ue_identification);
 
     return obj_network_assistance_invocation_event;
 }
@@ -609,8 +615,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(value_from);
 
-    
     if (!obj->setDataNetworkName(std::move(value))) return NULL;
+    ogs_free
+(p_data_network_name);
 
     return obj_network_assistance_invocation_event;
 }
@@ -674,8 +681,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setSliceId(std::move(value))) return NULL;
+    data_collection_model_snssai_free
+(p_slice_id);
 
     return obj_network_assistance_invocation_event;
 }
@@ -771,8 +779,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
         }
     }
 
-    data_collection_list_free(p_ue_locations);
     if (!obj->setUeLocations(std::move(value))) return NULL;
+    data_collection_list_free
+(p_ue_locations);
 
     return obj_network_assistance_invocation_event;
 }
@@ -790,7 +799,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_location_area5_g_free(p_ue_locations);
+    data_collection_model_location_area5_g_free
+(p_ue_locations);
     if (value) obj->addUeLocations(value.value());
     return obj_network_assistance_invocation_event;
 }
@@ -910,8 +920,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setNetworkAssistanceType(std::move(value))) return NULL;
+    data_collection_model_network_assistance_type_free
+(p_network_assistance_type);
 
     return obj_network_assistance_invocation_event;
 }
@@ -975,8 +986,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(value_from);
 
-    
     if (!obj->setPolicyTemplateId(std::move(value))) return NULL;
+    ogs_free
+(p_policy_template_id);
 
     return obj_network_assistance_invocation_event;
 }
@@ -1072,8 +1084,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
         }
     }
 
-    data_collection_list_free(p_application_flow_descriptions);
     if (!obj->setApplicationFlowDescriptions(std::move(value))) return NULL;
+    data_collection_list_free
+(p_application_flow_descriptions);
 
     return obj_network_assistance_invocation_event;
 }
@@ -1091,7 +1104,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_application_flow_description_free(p_application_flow_descriptions);
+    data_collection_model_application_flow_description_free
+(p_application_flow_descriptions);
     if (value) obj->addApplicationFlowDescriptions(value.value());
     return obj_network_assistance_invocation_event;
 }
@@ -1221,8 +1235,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setRequestedQoS(std::move(value))) return NULL;
+    data_collection_model_unidirectional_qo_s_specification_free
+(p_requested_qo_s);
 
     return obj_network_assistance_invocation_event;
 }
@@ -1286,8 +1301,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setRecommendedQoS(std::move(value))) return NULL;
+    data_collection_model_network_assistance_invocation_recommended_qo_s_free
+(p_recommended_qo_s);
 
     return obj_network_assistance_invocation_event;
 }

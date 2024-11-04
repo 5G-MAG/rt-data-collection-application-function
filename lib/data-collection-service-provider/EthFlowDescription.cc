@@ -237,8 +237,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
 
     ValueType value(value_from);
 
-    
     if (!obj->setDestMacAddr(std::move(value))) return NULL;
+    ogs_free
+(p_dest_mac_addr);
 
     return obj_eth_flow_description;
 }
@@ -292,8 +293,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
 
     ValueType value(value_from);
 
-    
     if (!obj->setEthType(std::move(value))) return NULL;
+    ogs_free
+(p_eth_type);
 
     return obj_eth_flow_description;
 }
@@ -357,8 +359,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
 
     ValueType value(value_from);
 
-    
     if (!obj->setFDesc(std::move(value))) return NULL;
+    ogs_free
+(p_f_desc);
 
     return obj_eth_flow_description;
 }
@@ -422,8 +425,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setFDir(std::move(value))) return NULL;
+    data_collection_model_flow_direction_free
+(p_f_dir);
 
     return obj_eth_flow_description;
 }
@@ -487,8 +491,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
 
     ValueType value(value_from);
 
-    
     if (!obj->setSourceMacAddr(std::move(value))) return NULL;
+    ogs_free
+(p_source_mac_addr);
 
     return obj_eth_flow_description;
 }
@@ -581,8 +586,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
         }
     }
 
-    data_collection_list_free(p_vlan_tags);
     if (!obj->setVlanTags(std::move(value))) return NULL;
+    data_collection_list_free
+(p_vlan_tags);
 
     return obj_eth_flow_description;
 }
@@ -600,7 +606,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
 
     ValueType value(value_from);
 
-    ogs_free(p_vlan_tags);
+    ogs_free
+(p_vlan_tags);
     if (value) obj->addVlanTags(value.value());
     return obj_eth_flow_description;
 }
@@ -730,8 +737,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
 
     ValueType value(value_from);
 
-    
     if (!obj->setSrcMacAddrEnd(std::move(value))) return NULL;
+    ogs_free
+(p_src_mac_addr_end);
 
     return obj_eth_flow_description;
 }
@@ -795,8 +803,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_eth_flow_descr
 
     ValueType value(value_from);
 
-    
     if (!obj->setDestMacAddrEnd(std::move(value))) return NULL;
+    ogs_free
+(p_dest_mac_addr_end);
 
     return obj_eth_flow_description;
 }

@@ -215,8 +215,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertai
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setPoint(std::move(value))) return NULL;
+    data_collection_model_geographical_coordinates_free
+(p_point);
 
     return obj_point_uncertainty_circle_all_of;
 }
@@ -270,7 +271,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertai
 
     ValueType value(value_from);
 
-    
     if (!obj->setUncertainty(std::move(value))) return NULL;
 
     return obj_point_uncertainty_circle_all_of;

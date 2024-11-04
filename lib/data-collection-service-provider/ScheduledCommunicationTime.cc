@@ -260,8 +260,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_comm
         }
     }
 
-    data_collection_list_free(p_days_of_week);
     if (!obj->setDaysOfWeek(std::move(value))) return NULL;
+    data_collection_list_free
+(p_days_of_week);
 
     return obj_scheduled_communication_time;
 }
@@ -408,8 +409,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_comm
 
     ValueType value(value_from);
 
-    
     if (!obj->setTimeOfDayStart(std::move(value))) return NULL;
+    ogs_free
+(p_time_of_day_start);
 
     return obj_scheduled_communication_time;
 }
@@ -473,8 +475,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_comm
 
     ValueType value(value_from);
 
-    
     if (!obj->setTimeOfDayEnd(std::move(value))) return NULL;
+    ogs_free
+(p_time_of_day_end);
 
     return obj_scheduled_communication_time;
 }

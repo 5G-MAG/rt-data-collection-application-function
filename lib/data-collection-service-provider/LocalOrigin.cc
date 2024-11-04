@@ -219,8 +219,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_origin_t
 
     ValueType value(value_from);
 
-    
     if (!obj->setCoordinateId(std::move(value))) return NULL;
+    ogs_free
+(p_coordinate_id);
 
     return obj_local_origin;
 }
@@ -284,8 +285,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_origin_t
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setPoint(std::move(value))) return NULL;
+    data_collection_model_geographical_coordinates_free
+(p_point);
 
     return obj_local_origin;
 }
@@ -349,8 +351,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_origin_t
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setArea(std::move(value))) return NULL;
+    data_collection_model_geographic_area_free
+(p_area);
 
     return obj_local_origin;
 }
@@ -414,7 +417,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_origin_t
 
     ValueType value(value_from);
 
-    
     if (!obj->setHorizAxesOrientation(std::move(value))) return NULL;
 
     return obj_local_origin;

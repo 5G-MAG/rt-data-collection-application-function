@@ -264,8 +264,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
         }
     }
 
-    data_collection_list_free(p_context_ids);
     if (!obj->setContextIds(std::move(value))) return NULL;
+    data_collection_list_free
+(p_context_ids);
 
     return obj_data_reporting_condition;
 }
@@ -283,7 +284,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(value_from);
 
-    ogs_free(p_context_ids);
+    ogs_free
+(p_context_ids);
     if (value) obj->addContextIds(value.value());
     return obj_data_reporting_condition;
 }
@@ -403,8 +405,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setType(std::move(value))) return NULL;
+    data_collection_model_data_reporting_condition_type_free
+(p_type);
 
     return obj_data_reporting_condition;
 }
@@ -468,7 +471,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(value_from);
 
-    
     if (!obj->setPeriod(std::move(value))) return NULL;
 
     return obj_data_reporting_condition;
@@ -533,8 +535,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(value_from);
 
-    
     if (!obj->setParameter(std::move(value))) return NULL;
+    ogs_free
+(p_parameter);
 
     return obj_data_reporting_condition;
 }
@@ -598,8 +601,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setThreshold(std::move(value))) return NULL;
+    data_collection_model_data_reporting_condition_threshold_free
+(p_threshold);
 
     return obj_data_reporting_condition;
 }
@@ -663,7 +667,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(value_from);
 
-    
     if (!obj->setReportWhenBelow(std::move(value))) return NULL;
 
     return obj_data_reporting_condition;
@@ -728,8 +731,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setEventTrigger(std::move(value))) return NULL;
+    data_collection_model_data_reporting_event_trigger_free
+(p_event_trigger);
 
     return obj_data_reporting_condition;
 }

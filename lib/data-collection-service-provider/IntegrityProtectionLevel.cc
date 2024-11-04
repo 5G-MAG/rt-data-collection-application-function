@@ -215,7 +215,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_prot
 
     ValueType value(value_from);
 
-    
     if (!obj->setHorizontalProtectionLevel(std::move(value))) return NULL;
 
     return obj_integrity_protection_level;
@@ -280,7 +279,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_prot
 
     ValueType value(value_from);
 
-    
     if (!obj->setVerticalProtectionLevel(std::move(value))) return NULL;
 
     return obj_integrity_protection_level;

@@ -225,8 +225,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_trip_plan_reco
 
     ValueType value(value_from);
 
-    
     if (!obj->setTimestamp(std::move(value))) return NULL;
+    ogs_free
+(p_timestamp);
 
     return obj_trip_plan_record;
 }
@@ -308,8 +309,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_trip_plan_reco
         }
     }
 
-    data_collection_list_free(p_context_ids);
     if (!obj->setContextIds(std::move(value))) return NULL;
+    data_collection_list_free
+(p_context_ids);
 
     return obj_trip_plan_record;
 }
@@ -327,7 +329,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_trip_plan_reco
 
     ValueType value(value_from);
 
-    ogs_free(p_context_ids);
+    ogs_free
+(p_context_ids);
     obj->addContextIds(value);
     return obj_trip_plan_record;
 }
@@ -443,8 +446,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_trip_plan_reco
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setStartingPoint(std::move(value))) return NULL;
+    data_collection_model_location_data_free
+(p_starting_point);
 
     return obj_trip_plan_record;
 }
@@ -540,8 +544,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_trip_plan_reco
         }
     }
 
-    data_collection_list_free(p_waypoints);
     if (!obj->setWaypoints(std::move(value))) return NULL;
+    data_collection_list_free
+(p_waypoints);
 
     return obj_trip_plan_record;
 }
@@ -559,7 +564,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_trip_plan_reco
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_location_data_free(p_waypoints);
+    data_collection_model_location_data_free
+(p_waypoints);
     if (value) obj->addWaypoints(value.value());
     return obj_trip_plan_record;
 }
@@ -679,8 +685,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_trip_plan_reco
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setDestination(std::move(value))) return NULL;
+    data_collection_model_location_data_free
+(p_destination);
 
     return obj_trip_plan_record;
 }
@@ -744,7 +751,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_trip_plan_reco
 
     ValueType value(value_from);
 
-    
     if (!obj->setEstimatedAverageSpeed(std::move(value))) return NULL;
 
     return obj_trip_plan_record;
@@ -809,8 +815,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_trip_plan_reco
 
     ValueType value(value_from);
 
-    
     if (!obj->setEstimatedArrivalTime(std::move(value))) return NULL;
+    ogs_free
+(p_estimated_arrival_time);
 
     return obj_trip_plan_record;
 }

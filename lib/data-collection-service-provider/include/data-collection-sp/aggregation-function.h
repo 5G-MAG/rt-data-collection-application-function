@@ -16,7 +16,6 @@
 #error "This file can only be included from data-collection.h"
 #endif
 
-
 #include <stdint.h>
 
 #include "sbi/openapi/external/cJSON.h"
@@ -27,45 +26,41 @@
  * @{
  */
 
-
 #ifdef __cplusplus
-#ifndef OGS_CORE_INSIDE
-#define OGS_CORE_INSIDE
-#endif
-#ifndef OGS_USE_TALLOC
-#define OGS_USE_TALLOC 1
-#endif
-#include "ogs-list.h"
-
 extern "C" {
-#else
-#include "ogs-core.h"
 #endif
 
 /***** Enumerations *****/
 
-/** \enum data_collection_aggregate_result_type_e 
- * \brief Data Collection library Aggregation Functions return type
+/** @{ */
+/** Data Collection library Aggregation Functions return type.
+ * \noop \public \memberof data_collection_aggregate_result_t
  * \headerfile aggregation-function.h <data-collection-sp/data-collection.h>
  *
- * Set in data_collection_aggregate_result_t by the aggregation functions (e.g. data_collection_aggregation_function_int64()) when returning the result.
+ * Set in data_collection_aggregate_result_t by the aggregation functions (e.g. data_collection_aggregation_function_int64()) when
+ * returning the result.
  */
-
 typedef enum {
     DATA_COLLECTION_AGGREGATE_RESULT_ARRAY, /**< Result returned by the Aggregation Function (e.g. none) is an array. */
-    DATA_COLLECTION_AGGREGATE_RESULT_SIZE, /**< Result returned by the Aggregation Function (e.g. count) is size. */
+    DATA_COLLECTION_AGGREGATE_RESULT_SIZE,  /**< Result returned by the Aggregation Function (e.g. count) is size. */
     DATA_COLLECTION_AGGREGATE_RESULT_VALUE, /**< Result returned by the Aggregation Function (e.g. min, max, sum) is a value. */
     DATA_COLLECTION_AGGREGATE_RESULT_DOUBLE /**< Result returned by the Aggregation Function (e.g. mean) is a double. */
 } data_collection_aggregate_result_type_e;
+/** @} */
 
-/** Result returned by Aggregation functions
+/** Result returned by Aggregation functions.
+ * \headerfile aggregation-function.h <data-collection-sp/data-collection.h>
+ *
+ * `#include <data-collection-sp/data-collection.h>`
  *
  * The OpenAPI 3.0 specification has 3 integer (integer, int32 and int64) and 3 floating point (number, float, double) numeric data types.
  * The library treats "integer" as an alias for "int64" and "number" as an alias for "double".
- * The Aggregation functions (data_collection_aggregation_function_*()) populate this data structure to provide the calculated value(s) to the AF.
+ *
+ * The Aggregation functions (data_collection_aggregation_function_*()) populate this data structure to provide the calculated
+ * value(s) to the AF.
+ *
  * An AF can use this to extract and use the value(s).
  */
-
 typedef struct data_collection_aggregate_result_s {
     data_collection_aggregate_result_type_e result_type; /**< Result type as in enum data_collection_aggregate_result_type_e */
     union {
@@ -87,183 +82,227 @@ typedef struct data_collection_aggregate_result_s {
     };
 } data_collection_aggregate_result_t;
 
-/*! 
-   \brief Sets the result field for integer \a result.
-   \param result aggregated result object.
-   \returns Aggregated result object with the aggregated value set on the field int64 \a result.
-*/
+/** Access the result field for an integer within \a result.
+ * \public \memberof data_collection_aggregate_result_t
+ * \hideinitializer
+ * \hideinlinesource
+ * \param result aggregated result object.
+ * \returns The integer field within the aggregated result object.
+ */
 #define DATA_COLLECTION_AGGREGATION_RESULT_INTEGER(result) ((result).int64)
 
-/*! 
-   \brief Sets the result field for int32 \a result.
-   \param result aggregated result object.
-   \returns Aggregated result object with the aggregated value set on the field int32 \a result.
-*/
+/** Access the result field for an int32 within \a result.
+ * \public \memberof data_collection_aggregate_result_t
+ * \param result aggregated result object.
+ * \returns The int32 field within the aggregated result object.
+ */
 #define DATA_COLLECTION_AGGREGATION_RESULT_INT32(result) ((result).int32)
 
 /*!
-   \brief Sets the result field for int64 \a result.
+   \brief Access the result field for an int64 within \a result.
+   \public \memberof data_collection_aggregate_result_t
    \param result aggregated result object.
-   \returns Aggregated result object with the aggregated value set on the field int64 \a result.
+   \returns The int64 field within the aggregated result object.
 */
 #define DATA_COLLECTION_AGGREGATION_RESULT_INT64(result) ((result).int64)
 
 /*! 
-   \brief Sets the result field for number \a result.
+   \brief Access the result field for a number within \a result.
+   \public \memberof data_collection_aggregate_result_t
    \param result aggregated result object.
-   \returns Aggregated result object with the aggregated value set on the field double_prec \a result.
+   \returns The number field within the aggregated result object.
 */
 #define DATA_COLLECTION_AGGREGATION_RESULT_NUMBER(result) ((result).double_prec)
 
 /*!
-   \brief Sets the result field for float data type \a result.
+   \brief Access the result field for a float data type within \a result.
+   \public \memberof data_collection_aggregate_result_t
    \param result aggregated result object.
-   \returns Aggregated result object with the aggregated value set on the field floating_pt \a result.
+   \returns The float field within the aggregated result object.
 */
 #define DATA_COLLECTION_AGGREGATION_RESULT_FLOAT(result) ((result).floating_pt)
 
 /*!
-   \brief Sets the result field for double data type \a result.
+   \brief Access the result field for a double data type within \a result.
+   \public \memberof data_collection_aggregate_result_t
    \param result aggregated result object.
-   \returns Aggregated result object with the aggregated value set on the field double_prec \a result.
+   \returns The double field within the aggregated result object.
 */
 #define DATA_COLLECTION_AGGREGATION_RESULT_DOUBLE(result) ((result).double_prec)
 
 /*!
-   \brief Sets the result field for array pointer \a result.
+   \brief Access the result field for a start of generic array pointer within \a result.
+   \public \memberof data_collection_aggregate_result_t
    \param result aggregated result object.
-   \returns Aggregated result object with array pointer \a result.
+   \returns The start of generic array pointer within the aggregated result object.
 */
 #define DATA_COLLECTION_AGGREGATION_RESULT_ARRAY_PTR(result) ((result).array)
 
 /*!
-   \brief Sets the array size in the result object \a result.
+   \brief Access the generic array size field in the result object \a result.
+   \public \memberof data_collection_aggregate_result_t
    \param result aggregated result object.
-   \returns Aggregated result object with size set on the field array_len \a result.
+   \returns The array size field with the aggregated result object.
 */
 #define DATA_COLLECTION_AGGREGATION_RESULT_ARRAY_SIZE(result) ((result).array_len)
 
 /*!
-   \brief Sets the result field for integer \a result.
+   \brief Access the result field for an integer array within \a result.
+   \public \memberof data_collection_aggregate_result_t
    \param result aggregated result object.
-   \returns Aggregated result object with array pointer set on the field int64_array \a result.
+   \returns The start of array pointer for an integer array within the aggregated result object.
 */
 #define DATA_COLLECTION_AGGREGATION_RESULT_INTEGER_ARRAY_PTR(result) ((result).int64_array)
 
 /*!
-   \brief Sets the result field for float data type \a result.
+   \brief Access the integer array size field in the result object \a result.
+   \public \memberof data_collection_aggregate_result_t
    \param result aggregated result object.
-   \returns Aggregated result object with size set on the field array_len \a result.
+   \returns The array size field with the aggregated result object.
 */
 #define DATA_COLLECTION_AGGREGATION_RESULT_INTEGER_ARRAY_SIZE(result) ((result).array_len)
 
 /*!
-   \brief Sets the result field for int32 \a result.
+   \brief Access the result field for an int32 array within \a result.
+   \public \memberof data_collection_aggregate_result_t
    \param result aggregated result object.
-   \returns Aggregated result object with array pointer set on the field int32_array \a result.
+   \returns The start of array pointer for an int32 array within the aggregated result object.
 */
 #define DATA_COLLECTION_AGGREGATION_RESULT_INT32_ARRAY_PTR(result) ((result).int32_array)
 
 /*!
-   \brief Sets the array size for int32 \a result.
+   \brief Access the int32 array size field in the result object \a result.
+   \public \memberof data_collection_aggregate_result_t
    \param result aggregated result object.
-   \returns Aggregated result object with size set on the field array_len \a result.
+   \returns The array size field with the aggregated result object.
 */
 #define DATA_COLLECTION_AGGREGATION_RESULT_INT32_ARRAY_SIZE(result) ((result).array_len)
 
 /*!
-   \brief Sets int64 array pointer  \a result.
+   \brief access the result field for an int64 array within \a result.
+   \public \memberof data_collection_aggregate_result_t
    \param result aggregated result object.
-   \returns Aggregated result object with array pointer to the field int64_array \a result.
+   \returns The start of array pointer for an int64 array within the aggregated result object.
 */
 #define DATA_COLLECTION_AGGREGATION_RESULT_INT64_ARRAY_PTR(result) ((result).int64_array)
 
 /*!
-   \brief Sets the size of int64 array \a result.
+   \brief Access the int64 array size field in the result object \a result.
+   \public \memberof data_collection_aggregate_result_t
    \param result aggregated result object.
-   \returns Aggregated result object with size set on the field array_len \a result.
+   \returns The array size field with the aggregated result object.
 */
 #define DATA_COLLECTION_AGGREGATION_RESULT_INT64_ARRAY_SIZE(result) ((result).array_len)
 
 /*!
-   \brief Sets array pointer for number  \a result.
+   \brief Access the result field for a number array within \a result.
+   \public \memberof data_collection_aggregate_result_t
    \param result aggregated result object.
-   \returns Aggregated result object with array pointer to the field double_array \a result.
+   \returns The start of array pointer for a number array within the aggregated result object.
 */
 #define DATA_COLLECTION_AGGREGATION_RESULT_NUMBER_ARRAY_PTR(result) ((result).double_array)
 
 /*!
-   \brief Sets the size of number array \a result.
+   \brief Access the number array size field in the result object \a result.
+   \public \memberof data_collection_aggregate_result_t
    \param result aggregated result object.
-   \returns Aggregated result object with size set on the field array_len \a result.
+   \returns The array size field with the aggregated result object.
 */
 #define DATA_COLLECTION_AGGREGATION_RESULT_NUMBER_ARRAY_SIZE(result) ((result).array_len)
 
 /*!
-   \brief Sets array pointer for float  \a result.
+   \brief Access the result field for a float array within \a result.
+   \public \memberof data_collection_aggregate_result_t
    \param result aggregated result object.
-   \returns Aggregated result object with array pointer to the field float_array \a result.
+   \returns The start of array pointer for a float array within the aggregated result object.
 */
 #define DATA_COLLECTION_AGGREGATION_RESULT_FLOAT_ARRAY_PTR(result) ((result).float_array)
 
 /*!
-   \brief Sets the size of float array \a result.
+   \brief Access the float array size field in the result object \a result.
+   \public \memberof data_collection_aggregate_result_t
    \param result aggregated result object.
-   \returns Aggregated result object with size set on the field array_len \a result.
+   \returns The array size field with the aggregated result object.
 */
 #define DATA_COLLECTION_AGGREGATION_RESULT_FLOAT_ARRAY_SIZE(result) ((result).array_len)
 
 /*!
-   \brief Sets array pointer for double  \a result.
+   \brief Access the rsult field for a double array within \a result.
+   \public \memberof data_collection_aggregate_result_t
    \param result aggregated result object.
-   \returns Aggregated result object with array pointer to the field double_array \a result.
+   \returns The start of array pointer for a double array within the aggregated result object.
 */
 #define DATA_COLLECTION_AGGREGATION_RESULT_DOUBLE_ARRAY_PTR(result) ((result).double_array)
 
 /*!
-   \brief Sets the size of double array \a result.
+   \brief Access the double array size field in the result object \a result.
+   \public \memberof data_collection_aggregate_result_t
    \param result aggregated result object.
-   \returns Aggregated result object with size set on the field array_len \a result.
+   \returns The array size field with the aggregated result object.
 */
 #define DATA_COLLECTION_AGGREGATION_RESULT_DOUBLE_ARRAY_SIZE(result) ((result).array_len)
 
 /*!
-   \brief Sets the size of the result \a result.
+   \brief Access the result field for the size of the result within \a result.
+   \public \memberof data_collection_aggregate_result_t
    \param result aggregated result object.
-   \returns Aggregated result object with size set on the field size \a result.
+   \returns The field for size of the result object within \a result.
 */
 #define DATA_COLLECTION_AGGREGATION_RESULT_SIZE(result) ((result).size)
 
 /*!
-   \brief Sets the size of the result \a result.
+   \brief Access the result type field within \a result.
+   \public \memberof data_collection_aggregate_result_t
    \param result aggregated result object.
-   \returns Aggregated result object with result_type set to types defined in enum data_collection_aggregate_result_type_e \a result.
+   \returns The result object type field within \a result.
 */
 #define DATA_COLLECTION_AGGREGATION_RESULT_TYPE(result) ((result).result_type)
 
 /*!
-   \brief Checks if a result type is value. \a result.
+   \brief Checks if \a result type is a single value of the same type used as input.
+   \public \memberof data_collection_aggregate_result_t
+
+   The result of the aggregation is represented as a single value of the same type as the input. This will happen for aggregation
+   functions that select a value from the input, such as "MINIMUM" or "MAXIMUM", or where the function does not involve division,
+   such as "SUM".
+
    \param result aggregated result object.
-   \returns Returns "true" if the result type is value, "false" otherwise. \a result.
+   \returns Returns "true" if the result type is a single value of the same type as the input array, "false" otherwise.
 */
 #define DATA_COLLECTION_AGGREGATION_RESULT_IS_VALUE(result) ((result).result_type == DATA_COLLECTION_AGGREGATE_RESULT_VALUE)
 
 /*!
-   \brief Checks if a result type is size. \a result.
+   \brief Checks if \a result is a size type.
+   \public \memberof data_collection_aggregate_result_t
+
+   The result of the aggregation is represented as a size value. This will happen for aggregation functions that count values in
+   the input, such as "COUNT".
+
    \param result aggregated result object.
    \returns Returns "true" if the result type is size, "false" otherwise. \a result.
 */
 #define DATA_COLLECTION_AGGREGATION_RESULT_IS_SIZE(result) ((result).result_type == DATA_COLLECTION_AGGREGATE_RESULT_SIZE)
 
 /*!
-   \brief Checks if a result type is array. \a result.
+   \brief Checks if \a result is an array type.
+   \public \memberof data_collection_aggregate_result_t
+
+   The result of the aggregation is an array of values. This will happen for aggregation functions that may filter the input values,
+   such as "NONE" (the identity function).
+
    \param result aggregated result object.
    \returns Returns "true" if the result type is array, "false" otherwise. \a result.
 */
 #define DATA_COLLECTION_AGGREGATION_RESULT_IS_ARRAY(result) ((result).result_type == DATA_COLLECTION_AGGREGATE_RESULT_ARRAY)
 
 /*!
-   \brief Checks if a result type is double. \a result.
+   \brief Checks if \a result is a double type.
+   \public \memberof data_collection_aggregate_result_t
+
+   The result of the aggregation is represented as a double type. This will happen for aggregation functions such as "MEAN" which
+   involve an operation such as a division in the calculation and therefore only make sense if the result is a double precision
+   number.
+
    \param result aggregated result object.
    \returns Returns "true" if the result type is double, "false" otherwise. \a result.
 */
@@ -271,6 +310,7 @@ typedef struct data_collection_aggregate_result_s {
 
 /**
  * Performs the aggregation function on the input of type int32_t
+ * \public \memberof data_collection_aggregate_result_t
  *
  * @param fn_name The aggregation function that needs to be calculated (e.g NONE, COUNT, MEAN, MIN, MAX, SUM).
  * @param input_array Values to which the aggregation function is applied.
@@ -278,12 +318,11 @@ typedef struct data_collection_aggregate_result_s {
  *
  * @return An aggregation result object with appropriate fields populated according to the specified aggregation function.
  */
-
-
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_aggregate_result_t *data_collection_aggregation_function_int32(const char *fn_name, int32_t *input_array, size_t input_len);
 
 /**
  * Performs the aggregation function on the input of type int64_t
+ * \public \memberof data_collection_aggregate_result_t
  *
  * @param fn_name The aggregation function that needs to be calculated (e.g NONE, COUNT, MEAN, MIN, MAX, SUM).
  * @param input_array Values to which the aggregation function is applied.
@@ -296,6 +335,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_aggregate_result_t *data_collec
 
 /**
  * Performs the aggregation function for integer
+ * \public \memberof data_collection_aggregate_result_t
  *
  * @param fn_name The aggregation function that needs to be calculated (e.g NONE, COUNT, MEAN, MIN, MAX, SUM).
  * @param input_array Values to which the aggregation function is applied.
@@ -307,6 +347,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_aggregate_result_t *data_collec
 
 /**
  * Performs the aggregation function on the input of type float
+ * \public \memberof data_collection_aggregate_result_t
  *
  * @param fn_name The aggregation function that needs to be calculated (e.g NONE, COUNT, MEAN, MIN, MAX, SUM).
  * @param input_array Values to which the aggregation function is applied.
@@ -314,11 +355,11 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_aggregate_result_t *data_collec
  *
  * @return An aggregation result object with appropriate fields populated according to the specified aggregation function.
  */
-
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_aggregate_result_t *data_collection_aggregation_function_float(const char *fn_name, float *input_array, size_t input_len);
 
 /**
  * Performs the aggregation function on the input of type double
+ * \public \memberof data_collection_aggregate_result_t
  *
  * @param fn_name The aggregation function that needs to be calculated (e.g NONE, COUNT, MEAN, MIN, MAX, SUM).
  * @param input_array Values to which the aggregation function is applied.
@@ -326,12 +367,11 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_aggregate_result_t *data_collec
  *
  * @return An aggregation result object with appropriate fields populated according to the specified aggregation function.
  */
-
-
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_aggregate_result_t *data_collection_aggregation_function_double(const char *fn_name, double *input_array, size_t input_len);
 
 /**
  * Performs the aggregation function for number data type
+ * \public \memberof data_collection_aggregate_result_t
  *
  * @param fn_name The aggregation function that needs to be calculated (e.g NONE, COUNT, MEAN, MIN, MAX, SUM).
  * @param input_array Values to which the aggregation function is applied.
@@ -339,16 +379,15 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_aggregate_result_t *data_collec
  *
  * @return An aggregation result object with appropriate fields populated according to the specified aggregation function.
  */
-
 #define data_collection_aggregation_function_number(fn_name, input_array, input_len) data_collection_aggregation_function_double(fn_name, input_array, input_len)
 
 /**
  * Delete the Data Collection Aggregation result 
+ * \public \memberof data_collection_aggregate_result_t
  *
  * @param result The aggregation result object that needs to be deleted.
  */
-
-DATA_COLLECTION_SVC_PRODUCER_API void data_collection_aggregation_function_result_free(data_collection_aggregate_result_t *result);	
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_aggregation_function_result_free(data_collection_aggregate_result_t *result);
 
 /** @} */
 

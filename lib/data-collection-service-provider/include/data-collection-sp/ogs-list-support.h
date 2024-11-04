@@ -61,25 +61,38 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_lnode_
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_lnode_create_ref(const void *object);
 
-/**
- * Creates a copy of  a Data Collection list node object and leaves ownership with the original
+/** Creates a new Data Collection list node object that refers to the same object as \a other.
+ *
+ * Creates a copy of \a other, referring to the same object but leaving the ownership of the object with \a other.
+ *
  * @param other Data object to be copied.
- * @return Returns a copy of the provided list node object.
+ *
+ * @return A copy of the provided list node object without ownership.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_lnode_copy(const data_collection_lnode_t *other);
 
-/**
- * Creates a copy of  a Data Collection list node object and transfers the ownership if the original had it
- * @param other Data object to be copied.
- * @return Returns a copy of the provided lnode.
+/** Create a new Data Collection list node object, moving the referenced object from another list node.
+ *
+ * Creates a copy of \a other and transfers ownership of the object referenced by \a other to the new list node.
+ *
+ * @param other Data Collection list node to be copied.
+ *
+ * @return A copy of the provided lnode with ownership of resources transferred to the new copy.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_lnode_copy_move(data_collection_lnode_t *other);
 
-/**
- * Free the list
+/** Free the list.
  * @param list List that needs to be freed.
  */
 DATA_COLLECTION_SVC_PRODUCER_API void data_collection_list_free(ogs_list_t *list);
+
+/** Clear a list.
+ *
+ * This will free all nodes currently in the list and leave the list empty.
+ *
+ * @param list List to be cleared.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_list_clear(ogs_list_t *list);
 
 /**
  * Free the list node

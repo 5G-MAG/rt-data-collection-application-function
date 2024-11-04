@@ -229,8 +229,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
 
     ValueType value(value_from);
 
-    
     if (!obj->setSampleTimestamp(std::move(value))) return NULL;
+    ogs_free
+(p_sample_timestamp);
 
     return obj_qo_e_metrics_event_all_of_samples;
 }
@@ -294,8 +295,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
 
     ValueType value(value_from);
 
-    
     if (!obj->setSampleDuration(std::move(value))) return NULL;
+    ogs_free
+(p_sample_duration);
 
     return obj_qo_e_metrics_event_all_of_samples;
 }
@@ -359,8 +361,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
 
     ValueType value(value_from);
 
-    
     if (!obj->setMediaTimestamp(std::move(value))) return NULL;
+    ogs_free
+(p_media_timestamp);
 
     return obj_qo_e_metrics_event_all_of_samples;
 }
@@ -445,8 +448,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
         }
     }
 
-    data_collection_list_free(p_metrics);
     if (!obj->setMetrics(std::move(value))) return NULL;
+    data_collection_list_free
+(p_metrics);
 
     return obj_qo_e_metrics_event_all_of_samples;
 }
@@ -464,7 +468,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_e
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_qo_e_metrics_event_all_of_metrics_free(p_metrics);
+    data_collection_model_qo_e_metrics_event_all_of_metrics_free
+(p_metrics);
     obj->addMetrics(value);
     return obj_qo_e_metrics_event_all_of_samples;
 }

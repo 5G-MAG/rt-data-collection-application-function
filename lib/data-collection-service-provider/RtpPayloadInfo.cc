@@ -258,8 +258,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_in
         }
     }
 
-    data_collection_list_free(p_rtp_payload_type_list);
     if (!obj->setRtpPayloadTypeList(std::move(value))) return NULL;
+    data_collection_list_free
+(p_rtp_payload_type_list);
 
     return obj_rtp_payload_info;
 }
@@ -406,8 +407,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_in
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setRtpPayloadFormat(std::move(value))) return NULL;
+    data_collection_model_rtp_payload_format_free
+(p_rtp_payload_format);
 
     return obj_rtp_payload_info;
 }

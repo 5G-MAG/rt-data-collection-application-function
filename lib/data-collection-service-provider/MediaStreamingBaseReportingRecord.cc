@@ -227,8 +227,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setSliceInfo(std::move(value))) return NULL;
+    data_collection_model_snssai_free
+(p_slice_info);
 
     return obj_media_streaming_base_reporting_record;
 }
@@ -292,8 +293,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setDataNetworkName(std::move(value))) return NULL;
+    ogs_free
+(p_data_network_name);
 
     return obj_media_streaming_base_reporting_record;
 }
@@ -357,8 +359,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setLocation(std::move(value))) return NULL;
+    data_collection_model_typed_location_free
+(p_location);
 
     return obj_media_streaming_base_reporting_record;
 }

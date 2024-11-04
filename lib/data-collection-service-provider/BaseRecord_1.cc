@@ -215,8 +215,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_record_1_
 
     ValueType value(value_from);
 
-    
     if (!obj->setTimestamp(std::move(value))) return NULL;
+    ogs_free
+(p_timestamp);
 
     return obj_base_record_1;
 }
@@ -298,8 +299,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_record_1_
         }
     }
 
-    data_collection_list_free(p_context_ids);
     if (!obj->setContextIds(std::move(value))) return NULL;
+    data_collection_list_free
+(p_context_ids);
 
     return obj_base_record_1;
 }
@@ -317,7 +319,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_record_1_
 
     ValueType value(value_from);
 
-    ogs_free(p_context_ids);
+    ogs_free
+(p_context_ids);
     obj->addContextIds(value);
     return obj_base_record_1;
 }

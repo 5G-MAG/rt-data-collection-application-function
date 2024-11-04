@@ -116,9 +116,9 @@ typedef struct data_collection_bucket_location_info_s {
  * This holds the information about the bucket
  */
 typedef struct data_collection_bucket_info_s {
-    data_collection_bucket_time_info_t *time;         /**< The time axis information or `NULL` for no axis. */
-    data_collection_bucket_identity_info_t *identity; /**< The user/group axis information or `NULL` for no axis. */
-    data_collection_bucket_location_info_t *location; /**< The geographic location axis information or `NULL` for no axis. */
+    const data_collection_bucket_time_info_t *time;         /**< The time axis information or `NULL` for no axis. */
+    const data_collection_bucket_identity_info_t *identity; /**< The user/group axis information or `NULL` for no axis. */
+    const data_collection_bucket_location_info_t *location; /**< The geographic location axis information or `NULL` for no axis. */
     const data_collection_data_report_handler_t *report_handler; /**< The report handler for the samples in this bucket. */
 } data_collection_bucket_info_t;
 
@@ -354,11 +354,19 @@ DATA_COLLECTION_SVC_PRODUCER_API cJSON *data_collection_reporting_session_json(c
  *                  data_collection_reporting_report_used()) for this event subscription.
  *
  * @return A list of data_collection_bucketed_data_t* containing the bucketed and aggregated samples, according to provisioned
- *         configurations, that match the function parameters.
+ *         configurations, that match the function parameters. Free this result with data_collection_bucketed_data_list_free().
  *
  * @see data_collection_reporting_report_used
  */
 DATA_COLLECTION_SVC_PRODUCER_API ogs_list_t *data_collection_reporting_report_find(const data_collection_data_report_handler_t* const *report_handlers, data_collection_event_subscription_t *event_subscription, bool omit_used);
+
+/** Free a bucketed results list.
+ *
+ * Frees all the buckets in the bucketed list and any associated private data structures associated with the result.
+ *
+ * @param buckets The list of bucketed data to free.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_bucketed_data_list_free(ogs_list_t *buckets);
 
 /** Get the data reporting session id
  * \public \memberof data_collection_reporting_session_t

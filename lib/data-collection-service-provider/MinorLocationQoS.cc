@@ -225,7 +225,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_minor_location
 
     ValueType value(value_from);
 
-    
     if (!obj->setHAccuracy(std::move(value))) return NULL;
 
     return obj_minor_location_qo_s;
@@ -290,7 +289,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_minor_location
 
     ValueType value(value_from);
 
-    
     if (!obj->setVAccuracy(std::move(value))) return NULL;
 
     return obj_minor_location_qo_s;

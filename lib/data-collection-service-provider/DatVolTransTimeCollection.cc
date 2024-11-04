@@ -237,8 +237,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dat_vol_trans_
 
     ValueType value(value_from);
 
-    
     if (!obj->setAppId(std::move(value))) return NULL;
+    ogs_free
+(p_app_id);
 
     return obj_dat_vol_trans_time_collection;
 }
@@ -302,8 +303,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dat_vol_trans_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setAppServerInst(std::move(value))) return NULL;
+    data_collection_model_addr_fqdn_free
+(p_app_server_inst);
 
     return obj_dat_vol_trans_time_collection;
 }
@@ -367,8 +369,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dat_vol_trans_
 
     ValueType value(value_from);
 
-    
     if (!obj->setGpsi(std::move(value))) return NULL;
+    ogs_free
+(p_gpsi);
 
     return obj_dat_vol_trans_time_collection;
 }
@@ -432,8 +435,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dat_vol_trans_
 
     ValueType value(value_from);
 
-    
     if (!obj->setSupi(std::move(value))) return NULL;
+    ogs_free
+(p_supi);
 
     return obj_dat_vol_trans_time_collection;
 }
@@ -497,7 +501,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dat_vol_trans_
 
     ValueType value(value_from);
 
-    
     if (!obj->setUlTransVol(std::move(value))) return NULL;
 
     return obj_dat_vol_trans_time_collection;
@@ -562,7 +565,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dat_vol_trans_
 
     ValueType value(value_from);
 
-    
     if (!obj->setDlTransVol(std::move(value))) return NULL;
 
     return obj_dat_vol_trans_time_collection;
@@ -627,8 +629,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dat_vol_trans_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setUlTransTimeDur(std::move(value))) return NULL;
+    data_collection_model_time_window_free
+(p_ul_trans_time_dur);
 
     return obj_dat_vol_trans_time_collection;
 }
@@ -692,8 +695,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dat_vol_trans_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setDlTransTimeDur(std::move(value))) return NULL;
+    data_collection_model_time_window_free
+(p_dl_trans_time_dur);
 
     return obj_dat_vol_trans_time_collection;
 }

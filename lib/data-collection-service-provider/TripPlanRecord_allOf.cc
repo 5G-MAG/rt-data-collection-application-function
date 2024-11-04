@@ -221,8 +221,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_trip_plan_reco
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setStartingPoint(std::move(value))) return NULL;
+    data_collection_model_location_data_free
+(p_starting_point);
 
     return obj_trip_plan_record_all_of;
 }
@@ -318,8 +319,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_trip_plan_reco
         }
     }
 
-    data_collection_list_free(p_waypoints);
     if (!obj->setWaypoints(std::move(value))) return NULL;
+    data_collection_list_free
+(p_waypoints);
 
     return obj_trip_plan_record_all_of;
 }
@@ -337,7 +339,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_trip_plan_reco
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_location_data_free(p_waypoints);
+    data_collection_model_location_data_free
+(p_waypoints);
     if (value) obj->addWaypoints(value.value());
     return obj_trip_plan_record_all_of;
 }
@@ -457,8 +460,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_trip_plan_reco
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setDestination(std::move(value))) return NULL;
+    data_collection_model_location_data_free
+(p_destination);
 
     return obj_trip_plan_record_all_of;
 }
@@ -522,7 +526,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_trip_plan_reco
 
     ValueType value(value_from);
 
-    
     if (!obj->setEstimatedAverageSpeed(std::move(value))) return NULL;
 
     return obj_trip_plan_record_all_of;
@@ -587,8 +590,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_trip_plan_reco
 
     ValueType value(value_from);
 
-    
     if (!obj->setEstimatedArrivalTime(std::move(value))) return NULL;
+    ogs_free
+(p_estimated_arrival_time);
 
     return obj_trip_plan_record_all_of;
 }

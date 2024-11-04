@@ -213,8 +213,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 
     ValueType value(value_from);
 
-    
     if (!obj->setSessionId(std::move(value))) return NULL;
+    ogs_free
+(p_session_id);
 
     return obj_media_streaming_session_identification;
 }

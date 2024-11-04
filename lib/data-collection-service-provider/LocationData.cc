@@ -273,8 +273,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setLocationEstimate(std::move(value))) return NULL;
+    data_collection_model_geographic_area_free
+(p_location_estimate);
 
     return obj_location_data;
 }
@@ -338,8 +339,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setAccuracyFulfilmentIndicator(std::move(value))) return NULL;
+    data_collection_model_accuracy_fulfilment_indicator_free
+(p_accuracy_fulfilment_indicator);
 
     return obj_location_data;
 }
@@ -403,7 +405,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(value_from);
 
-    
     if (!obj->setAgeOfLocationEstimate(std::move(value))) return NULL;
 
     return obj_location_data;
@@ -468,8 +469,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(value_from);
 
-    
     if (!obj->setTimestampOfLocationEstimate(std::move(value))) return NULL;
+    ogs_free
+(p_timestamp_of_location_estimate);
 
     return obj_location_data;
 }
@@ -533,8 +535,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setVelocityEstimate(std::move(value))) return NULL;
+    data_collection_model_velocity_estimate_free
+(p_velocity_estimate);
 
     return obj_location_data;
 }
@@ -598,8 +601,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setCivicAddress(std::move(value))) return NULL;
+    data_collection_model_civic_address_free
+(p_civic_address);
 
     return obj_location_data;
 }
@@ -663,8 +667,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setLocalLocationEstimate(std::move(value))) return NULL;
+    data_collection_model_local_area_free
+(p_local_location_estimate);
 
     return obj_location_data;
 }
@@ -760,8 +765,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
         }
     }
 
-    data_collection_list_free(p_positioning_data_list);
     if (!obj->setPositioningDataList(std::move(value))) return NULL;
+    data_collection_list_free
+(p_positioning_data_list);
 
     return obj_location_data;
 }
@@ -779,7 +785,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_positioning_method_and_usage_free(p_positioning_data_list);
+    data_collection_model_positioning_method_and_usage_free
+(p_positioning_data_list);
     if (value) obj->addPositioningDataList(value.value());
     return obj_location_data;
 }
@@ -941,8 +948,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
         }
     }
 
-    data_collection_list_free(p_gnss_positioning_data_list);
     if (!obj->setGnssPositioningDataList(std::move(value))) return NULL;
+    data_collection_list_free
+(p_gnss_positioning_data_list);
 
     return obj_location_data;
 }
@@ -960,7 +968,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_gnss_positioning_method_and_usage_free(p_gnss_positioning_data_list);
+    data_collection_model_gnss_positioning_method_and_usage_free
+(p_gnss_positioning_data_list);
     if (value) obj->addGnssPositioningDataList(value.value());
     return obj_location_data;
 }
@@ -1090,8 +1099,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setEcgi(std::move(value))) return NULL;
+    data_collection_model_ecgi_free
+(p_ecgi);
 
     return obj_location_data;
 }
@@ -1155,8 +1165,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setNcgi(std::move(value))) return NULL;
+    data_collection_model_ncgi_free
+(p_ncgi);
 
     return obj_location_data;
 }
@@ -1220,7 +1231,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(value_from);
 
-    
     if (!obj->setRemoteUeInd(std::move(value))) return NULL;
 
     return obj_location_data;
@@ -1285,7 +1295,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(value_from);
 
-    
     if (!obj->setAltitude(std::move(value))) return NULL;
 
     return obj_location_data;
@@ -1350,7 +1359,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(value_from);
 
-    
     if (!obj->setBarometricPressure(std::move(value))) return NULL;
 
     return obj_location_data;
@@ -1415,8 +1423,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(value_from);
 
-    
     if (!obj->setServingLMFIdentification(std::move(value))) return NULL;
+    ogs_free
+(p_serving_lmf_identification);
 
     return obj_location_data;
 }
@@ -1480,8 +1489,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(value_from);
 
-    
     if (!obj->setUePositioningCap(std::move(value))) return NULL;
+    ogs_free
+(p_ue_positioning_cap);
 
     return obj_location_data;
 }
@@ -1545,8 +1555,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setUeAreaInd(std::move(value))) return NULL;
+    data_collection_model_ue_area_indication_free
+(p_ue_area_ind);
 
     return obj_location_data;
 }
@@ -1610,8 +1621,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(value_from);
 
-    
     if (!obj->setSupportedFeatures(std::move(value))) return NULL;
+    ogs_free
+(p_supported_features);
 
     return obj_location_data;
 }
@@ -1675,8 +1687,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setAchievedQos(std::move(value))) return NULL;
+    data_collection_model_minor_location_qo_s_free
+(p_achieved_qos);
 
     return obj_location_data;
 }
@@ -1740,7 +1753,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(value_from);
 
-    
     if (!obj->setDirectReportInd(std::move(value))) return NULL;
 
     return obj_location_data;
@@ -1805,8 +1817,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setIndoorOutdoorInd(std::move(value))) return NULL;
+    data_collection_model_indoor_outdoor_ind_free
+(p_indoor_outdoor_ind);
 
     return obj_location_data;
 }
@@ -1870,8 +1883,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setAcceptedPeriodicEventInfo(std::move(value))) return NULL;
+    data_collection_model_periodic_event_info_free
+(p_accepted_periodic_event_info);
 
     return obj_location_data;
 }
@@ -1935,8 +1949,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setHaGnssMetrics(std::move(value))) return NULL;
+    data_collection_model_high_accuracy_gnss_metrics_free
+(p_ha_gnss_metrics);
 
     return obj_location_data;
 }
@@ -2000,8 +2015,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setLosNlosMeasureInd(std::move(value))) return NULL;
+    data_collection_model_los_nlos_measure_ind_free
+(p_los_nlos_measure_ind);
 
     return obj_location_data;
 }
@@ -2065,8 +2081,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(value_from);
 
-    
     if (!obj->setRelatedApplicationlayerId(std::move(value))) return NULL;
+    ogs_free
+(p_related_applicationlayer_id);
 
     return obj_location_data;
 }
@@ -2130,8 +2147,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setDistanceDirection(std::move(value))) return NULL;
+    data_collection_model_range_direction_free
+(p_distance_direction);
 
     return obj_location_data;
 }
@@ -2195,8 +2213,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setR2dRelativeLocation(std::move(value))) return NULL;
+    data_collection_model_r_2_d_relative_location_free
+(p_r_2d_relative_location);
 
     return obj_location_data;
 }
@@ -2260,8 +2279,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setR3dRelativeLocation(std::move(value))) return NULL;
+    data_collection_model_r_3_d_relative_location_free
+(p_r_3d_relative_location);
 
     return obj_location_data;
 }
@@ -2325,8 +2345,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setRelativeVelocity(std::move(value))) return NULL;
+    data_collection_model_velocity_estimate_free
+(p_relative_velocity);
 
     return obj_location_data;
 }
@@ -2390,8 +2411,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(value_from);
 
-    
     if (!obj->setRangingSlCapability(std::move(value))) return NULL;
+    ogs_free
+(p_ranging_sl_capability);
 
     return obj_location_data;
 }
@@ -2455,8 +2477,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setIntegrityResult(std::move(value))) return NULL;
+    data_collection_model_integrity_result_free
+(p_integrity_result);
 
     return obj_location_data;
 }

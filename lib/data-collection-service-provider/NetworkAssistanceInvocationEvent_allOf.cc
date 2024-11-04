@@ -213,8 +213,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setNetworkAssistanceType(std::move(value))) return NULL;
+    data_collection_model_network_assistance_type_free
+(p_network_assistance_type);
 
     return obj_network_assistance_invocation_event_all_of;
 }

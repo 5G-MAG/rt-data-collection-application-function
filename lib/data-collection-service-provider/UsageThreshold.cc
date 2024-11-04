@@ -229,7 +229,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshol
 
     ValueType value(value_from);
 
-    
     if (!obj->setDuration(std::move(value))) return NULL;
 
     return obj_usage_threshold;
@@ -294,7 +293,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshol
 
     ValueType value(value_from);
 
-    
     if (!obj->setTotalVolume(std::move(value))) return NULL;
 
     return obj_usage_threshold;
@@ -359,7 +357,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshol
 
     ValueType value(value_from);
 
-    
     if (!obj->setDownlinkVolume(std::move(value))) return NULL;
 
     return obj_usage_threshold;
@@ -424,7 +421,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshol
 
     ValueType value(value_from);
 
-    
     if (!obj->setUplinkVolume(std::move(value))) return NULL;
 
     return obj_usage_threshold;

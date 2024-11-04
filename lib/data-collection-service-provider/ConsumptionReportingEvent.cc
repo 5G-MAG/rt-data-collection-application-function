@@ -239,8 +239,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setRecordType(std::move(value))) return NULL;
+    data_collection_model_event_record_type_free
+(p_record_type);
 
     return obj_consumption_reporting_event;
 }
@@ -294,8 +295,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
 
     ValueType value(value_from);
 
-    
     if (!obj->setRecordTimestamp(std::move(value))) return NULL;
+    ogs_free
+(p_record_timestamp);
 
     return obj_consumption_reporting_event;
 }
@@ -349,8 +351,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
 
     ValueType value(value_from);
 
-    
     if (!obj->setAppId(std::move(value))) return NULL;
+    ogs_free
+(p_app_id);
 
     return obj_consumption_reporting_event;
 }
@@ -414,8 +417,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
 
     ValueType value(value_from);
 
-    
     if (!obj->setProvisioningSessionId(std::move(value))) return NULL;
+    ogs_free
+(p_provisioning_session_id);
 
     return obj_consumption_reporting_event;
 }
@@ -479,8 +483,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
 
     ValueType value(value_from);
 
-    
     if (!obj->setSessionId(std::move(value))) return NULL;
+    ogs_free
+(p_session_id);
 
     return obj_consumption_reporting_event;
 }
@@ -544,8 +549,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
 
     ValueType value(value_from);
 
-    
     if (!obj->setUeIdentification(std::move(value))) return NULL;
+    ogs_free
+(p_ue_identification);
 
     return obj_consumption_reporting_event;
 }
@@ -609,8 +615,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
 
     ValueType value(value_from);
 
-    
     if (!obj->setDataNetworkName(std::move(value))) return NULL;
+    ogs_free
+(p_data_network_name);
 
     return obj_consumption_reporting_event;
 }
@@ -674,8 +681,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setSliceId(std::move(value))) return NULL;
+    data_collection_model_snssai_free
+(p_slice_id);
 
     return obj_consumption_reporting_event;
 }
@@ -771,8 +779,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
         }
     }
 
-    data_collection_list_free(p_ue_locations);
     if (!obj->setUeLocations(std::move(value))) return NULL;
+    data_collection_list_free
+(p_ue_locations);
 
     return obj_consumption_reporting_event;
 }
@@ -790,7 +799,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_location_area5_g_free(p_ue_locations);
+    data_collection_model_location_area5_g_free
+(p_ue_locations);
     if (value) obj->addUeLocations(value.value());
     return obj_consumption_reporting_event;
 }
@@ -910,8 +920,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
 
     ValueType value(value_from);
 
-    
     if (!obj->setUnitDuration(std::move(value))) return NULL;
+    ogs_free
+(p_unit_duration);
 
     return obj_consumption_reporting_event;
 }
@@ -975,8 +986,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setClientEndpointAddress(std::move(value))) return NULL;
+    data_collection_model_endpoint_address_free
+(p_client_endpoint_address);
 
     return obj_consumption_reporting_event;
 }
@@ -1040,8 +1052,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setServerEndpointAddress(std::move(value))) return NULL;
+    data_collection_model_endpoint_address_free
+(p_server_endpoint_address);
 
     return obj_consumption_reporting_event;
 }
@@ -1095,8 +1108,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
 
     ValueType value(value_from);
 
-    
     if (!obj->setMediaPlayerEntryUrl(std::move(value))) return NULL;
+    ogs_free
+(p_media_player_entry_url);
 
     return obj_consumption_reporting_event;
 }
@@ -1150,8 +1164,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_re
 
     ValueType value(value_from);
 
-    
     if (!obj->setMediaComponentIdentifier(std::move(value))) return NULL;
+    ogs_free
+(p_media_component_identifier);
 
     return obj_consumption_reporting_event;
 }

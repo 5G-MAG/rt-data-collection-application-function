@@ -244,8 +244,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_polygon_all_of
         }
     }
 
-    data_collection_list_free(p_point_list);
     if (!obj->setPointList(std::move(value))) return NULL;
+    data_collection_list_free
+(p_point_list);
 
     return obj_polygon_all_of;
 }
@@ -263,7 +264,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_polygon_all_of
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_geographical_coordinates_free(p_point_list);
+    data_collection_model_geographical_coordinates_free
+(p_point_list);
     obj->addPointList(value);
     return obj_polygon_all_of;
 }

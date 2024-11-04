@@ -217,8 +217,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_positioni
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setMode(std::move(value))) return NULL;
+    data_collection_model_positioning_mode_free
+(p_mode);
 
     return obj_gnss_positioning_method_and_usage;
 }
@@ -272,8 +273,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_positioni
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setGnss(std::move(value))) return NULL;
+    data_collection_model_gnss_id_free
+(p_gnss);
 
     return obj_gnss_positioning_method_and_usage;
 }
@@ -327,8 +329,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_positioni
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setUsage(std::move(value))) return NULL;
+    data_collection_model_usage_free
+(p_usage);
 
     return obj_gnss_positioning_method_and_usage;
 }

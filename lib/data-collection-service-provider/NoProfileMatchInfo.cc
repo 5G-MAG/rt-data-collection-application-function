@@ -215,8 +215,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_mat
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setReason(std::move(value))) return NULL;
+    data_collection_model_no_profile_match_reason_free
+(p_reason);
 
     return obj_no_profile_match_info;
 }
@@ -312,8 +313,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_mat
         }
     }
 
-    data_collection_list_free(p_query_param_combination_list);
     if (!obj->setQueryParamCombinationList(std::move(value))) return NULL;
+    data_collection_list_free
+(p_query_param_combination_list);
 
     return obj_no_profile_match_info;
 }
@@ -331,7 +333,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_mat
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_query_param_combination_free(p_query_param_combination_list);
+    data_collection_model_query_param_combination_free
+(p_query_param_combination_list);
     if (value) obj->addQueryParamCombinationList(value.value());
     return obj_no_profile_match_info;
 }

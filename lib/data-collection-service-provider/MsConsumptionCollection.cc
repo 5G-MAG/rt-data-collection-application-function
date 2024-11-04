@@ -241,8 +241,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_consumption
         }
     }
 
-    data_collection_list_free(p_ms_consumps);
     if (!obj->setMsConsumps(std::move(value))) return NULL;
+    data_collection_list_free
+(p_ms_consumps);
 
     return obj_ms_consumption_collection;
 }
@@ -260,7 +261,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_consumption
 
     ValueType value(value_from);
 
-    ogs_free(p_ms_consumps);
+    ogs_free
+(p_ms_consumps);
     obj->addMsConsumps(value);
     return obj_ms_consumption_collection;
 }

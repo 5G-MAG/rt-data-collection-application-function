@@ -237,8 +237,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setShape(std::move(value))) return NULL;
+    data_collection_model_supported_gad_shapes_free
+(p_shape);
 
     return obj_geographic_area;
 }
@@ -292,8 +293,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setPoint(std::move(value))) return NULL;
+    data_collection_model_geographical_coordinates_free
+(p_point);
 
     return obj_geographic_area;
 }
@@ -347,7 +349,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
 
     ValueType value(value_from);
 
-    
     if (!obj->setUncertainty(std::move(value))) return NULL;
 
     return obj_geographic_area;
@@ -402,8 +403,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setUncertaintyEllipse(std::move(value))) return NULL;
+    data_collection_model_uncertainty_ellipse_free
+(p_uncertainty_ellipse);
 
     return obj_geographic_area;
 }
@@ -457,7 +459,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
 
     ValueType value(value_from);
 
-    
     if (!obj->setConfidence(std::move(value))) return NULL;
 
     return obj_geographic_area;
@@ -543,8 +544,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
         }
     }
 
-    data_collection_list_free(p_point_list);
     if (!obj->setPointList(std::move(value))) return NULL;
+    data_collection_list_free
+(p_point_list);
 
     return obj_geographic_area;
 }
@@ -562,7 +564,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_geographical_coordinates_free(p_point_list);
+    data_collection_model_geographical_coordinates_free
+(p_point_list);
     obj->addPointList(value);
     return obj_geographic_area;
 }
@@ -678,7 +681,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
 
     ValueType value(value_from);
 
-    
     if (!obj->setAltitude(std::move(value))) return NULL;
 
     return obj_geographic_area;
@@ -733,7 +735,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
 
     ValueType value(value_from);
 
-    
     if (!obj->setUncertaintyAltitude(std::move(value))) return NULL;
 
     return obj_geographic_area;
@@ -798,7 +799,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
 
     ValueType value(value_from);
 
-    
     if (!obj->setVConfidence(std::move(value))) return NULL;
 
     return obj_geographic_area;
@@ -853,7 +853,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
 
     ValueType value(value_from);
 
-    
     if (!obj->setInnerRadius(std::move(value))) return NULL;
 
     return obj_geographic_area;
@@ -908,7 +907,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
 
     ValueType value(value_from);
 
-    
     if (!obj->setUncertaintyRadius(std::move(value))) return NULL;
 
     return obj_geographic_area;
@@ -963,7 +961,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
 
     ValueType value(value_from);
 
-    
     if (!obj->setOffsetAngle(std::move(value))) return NULL;
 
     return obj_geographic_area;
@@ -1018,7 +1015,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_are
 
     ValueType value(value_from);
 
-    
     if (!obj->setIncludedAngle(std::move(value))) return NULL;
 
     return obj_geographic_area;

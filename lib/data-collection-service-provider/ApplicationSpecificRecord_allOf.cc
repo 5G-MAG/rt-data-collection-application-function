@@ -215,8 +215,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_sp
 
     ValueType value(value_from);
 
-    
     if (!obj->setRecordType(std::move(value))) return NULL;
+    ogs_free
+(p_record_type);
 
     return obj_application_specific_record_all_of;
 }
@@ -270,8 +271,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_sp
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setRecordContainer(std::move(value))) return NULL;
+    data_collection_model_any_type_free
+(p_record_container);
 
     return obj_application_specific_record_all_of;
 }

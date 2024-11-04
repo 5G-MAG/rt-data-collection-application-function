@@ -246,8 +246,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
         }
     }
 
-    data_collection_list_free(p_location_areas);
     if (!obj->setLocationAreas(std::move(value))) return NULL;
+    data_collection_list_free
+(p_location_areas);
 
     return obj_data_access_profile_location_access_restrictions;
 }
@@ -265,7 +266,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_location_area5_g_free(p_location_areas);
+    data_collection_model_location_area5_g_free
+(p_location_areas);
     obj->addLocationAreas(value);
     return obj_data_access_profile_location_access_restrictions;
 }
@@ -412,8 +414,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
         }
     }
 
-    data_collection_list_free(p_aggregation_functions);
     if (!obj->setAggregationFunctions(std::move(value))) return NULL;
+    data_collection_list_free
+(p_aggregation_functions);
 
     return obj_data_access_profile_location_access_restrictions;
 }
@@ -431,7 +434,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_data_aggregation_function_type_free(p_aggregation_functions);
+    data_collection_model_data_aggregation_function_type_free
+(p_aggregation_functions);
     obj->addAggregationFunctions(value);
     return obj_data_access_profile_location_access_restrictions;
 }

@@ -263,8 +263,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
         }
     }
 
-    data_collection_list_free(p_geographic_areas);
     if (!obj->setGeographicAreas(std::move(value))) return NULL;
+    data_collection_list_free
+(p_geographic_areas);
 
     return obj_umt_location_area5_g;
 }
@@ -282,7 +283,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_geographic_area_free(p_geographic_areas);
+    data_collection_model_geographic_area_free
+(p_geographic_areas);
     if (value) obj->addGeographicAreas(value.value());
     return obj_umt_location_area5_g;
 }
@@ -444,8 +446,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
         }
     }
 
-    data_collection_list_free(p_civic_addresses);
     if (!obj->setCivicAddresses(std::move(value))) return NULL;
+    data_collection_list_free
+(p_civic_addresses);
 
     return obj_umt_location_area5_g;
 }
@@ -463,7 +466,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_civic_address_free(p_civic_addresses);
+    data_collection_model_civic_address_free
+(p_civic_addresses);
     if (value) obj->addCivicAddresses(value.value());
     return obj_umt_location_area5_g;
 }
@@ -593,8 +597,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setNwAreaInfo(std::move(value))) return NULL;
+    data_collection_model_network_area_info_free
+(p_nw_area_info);
 
     return obj_umt_location_area5_g;
 }
@@ -658,8 +663,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
 
     ValueType value(value_from);
 
-    
     if (!obj->setUmtTime(std::move(value))) return NULL;
+    ogs_free
+(p_umt_time);
 
     return obj_umt_location_area5_g;
 }
@@ -723,7 +729,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
 
     ValueType value(value_from);
 
-    
     if (!obj->setUmtDuration(std::move(value))) return NULL;
 
     return obj_umt_location_area5_g;

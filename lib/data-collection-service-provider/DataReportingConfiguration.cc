@@ -239,8 +239,10 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     ValueType value(value_from);
 
 
-    
     if (!obj->setDataReportingConfigurationId(std::move(value))) return NULL;
+    ogs_free
+
+(p_data_reporting_configuration_id);
 
     return obj_data_reporting_configuration;
 }
@@ -294,8 +296,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setDataCollectionClientType(std::move(value))) return NULL;
+    data_collection_model_data_collection_client_type_free
+(p_data_collection_client_type);
 
     return obj_data_reporting_configuration;
 }
@@ -359,8 +362,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(value_from);
 
-    
     if (!obj->setAuthorizationURL(std::move(value))) return NULL;
+    ogs_free
+(p_authorization_url);
 
     return obj_data_reporting_configuration;
 }
@@ -456,8 +460,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
         }
     }
 
-    data_collection_list_free(p_data_sampling_rules);
     if (!obj->setDataSamplingRules(std::move(value))) return NULL;
+    data_collection_list_free
+(p_data_sampling_rules);
 
     return obj_data_reporting_configuration;
 }
@@ -475,7 +480,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_data_sampling_rule_free(p_data_sampling_rules);
+    data_collection_model_data_sampling_rule_free
+(p_data_sampling_rules);
     if (value) obj->addDataSamplingRules(value.value());
     return obj_data_reporting_configuration;
 }
@@ -626,8 +632,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
         }
     }
 
-    data_collection_list_free(p_data_reporting_conditions);
     if (!obj->setDataReportingConditions(std::move(value))) return NULL;
+    data_collection_list_free
+(p_data_reporting_conditions);
 
     return obj_data_reporting_configuration;
 }
@@ -645,7 +652,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_data_reporting_condition_free(p_data_reporting_conditions);
+    data_collection_model_data_reporting_condition_free
+(p_data_reporting_conditions);
     obj->addDataReportingConditions(value);
     return obj_data_reporting_configuration;
 }
@@ -803,8 +811,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
         }
     }
 
-    data_collection_list_free(p_data_reporting_rules);
     if (!obj->setDataReportingRules(std::move(value))) return NULL;
+    data_collection_list_free
+(p_data_reporting_rules);
 
     return obj_data_reporting_configuration;
 }
@@ -822,7 +831,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_data_reporting_rule_free(p_data_reporting_rules);
+    data_collection_model_data_reporting_rule_free
+(p_data_reporting_rules);
     if (value) obj->addDataReportingRules(value.value());
     return obj_data_reporting_configuration;
 }
@@ -973,8 +983,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
         }
     }
 
-    data_collection_list_free(p_data_access_profiles);
     if (!obj->setDataAccessProfiles(std::move(value))) return NULL;
+    data_collection_list_free
+(p_data_access_profiles);
 
     return obj_data_reporting_configuration;
 }
@@ -992,7 +1003,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_data_access_profile_free(p_data_access_profiles);
+    data_collection_model_data_access_profile_free
+(p_data_access_profiles);
     obj->addDataAccessProfiles(value);
     return obj_data_reporting_configuration;
 }

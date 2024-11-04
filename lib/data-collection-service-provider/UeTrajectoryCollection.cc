@@ -215,8 +215,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_trajectory_
 
     ValueType value(value_from);
 
-    
     if (!obj->setTs(std::move(value))) return NULL;
+    ogs_free
+(p_ts);
 
     return obj_ue_trajectory_collection;
 }
@@ -270,8 +271,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_trajectory_
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setLocArea(std::move(value))) return NULL;
+    data_collection_model_location_area5_g_free
+(p_loc_area);
 
     return obj_ue_trajectory_collection;
 }

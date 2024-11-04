@@ -227,7 +227,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_range_directio
 
     ValueType value(value_from);
 
-    
     if (!obj->setDistance(std::move(value))) return NULL;
 
     return obj_range_direction;
@@ -292,7 +291,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_range_directio
 
     ValueType value(value_from);
 
-    
     if (!obj->setAzimuthDirection(std::move(value))) return NULL;
 
     return obj_range_direction;
@@ -357,7 +355,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_range_directio
 
     ValueType value(value_from);
 
-    
     if (!obj->setElevationDirection(std::move(value))) return NULL;
 
     return obj_range_direction;

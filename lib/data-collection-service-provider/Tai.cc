@@ -217,8 +217,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_tai_t *data_co
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setPlmnId(std::move(value))) return NULL;
+    data_collection_model_plmn_id_free
+(p_plmn_id);
 
     return obj_tai;
 }
@@ -272,8 +273,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_tai_t *data_co
 
     ValueType value(value_from);
 
-    
     if (!obj->setTac(std::move(value))) return NULL;
+    ogs_free
+(p_tac);
 
     return obj_tai;
 }
@@ -337,8 +339,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_tai_t *data_co
 
     ValueType value(value_from);
 
-    
     if (!obj->setNid(std::move(value))) return NULL;
+    ogs_free
+(p_nid);
 
     return obj_tai;
 }

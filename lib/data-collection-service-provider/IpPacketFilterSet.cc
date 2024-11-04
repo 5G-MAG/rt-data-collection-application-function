@@ -229,8 +229,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filt
 
     ValueType value(value_from);
 
-    
     if (!obj->setDirection(std::move(value))) return NULL;
+    ogs_free
+(p_direction);
 
     return obj_ip_packet_filter_set;
 }
@@ -294,8 +295,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filt
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setSourceAddress(std::move(value))) return NULL;
+    data_collection_model_ip_addr_free
+(p_source_address);
 
     return obj_ip_packet_filter_set;
 }
@@ -359,8 +361,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filt
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setDestinationAddress(std::move(value))) return NULL;
+    data_collection_model_ip_addr_free
+(p_destination_address);
 
     return obj_ip_packet_filter_set;
 }
@@ -424,7 +427,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filt
 
     ValueType value(value_from);
 
-    
     if (!obj->setProtocolNumber(std::move(value))) return NULL;
 
     return obj_ip_packet_filter_set;
@@ -489,7 +491,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filt
 
     ValueType value(value_from);
 
-    
     if (!obj->setSourcePort(std::move(value))) return NULL;
 
     return obj_ip_packet_filter_set;
@@ -554,7 +555,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filt
 
     ValueType value(value_from);
 
-    
     if (!obj->setDestinationPort(std::move(value))) return NULL;
 
     return obj_ip_packet_filter_set;
@@ -619,7 +619,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filt
 
     ValueType value(value_from);
 
-    
     if (!obj->setDifferentiatedServicesCodePoint(std::move(value))) return NULL;
 
     return obj_ip_packet_filter_set;
@@ -684,7 +683,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filt
 
     ValueType value(value_from);
 
-    
     if (!obj->setFlowLabel(std::move(value))) return NULL;
 
     return obj_ip_packet_filter_set;
@@ -749,7 +747,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filt
 
     ValueType value(value_from);
 
-    
     if (!obj->setSecurityParametersIndex(std::move(value))) return NULL;
 
     return obj_ip_packet_filter_set;

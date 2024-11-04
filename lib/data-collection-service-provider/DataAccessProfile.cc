@@ -223,8 +223,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
 
     ValueType value(value_from);
 
-    
     if (!obj->setDataAccessProfileId(std::move(value))) return NULL;
+    ogs_free
+(p_data_access_profile_id);
 
     return obj_data_access_profile;
 }
@@ -309,8 +310,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
         }
     }
 
-    data_collection_list_free(p_target_event_consumer_types);
     if (!obj->setTargetEventConsumerTypes(std::move(value))) return NULL;
+    data_collection_list_free
+(p_target_event_consumer_types);
 
     return obj_data_access_profile;
 }
@@ -328,7 +330,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_event_consumer_type_free(p_target_event_consumer_types);
+    data_collection_model_event_consumer_type_free
+(p_target_event_consumer_types);
     obj->addTargetEventConsumerTypes(value);
     return obj_data_access_profile;
 }
@@ -472,8 +475,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
         }
     }
 
-    data_collection_list_free(p_parameters);
     if (!obj->setParameters(std::move(value))) return NULL;
+    data_collection_list_free
+(p_parameters);
 
     return obj_data_access_profile;
 }
@@ -491,7 +495,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
 
     ValueType value(value_from);
 
-    ogs_free(p_parameters);
+    ogs_free
+(p_parameters);
     obj->addParameters(value);
     return obj_data_access_profile;
 }
@@ -617,8 +622,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setTimeAccessRestrictions(std::move(value))) return NULL;
+    data_collection_model_data_access_profile_time_access_restrictions_free
+(p_time_access_restrictions);
 
     return obj_data_access_profile;
 }
@@ -682,8 +688,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setUserAccessRestrictions(std::move(value))) return NULL;
+    data_collection_model_data_access_profile_user_access_restrictions_free
+(p_user_access_restrictions);
 
     return obj_data_access_profile;
 }
@@ -747,8 +754,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_pr
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setLocationAccessRestrictions(std::move(value))) return NULL;
+    data_collection_model_data_access_profile_location_access_restrictions_free
+(p_location_access_restrictions);
 
     return obj_data_access_profile;
 }

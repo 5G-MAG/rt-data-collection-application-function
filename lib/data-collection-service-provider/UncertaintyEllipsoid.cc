@@ -219,7 +219,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_el
 
     ValueType value(value_from);
 
-    
     if (!obj->setSemiMajor(std::move(value))) return NULL;
 
     return obj_uncertainty_ellipsoid;
@@ -274,7 +273,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_el
 
     ValueType value(value_from);
 
-    
     if (!obj->setSemiMinor(std::move(value))) return NULL;
 
     return obj_uncertainty_ellipsoid;
@@ -329,7 +327,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_el
 
     ValueType value(value_from);
 
-    
     if (!obj->setVertical(std::move(value))) return NULL;
 
     return obj_uncertainty_ellipsoid;
@@ -384,7 +381,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_el
 
     ValueType value(value_from);
 
-    
     if (!obj->setOrientationMajor(std::move(value))) return NULL;
 
     return obj_uncertainty_ellipsoid;

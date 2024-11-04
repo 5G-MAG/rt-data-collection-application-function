@@ -217,8 +217,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_t *d
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setExcepId(std::move(value))) return NULL;
+    data_collection_model_exception_id_free
+(p_excep_id);
 
     return obj_exception;
 }
@@ -282,7 +283,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_t *d
 
     ValueType value(value_from);
 
-    
     if (!obj->setExcepLevel(std::move(value))) return NULL;
 
     return obj_exception;
@@ -347,8 +347,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_t *d
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setExcepTrend(std::move(value))) return NULL;
+    data_collection_model_exception_trend_free
+(p_excep_trend);
 
     return obj_exception;
 }

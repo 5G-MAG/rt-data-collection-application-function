@@ -227,8 +227,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setPlmnId(std::move(value))) return NULL;
+    data_collection_model_plmn_id_free
+(p_plmn_id);
 
     return obj_global_ran_node_id;
 }
@@ -292,8 +293,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
 
     ValueType value(value_from);
 
-    
     if (!obj->setN3IwfId(std::move(value))) return NULL;
+    ogs_free
+(p_n3_iwf_id);
 
     return obj_global_ran_node_id;
 }
@@ -357,8 +359,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setGNbId(std::move(value))) return NULL;
+    data_collection_model_gnb_id_free
+(p_gnb_id);
 
     return obj_global_ran_node_id;
 }
@@ -422,8 +425,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
 
     ValueType value(value_from);
 
-    
     if (!obj->setNgeNbId(std::move(value))) return NULL;
+    ogs_free
+(p_nge_nb_id);
 
     return obj_global_ran_node_id;
 }
@@ -487,8 +491,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
 
     ValueType value(value_from);
 
-    
     if (!obj->setWagfId(std::move(value))) return NULL;
+    ogs_free
+(p_wagf_id);
 
     return obj_global_ran_node_id;
 }
@@ -552,8 +557,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
 
     ValueType value(value_from);
 
-    
     if (!obj->setTngfId(std::move(value))) return NULL;
+    ogs_free
+(p_tngf_id);
 
     return obj_global_ran_node_id;
 }
@@ -617,8 +623,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
 
     ValueType value(value_from);
 
-    
     if (!obj->setNid(std::move(value))) return NULL;
+    ogs_free
+(p_nid);
 
     return obj_global_ran_node_id;
 }
@@ -682,8 +689,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_nod
 
     ValueType value(value_from);
 
-    
     if (!obj->setENbId(std::move(value))) return NULL;
+    ogs_free
+(p_enb_id);
 
     return obj_global_ran_node_id;
 }

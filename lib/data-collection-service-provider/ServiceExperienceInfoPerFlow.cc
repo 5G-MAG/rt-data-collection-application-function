@@ -231,8 +231,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setSvcExprc(std::move(value))) return NULL;
+    data_collection_model_svc_experience_free
+(p_svc_exprc);
 
     return obj_service_experience_info_per_flow;
 }
@@ -296,8 +297,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setTimeIntev(std::move(value))) return NULL;
+    data_collection_model_time_window_free
+(p_time_intev);
 
     return obj_service_experience_info_per_flow;
 }
@@ -361,8 +363,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
 
     ValueType value(value_from);
 
-    
     if (!obj->setDnai(std::move(value))) return NULL;
+    ogs_free
+(p_dnai);
 
     return obj_service_experience_info_per_flow;
 }
@@ -426,8 +429,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setIpTrafficFilter(std::move(value))) return NULL;
+    data_collection_model_flow_info_free
+(p_ip_traffic_filter);
 
     return obj_service_experience_info_per_flow;
 }
@@ -491,8 +495,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setEthTrafficFilter(std::move(value))) return NULL;
+    data_collection_model_eth_flow_description_free
+(p_eth_traffic_filter);
 
     return obj_service_experience_info_per_flow;
 }

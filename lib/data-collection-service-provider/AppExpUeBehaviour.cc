@@ -235,8 +235,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
 
     ValueType value(value_from);
 
-    
     if (!obj->setAppId(std::move(value))) return NULL;
+    ogs_free
+(p_app_id);
 
     return obj_app_exp_ue_behaviour;
 }
@@ -300,8 +301,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setExpPduSesInacTm(std::move(value))) return NULL;
+    data_collection_model_time_window_free
+(p_exp_pdu_ses_inac_tm);
 
     return obj_app_exp_ue_behaviour;
 }
@@ -394,8 +396,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
         }
     }
 
-    data_collection_list_free(p_flow_descriptions);
     if (!obj->setFlowDescriptions(std::move(value))) return NULL;
+    data_collection_list_free
+(p_flow_descriptions);
 
     return obj_app_exp_ue_behaviour;
 }
@@ -413,7 +416,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
 
     ValueType value(value_from);
 
-    ogs_free(p_flow_descriptions);
+    ogs_free
+(p_flow_descriptions);
     if (value) obj->addFlowDescriptions(value.value());
     return obj_app_exp_ue_behaviour;
 }
@@ -543,8 +547,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
 
     ValueType value(value_from);
 
-    
     if (!obj->setConfidenceLevel(std::move(value))) return NULL;
+    ogs_free
+(p_confidence_level);
 
     return obj_app_exp_ue_behaviour;
 }
@@ -608,8 +613,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
 
     ValueType value(value_from);
 
-    
     if (!obj->setAccuracyLevel(std::move(value))) return NULL;
+    ogs_free
+(p_accuracy_level);
 
     return obj_app_exp_ue_behaviour;
 }
@@ -673,8 +679,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setFailureCode(std::move(value))) return NULL;
+    data_collection_model_cp_failure_code_free
+(p_failure_code);
 
     return obj_app_exp_ue_behaviour;
 }
@@ -738,8 +745,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_beh
 
     ValueType value(value_from);
 
-    
     if (!obj->setValidityTime(std::move(value))) return NULL;
+    ogs_free
+(p_validity_time);
 
     return obj_app_exp_ue_behaviour;
 }

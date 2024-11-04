@@ -215,7 +215,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_snssai_t *data
 
     ValueType value(value_from);
 
-    
     if (!obj->setSst(std::move(value))) return NULL;
 
     return obj_snssai;
@@ -280,8 +279,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_snssai_t *data
 
     ValueType value(value_from);
 
-    
     if (!obj->setSd(std::move(value))) return NULL;
+    ogs_free
+(p_sd);
 
     return obj_snssai;
 }

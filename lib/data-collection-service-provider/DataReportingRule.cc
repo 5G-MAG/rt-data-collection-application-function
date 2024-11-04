@@ -258,8 +258,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
         }
     }
 
-    data_collection_list_free(p_context_ids);
     if (!obj->setContextIds(std::move(value))) return NULL;
+    data_collection_list_free
+(p_context_ids);
 
     return obj_data_reporting_rule;
 }
@@ -277,7 +278,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(value_from);
 
-    ogs_free(p_context_ids);
+    ogs_free
+(p_context_ids);
     if (value) obj->addContextIds(value.value());
     return obj_data_reporting_rule;
 }
@@ -407,7 +409,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(value_from);
 
-    
     if (!obj->setReportingProbability(std::move(value))) return NULL;
 
     return obj_data_reporting_rule;
@@ -472,8 +473,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(value_from);
 
-    
     if (!obj->setReportingFormat(std::move(value))) return NULL;
+    ogs_free
+(p_reporting_format);
 
     return obj_data_reporting_rule;
 }
@@ -537,8 +539,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 
     ValueType value(value_from);
 
-    
     if (!obj->setDataPackagingStrategy(std::move(value))) return NULL;
+    ogs_free
+(p_data_packaging_strategy);
 
     return obj_data_reporting_rule;
 }

@@ -217,8 +217,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_plmn_id_nid_t 
 
     ValueType value(value_from);
 
-    
     if (!obj->setMcc(std::move(value))) return NULL;
+    ogs_free
+(p_mcc);
 
     return obj_plmn_id_nid;
 }
@@ -272,8 +273,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_plmn_id_nid_t 
 
     ValueType value(value_from);
 
-    
     if (!obj->setMnc(std::move(value))) return NULL;
+    ogs_free
+(p_mnc);
 
     return obj_plmn_id_nid;
 }
@@ -337,8 +339,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_plmn_id_nid_t 
 
     ValueType value(value_from);
 
-    
     if (!obj->setNid(std::move(value))) return NULL;
+    ogs_free
+(p_nid);
 
     return obj_plmn_id_nid;
 }

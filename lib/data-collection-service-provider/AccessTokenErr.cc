@@ -217,8 +217,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_e
 
     ValueType value(value_from);
 
-    
     if (!obj->setError(std::move(value))) return NULL;
+    ogs_free
+(p_error);
 
     return obj_access_token_err;
 }
@@ -282,8 +283,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_e
 
     ValueType value(value_from);
 
-    
     if (!obj->setErrorDescription(std::move(value))) return NULL;
+    ogs_free
+(p_error_description);
 
     return obj_access_token_err;
 }
@@ -347,8 +349,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_e
 
     ValueType value(value_from);
 
-    
     if (!obj->setErrorUri(std::move(value))) return NULL;
+    ogs_free
+(p_error_uri);
 
     return obj_access_token_err;
 }

@@ -244,8 +244,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
         }
     }
 
-    data_collection_list_free(p_records);
     if (!obj->setRecords(std::move(value))) return NULL;
+    data_collection_list_free
+(p_records);
 
     return obj_dynamic_policy_invocations_collection_all_of;
 }
@@ -263,7 +264,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_dynamic_policy_invocation_event_free(p_records);
+    data_collection_model_dynamic_policy_invocation_event_free
+(p_records);
     obj->addRecords(value);
     return obj_dynamic_policy_invocations_collection_all_of;
 }

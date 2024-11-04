@@ -231,7 +231,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_
 
     ValueType value(value_from);
 
-    
     if (!obj->setNrOfUsedSatellites(std::move(value))) return NULL;
 
     return obj_high_accuracy_gnss_metrics;
@@ -296,7 +295,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_
 
     ValueType value(value_from);
 
-    
     if (!obj->setHdopi(std::move(value))) return NULL;
 
     return obj_high_accuracy_gnss_metrics;
@@ -361,7 +359,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_
 
     ValueType value(value_from);
 
-    
     if (!obj->setPdopi(std::move(value))) return NULL;
 
     return obj_high_accuracy_gnss_metrics;
@@ -426,7 +423,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_
 
     ValueType value(value_from);
 
-    
     if (!obj->setAge(std::move(value))) return NULL;
 
     return obj_high_accuracy_gnss_metrics;
@@ -491,8 +487,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setFixType(std::move(value))) return NULL;
+    data_collection_model_fix_type_free
+(p_fix_type);
 
     return obj_high_accuracy_gnss_metrics;
 }

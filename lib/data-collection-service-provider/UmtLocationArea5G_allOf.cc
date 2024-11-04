@@ -225,8 +225,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
 
     ValueType value(value_from);
 
-    
     if (!obj->setUmtTime(std::move(value))) return NULL;
+    ogs_free
+(p_umt_time);
 
     return obj_umt_location_area5_g_all_of;
 }
@@ -290,7 +291,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_umt_location_a
 
     ValueType value(value_from);
 
-    
     if (!obj->setUmtDuration(std::move(value))) return NULL;
 
     return obj_umt_location_area5_g_all_of;

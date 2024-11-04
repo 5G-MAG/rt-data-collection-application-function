@@ -227,8 +227,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_addr_t *dat
 
     ValueType value(value_from);
 
-    
     if (!obj->setIpv4Addr(std::move(value))) return NULL;
+    ogs_free
+(p_ipv4_addr);
 
     return obj_ip_addr;
 }
@@ -292,8 +293,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_addr_t *dat
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setIpv6Addr(std::move(value))) return NULL;
+    data_collection_model_ipv6_addr_free
+(p_ipv6_addr);
 
     return obj_ip_addr;
 }
@@ -357,8 +359,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_addr_t *dat
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setIpv6Prefix(std::move(value))) return NULL;
+    data_collection_model_ipv6_prefix_free
+(p_ipv6_prefix);
 
     return obj_ip_addr;
 }

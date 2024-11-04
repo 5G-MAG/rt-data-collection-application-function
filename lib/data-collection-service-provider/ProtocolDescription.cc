@@ -227,8 +227,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_descr
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setTransportProto(std::move(value))) return NULL;
+    data_collection_model_media_transport_proto_free
+(p_transport_proto);
 
     return obj_protocol_description;
 }
@@ -292,8 +293,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_descr
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setRtpHeaderExtInfo(std::move(value))) return NULL;
+    data_collection_model_rtp_header_ext_info_free
+(p_rtp_header_ext_info);
 
     return obj_protocol_description;
 }
@@ -389,8 +391,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_descr
         }
     }
 
-    data_collection_list_free(p_rtp_payload_info_list);
     if (!obj->setRtpPayloadInfoList(std::move(value))) return NULL;
+    data_collection_list_free
+(p_rtp_payload_info_list);
 
     return obj_protocol_description;
 }
@@ -408,7 +411,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_descr
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_rtp_payload_info_free(p_rtp_payload_info_list);
+    data_collection_model_rtp_payload_info_free
+(p_rtp_payload_info_list);
     if (value) obj->addRtpPayloadInfoList(value.value());
     return obj_protocol_description;
 }

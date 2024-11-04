@@ -227,7 +227,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience
 
     ValueType value(value_from);
 
-    
     if (!obj->setMos(std::move(value))) return NULL;
 
     return obj_svc_experience;
@@ -292,7 +291,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience
 
     ValueType value(value_from);
 
-    
     if (!obj->setUpperRange(std::move(value))) return NULL;
 
     return obj_svc_experience;
@@ -357,7 +355,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience
 
     ValueType value(value_from);
 
-    
     if (!obj->setLowerRange(std::move(value))) return NULL;
 
     return obj_svc_experience;

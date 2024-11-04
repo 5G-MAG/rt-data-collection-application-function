@@ -30,7 +30,7 @@ typedef struct application_id_node_s {
 
 static data_collection_model_communication_collection_t *__communication_collection_create(const char *start_time, const char *end_time, long ul_vol, long dl_vol);
 static data_collection_model_ue_communication_collection_t *ue_communication_collection_create(const char *application_id, ogs_list_t *communication_collection_records);
-static void data_report_application_ids(ogs_list_t *data_reports, ogs_list_t *application_ids);
+static void __data_buckets_application_ids(ogs_list_t *data_reports, ogs_list_t *application_ids);
 static communication_collection_record_t *generate_communication_collection_from_data_report(data_collection_data_report_record_t *data_report, void *report);
 static void communication_collection_records_by_application_id(ogs_list_t *communication_collection_records, const char *application_id, ogs_list_t *communication_collection_recs);
 static void communication_collection_record_free(communication_collection_record_t *communication_collection_record);
@@ -39,9 +39,9 @@ static void application_id_node_free(application_id_node_t *application_id_node)
 static void application_ids_remove(ogs_list_t *application_ids);
 //static void __tidy_up();
 
-ogs_list_t *generate_af_event_notifications(ogs_list_t *data_reports, data_collection_event_subscription_t *data_collection_event_subscription) {
-     
-    data_collection_data_report_record_t *data_report, *data_rep = NULL, *data_report_node = NULL;
+ogs_list_t *generate_af_event_notifications(ogs_list_t *data_buckets, data_collection_event_subscription_t *data_collection_event_subscription) {
+    data_collection_bucketed_data_t *data_bucket;
+    data_collection_data_report_record_t *data_report;
     ogs_list_t application_ids;
     application_id_node_t *application_id_node;
     ogs_list_t communication_collection_records;
@@ -51,17 +51,19 @@ ogs_list_t *generate_af_event_notifications(ogs_list_t *data_reports, data_colle
     ogs_list_init(&communication_collection_records);
     ogs_list_init(&communication_collection_recs);
 
-    ogs_list_for_each(data_reports, data_report) {
-	//does_application_in_data_report_and_evex_match(data_report, data_collection_event_subscription);   
-        void *report = data_collection_data_report_record_get_data_sample(data_report);
-        if(report) {
-            communication_collection_record_t *communication_collection_record =
-                            generate_communication_collection_from_data_report(data_report, report);
-	    if(communication_collection_record) {
-                ogs_list_add(&communication_collection_records, communication_collection_record);
-	        data_collection_data_report_record_mark_used(data_report, data_collection_event_subscription); 
-	    }
-	}
+    ogs_list_for_each(data_buckets, data_bucket) {
+        ogs_list_for_each(data_bucket->data_samples, data_report) {
+            //does_application_in_data_report_and_evex_match(data_report, data_collection_event_subscription);
+            void *report = data_collection_data_report_record_get_data_sample(data_report);
+            if (report) {
+                communication_collection_record_t *communication_collection_record =
+                                                    generate_communication_collection_from_data_report(data_report, report);
+                if (communication_collection_record) {
+                    ogs_list_add(&communication_collection_records, communication_collection_record);
+                    data_collection_data_report_record_mark_used(data_report, data_collection_event_subscription);
+                }
+            }
+        }
     }
 
     af_event_notifications = (ogs_list_t*) ogs_calloc(1,sizeof(*af_event_notifications));
@@ -69,8 +71,8 @@ ogs_list_t *generate_af_event_notifications(ogs_list_t *data_reports, data_colle
     ogs_list_init(af_event_notifications);
 
     ogs_list_init(&application_ids);
-    data_report_application_ids(data_reports, &application_ids);
-    
+    __data_buckets_application_ids(data_buckets, &application_ids);
+
     ogs_list_for_each(&application_ids, application_id_node) {
         data_collection_model_ue_communication_collection_t *ue_communication_collection;
         data_collection_model_af_event_notification_t *af_event_notification
@@ -79,36 +81,30 @@ ogs_list_t *generate_af_event_notifications(ogs_list_t *data_reports, data_colle
 
         ue_communication_collection = ue_communication_collection_create(application_id_node->application_id, &communication_collection_recs);
 
-	af_event_notification = data_collection_model_af_event_notification_create();
+        af_event_notification = data_collection_model_af_event_notification_create();
         data_collection_model_af_event_notification_add_ue_comm_infos(af_event_notification, ue_communication_collection);
         data_collection_model_af_event_notification_set_time_stamp(af_event_notification, get_current_time("%Y-%m-%dT%H:%M:%SZ"));
 
         data_collection_model_af_event_t *af_event = data_collection_model_af_event_create();
         data_collection_model_af_event_set_string(af_event, "UE_COMM");
         data_collection_model_af_event_notification_set_event_move(af_event_notification, af_event);
-        data_collection_model_af_event_free(af_event);
 
-	ogs_list_add(af_event_notifications, data_collection_model_af_event_notification_make_lnode(af_event_notification));
+        ogs_list_add(af_event_notifications, data_collection_model_af_event_notification_make_lnode(af_event_notification));
 
         //add ue_communication_collection to ogs_list
         //create AfEventNotification
         //add to ogs_list
-    
+
     }
 
     application_ids_remove(&application_ids);
-
-    ogs_list_for_each_safe(data_reports, data_rep, data_report_node) {
-        ogs_list_remove(data_reports, data_report_node);
-        data_collection_data_report_record_destroy(data_report_node);
-    }
 
     return af_event_notifications;
     //return that list;
 }
 
 communication_collection_record_t *generate_communication_collection_from_data_report(data_collection_data_report_record_t *data_report, void *report) {
- 
+
     data_collection_model_communication_collection_t *communication_collection = NULL;
     long dl_vol = 0;
     const char *end_time = NULL;
@@ -118,7 +114,7 @@ communication_collection_record_t *generate_communication_collection_from_data_r
     communication_collection_record_t *communication_collection_record;
 
     data_collection_model_communication_record_t *communication_record = (data_collection_model_communication_record_t *)report;
-    
+
     if (!communication_record) return NULL;
 
     dl_vol = data_collection_model_communication_record_get_downlink_volume(communication_record);
@@ -134,14 +130,14 @@ communication_collection_record_t *generate_communication_collection_from_data_r
 
     if (!dl_vol && !ul_vol) {
         ogs_error("At least one of Uplink or Downlink volume shall be provided.");
-        return NULL;	
+        return NULL;
     }
 
     application_id = data_collection_data_report_record_get_external_application_id(data_report);
-   
+
     communication_collection_record = ogs_calloc(1, sizeof(communication_collection_record_t));
     ogs_assert(communication_collection_record);
-    
+
     communication_collection = __communication_collection_create(start_time, end_time, ul_vol, dl_vol);
 
     communication_collection_record->application_id = data_collection_strdup(application_id);
@@ -169,26 +165,29 @@ static data_collection_model_communication_collection_t *__communication_collect
     return communication_collection;
 }
 
-static void data_report_application_ids(ogs_list_t *data_reports, ogs_list_t *application_ids) {
+static void __data_buckets_application_ids(ogs_list_t *data_buckets, ogs_list_t *application_ids) {
+    data_collection_bucketed_data_t *data_bucket;
     data_collection_data_report_record_t *data_report;
     application_id_node_t *application_id_node;
     application_id_node_t *application_id_node_new;
 
-    ogs_list_for_each(data_reports, data_report) {
-        bool exists = false;
-        const char *report_app_id = data_collection_data_report_record_get_external_application_id(data_report);
-        ogs_list_for_each(application_ids, application_id_node) {
-	    if(!strcmp(report_app_id, application_id_node->application_id)) {
-                exists = true;	        
-	        break;
-            } 
-	}
-        if(!exists) {
-	    application_id_node_new = ogs_calloc(1, sizeof(application_id_node_t));
-            ogs_assert(application_id_node_new);
-            application_id_node_new->application_id = data_collection_strdup(report_app_id);	    
-	    ogs_list_add(application_ids, application_id_node_new);
-	}
+    ogs_list_for_each(data_buckets, data_bucket) {
+        ogs_list_for_each(data_bucket->data_samples, data_report) {
+            bool exists = false;
+            const char *report_app_id = data_collection_data_report_record_get_external_application_id(data_report);
+            ogs_list_for_each(application_ids, application_id_node) {
+                if(!strcmp(report_app_id, application_id_node->application_id)) {
+                    exists = true;
+                    break;
+                }
+            }
+            if(!exists) {
+                application_id_node_new = ogs_calloc(1, sizeof(application_id_node_t));
+                ogs_assert(application_id_node_new);
+                application_id_node_new->application_id = data_collection_strdup(report_app_id);
+                ogs_list_add(application_ids, application_id_node_new);
+            }
+        }
     }
 }
 
@@ -199,7 +198,7 @@ static void application_ids_remove(ogs_list_t *application_ids){
 
     ogs_list_for_each_safe(application_ids, id_node, application_id_node) {
         ogs_list_remove(application_ids, application_id_node);
-	application_id_node_free(application_id_node);
+        application_id_node_free(application_id_node);
 
     }
 }
@@ -221,7 +220,7 @@ static void communication_collection_records_by_application_id(ogs_list_t *commu
         if(communication_collection_record->application_id && !strcmp(communication_collection_record->application_id, application_id)){
             ogs_list_remove(communication_collection_records, communication_collection_record);
             ogs_list_add(communication_collection_recs, communication_collection_record);
-	}		
+        }
 
     }
 }
@@ -237,9 +236,9 @@ static data_collection_model_ue_communication_collection_t *ue_communication_col
         ogs_list_add(communication_collections, data_collection_model_communication_collection_make_lnode(communication_collection_record->communication_collection));
         communication_collection_record->communication_collection = NULL;
         ogs_list_remove(communication_collection_records, communication_collection_record);
-	communication_collection_record_free(communication_collection_record);
+        communication_collection_record_free(communication_collection_record);
     }
-    
+
     ue_comm_collection = data_collection_model_ue_communication_collection_create();
     data_collection_model_ue_communication_collection_set_app_id(ue_comm_collection, application_id);
     data_collection_model_ue_communication_collection_set_comms_move(ue_comm_collection, communication_collections);

@@ -56,6 +56,13 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_lnode_
 
 DATA_COLLECTION_SVC_PRODUCER_API void data_collection_list_free(ogs_list_t *list)
 {
+    if (!list) return;
+    data_collection_list_clear(list);
+    ogs_free(list);
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_list_clear(ogs_list_t *list)
+{
     data_collection_lnode_t *node, *next;
 
     if (!list) return;
@@ -64,7 +71,6 @@ DATA_COLLECTION_SVC_PRODUCER_API void data_collection_list_free(ogs_list_t *list
         ogs_list_remove(list, node);
         data_collection_lnode_free(node);
     }
-    ogs_free(list);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API void data_collection_lnode_free(data_collection_lnode_t *node)

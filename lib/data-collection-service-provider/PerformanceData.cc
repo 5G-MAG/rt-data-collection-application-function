@@ -249,7 +249,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
 
     ValueType value(value_from);
 
-    
     if (!obj->setPdb(std::move(value))) return NULL;
 
     return obj_performance_data;
@@ -314,7 +313,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
 
     ValueType value(value_from);
 
-    
     if (!obj->setPdbDl(std::move(value))) return NULL;
 
     return obj_performance_data;
@@ -379,7 +377,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
 
     ValueType value(value_from);
 
-    
     if (!obj->setMaxPdbUl(std::move(value))) return NULL;
 
     return obj_performance_data;
@@ -444,7 +441,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
 
     ValueType value(value_from);
 
-    
     if (!obj->setMaxPdbDl(std::move(value))) return NULL;
 
     return obj_performance_data;
@@ -509,7 +505,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
 
     ValueType value(value_from);
 
-    
     if (!obj->setPlr(std::move(value))) return NULL;
 
     return obj_performance_data;
@@ -574,7 +569,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
 
     ValueType value(value_from);
 
-    
     if (!obj->setPlrDl(std::move(value))) return NULL;
 
     return obj_performance_data;
@@ -639,7 +633,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
 
     ValueType value(value_from);
 
-    
     if (!obj->setMaxPlrUl(std::move(value))) return NULL;
 
     return obj_performance_data;
@@ -704,7 +697,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
 
     ValueType value(value_from);
 
-    
     if (!obj->setMaxPlrDl(std::move(value))) return NULL;
 
     return obj_performance_data;
@@ -769,8 +761,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
 
     ValueType value(value_from);
 
-    
     if (!obj->setThrputUl(std::move(value))) return NULL;
+    ogs_free
+(p_thrput_ul);
 
     return obj_performance_data;
 }
@@ -834,8 +827,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
 
     ValueType value(value_from);
 
-    
     if (!obj->setMaxThrputUl(std::move(value))) return NULL;
+    ogs_free
+(p_max_thrput_ul);
 
     return obj_performance_data;
 }
@@ -899,8 +893,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
 
     ValueType value(value_from);
 
-    
     if (!obj->setMinThrputUl(std::move(value))) return NULL;
+    ogs_free
+(p_min_thrput_ul);
 
     return obj_performance_data;
 }
@@ -964,8 +959,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
 
     ValueType value(value_from);
 
-    
     if (!obj->setThrputDl(std::move(value))) return NULL;
+    ogs_free
+(p_thrput_dl);
 
     return obj_performance_data;
 }
@@ -1029,8 +1025,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
 
     ValueType value(value_from);
 
-    
     if (!obj->setMaxThrputDl(std::move(value))) return NULL;
+    ogs_free
+(p_max_thrput_dl);
 
     return obj_performance_data;
 }
@@ -1094,8 +1091,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
 
     ValueType value(value_from);
 
-    
     if (!obj->setMinThrputDl(std::move(value))) return NULL;
+    ogs_free
+(p_min_thrput_dl);
 
     return obj_performance_data;
 }

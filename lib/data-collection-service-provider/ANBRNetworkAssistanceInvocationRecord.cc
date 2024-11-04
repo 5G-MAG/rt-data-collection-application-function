@@ -231,8 +231,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
 
     ValueType value(value_from);
 
-    
     if (!obj->setTimestamp(std::move(value))) return NULL;
+    ogs_free
+(p_timestamp);
 
     return obj_anbr_network_assistance_invocation_record;
 }
@@ -314,8 +315,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
         }
     }
 
-    data_collection_list_free(p_context_ids);
     if (!obj->setContextIds(std::move(value))) return NULL;
+    data_collection_list_free
+(p_context_ids);
 
     return obj_anbr_network_assistance_invocation_record;
 }
@@ -333,7 +335,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
 
     ValueType value(value_from);
 
-    ogs_free(p_context_ids);
+    ogs_free
+(p_context_ids);
     obj->addContextIds(value);
     return obj_anbr_network_assistance_invocation_record;
 }
@@ -459,8 +462,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setSliceInfo(std::move(value))) return NULL;
+    data_collection_model_snssai_free
+(p_slice_info);
 
     return obj_anbr_network_assistance_invocation_record;
 }
@@ -524,8 +528,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
 
     ValueType value(value_from);
 
-    
     if (!obj->setDataNetworkName(std::move(value))) return NULL;
+    ogs_free
+(p_data_network_name);
 
     return obj_anbr_network_assistance_invocation_record;
 }
@@ -589,8 +594,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setLocation(std::move(value))) return NULL;
+    data_collection_model_typed_location_free
+(p_location);
 
     return obj_anbr_network_assistance_invocation_record;
 }
@@ -644,8 +650,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
 
     ValueType value(value_from);
 
-    
     if (!obj->setSessionId(std::move(value))) return NULL;
+    ogs_free
+(p_session_id);
 
     return obj_anbr_network_assistance_invocation_record;
 }
@@ -709,8 +716,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
 
     ValueType value(value_from);
 
-    
     if (!obj->setPolicyTemplateId(std::move(value))) return NULL;
+    ogs_free
+(p_policy_template_id);
 
     return obj_anbr_network_assistance_invocation_record;
 }
@@ -806,8 +814,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
         }
     }
 
-    data_collection_list_free(p_application_flow_descriptions);
     if (!obj->setApplicationFlowDescriptions(std::move(value))) return NULL;
+    data_collection_list_free
+(p_application_flow_descriptions);
 
     return obj_anbr_network_assistance_invocation_record;
 }
@@ -825,7 +834,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_application_flow_description_free(p_application_flow_descriptions);
+    data_collection_model_application_flow_description_free
+(p_application_flow_descriptions);
     if (value) obj->addApplicationFlowDescriptions(value.value());
     return obj_anbr_network_assistance_invocation_record;
 }
@@ -955,8 +965,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setRequestedQoS(std::move(value))) return NULL;
+    data_collection_model_unidirectional_qo_s_specification_free
+(p_requested_qo_s);
 
     return obj_anbr_network_assistance_invocation_record;
 }
@@ -1020,8 +1031,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setRecommendedQoS(std::move(value))) return NULL;
+    data_collection_model_network_assistance_invocation_recommended_qo_s_free
+(p_recommended_qo_s);
 
     return obj_anbr_network_assistance_invocation_record;
 }

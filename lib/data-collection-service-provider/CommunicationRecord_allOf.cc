@@ -223,8 +223,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setTimeInterval(std::move(value))) return NULL;
+    data_collection_model_time_window_free
+(p_time_interval);
 
     return obj_communication_record_all_of;
 }
@@ -288,8 +289,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setSliceInfo(std::move(value))) return NULL;
+    data_collection_model_snssai_free
+(p_slice_info);
 
     return obj_communication_record_all_of;
 }
@@ -353,8 +355,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
 
     ValueType value(value_from);
 
-    
     if (!obj->setDataNetworkName(std::move(value))) return NULL;
+    ogs_free
+(p_data_network_name);
 
     return obj_communication_record_all_of;
 }
@@ -450,8 +453,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
         }
     }
 
-    data_collection_list_free(p_location);
     if (!obj->setLocation(std::move(value))) return NULL;
+    data_collection_list_free
+(p_location);
 
     return obj_communication_record_all_of;
 }
@@ -469,7 +473,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_location_area5_g_free(p_location);
+    data_collection_model_location_area5_g_free
+(p_location);
     if (value) obj->addLocation(value.value());
     return obj_communication_record_all_of;
 }
@@ -599,7 +604,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
 
     ValueType value(value_from);
 
-    
     if (!obj->setUplinkVolume(std::move(value))) return NULL;
 
     return obj_communication_record_all_of;
@@ -664,7 +668,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_
 
     ValueType value(value_from);
 
-    
     if (!obj->setDownlinkVolume(std::move(value))) return NULL;
 
     return obj_communication_record_all_of;

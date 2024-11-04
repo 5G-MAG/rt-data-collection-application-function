@@ -215,8 +215,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_addre
 
     ValueType value(value_from);
 
-    
     if (!obj->setDomainName(std::move(value))) return NULL;
+    ogs_free
+(p_domain_name);
 
     return obj_endpoint_address;
 }
@@ -313,8 +314,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_addre
         }
     }
 
-    data_collection_list_free(p_port_numbers);
     if (!obj->setPortNumbers(std::move(value))) return NULL;
+    data_collection_list_free
+(p_port_numbers);
 
     return obj_endpoint_address;
 }

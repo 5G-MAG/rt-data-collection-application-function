@@ -255,8 +255,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setEvent(std::move(value))) return NULL;
+    data_collection_model_af_event_free
+(p_event);
 
     return obj_af_event_notification;
 }
@@ -310,8 +311,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     ValueType value(value_from);
 
-    
     if (!obj->setTimeStamp(std::move(value))) return NULL;
+    ogs_free
+(p_time_stamp);
 
     return obj_af_event_notification;
 }
@@ -407,8 +409,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
         }
     }
 
-    data_collection_list_free(p_svc_exprc_infos);
     if (!obj->setSvcExprcInfos(std::move(value))) return NULL;
+    data_collection_list_free
+(p_svc_exprc_infos);
 
     return obj_af_event_notification;
 }
@@ -426,7 +429,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_service_experience_info_per_app_free(p_svc_exprc_infos);
+    data_collection_model_service_experience_info_per_app_free
+(p_svc_exprc_infos);
     if (value) obj->addSvcExprcInfos(value.value());
     return obj_af_event_notification;
 }
@@ -588,8 +592,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
         }
     }
 
-    data_collection_list_free(p_ue_mobility_infos);
     if (!obj->setUeMobilityInfos(std::move(value))) return NULL;
+    data_collection_list_free
+(p_ue_mobility_infos);
 
     return obj_af_event_notification;
 }
@@ -607,7 +612,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_ue_mobility_collection_free(p_ue_mobility_infos);
+    data_collection_model_ue_mobility_collection_free
+(p_ue_mobility_infos);
     if (value) obj->addUeMobilityInfos(value.value());
     return obj_af_event_notification;
 }
@@ -769,8 +775,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
         }
     }
 
-    data_collection_list_free(p_ue_comm_infos);
     if (!obj->setUeCommInfos(std::move(value))) return NULL;
+    data_collection_list_free
+(p_ue_comm_infos);
 
     return obj_af_event_notification;
 }
@@ -788,7 +795,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_ue_communication_collection_free(p_ue_comm_infos);
+    data_collection_model_ue_communication_collection_free
+(p_ue_comm_infos);
     if (value) obj->addUeCommInfos(value.value());
     return obj_af_event_notification;
 }
@@ -950,8 +958,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
         }
     }
 
-    data_collection_list_free(p_excep_infos);
     if (!obj->setExcepInfos(std::move(value))) return NULL;
+    data_collection_list_free
+(p_excep_infos);
 
     return obj_af_event_notification;
 }
@@ -969,7 +978,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_exception_info_free(p_excep_infos);
+    data_collection_model_exception_info_free
+(p_excep_infos);
     if (value) obj->addExcepInfos(value.value());
     return obj_af_event_notification;
 }
@@ -1131,8 +1141,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
         }
     }
 
-    data_collection_list_free(p_congestion_infos);
     if (!obj->setCongestionInfos(std::move(value))) return NULL;
+    data_collection_list_free
+(p_congestion_infos);
 
     return obj_af_event_notification;
 }
@@ -1150,7 +1161,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_user_data_congestion_collection_free(p_congestion_infos);
+    data_collection_model_user_data_congestion_collection_free
+(p_congestion_infos);
     if (value) obj->addCongestionInfos(value.value());
     return obj_af_event_notification;
 }
@@ -1312,8 +1324,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
         }
     }
 
-    data_collection_list_free(p_perf_data_infos);
     if (!obj->setPerfDataInfos(std::move(value))) return NULL;
+    data_collection_list_free
+(p_perf_data_infos);
 
     return obj_af_event_notification;
 }
@@ -1331,7 +1344,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_performance_data_collection_free(p_perf_data_infos);
+    data_collection_model_performance_data_collection_free
+(p_perf_data_infos);
     if (value) obj->addPerfDataInfos(value.value());
     return obj_af_event_notification;
 }
@@ -1493,8 +1507,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
         }
     }
 
-    data_collection_list_free(p_dispersion_infos);
     if (!obj->setDispersionInfos(std::move(value))) return NULL;
+    data_collection_list_free
+(p_dispersion_infos);
 
     return obj_af_event_notification;
 }
@@ -1512,7 +1527,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_dispersion_collection_free(p_dispersion_infos);
+    data_collection_model_dispersion_collection_free
+(p_dispersion_infos);
     if (value) obj->addDispersionInfos(value.value());
     return obj_af_event_notification;
 }
@@ -1674,8 +1690,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
         }
     }
 
-    data_collection_list_free(p_coll_bhvr_infs);
     if (!obj->setCollBhvrInfs(std::move(value))) return NULL;
+    data_collection_list_free
+(p_coll_bhvr_infs);
 
     return obj_af_event_notification;
 }
@@ -1693,7 +1710,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_collective_behaviour_info_free(p_coll_bhvr_infs);
+    data_collection_model_collective_behaviour_info_free
+(p_coll_bhvr_infs);
     if (value) obj->addCollBhvrInfs(value.value());
     return obj_af_event_notification;
 }
@@ -1855,8 +1873,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
         }
     }
 
-    data_collection_list_free(p_ms_qoe_metr_infos);
     if (!obj->setMsQoeMetrInfos(std::move(value))) return NULL;
+    data_collection_list_free
+(p_ms_qoe_metr_infos);
 
     return obj_af_event_notification;
 }
@@ -1874,7 +1893,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_ms_qoe_metrics_collection_free(p_ms_qoe_metr_infos);
+    data_collection_model_ms_qoe_metrics_collection_free
+(p_ms_qoe_metr_infos);
     if (value) obj->addMsQoeMetrInfos(value.value());
     return obj_af_event_notification;
 }
@@ -2036,8 +2056,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
         }
     }
 
-    data_collection_list_free(p_ms_qoe_metrics);
     if (!obj->setMsQoeMetrics(std::move(value))) return NULL;
+    data_collection_list_free
+(p_ms_qoe_metrics);
 
     return obj_af_event_notification;
 }
@@ -2055,7 +2076,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_qo_e_metrics_collection_free(p_ms_qoe_metrics);
+    data_collection_model_qo_e_metrics_collection_free
+(p_ms_qoe_metrics);
     if (value) obj->addMsQoeMetrics(value.value());
     return obj_af_event_notification;
 }
@@ -2217,8 +2239,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
         }
     }
 
-    data_collection_list_free(p_ms_consump_infos);
     if (!obj->setMsConsumpInfos(std::move(value))) return NULL;
+    data_collection_list_free
+(p_ms_consump_infos);
 
     return obj_af_event_notification;
 }
@@ -2236,7 +2259,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_ms_consumption_collection_free(p_ms_consump_infos);
+    data_collection_model_ms_consumption_collection_free
+(p_ms_consump_infos);
     if (value) obj->addMsConsumpInfos(value.value());
     return obj_af_event_notification;
 }
@@ -2398,8 +2422,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
         }
     }
 
-    data_collection_list_free(p_ms_consump_rpts);
     if (!obj->setMsConsumpRpts(std::move(value))) return NULL;
+    data_collection_list_free
+(p_ms_consump_rpts);
 
     return obj_af_event_notification;
 }
@@ -2417,7 +2442,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_consumption_reporting_units_collection_free(p_ms_consump_rpts);
+    data_collection_model_consumption_reporting_units_collection_free
+(p_ms_consump_rpts);
     if (value) obj->addMsConsumpRpts(value.value());
     return obj_af_event_notification;
 }
@@ -2579,8 +2605,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
         }
     }
 
-    data_collection_list_free(p_ms_net_ass_inv_infos);
     if (!obj->setMsNetAssInvInfos(std::move(value))) return NULL;
+    data_collection_list_free
+(p_ms_net_ass_inv_infos);
 
     return obj_af_event_notification;
 }
@@ -2598,7 +2625,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_ms_net_ass_invocation_collection_free(p_ms_net_ass_inv_infos);
+    data_collection_model_ms_net_ass_invocation_collection_free
+(p_ms_net_ass_inv_infos);
     if (value) obj->addMsNetAssInvInfos(value.value());
     return obj_af_event_notification;
 }
@@ -2760,8 +2788,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
         }
     }
 
-    data_collection_list_free(p_ms_net_assist_invs);
     if (!obj->setMsNetAssistInvs(std::move(value))) return NULL;
+    data_collection_list_free
+(p_ms_net_assist_invs);
 
     return obj_af_event_notification;
 }
@@ -2779,7 +2808,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_network_assistance_invocations_collection_free(p_ms_net_assist_invs);
+    data_collection_model_network_assistance_invocations_collection_free
+(p_ms_net_assist_invs);
     if (value) obj->addMsNetAssistInvs(value.value());
     return obj_af_event_notification;
 }
@@ -2941,8 +2971,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
         }
     }
 
-    data_collection_list_free(p_ms_dyn_ply_inv_infos);
     if (!obj->setMsDynPlyInvInfos(std::move(value))) return NULL;
+    data_collection_list_free
+(p_ms_dyn_ply_inv_infos);
 
     return obj_af_event_notification;
 }
@@ -2960,7 +2991,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_ms_dyn_policy_invocation_collection_free(p_ms_dyn_ply_inv_infos);
+    data_collection_model_ms_dyn_policy_invocation_collection_free
+(p_ms_dyn_ply_inv_infos);
     if (value) obj->addMsDynPlyInvInfos(value.value());
     return obj_af_event_notification;
 }
@@ -3122,8 +3154,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
         }
     }
 
-    data_collection_list_free(p_ms_dyn_ply_invs);
     if (!obj->setMsDynPlyInvs(std::move(value))) return NULL;
+    data_collection_list_free
+(p_ms_dyn_ply_invs);
 
     return obj_af_event_notification;
 }
@@ -3141,7 +3174,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_dynamic_policy_invocations_collection_free(p_ms_dyn_ply_invs);
+    data_collection_model_dynamic_policy_invocations_collection_free
+(p_ms_dyn_ply_invs);
     if (value) obj->addMsDynPlyInvs(value.value());
     return obj_af_event_notification;
 }
@@ -3303,8 +3337,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
         }
     }
 
-    data_collection_list_free(p_ms_acc_act_infos);
     if (!obj->setMsAccActInfos(std::move(value))) return NULL;
+    data_collection_list_free
+(p_ms_acc_act_infos);
 
     return obj_af_event_notification;
 }
@@ -3322,7 +3357,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_ms_access_activity_collection_free(p_ms_acc_act_infos);
+    data_collection_model_ms_access_activity_collection_free
+(p_ms_acc_act_infos);
     if (value) obj->addMsAccActInfos(value.value());
     return obj_af_event_notification;
 }
@@ -3484,8 +3520,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
         }
     }
 
-    data_collection_list_free(p_ms_accesses);
     if (!obj->setMsAccesses(std::move(value))) return NULL;
+    data_collection_list_free
+(p_ms_accesses);
 
     return obj_af_event_notification;
 }
@@ -3503,7 +3540,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_media_streaming_accesses_collection_free(p_ms_accesses);
+    data_collection_model_media_streaming_accesses_collection_free
+(p_ms_accesses);
     if (value) obj->addMsAccesses(value.value());
     return obj_af_event_notification;
 }
@@ -3633,8 +3671,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setGnssAssistDataInfo(std::move(value))) return NULL;
+    data_collection_model_gnss_assist_data_info_free
+(p_gnss_assist_data_info);
 
     return obj_af_event_notification;
 }
@@ -3730,8 +3769,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
         }
     }
 
-    data_collection_list_free(p_dat_vol_trans_time_infos);
     if (!obj->setDatVolTransTimeInfos(std::move(value))) return NULL;
+    data_collection_list_free
+(p_dat_vol_trans_time_infos);
 
     return obj_af_event_notification;
 }
@@ -3749,7 +3789,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    data_collection_model_dat_vol_trans_time_collection_free(p_dat_vol_trans_time_infos);
+    data_collection_model_dat_vol_trans_time_collection_free
+(p_dat_vol_trans_time_infos);
     if (value) obj->addDatVolTransTimeInfos(value.value());
     return obj_af_event_notification;
 }

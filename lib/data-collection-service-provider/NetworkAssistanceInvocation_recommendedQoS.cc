@@ -215,8 +215,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(value_from);
 
-    
     if (!obj->setMaximumBitRate(std::move(value))) return NULL;
+    ogs_free
+(p_maximum_bit_rate);
 
     return obj_network_assistance_invocation_recommended_qo_s;
 }
@@ -270,8 +271,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
 
     ValueType value(value_from);
 
-    
     if (!obj->setMinimumBitRate(std::move(value))) return NULL;
+    ogs_free
+(p_minimum_bit_rate);
 
     return obj_network_assistance_invocation_recommended_qo_s;
 }

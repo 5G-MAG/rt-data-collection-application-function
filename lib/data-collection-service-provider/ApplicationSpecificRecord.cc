@@ -219,8 +219,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_sp
 
     ValueType value(value_from);
 
-    
     if (!obj->setTimestamp(std::move(value))) return NULL;
+    ogs_free
+(p_timestamp);
 
     return obj_application_specific_record;
 }
@@ -302,8 +303,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_sp
         }
     }
 
-    data_collection_list_free(p_context_ids);
     if (!obj->setContextIds(std::move(value))) return NULL;
+    data_collection_list_free
+(p_context_ids);
 
     return obj_application_specific_record;
 }
@@ -321,7 +323,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_sp
 
     ValueType value(value_from);
 
-    ogs_free(p_context_ids);
+    ogs_free
+(p_context_ids);
     obj->addContextIds(value);
     return obj_application_specific_record;
 }
@@ -437,8 +440,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_sp
 
     ValueType value(value_from);
 
-    
     if (!obj->setRecordType(std::move(value))) return NULL;
+    ogs_free
+(p_record_type);
 
     return obj_application_specific_record;
 }
@@ -492,8 +496,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_sp
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setRecordContainer(std::move(value))) return NULL;
+    data_collection_model_any_type_free
+(p_record_container);
 
     return obj_application_specific_record;
 }

@@ -217,7 +217,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_carte
 
     ValueType value(value_from);
 
-    
     if (!obj->setX(std::move(value))) return NULL;
 
     return obj_relative_cartesian_location;
@@ -272,7 +271,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_carte
 
     ValueType value(value_from);
 
-    
     if (!obj->setY(std::move(value))) return NULL;
 
     return obj_relative_cartesian_location;
@@ -337,7 +335,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_carte
 
     ValueType value(value_from);
 
-    
     if (!obj->setZ(std::move(value))) return NULL;
 
     return obj_relative_cartesian_location;

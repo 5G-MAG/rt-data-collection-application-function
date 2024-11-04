@@ -225,8 +225,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_addr_fqdn_t *d
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setIpAddr(std::move(value))) return NULL;
+    data_collection_model_ip_addr_free
+(p_ip_addr);
 
     return obj_addr_fqdn;
 }
@@ -290,8 +291,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_addr_fqdn_t *d
 
     ValueType value(value_from);
 
-    
     if (!obj->setFqdn(std::move(value))) return NULL;
+    ogs_free
+(p_fqdn);
 
     return obj_addr_fqdn;
 }

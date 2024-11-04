@@ -237,8 +237,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
 
     ValueType value(value_from);
 
-    
     if (!obj->setAppId(std::move(value))) return NULL;
+    ogs_free
+(p_app_id);
 
     return obj_performance_data_collection;
 }
@@ -302,8 +303,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setUeIpAddr(std::move(value))) return NULL;
+    data_collection_model_ip_addr_free
+(p_ue_ip_addr);
 
     return obj_performance_data_collection;
 }
@@ -367,8 +369,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setIpTrafficFilter(std::move(value))) return NULL;
+    data_collection_model_flow_info_free
+(p_ip_traffic_filter);
 
     return obj_performance_data_collection;
 }
@@ -432,8 +435,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setUeLoc(std::move(value))) return NULL;
+    data_collection_model_location_area5_g_free
+(p_ue_loc);
 
     return obj_performance_data_collection;
 }
@@ -526,8 +530,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
         }
     }
 
-    data_collection_list_free(p_app_locs);
     if (!obj->setAppLocs(std::move(value))) return NULL;
+    data_collection_list_free
+(p_app_locs);
 
     return obj_performance_data_collection;
 }
@@ -545,7 +550,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
 
     ValueType value(value_from);
 
-    ogs_free(p_app_locs);
+    ogs_free
+(p_app_locs);
     if (value) obj->addAppLocs(value.value());
     return obj_performance_data_collection;
 }
@@ -675,8 +681,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setAsAddr(std::move(value))) return NULL;
+    data_collection_model_addr_fqdn_free
+(p_as_addr);
 
     return obj_performance_data_collection;
 }
@@ -730,8 +737,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setPerfData(std::move(value))) return NULL;
+    data_collection_model_performance_data_free
+(p_perf_data);
 
     return obj_performance_data_collection;
 }
@@ -785,8 +793,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
 
     ValueType value(value_from);
 
-    
     if (!obj->setTimeStamp(std::move(value))) return NULL;
+    ogs_free
+(p_time_stamp);
 
     return obj_performance_data_collection;
 }

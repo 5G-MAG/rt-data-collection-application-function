@@ -43,14 +43,48 @@ const char *get_time(time_t time_epoch)
     return buf;
 }
 
-time_t str_to_rfc3339_time(const char *str_time)
+time_t str_to_rfc3339_time(const char *str_time, struct timespec *to_fill)
 {
-    static time_t time;
+    static struct timespec shared_ts;
+    struct timespec *ts = &shared_ts;
     struct tm tm = {0};
-    //strptime(str_time, "%FT%T%z", &tm);
-    strptime(str_time, "%Y-%m-%dT%H:%M:%S.%f%z", &tm);
-    time = mktime(&tm);
-    return time;
+    const char *rest;
+
+    if (to_fill) ts = to_fill;
+
+    if (str_time[0] == 'P') str_time++;
+    rest = strptime(str_time, "%Y-%m-%dT%H:%M:%S", &tm);
+
+    if (!rest) {
+        if (to_fill) to_fill->tv_sec = to_fill->tv_nsec = 0;
+        return 0;
+    }
+
+    ts->tv_nsec = 0;
+
+    if (rest[0] == '.') {
+        int i;
+        rest++;
+        /* take up to the first 9 digits of the fraction */
+        for (i=0; i<9 && rest[0] >= '0' && rest[0] <= '9'; i++,rest++) {
+            ts->tv_nsec = ts->tv_nsec * 10 + rest[0] - '0';
+        }
+        /* if we read 9 digits, but there's more, ignore them */
+        while (i==9 && rest[0] >= '0' && rest[0] <= '9') rest++;
+        /* pad to nanoseconds if we had less than 9 digits */
+        for (; i<9; i++) {
+            ts->tv_nsec = ts->tv_nsec * 10;
+        }
+    }
+    
+    if (rest[0] && rest[0] != 'Z') {
+        if (to_fill) to_fill->tv_sec = to_fill->tv_nsec = 0;
+        return 0;
+    }
+
+    ts->tv_sec = mktime(&tm);
+
+    return ts->tv_sec;
 }
 
 

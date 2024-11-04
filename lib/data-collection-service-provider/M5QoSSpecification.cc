@@ -223,8 +223,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specif
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setDownlinkBitRates(std::move(value))) return NULL;
+    data_collection_model_m5_bit_rate_specification_free
+(p_downlink_bit_rates);
 
     return obj_m5_qo_s_specification;
 }
@@ -278,8 +279,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specif
 
     ValueType value(*reinterpret_cast<const ValueType*>(value_from));
 
-    
     if (!obj->setUplinkBitRates(std::move(value))) return NULL;
+    data_collection_model_m5_bit_rate_specification_free
+(p_uplink_bit_rates);
 
     return obj_m5_qo_s_specification;
 }
@@ -343,7 +345,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specif
 
     ValueType value(value_from);
 
-    
     if (!obj->setDesiredPacketLatency(std::move(value))) return NULL;
 
     return obj_m5_qo_s_specification;
@@ -408,7 +409,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specif
 
     ValueType value(value_from);
 
-    
     if (!obj->setDesiredPacketLossRate(std::move(value))) return NULL;
 
     return obj_m5_qo_s_specification;
@@ -473,8 +473,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specif
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setDesiredDownlinkPduSetQosParameters(std::move(value))) return NULL;
+    data_collection_model_pdu_set_qos_para_free
+(p_desired_downlink_pdu_set_qos_parameters);
 
     return obj_m5_qo_s_specification;
 }
@@ -538,8 +539,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_m5_qo_s_specif
 
     ValueType value(*reinterpret_cast<const ValueType::value_type*>(value_from));
 
-    
     if (!obj->setDesiredUplinkPduSetQosParameters(std::move(value))) return NULL;
+    data_collection_model_pdu_set_qos_para_free
+(p_desired_uplink_pdu_set_qos_parameters);
 
     return obj_m5_qo_s_specification;
 }

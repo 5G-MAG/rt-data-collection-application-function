@@ -217,7 +217,6 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *d
 
     ValueType value(value_from);
 
-    
     if (!obj->setFlowId(std::move(value))) return NULL;
 
     return obj_flow_info;
@@ -311,8 +310,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *d
         }
     }
 
-    data_collection_list_free(p_flow_descriptions);
     if (!obj->setFlowDescriptions(std::move(value))) return NULL;
+    data_collection_list_free
+(p_flow_descriptions);
 
     return obj_flow_info;
 }
@@ -330,7 +330,8 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *d
 
     ValueType value(value_from);
 
-    ogs_free(p_flow_descriptions);
+    ogs_free
+(p_flow_descriptions);
     if (value) obj->addFlowDescriptions(value.value());
     return obj_flow_info;
 }
@@ -460,8 +461,9 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *d
 
     ValueType value(value_from);
 
-    
     if (!obj->setTosTC(std::move(value))) return NULL;
+    ogs_free
+(p_tos_tc);
 
     return obj_flow_info;
 }

@@ -7,12 +7,18 @@
  * https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
  */
 
+#include <inttypes.h>
+
+#include "context.h"
 #include "communication-record.h"
 #include "utilities.h"
 
 #ifndef max
     #define max(a,b) ((a) > (b) ? (a) : (b))
 #endif
+
+#define PRIiTIMESPEC PRIi64 ".%09" PRIu64
+#define PARiTIMESPEC(ts) (ts).tv_sec, (ts).tv_nsec
 
 /* Local functions */
 
@@ -37,8 +43,9 @@ static data_collection_data_report_record_t *generate_aggregate_communication_re
 static const char *communication_record_sample_start_time(const data_collection_model_communication_record_t *record);
 static const char *communication_record_sample_stop_time(const data_collection_model_communication_record_t *record);
 const char *get_communication_record_start_time(int64_t *input_uplink_array, int64_t *input_downlink_array, char **record_start_time, size_t number_of_records, int64_t aggregated_uplink_result, int64_t aggregated_downlink_result);
-static long int get_nsec_from_time_str(const char *time_str);
 static int timespec_compare(struct timespec *ts1, struct timespec *ts2);
+static void populate_times_from_communication_record(const data_collection_model_communication_record_t *comm_rec,
+                                                     struct timespec *start_time, struct timespec *end_time);
 static struct timespec *populate_start_time_spec_from_communication_record(const data_collection_model_communication_record_t *communication_record);
 static struct timespec *populate_stop_time_spec_from_communication_record(const data_collection_model_communication_record_t *communication_record);
 
@@ -121,8 +128,7 @@ static struct timespec *communication_record_timestamp(const void *report)
 
     timestamp = data_collection_model_communication_record_get_timestamp(communication_report);
 
-    ts.tv_sec = str_to_rfc3339_time(timestamp);
-    ts.tv_nsec = get_nsec_from_time_str(timestamp);
+    str_to_rfc3339_time(timestamp, &ts);
 
     return &ts;
 }
@@ -137,8 +143,7 @@ static struct timespec *communication_record_sample_start(const void *record)
                                                                 (const data_collection_model_communication_record_t *)record;
     time_window = data_collection_model_communication_record_get_time_interval(communication_record);
     start_time = data_collection_model_time_window_get_start_time(time_window);
-    ts.tv_sec = str_to_rfc3339_time(start_time);
-    ts.tv_nsec = get_nsec_from_time_str(start_time);
+    str_to_rfc3339_time(start_time, &ts);
 
     return &ts;
 
@@ -169,8 +174,7 @@ static struct timespec *communication_record_sample_stop(const void *record){
                                                                 (const data_collection_model_communication_record_t *)record;
     time_window = data_collection_model_communication_record_get_time_interval(communication_record);
     stop_time = data_collection_model_time_window_get_stop_time(time_window);
-    ts.tv_sec = str_to_rfc3339_time(stop_time);
-    ts.tv_nsec = get_nsec_from_time_str(stop_time);
+    str_to_rfc3339_time(stop_time, &ts);
     
     return &ts;
 }
@@ -332,85 +336,148 @@ static ogs_list_t *communication_records_apply_aggregation_function(const char *
 
 static void *communication_record_proportional_data(const void *record, const struct timespec *start, const struct timespec *end)
 {
- return NULL;	
+    /* if we have no record or no time window then we can't create a new proportioned record */
+    if (!record || !start || !end) {
+        ogs_warn("Attempt to proportion record without a record or without proper time window (record=%p, start=%p, end=%p)", record, start, end);
+        return NULL;
+    }
+
+    /* if the time window is not a positive duration then we can't create a new proportioned record */
+    if (start->tv_sec > end->tv_sec || (start->tv_sec == end->tv_sec && start->tv_nsec >= end->tv_nsec)) {
+        ogs_warn("Attempt to proportion record with backwards time window, %" PRIiTIMESPEC " to %" PRIiTIMESPEC, PARiTIMESPEC(*start), PARiTIMESPEC(*end));
+        return NULL;
+    }
+
+    /* return a CommunicationRecord that represents the proportion of _record_ that overlaps with [_start_ .. _end_) or NULL if
+     * no overlap */
+    const data_collection_model_communication_record_t *comm_rec = (const data_collection_model_communication_record_t*)record;
+
+    struct timespec rec_start;
+    struct timespec rec_end;
+    populate_times_from_communication_record(comm_rec, &rec_start, &rec_end);
+
+    /* if no overlap between [rec_start .. rec_end) and [start .. end) then return NULL */
+    if (rec_end.tv_sec < start->tv_sec || (rec_end.tv_sec == start->tv_sec && rec_end.tv_nsec <= start->tv_nsec) ||
+        rec_start.tv_sec > end->tv_sec || (rec_start.tv_sec == end->tv_sec && rec_start.tv_nsec >= end->tv_nsec)) {
+        ogs_debug("Record of [%" PRIiTIMESPEC "..%" PRIiTIMESPEC ") does not overlap [%" PRIiTIMESPEC "..%" PRIiTIMESPEC ")", PARiTIMESPEC(rec_start), PARiTIMESPEC(rec_end), PARiTIMESPEC(*start), PARiTIMESPEC(*end));
+        return NULL;
+    }
+
+    /* calculate overlap period */
+    struct timespec overlap_start;
+    if (rec_start.tv_sec < start->tv_sec || (rec_start.tv_sec == start->tv_sec && rec_start.tv_nsec < start->tv_nsec)) {
+        overlap_start = *start;
+    } else {
+        overlap_start = rec_start;
+    }
+
+    struct timespec overlap_end;
+    if (rec_end.tv_sec > end->tv_sec || (rec_end.tv_sec == end->tv_sec && rec_end.tv_nsec > end->tv_nsec)) {
+        overlap_end = *end;
+    } else {
+        overlap_end = rec_end;
+    }
+
+    ogs_debug("Record of [%" PRIiTIMESPEC "..%" PRIiTIMESPEC ") overlaps [%" PRIiTIMESPEC "..%" PRIiTIMESPEC ") at [%" PRIiTIMESPEC "..%" PRIiTIMESPEC ")", PARiTIMESPEC(rec_start), PARiTIMESPEC(rec_end), PARiTIMESPEC(*start), PARiTIMESPEC(*end), PARiTIMESPEC(overlap_start), PARiTIMESPEC(overlap_end));
+
+    /* base the return value on the original CommunicationRecord */
+    data_collection_model_communication_record_t *ret = data_collection_model_communication_record_create_copy(comm_rec);
+
+    /* if [overlap_start .. overlap_end) != [rec_start .. rec_end) then calculate the proportion of [rec_start .. rec_end)
+     * represented by [overlap_start .. overlap_end) and modify the return record accordingly. */
+    if (overlap_start.tv_sec != rec_start.tv_sec || overlap_start.tv_nsec != rec_start.tv_nsec ||
+        overlap_end.tv_sec != rec_end.tv_sec || overlap_end.tv_nsec != rec_end.tv_nsec) {
+        /* store the new time window */
+        data_collection_model_time_window_t *time_window = data_collection_model_time_window_create();
+        data_collection_model_time_window_set_start_time_move(time_window, ogs_time_to_string(get_time_from_timespec(&overlap_start), "%Y-%m-%dT%H:%M:%SZ"));
+        data_collection_model_time_window_set_stop_time_move(time_window, ogs_time_to_string(get_time_from_timespec(&overlap_end), "%Y-%m-%dT%H:%M:%SZ"));
+        data_collection_model_communication_record_set_time_interval_move(ret, time_window);
+
+        /* proportion the amount of downlink and uplink data */
+        ogs_debug("overlap period = %" PRIi64 " ns", ((overlap_end.tv_sec - overlap_start.tv_sec) * 1000000000 + overlap_end.tv_nsec - overlap_start.tv_nsec));
+        ogs_debug("record period = %" PRIi64 " ns", ((rec_end.tv_sec - rec_start.tv_sec) * 1000000000 + rec_end.tv_nsec - rec_start.tv_nsec));
+        double proportion = ((overlap_end.tv_sec - overlap_start.tv_sec) * 1000000000.0 + overlap_end.tv_nsec - overlap_start.tv_nsec)/((rec_end.tv_sec - rec_start.tv_sec) * 1000000000.0 + rec_end.tv_nsec - rec_start.tv_nsec);
+        ogs_debug("Proportion multiplier = %f", proportion); 
+        data_collection_model_communication_record_set_downlink_volume(ret, (int64_t)(data_collection_model_communication_record_get_downlink_volume(ret)*proportion));
+        data_collection_model_communication_record_set_uplink_volume(ret, (int64_t)(data_collection_model_communication_record_get_uplink_volume(ret)*proportion));
+    }
+
+    return ret; 
 }
 
+static void populate_times_from_communication_record(const data_collection_model_communication_record_t *comm_rec,
+                                                     struct timespec *start_time, struct timespec *end_time)
+{
+    if (!start_time && !end_time) return;
+    if (!comm_rec) {
+        if (start_time) {
+            start_time->tv_sec = 0;
+            start_time->tv_nsec = 0;
+        }
+        if (end_time) {
+            end_time->tv_sec = 0;
+            end_time->tv_nsec = 0;
+        }
+        return;
+    }
+
+    const data_collection_model_time_window_t* time_window = data_collection_model_communication_record_get_time_interval(comm_rec);
+
+    if (start_time) {
+        const char *time_str = data_collection_model_time_window_get_start_time(time_window);
+        str_to_rfc3339_time(time_str, start_time);
+    }
+
+    if (end_time) {
+        const char *time_str = data_collection_model_time_window_get_stop_time(time_window);
+        str_to_rfc3339_time(time_str, end_time);
+    }
+}
 
 static struct timespec *populate_start_time_spec_from_communication_record(const data_collection_model_communication_record_t *communication_record)
 {
-    const char *time_str;
     struct timespec *time = ogs_calloc(1, sizeof(*time));
-    const data_collection_model_time_window_t* time_window;
-    time_window = data_collection_model_communication_record_get_time_interval(communication_record);
-    time_str = data_collection_model_time_window_get_start_time(time_window);
-    time->tv_sec = str_to_rfc3339_time(time_str);
-    time->tv_nsec = get_nsec_from_time_str(time_str);
+    populate_times_from_communication_record(communication_record, time, NULL);
     return time;
-
-
 }
+
 static struct timespec *populate_stop_time_spec_from_communication_record(const data_collection_model_communication_record_t *communication_record)
 {
-    const char *time_str;
     struct timespec *time = ogs_calloc(1, sizeof(*time));
-    const data_collection_model_time_window_t* time_window;
-    time_window = data_collection_model_communication_record_get_time_interval(communication_record);
-    time_str = data_collection_model_time_window_get_stop_time(time_window);
-    time->tv_sec = str_to_rfc3339_time(time_str);
-    time->tv_nsec = get_nsec_from_time_str(time_str);
+    populate_times_from_communication_record(communication_record, NULL, time);
     return time;
-
-
 }
-
 
 static struct timespec *aggregate_time_interval_start_get(struct timespec *start_time, data_collection_model_communication_record_t *communication_record){
 
-     size_t rv = 0;
-    struct timespec *communication_record_start_time;
-    if(!start_time){
-        start_time = populate_start_time_spec_from_communication_record(communication_record);
-        return start_time;
-    } else {
-        communication_record_start_time = populate_start_time_spec_from_communication_record(communication_record);
+    if (!start_time) return populate_start_time_spec_from_communication_record(communication_record);
 
-        rv = timespec_compare(start_time, communication_record_start_time);
-        if(rv == 1) {
-            if(start_time) ogs_free(start_time);
-             start_time = communication_record_start_time;
-             return start_time;
-        } else {
-            if(rv == -1 || rv == 0) return start_time;
-        }
+    struct timespec communication_record_start_time;
+    populate_times_from_communication_record(communication_record, &communication_record_start_time, NULL);
 
+    /* if the record start time is earlier than _start_time_ then return the record start as the new start time */
+    if (timespec_compare(start_time, &communication_record_start_time) == 1) {
+        ogs_free(start_time); /* free the old start time we're replacing */
+        start_time = ogs_malloc(sizeof(*start_time));
+        *start_time = communication_record_start_time;
     }
-    if(start_time) ogs_free(start_time);
-    start_time = populate_start_time_spec_from_communication_record(communication_record);
+
     return start_time;
 }
 
 static struct timespec *aggregate_time_interval_stop_get(struct timespec *stop_time, data_collection_model_communication_record_t *communication_record){
-    size_t rv = 0;
-    struct timespec *communication_record_stop_time;
-    if(!stop_time){
-        stop_time = populate_stop_time_spec_from_communication_record(communication_record);
-        return stop_time;
-    } else {
+    if (!stop_time) return populate_stop_time_spec_from_communication_record(communication_record);
 
-        communication_record_stop_time = populate_stop_time_spec_from_communication_record(communication_record);
+    struct timespec communication_record_stop_time;
+    populate_times_from_communication_record(communication_record, NULL, &communication_record_stop_time);
 
-        rv = timespec_compare(stop_time, communication_record_stop_time);
-        if(rv == 1) {
-            return stop_time;
-        } else if(rv == -1 || rv == 0) {
-             if(stop_time) ogs_free(stop_time);
-             stop_time = communication_record_stop_time;
-             return stop_time;
-
-        }
+    /* if the record end time is later than _stop_time_ then return the record end as the new stop time */
+    if (timespec_compare(stop_time, &communication_record_stop_time) != 1) {
+        ogs_free(stop_time); /* free the old stop time we're replacing */
+        stop_time = ogs_malloc(sizeof(*stop_time));
+        *stop_time = communication_record_stop_time;
     }
-    if(stop_time) ogs_free(stop_time);
-    stop_time = populate_stop_time_spec_from_communication_record(communication_record);
+
     return stop_time;
 
 }
@@ -453,28 +520,6 @@ static int timespec_compare(struct timespec *ts1, struct timespec *ts2)
     } else {
        return -1;
     }
-}
-
-
-
-static long int get_nsec_from_time_str(const char *time_str) {
-
-    long int time_nsec = 0; 
-    char *ns;
-    char *time;
-    char ms[] = "000000000";
-    int i;
-
-    time = dcaf_strdup(time_str);
-    strtok_r(time, ".", &ns);
-    for (i=0; i<(sizeof(ms)-1) && ns[i]>='0' && ns[i]<='9'; i++) {
-        ms[i] = ns[i];
-    }
-
-    time_nsec = ascii_to_long(ms);
-    ogs_free(time);
-
-    return time_nsec;
 }
 
 /* vim:ts=8:sts=4:sw=4:expandtab:
