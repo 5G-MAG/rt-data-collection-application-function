@@ -170,14 +170,14 @@ create_time_bucketing_event_exposure_subscription() {
        cmp_field_int 'eventNotifs[0].ueCommInfos[1].comms[0].dlVol' 70; \
     then
       inc ok_count
-      bucketing_event_exposure_subsc_etag="$resp_etag"
-      bucketing_event_exposure_subsc_last_modified="$resp_last_modified"
-      bucketing_event_exposure_subsc_id="${resp_location##*/}"
     else
       inc fail_count
-      log_error "Expected one immediate event notification"
+      log_error "Expected two aggregated results in one immediate event notification"
       log_error "$response"
     fi
+    bucketing_event_exposure_subsc_etag="$resp_etag"
+    bucketing_event_exposure_subsc_last_modified="$resp_last_modified"
+    bucketing_event_exposure_subsc_id="${resp_location##*/}"
   else
     inc fail_count
     log_bad_response

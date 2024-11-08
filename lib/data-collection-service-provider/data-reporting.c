@@ -134,6 +134,7 @@ void _reporting_session_expire_old_sessions()
             data_collection_reporting_session_destroy(session);
         }
     }
+    ogs_free(idx_obj);
 }
 
 data_collection_reporting_session_t *data_reporting_session_populate(data_collection_reporting_session_t *data_collection_reporting_session, data_collection_model_data_reporting_session_t *data_reporting_session)

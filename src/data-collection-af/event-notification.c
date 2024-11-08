@@ -103,7 +103,7 @@ ogs_list_t *generate_af_event_notifications(ogs_list_t *data_buckets, data_colle
     //return that list;
 }
 
-communication_collection_record_t *generate_communication_collection_from_data_report(data_collection_data_report_record_t *data_report, void *report) {
+static communication_collection_record_t *generate_communication_collection_from_data_report(data_collection_data_report_record_t *data_report, void *report) {
 
     data_collection_model_communication_collection_t *communication_collection = NULL;
     long dl_vol = 0;
@@ -113,7 +113,7 @@ communication_collection_record_t *generate_communication_collection_from_data_r
     const char *application_id;
     communication_collection_record_t *communication_collection_record;
 
-    data_collection_model_communication_record_t *communication_record = (data_collection_model_communication_record_t *)report;
+    data_collection_model_communication_record_t *communication_record = *(data_collection_model_communication_record_t **)report;
 
     if (!communication_record) return NULL;
 

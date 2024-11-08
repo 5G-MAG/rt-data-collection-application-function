@@ -31,6 +31,7 @@ static cJSON *communication_record_json(const void *report);
 static struct timespec *communication_record_timestamp(const void *report);
 static char *communication_record_make_tag(const void *report);
 static char *communication_record_serialise(const void *report);
+static const char *communication_record_aggregation_name(const void *report);
 static ogs_list_t *communication_records_apply_aggregation_function(const char *function_name, const ogs_list_t *records);
 static void *communication_record_proportional_data(const void *record, const struct timespec *start, const struct timespec *end);
 static struct timespec *communication_record_sample_start(const void *record);
@@ -68,12 +69,18 @@ const data_collection_data_report_handler_t communication_record_data_report_typ
     .timestamp_for_report_data = communication_record_timestamp,
     .tag_for_report_data = communication_record_make_tag,
     .serialise_report_data = communication_record_serialise,
+    .aggregation_name = communication_record_aggregation_name,
     .context_ids = communication_record_context_ids_get,
     .apply_aggregation = communication_records_apply_aggregation_function,
     .proportion_record = communication_record_proportional_data,
     .sample_start = communication_record_sample_start,
     .sample_end = communication_record_sample_stop
 };
+
+typedef struct comm_record_and_aggregation_fname_s {
+    data_collection_model_communication_record_t *record;
+    char *aggregation_fn_name;
+} comm_record_and_aggregation_fname_t;
 
 /* Communication Report handling */
 static void *communication_record_parse(const data_collection_reporting_session_t *session, cJSON *json, char **error_return, char **error_class, char **error_param)
@@ -89,44 +96,60 @@ static void *communication_record_parse(const data_collection_reporting_session_
     if (error_class) *error_class = NULL;
     if (error_param) *error_param = NULL;
 
-    return data_collection_model_communication_record_fromJSON(json, true, error_return, error_class, error_param);
+    comm_record_and_aggregation_fname_t *record = ogs_calloc(1, sizeof(*record));
+
+    record->record = data_collection_model_communication_record_fromJSON(json, true, error_return, error_class, error_param);
+
+    return record;
 }
 
 static void *communication_record_clone(const void *to_copy)
 {
-   
-    //const data_collection_model_communication_record_t *existing_report = (const data_collection_model_communication_record_t*)to_copy;
-    const data_collection_model_communication_record_t *existing_report = data_collection_model_communication_record_create_copy((const data_collection_model_communication_record_t*)to_copy);
+    if (!to_copy) return NULL;
 
-    return (void*)existing_report;
-
+    const comm_record_and_aggregation_fname_t *rec_to_copy = (const comm_record_and_aggregation_fname_t*)to_copy;
+    comm_record_and_aggregation_fname_t *record = ogs_calloc(1, sizeof(*record));
+    record->record = data_collection_model_communication_record_create_copy(rec_to_copy->record);
+    record->aggregation_fn_name = data_collection_strdup(rec_to_copy->aggregation_fn_name);
+    
+    return record;
 }
 
 static void communication_record_free(void *report)
 {
-    if (report) data_collection_model_communication_record_free((data_collection_model_communication_record_t *)report);
-        //ogs_free(report);
+    if (!report) return;
+
+    comm_record_and_aggregation_fname_t *record = (comm_record_and_aggregation_fname_t*)report;
+
+    if (record->record) data_collection_model_communication_record_free(record->record);
+    if (record->aggregation_fn_name) ogs_free(record->aggregation_fn_name);
+
+    ogs_free(record);
 }
 
 static cJSON *communication_record_json(const void *report)
 {
+    if (!report) return NULL;
+
     cJSON *report_json = NULL;
-    data_collection_model_communication_record_t *communication_record = (data_collection_model_communication_record_t *)report;
+    const comm_record_and_aggregation_fname_t *record = (const comm_record_and_aggregation_fname_t*)report;
 
-    if(!communication_record) return NULL;
+    if(!record->record) return NULL;
 
-    report_json = data_collection_model_communication_record_toJSON(communication_record, false);
+    report_json = data_collection_model_communication_record_toJSON(record->record, false);
+
     return report_json;
-
 }
 
 static struct timespec *communication_record_timestamp(const void *report)
 {
+    if (!report) return NULL;
+
     static struct timespec ts;
     const char *timestamp;
-    data_collection_model_communication_record_t *communication_report = (data_collection_model_communication_record_t *)report;
-
-    timestamp = data_collection_model_communication_record_get_timestamp(communication_report);
+    const comm_record_and_aggregation_fname_t *record = (const comm_record_and_aggregation_fname_t*)report;
+    
+    timestamp = data_collection_model_communication_record_get_timestamp(record->record);
 
     str_to_rfc3339_time(timestamp, &ts);
 
@@ -135,13 +158,13 @@ static struct timespec *communication_record_timestamp(const void *report)
 
 static struct timespec *communication_record_sample_start(const void *record)
 {
+    if (!record) return NULL;
 
     static struct timespec ts;
     const char *start_time;
     const data_collection_model_time_window_t* time_window;
-    const data_collection_model_communication_record_t *communication_record =
-                                                                (const data_collection_model_communication_record_t *)record;
-    time_window = data_collection_model_communication_record_get_time_interval(communication_record);
+    const comm_record_and_aggregation_fname_t *comm_record = (const comm_record_and_aggregation_fname_t*)record;
+    time_window = data_collection_model_communication_record_get_time_interval(comm_record->record);
     start_time = data_collection_model_time_window_get_start_time(time_window);
     str_to_rfc3339_time(start_time, &ts);
 
@@ -151,6 +174,8 @@ static struct timespec *communication_record_sample_start(const void *record)
 
 static const char *communication_record_sample_start_time(const data_collection_model_communication_record_t *record)
 {
+    if (!record) return NULL;
+
     const char *start_time;
     const data_collection_model_time_window_t* time_window;
     time_window = data_collection_model_communication_record_get_time_interval(record);
@@ -170,9 +195,8 @@ static struct timespec *communication_record_sample_stop(const void *record){
     static struct timespec ts;
     const char *stop_time;
     const data_collection_model_time_window_t* time_window;
-    const data_collection_model_communication_record_t *communication_record =
-                                                                (const data_collection_model_communication_record_t *)record;
-    time_window = data_collection_model_communication_record_get_time_interval(communication_record);
+    const comm_record_and_aggregation_fname_t *comm_record = (const comm_record_and_aggregation_fname_t*)record;
+    time_window = data_collection_model_communication_record_get_time_interval(comm_record->record);
     stop_time = data_collection_model_time_window_get_stop_time(time_window);
     str_to_rfc3339_time(stop_time, &ts);
     
@@ -181,13 +205,14 @@ static struct timespec *communication_record_sample_stop(const void *record){
 
 static char *communication_record_make_tag(const void *report)
 {
+    if (!report) return NULL;
+
     cJSON *report_json;
     char *data_report_to_hash;
     char *data_report_hashed = NULL;
-    const data_collection_model_communication_record_t *communication_record =
-                                                                (const data_collection_model_communication_record_t*)report;
+    const comm_record_and_aggregation_fname_t *record = (const comm_record_and_aggregation_fname_t*)report;
 
-    report_json = data_collection_model_communication_record_toJSON(communication_record, false);
+    report_json = data_collection_model_communication_record_toJSON(record->record, false);
     if (!report_json) return NULL;
 
     data_report_to_hash = cJSON_Print(report_json);
@@ -201,12 +226,13 @@ static char *communication_record_make_tag(const void *report)
 
 static char *communication_record_serialise(const void *report)
 {
-    const data_collection_model_communication_record_t *existing_report =
-                                                                 (const data_collection_model_communication_record_t*)report;
+    if (!report) return NULL;
+
+    const comm_record_and_aggregation_fname_t *record = (const comm_record_and_aggregation_fname_t*)report;
     char *comm_rec_json_str;
     cJSON *json;
 
-    json = data_collection_model_communication_record_toJSON(existing_report, false);
+    json = data_collection_model_communication_record_toJSON(record->record, false);
     if (!json) return NULL;
 
     comm_rec_json_str = cJSON_Print(json);
@@ -215,11 +241,20 @@ static char *communication_record_serialise(const void *report)
     return comm_rec_json_str;
 }
 
+static const char *communication_record_aggregation_name(const void *report)
+{
+    if (!report) return NULL;
+    
+    const comm_record_and_aggregation_fname_t *record = (const comm_record_and_aggregation_fname_t*)report;
+    return record->aggregation_fn_name;
+}
+
 static ogs_list_t *communication_record_context_ids_get(const void *report)
 {
-    const data_collection_model_communication_record_t *communication_record =
-                                                                 (const data_collection_model_communication_record_t*)report;
-    return data_collection_model_communication_record_get_context_ids(communication_record);
+    if (!report) return NULL;
+
+    const comm_record_and_aggregation_fname_t *record = (const comm_record_and_aggregation_fname_t*)report;
+    return data_collection_model_communication_record_get_context_ids(record->record);
 }
 
 static ogs_list_t *communication_records_apply_aggregation_function(const char *function_name, const ogs_list_t *records)
@@ -250,8 +285,8 @@ static ogs_list_t *communication_records_apply_aggregation_function(const char *
 
     ogs_list_for_each(records, data_report_record) {
 	
-	data_collection_model_communication_record_t *communication_record = 
-		(data_collection_model_communication_record_t *)data_collection_data_report_record_get_data_sample(data_report_record);    
+        const comm_record_and_aggregation_fname_t *record = (const comm_record_and_aggregation_fname_t*)data_collection_data_report_record_get_data_sample(data_report_record);
+	data_collection_model_communication_record_t *communication_record = record->record;
 	aggregate_time_interval_start = aggregate_time_interval_start_get(aggregate_time_interval_start, communication_record);
 	aggregate_time_interval_stop = aggregate_time_interval_stop_get(aggregate_time_interval_stop, communication_record);
 	
@@ -308,7 +343,10 @@ static ogs_list_t *communication_records_apply_aggregation_function(const char *
     }
 
     if (new_sample) {
-        data_report_record_aggregated = data_collection_data_report_record_create_aggregated(new_sample, records);
+        comm_record_and_aggregation_fname_t *record = ogs_calloc(1, sizeof(*record));
+        record->record = new_sample;
+        record->aggregation_fn_name = data_collection_strdup(function_name);
+        data_report_record_aggregated = data_collection_data_report_record_create_aggregated(record, records);
         ogs_list_add(aggregation_results, data_report_record_aggregated);
     }
 
@@ -350,7 +388,8 @@ static void *communication_record_proportional_data(const void *record, const st
 
     /* return a CommunicationRecord that represents the proportion of _record_ that overlaps with [_start_ .. _end_) or NULL if
      * no overlap */
-    const data_collection_model_communication_record_t *comm_rec = (const data_collection_model_communication_record_t*)record;
+    const comm_record_and_aggregation_fname_t *sample_record = (const comm_record_and_aggregation_fname_t*)record;
+    const data_collection_model_communication_record_t *comm_rec = sample_record->record;
 
     struct timespec rec_start;
     struct timespec rec_end;
@@ -402,7 +441,11 @@ static void *communication_record_proportional_data(const void *record, const st
         data_collection_model_communication_record_set_uplink_volume(ret, (int64_t)(data_collection_model_communication_record_get_uplink_volume(ret)*proportion));
     }
 
-    return ret; 
+    comm_record_and_aggregation_fname_t *ret_record = ogs_calloc(1, sizeof(*ret_record));
+    ret_record->record = ret;
+    ret_record->aggregation_fn_name = data_collection_strdup("None");
+
+    return ret_record; 
 }
 
 static void populate_times_from_communication_record(const data_collection_model_communication_record_t *comm_rec,

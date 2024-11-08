@@ -205,6 +205,17 @@ typedef struct data_collection_data_report_handler_s {
      * @return A human readable representation of the sample data.
      */
     char *(* const serialise_report_data)(const void *report_data);
+    /** Get the name of the aggregation function applied to create this data sample.
+     * 
+     * This is used by the library and AF to determine the aggregation function that was used to generate this data sample.
+     *
+     * If this sample has not been created as part of an aggregation then this will return `NULL`.
+     *
+     * @param report_data The report sample to use.
+     *
+     * @return The name of the aggregation function used to create this sample or `NULL`.
+     */
+    const char *(* const aggregation_name)(const void *report_data);
     /** Get the list of contextIds that this data sample was sampled against
      *
      * The library uses this callback to discover which contextIds the data sample was reported against so that it can filter
