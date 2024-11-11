@@ -387,7 +387,8 @@ static ogs_list_t *__apply_aggregation(ogs_list_t *data_records) {
     ogs_hash_index_t *it;
     ogs_list_t *data_records_aggregated = NULL;
     ogs_list_t *aggregation_functions = NULL;
-    
+    ogs_list_t *context_ids;
+
     ogs_list_for_each(data_records, data_record) {
 	const char *external_application_id;    
 	const char *event_type = data_record->data_report_handler->event_type;
@@ -399,7 +400,13 @@ static ogs_list_t *__apply_aggregation(ogs_list_t *data_records) {
         ogs_assert(aggregation_functions);
         ogs_list_init(aggregation_functions);
 
-        data_collection_provisioning_configurations_aggregations_functions_get(external_application_id, event_type, data_record->context_ids, aggregation_functions);
+	 if(data_record->original_records && data_record->original_records[0] && data_record->original_records[0]->context_ids) {
+            context_ids = data_record->original_records[0]->context_ids;
+        } else {
+            context_ids = data_record->context_ids;
+        }
+
+        data_collection_provisioning_configurations_aggregations_functions_get(external_application_id, event_type, /*data_record->*/context_ids, aggregation_functions);
         if(!ogs_list_first(aggregation_functions)) {
             data_collection_list_free(aggregation_functions);
             data_collection_hash_free(handlers, (void(*)(void*))__data_report_handler_aggregation_functions_remove);
@@ -425,17 +432,21 @@ static ogs_list_t *__apply_aggregation(ogs_list_t *data_records) {
 	        char *function_name = node->object;
 		ogs_list_t *temp_data_records_aggregated = data_report_handler_aggregation->handler->apply_aggregation(function_name, data_records);
 	        if(temp_data_records_aggregated) {
-                    if( ogs_list_last(temp_data_records_aggregated)) {
-                        if(ogs_list_last(data_records_aggregated)) {
-                            data_records_aggregated->prev->next = temp_data_records_aggregated->next;
-                            temp_data_records_aggregated->next->prev = data_records_aggregated->prev;
-                        } else {
-                            data_records_aggregated->next = temp_data_records_aggregated->next;
+	            if(data_records_aggregated) {		
+                        if( ogs_list_last(temp_data_records_aggregated)) {
+                            if(ogs_list_last(data_records_aggregated)) {
+                                data_records_aggregated->prev->next = temp_data_records_aggregated->next;
+                                temp_data_records_aggregated->next->prev = data_records_aggregated->prev;
+                            } else {
+                                data_records_aggregated->next = temp_data_records_aggregated->next;
+                            }
+                            data_records_aggregated->prev = temp_data_records_aggregated->prev;
                         }
-                        data_records_aggregated->prev = temp_data_records_aggregated->prev;
-                    }
-                    ogs_free(temp_data_records_aggregated);
-                }
+                        ogs_free(temp_data_records_aggregated);
+                    } else {
+		        data_records_aggregated = temp_data_records_aggregated;	    
+		    }
+		}
 
 	    }
 	}
@@ -446,18 +457,6 @@ static ogs_list_t *__apply_aggregation(ogs_list_t *data_records) {
 
 	return data_records_aggregated;
     }
-   /* 
-    if(ogs_list_count(aggregation_functions)) {
-       data_collection_lnode_t *node;	    
-       ogs_list_for_each(aggregation_functions, node) {
-           char *function_name = node->object;
-	   handler->apply_aggregation(function_name, data_records);
-
-
-       }	       
-    }
-    */
-
 }
 
 static void __data_report_handler_aggregation_functions_remove(data_report_handler_aggregation_functions_t *data_report_handler_aggregation_functions)
