@@ -1245,6 +1245,45 @@ DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_ml_model_inter_ind_
  */ 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_clear_requester_inter_ind_list(data_collection_model_access_token_req_t *access_token_req);
 
+/** Check if the sourceVendorId field of a AccessTokenReq object is set
+ * \public \memberof data_collection_model_access_token_req_t
+ *
+ * @param access_token_req The AccessTokenReq object to examine.
+ *
+ * @return `true` if the optional sourceVendorId field is set.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_access_token_req_has_source_vendor_id(const data_collection_model_access_token_req_t *access_token_req);
+
+
+/** Get the value of the sourceVendorId field of a AccessTokenReq object
+ * \public \memberof data_collection_model_access_token_req_t
+ *
+ * @param access_token_req The AccessTokenReq object to examine.
+ *
+ * @return the value current set for the sourceVendorId field.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_access_token_req_get_source_vendor_id(const data_collection_model_access_token_req_t *access_token_req);
+
+/** Set the value of the sourceVendorId field in a AccessTokenReq object
+ * \public \memberof data_collection_model_access_token_req_t
+ *
+ * @param access_token_req The AccessTokenReq object to set the field in.
+ * @param p_source_vendor_id The value to copy into the AccessTokenReq object.
+ *
+ * @return @a access_token_req.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_source_vendor_id(data_collection_model_access_token_req_t *access_token_req, const char* p_source_vendor_id);
+
+/** Move a value to the sourceVendorId field in a AccessTokenReq object
+ * \public \memberof data_collection_model_access_token_req_t
+ *
+ * @param access_token_req The AccessTokenReq object to set the field in.
+ * @param p_source_vendor_id The value to move into the AccessTokenReq object.
+ *
+ * @return @a access_token_req.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_source_vendor_id_move(data_collection_model_access_token_req_t *access_token_req, char* p_source_vendor_id);
+
 /** lnode helper for generating ogs_list_t nodes's of type AccessTokenReq
  * \public \memberof data_collection_model_access_token_req_t
  *

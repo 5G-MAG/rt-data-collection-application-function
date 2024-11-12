@@ -17,9 +17,9 @@
 #error "This file can only be included from data-collection.h"
 #endif
 
-#include "M5QoSSpecification.h"
 #include "ApplicationFlowDescription.h"
 #include "MediaType.h"
+#include "ClientQosSpecification.h"
 
 /** \addtogroup dcsp_model
  * @{
@@ -353,7 +353,7 @@ DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_dynamic_policy_has_q
  *
  * @return the value current set for the qosSpecification field.
  */
-DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_m5_qo_s_specification_t* data_collection_model_dynamic_policy_get_qos_specification(const data_collection_model_dynamic_policy_t *dynamic_policy);
+DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_client_qos_specification_t* data_collection_model_dynamic_policy_get_qos_specification(const data_collection_model_dynamic_policy_t *dynamic_policy);
 
 /** Set the value of the qosSpecification field in a DynamicPolicy object
  * \public \memberof data_collection_model_dynamic_policy_t
@@ -363,7 +363,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_m5_qo_s_specificati
  *
  * @return @a dynamic_policy.
  */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_qos_specification(data_collection_model_dynamic_policy_t *dynamic_policy, const data_collection_model_m5_qo_s_specification_t* p_qos_specification);
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_qos_specification(data_collection_model_dynamic_policy_t *dynamic_policy, const data_collection_model_client_qos_specification_t* p_qos_specification);
 
 /** Move a value to the qosSpecification field in a DynamicPolicy object
  * \public \memberof data_collection_model_dynamic_policy_t
@@ -373,7 +373,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_co
  *
  * @return @a dynamic_policy.
  */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_qos_specification_move(data_collection_model_dynamic_policy_t *dynamic_policy, data_collection_model_m5_qo_s_specification_t* p_qos_specification);
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_set_qos_specification_move(data_collection_model_dynamic_policy_t *dynamic_policy, data_collection_model_client_qos_specification_t* p_qos_specification);
 
 /** Check if the enforcementMethod field of a DynamicPolicy object is set
  * \public \memberof data_collection_model_dynamic_policy_t

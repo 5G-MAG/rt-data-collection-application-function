@@ -1,8 +1,8 @@
-#ifndef _M5_QO_S_SPECIFICATION_INTERNAL_H_
-#define _M5_QO_S_SPECIFICATION_INTERNAL_H_
+#ifndef _UNIDIRECTIONAL_BIT_RATE_SPECIFICATION_INTERNAL_H_
+#define _UNIDIRECTIONAL_BIT_RATE_SPECIFICATION_INTERNAL_H_
 
 /**********************************************************************************************************************************
- * M5QoSSpecification - C internal library interface to the M5QoSSpecification object
+ * UnidirectionalBitRateSpecification - C internal library interface to the UnidirectionalBitRateSpecification object
  **********************************************************************************************************************************
  * License: 5G-MAG Public License (v1.0)
  * Authors: David Waring <david.waring2@bbc.co.uk>
@@ -13,8 +13,6 @@
  * https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
  **********************************************************************************************************************************/
 
-// #include "M5BitRateSpecification.h"
-// #include "PduSetQosPara.h"
 
 #include "data-collection-sp/data-collection.h"
 
@@ -24,7 +22,7 @@ extern "C" {
 
 /***** Internal library protected functions *****/
 
-extern long _model_m5_qo_s_specification_refcount(data_collection_model_m5_qo_s_specification_t *M5QoSSpecification);
+extern long _model_unidirectional_bit_rate_specification_refcount(data_collection_model_unidirectional_bit_rate_specification_t *UnidirectionalBitRateSpecification);
 
 #ifdef __cplusplus
 }
@@ -33,5 +31,5 @@ extern long _model_m5_qo_s_specification_refcount(data_collection_model_m5_qo_s_
 /* vim:ts=8:sts=4:sw=4:expandtab:
  */
 
-#endif /* ifndef _M5_QO_S_SPECIFICATION_INTERNAL_H_ */
+#endif /* ifndef _UNIDIRECTIONAL_BIT_RATE_SPECIFICATION_INTERNAL_H_ */
 

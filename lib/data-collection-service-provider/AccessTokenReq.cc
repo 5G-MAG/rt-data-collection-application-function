@@ -46,9 +46,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 
 
 
+
 )
 {
     return reinterpret_cast<data_collection_model_access_token_req_t*>(new std::shared_ptr<AccessTokenReq>(new AccessTokenReq(
+
 
 
 
@@ -2441,6 +2443,72 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
     if (!obj) return NULL;
 
     obj->clearRequesterInterIndList();
+    return obj_access_token_req;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_access_token_req_has_source_vendor_id(const data_collection_model_access_token_req_t *obj_access_token_req)
+{
+    if (!obj_access_token_req) return false;
+
+    const std::shared_ptr<AccessTokenReq > &obj = *reinterpret_cast<const std::shared_ptr<AccessTokenReq >*>(obj_access_token_req);
+    if (!obj) return false;
+
+    return obj->getSourceVendorId().has_value();
+}
+
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_access_token_req_get_source_vendor_id(const data_collection_model_access_token_req_t *obj_access_token_req)
+{
+    if (!obj_access_token_req) {
+        const char *result = NULL;
+        return result;
+    }
+
+    const std::shared_ptr<AccessTokenReq > &obj = *reinterpret_cast<const std::shared_ptr<AccessTokenReq >*>(obj_access_token_req);
+    if (!obj) {
+        const char *result = NULL;
+        return result;
+    }
+
+    typedef typename AccessTokenReq::SourceVendorIdType ResultFromType;
+    const ResultFromType &result_from = obj->getSourceVendorId();
+    const char *result = result_from.has_value()?result_from.value().c_str():nullptr;
+    return result;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_source_vendor_id(data_collection_model_access_token_req_t *obj_access_token_req, const char* p_source_vendor_id)
+{
+    if (!obj_access_token_req) return NULL;
+
+    std::shared_ptr<AccessTokenReq > &obj = *reinterpret_cast<std::shared_ptr<AccessTokenReq >*>(obj_access_token_req);
+    if (!obj) return NULL;
+
+    const auto &value_from = p_source_vendor_id;
+    typedef typename AccessTokenReq::SourceVendorIdType ValueType;
+
+    ValueType value(value_from);
+
+    if (!obj->setSourceVendorId(value)) return NULL;
+
+    return obj_access_token_req;
+}
+
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_set_source_vendor_id_move(data_collection_model_access_token_req_t *obj_access_token_req, char* p_source_vendor_id)
+{
+    if (!obj_access_token_req) return NULL;
+
+    std::shared_ptr<AccessTokenReq > &obj = *reinterpret_cast<std::shared_ptr<AccessTokenReq >*>(obj_access_token_req);
+    if (!obj) return NULL;
+
+    const auto &value_from = p_source_vendor_id;
+    typedef typename AccessTokenReq::SourceVendorIdType ValueType;
+
+    ValueType value(value_from);
+
+    if (!obj->setSourceVendorId(std::move(value))) return NULL;
+    ogs_free
+(p_source_vendor_id);
+
     return obj_access_token_req;
 }
 

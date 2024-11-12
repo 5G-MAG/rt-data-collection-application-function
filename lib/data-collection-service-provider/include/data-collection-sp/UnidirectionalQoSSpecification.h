@@ -17,6 +17,7 @@
 #error "This file can only be included from data-collection.h"
 #endif
 
+#include "PduSetQosPara.h"
 
 /** \addtogroup dcsp_model
  * @{
@@ -135,182 +136,161 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional_qo_s_speci
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_unidirectional_qo_s_specification_is_equal_to(const data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification, const data_collection_model_unidirectional_qo_s_specification_t *other_unidirectional_qo_s_specification);
 
 
-
-/** Get the value of the maximumRequestedBitRate field of a UnidirectionalQoSSpecification object
+/** Check if the maximumBitRate field of a UnidirectionalQoSSpecification object is set
  * \public \memberof data_collection_model_unidirectional_qo_s_specification_t
  *
  * @param unidirectional_qo_s_specification The UnidirectionalQoSSpecification object to examine.
  *
- * @return the value current set for the maximumRequestedBitRate field.
+ * @return `true` if the optional maximumBitRate field is set.
  */
-DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_unidirectional_qo_s_specification_get_maximum_requested_bit_rate(const data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification);
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_unidirectional_qo_s_specification_has_maximum_bit_rate(const data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification);
 
-/** Set the value of the maximumRequestedBitRate field in a UnidirectionalQoSSpecification object
- * \public \memberof data_collection_model_unidirectional_qo_s_specification_t
- *
- * @param unidirectional_qo_s_specification The UnidirectionalQoSSpecification object to set the field in.
- * @param p_maximum_requested_bit_rate The value to copy into the UnidirectionalQoSSpecification object.
- *
- * @return @a unidirectional_qo_s_specification.
- */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional_qo_s_specification_t *data_collection_model_unidirectional_qo_s_specification_set_maximum_requested_bit_rate(data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification, const char* p_maximum_requested_bit_rate);
 
-/** Move a value to the maximumRequestedBitRate field in a UnidirectionalQoSSpecification object
- * \public \memberof data_collection_model_unidirectional_qo_s_specification_t
- *
- * @param unidirectional_qo_s_specification The UnidirectionalQoSSpecification object to set the field in.
- * @param p_maximum_requested_bit_rate The value to move into the UnidirectionalQoSSpecification object.
- *
- * @return @a unidirectional_qo_s_specification.
- */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional_qo_s_specification_t *data_collection_model_unidirectional_qo_s_specification_set_maximum_requested_bit_rate_move(data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification, char* p_maximum_requested_bit_rate);
-
-/** Check if the minimumDesiredBitRate field of a UnidirectionalQoSSpecification object is set
+/** Get the value of the maximumBitRate field of a UnidirectionalQoSSpecification object
  * \public \memberof data_collection_model_unidirectional_qo_s_specification_t
  *
  * @param unidirectional_qo_s_specification The UnidirectionalQoSSpecification object to examine.
  *
- * @return `true` if the optional minimumDesiredBitRate field is set.
+ * @return the value current set for the maximumBitRate field.
  */
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_unidirectional_qo_s_specification_has_minimum_desired_bit_rate(const data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification);
+DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_unidirectional_qo_s_specification_get_maximum_bit_rate(const data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification);
 
+/** Set the value of the maximumBitRate field in a UnidirectionalQoSSpecification object
+ * \public \memberof data_collection_model_unidirectional_qo_s_specification_t
+ *
+ * @param unidirectional_qo_s_specification The UnidirectionalQoSSpecification object to set the field in.
+ * @param p_maximum_bit_rate The value to copy into the UnidirectionalQoSSpecification object.
+ *
+ * @return @a unidirectional_qo_s_specification.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional_qo_s_specification_t *data_collection_model_unidirectional_qo_s_specification_set_maximum_bit_rate(data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification, const char* p_maximum_bit_rate);
 
-/** Get the value of the minimumDesiredBitRate field of a UnidirectionalQoSSpecification object
+/** Move a value to the maximumBitRate field in a UnidirectionalQoSSpecification object
+ * \public \memberof data_collection_model_unidirectional_qo_s_specification_t
+ *
+ * @param unidirectional_qo_s_specification The UnidirectionalQoSSpecification object to set the field in.
+ * @param p_maximum_bit_rate The value to move into the UnidirectionalQoSSpecification object.
+ *
+ * @return @a unidirectional_qo_s_specification.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional_qo_s_specification_t *data_collection_model_unidirectional_qo_s_specification_set_maximum_bit_rate_move(data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification, char* p_maximum_bit_rate);
+
+/** Check if the maximumAuthorisedBitRate field of a UnidirectionalQoSSpecification object is set
  * \public \memberof data_collection_model_unidirectional_qo_s_specification_t
  *
  * @param unidirectional_qo_s_specification The UnidirectionalQoSSpecification object to examine.
  *
- * @return the value current set for the minimumDesiredBitRate field.
+ * @return `true` if the optional maximumAuthorisedBitRate field is set.
  */
-DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_unidirectional_qo_s_specification_get_minimum_desired_bit_rate(const data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification);
-
-/** Set the value of the minimumDesiredBitRate field in a UnidirectionalQoSSpecification object
- * \public \memberof data_collection_model_unidirectional_qo_s_specification_t
- *
- * @param unidirectional_qo_s_specification The UnidirectionalQoSSpecification object to set the field in.
- * @param p_minimum_desired_bit_rate The value to copy into the UnidirectionalQoSSpecification object.
- *
- * @return @a unidirectional_qo_s_specification.
- */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional_qo_s_specification_t *data_collection_model_unidirectional_qo_s_specification_set_minimum_desired_bit_rate(data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification, const char* p_minimum_desired_bit_rate);
-
-/** Move a value to the minimumDesiredBitRate field in a UnidirectionalQoSSpecification object
- * \public \memberof data_collection_model_unidirectional_qo_s_specification_t
- *
- * @param unidirectional_qo_s_specification The UnidirectionalQoSSpecification object to set the field in.
- * @param p_minimum_desired_bit_rate The value to move into the UnidirectionalQoSSpecification object.
- *
- * @return @a unidirectional_qo_s_specification.
- */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional_qo_s_specification_t *data_collection_model_unidirectional_qo_s_specification_set_minimum_desired_bit_rate_move(data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification, char* p_minimum_desired_bit_rate);
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_unidirectional_qo_s_specification_has_maximum_authorised_bit_rate(const data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification);
 
 
-/** Get the value of the minimumRequestedBitRate field of a UnidirectionalQoSSpecification object
+/** Get the value of the maximumAuthorisedBitRate field of a UnidirectionalQoSSpecification object
  * \public \memberof data_collection_model_unidirectional_qo_s_specification_t
  *
  * @param unidirectional_qo_s_specification The UnidirectionalQoSSpecification object to examine.
  *
- * @return the value current set for the minimumRequestedBitRate field.
+ * @return the value current set for the maximumAuthorisedBitRate field.
  */
-DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_unidirectional_qo_s_specification_get_minimum_requested_bit_rate(const data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification);
+DATA_COLLECTION_SVC_PRODUCER_API const char* data_collection_model_unidirectional_qo_s_specification_get_maximum_authorised_bit_rate(const data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification);
 
-/** Set the value of the minimumRequestedBitRate field in a UnidirectionalQoSSpecification object
+/** Set the value of the maximumAuthorisedBitRate field in a UnidirectionalQoSSpecification object
  * \public \memberof data_collection_model_unidirectional_qo_s_specification_t
  *
  * @param unidirectional_qo_s_specification The UnidirectionalQoSSpecification object to set the field in.
- * @param p_minimum_requested_bit_rate The value to copy into the UnidirectionalQoSSpecification object.
+ * @param p_maximum_authorised_bit_rate The value to copy into the UnidirectionalQoSSpecification object.
  *
  * @return @a unidirectional_qo_s_specification.
  */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional_qo_s_specification_t *data_collection_model_unidirectional_qo_s_specification_set_minimum_requested_bit_rate(data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification, const char* p_minimum_requested_bit_rate);
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional_qo_s_specification_t *data_collection_model_unidirectional_qo_s_specification_set_maximum_authorised_bit_rate(data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification, const char* p_maximum_authorised_bit_rate);
 
-/** Move a value to the minimumRequestedBitRate field in a UnidirectionalQoSSpecification object
+/** Move a value to the maximumAuthorisedBitRate field in a UnidirectionalQoSSpecification object
  * \public \memberof data_collection_model_unidirectional_qo_s_specification_t
  *
  * @param unidirectional_qo_s_specification The UnidirectionalQoSSpecification object to set the field in.
- * @param p_minimum_requested_bit_rate The value to move into the UnidirectionalQoSSpecification object.
+ * @param p_maximum_authorised_bit_rate The value to move into the UnidirectionalQoSSpecification object.
  *
  * @return @a unidirectional_qo_s_specification.
  */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional_qo_s_specification_t *data_collection_model_unidirectional_qo_s_specification_set_minimum_requested_bit_rate_move(data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification, char* p_minimum_requested_bit_rate);
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional_qo_s_specification_t *data_collection_model_unidirectional_qo_s_specification_set_maximum_authorised_bit_rate_move(data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification, char* p_maximum_authorised_bit_rate);
 
-/** Check if the desiredPacketLatency field of a UnidirectionalQoSSpecification object is set
+/** Check if the minimumPacketLossRate field of a UnidirectionalQoSSpecification object is set
  * \public \memberof data_collection_model_unidirectional_qo_s_specification_t
  *
  * @param unidirectional_qo_s_specification The UnidirectionalQoSSpecification object to examine.
  *
- * @return `true` if the optional desiredPacketLatency field is set.
+ * @return `true` if the optional minimumPacketLossRate field is set.
  */
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_unidirectional_qo_s_specification_has_desired_packet_latency(const data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification);
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_unidirectional_qo_s_specification_has_minimum_packet_loss_rate(const data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification);
 
 
-/** Get the value of the desiredPacketLatency field of a UnidirectionalQoSSpecification object
+/** Get the value of the minimumPacketLossRate field of a UnidirectionalQoSSpecification object
  * \public \memberof data_collection_model_unidirectional_qo_s_specification_t
  *
  * @param unidirectional_qo_s_specification The UnidirectionalQoSSpecification object to examine.
  *
- * @return the value current set for the desiredPacketLatency field.
+ * @return the value current set for the minimumPacketLossRate field.
  */
-DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_unidirectional_qo_s_specification_get_desired_packet_latency(const data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification);
+DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_unidirectional_qo_s_specification_get_minimum_packet_loss_rate(const data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification);
 
-/** Set the value of the desiredPacketLatency field in a UnidirectionalQoSSpecification object
+/** Set the value of the minimumPacketLossRate field in a UnidirectionalQoSSpecification object
  * \public \memberof data_collection_model_unidirectional_qo_s_specification_t
  *
  * @param unidirectional_qo_s_specification The UnidirectionalQoSSpecification object to set the field in.
- * @param p_desired_packet_latency The value to copy into the UnidirectionalQoSSpecification object.
+ * @param p_minimum_packet_loss_rate The value to copy into the UnidirectionalQoSSpecification object.
  *
  * @return @a unidirectional_qo_s_specification.
  */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional_qo_s_specification_t *data_collection_model_unidirectional_qo_s_specification_set_desired_packet_latency(data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification, const int32_t p_desired_packet_latency);
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional_qo_s_specification_t *data_collection_model_unidirectional_qo_s_specification_set_minimum_packet_loss_rate(data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification, const int32_t p_minimum_packet_loss_rate);
 
-/** Move a value to the desiredPacketLatency field in a UnidirectionalQoSSpecification object
+/** Move a value to the minimumPacketLossRate field in a UnidirectionalQoSSpecification object
  * \public \memberof data_collection_model_unidirectional_qo_s_specification_t
  *
  * @param unidirectional_qo_s_specification The UnidirectionalQoSSpecification object to set the field in.
- * @param p_desired_packet_latency The value to move into the UnidirectionalQoSSpecification object.
+ * @param p_minimum_packet_loss_rate The value to move into the UnidirectionalQoSSpecification object.
  *
  * @return @a unidirectional_qo_s_specification.
  */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional_qo_s_specification_t *data_collection_model_unidirectional_qo_s_specification_set_desired_packet_latency_move(data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification, int32_t p_desired_packet_latency);
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional_qo_s_specification_t *data_collection_model_unidirectional_qo_s_specification_set_minimum_packet_loss_rate_move(data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification, int32_t p_minimum_packet_loss_rate);
 
-/** Check if the desiredPacketLossRate field of a UnidirectionalQoSSpecification object is set
+/** Check if the pduSetQosLimits field of a UnidirectionalQoSSpecification object is set
  * \public \memberof data_collection_model_unidirectional_qo_s_specification_t
  *
  * @param unidirectional_qo_s_specification The UnidirectionalQoSSpecification object to examine.
  *
- * @return `true` if the optional desiredPacketLossRate field is set.
+ * @return `true` if the optional pduSetQosLimits field is set.
  */
-DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_unidirectional_qo_s_specification_has_desired_packet_loss_rate(const data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification);
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_model_unidirectional_qo_s_specification_has_pdu_set_qos_limits(const data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification);
 
 
-/** Get the value of the desiredPacketLossRate field of a UnidirectionalQoSSpecification object
+/** Get the value of the pduSetQosLimits field of a UnidirectionalQoSSpecification object
  * \public \memberof data_collection_model_unidirectional_qo_s_specification_t
  *
  * @param unidirectional_qo_s_specification The UnidirectionalQoSSpecification object to examine.
  *
- * @return the value current set for the desiredPacketLossRate field.
+ * @return the value current set for the pduSetQosLimits field.
  */
-DATA_COLLECTION_SVC_PRODUCER_API const int32_t data_collection_model_unidirectional_qo_s_specification_get_desired_packet_loss_rate(const data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification);
+DATA_COLLECTION_SVC_PRODUCER_API const data_collection_model_pdu_set_qos_para_t* data_collection_model_unidirectional_qo_s_specification_get_pdu_set_qos_limits(const data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification);
 
-/** Set the value of the desiredPacketLossRate field in a UnidirectionalQoSSpecification object
+/** Set the value of the pduSetQosLimits field in a UnidirectionalQoSSpecification object
  * \public \memberof data_collection_model_unidirectional_qo_s_specification_t
  *
  * @param unidirectional_qo_s_specification The UnidirectionalQoSSpecification object to set the field in.
- * @param p_desired_packet_loss_rate The value to copy into the UnidirectionalQoSSpecification object.
+ * @param p_pdu_set_qos_limits The value to copy into the UnidirectionalQoSSpecification object.
  *
  * @return @a unidirectional_qo_s_specification.
  */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional_qo_s_specification_t *data_collection_model_unidirectional_qo_s_specification_set_desired_packet_loss_rate(data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification, const int32_t p_desired_packet_loss_rate);
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional_qo_s_specification_t *data_collection_model_unidirectional_qo_s_specification_set_pdu_set_qos_limits(data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification, const data_collection_model_pdu_set_qos_para_t* p_pdu_set_qos_limits);
 
-/** Move a value to the desiredPacketLossRate field in a UnidirectionalQoSSpecification object
+/** Move a value to the pduSetQosLimits field in a UnidirectionalQoSSpecification object
  * \public \memberof data_collection_model_unidirectional_qo_s_specification_t
  *
  * @param unidirectional_qo_s_specification The UnidirectionalQoSSpecification object to set the field in.
- * @param p_desired_packet_loss_rate The value to move into the UnidirectionalQoSSpecification object.
+ * @param p_pdu_set_qos_limits The value to move into the UnidirectionalQoSSpecification object.
  *
  * @return @a unidirectional_qo_s_specification.
  */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional_qo_s_specification_t *data_collection_model_unidirectional_qo_s_specification_set_desired_packet_loss_rate_move(data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification, int32_t p_desired_packet_loss_rate);
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional_qo_s_specification_t *data_collection_model_unidirectional_qo_s_specification_set_pdu_set_qos_limits_move(data_collection_model_unidirectional_qo_s_specification_t *unidirectional_qo_s_specification, data_collection_model_pdu_set_qos_para_t* p_pdu_set_qos_limits);
 
 /** lnode helper for generating ogs_list_t nodes's of type UnidirectionalQoSSpecification
  * \public \memberof data_collection_model_unidirectional_qo_s_specification_t

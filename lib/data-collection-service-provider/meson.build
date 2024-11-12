@@ -130,6 +130,8 @@ CellIdentifierType.cc
 CellIdentifierType-internal.h
 CivicAddress.cc
 CivicAddress-internal.h
+ClientQosSpecification.cc
+ClientQosSpecification-internal.h
 CollectiveBehaviourFilter.cc
 CollectiveBehaviourFilter-internal.h
 CollectiveBehaviourFilterType_anyOf.cc
@@ -352,10 +354,6 @@ LosNlosMeasureInd_anyOf.cc
 LosNlosMeasureInd_anyOf-internal.h
 LosNlosMeasureInd.cc
 LosNlosMeasureInd-internal.h
-M5BitRateSpecification.cc
-M5BitRateSpecification-internal.h
-M5QoSSpecification.cc
-M5QoSSpecification-internal.h
 MediaStreamingAccess.cc
 MediaStreamingAccess_connectionMetrics.cc
 MediaStreamingAccess_connectionMetrics-internal.h
@@ -624,6 +622,8 @@ UncertaintyEllipse.cc
 UncertaintyEllipse-internal.h
 UncertaintyEllipsoid.cc
 UncertaintyEllipsoid-internal.h
+UnidirectionalBitRateSpecification.cc
+UnidirectionalBitRateSpecification-internal.h
 UnidirectionalQoSSpecification.cc
 UnidirectionalQoSSpecification-internal.h
 Usage_anyOf.cc

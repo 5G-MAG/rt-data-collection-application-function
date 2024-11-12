@@ -52,6 +52,7 @@ libspdc_inst_includes = files('''
     data-collection-sp/CellIdentifierType_anyOf.h
     data-collection-sp/CellIdentifierType.h
     data-collection-sp/CivicAddress.h
+    data-collection-sp/ClientQosSpecification.h
     data-collection-sp/CollectiveBehaviourFilter.h
     data-collection-sp/CollectiveBehaviourFilterType_anyOf.h
     data-collection-sp/CollectiveBehaviourFilterType.h
@@ -163,8 +164,6 @@ libspdc_inst_includes = files('''
     data-collection-sp/LocationRecord.h
     data-collection-sp/LosNlosMeasureInd_anyOf.h
     data-collection-sp/LosNlosMeasureInd.h
-    data-collection-sp/M5BitRateSpecification.h
-    data-collection-sp/M5QoSSpecification.h
     data-collection-sp/MediaStreamingAccess_connectionMetrics.h
     data-collection-sp/MediaStreamingAccessesCollection_allOf.h
     data-collection-sp/MediaStreamingAccessesCollection.h
@@ -299,6 +298,7 @@ libspdc_inst_includes = files('''
     data-collection-sp/UmtLocationArea5G.h
     data-collection-sp/UncertaintyEllipse.h
     data-collection-sp/UncertaintyEllipsoid.h
+    data-collection-sp/UnidirectionalBitRateSpecification.h
     data-collection-sp/UnidirectionalQoSSpecification.h
     data-collection-sp/Usage_anyOf.h
     data-collection-sp/Usage.h
