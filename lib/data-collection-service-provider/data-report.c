@@ -210,6 +210,7 @@ DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report(data_colle
     data_collection_data_report_property_e found_property;
     ogs_list_t data_reports;
     char *external_application_id;
+    bool expedite;
 
     if (error_return) *error_return = NULL;
     if (error_classname) *error_classname = NULL;
@@ -260,6 +261,9 @@ DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report(data_colle
     ogs_list_init(&data_reports);
     found_property = __get_report_properties(report, &data_reports);
 
+    expedite = data_collection_model_data_report_has_expedite(report);
+    ogs_debug("Expedite in Data Report: %d", expedite);
+
     data_collection_model_data_report_free(report);
 
     const data_collection_data_report_handler_t * const *handlers = data_collection_self()->config.data_collection_configuration->data_report_handlers;
@@ -276,7 +280,7 @@ DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report(data_colle
             ogs_list_for_each(&data_reports, rep) {
                 void *parsed_data = handlers[i]->parse_report_data(session, rep->data_report /* cJSON * to the actual report */, error_return, error_classname, error_parameter);
                 if(parsed_data) {
-                    data_collection_data_report_record_new(session, handlers[i], parsed_data, external_application_id);
+                    data_collection_data_report_record_new(session, handlers[i], parsed_data, external_application_id, expedite);
                 } else {
                     ogs_error("Report not understood at %s.%s: %s", error_classname?*error_classname:"<null>", error_parameter?*error_parameter:"<null>", error_return?*error_return:"<null>");
                     if (error_code) *error_code = "400";

@@ -69,10 +69,11 @@ typedef struct data_collection_data_report_handler_s data_collection_data_report
  * @param data_handler The data report handler for the @a data_sample.
  * @param data_sample The data sample to put in the record.
  * @param external_application_id The external application id of the application that reported this data sample.
+ * @param expedite The expedite flag of DataReport.
  *
  * @return A new data report record.
  */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_collection_data_report_record_new(data_collection_reporting_session_t *session, const data_collection_data_report_handler_t *data_handler, void *data_sample, const char *external_application_id);
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_collection_data_report_record_new(data_collection_reporting_session_t *session, const data_collection_data_report_handler_t *data_handler, void *data_sample, const char *external_application_id, bool expedite);
 
 /** Create a reference copy of a Data Report Record.
  * \public \memberof data_collection_data_report_record_t
@@ -244,6 +245,26 @@ DATA_COLLECTION_SVC_PRODUCER_API int data_collection_data_report_record_mark_exp
  * @return `true` if the report record is marked as used by the event subscription, or `false` otherwise.
  */
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_data_report_record_used_by(const data_collection_data_report_record_t *data_report, const data_collection_event_subscription_t *event_subscription);
+
+/** Set expedite flag on a Data Report record if set on a DataReport.
+ * \public \memberof data_collection_data_report_record_t
+ *
+ * @param data_report The data report on which expedite flag needs to be set.
+ *
+ * @return `true` if the expedite flag is set on the Data Report record, or `false` otherwise.
+ */
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_data_report_record_set_expedite(data_collection_data_report_record_t *data_report);
+
+/** Retrieve the expedite flag from data report record.
+ * \public \memberof data_collection_data_report_record_t
+ *
+ * @param data_report The data report to retrieve expedite flag from.
+ *
+ * @return `true` if the Data Report record has expedite flag, or `false` otherwise.
+ */
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_data_report_record_get_expedite(const data_collection_data_report_record_t *data_report);
 
 #ifdef __cplusplus
 }

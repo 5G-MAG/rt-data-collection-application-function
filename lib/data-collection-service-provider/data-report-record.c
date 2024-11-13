@@ -53,9 +53,12 @@ static void __data_reports_timer_activate(void);
 /******** Public API ********/
 
 /* data_collection_data_report_record_new */
-DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_collection_data_report_record_new(data_collection_reporting_session_t *session, const data_collection_data_report_handler_t *data_handler, void *data_sample, const char *external_application_id)
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_collection_data_report_record_new(data_collection_reporting_session_t *session, const data_collection_data_report_handler_t *data_handler, void *data_sample, const char *external_application_id, bool expedite)
 {
     data_collection_data_report_record_t *report = __data_collection_report_create(session, data_handler, data_sample, external_application_id);
+
+    if(expedite) data_collection_data_report_record_set_expedite(report);
+    ogs_debug("Data Report record expedite: %d", report->expedite);
 
     /* Add the new report to the database */
 
@@ -111,6 +114,8 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_coll
     /* report->usage is handled by original record */
     report->expired = data_report_record->expired;
     report->data_report_record_owner = false;
+    report->expedite = data_report_record->expedite;
+    ogs_debug("Expedite on Data Report record copy: %d, origin: %d", report->expedite, data_report_record->expedite);
     return report;
 
 }
@@ -164,11 +169,24 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_coll
                 report->external_application_id = NULL;
             }
         }
+	if(!report->expedite && node->expedite) data_collection_data_report_record_set_expedite(report);
+	ogs_debug("Expedite on Data Report record aggregate: %d, node: %d", report->expedite, node->expedite);
         report->original_records[i++] = node;
     }
 
     return report;
 
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_data_report_record_set_expedite(data_collection_data_report_record_t *data_report) {
+ if(!data_report) return false;
+ data_report->expedite = true;
+ return data_report->expedite;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_data_report_record_get_expedite(const data_collection_data_report_record_t *data_report) {
+ if(!data_report) return false;
+ return data_report->expedite;
 }
 
 /* data_collection_data_report_record_destroy */
@@ -319,6 +337,7 @@ static data_collection_data_report_record_t *__data_collection_report_create(dat
     report->context_ids = handler->context_ids(data_report_record);
     report->external_application_id = data_collection_strdup(external_application_id);
     report->data_report_record_owner = true;
+    report->expedite = false;
     report->file_path = data_collection_self()->config.data_collection_dir;
     
     return report;

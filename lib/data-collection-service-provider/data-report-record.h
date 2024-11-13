@@ -58,6 +58,7 @@ typedef struct data_collection_data_report_record_s {
     char *file_path;
     bool expired;
     bool data_report_record_owner;
+    bool expedite;
 } data_collection_data_report_record_t;
 
 /** Check if an event subscription has already used a data report record
