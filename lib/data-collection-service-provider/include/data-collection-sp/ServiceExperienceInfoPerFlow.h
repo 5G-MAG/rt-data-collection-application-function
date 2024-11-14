@@ -42,13 +42,21 @@ data_collection_model_service_experience_info_per_flow_t;
 
 
 
-/** Create a new ServiceExperienceInfoPerFlow
+/** Create a new ServiceExperienceInfoPerFlow.
  * \public \memberof data_collection_model_service_experience_info_per_flow_t
  * @return a new ServiceExperienceInfoPerFlow object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_create();
 
-/** Create a new copy of a ServiceExperienceInfoPerFlow object
+/** Create a new ServiceExperienceInfoPerFlow reference.
+ * \public \memberof data_collection_model_service_experience_info_per_flow_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The ServiceExperienceInfoPerFlow to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_flow_t *data_collection_model_service_experience_info_per_flow_create_ref(const data_collection_model_service_experience_info_per_flow_t *other);
+
+/** Create a new copy of a ServiceExperienceInfoPerFlow object.
  * \public \memberof data_collection_model_service_experience_info_per_flow_t
  * Creates a new copy of the given @a other object
  * @param other The ServiceExperienceInfoPerFlow to copy.

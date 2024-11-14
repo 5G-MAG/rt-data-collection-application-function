@@ -39,13 +39,21 @@ data_collection_model_data_reporting_provisioning_session_t;
 
 
 
-/** Create a new DataReportingProvisioningSession
+/** Create a new DataReportingProvisioningSession.
  * \public \memberof data_collection_model_data_reporting_provisioning_session_t
  * @return a new DataReportingProvisioningSession object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_provisioning_session_t *data_collection_model_data_reporting_provisioning_session_create();
 
-/** Create a new copy of a DataReportingProvisioningSession object
+/** Create a new DataReportingProvisioningSession reference.
+ * \public \memberof data_collection_model_data_reporting_provisioning_session_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The DataReportingProvisioningSession to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_provisioning_session_t *data_collection_model_data_reporting_provisioning_session_create_ref(const data_collection_model_data_reporting_provisioning_session_t *other);
+
+/** Create a new copy of a DataReportingProvisioningSession object.
  * \public \memberof data_collection_model_data_reporting_provisioning_session_t
  * Creates a new copy of the given @a other object
  * @param other The DataReportingProvisioningSession to copy.

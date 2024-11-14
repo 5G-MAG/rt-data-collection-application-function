@@ -41,13 +41,21 @@ data_collection_model_consumption_reporting_units_collection_t;
 
 
 
-/** Create a new ConsumptionReportingUnitsCollection
+/** Create a new ConsumptionReportingUnitsCollection.
  * \public \memberof data_collection_model_consumption_reporting_units_collection_t
  * @return a new ConsumptionReportingUnitsCollection object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_create();
 
-/** Create a new copy of a ConsumptionReportingUnitsCollection object
+/** Create a new ConsumptionReportingUnitsCollection reference.
+ * \public \memberof data_collection_model_consumption_reporting_units_collection_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The ConsumptionReportingUnitsCollection to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_t *data_collection_model_consumption_reporting_units_collection_create_ref(const data_collection_model_consumption_reporting_units_collection_t *other);
+
+/** Create a new copy of a ConsumptionReportingUnitsCollection object.
  * \public \memberof data_collection_model_consumption_reporting_units_collection_t
  * Creates a new copy of the given @a other object
  * @param other The ConsumptionReportingUnitsCollection to copy.

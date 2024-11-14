@@ -48,13 +48,21 @@ typedef enum {
 } data_collection_model_provisioning_session_type_e;
 
 
-/** Create a new ProvisioningSessionType
+/** Create a new ProvisioningSessionType.
  * \public \memberof data_collection_model_provisioning_session_type_t
  * @return a new ProvisioningSessionType object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_provisioning_session_type_t *data_collection_model_provisioning_session_type_create();
 
-/** Create a new copy of a ProvisioningSessionType object
+/** Create a new ProvisioningSessionType reference.
+ * \public \memberof data_collection_model_provisioning_session_type_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The ProvisioningSessionType to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_provisioning_session_type_t *data_collection_model_provisioning_session_type_create_ref(const data_collection_model_provisioning_session_type_t *other);
+
+/** Create a new copy of a ProvisioningSessionType object.
  * \public \memberof data_collection_model_provisioning_session_type_t
  * Creates a new copy of the given @a other object
  * @param other The ProvisioningSessionType to copy.

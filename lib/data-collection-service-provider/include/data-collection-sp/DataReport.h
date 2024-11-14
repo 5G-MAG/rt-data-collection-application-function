@@ -46,13 +46,21 @@ data_collection_model_data_report_t;
 
 
 
-/** Create a new DataReport
+/** Create a new DataReport.
  * \public \memberof data_collection_model_data_report_t
  * @return a new DataReport object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_create();
 
-/** Create a new copy of a DataReport object
+/** Create a new DataReport reference.
+ * \public \memberof data_collection_model_data_report_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The DataReport to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_report_t *data_collection_model_data_report_create_ref(const data_collection_model_data_report_t *other);
+
+/** Create a new copy of a DataReport object.
  * \public \memberof data_collection_model_data_report_t
  * Creates a new copy of the given @a other object
  * @param other The DataReport to copy.

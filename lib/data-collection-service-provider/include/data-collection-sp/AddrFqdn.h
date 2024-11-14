@@ -39,13 +39,21 @@ data_collection_model_addr_fqdn_t;
 
 
 
-/** Create a new AddrFqdn
+/** Create a new AddrFqdn.
  * \public \memberof data_collection_model_addr_fqdn_t
  * @return a new AddrFqdn object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_create();
 
-/** Create a new copy of a AddrFqdn object
+/** Create a new AddrFqdn reference.
+ * \public \memberof data_collection_model_addr_fqdn_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The AddrFqdn to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_create_ref(const data_collection_model_addr_fqdn_t *other);
+
+/** Create a new copy of a AddrFqdn object.
  * \public \memberof data_collection_model_addr_fqdn_t
  * Creates a new copy of the given @a other object
  * @param other The AddrFqdn to copy.

@@ -38,13 +38,21 @@ data_collection_model_uncertainty_ellipsoid_t;
 
 
 
-/** Create a new UncertaintyEllipsoid
+/** Create a new UncertaintyEllipsoid.
  * \public \memberof data_collection_model_uncertainty_ellipsoid_t
  * @return a new UncertaintyEllipsoid object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_create();
 
-/** Create a new copy of a UncertaintyEllipsoid object
+/** Create a new UncertaintyEllipsoid reference.
+ * \public \memberof data_collection_model_uncertainty_ellipsoid_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The UncertaintyEllipsoid to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipsoid_t *data_collection_model_uncertainty_ellipsoid_create_ref(const data_collection_model_uncertainty_ellipsoid_t *other);
+
+/** Create a new copy of a UncertaintyEllipsoid object.
  * \public \memberof data_collection_model_uncertainty_ellipsoid_t
  * Creates a new copy of the given @a other object
  * @param other The UncertaintyEllipsoid to copy.

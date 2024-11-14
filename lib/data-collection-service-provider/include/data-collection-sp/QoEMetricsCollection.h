@@ -41,13 +41,21 @@ data_collection_model_qo_e_metrics_collection_t;
 
 
 
-/** Create a new QoEMetricsCollection
+/** Create a new QoEMetricsCollection.
  * \public \memberof data_collection_model_qo_e_metrics_collection_t
  * @return a new QoEMetricsCollection object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_collection_t *data_collection_model_qo_e_metrics_collection_create();
 
-/** Create a new copy of a QoEMetricsCollection object
+/** Create a new QoEMetricsCollection reference.
+ * \public \memberof data_collection_model_qo_e_metrics_collection_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The QoEMetricsCollection to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_collection_t *data_collection_model_qo_e_metrics_collection_create_ref(const data_collection_model_qo_e_metrics_collection_t *other);
+
+/** Create a new copy of a QoEMetricsCollection object.
  * \public \memberof data_collection_model_qo_e_metrics_collection_t
  * Creates a new copy of the given @a other object
  * @param other The QoEMetricsCollection to copy.

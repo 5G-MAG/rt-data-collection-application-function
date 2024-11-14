@@ -40,13 +40,21 @@ data_collection_model_client_qos_specification_t;
 
 
 
-/** Create a new ClientQosSpecification
+/** Create a new ClientQosSpecification.
  * \public \memberof data_collection_model_client_qos_specification_t
  * @return a new ClientQosSpecification object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_client_qos_specification_t *data_collection_model_client_qos_specification_create();
 
-/** Create a new copy of a ClientQosSpecification object
+/** Create a new ClientQosSpecification reference.
+ * \public \memberof data_collection_model_client_qos_specification_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The ClientQosSpecification to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_client_qos_specification_t *data_collection_model_client_qos_specification_create_ref(const data_collection_model_client_qos_specification_t *other);
+
+/** Create a new copy of a ClientQosSpecification object.
  * \public \memberof data_collection_model_client_qos_specification_t
  * Creates a new copy of the given @a other object
  * @param other The ClientQosSpecification to copy.

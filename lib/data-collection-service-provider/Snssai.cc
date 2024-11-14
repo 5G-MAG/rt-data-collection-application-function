@@ -33,6 +33,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_snssai_t *data
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_snssai_t *data_collection_model_snssai_create_ref(const data_collection_model_snssai_t *other)
+{
+    return reinterpret_cast<data_collection_model_snssai_t*>(new std::shared_ptr<Snssai>(*reinterpret_cast<const std::shared_ptr<Snssai >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_snssai_t *data_collection_model_snssai_create_copy(const data_collection_model_snssai_t *other)
 {
     if (!other) return NULL;

@@ -41,6 +41,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_client_qos_spe
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_client_qos_specification_t *data_collection_model_client_qos_specification_create_ref(const data_collection_model_client_qos_specification_t *other)
+{
+    return reinterpret_cast<data_collection_model_client_qos_specification_t*>(new std::shared_ptr<ClientQosSpecification>(*reinterpret_cast<const std::shared_ptr<ClientQosSpecification >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_client_qos_specification_t *data_collection_model_client_qos_specification_create_copy(const data_collection_model_client_qos_specification_t *other)
 {
     if (!other) return NULL;

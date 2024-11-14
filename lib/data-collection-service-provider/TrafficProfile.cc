@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_traffic_profil
     return reinterpret_cast<data_collection_model_traffic_profile_t*>(new std::shared_ptr<TrafficProfile>(new TrafficProfile()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_traffic_profile_t *data_collection_model_traffic_profile_create_ref(const data_collection_model_traffic_profile_t *other)
+{
+    return reinterpret_cast<data_collection_model_traffic_profile_t*>(new std::shared_ptr<TrafficProfile>(*reinterpret_cast<const std::shared_ptr<TrafficProfile >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_traffic_profile_t *data_collection_model_traffic_profile_create_copy(const data_collection_model_traffic_profile_t *other)
 {
     if (!other) return NULL;

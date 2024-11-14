@@ -37,6 +37,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_rule_t *data_collection_model_data_reporting_rule_create_ref(const data_collection_model_data_reporting_rule_t *other)
+{
+    return reinterpret_cast<data_collection_model_data_reporting_rule_t*>(new std::shared_ptr<DataReportingRule>(*reinterpret_cast<const std::shared_ptr<DataReportingRule >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_rule_t *data_collection_model_data_reporting_rule_create_copy(const data_collection_model_data_reporting_rule_t *other)
 {
     if (!other) return NULL;

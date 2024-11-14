@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     return reinterpret_cast<data_collection_model_data_reporting_event_trigger_t*>(new std::shared_ptr<DataReportingEventTrigger>(new DataReportingEventTrigger()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_event_trigger_t *data_collection_model_data_reporting_event_trigger_create_ref(const data_collection_model_data_reporting_event_trigger_t *other)
+{
+    return reinterpret_cast<data_collection_model_data_reporting_event_trigger_t*>(new std::shared_ptr<DataReportingEventTrigger>(*reinterpret_cast<const std::shared_ptr<DataReportingEventTrigger >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_event_trigger_t *data_collection_model_data_reporting_event_trigger_create_copy(const data_collection_model_data_reporting_event_trigger_t *other)
 {
     if (!other) return NULL;

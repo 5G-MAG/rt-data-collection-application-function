@@ -47,13 +47,21 @@ typedef enum {
 } data_collection_model_indoor_outdoor_ind_e;
 
 
-/** Create a new IndoorOutdoorInd
+/** Create a new IndoorOutdoorInd.
  * \public \memberof data_collection_model_indoor_outdoor_ind_t
  * @return a new IndoorOutdoorInd object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_indoor_outdoor_ind_t *data_collection_model_indoor_outdoor_ind_create();
 
-/** Create a new copy of a IndoorOutdoorInd object
+/** Create a new IndoorOutdoorInd reference.
+ * \public \memberof data_collection_model_indoor_outdoor_ind_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The IndoorOutdoorInd to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_indoor_outdoor_ind_t *data_collection_model_indoor_outdoor_ind_create_ref(const data_collection_model_indoor_outdoor_ind_t *other);
+
+/** Create a new copy of a IndoorOutdoorInd object.
  * \public \memberof data_collection_model_indoor_outdoor_ind_t
  * Creates a new copy of the given @a other object
  * @param other The IndoorOutdoorInd to copy.

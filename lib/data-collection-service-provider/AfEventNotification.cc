@@ -73,6 +73,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notif
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_create_ref(const data_collection_model_af_event_notification_t *other)
+{
+    return reinterpret_cast<data_collection_model_af_event_notification_t*>(new std::shared_ptr<AfEventNotification>(*reinterpret_cast<const std::shared_ptr<AfEventNotification >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_create_copy(const data_collection_model_af_event_notification_t *other)
 {
     if (!other) return NULL;

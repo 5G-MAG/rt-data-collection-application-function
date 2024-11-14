@@ -42,13 +42,21 @@ data_collection_model_consumption_reporting_event_t;
 
 
 
-/** Create a new ConsumptionReportingEvent
+/** Create a new ConsumptionReportingEvent.
  * \public \memberof data_collection_model_consumption_reporting_event_t
  * @return a new ConsumptionReportingEvent object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_event_t *data_collection_model_consumption_reporting_event_create();
 
-/** Create a new copy of a ConsumptionReportingEvent object
+/** Create a new ConsumptionReportingEvent reference.
+ * \public \memberof data_collection_model_consumption_reporting_event_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The ConsumptionReportingEvent to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_event_t *data_collection_model_consumption_reporting_event_create_ref(const data_collection_model_consumption_reporting_event_t *other);
+
+/** Create a new copy of a ConsumptionReportingEvent object.
  * \public \memberof data_collection_model_consumption_reporting_event_t
  * Creates a new copy of the given @a other object
  * @param other The ConsumptionReportingEvent to copy.

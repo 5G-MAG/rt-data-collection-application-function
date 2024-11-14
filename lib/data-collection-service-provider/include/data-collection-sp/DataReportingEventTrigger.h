@@ -47,13 +47,21 @@ typedef enum {
 } data_collection_model_data_reporting_event_trigger_e;
 
 
-/** Create a new DataReportingEventTrigger
+/** Create a new DataReportingEventTrigger.
  * \public \memberof data_collection_model_data_reporting_event_trigger_t
  * @return a new DataReportingEventTrigger object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_event_trigger_t *data_collection_model_data_reporting_event_trigger_create();
 
-/** Create a new copy of a DataReportingEventTrigger object
+/** Create a new DataReportingEventTrigger reference.
+ * \public \memberof data_collection_model_data_reporting_event_trigger_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The DataReportingEventTrigger to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_event_trigger_t *data_collection_model_data_reporting_event_trigger_create_ref(const data_collection_model_data_reporting_event_trigger_t *other);
+
+/** Create a new copy of a DataReportingEventTrigger object.
  * \public \memberof data_collection_model_data_reporting_event_trigger_t
  * Creates a new copy of the given @a other object
  * @param other The DataReportingEventTrigger to copy.

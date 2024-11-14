@@ -40,11 +40,10 @@ static struct timespec *aggregate_time_interval_start_get(struct timespec *start
 static struct timespec *aggregate_time_interval_stop_get(struct timespec *stop_time, data_collection_model_communication_record_t *communication_record);
 static ogs_list_t *communication_record_context_ids_get(const void *report);
 
-static data_collection_data_report_record_t *generate_aggregate_communication_record(const char *start_time, const char *stop_time, int64_t uplink_volume, int64_t downlink_volume, const ogs_list_t *original_data_report_records);
+static data_collection_data_report_record_t *generate_aggregate_communication_record(const char *start_time, const char *stop_time, int64_t uplink_volume, int64_t downlink_volume, const ogs_list_t *original_data_report_records, const char *function_name);
 static const char *communication_record_sample_start_time(const data_collection_model_communication_record_t *record);
 static const char *communication_record_sample_stop_time(const data_collection_model_communication_record_t *record);
 const char *get_communication_record_start_time(int64_t *input_uplink_array, int64_t *input_downlink_array, char **record_start_time, size_t number_of_records, int64_t aggregated_uplink_result, int64_t aggregated_downlink_result);
-static int timespec_compare(struct timespec *ts1, struct timespec *ts2);
 static void populate_times_from_communication_record(const data_collection_model_communication_record_t *comm_rec,
                                                      struct timespec *start_time, struct timespec *end_time);
 static struct timespec *populate_start_time_spec_from_communication_record(const data_collection_model_communication_record_t *communication_record);
@@ -76,11 +75,6 @@ const data_collection_data_report_handler_t communication_record_data_report_typ
     .sample_start = communication_record_sample_start,
     .sample_end = communication_record_sample_stop
 };
-
-typedef struct comm_record_and_aggregation_fname_s {
-    data_collection_model_communication_record_t *record;
-    char *aggregation_fn_name;
-} comm_record_and_aggregation_fname_t;
 
 /* Communication Report handling */
 static void *communication_record_parse(const data_collection_reporting_session_t *session, cJSON *json, char **error_return, char **error_class, char **error_param)
@@ -333,7 +327,7 @@ static ogs_list_t *communication_records_apply_aggregation_function(const char *
 	}
 
 	for(j=0; j < DATA_COLLECTION_AGGREGATION_RESULT_INT64_ARRAY_SIZE(*uplink_aggregation_result); j++) {
-            data_report_record_aggregated = generate_aggregate_communication_record(record_start_time[j], record_stop_time[j], uplink_array[j], downlink_array[j], records);
+            data_report_record_aggregated = generate_aggregate_communication_record(record_start_time[j], record_stop_time[j], uplink_array[j], downlink_array[j], records, function_name);
             //communication_record_aggregate_node = data_collection_model_communication_record_make_lnode(communication_record);
             ogs_list_add(aggregation_results, data_report_record_aggregated);
         }
@@ -499,7 +493,7 @@ static struct timespec *aggregate_time_interval_start_get(struct timespec *start
     populate_times_from_communication_record(communication_record, &communication_record_start_time, NULL);
 
     /* if the record start time is earlier than _start_time_ then return the record start as the new start time */
-    if (timespec_compare(start_time, &communication_record_start_time) == 1) {
+    if (timespec_cmp(start_time, &communication_record_start_time) == 1) {
         ogs_free(start_time); /* free the old start time we're replacing */
         start_time = ogs_malloc(sizeof(*start_time));
         *start_time = communication_record_start_time;
@@ -515,7 +509,7 @@ static struct timespec *aggregate_time_interval_stop_get(struct timespec *stop_t
     populate_times_from_communication_record(communication_record, NULL, &communication_record_stop_time);
 
     /* if the record end time is later than _stop_time_ then return the record end as the new stop time */
-    if (timespec_compare(stop_time, &communication_record_stop_time) != 1) {
+    if (timespec_cmp(stop_time, &communication_record_stop_time) != 1) {
         ogs_free(stop_time); /* free the old stop time we're replacing */
         stop_time = ogs_malloc(sizeof(*stop_time));
         *stop_time = communication_record_stop_time;
@@ -525,7 +519,7 @@ static struct timespec *aggregate_time_interval_stop_get(struct timespec *stop_t
 
 }
 
-static data_collection_data_report_record_t *generate_aggregate_communication_record(const char *start_time, const char *stop_time, int64_t uplink_volume, int64_t downlink_volume, const ogs_list_t *original_data_report_records)
+static data_collection_data_report_record_t *generate_aggregate_communication_record(const char *start_time, const char *stop_time, int64_t uplink_volume, int64_t downlink_volume, const ogs_list_t *original_data_report_records, const char *function_name)
 {
     data_collection_model_time_window_t* time_window;
     char *timestamp;
@@ -547,22 +541,13 @@ static data_collection_data_report_record_t *generate_aggregate_communication_re
 
     data_collection_model_communication_record_set_time_interval_move(communication_record, time_window);
 
-    data_report_record = data_collection_data_report_record_create_aggregated(communication_record, original_data_report_records);
+    comm_record_and_aggregation_fname_t *record = ogs_calloc(1, sizeof(*record));
+    record->record = communication_record;
+    record->aggregation_fn_name = data_collection_strdup(function_name);
+
+    data_report_record = data_collection_data_report_record_create_aggregated(record, original_data_report_records);
 
     return data_report_record;
-}
-
-static int timespec_compare(struct timespec *ts1, struct timespec *ts2)
-{
-    if(ts1->tv_sec == ts2->tv_sec && ts1->tv_nsec == ts2->tv_nsec)
-    {
-        return 0;
-    } else if((ts1->tv_sec > ts2->tv_sec) || (ts1->tv_sec == ts2->tv_sec && ts1->tv_nsec > ts2->tv_nsec))
-    {
-        return 1;
-    } else {
-       return -1;
-    }
 }
 
 /* vim:ts=8:sts=4:sw=4:expandtab:

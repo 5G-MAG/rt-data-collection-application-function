@@ -303,14 +303,36 @@ typedef ogs_list_t data_domain_list_t; /**< list of data_domain_node_t */
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_session_t *data_collection_reporting_session_create(const char *external_app_id, const data_domain_list_t *supported_domains, data_collection_reporting_client_type_e client_type);
 
+/** Add a reference to the data reporting session.
+ *
+ * @param session The data reporting session to add a reference to.
+ *
+ * @return The data reporting session with the reference count incremented.
+ *
+ * @see data_collection_reporting_session_free()
+ * @see data_collection_reporting_session_destroy_active_session()
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_session_t *data_collection_reporting_session_ref(data_collection_reporting_session_t *session);
+
 /** Destroy a data reporting session
  * \public \memberof data_collection_reporting_session_t
  *
- * Delete and remove a data reporting session from the library.
+ * This will remove the data reporting session as an active session and then free the data reporting session.
  *
  * @param session The data reporting session to delete.
+ *
+ * @see data_collection_reporting_session_free()
  */
-DATA_COLLECTION_SVC_PRODUCER_API void data_collection_reporting_session_destroy(data_collection_reporting_session_t *session);
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_reporting_session_destroy_active_session(data_collection_reporting_session_t *session);
+
+/** Free a data reporting session
+ * \public \memberof data_collection_reporting_session_t
+ *
+ * This frees a reference to a data reporting session and if there are no references left will free all the resources.
+ *
+ * @param session The data reporting session to free.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_reporting_session_free(data_collection_reporting_session_t *session);
 
 /** Find a data reporting session by the session id
  * \public \memberof data_collection_reporting_session_t

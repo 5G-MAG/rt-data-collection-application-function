@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_id_t *dat
     return reinterpret_cast<data_collection_model_gnss_id_t*>(new std::shared_ptr<GnssId>(new GnssId()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_id_t *data_collection_model_gnss_id_create_ref(const data_collection_model_gnss_id_t *other)
+{
+    return reinterpret_cast<data_collection_model_gnss_id_t*>(new std::shared_ptr<GnssId>(*reinterpret_cast<const std::shared_ptr<GnssId >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_id_t *data_collection_model_gnss_id_create_copy(const data_collection_model_gnss_id_t *other)
 {
     if (!other) return NULL;

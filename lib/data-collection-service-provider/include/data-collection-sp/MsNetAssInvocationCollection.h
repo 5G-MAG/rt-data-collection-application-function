@@ -39,13 +39,21 @@ data_collection_model_ms_net_ass_invocation_collection_t;
 
 
 
-/** Create a new MsNetAssInvocationCollection
+/** Create a new MsNetAssInvocationCollection.
  * \public \memberof data_collection_model_ms_net_ass_invocation_collection_t
  * @return a new MsNetAssInvocationCollection object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_net_ass_invocation_collection_t *data_collection_model_ms_net_ass_invocation_collection_create();
 
-/** Create a new copy of a MsNetAssInvocationCollection object
+/** Create a new MsNetAssInvocationCollection reference.
+ * \public \memberof data_collection_model_ms_net_ass_invocation_collection_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The MsNetAssInvocationCollection to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_net_ass_invocation_collection_t *data_collection_model_ms_net_ass_invocation_collection_create_ref(const data_collection_model_ms_net_ass_invocation_collection_t *other);
+
+/** Create a new copy of a MsNetAssInvocationCollection object.
  * \public \memberof data_collection_model_ms_net_ass_invocation_collection_t
  * Creates a new copy of the given @a other object
  * @param other The MsNetAssInvocationCollection to copy.

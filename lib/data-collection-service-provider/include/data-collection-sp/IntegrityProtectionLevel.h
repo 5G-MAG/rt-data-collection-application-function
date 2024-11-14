@@ -38,13 +38,21 @@ data_collection_model_integrity_protection_level_t;
 
 
 
-/** Create a new IntegrityProtectionLevel
+/** Create a new IntegrityProtectionLevel.
  * \public \memberof data_collection_model_integrity_protection_level_t
  * @return a new IntegrityProtectionLevel object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_create();
 
-/** Create a new copy of a IntegrityProtectionLevel object
+/** Create a new IntegrityProtectionLevel reference.
+ * \public \memberof data_collection_model_integrity_protection_level_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The IntegrityProtectionLevel to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_protection_level_t *data_collection_model_integrity_protection_level_create_ref(const data_collection_model_integrity_protection_level_t *other);
+
+/** Create a new copy of a IntegrityProtectionLevel object.
  * \public \memberof data_collection_model_integrity_protection_level_t
  * Creates a new copy of the given @a other object
  * @param other The IntegrityProtectionLevel to copy.

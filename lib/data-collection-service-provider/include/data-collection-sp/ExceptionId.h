@@ -54,13 +54,21 @@ typedef enum {
 } data_collection_model_exception_id_e;
 
 
-/** Create a new ExceptionId
+/** Create a new ExceptionId.
  * \public \memberof data_collection_model_exception_id_t
  * @return a new ExceptionId object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_id_t *data_collection_model_exception_id_create();
 
-/** Create a new copy of a ExceptionId object
+/** Create a new ExceptionId reference.
+ * \public \memberof data_collection_model_exception_id_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The ExceptionId to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_id_t *data_collection_model_exception_id_create_ref(const data_collection_model_exception_id_t *other);
+
+/** Create a new copy of a ExceptionId object.
  * \public \memberof data_collection_model_exception_id_t
  * Creates a new copy of the given @a other object
  * @param other The ExceptionId to copy.

@@ -39,6 +39,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_create_ref(const data_collection_model_high_accuracy_gnss_metrics_t *other)
+{
+    return reinterpret_cast<data_collection_model_high_accuracy_gnss_metrics_t*>(new std::shared_ptr<HighAccuracyGnssMetrics>(*reinterpret_cast<const std::shared_ptr<HighAccuracyGnssMetrics >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_high_accuracy_gnss_metrics_t *data_collection_model_high_accuracy_gnss_metrics_create_copy(const data_collection_model_high_accuracy_gnss_metrics_t *other)
 {
     if (!other) return NULL;

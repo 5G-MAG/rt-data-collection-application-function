@@ -39,13 +39,21 @@ data_collection_model_ecgi_t;
 
 
 
-/** Create a new Ecgi
+/** Create a new Ecgi.
  * \public \memberof data_collection_model_ecgi_t
  * @return a new Ecgi object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_collection_model_ecgi_create();
 
-/** Create a new copy of a Ecgi object
+/** Create a new Ecgi reference.
+ * \public \memberof data_collection_model_ecgi_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The Ecgi to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ecgi_t *data_collection_model_ecgi_create_ref(const data_collection_model_ecgi_t *other);
+
+/** Create a new copy of a Ecgi object.
  * \public \memberof data_collection_model_ecgi_t
  * Creates a new copy of the given @a other object
  * @param other The Ecgi to copy.

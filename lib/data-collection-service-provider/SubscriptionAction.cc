@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_subscription_a
     return reinterpret_cast<data_collection_model_subscription_action_t*>(new std::shared_ptr<SubscriptionAction>(new SubscriptionAction()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_subscription_action_t *data_collection_model_subscription_action_create_ref(const data_collection_model_subscription_action_t *other)
+{
+    return reinterpret_cast<data_collection_model_subscription_action_t*>(new std::shared_ptr<SubscriptionAction>(*reinterpret_cast<const std::shared_ptr<SubscriptionAction >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_subscription_action_t *data_collection_model_subscription_action_create_copy(const data_collection_model_subscription_action_t *other)
 {
     if (!other) return NULL;

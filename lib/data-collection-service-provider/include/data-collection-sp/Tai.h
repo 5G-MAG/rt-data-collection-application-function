@@ -39,13 +39,21 @@ data_collection_model_tai_t;
 
 
 
-/** Create a new Tai
+/** Create a new Tai.
  * \public \memberof data_collection_model_tai_t
  * @return a new Tai object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_tai_t *data_collection_model_tai_create();
 
-/** Create a new copy of a Tai object
+/** Create a new Tai reference.
+ * \public \memberof data_collection_model_tai_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The Tai to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_tai_t *data_collection_model_tai_create_ref(const data_collection_model_tai_t *other);
+
+/** Create a new copy of a Tai object.
  * \public \memberof data_collection_model_tai_t
  * Creates a new copy of the given @a other object
  * @param other The Tai to copy.

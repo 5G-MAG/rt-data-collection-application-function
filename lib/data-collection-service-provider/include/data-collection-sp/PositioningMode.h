@@ -48,13 +48,21 @@ typedef enum {
 } data_collection_model_positioning_mode_e;
 
 
-/** Create a new PositioningMode
+/** Create a new PositioningMode.
  * \public \memberof data_collection_model_positioning_mode_t
  * @return a new PositioningMode object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_mode_t *data_collection_model_positioning_mode_create();
 
-/** Create a new copy of a PositioningMode object
+/** Create a new PositioningMode reference.
+ * \public \memberof data_collection_model_positioning_mode_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The PositioningMode to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_mode_t *data_collection_model_positioning_mode_create_ref(const data_collection_model_positioning_mode_t *other);
+
+/** Create a new copy of a PositioningMode object.
  * \public \memberof data_collection_model_positioning_mode_t
  * Creates a new copy of the given @a other object
  * @param other The PositioningMode to copy.

@@ -33,6 +33,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_area_indica
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_area_indication_t *data_collection_model_ue_area_indication_create_ref(const data_collection_model_ue_area_indication_t *other)
+{
+    return reinterpret_cast<data_collection_model_ue_area_indication_t*>(new std::shared_ptr<UeAreaIndication>(*reinterpret_cast<const std::shared_ptr<UeAreaIndication >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_area_indication_t *data_collection_model_ue_area_indication_create_copy(const data_collection_model_ue_area_indication_t *other)
 {
     if (!other) return NULL;

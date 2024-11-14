@@ -39,13 +39,21 @@ data_collection_model_rtp_payload_info_t;
 
 
 
-/** Create a new RtpPayloadInfo
+/** Create a new RtpPayloadInfo.
  * \public \memberof data_collection_model_rtp_payload_info_t
  * @return a new RtpPayloadInfo object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_create();
 
-/** Create a new copy of a RtpPayloadInfo object
+/** Create a new RtpPayloadInfo reference.
+ * \public \memberof data_collection_model_rtp_payload_info_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The RtpPayloadInfo to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_info_t *data_collection_model_rtp_payload_info_create_ref(const data_collection_model_rtp_payload_info_t *other);
+
+/** Create a new copy of a RtpPayloadInfo object.
  * \public \memberof data_collection_model_rtp_payload_info_t
  * Creates a new copy of the given @a other object
  * @param other The RtpPayloadInfo to copy.

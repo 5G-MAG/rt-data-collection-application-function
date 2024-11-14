@@ -31,6 +31,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gad_shape_t *d
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gad_shape_t *data_collection_model_gad_shape_create_ref(const data_collection_model_gad_shape_t *other)
+{
+    return reinterpret_cast<data_collection_model_gad_shape_t*>(new std::shared_ptr<GADShape>(*reinterpret_cast<const std::shared_ptr<GADShape >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gad_shape_t *data_collection_model_gad_shape_create_copy(const data_collection_model_gad_shape_t *other)
 {
     if (!other) return NULL;

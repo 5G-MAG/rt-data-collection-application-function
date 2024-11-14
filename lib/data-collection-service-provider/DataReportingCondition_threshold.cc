@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     return reinterpret_cast<data_collection_model_data_reporting_condition_threshold_t*>(new std::shared_ptr<DataReportingCondition_threshold>(new DataReportingCondition_threshold()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_condition_threshold_t *data_collection_model_data_reporting_condition_threshold_create_ref(const data_collection_model_data_reporting_condition_threshold_t *other)
+{
+    return reinterpret_cast<data_collection_model_data_reporting_condition_threshold_t*>(new std::shared_ptr<DataReportingCondition_threshold>(*reinterpret_cast<const std::shared_ptr<DataReportingCondition_threshold >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_condition_threshold_t *data_collection_model_data_reporting_condition_threshold_create_copy(const data_collection_model_data_reporting_condition_threshold_t *other)
 {
     if (!other) return NULL;

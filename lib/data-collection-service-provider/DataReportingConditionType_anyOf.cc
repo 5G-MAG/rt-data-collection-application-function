@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting
     return reinterpret_cast<data_collection_model_data_reporting_condition_type_any_of_t*>(new std::shared_ptr<DataReportingConditionType_anyOf>(new DataReportingConditionType_anyOf()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_condition_type_any_of_t *data_collection_model_data_reporting_condition_type_any_of_create_ref(const data_collection_model_data_reporting_condition_type_any_of_t *other)
+{
+    return reinterpret_cast<data_collection_model_data_reporting_condition_type_any_of_t*>(new std::shared_ptr<DataReportingConditionType_anyOf>(*reinterpret_cast<const std::shared_ptr<DataReportingConditionType_anyOf >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_condition_type_any_of_t *data_collection_model_data_reporting_condition_type_any_of_create_copy(const data_collection_model_data_reporting_condition_type_any_of_t *other)
 {
     if (!other) return NULL;

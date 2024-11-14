@@ -40,13 +40,21 @@ data_collection_model_local_origin_t;
 
 
 
-/** Create a new LocalOrigin
+/** Create a new LocalOrigin.
  * \public \memberof data_collection_model_local_origin_t
  * @return a new LocalOrigin object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_origin_t *data_collection_model_local_origin_create();
 
-/** Create a new copy of a LocalOrigin object
+/** Create a new LocalOrigin reference.
+ * \public \memberof data_collection_model_local_origin_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The LocalOrigin to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_origin_t *data_collection_model_local_origin_create_ref(const data_collection_model_local_origin_t *other);
+
+/** Create a new copy of a LocalOrigin object.
  * \public \memberof data_collection_model_local_origin_t
  * Creates a new copy of the given @a other object
  * @param other The LocalOrigin to copy.

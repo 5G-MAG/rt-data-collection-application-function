@@ -53,13 +53,21 @@ typedef enum {
 } data_collection_model_data_domain_e;
 
 
-/** Create a new DataDomain
+/** Create a new DataDomain.
  * \public \memberof data_collection_model_data_domain_t
  * @return a new DataDomain object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_domain_t *data_collection_model_data_domain_create();
 
-/** Create a new copy of a DataDomain object
+/** Create a new DataDomain reference.
+ * \public \memberof data_collection_model_data_domain_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The DataDomain to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_domain_t *data_collection_model_data_domain_create_ref(const data_collection_model_data_domain_t *other);
+
+/** Create a new copy of a DataDomain object.
  * \public \memberof data_collection_model_data_domain_t
  * Creates a new copy of the given @a other object
  * @param other The DataDomain to copy.

@@ -57,13 +57,21 @@ data_collection_model_location_data_t;
 
 
 
-/** Create a new LocationData
+/** Create a new LocationData.
  * \public \memberof data_collection_model_location_data_t
  * @return a new LocationData object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_create();
 
-/** Create a new copy of a LocationData object
+/** Create a new LocationData reference.
+ * \public \memberof data_collection_model_location_data_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The LocationData to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_data_t *data_collection_model_location_data_create_ref(const data_collection_model_location_data_t *other);
+
+/** Create a new copy of a LocationData object.
  * \public \memberof data_collection_model_location_data_t
  * Creates a new copy of the given @a other object
  * @param other The LocationData to copy.

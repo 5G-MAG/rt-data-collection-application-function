@@ -48,13 +48,21 @@ typedef enum {
 } data_collection_model_notification_flag_e;
 
 
-/** Create a new NotificationFlag
+/** Create a new NotificationFlag.
  * \public \memberof data_collection_model_notification_flag_t
  * @return a new NotificationFlag object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_flag_t *data_collection_model_notification_flag_create();
 
-/** Create a new copy of a NotificationFlag object
+/** Create a new NotificationFlag reference.
+ * \public \memberof data_collection_model_notification_flag_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The NotificationFlag to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_flag_t *data_collection_model_notification_flag_create_ref(const data_collection_model_notification_flag_t *other);
+
+/** Create a new copy of a NotificationFlag object.
  * \public \memberof data_collection_model_notification_flag_t
  * Creates a new copy of the given @a other object
  * @param other The NotificationFlag to copy.

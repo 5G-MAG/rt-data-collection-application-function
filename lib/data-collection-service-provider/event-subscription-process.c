@@ -338,6 +338,7 @@ bool _evex_subscription_process_event(ogs_event_t *e)
             if (ogs_sbi_parse_header(&message, &response->h) != OGS_OK) {
                 ogs_error("ogs_sbi_parse_header() failed");
                 ogs_sbi_message_free(&message);
+                ogs_sbi_response_free(response);
                 break;
             }
             message.res_status = response->status;
@@ -347,6 +348,7 @@ bool _evex_subscription_process_event(ogs_event_t *e)
             }
 
             ogs_sbi_message_free(&message);
+            ogs_sbi_response_free(response);
         }
         return true;
     default:

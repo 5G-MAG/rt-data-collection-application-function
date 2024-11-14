@@ -33,6 +33,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_minor_location
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_minor_location_qo_s_t *data_collection_model_minor_location_qo_s_create_ref(const data_collection_model_minor_location_qo_s_t *other)
+{
+    return reinterpret_cast<data_collection_model_minor_location_qo_s_t*>(new std::shared_ptr<MinorLocationQoS>(*reinterpret_cast<const std::shared_ptr<MinorLocationQoS >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_minor_location_qo_s_t *data_collection_model_minor_location_qo_s_create_copy(const data_collection_model_minor_location_qo_s_t *other)
 {
     if (!other) return NULL;

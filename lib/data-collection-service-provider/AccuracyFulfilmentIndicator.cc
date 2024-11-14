@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_accuracy_fulfi
     return reinterpret_cast<data_collection_model_accuracy_fulfilment_indicator_t*>(new std::shared_ptr<AccuracyFulfilmentIndicator>(new AccuracyFulfilmentIndicator()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_accuracy_fulfilment_indicator_t *data_collection_model_accuracy_fulfilment_indicator_create_ref(const data_collection_model_accuracy_fulfilment_indicator_t *other)
+{
+    return reinterpret_cast<data_collection_model_accuracy_fulfilment_indicator_t*>(new std::shared_ptr<AccuracyFulfilmentIndicator>(*reinterpret_cast<const std::shared_ptr<AccuracyFulfilmentIndicator >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_accuracy_fulfilment_indicator_t *data_collection_model_accuracy_fulfilment_indicator_create_copy(const data_collection_model_accuracy_fulfilment_indicator_t *other)
 {
     if (!other) return NULL;

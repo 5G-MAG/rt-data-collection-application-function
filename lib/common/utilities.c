@@ -109,24 +109,10 @@ char *ogs_time_to_string(ogs_time_t timestamp, const char *format)
     char datetime[128];
 
     ogs_localtime(ogs_time_sec(timestamp), &tm);
-    ogs_strftime(datetime, sizeof datetime, format, &tm);
+    ogs_strftime(datetime, sizeof(datetime), format, &tm);
 
     return ogs_msprintf("%s", datetime);
 }
-
-/*
-char *ogs_time_to_string(ogs_time_t timestamp)
-{
-    struct tm tm;
-    char datetime[128];
-
-    ogs_localtime(ogs_time_sec(timestamp), &tm);
-    ogs_strftime(datetime, sizeof datetime, "%a, %d %b %Y %H:%M:%S %Z", &tm);
-
-    return ogs_msprintf("%s", datetime);
-}
-*/
-
 
 char *read_file(const char *filename)
 {
@@ -322,6 +308,81 @@ ogs_list_t *list_clone(const ogs_list_t *to_copy, ogs_lnode_t *(*node_copy_fn)(c
     }
 
     return new_list;
+}
+
+static void __timespec_normalise(struct timespec *ts)
+{
+    bool neg_time = ts->tv_sec < 0;
+    while (ts->tv_nsec > 1000000000) {
+        ts->tv_nsec -= 1000000000;
+        if (neg_time) {
+            ts->tv_sec--;
+        } else {
+            ts->tv_sec++;
+        }
+    }
+    while (ts->tv_nsec < 0) {
+        ts->tv_nsec += 1000000000;
+        if (neg_time) {
+            ts->tv_sec++;
+        } else {
+            ts->tv_sec--;
+        }   
+    }
+}
+
+void timespec_add(const struct timespec *a, const struct timespec *b, struct timespec *result /* [not-null, out] */)
+{
+    result->tv_sec = a->tv_sec + b->tv_sec;
+    if (b->tv_sec < 0) {
+        result->tv_nsec = a->tv_nsec - b->tv_nsec;
+    } else {
+        result->tv_nsec = a->tv_nsec + b->tv_nsec;
+    }
+    __timespec_normalise(result);
+}
+
+void timespec_sub(const struct timespec *a, const struct timespec *b, struct timespec *result /* [not-null, out] */)
+{
+    result->tv_sec = a->tv_sec - b->tv_sec;
+    if (b->tv_sec < 0) {
+        result->tv_nsec = a->tv_nsec + b->tv_nsec;
+    } else {
+        result->tv_nsec = a->tv_nsec - b->tv_nsec;
+    }
+    __timespec_normalise(result);
+}
+
+int timespec_cmp(const struct timespec *a, const struct timespec *b)
+{
+    if (a->tv_sec > b->tv_sec) return 1;
+    if (a->tv_sec < b->tv_sec) return -1;
+    if (a->tv_sec < 0) {
+        if (a->tv_nsec > b->tv_nsec) return -1;
+        if (a->tv_nsec < b->tv_nsec) return 1;
+    } else {
+        if (a->tv_nsec > b->tv_nsec) return 1;
+        if (a->tv_nsec < b->tv_nsec) return -1;
+    }
+    return 0;
+}
+
+char *timespec_to_rfc3339_str(const struct timespec *wallclock_time)
+{
+    if (!wallclock_time) return data_collection_strdup("<null>");
+    struct tm tm;
+    char buf[128];
+    gmtime_r(&wallclock_time->tv_sec, &tm);
+    strftime(buf, sizeof(buf), "%Y-%m-%dT%H:%M:%S", &tm);
+    char *next = buf + strlen(buf);
+    if (wallclock_time->tv_nsec != 0) {
+        next += sprintf(next, ".%09li", wallclock_time->tv_nsec);
+        while (*--next == '0') *next='\0';
+        next++;
+    }
+    *next++ = 'Z';
+    *next++ = '\0';
+    return data_collection_strdup(buf);
 }
 
 /* vim:ts=8:sts=4:sw=4:expandtab:

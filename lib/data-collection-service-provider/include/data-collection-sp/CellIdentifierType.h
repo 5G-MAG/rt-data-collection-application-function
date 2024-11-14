@@ -48,13 +48,21 @@ typedef enum {
 } data_collection_model_cell_identifier_type_e;
 
 
-/** Create a new CellIdentifierType
+/** Create a new CellIdentifierType.
  * \public \memberof data_collection_model_cell_identifier_type_t
  * @return a new CellIdentifierType object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cell_identifier_type_t *data_collection_model_cell_identifier_type_create();
 
-/** Create a new copy of a CellIdentifierType object
+/** Create a new CellIdentifierType reference.
+ * \public \memberof data_collection_model_cell_identifier_type_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The CellIdentifierType to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cell_identifier_type_t *data_collection_model_cell_identifier_type_create_ref(const data_collection_model_cell_identifier_type_t *other);
+
+/** Create a new copy of a CellIdentifierType object.
  * \public \memberof data_collection_model_cell_identifier_type_t
  * Creates a new copy of the given @a other object
  * @param other The CellIdentifierType to copy.

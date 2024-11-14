@@ -41,13 +41,21 @@ data_collection_model_ellipsoid_arc_t;
 
 
 
-/** Create a new EllipsoidArc
+/** Create a new EllipsoidArc.
  * \public \memberof data_collection_model_ellipsoid_arc_t
  * @return a new EllipsoidArc object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_t *data_collection_model_ellipsoid_arc_create();
 
-/** Create a new copy of a EllipsoidArc object
+/** Create a new EllipsoidArc reference.
+ * \public \memberof data_collection_model_ellipsoid_arc_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The EllipsoidArc to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_t *data_collection_model_ellipsoid_arc_create_ref(const data_collection_model_ellipsoid_arc_t *other);
+
+/** Create a new copy of a EllipsoidArc object.
  * \public \memberof data_collection_model_ellipsoid_arc_t
  * Creates a new copy of the given @a other object
  * @param other The EllipsoidArc to copy.

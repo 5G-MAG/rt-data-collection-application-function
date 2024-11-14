@@ -39,13 +39,21 @@ data_collection_model_qo_e_metrics_event_all_of_samples_t;
 
 
 
-/** Create a new QoEMetricsEvent_allOf_samples
+/** Create a new QoEMetricsEvent_allOf_samples.
  * \public \memberof data_collection_model_qo_e_metrics_event_all_of_samples_t
  * @return a new QoEMetricsEvent_allOf_samples object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_event_all_of_samples_t *data_collection_model_qo_e_metrics_event_all_of_samples_create();
 
-/** Create a new copy of a QoEMetricsEvent_allOf_samples object
+/** Create a new QoEMetricsEvent_allOf_samples reference.
+ * \public \memberof data_collection_model_qo_e_metrics_event_all_of_samples_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The QoEMetricsEvent_allOf_samples to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_event_all_of_samples_t *data_collection_model_qo_e_metrics_event_all_of_samples_create_ref(const data_collection_model_qo_e_metrics_event_all_of_samples_t *other);
+
+/** Create a new copy of a QoEMetricsEvent_allOf_samples object.
  * \public \memberof data_collection_model_qo_e_metrics_event_all_of_samples_t
  * Creates a new copy of the given @a other object
  * @param other The QoEMetricsEvent_allOf_samples to copy.

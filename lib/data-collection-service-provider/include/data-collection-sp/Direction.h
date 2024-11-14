@@ -53,13 +53,21 @@ typedef enum {
 } data_collection_model_direction_e;
 
 
-/** Create a new Direction
+/** Create a new Direction.
  * \public \memberof data_collection_model_direction_t
  * @return a new Direction object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_direction_t *data_collection_model_direction_create();
 
-/** Create a new copy of a Direction object
+/** Create a new Direction reference.
+ * \public \memberof data_collection_model_direction_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The Direction to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_direction_t *data_collection_model_direction_create_ref(const data_collection_model_direction_t *other);
+
+/** Create a new copy of a Direction object.
  * \public \memberof data_collection_model_direction_t
  * Creates a new copy of the given @a other object
  * @param other The Direction to copy.

@@ -47,13 +47,21 @@ typedef enum {
 } data_collection_model_pdu_set_handling_info_e;
 
 
-/** Create a new PduSetHandlingInfo
+/** Create a new PduSetHandlingInfo.
  * \public \memberof data_collection_model_pdu_set_handling_info_t
  * @return a new PduSetHandlingInfo object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_handling_info_t *data_collection_model_pdu_set_handling_info_create();
 
-/** Create a new copy of a PduSetHandlingInfo object
+/** Create a new PduSetHandlingInfo reference.
+ * \public \memberof data_collection_model_pdu_set_handling_info_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The PduSetHandlingInfo to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_pdu_set_handling_info_t *data_collection_model_pdu_set_handling_info_create_ref(const data_collection_model_pdu_set_handling_info_t *other);
+
+/** Create a new copy of a PduSetHandlingInfo object.
  * \public \memberof data_collection_model_pdu_set_handling_info_t
  * Creates a new copy of the given @a other object
  * @param other The PduSetHandlingInfo to copy.

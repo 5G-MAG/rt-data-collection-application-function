@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_m
     return reinterpret_cast<data_collection_model_notification_method_t*>(new std::shared_ptr<NotificationMethod>(new NotificationMethod()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_method_t *data_collection_model_notification_method_create_ref(const data_collection_model_notification_method_t *other)
+{
+    return reinterpret_cast<data_collection_model_notification_method_t*>(new std::shared_ptr<NotificationMethod>(*reinterpret_cast<const std::shared_ptr<NotificationMethod >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_method_t *data_collection_model_notification_method_create_copy(const data_collection_model_notification_method_t *other)
 {
     if (!other) return NULL;

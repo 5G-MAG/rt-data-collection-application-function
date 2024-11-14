@@ -50,13 +50,21 @@ typedef enum {
 } data_collection_model_battery_indication_e;
 
 
-/** Create a new BatteryIndication
+/** Create a new BatteryIndication.
  * \public \memberof data_collection_model_battery_indication_t
  * @return a new BatteryIndication object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_battery_indication_t *data_collection_model_battery_indication_create();
 
-/** Create a new copy of a BatteryIndication object
+/** Create a new BatteryIndication reference.
+ * \public \memberof data_collection_model_battery_indication_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The BatteryIndication to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_battery_indication_t *data_collection_model_battery_indication_create_ref(const data_collection_model_battery_indication_t *other);
+
+/** Create a new copy of a BatteryIndication object.
  * \public \memberof data_collection_model_battery_indication_t
  * Creates a new copy of the given @a other object
  * @param other The BatteryIndication to copy.

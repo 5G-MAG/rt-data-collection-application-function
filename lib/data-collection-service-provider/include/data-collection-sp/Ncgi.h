@@ -39,13 +39,21 @@ data_collection_model_ncgi_t;
 
 
 
-/** Create a new Ncgi
+/** Create a new Ncgi.
  * \public \memberof data_collection_model_ncgi_t
  * @return a new Ncgi object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ncgi_t *data_collection_model_ncgi_create();
 
-/** Create a new copy of a Ncgi object
+/** Create a new Ncgi reference.
+ * \public \memberof data_collection_model_ncgi_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The Ncgi to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ncgi_t *data_collection_model_ncgi_create_ref(const data_collection_model_ncgi_t *other);
+
+/** Create a new copy of a Ncgi object.
  * \public \memberof data_collection_model_ncgi_t
  * Creates a new copy of the given @a other object
  * @param other The Ncgi to copy.

@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_t *da
     return reinterpret_cast<data_collection_model_af_event_t*>(new std::shared_ptr<AfEvent>(new AfEvent()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_t *data_collection_model_af_event_create_ref(const data_collection_model_af_event_t *other)
+{
+    return reinterpret_cast<data_collection_model_af_event_t*>(new std::shared_ptr<AfEvent>(*reinterpret_cast<const std::shared_ptr<AfEvent >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_t *data_collection_model_af_event_create_copy(const data_collection_model_af_event_t *other)
 {
     if (!other) return NULL;

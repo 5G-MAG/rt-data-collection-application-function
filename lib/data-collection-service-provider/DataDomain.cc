@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_domain_t 
     return reinterpret_cast<data_collection_model_data_domain_t*>(new std::shared_ptr<DataDomain>(new DataDomain()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_domain_t *data_collection_model_data_domain_create_ref(const data_collection_model_data_domain_t *other)
+{
+    return reinterpret_cast<data_collection_model_data_domain_t*>(new std::shared_ptr<DataDomain>(*reinterpret_cast<const std::shared_ptr<DataDomain >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_domain_t *data_collection_model_data_domain_create_copy(const data_collection_model_data_domain_t *other)
 {
     if (!other) return NULL;

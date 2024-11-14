@@ -41,6 +41,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experi
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_create_ref(const data_collection_model_service_experience_info_per_app_t *other)
+{
+    return reinterpret_cast<data_collection_model_service_experience_info_per_app_t*>(new std::shared_ptr<ServiceExperienceInfoPerApp>(*reinterpret_cast<const std::shared_ptr<ServiceExperienceInfoPerApp >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_create_copy(const data_collection_model_service_experience_info_per_app_t *other)
 {
     if (!other) return NULL;

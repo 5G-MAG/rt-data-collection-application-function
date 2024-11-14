@@ -43,13 +43,21 @@ data_collection_model_local2d_point_uncertainty_ellipse_t;
 
 
 
-/** Create a new Local2dPointUncertaintyEllipse
+/** Create a new Local2dPointUncertaintyEllipse.
  * \public \memberof data_collection_model_local2d_point_uncertainty_ellipse_t
  * @return a new Local2dPointUncertaintyEllipse object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_uncertainty_ellipse_t *data_collection_model_local2d_point_uncertainty_ellipse_create();
 
-/** Create a new copy of a Local2dPointUncertaintyEllipse object
+/** Create a new Local2dPointUncertaintyEllipse reference.
+ * \public \memberof data_collection_model_local2d_point_uncertainty_ellipse_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The Local2dPointUncertaintyEllipse to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local2d_point_uncertainty_ellipse_t *data_collection_model_local2d_point_uncertainty_ellipse_create_ref(const data_collection_model_local2d_point_uncertainty_ellipse_t *other);
+
+/** Create a new copy of a Local2dPointUncertaintyEllipse object.
  * \public \memberof data_collection_model_local2d_point_uncertainty_ellipse_t
  * Creates a new copy of the given @a other object
  * @param other The Local2dPointUncertaintyEllipse to copy.

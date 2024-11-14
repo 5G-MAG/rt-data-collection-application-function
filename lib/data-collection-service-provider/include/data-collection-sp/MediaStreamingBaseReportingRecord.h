@@ -40,13 +40,21 @@ data_collection_model_media_streaming_base_reporting_record_t;
 
 
 
-/** Create a new MediaStreamingBaseReportingRecord
+/** Create a new MediaStreamingBaseReportingRecord.
  * \public \memberof data_collection_model_media_streaming_base_reporting_record_t
  * @return a new MediaStreamingBaseReportingRecord object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_base_reporting_record_t *data_collection_model_media_streaming_base_reporting_record_create();
 
-/** Create a new copy of a MediaStreamingBaseReportingRecord object
+/** Create a new MediaStreamingBaseReportingRecord reference.
+ * \public \memberof data_collection_model_media_streaming_base_reporting_record_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The MediaStreamingBaseReportingRecord to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_base_reporting_record_t *data_collection_model_media_streaming_base_reporting_record_create_ref(const data_collection_model_media_streaming_base_reporting_record_t *other);
+
+/** Create a new copy of a MediaStreamingBaseReportingRecord object.
  * \public \memberof data_collection_model_media_streaming_base_reporting_record_t
  * Creates a new copy of the given @a other object
  * @param other The MediaStreamingBaseReportingRecord to copy.

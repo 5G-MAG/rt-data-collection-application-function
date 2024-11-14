@@ -38,13 +38,21 @@ data_collection_model_media_streaming_access_connection_metrics_t;
 
 
 
-/** Create a new MediaStreamingAccess_connectionMetrics
+/** Create a new MediaStreamingAccess_connectionMetrics.
  * \public \memberof data_collection_model_media_streaming_access_connection_metrics_t
  * @return a new MediaStreamingAccess_connectionMetrics object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_create();
 
-/** Create a new copy of a MediaStreamingAccess_connectionMetrics object
+/** Create a new MediaStreamingAccess_connectionMetrics reference.
+ * \public \memberof data_collection_model_media_streaming_access_connection_metrics_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The MediaStreamingAccess_connectionMetrics to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_connection_metrics_t *data_collection_model_media_streaming_access_connection_metrics_create_ref(const data_collection_model_media_streaming_access_connection_metrics_t *other);
+
+/** Create a new copy of a MediaStreamingAccess_connectionMetrics object.
  * \public \memberof data_collection_model_media_streaming_access_connection_metrics_t
  * Creates a new copy of the given @a other object
  * @param other The MediaStreamingAccess_connectionMetrics to copy.

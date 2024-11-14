@@ -43,13 +43,21 @@ data_collection_model_velocity_estimate_t;
 
 
 
-/** Create a new VelocityEstimate
+/** Create a new VelocityEstimate.
  * \public \memberof data_collection_model_velocity_estimate_t
  * @return a new VelocityEstimate object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_create();
 
-/** Create a new copy of a VelocityEstimate object
+/** Create a new VelocityEstimate reference.
+ * \public \memberof data_collection_model_velocity_estimate_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The VelocityEstimate to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_create_ref(const data_collection_model_velocity_estimate_t *other);
+
+/** Create a new copy of a VelocityEstimate object.
  * \public \memberof data_collection_model_velocity_estimate_t
  * Creates a new copy of the given @a other object
  * @param other The VelocityEstimate to copy.

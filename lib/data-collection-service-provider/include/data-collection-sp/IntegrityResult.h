@@ -40,13 +40,21 @@ data_collection_model_integrity_result_t;
 
 
 
-/** Create a new IntegrityResult
+/** Create a new IntegrityResult.
  * \public \memberof data_collection_model_integrity_result_t
  * @return a new IntegrityResult object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_result_t *data_collection_model_integrity_result_create();
 
-/** Create a new copy of a IntegrityResult object
+/** Create a new IntegrityResult reference.
+ * \public \memberof data_collection_model_integrity_result_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The IntegrityResult to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_result_t *data_collection_model_integrity_result_create_ref(const data_collection_model_integrity_result_t *other);
+
+/** Create a new copy of a IntegrityResult object.
  * \public \memberof data_collection_model_integrity_result_t
  * Creates a new copy of the given @a other object
  * @param other The IntegrityResult to copy.

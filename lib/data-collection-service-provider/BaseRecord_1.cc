@@ -33,6 +33,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_record_1_
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_record_1_t *data_collection_model_base_record_1_create_ref(const data_collection_model_base_record_1_t *other)
+{
+    return reinterpret_cast<data_collection_model_base_record_1_t*>(new std::shared_ptr<BaseRecord_1>(*reinterpret_cast<const std::shared_ptr<BaseRecord_1 >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_record_1_t *data_collection_model_base_record_1_create_copy(const data_collection_model_base_record_1_t *other)
 {
     if (!other) return NULL;

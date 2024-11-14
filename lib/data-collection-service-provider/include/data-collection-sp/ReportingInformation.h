@@ -43,13 +43,21 @@ data_collection_model_reporting_information_t;
 
 
 
-/** Create a new ReportingInformation
+/** Create a new ReportingInformation.
  * \public \memberof data_collection_model_reporting_information_t
  * @return a new ReportingInformation object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_information_t *data_collection_model_reporting_information_create();
 
-/** Create a new copy of a ReportingInformation object
+/** Create a new ReportingInformation reference.
+ * \public \memberof data_collection_model_reporting_information_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The ReportingInformation to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_reporting_information_t *data_collection_model_reporting_information_create_ref(const data_collection_model_reporting_information_t *other);
+
+/** Create a new copy of a ReportingInformation object.
  * \public \memberof data_collection_model_reporting_information_t
  * Creates a new copy of the given @a other object
  * @param other The ReportingInformation to copy.

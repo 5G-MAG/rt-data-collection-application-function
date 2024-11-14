@@ -38,13 +38,21 @@ data_collection_model_usage_threshold_t;
 
 
 
-/** Create a new UsageThreshold
+/** Create a new UsageThreshold.
  * \public \memberof data_collection_model_usage_threshold_t
  * @return a new UsageThreshold object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_create();
 
-/** Create a new copy of a UsageThreshold object
+/** Create a new UsageThreshold reference.
+ * \public \memberof data_collection_model_usage_threshold_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The UsageThreshold to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_threshold_t *data_collection_model_usage_threshold_create_ref(const data_collection_model_usage_threshold_t *other);
+
+/** Create a new copy of a UsageThreshold object.
  * \public \memberof data_collection_model_usage_threshold_t
  * Creates a new copy of the given @a other object
  * @param other The UsageThreshold to copy.

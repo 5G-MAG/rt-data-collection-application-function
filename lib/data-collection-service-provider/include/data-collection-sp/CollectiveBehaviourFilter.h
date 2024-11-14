@@ -41,13 +41,21 @@ data_collection_model_collective_behaviour_filter_t;
 
 
 
-/** Create a new CollectiveBehaviourFilter
+/** Create a new CollectiveBehaviourFilter.
  * \public \memberof data_collection_model_collective_behaviour_filter_t
  * @return a new CollectiveBehaviourFilter object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_behaviour_filter_t *data_collection_model_collective_behaviour_filter_create();
 
-/** Create a new copy of a CollectiveBehaviourFilter object
+/** Create a new CollectiveBehaviourFilter reference.
+ * \public \memberof data_collection_model_collective_behaviour_filter_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The CollectiveBehaviourFilter to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_behaviour_filter_t *data_collection_model_collective_behaviour_filter_create_ref(const data_collection_model_collective_behaviour_filter_t *other);
+
+/** Create a new copy of a CollectiveBehaviourFilter object.
  * \public \memberof data_collection_model_collective_behaviour_filter_t
  * Creates a new copy of the given @a other object
  * @param other The CollectiveBehaviourFilter to copy.

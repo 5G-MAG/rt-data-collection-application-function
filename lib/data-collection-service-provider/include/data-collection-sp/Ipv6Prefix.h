@@ -38,13 +38,21 @@ data_collection_model_ipv6_prefix_t;
 
 
 
-/** Create a new Ipv6Prefix
+/** Create a new Ipv6Prefix.
  * \public \memberof data_collection_model_ipv6_prefix_t
  * @return a new Ipv6Prefix object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ipv6_prefix_t *data_collection_model_ipv6_prefix_create();
 
-/** Create a new copy of a Ipv6Prefix object
+/** Create a new Ipv6Prefix reference.
+ * \public \memberof data_collection_model_ipv6_prefix_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The Ipv6Prefix to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ipv6_prefix_t *data_collection_model_ipv6_prefix_create_ref(const data_collection_model_ipv6_prefix_t *other);
+
+/** Create a new copy of a Ipv6Prefix object.
  * \public \memberof data_collection_model_ipv6_prefix_t
  * Creates a new copy of the given @a other object
  * @param other The Ipv6Prefix to copy.

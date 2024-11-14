@@ -97,6 +97,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_create_ref(const data_collection_model_civic_address_t *other)
+{
+    return reinterpret_cast<data_collection_model_civic_address_t*>(new std::shared_ptr<CivicAddress>(*reinterpret_cast<const std::shared_ptr<CivicAddress >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_create_copy(const data_collection_model_civic_address_t *other)
 {
     if (!other) return NULL;

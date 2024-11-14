@@ -42,13 +42,21 @@ data_collection_model_data_reporting_configuration_patch_t;
 
 
 
-/** Create a new DataReportingConfigurationPatch
+/** Create a new DataReportingConfigurationPatch.
  * \public \memberof data_collection_model_data_reporting_configuration_patch_t
  * @return a new DataReportingConfigurationPatch object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_create();
 
-/** Create a new copy of a DataReportingConfigurationPatch object
+/** Create a new DataReportingConfigurationPatch reference.
+ * \public \memberof data_collection_model_data_reporting_configuration_patch_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The DataReportingConfigurationPatch to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_configuration_patch_t *data_collection_model_data_reporting_configuration_patch_create_ref(const data_collection_model_data_reporting_configuration_patch_t *other);
+
+/** Create a new copy of a DataReportingConfigurationPatch object.
  * \public \memberof data_collection_model_data_reporting_configuration_patch_t
  * Creates a new copy of the given @a other object
  * @param other The DataReportingConfigurationPatch to copy.

@@ -38,13 +38,21 @@ data_collection_model_data_reporting_rule_t;
 
 
 
-/** Create a new DataReportingRule
+/** Create a new DataReportingRule.
  * \public \memberof data_collection_model_data_reporting_rule_t
  * @return a new DataReportingRule object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_rule_t *data_collection_model_data_reporting_rule_create();
 
-/** Create a new copy of a DataReportingRule object
+/** Create a new DataReportingRule reference.
+ * \public \memberof data_collection_model_data_reporting_rule_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The DataReportingRule to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_rule_t *data_collection_model_data_reporting_rule_create_ref(const data_collection_model_data_reporting_rule_t *other);
+
+/** Create a new copy of a DataReportingRule object.
  * \public \memberof data_collection_model_data_reporting_rule_t
  * Creates a new copy of the given @a other object
  * @param other The DataReportingRule to copy.

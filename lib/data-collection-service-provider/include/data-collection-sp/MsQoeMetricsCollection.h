@@ -38,13 +38,21 @@ data_collection_model_ms_qoe_metrics_collection_t;
 
 
 
-/** Create a new MsQoeMetricsCollection
+/** Create a new MsQoeMetricsCollection.
  * \public \memberof data_collection_model_ms_qoe_metrics_collection_t
  * @return a new MsQoeMetricsCollection object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_create();
 
-/** Create a new copy of a MsQoeMetricsCollection object
+/** Create a new MsQoeMetricsCollection reference.
+ * \public \memberof data_collection_model_ms_qoe_metrics_collection_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The MsQoeMetricsCollection to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_qoe_metrics_collection_t *data_collection_model_ms_qoe_metrics_collection_create_ref(const data_collection_model_ms_qoe_metrics_collection_t *other);
+
+/** Create a new copy of a MsQoeMetricsCollection object.
  * \public \memberof data_collection_model_ms_qoe_metrics_collection_t
  * Creates a new copy of the given @a other object
  * @param other The MsQoeMetricsCollection to copy.

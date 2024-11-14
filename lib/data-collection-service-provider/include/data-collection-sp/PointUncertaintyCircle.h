@@ -41,13 +41,21 @@ data_collection_model_point_uncertainty_circle_t;
 
 
 
-/** Create a new PointUncertaintyCircle
+/** Create a new PointUncertaintyCircle.
  * \public \memberof data_collection_model_point_uncertainty_circle_t
  * @return a new PointUncertaintyCircle object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_create();
 
-/** Create a new copy of a PointUncertaintyCircle object
+/** Create a new PointUncertaintyCircle reference.
+ * \public \memberof data_collection_model_point_uncertainty_circle_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The PointUncertaintyCircle to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_uncertainty_circle_t *data_collection_model_point_uncertainty_circle_create_ref(const data_collection_model_point_uncertainty_circle_t *other);
+
+/** Create a new copy of a PointUncertaintyCircle object.
  * \public \memberof data_collection_model_point_uncertainty_circle_t
  * Creates a new copy of the given @a other object
  * @param other The PointUncertaintyCircle to copy.

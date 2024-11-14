@@ -45,13 +45,21 @@ data_collection_model_local_area_t;
 
 
 
-/** Create a new LocalArea
+/** Create a new LocalArea.
  * \public \memberof data_collection_model_local_area_t
  * @return a new LocalArea object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *data_collection_model_local_area_create();
 
-/** Create a new copy of a LocalArea object
+/** Create a new LocalArea reference.
+ * \public \memberof data_collection_model_local_area_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The LocalArea to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_local_area_t *data_collection_model_local_area_create_ref(const data_collection_model_local_area_t *other);
+
+/** Create a new copy of a LocalArea object.
  * \public \memberof data_collection_model_local_area_t
  * Creates a new copy of the given @a other object
  * @param other The LocalArea to copy.

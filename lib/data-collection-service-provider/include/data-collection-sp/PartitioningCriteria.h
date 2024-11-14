@@ -50,13 +50,21 @@ typedef enum {
 } data_collection_model_partitioning_criteria_e;
 
 
-/** Create a new PartitioningCriteria
+/** Create a new PartitioningCriteria.
  * \public \memberof data_collection_model_partitioning_criteria_t
  * @return a new PartitioningCriteria object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_partitioning_criteria_t *data_collection_model_partitioning_criteria_create();
 
-/** Create a new copy of a PartitioningCriteria object
+/** Create a new PartitioningCriteria reference.
+ * \public \memberof data_collection_model_partitioning_criteria_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The PartitioningCriteria to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_partitioning_criteria_t *data_collection_model_partitioning_criteria_create_ref(const data_collection_model_partitioning_criteria_t *other);
+
+/** Create a new copy of a PartitioningCriteria object.
  * \public \memberof data_collection_model_partitioning_criteria_t
  * Creates a new copy of the given @a other object
  * @param other The PartitioningCriteria to copy.

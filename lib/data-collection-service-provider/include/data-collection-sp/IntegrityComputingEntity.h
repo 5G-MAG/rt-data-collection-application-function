@@ -48,13 +48,21 @@ typedef enum {
 } data_collection_model_integrity_computing_entity_e;
 
 
-/** Create a new IntegrityComputingEntity
+/** Create a new IntegrityComputingEntity.
  * \public \memberof data_collection_model_integrity_computing_entity_t
  * @return a new IntegrityComputingEntity object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_computing_entity_t *data_collection_model_integrity_computing_entity_create();
 
-/** Create a new copy of a IntegrityComputingEntity object
+/** Create a new IntegrityComputingEntity reference.
+ * \public \memberof data_collection_model_integrity_computing_entity_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The IntegrityComputingEntity to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_computing_entity_t *data_collection_model_integrity_computing_entity_create_ref(const data_collection_model_integrity_computing_entity_t *other);
+
+/** Create a new copy of a IntegrityComputingEntity object.
  * \public \memberof data_collection_model_integrity_computing_entity_t
  * Creates a new copy of the given @a other object
  * @param other The IntegrityComputingEntity to copy.

@@ -47,13 +47,21 @@ typedef enum {
 } data_collection_model_media_transport_proto_e;
 
 
-/** Create a new MediaTransportProto
+/** Create a new MediaTransportProto.
  * \public \memberof data_collection_model_media_transport_proto_t
  * @return a new MediaTransportProto object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_transport_proto_t *data_collection_model_media_transport_proto_create();
 
-/** Create a new copy of a MediaTransportProto object
+/** Create a new MediaTransportProto reference.
+ * \public \memberof data_collection_model_media_transport_proto_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The MediaTransportProto to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_transport_proto_t *data_collection_model_media_transport_proto_create_ref(const data_collection_model_media_transport_proto_t *other);
+
+/** Create a new copy of a MediaTransportProto object.
  * \public \memberof data_collection_model_media_transport_proto_t
  * Creates a new copy of the given @a other object
  * @param other The MediaTransportProto to copy.

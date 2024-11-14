@@ -495,7 +495,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                             ogs_free(err);
                                             break;
                                         }
-					data_collection_reporting_session_destroy(data_collection_reporting_session);
+					data_collection_reporting_session_destroy_active_session(data_collection_reporting_session);
 					response = nf_server_new_response(NULL, NULL, 0, NULL, 0, NULL, api, app_meta);
                                         nf_server_populate_response(response, 0, NULL, OGS_SBI_HTTP_STATUS_NO_CONTENT);
                                         ogs_assert(response);

@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_collectio
     return reinterpret_cast<data_collection_model_data_collection_client_type_t*>(new std::shared_ptr<DataCollectionClientType>(new DataCollectionClientType()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_collection_client_type_t *data_collection_model_data_collection_client_type_create_ref(const data_collection_model_data_collection_client_type_t *other)
+{
+    return reinterpret_cast<data_collection_model_data_collection_client_type_t*>(new std::shared_ptr<DataCollectionClientType>(*reinterpret_cast<const std::shared_ptr<DataCollectionClientType >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_collection_client_type_t *data_collection_model_data_collection_client_type_create_copy(const data_collection_model_data_collection_client_type_t *other)
 {
     if (!other) return NULL;

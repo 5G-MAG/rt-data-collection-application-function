@@ -47,13 +47,21 @@ typedef enum {
 } data_collection_model_communication_indicator_e;
 
 
-/** Create a new CommunicationIndicator
+/** Create a new CommunicationIndicator.
  * \public \memberof data_collection_model_communication_indicator_t
  * @return a new CommunicationIndicator object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_indicator_t *data_collection_model_communication_indicator_create();
 
-/** Create a new copy of a CommunicationIndicator object
+/** Create a new CommunicationIndicator reference.
+ * \public \memberof data_collection_model_communication_indicator_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The CommunicationIndicator to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_communication_indicator_t *data_collection_model_communication_indicator_create_ref(const data_collection_model_communication_indicator_t *other);
+
+/** Create a new copy of a CommunicationIndicator object.
  * \public \memberof data_collection_model_communication_indicator_t
  * Creates a new copy of the given @a other object
  * @param other The CommunicationIndicator to copy.

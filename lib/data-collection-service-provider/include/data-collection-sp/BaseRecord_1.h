@@ -38,13 +38,21 @@ data_collection_model_base_record_1_t;
 
 
 
-/** Create a new BaseRecord_1
+/** Create a new BaseRecord_1.
  * \public \memberof data_collection_model_base_record_1_t
  * @return a new BaseRecord_1 object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_record_1_t *data_collection_model_base_record_1_create();
 
-/** Create a new copy of a BaseRecord_1 object
+/** Create a new BaseRecord_1 reference.
+ * \public \memberof data_collection_model_base_record_1_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The BaseRecord_1 to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_record_1_t *data_collection_model_base_record_1_create_ref(const data_collection_model_base_record_1_t *other);
+
+/** Create a new copy of a BaseRecord_1 object.
  * \public \memberof data_collection_model_base_record_1_t
  * Creates a new copy of the given @a other object
  * @param other The BaseRecord_1 to copy.

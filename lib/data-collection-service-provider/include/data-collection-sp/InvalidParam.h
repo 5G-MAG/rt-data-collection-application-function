@@ -38,13 +38,21 @@ data_collection_model_invalid_param_t;
 
 
 
-/** Create a new InvalidParam
+/** Create a new InvalidParam.
  * \public \memberof data_collection_model_invalid_param_t
  * @return a new InvalidParam object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_invalid_param_t *data_collection_model_invalid_param_create();
 
-/** Create a new copy of a InvalidParam object
+/** Create a new InvalidParam reference.
+ * \public \memberof data_collection_model_invalid_param_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The InvalidParam to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_invalid_param_t *data_collection_model_invalid_param_create_ref(const data_collection_model_invalid_param_t *other);
+
+/** Create a new copy of a InvalidParam object.
  * \public \memberof data_collection_model_invalid_param_t
  * Creates a new copy of the given @a other object
  * @param other The InvalidParam to copy.

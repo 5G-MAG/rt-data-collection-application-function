@@ -104,7 +104,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_coll
     report->generated = data_report_record->generated;
     report->last_used = data_report_record->last_used;
     report->hash = data_collection_strdup(data_report_record->hash);
-    report->session = data_report_record->session;
+    report->session = data_collection_reporting_session_ref(data_report_record->session);
     report->data_report_record = data_report_record->data_report_record;
     report->original_records = ogs_malloc(sizeof(data_report_record));
     report->original_records[0] = data_report_record;
@@ -153,7 +153,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_coll
     ogs_list_for_each(origin_data_report_records, node) {
         if (first) {
             report->data_report_handler = node->data_report_handler;
-            report->session = node->session;
+            report->session = data_collection_reporting_session_ref(node->session);
             report->external_application_id = data_collection_strdup(node->external_application_id);
             first = false;
         } else {
@@ -163,7 +163,10 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_data_report_record_t *data_coll
                 report = NULL;
                 break;
             }
-            if (report->session != node->session) report->session = NULL;
+            if (report->session != node->session) {
+                data_collection_reporting_session_free(report->session);
+                report->session = NULL;
+            }
             if (report->external_application_id && strcmp(report->external_application_id, node->external_application_id)) {
                 ogs_free(report->external_application_id);
                 report->external_application_id = NULL;
@@ -216,6 +219,9 @@ DATA_COLLECTION_SVC_PRODUCER_API void data_collection_data_report_record_destroy
         data_collection_list_free(report->context_ids);
 	report->context_ids = NULL;
     }
+
+    data_collection_reporting_session_free(report->session);
+
     ogs_free(report);
 }
 
@@ -331,7 +337,7 @@ static data_collection_data_report_record_t *__data_collection_report_create(dat
     report->data_report_handler = handler; //pointer to handler;
     report->generated = get_time_from_timespec(handler->timestamp_for_report_data(data_report_record)); // this function returns timespec so change to ogs_time_t;
     report->last_used = ogs_time_now();
-    report->session = session;
+    report->session = data_collection_reporting_session_ref(session);
     report->hash = handler->tag_for_report_data(data_report_record);
     report->data_report_record = data_report_record;
     report->context_ids = handler->context_ids(data_report_record);

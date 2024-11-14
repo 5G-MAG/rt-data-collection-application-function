@@ -39,13 +39,21 @@ data_collection_model_af_event_exposure_notif_t;
 
 
 
-/** Create a new AfEventExposureNotif
+/** Create a new AfEventExposureNotif.
  * \public \memberof data_collection_model_af_event_exposure_notif_t
  * @return a new AfEventExposureNotif object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_create();
 
-/** Create a new copy of a AfEventExposureNotif object
+/** Create a new AfEventExposureNotif reference.
+ * \public \memberof data_collection_model_af_event_exposure_notif_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The AfEventExposureNotif to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_exposure_notif_t *data_collection_model_af_event_exposure_notif_create_ref(const data_collection_model_af_event_exposure_notif_t *other);
+
+/** Create a new copy of a AfEventExposureNotif object.
  * \public \memberof data_collection_model_af_event_exposure_notif_t
  * Creates a new copy of the given @a other object
  * @param other The AfEventExposureNotif to copy.

@@ -41,13 +41,21 @@ data_collection_model_gnss_positioning_method_and_usage_t;
 
 
 
-/** Create a new GnssPositioningMethodAndUsage
+/** Create a new GnssPositioningMethodAndUsage.
  * \public \memberof data_collection_model_gnss_positioning_method_and_usage_t
  * @return a new GnssPositioningMethodAndUsage object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_create();
 
-/** Create a new copy of a GnssPositioningMethodAndUsage object
+/** Create a new GnssPositioningMethodAndUsage reference.
+ * \public \memberof data_collection_model_gnss_positioning_method_and_usage_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The GnssPositioningMethodAndUsage to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_positioning_method_and_usage_t *data_collection_model_gnss_positioning_method_and_usage_create_ref(const data_collection_model_gnss_positioning_method_and_usage_t *other);
+
+/** Create a new copy of a GnssPositioningMethodAndUsage object.
  * \public \memberof data_collection_model_gnss_positioning_method_and_usage_t
  * Creates a new copy of the given @a other object
  * @param other The GnssPositioningMethodAndUsage to copy.

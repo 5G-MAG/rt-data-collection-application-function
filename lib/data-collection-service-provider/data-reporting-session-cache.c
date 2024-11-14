@@ -130,16 +130,16 @@ bool data_reporting_session_cache_prune(ogs_hash_t *cache)
         const char *key;
         int key_len;
         data_reporting_session_cache_entry_t *entry;
-	data_collection_reporting_session_t *data_reporting_session = NULL;
+	//data_collection_reporting_session_t *data_reporting_session = NULL;
 	const ogs_time_t current_time = ogs_time_now();
 
         ogs_hash_this(it, (const void **)&key, &key_len, (void**)(&entry));
         _debug_key(key, "=");
 	if (current_time >= entry->generated +  ( 3 * ogs_time_from_sec(data_collection_self()->config.server_response_cache_control->data_collection_reporting_report_response_max_age))) {
             ogs_debug("clear %p[%i]: %p", key, key_len, entry);
-	    data_reporting_session = data_collection_reporting_session_find(key);
+	    //data_reporting_session = data_collection_reporting_session_find(key);
             ogs_hash_set(cache, key, key_len, NULL);
-            if(data_reporting_session) data_collection_reporting_session_destroy(data_reporting_session);
+            //if (data_reporting_session) data_collection_reporting_session_destroy_active_session(data_reporting_session);
             data_reporting_session_cache_entry_free(entry);
 	}
     }

@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_battery_indica
     return reinterpret_cast<data_collection_model_battery_indication_t*>(new std::shared_ptr<BatteryIndication>(new BatteryIndication()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_battery_indication_t *data_collection_model_battery_indication_create_ref(const data_collection_model_battery_indication_t *other)
+{
+    return reinterpret_cast<data_collection_model_battery_indication_t*>(new std::shared_ptr<BatteryIndication>(*reinterpret_cast<const std::shared_ptr<BatteryIndication >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_battery_indication_t *data_collection_model_battery_indication_create_copy(const data_collection_model_battery_indication_t *other)
 {
     if (!other) return NULL;

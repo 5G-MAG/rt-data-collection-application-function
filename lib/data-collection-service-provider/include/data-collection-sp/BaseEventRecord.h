@@ -41,13 +41,21 @@ data_collection_model_base_event_record_t;
 
 
 
-/** Create a new BaseEventRecord
+/** Create a new BaseEventRecord.
  * \public \memberof data_collection_model_base_event_record_t
  * @return a new BaseEventRecord object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_event_record_t *data_collection_model_base_event_record_create();
 
-/** Create a new copy of a BaseEventRecord object
+/** Create a new BaseEventRecord reference.
+ * \public \memberof data_collection_model_base_event_record_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The BaseEventRecord to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_event_record_t *data_collection_model_base_event_record_create_ref(const data_collection_model_base_event_record_t *other);
+
+/** Create a new copy of a BaseEventRecord object.
  * \public \memberof data_collection_model_base_event_record_t
  * Creates a new copy of the given @a other object
  * @param other The BaseEventRecord to copy.

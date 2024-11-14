@@ -43,6 +43,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_event_col
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_event_collection_t *data_collection_model_base_event_collection_create_ref(const data_collection_model_base_event_collection_t *other)
+{
+    return reinterpret_cast<data_collection_model_base_event_collection_t*>(new std::shared_ptr<BaseEventCollection>(*reinterpret_cast<const std::shared_ptr<BaseEventCollection >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_base_event_collection_t *data_collection_model_base_event_collection_create_copy(const data_collection_model_base_event_collection_t *other)
 {
     if (!other) return NULL;

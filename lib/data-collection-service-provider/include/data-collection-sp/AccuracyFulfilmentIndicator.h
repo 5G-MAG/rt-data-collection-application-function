@@ -47,13 +47,21 @@ typedef enum {
 } data_collection_model_accuracy_fulfilment_indicator_e;
 
 
-/** Create a new AccuracyFulfilmentIndicator
+/** Create a new AccuracyFulfilmentIndicator.
  * \public \memberof data_collection_model_accuracy_fulfilment_indicator_t
  * @return a new AccuracyFulfilmentIndicator object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_accuracy_fulfilment_indicator_t *data_collection_model_accuracy_fulfilment_indicator_create();
 
-/** Create a new copy of a AccuracyFulfilmentIndicator object
+/** Create a new AccuracyFulfilmentIndicator reference.
+ * \public \memberof data_collection_model_accuracy_fulfilment_indicator_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The AccuracyFulfilmentIndicator to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_accuracy_fulfilment_indicator_t *data_collection_model_accuracy_fulfilment_indicator_create_ref(const data_collection_model_accuracy_fulfilment_indicator_t *other);
+
+/** Create a new copy of a AccuracyFulfilmentIndicator object.
  * \public \memberof data_collection_model_accuracy_fulfilment_indicator_t
  * Creates a new copy of the given @a other object
  * @param other The AccuracyFulfilmentIndicator to copy.

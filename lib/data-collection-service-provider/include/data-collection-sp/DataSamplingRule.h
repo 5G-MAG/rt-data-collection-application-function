@@ -39,13 +39,21 @@ data_collection_model_data_sampling_rule_t;
 
 
 
-/** Create a new DataSamplingRule
+/** Create a new DataSamplingRule.
  * \public \memberof data_collection_model_data_sampling_rule_t
  * @return a new DataSamplingRule object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_sampling_rule_t *data_collection_model_data_sampling_rule_create();
 
-/** Create a new copy of a DataSamplingRule object
+/** Create a new DataSamplingRule reference.
+ * \public \memberof data_collection_model_data_sampling_rule_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The DataSamplingRule to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_sampling_rule_t *data_collection_model_data_sampling_rule_create_ref(const data_collection_model_data_sampling_rule_t *other);
+
+/** Create a new copy of a DataSamplingRule object.
  * \public \memberof data_collection_model_data_sampling_rule_t
  * Creates a new copy of the given @a other object
  * @param other The DataSamplingRule to copy.

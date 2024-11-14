@@ -42,13 +42,21 @@ data_collection_model_application_flow_description_t;
 
 
 
-/** Create a new ApplicationFlowDescription
+/** Create a new ApplicationFlowDescription.
  * \public \memberof data_collection_model_application_flow_description_t
  * @return a new ApplicationFlowDescription object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_create();
 
-/** Create a new copy of a ApplicationFlowDescription object
+/** Create a new ApplicationFlowDescription reference.
+ * \public \memberof data_collection_model_application_flow_description_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The ApplicationFlowDescription to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_flow_description_t *data_collection_model_application_flow_description_create_ref(const data_collection_model_application_flow_description_t *other);
+
+/** Create a new copy of a ApplicationFlowDescription object.
  * \public \memberof data_collection_model_application_flow_description_t
  * Creates a new copy of the given @a other object
  * @param other The ApplicationFlowDescription to copy.

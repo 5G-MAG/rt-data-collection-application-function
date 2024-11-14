@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_tren
     return reinterpret_cast<data_collection_model_exception_trend_t*>(new std::shared_ptr<ExceptionTrend>(new ExceptionTrend()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_trend_t *data_collection_model_exception_trend_create_ref(const data_collection_model_exception_trend_t *other)
+{
+    return reinterpret_cast<data_collection_model_exception_trend_t*>(new std::shared_ptr<ExceptionTrend>(*reinterpret_cast<const std::shared_ptr<ExceptionTrend >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_trend_t *data_collection_model_exception_trend_create_copy(const data_collection_model_exception_trend_t *other)
 {
     if (!other) return NULL;

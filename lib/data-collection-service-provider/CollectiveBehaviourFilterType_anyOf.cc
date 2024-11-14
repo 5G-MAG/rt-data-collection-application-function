@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_beh
     return reinterpret_cast<data_collection_model_collective_behaviour_filter_type_any_of_t*>(new std::shared_ptr<CollectiveBehaviourFilterType_anyOf>(new CollectiveBehaviourFilterType_anyOf()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_behaviour_filter_type_any_of_t *data_collection_model_collective_behaviour_filter_type_any_of_create_ref(const data_collection_model_collective_behaviour_filter_type_any_of_t *other)
+{
+    return reinterpret_cast<data_collection_model_collective_behaviour_filter_type_any_of_t*>(new std::shared_ptr<CollectiveBehaviourFilterType_anyOf>(*reinterpret_cast<const std::shared_ptr<CollectiveBehaviourFilterType_anyOf >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_collective_behaviour_filter_type_any_of_t *data_collection_model_collective_behaviour_filter_type_any_of_create_copy(const data_collection_model_collective_behaviour_filter_type_any_of_t *other)
 {
     if (!other) return NULL;

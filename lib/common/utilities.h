@@ -46,6 +46,11 @@ extern char *check_http_content_type(ogs_sbi_http_message_t http, char *content_
 extern time_t str_to_rfc3339_time(const char *str_time, struct timespec *to_fill /* null,out */);
 extern char *traceable_strdup(const char *str, const char *location);
 
+extern void timespec_add(const struct timespec *a, const struct timespec *b, struct timespec *result /* [not-null, out] */);
+extern void timespec_sub(const struct timespec *a, const struct timespec *b, struct timespec *result /* [not-null, out] */);
+extern int timespec_cmp(const struct timespec *a, const struct timespec *b);
+extern char *timespec_to_rfc3339_str(const struct timespec *wallclock_time);
+
 extern ogs_lnode_t *list_node_create(void);
 extern ogs_list_t *list_create(void);
 extern ogs_list_t *list_clone(const ogs_list_t *to_copy, ogs_lnode_t *(*node_copy_fn)(const ogs_lnode_t *to_copy));

@@ -38,13 +38,21 @@ data_collection_model_horizontal_velocity_t;
 
 
 
-/** Create a new HorizontalVelocity
+/** Create a new HorizontalVelocity.
  * \public \memberof data_collection_model_horizontal_velocity_t
  * @return a new HorizontalVelocity object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_create();
 
-/** Create a new copy of a HorizontalVelocity object
+/** Create a new HorizontalVelocity reference.
+ * \public \memberof data_collection_model_horizontal_velocity_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The HorizontalVelocity to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_create_ref(const data_collection_model_horizontal_velocity_t *other);
+
+/** Create a new copy of a HorizontalVelocity object.
  * \public \memberof data_collection_model_horizontal_velocity_t
  * Creates a new copy of the given @a other object
  * @param other The HorizontalVelocity to copy.

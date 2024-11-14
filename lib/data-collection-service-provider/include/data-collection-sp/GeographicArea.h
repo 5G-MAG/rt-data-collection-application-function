@@ -48,13 +48,21 @@ data_collection_model_geographic_area_t;
 
 
 
-/** Create a new GeographicArea
+/** Create a new GeographicArea.
  * \public \memberof data_collection_model_geographic_area_t
  * @return a new GeographicArea object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_create();
 
-/** Create a new copy of a GeographicArea object
+/** Create a new GeographicArea reference.
+ * \public \memberof data_collection_model_geographic_area_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The GeographicArea to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_geographic_area_t *data_collection_model_geographic_area_create_ref(const data_collection_model_geographic_area_t *other);
+
+/** Create a new copy of a GeographicArea object.
  * \public \memberof data_collection_model_geographic_area_t
  * Creates a new copy of the given @a other object
  * @param other The GeographicArea to copy.

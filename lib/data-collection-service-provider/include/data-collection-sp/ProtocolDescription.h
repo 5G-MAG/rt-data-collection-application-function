@@ -41,13 +41,21 @@ data_collection_model_protocol_description_t;
 
 
 
-/** Create a new ProtocolDescription
+/** Create a new ProtocolDescription.
  * \public \memberof data_collection_model_protocol_description_t
  * @return a new ProtocolDescription object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_description_t *data_collection_model_protocol_description_create();
 
-/** Create a new copy of a ProtocolDescription object
+/** Create a new ProtocolDescription reference.
+ * \public \memberof data_collection_model_protocol_description_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The ProtocolDescription to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_protocol_description_t *data_collection_model_protocol_description_create_ref(const data_collection_model_protocol_description_t *other);
+
+/** Create a new copy of a ProtocolDescription object.
  * \public \memberof data_collection_model_protocol_description_t
  * Creates a new copy of the given @a other object
  * @param other The ProtocolDescription to copy.

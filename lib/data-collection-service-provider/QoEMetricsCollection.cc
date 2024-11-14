@@ -43,6 +43,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_c
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_collection_t *data_collection_model_qo_e_metrics_collection_create_ref(const data_collection_model_qo_e_metrics_collection_t *other)
+{
+    return reinterpret_cast<data_collection_model_qo_e_metrics_collection_t*>(new std::shared_ptr<QoEMetricsCollection>(*reinterpret_cast<const std::shared_ptr<QoEMetricsCollection >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_collection_t *data_collection_model_qo_e_metrics_collection_create_copy(const data_collection_model_qo_e_metrics_collection_t *other)
 {
     if (!other) return NULL;

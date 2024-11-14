@@ -39,13 +39,21 @@ data_collection_model_horizontal_with_vertical_velocity_t;
 
 
 
-/** Create a new HorizontalWithVerticalVelocity
+/** Create a new HorizontalWithVerticalVelocity.
  * \public \memberof data_collection_model_horizontal_with_vertical_velocity_t
  * @return a new HorizontalWithVerticalVelocity object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_with_vertical_velocity_t *data_collection_model_horizontal_with_vertical_velocity_create();
 
-/** Create a new copy of a HorizontalWithVerticalVelocity object
+/** Create a new HorizontalWithVerticalVelocity reference.
+ * \public \memberof data_collection_model_horizontal_with_vertical_velocity_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The HorizontalWithVerticalVelocity to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_with_vertical_velocity_t *data_collection_model_horizontal_with_vertical_velocity_create_ref(const data_collection_model_horizontal_with_vertical_velocity_t *other);
+
+/** Create a new copy of a HorizontalWithVerticalVelocity object.
  * \public \memberof data_collection_model_horizontal_with_vertical_velocity_t
  * Creates a new copy of the given @a other object
  * @param other The HorizontalWithVerticalVelocity to copy.

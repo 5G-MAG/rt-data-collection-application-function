@@ -46,6 +46,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_session_t *data_colle
     reporting_session = ogs_calloc(1, sizeof(*reporting_session));
     ogs_assert(reporting_session);
 
+    reporting_session->ref_count = 1;
     reporting_session->data_reporting_session_id = data_collection_strdup(id);
 
     reporting_session->external_application_id = data_collection_strdup(external_app_id);
@@ -63,23 +64,44 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_session_t *data_colle
     return reporting_session;
 }
 
-DATA_COLLECTION_SVC_PRODUCER_API void data_collection_reporting_session_destroy(data_collection_reporting_session_t *session)
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_session_t *data_collection_reporting_session_ref(data_collection_reporting_session_t *session)
 {
-    ogs_assert(session);
+    if (!session) return NULL;
+    ogs_debug("data_collection_reporting_session_ref(%p)", session);
+    session->ref_count++;
+    ogs_debug("data_collection_reporting_session_ref: refcount = %i", session->ref_count);
+    return session;
+}
 
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_reporting_session_destroy_active_session(data_collection_reporting_session_t *session)
+{
+    if (!session) return;
     ogs_hash_set(data_collection_self()->data_reporting_sessions, session->data_reporting_session_id, OGS_HASH_KEY_STRING, NULL);
-    data_reporting_session_cache_del(data_collection_self()->data_reporting_sessions_cache, session->data_reporting_session_id);
+    data_collection_reporting_session_free(session);
+}
 
-    if (session->external_application_id) ogs_free(session->external_application_id);
-    if (session->data_reporting_session_id) ogs_free(session->data_reporting_session_id);
-    if (session->supported_domains) {
-        supported_domains_remove_all(session->supported_domains);
-        ogs_free(session->supported_domains);
-	session->supported_domains = NULL;
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_reporting_session_free(data_collection_reporting_session_t *session)
+{
+    if (!session) return;
+    ogs_debug("data_collection_reporting_session_free(%p)", session);
+
+    session->ref_count--;
+    ogs_debug("data_collection_reporting_session_free: refcount = %i", session->ref_count);
+    ogs_assert(session->ref_count >= 0);
+    if (session->ref_count == 0) {
+        data_reporting_session_cache_del(data_collection_self()->data_reporting_sessions_cache, session->data_reporting_session_id);
+
+        if (session->external_application_id) ogs_free(session->external_application_id);
+        if (session->data_reporting_session_id) ogs_free(session->data_reporting_session_id);
+        if (session->supported_domains) {
+            supported_domains_remove_all(session->supported_domains);
+            ogs_free(session->supported_domains);
+            session->supported_domains = NULL;
+        }
+        if (session->hash) ogs_free(session->hash);
+        if (session->data_reporting_session) data_collection_model_data_reporting_session_free(session->data_reporting_session);
+        ogs_free(session);
     }
-    if (session->hash) ogs_free(session->hash);
-    if (session->data_reporting_session) data_collection_model_data_reporting_session_free(session->data_reporting_session);
-    ogs_free(session);
 }
 
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_reporting_session_t *data_collection_reporting_session_find(const char *session_id)
@@ -131,7 +153,7 @@ void _reporting_session_expire_old_sessions()
         long session_nsec = session->last_access.tv_nsec;
         if (session_sec < now.tv_sec || (session_sec == now.tv_sec && session_nsec < now.tv_nsec)) {
             /* reporting session has expired - destroy it */
-            data_collection_reporting_session_destroy(session);
+            data_collection_reporting_session_destroy_active_session(session);
         }
     }
     ogs_free(idx_obj);

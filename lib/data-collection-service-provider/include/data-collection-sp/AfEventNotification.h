@@ -59,13 +59,21 @@ data_collection_model_af_event_notification_t;
 
 
 
-/** Create a new AfEventNotification
+/** Create a new AfEventNotification.
  * \public \memberof data_collection_model_af_event_notification_t
  * @return a new AfEventNotification object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_create();
 
-/** Create a new copy of a AfEventNotification object
+/** Create a new AfEventNotification reference.
+ * \public \memberof data_collection_model_af_event_notification_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The AfEventNotification to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_notification_t *data_collection_model_af_event_notification_create_ref(const data_collection_model_af_event_notification_t *other);
+
+/** Create a new copy of a AfEventNotification object.
  * \public \memberof data_collection_model_af_event_notification_t
  * Creates a new copy of the given @a other object
  * @param other The AfEventNotification to copy.

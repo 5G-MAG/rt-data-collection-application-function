@@ -75,6 +75,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_r
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_create_ref(const data_collection_model_access_token_req_t *other)
+{
+    return reinterpret_cast<data_collection_model_access_token_req_t*>(new std::shared_ptr<AccessTokenReq>(*reinterpret_cast<const std::shared_ptr<AccessTokenReq >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_create_copy(const data_collection_model_access_token_req_t *other)
 {
     if (!other) return NULL;

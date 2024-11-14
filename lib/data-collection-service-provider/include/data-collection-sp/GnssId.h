@@ -53,13 +53,21 @@ typedef enum {
 } data_collection_model_gnss_id_e;
 
 
-/** Create a new GnssId
+/** Create a new GnssId.
  * \public \memberof data_collection_model_gnss_id_t
  * @return a new GnssId object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_id_t *data_collection_model_gnss_id_create();
 
-/** Create a new copy of a GnssId object
+/** Create a new GnssId reference.
+ * \public \memberof data_collection_model_gnss_id_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The GnssId to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnss_id_t *data_collection_model_gnss_id_create_ref(const data_collection_model_gnss_id_t *other);
+
+/** Create a new copy of a GnssId object.
  * \public \memberof data_collection_model_gnss_id_t
  * Creates a new copy of the given @a other object
  * @param other The GnssId to copy.

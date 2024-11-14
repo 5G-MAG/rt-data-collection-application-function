@@ -33,6 +33,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_mat
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_create_ref(const data_collection_model_no_profile_match_info_t *other)
+{
+    return reinterpret_cast<data_collection_model_no_profile_match_info_t*>(new std::shared_ptr<NoProfileMatchInfo>(*reinterpret_cast<const std::shared_ptr<NoProfileMatchInfo >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_info_t *data_collection_model_no_profile_match_info_create_copy(const data_collection_model_no_profile_match_info_t *other)
 {
     if (!other) return NULL;

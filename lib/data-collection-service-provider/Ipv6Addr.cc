@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ipv6_addr_t *d
     return reinterpret_cast<data_collection_model_ipv6_addr_t*>(new std::shared_ptr<Ipv6Addr>(new Ipv6Addr()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ipv6_addr_t *data_collection_model_ipv6_addr_create_ref(const data_collection_model_ipv6_addr_t *other)
+{
+    return reinterpret_cast<data_collection_model_ipv6_addr_t*>(new std::shared_ptr<Ipv6Addr>(*reinterpret_cast<const std::shared_ptr<Ipv6Addr >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ipv6_addr_t *data_collection_model_ipv6_addr_create_copy(const data_collection_model_ipv6_addr_t *other)
 {
     if (!other) return NULL;

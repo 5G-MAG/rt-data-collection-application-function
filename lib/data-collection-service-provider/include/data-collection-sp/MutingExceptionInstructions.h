@@ -40,13 +40,21 @@ data_collection_model_muting_exception_instructions_t;
 
 
 
-/** Create a new MutingExceptionInstructions
+/** Create a new MutingExceptionInstructions.
  * \public \memberof data_collection_model_muting_exception_instructions_t
  * @return a new MutingExceptionInstructions object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_exception_instructions_t *data_collection_model_muting_exception_instructions_create();
 
-/** Create a new copy of a MutingExceptionInstructions object
+/** Create a new MutingExceptionInstructions reference.
+ * \public \memberof data_collection_model_muting_exception_instructions_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The MutingExceptionInstructions to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_exception_instructions_t *data_collection_model_muting_exception_instructions_create_ref(const data_collection_model_muting_exception_instructions_t *other);
+
+/** Create a new copy of a MutingExceptionInstructions object.
  * \public \memberof data_collection_model_muting_exception_instructions_t
  * Creates a new copy of the given @a other object
  * @param other The MutingExceptionInstructions to copy.

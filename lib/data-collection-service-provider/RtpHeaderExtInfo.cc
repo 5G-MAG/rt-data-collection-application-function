@@ -37,6 +37,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_create_ref(const data_collection_model_rtp_header_ext_info_t *other)
+{
+    return reinterpret_cast<data_collection_model_rtp_header_ext_info_t*>(new std::shared_ptr<RtpHeaderExtInfo>(*reinterpret_cast<const std::shared_ptr<RtpHeaderExtInfo >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_header_ext_info_t *data_collection_model_rtp_header_ext_info_create_copy(const data_collection_model_rtp_header_ext_info_t *other)
 {
     if (!other) return NULL;

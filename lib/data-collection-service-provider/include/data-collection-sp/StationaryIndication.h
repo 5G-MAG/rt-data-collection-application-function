@@ -47,13 +47,21 @@ typedef enum {
 } data_collection_model_stationary_indication_e;
 
 
-/** Create a new StationaryIndication
+/** Create a new StationaryIndication.
  * \public \memberof data_collection_model_stationary_indication_t
  * @return a new StationaryIndication object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_stationary_indication_t *data_collection_model_stationary_indication_create();
 
-/** Create a new copy of a StationaryIndication object
+/** Create a new StationaryIndication reference.
+ * \public \memberof data_collection_model_stationary_indication_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The StationaryIndication to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_stationary_indication_t *data_collection_model_stationary_indication_create_ref(const data_collection_model_stationary_indication_t *other);
+
+/** Create a new copy of a StationaryIndication object.
  * \public \memberof data_collection_model_stationary_indication_t
  * Creates a new copy of the given @a other object
  * @param other The StationaryIndication to copy.

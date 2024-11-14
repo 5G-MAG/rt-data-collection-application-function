@@ -38,13 +38,21 @@ data_collection_model_horizontal_velocity_with_uncertainty_t;
 
 
 
-/** Create a new HorizontalVelocityWithUncertainty
+/** Create a new HorizontalVelocityWithUncertainty.
  * \public \memberof data_collection_model_horizontal_velocity_with_uncertainty_t
  * @return a new HorizontalVelocityWithUncertainty object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_velocity_with_uncertainty_t *data_collection_model_horizontal_velocity_with_uncertainty_create();
 
-/** Create a new copy of a HorizontalVelocityWithUncertainty object
+/** Create a new HorizontalVelocityWithUncertainty reference.
+ * \public \memberof data_collection_model_horizontal_velocity_with_uncertainty_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The HorizontalVelocityWithUncertainty to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_velocity_with_uncertainty_t *data_collection_model_horizontal_velocity_with_uncertainty_create_ref(const data_collection_model_horizontal_velocity_with_uncertainty_t *other);
+
+/** Create a new copy of a HorizontalVelocityWithUncertainty object.
  * \public \memberof data_collection_model_horizontal_velocity_with_uncertainty_t
  * Creates a new copy of the given @a other object
  * @param other The HorizontalVelocityWithUncertainty to copy.

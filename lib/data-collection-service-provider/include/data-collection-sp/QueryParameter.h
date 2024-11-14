@@ -38,13 +38,21 @@ data_collection_model_query_parameter_t;
 
 
 
-/** Create a new QueryParameter
+/** Create a new QueryParameter.
  * \public \memberof data_collection_model_query_parameter_t
  * @return a new QueryParameter object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_parameter_t *data_collection_model_query_parameter_create();
 
-/** Create a new copy of a QueryParameter object
+/** Create a new QueryParameter reference.
+ * \public \memberof data_collection_model_query_parameter_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The QueryParameter to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_parameter_t *data_collection_model_query_parameter_create_ref(const data_collection_model_query_parameter_t *other);
+
+/** Create a new copy of a QueryParameter object.
  * \public \memberof data_collection_model_query_parameter_t
  * Creates a new copy of the given @a other object
  * @param other The QueryParameter to copy.

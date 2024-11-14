@@ -40,13 +40,21 @@ data_collection_model_ue_mobility_collection_t;
 
 
 
-/** Create a new UeMobilityCollection
+/** Create a new UeMobilityCollection.
  * \public \memberof data_collection_model_ue_mobility_collection_t
  * @return a new UeMobilityCollection object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_create();
 
-/** Create a new copy of a UeMobilityCollection object
+/** Create a new UeMobilityCollection reference.
+ * \public \memberof data_collection_model_ue_mobility_collection_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The UeMobilityCollection to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_mobility_collection_t *data_collection_model_ue_mobility_collection_create_ref(const data_collection_model_ue_mobility_collection_t *other);
+
+/** Create a new copy of a UeMobilityCollection object.
  * \public \memberof data_collection_model_ue_mobility_collection_t
  * Creates a new copy of the given @a other object
  * @param other The UeMobilityCollection to copy.

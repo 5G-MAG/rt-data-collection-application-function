@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_los_nlos_measu
     return reinterpret_cast<data_collection_model_los_nlos_measure_ind_any_of_t*>(new std::shared_ptr<LosNlosMeasureInd_anyOf>(new LosNlosMeasureInd_anyOf()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_los_nlos_measure_ind_any_of_t *data_collection_model_los_nlos_measure_ind_any_of_create_ref(const data_collection_model_los_nlos_measure_ind_any_of_t *other)
+{
+    return reinterpret_cast<data_collection_model_los_nlos_measure_ind_any_of_t*>(new std::shared_ptr<LosNlosMeasureInd_anyOf>(*reinterpret_cast<const std::shared_ptr<LosNlosMeasureInd_anyOf >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_los_nlos_measure_ind_any_of_t *data_collection_model_los_nlos_measure_ind_any_of_create_copy(const data_collection_model_los_nlos_measure_ind_any_of_t *other)
 {
     if (!other) return NULL;

@@ -35,6 +35,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_carte
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_create_ref(const data_collection_model_relative_cartesian_location_t *other)
+{
+    return reinterpret_cast<data_collection_model_relative_cartesian_location_t*>(new std::shared_ptr<RelativeCartesianLocation>(*reinterpret_cast<const std::shared_ptr<RelativeCartesianLocation >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_create_copy(const data_collection_model_relative_cartesian_location_t *other)
 {
     if (!other) return NULL;

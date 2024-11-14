@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_failure_cod
     return reinterpret_cast<data_collection_model_cp_failure_code_t*>(new std::shared_ptr<CpFailureCode>(new CpFailureCode()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_failure_code_t *data_collection_model_cp_failure_code_create_ref(const data_collection_model_cp_failure_code_t *other)
+{
+    return reinterpret_cast<data_collection_model_cp_failure_code_t*>(new std::shared_ptr<CpFailureCode>(*reinterpret_cast<const std::shared_ptr<CpFailureCode >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cp_failure_code_t *data_collection_model_cp_failure_code_create_copy(const data_collection_model_cp_failure_code_t *other)
 {
     if (!other) return NULL;

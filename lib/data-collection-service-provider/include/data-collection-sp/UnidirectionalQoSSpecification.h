@@ -39,13 +39,21 @@ data_collection_model_unidirectional_qo_s_specification_t;
 
 
 
-/** Create a new UnidirectionalQoSSpecification
+/** Create a new UnidirectionalQoSSpecification.
  * \public \memberof data_collection_model_unidirectional_qo_s_specification_t
  * @return a new UnidirectionalQoSSpecification object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional_qo_s_specification_t *data_collection_model_unidirectional_qo_s_specification_create();
 
-/** Create a new copy of a UnidirectionalQoSSpecification object
+/** Create a new UnidirectionalQoSSpecification reference.
+ * \public \memberof data_collection_model_unidirectional_qo_s_specification_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The UnidirectionalQoSSpecification to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_unidirectional_qo_s_specification_t *data_collection_model_unidirectional_qo_s_specification_create_ref(const data_collection_model_unidirectional_qo_s_specification_t *other);
+
+/** Create a new copy of a UnidirectionalQoSSpecification object.
  * \public \memberof data_collection_model_unidirectional_qo_s_specification_t
  * Creates a new copy of the given @a other object
  * @param other The UnidirectionalQoSSpecification to copy.

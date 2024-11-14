@@ -39,13 +39,21 @@ data_collection_model_consumption_reporting_units_collection_all_of_t;
 
 
 
-/** Create a new ConsumptionReportingUnitsCollection_allOf
+/** Create a new ConsumptionReportingUnitsCollection_allOf.
  * \public \memberof data_collection_model_consumption_reporting_units_collection_all_of_t
  * @return a new ConsumptionReportingUnitsCollection_allOf object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_all_of_t *data_collection_model_consumption_reporting_units_collection_all_of_create();
 
-/** Create a new copy of a ConsumptionReportingUnitsCollection_allOf object
+/** Create a new ConsumptionReportingUnitsCollection_allOf reference.
+ * \public \memberof data_collection_model_consumption_reporting_units_collection_all_of_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The ConsumptionReportingUnitsCollection_allOf to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_consumption_reporting_units_collection_all_of_t *data_collection_model_consumption_reporting_units_collection_all_of_create_ref(const data_collection_model_consumption_reporting_units_collection_all_of_t *other);
+
+/** Create a new copy of a ConsumptionReportingUnitsCollection_allOf object.
  * \public \memberof data_collection_model_consumption_reporting_units_collection_all_of_t
  * Creates a new copy of the given @a other object
  * @param other The ConsumptionReportingUnitsCollection_allOf to copy.

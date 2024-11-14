@@ -33,6 +33,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_vel
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_create_ref(const data_collection_model_horizontal_velocity_t *other)
+{
+    return reinterpret_cast<data_collection_model_horizontal_velocity_t*>(new std::shared_ptr<HorizontalVelocity>(*reinterpret_cast<const std::shared_ptr<HorizontalVelocity >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_velocity_t *data_collection_model_horizontal_velocity_create_copy(const data_collection_model_horizontal_velocity_t *other)
 {
     if (!other) return NULL;

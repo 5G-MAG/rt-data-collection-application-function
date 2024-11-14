@@ -38,13 +38,21 @@ data_collection_model_uncertainty_ellipse_t;
 
 
 
-/** Create a new UncertaintyEllipse
+/** Create a new UncertaintyEllipse.
  * \public \memberof data_collection_model_uncertainty_ellipse_t
  * @return a new UncertaintyEllipse object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_create();
 
-/** Create a new copy of a UncertaintyEllipse object
+/** Create a new UncertaintyEllipse reference.
+ * \public \memberof data_collection_model_uncertainty_ellipse_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The UncertaintyEllipse to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_uncertainty_ellipse_t *data_collection_model_uncertainty_ellipse_create_ref(const data_collection_model_uncertainty_ellipse_t *other);
+
+/** Create a new copy of a UncertaintyEllipse object.
  * \public \memberof data_collection_model_uncertainty_ellipse_t
  * Creates a new copy of the given @a other object
  * @param other The UncertaintyEllipse to copy.

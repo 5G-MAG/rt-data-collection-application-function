@@ -35,6 +35,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_area5
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_area5_g_t *data_collection_model_location_area5_g_create_ref(const data_collection_model_location_area5_g_t *other)
+{
+    return reinterpret_cast<data_collection_model_location_area5_g_t*>(new std::shared_ptr<LocationArea5G>(*reinterpret_cast<const std::shared_ptr<LocationArea5G >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_area5_g_t *data_collection_model_location_area5_g_create_copy(const data_collection_model_location_area5_g_t *other)
 {
     if (!other) return NULL;

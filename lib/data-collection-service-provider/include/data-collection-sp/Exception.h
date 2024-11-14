@@ -40,13 +40,21 @@ data_collection_model_exception_t;
 
 
 
-/** Create a new Exception
+/** Create a new Exception.
  * \public \memberof data_collection_model_exception_t
  * @return a new Exception object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_t *data_collection_model_exception_create();
 
-/** Create a new copy of a Exception object
+/** Create a new Exception reference.
+ * \public \memberof data_collection_model_exception_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The Exception to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_t *data_collection_model_exception_create_ref(const data_collection_model_exception_t *other);
+
+/** Create a new copy of a Exception object.
  * \public \memberof data_collection_model_exception_t
  * Creates a new copy of the given @a other object
  * @param other The Exception to copy.

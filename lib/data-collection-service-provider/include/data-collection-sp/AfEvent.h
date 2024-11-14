@@ -60,13 +60,21 @@ typedef enum {
 } data_collection_model_af_event_e;
 
 
-/** Create a new AfEvent
+/** Create a new AfEvent.
  * \public \memberof data_collection_model_af_event_t
  * @return a new AfEvent object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_t *data_collection_model_af_event_create();
 
-/** Create a new copy of a AfEvent object
+/** Create a new AfEvent reference.
+ * \public \memberof data_collection_model_af_event_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The AfEvent to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_af_event_t *data_collection_model_af_event_create_ref(const data_collection_model_af_event_t *other);
+
+/** Create a new copy of a AfEvent object.
  * \public \memberof data_collection_model_af_event_t
  * Creates a new copy of the given @a other object
  * @param other The AfEvent to copy.

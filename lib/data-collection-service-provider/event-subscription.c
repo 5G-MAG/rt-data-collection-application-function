@@ -7,6 +7,10 @@
  * https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
  */
 
+#include <time.h>
+
+#include "ogs-core.h"
+
 #include "data-collection-sp/data-collection.h"
 #include "AfEventExposureSubsc-internal.h"
 #include "context.h"
@@ -23,21 +27,25 @@ extern "C" {
 /******** Private Data Structures ********/
 
 typedef struct data_collection_event_subscription_s {
-    ogs_lnode_t node;
-    char *subscription_id;
-    ogs_time_t received;
-    ogs_time_t last_used;
-    char *hash;
-    char *client_type;
-    ogs_sbi_client_t  *client;
-    data_collection_model_af_event_exposure_subsc_t *af_event_exposure_subscription;
-    const struct data_collection_event_subscription_s *original_event_subscription;
-    ogs_timer_t *event_notification_timer;
-    bool send_notif;
+    ogs_lnode_t node;              /**< Make these directly usable in lists */
+    char *subscription_id;         /**< Copy of the subscription_id from af_event_exposure_subscription */
+    ogs_time_t received;           /**< Wallclock time when this subscription was last modified */
+    ogs_time_t last_used;          /**< Wallclock time this subscription was last used */
+    struct timespec creation_time; /**< Wallclock time the original subscription was created */
+    size_t notification_count;     /**< Counter for the number of notifications created for this subscription */
+    char *hash;                    /**< ETag for the af_event_exposure_subscription */
+    char *client_type;             /**< String enumeration for the client type for this subscription */
+    ogs_sbi_client_t  *client;     /**< Open5GS SBI client used to send notifications */
+    data_collection_model_af_event_exposure_subsc_t *af_event_exposure_subscription; /**< The actual subscription */
+    const struct data_collection_event_subscription_s *original_event_subscription; /**< The original subscription this is a copy of */
+    ogs_timer_t *event_notification_timer; /**< Timer for periodic notifications */
+    bool send_notif;               /**< Indicator whether this subscription is due for a notifications send */
 } data_collection_event_subscription_t;
 
 /********* Private function prototypes **********/
 
+static bool __event_subscription_check_max_notifications(const data_collection_event_subscription_t *event_subscription);
+static bool __event_subscription_check_max_reporting_period(const data_collection_event_subscription_t *event_subscription);
 static char *__calculate_event_exposure_subscription_hash(data_collection_model_af_event_exposure_subsc_t *af_event_exposure_subsc);
 static ogs_sbi_client_t *__event_consumer_client_init(const char *notification_uri);
 static int __client_notify_cb(int status, ogs_sbi_response_t *response, void *data);
@@ -73,6 +81,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_event_subscription_t *data_coll
 
     data_collection_event_subscription->received = ogs_time_now();
     data_collection_event_subscription->last_used = data_collection_event_subscription->received;
+    clock_gettime(CLOCK_REALTIME, &data_collection_event_subscription->creation_time);
     data_collection_event_subscription->af_event_exposure_subscription = subscription;
 
     data_collection_event_subscription->hash = __calculate_event_exposure_subscription_hash(subscription);
@@ -277,6 +286,30 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_event_subscription_
     return event_subscription->hash;
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_event_subscription_get_create_time(const data_collection_event_subscription_t *event_subscription, struct timespec *create_time)
+{
+    if (!event_subscription || !create_time) return;
+
+    *create_time = event_subscription->creation_time;
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_event_subscription_increment_notification_count(data_collection_event_subscription_t *event_subscription)
+{
+    if (!event_subscription) return true;
+
+    event_subscription->notification_count++;
+
+    return __event_subscription_check_max_notifications(event_subscription);
+}
+
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_event_subscription_check_expired(const data_collection_event_subscription_t *event_subscription)
+{
+    if (!event_subscription) return true;
+
+    return __event_subscription_check_max_notifications(event_subscription) || 
+           __event_subscription_check_max_reporting_period(event_subscription);
+}
+
 /******** Internal library functions **********/
 
 void _event_subscription_free(data_collection_event_subscription_t *event_subscription)
@@ -388,8 +421,8 @@ int _event_subscription_send_af_event_exposure_notif(data_collection_event_subsc
                                                     event_subscription->af_event_exposure_subscription));
     request->h.api.version = data_collection_strdup("v1");
 
-    if(body) {
-        request->http.content = data_collection_strdup(body);
+    if (body) {
+        request->http.content = body;
         request->http.content_length = strlen(body);
     }
     ogs_sbi_header_set(request->http.headers, "Content-Type", "application/json");
@@ -431,6 +464,42 @@ void _event_subscription_notification_timer_activate(data_collection_event_subsc
 }
 
 /******** Private functions ************/
+
+static bool __event_subscription_check_max_notifications(const data_collection_event_subscription_t *event_subscription)
+{
+    if (!event_subscription) return true;
+    if (!event_subscription->af_event_exposure_subscription) return true;
+    const data_collection_model_reporting_information_t *rep_info =
+            data_collection_model_af_event_exposure_subsc_get_events_rep_info(event_subscription->af_event_exposure_subscription);
+    if (!data_collection_model_reporting_information_has_max_report_nbr(rep_info)) return false;
+    const data_collection_model_notification_method_t *notif_method =
+            data_collection_model_reporting_information_get_notif_method(rep_info);
+    if (notif_method) {
+        /* maxReportNbr is only valid for PERIODIC or ON_EVENT_DETECTION notification methods */
+        data_collection_model_notification_method_e notif_method_enum =
+                        data_collection_model_notification_method_get_enum(notif_method);
+        if (notif_method_enum != DCM_NOTIFICATION_METHOD_VAL_PERIODIC &&
+            notif_method_enum != DCM_NOTIFICATION_METHOD_VAL_ON_EVENT_DETECTION) return false;
+    }
+    return data_collection_model_reporting_information_get_max_report_nbr(rep_info) > event_subscription->notification_count;
+}
+
+static bool __event_subscription_check_max_reporting_period(const data_collection_event_subscription_t *event_subscription)
+{
+    if (!event_subscription) return true;
+    if (!event_subscription->af_event_exposure_subscription) return true;
+
+    const data_collection_model_reporting_information_t *rep_info = 
+            data_collection_model_af_event_exposure_subsc_get_events_rep_info(event_subscription->af_event_exposure_subscription);
+    if (!data_collection_model_reporting_information_has_mon_dur(rep_info)) return false;
+
+    struct timespec now;
+    clock_gettime(CLOCK_REALTIME, &now);
+    const char *mon_dur = data_collection_model_reporting_information_get_mon_dur(rep_info);
+    struct timespec end_time;
+    str_to_rfc3339_time(mon_dur, &end_time);
+    return timespec_cmp(&now, &end_time) < 0;
+}
 
 static int __client_notify_cb(int status, ogs_sbi_response_t *response, void *data)
 {

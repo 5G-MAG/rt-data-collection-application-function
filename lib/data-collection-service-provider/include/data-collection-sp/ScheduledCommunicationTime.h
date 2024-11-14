@@ -38,13 +38,21 @@ data_collection_model_scheduled_communication_time_t;
 
 
 
-/** Create a new ScheduledCommunicationTime
+/** Create a new ScheduledCommunicationTime.
  * \public \memberof data_collection_model_scheduled_communication_time_t
  * @return a new ScheduledCommunicationTime object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_create();
 
-/** Create a new copy of a ScheduledCommunicationTime object
+/** Create a new ScheduledCommunicationTime reference.
+ * \public \memberof data_collection_model_scheduled_communication_time_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The ScheduledCommunicationTime to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_scheduled_communication_time_t *data_collection_model_scheduled_communication_time_create_ref(const data_collection_model_scheduled_communication_time_t *other);
+
+/** Create a new copy of a ScheduledCommunicationTime object.
  * \public \memberof data_collection_model_scheduled_communication_time_t
  * Creates a new copy of the given @a other object
  * @param other The ScheduledCommunicationTime to copy.

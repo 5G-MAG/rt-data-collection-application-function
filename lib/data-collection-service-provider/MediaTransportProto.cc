@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_transpor
     return reinterpret_cast<data_collection_model_media_transport_proto_t*>(new std::shared_ptr<MediaTransportProto>(new MediaTransportProto()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_transport_proto_t *data_collection_model_media_transport_proto_create_ref(const data_collection_model_media_transport_proto_t *other)
+{
+    return reinterpret_cast<data_collection_model_media_transport_proto_t*>(new std::shared_ptr<MediaTransportProto>(*reinterpret_cast<const std::shared_ptr<MediaTransportProto >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_transport_proto_t *data_collection_model_media_transport_proto_create_copy(const data_collection_model_media_transport_proto_t *other)
 {
     if (!other) return NULL;

@@ -37,6 +37,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_me
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_create_ref(const data_collection_model_positioning_method_and_usage_t *other)
+{
+    return reinterpret_cast<data_collection_model_positioning_method_and_usage_t*>(new std::shared_ptr<PositioningMethodAndUsage>(*reinterpret_cast<const std::shared_ptr<PositioningMethodAndUsage >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_method_and_usage_t *data_collection_model_positioning_method_and_usage_create_copy(const data_collection_model_positioning_method_and_usage_t *other)
 {
     if (!other) return NULL;

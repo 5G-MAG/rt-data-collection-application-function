@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_stationary_ind
     return reinterpret_cast<data_collection_model_stationary_indication_t*>(new std::shared_ptr<StationaryIndication>(new StationaryIndication()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_stationary_indication_t *data_collection_model_stationary_indication_create_ref(const data_collection_model_stationary_indication_t *other)
+{
+    return reinterpret_cast<data_collection_model_stationary_indication_t*>(new std::shared_ptr<StationaryIndication>(*reinterpret_cast<const std::shared_ptr<StationaryIndication >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_stationary_indication_t *data_collection_model_stationary_indication_create_copy(const data_collection_model_stationary_indication_t *other)
 {
     if (!other) return NULL;

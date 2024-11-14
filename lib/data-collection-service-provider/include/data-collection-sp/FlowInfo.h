@@ -38,13 +38,21 @@ data_collection_model_flow_info_t;
 
 
 
-/** Create a new FlowInfo
+/** Create a new FlowInfo.
  * \public \memberof data_collection_model_flow_info_t
  * @return a new FlowInfo object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *data_collection_model_flow_info_create();
 
-/** Create a new copy of a FlowInfo object
+/** Create a new FlowInfo reference.
+ * \public \memberof data_collection_model_flow_info_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The FlowInfo to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_info_t *data_collection_model_flow_info_create_ref(const data_collection_model_flow_info_t *other);
+
+/** Create a new copy of a FlowInfo object.
  * \public \memberof data_collection_model_flow_info_t
  * Creates a new copy of the given @a other object
  * @param other The FlowInfo to copy.

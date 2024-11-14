@@ -47,13 +47,21 @@ typedef enum {
 } data_collection_model_los_nlos_measure_ind_e;
 
 
-/** Create a new LosNlosMeasureInd
+/** Create a new LosNlosMeasureInd.
  * \public \memberof data_collection_model_los_nlos_measure_ind_t
  * @return a new LosNlosMeasureInd object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_los_nlos_measure_ind_t *data_collection_model_los_nlos_measure_ind_create();
 
-/** Create a new copy of a LosNlosMeasureInd object
+/** Create a new LosNlosMeasureInd reference.
+ * \public \memberof data_collection_model_los_nlos_measure_ind_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The LosNlosMeasureInd to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_los_nlos_measure_ind_t *data_collection_model_los_nlos_measure_ind_create_ref(const data_collection_model_los_nlos_measure_ind_t *other);
+
+/** Create a new copy of a LosNlosMeasureInd object.
  * \public \memberof data_collection_model_los_nlos_measure_ind_t
  * Creates a new copy of the given @a other object
  * @param other The LosNlosMeasureInd to copy.

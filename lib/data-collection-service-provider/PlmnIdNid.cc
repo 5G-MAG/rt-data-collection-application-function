@@ -35,6 +35,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_plmn_id_nid_t 
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_plmn_id_nid_t *data_collection_model_plmn_id_nid_create_ref(const data_collection_model_plmn_id_nid_t *other)
+{
+    return reinterpret_cast<data_collection_model_plmn_id_nid_t*>(new std::shared_ptr<PlmnIdNid>(*reinterpret_cast<const std::shared_ptr<PlmnIdNid >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_plmn_id_nid_t *data_collection_model_plmn_id_nid_create_copy(const data_collection_model_plmn_id_nid_t *other)
 {
     if (!other) return NULL;

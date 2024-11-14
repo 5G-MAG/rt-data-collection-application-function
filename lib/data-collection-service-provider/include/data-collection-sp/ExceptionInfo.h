@@ -41,13 +41,21 @@ data_collection_model_exception_info_t;
 
 
 
-/** Create a new ExceptionInfo
+/** Create a new ExceptionInfo.
  * \public \memberof data_collection_model_exception_info_t
  * @return a new ExceptionInfo object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info_t *data_collection_model_exception_info_create();
 
-/** Create a new copy of a ExceptionInfo object
+/** Create a new ExceptionInfo reference.
+ * \public \memberof data_collection_model_exception_info_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The ExceptionInfo to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info_t *data_collection_model_exception_info_create_ref(const data_collection_model_exception_info_t *other);
+
+/** Create a new copy of a ExceptionInfo object.
  * \public \memberof data_collection_model_exception_info_t
  * Creates a new copy of the given @a other object
  * @param other The ExceptionInfo to copy.

@@ -45,13 +45,21 @@ data_collection_model_network_assistance_invocation_event_t;
 
 
 
-/** Create a new NetworkAssistanceInvocationEvent
+/** Create a new NetworkAssistanceInvocationEvent.
  * \public \memberof data_collection_model_network_assistance_invocation_event_t
  * @return a new NetworkAssistanceInvocationEvent object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_event_t *data_collection_model_network_assistance_invocation_event_create();
 
-/** Create a new copy of a NetworkAssistanceInvocationEvent object
+/** Create a new NetworkAssistanceInvocationEvent reference.
+ * \public \memberof data_collection_model_network_assistance_invocation_event_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The NetworkAssistanceInvocationEvent to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_event_t *data_collection_model_network_assistance_invocation_event_create_ref(const data_collection_model_network_assistance_invocation_event_t *other);
+
+/** Create a new copy of a NetworkAssistanceInvocationEvent object.
  * \public \memberof data_collection_model_network_assistance_invocation_event_t
  * Creates a new copy of the given @a other object
  * @param other The NetworkAssistanceInvocationEvent to copy.

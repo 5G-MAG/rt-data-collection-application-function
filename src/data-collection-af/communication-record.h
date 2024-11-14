@@ -25,7 +25,16 @@
 #include "hash.h"
 #include "data-collection-sp/data-collection.h"
 
+/* Local structure types */
+
+typedef struct comm_record_and_aggregation_fname_s {
+    data_collection_model_communication_record_t *record;
+    char *aggregation_fn_name;
+} comm_record_and_aggregation_fname_t;
+
 /* Local functions */
+
+/* Global variables */
 
 extern const data_collection_data_report_handler_t communication_record_data_report_type;
 

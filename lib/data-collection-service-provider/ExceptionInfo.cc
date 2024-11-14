@@ -35,6 +35,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info_t *data_collection_model_exception_info_create_ref(const data_collection_model_exception_info_t *other)
+{
+    return reinterpret_cast<data_collection_model_exception_info_t*>(new std::shared_ptr<ExceptionInfo>(*reinterpret_cast<const std::shared_ptr<ExceptionInfo >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_info_t *data_collection_model_exception_info_create_copy(const data_collection_model_exception_info_t *other)
 {
     if (!other) return NULL;

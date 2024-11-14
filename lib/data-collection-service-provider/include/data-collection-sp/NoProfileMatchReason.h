@@ -51,13 +51,21 @@ typedef enum {
 } data_collection_model_no_profile_match_reason_e;
 
 
-/** Create a new NoProfileMatchReason
+/** Create a new NoProfileMatchReason.
  * \public \memberof data_collection_model_no_profile_match_reason_t
  * @return a new NoProfileMatchReason object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_reason_t *data_collection_model_no_profile_match_reason_create();
 
-/** Create a new copy of a NoProfileMatchReason object
+/** Create a new NoProfileMatchReason reference.
+ * \public \memberof data_collection_model_no_profile_match_reason_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The NoProfileMatchReason to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_no_profile_match_reason_t *data_collection_model_no_profile_match_reason_create_ref(const data_collection_model_no_profile_match_reason_t *other);
+
+/** Create a new copy of a NoProfileMatchReason object.
  * \public \memberof data_collection_model_no_profile_match_reason_t
  * Creates a new copy of the given @a other object
  * @param other The NoProfileMatchReason to copy.

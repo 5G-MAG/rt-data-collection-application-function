@@ -38,13 +38,21 @@ data_collection_model_plmn_id_t;
 
 
 
-/** Create a new PlmnId
+/** Create a new PlmnId.
  * \public \memberof data_collection_model_plmn_id_t
  * @return a new PlmnId object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_plmn_id_t *data_collection_model_plmn_id_create();
 
-/** Create a new copy of a PlmnId object
+/** Create a new PlmnId reference.
+ * \public \memberof data_collection_model_plmn_id_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The PlmnId to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_plmn_id_t *data_collection_model_plmn_id_create_ref(const data_collection_model_plmn_id_t *other);
+
+/** Create a new copy of a PlmnId object.
  * \public \memberof data_collection_model_plmn_id_t
  * Creates a new copy of the given @a other object
  * @param other The PlmnId to copy.

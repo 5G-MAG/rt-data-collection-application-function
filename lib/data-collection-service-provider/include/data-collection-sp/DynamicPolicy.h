@@ -41,13 +41,21 @@ data_collection_model_dynamic_policy_t;
 
 
 
-/** Create a new DynamicPolicy
+/** Create a new DynamicPolicy.
  * \public \memberof data_collection_model_dynamic_policy_t
  * @return a new DynamicPolicy object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_create();
 
-/** Create a new copy of a DynamicPolicy object
+/** Create a new DynamicPolicy reference.
+ * \public \memberof data_collection_model_dynamic_policy_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The DynamicPolicy to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_t *data_collection_model_dynamic_policy_create_ref(const data_collection_model_dynamic_policy_t *other);
+
+/** Create a new copy of a DynamicPolicy object.
  * \public \memberof data_collection_model_dynamic_policy_t
  * Creates a new copy of the given @a other object
  * @param other The DynamicPolicy to copy.

@@ -41,13 +41,21 @@ data_collection_model_media_streaming_accesses_collection_t;
 
 
 
-/** Create a new MediaStreamingAccessesCollection
+/** Create a new MediaStreamingAccessesCollection.
  * \public \memberof data_collection_model_media_streaming_accesses_collection_t
  * @return a new MediaStreamingAccessesCollection object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_accesses_collection_t *data_collection_model_media_streaming_accesses_collection_create();
 
-/** Create a new copy of a MediaStreamingAccessesCollection object
+/** Create a new MediaStreamingAccessesCollection reference.
+ * \public \memberof data_collection_model_media_streaming_accesses_collection_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The MediaStreamingAccessesCollection to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_accesses_collection_t *data_collection_model_media_streaming_accesses_collection_create_ref(const data_collection_model_media_streaming_accesses_collection_t *other);
+
+/** Create a new copy of a MediaStreamingAccessesCollection object.
  * \public \memberof data_collection_model_media_streaming_accesses_collection_t
  * Creates a new copy of the given @a other object
  * @param other The MediaStreamingAccessesCollection to copy.

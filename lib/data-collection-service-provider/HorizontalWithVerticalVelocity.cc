@@ -37,6 +37,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_wit
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_with_vertical_velocity_t *data_collection_model_horizontal_with_vertical_velocity_create_ref(const data_collection_model_horizontal_with_vertical_velocity_t *other)
+{
+    return reinterpret_cast<data_collection_model_horizontal_with_vertical_velocity_t*>(new std::shared_ptr<HorizontalWithVerticalVelocity>(*reinterpret_cast<const std::shared_ptr<HorizontalWithVerticalVelocity >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_with_vertical_velocity_t *data_collection_model_horizontal_with_vertical_velocity_create_copy(const data_collection_model_horizontal_with_vertical_velocity_t *other)
 {
     if (!other) return NULL;

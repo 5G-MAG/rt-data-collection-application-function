@@ -33,6 +33,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_addr_fqdn_t *d
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_create_ref(const data_collection_model_addr_fqdn_t *other)
+{
+    return reinterpret_cast<data_collection_model_addr_fqdn_t*>(new std::shared_ptr<AddrFqdn>(*reinterpret_cast<const std::shared_ptr<AddrFqdn >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_addr_fqdn_t *data_collection_model_addr_fqdn_create_copy(const data_collection_model_addr_fqdn_t *other)
 {
     if (!other) return NULL;

@@ -37,6 +37,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_sp
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_specific_record_t *data_collection_model_application_specific_record_create_ref(const data_collection_model_application_specific_record_t *other)
+{
+    return reinterpret_cast<data_collection_model_application_specific_record_t*>(new std::shared_ptr<ApplicationSpecificRecord>(*reinterpret_cast<const std::shared_ptr<ApplicationSpecificRecord >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_application_specific_record_t *data_collection_model_application_specific_record_create_copy(const data_collection_model_application_specific_record_t *other)
 {
     if (!other) return NULL;

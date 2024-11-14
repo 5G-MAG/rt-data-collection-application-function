@@ -30,6 +30,7 @@ typedef struct data_collection_http_metadata_s {
 
 typedef struct data_collection_reporting_session_s {
     ogs_lnode_t node;
+    int ref_count;
     char *data_reporting_session_id;
     char *external_application_id;
     data_domain_list_t *supported_domains;

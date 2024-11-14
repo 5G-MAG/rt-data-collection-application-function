@@ -38,13 +38,21 @@ data_collection_model_access_token_err_t;
 
 
 
-/** Create a new AccessTokenErr
+/** Create a new AccessTokenErr.
  * \public \memberof data_collection_model_access_token_err_t
  * @return a new AccessTokenErr object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_err_t *data_collection_model_access_token_err_create();
 
-/** Create a new copy of a AccessTokenErr object
+/** Create a new AccessTokenErr reference.
+ * \public \memberof data_collection_model_access_token_err_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The AccessTokenErr to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_err_t *data_collection_model_access_token_err_create_ref(const data_collection_model_access_token_err_t *other);
+
+/** Create a new copy of a AccessTokenErr object.
  * \public \memberof data_collection_model_access_token_err_t
  * Creates a new copy of the given @a other object
  * @param other The AccessTokenErr to copy.

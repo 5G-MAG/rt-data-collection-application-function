@@ -40,13 +40,21 @@ data_collection_model_service_experience_info_per_app_t;
 
 
 
-/** Create a new ServiceExperienceInfoPerApp
+/** Create a new ServiceExperienceInfoPerApp.
  * \public \memberof data_collection_model_service_experience_info_per_app_t
  * @return a new ServiceExperienceInfoPerApp object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_create();
 
-/** Create a new copy of a ServiceExperienceInfoPerApp object
+/** Create a new ServiceExperienceInfoPerApp reference.
+ * \public \memberof data_collection_model_service_experience_info_per_app_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The ServiceExperienceInfoPerApp to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_service_experience_info_per_app_t *data_collection_model_service_experience_info_per_app_create_ref(const data_collection_model_service_experience_info_per_app_t *other);
+
+/** Create a new copy of a ServiceExperienceInfoPerApp object.
  * \public \memberof data_collection_model_service_experience_info_per_app_t
  * Creates a new copy of the given @a other object
  * @param other The ServiceExperienceInfoPerApp to copy.

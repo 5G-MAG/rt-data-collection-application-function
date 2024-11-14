@@ -57,6 +57,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_da
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_t *data_collection_model_performance_data_create_ref(const data_collection_model_performance_data_t *other)
+{
+    return reinterpret_cast<data_collection_model_performance_data_t*>(new std::shared_ptr<PerformanceData>(*reinterpret_cast<const std::shared_ptr<PerformanceData >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_t *data_collection_model_performance_data_create_copy(const data_collection_model_performance_data_t *other)
 {
     if (!other) return NULL;

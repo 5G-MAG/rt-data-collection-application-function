@@ -41,13 +41,21 @@ data_collection_model_location_area5_g_t;
 
 
 
-/** Create a new LocationArea5G
+/** Create a new LocationArea5G.
  * \public \memberof data_collection_model_location_area5_g_t
  * @return a new LocationArea5G object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_area5_g_t *data_collection_model_location_area5_g_create();
 
-/** Create a new copy of a LocationArea5G object
+/** Create a new LocationArea5G reference.
+ * \public \memberof data_collection_model_location_area5_g_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The LocationArea5G to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_location_area5_g_t *data_collection_model_location_area5_g_create_ref(const data_collection_model_location_area5_g_t *other);
+
+/** Create a new copy of a LocationArea5G object.
  * \public \memberof data_collection_model_location_area5_g_t
  * Creates a new copy of the given @a other object
  * @param other The LocationArea5G to copy.

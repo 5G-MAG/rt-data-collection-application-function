@@ -39,13 +39,21 @@ data_collection_model_gad_shape_t;
 
 
 
-/** Create a new GADShape
+/** Create a new GADShape.
  * \public \memberof data_collection_model_gad_shape_t
  * @return a new GADShape object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gad_shape_t *data_collection_model_gad_shape_create();
 
-/** Create a new copy of a GADShape object
+/** Create a new GADShape reference.
+ * \public \memberof data_collection_model_gad_shape_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The GADShape to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gad_shape_t *data_collection_model_gad_shape_create_ref(const data_collection_model_gad_shape_t *other);
+
+/** Create a new copy of a GADShape object.
  * \public \memberof data_collection_model_gad_shape_t
  * Creates a new copy of the given @a other object
  * @param other The GADShape to copy.

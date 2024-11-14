@@ -45,13 +45,21 @@ typedef enum {
 } data_collection_model_vertical_direction_e;
 
 
-/** Create a new VerticalDirection
+/** Create a new VerticalDirection.
  * \public \memberof data_collection_model_vertical_direction_t
  * @return a new VerticalDirection object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_vertical_direction_t *data_collection_model_vertical_direction_create();
 
-/** Create a new copy of a VerticalDirection object
+/** Create a new VerticalDirection reference.
+ * \public \memberof data_collection_model_vertical_direction_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The VerticalDirection to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_vertical_direction_t *data_collection_model_vertical_direction_create_ref(const data_collection_model_vertical_direction_t *other);
+
+/** Create a new copy of a VerticalDirection object.
  * \public \memberof data_collection_model_vertical_direction_t
  * Creates a new copy of the given @a other object
  * @param other The VerticalDirection to copy.

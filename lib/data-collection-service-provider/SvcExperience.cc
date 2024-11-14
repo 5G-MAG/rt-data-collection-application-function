@@ -35,6 +35,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience_t *data_collection_model_svc_experience_create_ref(const data_collection_model_svc_experience_t *other)
+{
+    return reinterpret_cast<data_collection_model_svc_experience_t*>(new std::shared_ptr<SvcExperience>(*reinterpret_cast<const std::shared_ptr<SvcExperience >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience_t *data_collection_model_svc_experience_create_copy(const data_collection_model_svc_experience_t *other)
 {
     if (!other) return NULL;

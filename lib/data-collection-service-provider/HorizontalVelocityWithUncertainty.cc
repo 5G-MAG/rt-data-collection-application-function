@@ -35,6 +35,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_vel
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_velocity_with_uncertainty_t *data_collection_model_horizontal_velocity_with_uncertainty_create_ref(const data_collection_model_horizontal_velocity_with_uncertainty_t *other)
+{
+    return reinterpret_cast<data_collection_model_horizontal_velocity_with_uncertainty_t*>(new std::shared_ptr<HorizontalVelocityWithUncertainty>(*reinterpret_cast<const std::shared_ptr<HorizontalVelocityWithUncertainty >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_horizontal_velocity_with_uncertainty_t *data_collection_model_horizontal_velocity_with_uncertainty_create_copy(const data_collection_model_horizontal_velocity_with_uncertainty_t *other)
 {
     if (!other) return NULL;

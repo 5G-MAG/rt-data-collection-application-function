@@ -38,13 +38,21 @@ data_collection_model_minor_location_qo_s_t;
 
 
 
-/** Create a new MinorLocationQoS
+/** Create a new MinorLocationQoS.
  * \public \memberof data_collection_model_minor_location_qo_s_t
  * @return a new MinorLocationQoS object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_minor_location_qo_s_t *data_collection_model_minor_location_qo_s_create();
 
-/** Create a new copy of a MinorLocationQoS object
+/** Create a new MinorLocationQoS reference.
+ * \public \memberof data_collection_model_minor_location_qo_s_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The MinorLocationQoS to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_minor_location_qo_s_t *data_collection_model_minor_location_qo_s_create_ref(const data_collection_model_minor_location_qo_s_t *other);
+
+/** Create a new copy of a MinorLocationQoS object.
  * \public \memberof data_collection_model_minor_location_qo_s_t
  * Creates a new copy of the given @a other object
  * @param other The MinorLocationQoS to copy.

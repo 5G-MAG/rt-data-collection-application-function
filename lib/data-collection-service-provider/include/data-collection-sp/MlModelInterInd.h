@@ -39,13 +39,21 @@ data_collection_model_ml_model_inter_ind_t;
 
 
 
-/** Create a new MlModelInterInd
+/** Create a new MlModelInterInd.
  * \public \memberof data_collection_model_ml_model_inter_ind_t
  * @return a new MlModelInterInd object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ml_model_inter_ind_t *data_collection_model_ml_model_inter_ind_create();
 
-/** Create a new copy of a MlModelInterInd object
+/** Create a new MlModelInterInd reference.
+ * \public \memberof data_collection_model_ml_model_inter_ind_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The MlModelInterInd to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ml_model_inter_ind_t *data_collection_model_ml_model_inter_ind_create_ref(const data_collection_model_ml_model_inter_ind_t *other);
+
+/** Create a new copy of a MlModelInterInd object.
  * \public \memberof data_collection_model_ml_model_inter_ind_t
  * Creates a new copy of the given @a other object
  * @param other The MlModelInterInd to copy.

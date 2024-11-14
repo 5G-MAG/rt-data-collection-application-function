@@ -38,13 +38,21 @@ data_collection_model_r_2_d_relative_location_t;
 
 
 
-/** Create a new r_2DRelativeLocation
+/** Create a new r_2DRelativeLocation.
  * \public \memberof data_collection_model_r_2_d_relative_location_t
  * @return a new r_2DRelativeLocation object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_create();
 
-/** Create a new copy of a r_2DRelativeLocation object
+/** Create a new r_2DRelativeLocation reference.
+ * \public \memberof data_collection_model_r_2_d_relative_location_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The r_2DRelativeLocation to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_r_2_d_relative_location_t *data_collection_model_r_2_d_relative_location_create_ref(const data_collection_model_r_2_d_relative_location_t *other);
+
+/** Create a new copy of a r_2DRelativeLocation object.
  * \public \memberof data_collection_model_r_2_d_relative_location_t
  * Creates a new copy of the given @a other object
  * @param other The r_2DRelativeLocation to copy.

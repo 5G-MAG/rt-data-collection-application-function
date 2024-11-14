@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_fo
     return reinterpret_cast<data_collection_model_rtp_payload_format_t*>(new std::shared_ptr<RtpPayloadFormat>(new RtpPayloadFormat()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_format_t *data_collection_model_rtp_payload_format_create_ref(const data_collection_model_rtp_payload_format_t *other)
+{
+    return reinterpret_cast<data_collection_model_rtp_payload_format_t*>(new std::shared_ptr<RtpPayloadFormat>(*reinterpret_cast<const std::shared_ptr<RtpPayloadFormat >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_rtp_payload_format_t *data_collection_model_rtp_payload_format_create_copy(const data_collection_model_rtp_payload_format_t *other)
 {
     if (!other) return NULL;

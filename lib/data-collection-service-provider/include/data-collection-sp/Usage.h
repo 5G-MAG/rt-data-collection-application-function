@@ -50,13 +50,21 @@ typedef enum {
 } data_collection_model_usage_e;
 
 
-/** Create a new Usage
+/** Create a new Usage.
  * \public \memberof data_collection_model_usage_t
  * @return a new Usage object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_t *data_collection_model_usage_create();
 
-/** Create a new copy of a Usage object
+/** Create a new Usage reference.
+ * \public \memberof data_collection_model_usage_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The Usage to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_usage_t *data_collection_model_usage_create_ref(const data_collection_model_usage_t *other);
+
+/** Create a new copy of a Usage object.
  * \public \memberof data_collection_model_usage_t
  * Creates a new copy of the given @a other object
  * @param other The Usage to copy.

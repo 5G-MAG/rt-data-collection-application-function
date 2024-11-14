@@ -38,13 +38,21 @@ data_collection_model_endpoint_address_t;
 
 
 
-/** Create a new EndpointAddress
+/** Create a new EndpointAddress.
  * \public \memberof data_collection_model_endpoint_address_t
  * @return a new EndpointAddress object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_create();
 
-/** Create a new copy of a EndpointAddress object
+/** Create a new EndpointAddress reference.
+ * \public \memberof data_collection_model_endpoint_address_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The EndpointAddress to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_endpoint_address_t *data_collection_model_endpoint_address_create_ref(const data_collection_model_endpoint_address_t *other);
+
+/** Create a new copy of a EndpointAddress object.
  * \public \memberof data_collection_model_endpoint_address_t
  * Creates a new copy of the given @a other object
  * @param other The EndpointAddress to copy.

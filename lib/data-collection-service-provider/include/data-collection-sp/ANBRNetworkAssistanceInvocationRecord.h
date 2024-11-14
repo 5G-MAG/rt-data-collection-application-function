@@ -43,13 +43,21 @@ data_collection_model_anbr_network_assistance_invocation_record_t;
 
 
 
-/** Create a new ANBRNetworkAssistanceInvocationRecord
+/** Create a new ANBRNetworkAssistanceInvocationRecord.
  * \public \memberof data_collection_model_anbr_network_assistance_invocation_record_t
  * @return a new ANBRNetworkAssistanceInvocationRecord object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_assistance_invocation_record_t *data_collection_model_anbr_network_assistance_invocation_record_create();
 
-/** Create a new copy of a ANBRNetworkAssistanceInvocationRecord object
+/** Create a new ANBRNetworkAssistanceInvocationRecord reference.
+ * \public \memberof data_collection_model_anbr_network_assistance_invocation_record_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The ANBRNetworkAssistanceInvocationRecord to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_assistance_invocation_record_t *data_collection_model_anbr_network_assistance_invocation_record_create_ref(const data_collection_model_anbr_network_assistance_invocation_record_t *other);
+
+/** Create a new copy of a ANBRNetworkAssistanceInvocationRecord object.
  * \public \memberof data_collection_model_anbr_network_assistance_invocation_record_t
  * Creates a new copy of the given @a other object
  * @param other The ANBRNetworkAssistanceInvocationRecord to copy.

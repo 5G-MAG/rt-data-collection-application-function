@@ -43,13 +43,21 @@ data_collection_model_performance_data_collection_t;
 
 
 
-/** Create a new PerformanceDataCollection
+/** Create a new PerformanceDataCollection.
  * \public \memberof data_collection_model_performance_data_collection_t
  * @return a new PerformanceDataCollection object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_collection_t *data_collection_model_performance_data_collection_create();
 
-/** Create a new copy of a PerformanceDataCollection object
+/** Create a new PerformanceDataCollection reference.
+ * \public \memberof data_collection_model_performance_data_collection_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The PerformanceDataCollection to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_performance_data_collection_t *data_collection_model_performance_data_collection_create_ref(const data_collection_model_performance_data_collection_t *other);
+
+/** Create a new copy of a PerformanceDataCollection object.
  * \public \memberof data_collection_model_performance_data_collection_t
  * Creates a new copy of the given @a other object
  * @param other The PerformanceDataCollection to copy.

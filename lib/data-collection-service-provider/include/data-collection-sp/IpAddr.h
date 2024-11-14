@@ -40,13 +40,21 @@ data_collection_model_ip_addr_t;
 
 
 
-/** Create a new IpAddr
+/** Create a new IpAddr.
  * \public \memberof data_collection_model_ip_addr_t
  * @return a new IpAddr object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_addr_t *data_collection_model_ip_addr_create();
 
-/** Create a new copy of a IpAddr object
+/** Create a new IpAddr reference.
+ * \public \memberof data_collection_model_ip_addr_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The IpAddr to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_addr_t *data_collection_model_ip_addr_create_ref(const data_collection_model_ip_addr_t *other);
+
+/** Create a new copy of a IpAddr object.
  * \public \memberof data_collection_model_ip_addr_t
  * Creates a new copy of the given @a other object
  * @param other The IpAddr to copy.

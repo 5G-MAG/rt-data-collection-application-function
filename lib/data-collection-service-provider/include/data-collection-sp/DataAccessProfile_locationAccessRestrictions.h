@@ -40,13 +40,21 @@ data_collection_model_data_access_profile_location_access_restrictions_t;
 
 
 
-/** Create a new DataAccessProfile_locationAccessRestrictions
+/** Create a new DataAccessProfile_locationAccessRestrictions.
  * \public \memberof data_collection_model_data_access_profile_location_access_restrictions_t
  * @return a new DataAccessProfile_locationAccessRestrictions object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_location_access_restrictions_t *data_collection_model_data_access_profile_location_access_restrictions_create();
 
-/** Create a new copy of a DataAccessProfile_locationAccessRestrictions object
+/** Create a new DataAccessProfile_locationAccessRestrictions reference.
+ * \public \memberof data_collection_model_data_access_profile_location_access_restrictions_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The DataAccessProfile_locationAccessRestrictions to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_location_access_restrictions_t *data_collection_model_data_access_profile_location_access_restrictions_create_ref(const data_collection_model_data_access_profile_location_access_restrictions_t *other);
+
+/** Create a new copy of a DataAccessProfile_locationAccessRestrictions object.
  * \public \memberof data_collection_model_data_access_profile_location_access_restrictions_t
  * Creates a new copy of the given @a other object
  * @param other The DataAccessProfile_locationAccessRestrictions to copy.

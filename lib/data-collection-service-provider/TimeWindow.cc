@@ -33,6 +33,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_time_window_t 
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_time_window_t *data_collection_model_time_window_create_ref(const data_collection_model_time_window_t *other)
+{
+    return reinterpret_cast<data_collection_model_time_window_t*>(new std::shared_ptr<TimeWindow>(*reinterpret_cast<const std::shared_ptr<TimeWindow >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_time_window_t *data_collection_model_time_window_create_copy(const data_collection_model_time_window_t *other)
 {
     if (!other) return NULL;

@@ -42,13 +42,21 @@ data_collection_model_network_area_info_t;
 
 
 
-/** Create a new NetworkAreaInfo
+/** Create a new NetworkAreaInfo.
  * \public \memberof data_collection_model_network_area_info_t
  * @return a new NetworkAreaInfo object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_create();
 
-/** Create a new copy of a NetworkAreaInfo object
+/** Create a new NetworkAreaInfo reference.
+ * \public \memberof data_collection_model_network_area_info_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The NetworkAreaInfo to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_area_info_t *data_collection_model_network_area_info_create_ref(const data_collection_model_network_area_info_t *other);
+
+/** Create a new copy of a NetworkAreaInfo object.
  * \public \memberof data_collection_model_network_area_info_t
  * Creates a new copy of the given @a other object
  * @param other The NetworkAreaInfo to copy.

@@ -39,13 +39,21 @@ data_collection_model_ms_dyn_policy_invocation_collection_t;
 
 
 
-/** Create a new MsDynPolicyInvocationCollection
+/** Create a new MsDynPolicyInvocationCollection.
  * \public \memberof data_collection_model_ms_dyn_policy_invocation_collection_t
  * @return a new MsDynPolicyInvocationCollection object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_create();
 
-/** Create a new copy of a MsDynPolicyInvocationCollection object
+/** Create a new MsDynPolicyInvocationCollection reference.
+ * \public \memberof data_collection_model_ms_dyn_policy_invocation_collection_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The MsDynPolicyInvocationCollection to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_dyn_policy_invocation_collection_t *data_collection_model_ms_dyn_policy_invocation_collection_create_ref(const data_collection_model_ms_dyn_policy_invocation_collection_t *other);
+
+/** Create a new copy of a MsDynPolicyInvocationCollection object.
  * \public \memberof data_collection_model_ms_dyn_policy_invocation_collection_t
  * Creates a new copy of the given @a other object
  * @param other The MsDynPolicyInvocationCollection to copy.

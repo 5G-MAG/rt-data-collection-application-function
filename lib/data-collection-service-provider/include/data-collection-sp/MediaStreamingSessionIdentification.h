@@ -38,13 +38,21 @@ data_collection_model_media_streaming_session_identification_t;
 
 
 
-/** Create a new MediaStreamingSessionIdentification
+/** Create a new MediaStreamingSessionIdentification.
  * \public \memberof data_collection_model_media_streaming_session_identification_t
  * @return a new MediaStreamingSessionIdentification object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_session_identification_t *data_collection_model_media_streaming_session_identification_create();
 
-/** Create a new copy of a MediaStreamingSessionIdentification object
+/** Create a new MediaStreamingSessionIdentification reference.
+ * \public \memberof data_collection_model_media_streaming_session_identification_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The MediaStreamingSessionIdentification to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_session_identification_t *data_collection_model_media_streaming_session_identification_create_ref(const data_collection_model_media_streaming_session_identification_t *other);
+
+/** Create a new copy of a MediaStreamingSessionIdentification object.
  * \public \memberof data_collection_model_media_streaming_session_identification_t
  * Creates a new copy of the given @a other object
  * @param other The MediaStreamingSessionIdentification to copy.

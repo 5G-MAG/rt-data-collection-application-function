@@ -41,13 +41,21 @@ data_collection_model_events_subs_t;
 
 
 
-/** Create a new EventsSubs
+/** Create a new EventsSubs.
  * \public \memberof data_collection_model_events_subs_t
  * @return a new EventsSubs object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_events_subs_t *data_collection_model_events_subs_create();
 
-/** Create a new copy of a EventsSubs object
+/** Create a new EventsSubs reference.
+ * \public \memberof data_collection_model_events_subs_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The EventsSubs to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_events_subs_t *data_collection_model_events_subs_create_ref(const data_collection_model_events_subs_t *other);
+
+/** Create a new copy of a EventsSubs object.
  * \public \memberof data_collection_model_events_subs_t
  * Creates a new copy of the given @a other object
  * @param other The EventsSubs to copy.

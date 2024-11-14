@@ -50,13 +50,21 @@ typedef enum {
 } data_collection_model_traffic_profile_e;
 
 
-/** Create a new TrafficProfile
+/** Create a new TrafficProfile.
  * \public \memberof data_collection_model_traffic_profile_t
  * @return a new TrafficProfile object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_traffic_profile_t *data_collection_model_traffic_profile_create();
 
-/** Create a new copy of a TrafficProfile object
+/** Create a new TrafficProfile reference.
+ * \public \memberof data_collection_model_traffic_profile_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The TrafficProfile to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_traffic_profile_t *data_collection_model_traffic_profile_create_ref(const data_collection_model_traffic_profile_t *other);
+
+/** Create a new copy of a TrafficProfile object.
  * \public \memberof data_collection_model_traffic_profile_t
  * Creates a new copy of the given @a other object
  * @param other The TrafficProfile to copy.

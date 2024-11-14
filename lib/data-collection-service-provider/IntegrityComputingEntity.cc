@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_comp
     return reinterpret_cast<data_collection_model_integrity_computing_entity_t*>(new std::shared_ptr<IntegrityComputingEntity>(new IntegrityComputingEntity()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_computing_entity_t *data_collection_model_integrity_computing_entity_create_ref(const data_collection_model_integrity_computing_entity_t *other)
+{
+    return reinterpret_cast<data_collection_model_integrity_computing_entity_t*>(new std::shared_ptr<IntegrityComputingEntity>(*reinterpret_cast<const std::shared_ptr<IntegrityComputingEntity >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_computing_entity_t *data_collection_model_integrity_computing_entity_create_copy(const data_collection_model_integrity_computing_entity_t *other)
 {
     if (!other) return NULL;

@@ -38,13 +38,21 @@ data_collection_model_network_assistance_invocation_recommended_qo_s_t;
 
 
 
-/** Create a new NetworkAssistanceInvocation_recommendedQoS
+/** Create a new NetworkAssistanceInvocation_recommendedQoS.
  * \public \memberof data_collection_model_network_assistance_invocation_recommended_qo_s_t
  * @return a new NetworkAssistanceInvocation_recommendedQoS object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_recommended_qo_s_t *data_collection_model_network_assistance_invocation_recommended_qo_s_create();
 
-/** Create a new copy of a NetworkAssistanceInvocation_recommendedQoS object
+/** Create a new NetworkAssistanceInvocation_recommendedQoS reference.
+ * \public \memberof data_collection_model_network_assistance_invocation_recommended_qo_s_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The NetworkAssistanceInvocation_recommendedQoS to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_invocation_recommended_qo_s_t *data_collection_model_network_assistance_invocation_recommended_qo_s_create_ref(const data_collection_model_network_assistance_invocation_recommended_qo_s_t *other);
+
+/** Create a new copy of a NetworkAssistanceInvocation_recommendedQoS object.
  * \public \memberof data_collection_model_network_assistance_invocation_recommended_qo_s_t
  * Creates a new copy of the given @a other object
  * @param other The NetworkAssistanceInvocation_recommendedQoS to copy.

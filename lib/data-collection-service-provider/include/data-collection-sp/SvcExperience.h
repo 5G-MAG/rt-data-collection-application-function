@@ -38,13 +38,21 @@ data_collection_model_svc_experience_t;
 
 
 
-/** Create a new SvcExperience
+/** Create a new SvcExperience.
  * \public \memberof data_collection_model_svc_experience_t
  * @return a new SvcExperience object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience_t *data_collection_model_svc_experience_create();
 
-/** Create a new copy of a SvcExperience object
+/** Create a new SvcExperience reference.
+ * \public \memberof data_collection_model_svc_experience_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The SvcExperience to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_svc_experience_t *data_collection_model_svc_experience_create_ref(const data_collection_model_svc_experience_t *other);
+
+/** Create a new copy of a SvcExperience object.
  * \public \memberof data_collection_model_svc_experience_t
  * Creates a new copy of the given @a other object
  * @param other The SvcExperience to copy.

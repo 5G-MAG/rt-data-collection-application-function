@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_provisioning_s
     return reinterpret_cast<data_collection_model_provisioning_session_type_t*>(new std::shared_ptr<ProvisioningSessionType>(new ProvisioningSessionType()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_provisioning_session_type_t *data_collection_model_provisioning_session_type_create_ref(const data_collection_model_provisioning_session_type_t *other)
+{
+    return reinterpret_cast<data_collection_model_provisioning_session_type_t*>(new std::shared_ptr<ProvisioningSessionType>(*reinterpret_cast<const std::shared_ptr<ProvisioningSessionType >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_provisioning_session_type_t *data_collection_model_provisioning_session_type_create_copy(const data_collection_model_provisioning_session_type_t *other)
 {
     if (!other) return NULL;

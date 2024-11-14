@@ -38,13 +38,21 @@ data_collection_model_media_streaming_access_response_message_t;
 
 
 
-/** Create a new MediaStreamingAccess_responseMessage
+/** Create a new MediaStreamingAccess_responseMessage.
  * \public \memberof data_collection_model_media_streaming_access_response_message_t
  * @return a new MediaStreamingAccess_responseMessage object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_response_message_t *data_collection_model_media_streaming_access_response_message_create();
 
-/** Create a new copy of a MediaStreamingAccess_responseMessage object
+/** Create a new MediaStreamingAccess_responseMessage reference.
+ * \public \memberof data_collection_model_media_streaming_access_response_message_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The MediaStreamingAccess_responseMessage to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_response_message_t *data_collection_model_media_streaming_access_response_message_create_ref(const data_collection_model_media_streaming_access_response_message_t *other);
+
+/** Create a new copy of a MediaStreamingAccess_responseMessage object.
  * \public \memberof data_collection_model_media_streaming_access_response_message_t
  * Creates a new copy of the given @a other object
  * @param other The MediaStreamingAccess_responseMessage to copy.

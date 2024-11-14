@@ -41,6 +41,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estim
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_create_ref(const data_collection_model_velocity_estimate_t *other)
+{
+    return reinterpret_cast<data_collection_model_velocity_estimate_t*>(new std::shared_ptr<VelocityEstimate>(*reinterpret_cast<const std::shared_ptr<VelocityEstimate >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_velocity_estimate_t *data_collection_model_velocity_estimate_create_copy(const data_collection_model_velocity_estimate_t *other)
 {
     if (!other) return NULL;

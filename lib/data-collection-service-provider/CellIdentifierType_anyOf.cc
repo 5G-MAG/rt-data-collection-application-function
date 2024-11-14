@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cell_identifie
     return reinterpret_cast<data_collection_model_cell_identifier_type_any_of_t*>(new std::shared_ptr<CellIdentifierType_anyOf>(new CellIdentifierType_anyOf()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cell_identifier_type_any_of_t *data_collection_model_cell_identifier_type_any_of_create_ref(const data_collection_model_cell_identifier_type_any_of_t *other)
+{
+    return reinterpret_cast<data_collection_model_cell_identifier_type_any_of_t*>(new std::shared_ptr<CellIdentifierType_anyOf>(*reinterpret_cast<const std::shared_ptr<CellIdentifierType_anyOf >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_cell_identifier_type_any_of_t *data_collection_model_cell_identifier_type_any_of_create_copy(const data_collection_model_cell_identifier_type_any_of_t *other)
 {
     if (!other) return NULL;

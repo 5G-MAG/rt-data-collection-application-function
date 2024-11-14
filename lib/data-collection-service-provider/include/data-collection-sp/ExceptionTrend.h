@@ -49,13 +49,21 @@ typedef enum {
 } data_collection_model_exception_trend_e;
 
 
-/** Create a new ExceptionTrend
+/** Create a new ExceptionTrend.
  * \public \memberof data_collection_model_exception_trend_t
  * @return a new ExceptionTrend object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_trend_t *data_collection_model_exception_trend_create();
 
-/** Create a new copy of a ExceptionTrend object
+/** Create a new ExceptionTrend reference.
+ * \public \memberof data_collection_model_exception_trend_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The ExceptionTrend to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_exception_trend_t *data_collection_model_exception_trend_create_ref(const data_collection_model_exception_trend_t *other);
+
+/** Create a new copy of a ExceptionTrend object.
  * \public \memberof data_collection_model_exception_trend_t
  * Creates a new copy of the given @a other object
  * @param other The ExceptionTrend to copy.

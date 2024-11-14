@@ -44,13 +44,21 @@ data_collection_model_access_token_req_t;
 
 
 
-/** Create a new AccessTokenReq
+/** Create a new AccessTokenReq.
  * \public \memberof data_collection_model_access_token_req_t
  * @return a new AccessTokenReq object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_create();
 
-/** Create a new copy of a AccessTokenReq object
+/** Create a new AccessTokenReq reference.
+ * \public \memberof data_collection_model_access_token_req_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The AccessTokenReq to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_access_token_req_t *data_collection_model_access_token_req_create_ref(const data_collection_model_access_token_req_t *other);
+
+/** Create a new copy of a AccessTokenReq object.
  * \public \memberof data_collection_model_access_token_req_t
  * Creates a new copy of the given @a other object
  * @param other The AccessTokenReq to copy.

@@ -41,6 +41,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_all_of_t *data_collection_model_ellipsoid_arc_all_of_create_ref(const data_collection_model_ellipsoid_arc_all_of_t *other)
+{
+    return reinterpret_cast<data_collection_model_ellipsoid_arc_all_of_t*>(new std::shared_ptr<EllipsoidArc_allOf>(*reinterpret_cast<const std::shared_ptr<EllipsoidArc_allOf >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ellipsoid_arc_all_of_t *data_collection_model_ellipsoid_arc_all_of_create_copy(const data_collection_model_ellipsoid_arc_all_of_t *other)
 {
     if (!other) return NULL;

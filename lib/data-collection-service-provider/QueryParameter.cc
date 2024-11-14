@@ -33,6 +33,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_paramete
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_parameter_t *data_collection_model_query_parameter_create_ref(const data_collection_model_query_parameter_t *other)
+{
+    return reinterpret_cast<data_collection_model_query_parameter_t*>(new std::shared_ptr<QueryParameter>(*reinterpret_cast<const std::shared_ptr<QueryParameter >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_parameter_t *data_collection_model_query_parameter_create_copy(const data_collection_model_query_parameter_t *other)
 {
     if (!other) return NULL;

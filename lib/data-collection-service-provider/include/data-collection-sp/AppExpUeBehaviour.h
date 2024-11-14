@@ -40,13 +40,21 @@ data_collection_model_app_exp_ue_behaviour_t;
 
 
 
-/** Create a new AppExpUeBehaviour
+/** Create a new AppExpUeBehaviour.
  * \public \memberof data_collection_model_app_exp_ue_behaviour_t
  * @return a new AppExpUeBehaviour object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_create();
 
-/** Create a new copy of a AppExpUeBehaviour object
+/** Create a new AppExpUeBehaviour reference.
+ * \public \memberof data_collection_model_app_exp_ue_behaviour_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The AppExpUeBehaviour to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_app_exp_ue_behaviour_t *data_collection_model_app_exp_ue_behaviour_create_ref(const data_collection_model_app_exp_ue_behaviour_t *other);
+
+/** Create a new copy of a AppExpUeBehaviour object.
  * \public \memberof data_collection_model_app_exp_ue_behaviour_t
  * Creates a new copy of the given @a other object
  * @param other The AppExpUeBehaviour to copy.

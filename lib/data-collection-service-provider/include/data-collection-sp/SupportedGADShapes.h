@@ -57,13 +57,21 @@ typedef enum {
 } data_collection_model_supported_gad_shapes_e;
 
 
-/** Create a new SupportedGADShapes
+/** Create a new SupportedGADShapes.
  * \public \memberof data_collection_model_supported_gad_shapes_t
  * @return a new SupportedGADShapes object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_supported_gad_shapes_t *data_collection_model_supported_gad_shapes_create();
 
-/** Create a new copy of a SupportedGADShapes object
+/** Create a new SupportedGADShapes reference.
+ * \public \memberof data_collection_model_supported_gad_shapes_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The SupportedGADShapes to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_supported_gad_shapes_t *data_collection_model_supported_gad_shapes_create_ref(const data_collection_model_supported_gad_shapes_t *other);
+
+/** Create a new copy of a SupportedGADShapes object.
  * \public \memberof data_collection_model_supported_gad_shapes_t
  * Creates a new copy of the given @a other object
  * @param other The SupportedGADShapes to copy.

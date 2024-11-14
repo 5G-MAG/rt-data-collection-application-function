@@ -40,13 +40,21 @@ data_collection_model_global_ran_node_id_t;
 
 
 
-/** Create a new GlobalRanNodeId
+/** Create a new GlobalRanNodeId.
  * \public \memberof data_collection_model_global_ran_node_id_t
  * @return a new GlobalRanNodeId object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_node_id_t *data_collection_model_global_ran_node_id_create();
 
-/** Create a new copy of a GlobalRanNodeId object
+/** Create a new GlobalRanNodeId reference.
+ * \public \memberof data_collection_model_global_ran_node_id_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The GlobalRanNodeId to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_global_ran_node_id_t *data_collection_model_global_ran_node_id_create_ref(const data_collection_model_global_ran_node_id_t *other);
+
+/** Create a new copy of a GlobalRanNodeId object.
  * \public \memberof data_collection_model_global_ran_node_id_t
  * Creates a new copy of the given @a other object
  * @param other The GlobalRanNodeId to copy.

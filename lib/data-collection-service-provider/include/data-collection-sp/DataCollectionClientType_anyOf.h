@@ -46,13 +46,21 @@ typedef enum {
 } data_collection_model_data_collection_client_type_any_of_e;
 
 
-/** Create a new DataCollectionClientType_anyOf
+/** Create a new DataCollectionClientType_anyOf.
  * \public \memberof data_collection_model_data_collection_client_type_any_of_t
  * @return a new DataCollectionClientType_anyOf object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_collection_client_type_any_of_t *data_collection_model_data_collection_client_type_any_of_create();
 
-/** Create a new copy of a DataCollectionClientType_anyOf object
+/** Create a new DataCollectionClientType_anyOf reference.
+ * \public \memberof data_collection_model_data_collection_client_type_any_of_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The DataCollectionClientType_anyOf to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_collection_client_type_any_of_t *data_collection_model_data_collection_client_type_any_of_create_ref(const data_collection_model_data_collection_client_type_any_of_t *other);
+
+/** Create a new copy of a DataCollectionClientType_anyOf object.
  * \public \memberof data_collection_model_data_collection_client_type_any_of_t
  * Creates a new copy of the given @a other object
  * @param other The DataCollectionClientType_anyOf to copy.

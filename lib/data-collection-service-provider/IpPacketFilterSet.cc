@@ -47,6 +47,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filt
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_create_ref(const data_collection_model_ip_packet_filter_set_t *other)
+{
+    return reinterpret_cast<data_collection_model_ip_packet_filter_set_t*>(new std::shared_ptr<IpPacketFilterSet>(*reinterpret_cast<const std::shared_ptr<IpPacketFilterSet >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ip_packet_filter_set_t *data_collection_model_ip_packet_filter_set_create_copy(const data_collection_model_ip_packet_filter_set_t *other)
 {
     if (!other) return NULL;

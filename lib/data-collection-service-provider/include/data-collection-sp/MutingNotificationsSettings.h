@@ -38,13 +38,21 @@ data_collection_model_muting_notifications_settings_t;
 
 
 
-/** Create a new MutingNotificationsSettings
+/** Create a new MutingNotificationsSettings.
  * \public \memberof data_collection_model_muting_notifications_settings_t
  * @return a new MutingNotificationsSettings object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_notifications_settings_t *data_collection_model_muting_notifications_settings_create();
 
-/** Create a new copy of a MutingNotificationsSettings object
+/** Create a new MutingNotificationsSettings reference.
+ * \public \memberof data_collection_model_muting_notifications_settings_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The MutingNotificationsSettings to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_muting_notifications_settings_t *data_collection_model_muting_notifications_settings_create_ref(const data_collection_model_muting_notifications_settings_t *other);
+
+/** Create a new copy of a MutingNotificationsSettings object.
  * \public \memberof data_collection_model_muting_notifications_settings_t
  * Creates a new copy of the given @a other object
  * @param other The MutingNotificationsSettings to copy.

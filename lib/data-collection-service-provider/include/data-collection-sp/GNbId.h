@@ -38,13 +38,21 @@ data_collection_model_gnb_id_t;
 
 
 
-/** Create a new GNbId
+/** Create a new GNbId.
  * \public \memberof data_collection_model_gnb_id_t
  * @return a new GNbId object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnb_id_t *data_collection_model_gnb_id_create();
 
-/** Create a new copy of a GNbId object
+/** Create a new GNbId reference.
+ * \public \memberof data_collection_model_gnb_id_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The GNbId to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_gnb_id_t *data_collection_model_gnb_id_create_ref(const data_collection_model_gnb_id_t *other);
+
+/** Create a new copy of a GNbId object.
  * \public \memberof data_collection_model_gnb_id_t
  * Creates a new copy of the given @a other object
  * @param other The GNbId to copy.

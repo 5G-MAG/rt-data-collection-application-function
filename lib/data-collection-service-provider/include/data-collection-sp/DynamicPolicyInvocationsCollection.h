@@ -41,13 +41,21 @@ data_collection_model_dynamic_policy_invocations_collection_t;
 
 
 
-/** Create a new DynamicPolicyInvocationsCollection
+/** Create a new DynamicPolicyInvocationsCollection.
  * \public \memberof data_collection_model_dynamic_policy_invocations_collection_t
  * @return a new DynamicPolicyInvocationsCollection object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_invocations_collection_t *data_collection_model_dynamic_policy_invocations_collection_create();
 
-/** Create a new copy of a DynamicPolicyInvocationsCollection object
+/** Create a new DynamicPolicyInvocationsCollection reference.
+ * \public \memberof data_collection_model_dynamic_policy_invocations_collection_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The DynamicPolicyInvocationsCollection to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dynamic_policy_invocations_collection_t *data_collection_model_dynamic_policy_invocations_collection_create_ref(const data_collection_model_dynamic_policy_invocations_collection_t *other);
+
+/** Create a new copy of a DynamicPolicyInvocationsCollection object.
  * \public \memberof data_collection_model_dynamic_policy_invocations_collection_t
  * Creates a new copy of the given @a other object
  * @param other The DynamicPolicyInvocationsCollection to copy.

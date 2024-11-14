@@ -48,13 +48,21 @@ typedef enum {
 } data_collection_model_notification_method_e;
 
 
-/** Create a new NotificationMethod
+/** Create a new NotificationMethod.
  * \public \memberof data_collection_model_notification_method_t
  * @return a new NotificationMethod object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_method_t *data_collection_model_notification_method_create();
 
-/** Create a new copy of a NotificationMethod object
+/** Create a new NotificationMethod reference.
+ * \public \memberof data_collection_model_notification_method_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The NotificationMethod to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_notification_method_t *data_collection_model_notification_method_create_ref(const data_collection_model_notification_method_t *other);
+
+/** Create a new copy of a NotificationMethod object.
  * \public \memberof data_collection_model_notification_method_t
  * Creates a new copy of the given @a other object
  * @param other The NotificationMethod to copy.

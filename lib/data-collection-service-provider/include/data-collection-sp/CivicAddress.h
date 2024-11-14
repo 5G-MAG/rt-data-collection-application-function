@@ -38,13 +38,21 @@ data_collection_model_civic_address_t;
 
 
 
-/** Create a new CivicAddress
+/** Create a new CivicAddress.
  * \public \memberof data_collection_model_civic_address_t
  * @return a new CivicAddress object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_create();
 
-/** Create a new copy of a CivicAddress object
+/** Create a new CivicAddress reference.
+ * \public \memberof data_collection_model_civic_address_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The CivicAddress to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_civic_address_t *data_collection_model_civic_address_create_ref(const data_collection_model_civic_address_t *other);
+
+/** Create a new copy of a CivicAddress object.
  * \public \memberof data_collection_model_civic_address_t
  * Creates a new copy of the given @a other object
  * @param other The CivicAddress to copy.

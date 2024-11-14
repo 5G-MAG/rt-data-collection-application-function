@@ -49,6 +49,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t *data_collection_model_event_filter_create_ref(const data_collection_model_event_filter_t *other)
+{
+    return reinterpret_cast<data_collection_model_event_filter_t*>(new std::shared_ptr<EventFilter>(*reinterpret_cast<const std::shared_ptr<EventFilter >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_event_filter_t *data_collection_model_event_filter_create_copy(const data_collection_model_event_filter_t *other)
 {
     if (!other) return NULL;

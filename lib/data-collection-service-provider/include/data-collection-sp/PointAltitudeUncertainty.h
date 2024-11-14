@@ -42,13 +42,21 @@ data_collection_model_point_altitude_uncertainty_t;
 
 
 
-/** Create a new PointAltitudeUncertainty
+/** Create a new PointAltitudeUncertainty.
  * \public \memberof data_collection_model_point_altitude_uncertainty_t
  * @return a new PointAltitudeUncertainty object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_create();
 
-/** Create a new copy of a PointAltitudeUncertainty object
+/** Create a new PointAltitudeUncertainty reference.
+ * \public \memberof data_collection_model_point_altitude_uncertainty_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The PointAltitudeUncertainty to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_point_altitude_uncertainty_t *data_collection_model_point_altitude_uncertainty_create_ref(const data_collection_model_point_altitude_uncertainty_t *other);
+
+/** Create a new copy of a PointAltitudeUncertainty object.
  * \public \memberof data_collection_model_point_altitude_uncertainty_t
  * Creates a new copy of the given @a other object
  * @param other The PointAltitudeUncertainty to copy.

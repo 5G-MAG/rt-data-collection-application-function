@@ -38,13 +38,21 @@ data_collection_model_data_access_profile_user_access_restrictions_user_ids_inne
 
 
 
-/** Create a new DataAccessProfile_userAccessRestrictions_userIds_inner
+/** Create a new DataAccessProfile_userAccessRestrictions_userIds_inner.
  * \public \memberof data_collection_model_data_access_profile_user_access_restrictions_user_ids_inner_t
  * @return a new DataAccessProfile_userAccessRestrictions_userIds_inner object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_user_ids_inner_t *data_collection_model_data_access_profile_user_access_restrictions_user_ids_inner_create();
 
-/** Create a new copy of a DataAccessProfile_userAccessRestrictions_userIds_inner object
+/** Create a new DataAccessProfile_userAccessRestrictions_userIds_inner reference.
+ * \public \memberof data_collection_model_data_access_profile_user_access_restrictions_user_ids_inner_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The DataAccessProfile_userAccessRestrictions_userIds_inner to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_access_profile_user_access_restrictions_user_ids_inner_t *data_collection_model_data_access_profile_user_access_restrictions_user_ids_inner_create_ref(const data_collection_model_data_access_profile_user_access_restrictions_user_ids_inner_t *other);
+
+/** Create a new copy of a DataAccessProfile_userAccessRestrictions_userIds_inner object.
  * \public \memberof data_collection_model_data_access_profile_user_access_restrictions_user_ids_inner_t
  * Creates a new copy of the given @a other object
  * @param other The DataAccessProfile_userAccessRestrictions_userIds_inner to copy.

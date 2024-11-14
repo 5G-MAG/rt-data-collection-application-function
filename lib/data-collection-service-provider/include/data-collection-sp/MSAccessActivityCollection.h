@@ -39,13 +39,21 @@ data_collection_model_ms_access_activity_collection_t;
 
 
 
-/** Create a new MSAccessActivityCollection
+/** Create a new MSAccessActivityCollection.
  * \public \memberof data_collection_model_ms_access_activity_collection_t
  * @return a new MSAccessActivityCollection object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_create();
 
-/** Create a new copy of a MSAccessActivityCollection object
+/** Create a new MSAccessActivityCollection reference.
+ * \public \memberof data_collection_model_ms_access_activity_collection_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The MSAccessActivityCollection to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ms_access_activity_collection_t *data_collection_model_ms_access_activity_collection_create_ref(const data_collection_model_ms_access_activity_collection_t *other);
+
+/** Create a new copy of a MSAccessActivityCollection object.
  * \public \memberof data_collection_model_ms_access_activity_collection_t
  * Creates a new copy of the given @a other object
  * @param other The MSAccessActivityCollection to copy.

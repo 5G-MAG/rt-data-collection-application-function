@@ -39,13 +39,21 @@ data_collection_model_qo_e_metrics_event_all_of_metrics_t;
 
 
 
-/** Create a new QoEMetricsEvent_allOf_metrics
+/** Create a new QoEMetricsEvent_allOf_metrics.
  * \public \memberof data_collection_model_qo_e_metrics_event_all_of_metrics_t
  * @return a new QoEMetricsEvent_allOf_metrics object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_event_all_of_metrics_t *data_collection_model_qo_e_metrics_event_all_of_metrics_create();
 
-/** Create a new copy of a QoEMetricsEvent_allOf_metrics object
+/** Create a new QoEMetricsEvent_allOf_metrics reference.
+ * \public \memberof data_collection_model_qo_e_metrics_event_all_of_metrics_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The QoEMetricsEvent_allOf_metrics to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_qo_e_metrics_event_all_of_metrics_t *data_collection_model_qo_e_metrics_event_all_of_metrics_create_ref(const data_collection_model_qo_e_metrics_event_all_of_metrics_t *other);
+
+/** Create a new copy of a QoEMetricsEvent_allOf_metrics object.
  * \public \memberof data_collection_model_qo_e_metrics_event_all_of_metrics_t
  * Creates a new copy of the given @a other object
  * @param other The QoEMetricsEvent_allOf_metrics to copy.

@@ -49,6 +49,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_a
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_assistance_invocation_record_t *data_collection_model_anbr_network_assistance_invocation_record_create_ref(const data_collection_model_anbr_network_assistance_invocation_record_t *other)
+{
+    return reinterpret_cast<data_collection_model_anbr_network_assistance_invocation_record_t*>(new std::shared_ptr<ANBRNetworkAssistanceInvocationRecord>(*reinterpret_cast<const std::shared_ptr<ANBRNetworkAssistanceInvocationRecord >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_anbr_network_assistance_invocation_record_t *data_collection_model_anbr_network_assistance_invocation_record_create_copy(const data_collection_model_anbr_network_assistance_invocation_record_t *other)
 {
     if (!other) return NULL;

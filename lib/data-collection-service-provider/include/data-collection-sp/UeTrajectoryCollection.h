@@ -39,13 +39,21 @@ data_collection_model_ue_trajectory_collection_t;
 
 
 
-/** Create a new UeTrajectoryCollection
+/** Create a new UeTrajectoryCollection.
  * \public \memberof data_collection_model_ue_trajectory_collection_t
  * @return a new UeTrajectoryCollection object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_trajectory_collection_t *data_collection_model_ue_trajectory_collection_create();
 
-/** Create a new copy of a UeTrajectoryCollection object
+/** Create a new UeTrajectoryCollection reference.
+ * \public \memberof data_collection_model_ue_trajectory_collection_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The UeTrajectoryCollection to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_trajectory_collection_t *data_collection_model_ue_trajectory_collection_create_ref(const data_collection_model_ue_trajectory_collection_t *other);
+
+/** Create a new copy of a UeTrajectoryCollection object.
  * \public \memberof data_collection_model_ue_trajectory_collection_t
  * Creates a new copy of the given @a other object
  * @param other The UeTrajectoryCollection to copy.

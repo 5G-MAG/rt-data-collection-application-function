@@ -130,7 +130,8 @@ add_time_bucketing_data_records() {
   inc total_count
   if [ -n "$bucketing_rsid" ]; then
     local now_ts=$(TZ=UTC date +'%s')
-    local current_bucket_ts="$(( (now_ts / bucketing_period) * bucketing_period))"
+    local notification_window_ts="$(( now_ts - event_rep_period ))"
+    local current_bucket_ts="$(( (notification_window_ts / bucketing_period) * bucketing_period))"
     local previous1_bucket_ts="$(( current_bucket_ts - bucketing_period ))"
     local previous2_bucket_ts="$(( previous1_bucket_ts - bucketing_period ))"
     local report_start="$(( previous2_bucket_ts + bucketing_period * 7 / 10 ))" # last 30% of one bucket...
@@ -157,22 +158,21 @@ create_time_bucketing_event_exposure_subscription() {
   http_post_json "$dcaf_eventConsumerApplicationFunctionEventExposure_address" "/naf-eventexposure/v1/subscriptions" '{"eventsSubs":[{"event": "UE_COMM", "eventFilter": {"appIds": ["'"$bucketing_app_id"'"]}}], "eventsRepInfo": {"immRep": true, "notifMethod": "PERIODIC", "repPeriod": '"$event_rep_period"'}, "notifUri": "'"$af_event_exposure_notif_url"'", "notifId": "events-notifications-id", "suppFeat": "04"}'
 
   if [ "$resp_statuscode" = "201" ]; then
-    if cmp_field_array_size 'eventNotifs' 1 && \
-       cmp_field_str 'eventNotifs[0].event' "UE_COMM" && \
-       cmp_field_array_size 'eventNotifs[0].ueCommInfos' 2 && \
-       cmp_field_str 'eventNotifs[0].ueCommInfos[0].appId' "$bucketing_app_id" && \
-       cmp_field_str 'eventNotifs[0].ueCommInfos[1].appId' "$bucketing_app_id" && \
-       cmp_field_array_size 'eventNotifs[0].ueCommInfos[0].comms' 1 && \
-       cmp_field_int 'eventNotifs[0].ueCommInfos[0].comms[0].ulVol' 60 && \
-       cmp_field_int 'eventNotifs[0].ueCommInfos[0].comms[0].dlVol' 30 && \
-       cmp_field_array_size 'eventNotifs[0].ueCommInfos[1].comms' 1 && \
-       cmp_field_int 'eventNotifs[0].ueCommInfos[1].comms[0].ulVol' 140 && \
-       cmp_field_int 'eventNotifs[0].ueCommInfos[1].comms[0].dlVol' 70; \
+    if cmp_field_str 'eventNotifs[0].event' "UE_COMM" && \
+       cmp_field_array_size 'eventNotifs|map(.ueCommInfos[])' 2 && \
+       cmp_field_str 'eventNotifs|map(.ueCommInfos[])|.[0].appId' "$bucketing_app_id" && \
+       cmp_field_str 'eventNotifs|map(.ueCommInfos[])|.[1].appId' "$bucketing_app_id" && \
+       cmp_field_array_size 'eventNotifs|map(.ueCommInfos[])|.[0].comms' 1 && \
+       cmp_field_int 'eventNotifs|map(.ueCommInfos[])|.[0].comms[0].ulVol' 60 && \
+       cmp_field_int 'eventNotifs|map(.ueCommInfos[])|.[0].comms[0].dlVol' 30 && \
+       cmp_field_array_size 'eventNotifs|map(.ueCommInfos[])|.[1].comms' 1 && \
+       cmp_field_int 'eventNotifs|map(.ueCommInfos[])|.[1].comms[0].ulVol' 140 && \
+       cmp_field_int 'eventNotifs|map(.ueCommInfos[])|.[1].comms[0].dlVol' 70; \
     then
       inc ok_count
     else
       inc fail_count
-      log_error "Expected two aggregated results in one immediate event notification"
+      log_error "Expected two aggregated results with a 30%/70% split"
       log_error "$response"
     fi
     bucketing_event_exposure_subsc_etag="$resp_etag"

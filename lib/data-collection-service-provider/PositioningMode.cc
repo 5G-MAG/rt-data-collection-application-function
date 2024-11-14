@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_mo
     return reinterpret_cast<data_collection_model_positioning_mode_t*>(new std::shared_ptr<PositioningMode>(new PositioningMode()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_mode_t *data_collection_model_positioning_mode_create_ref(const data_collection_model_positioning_mode_t *other)
+{
+    return reinterpret_cast<data_collection_model_positioning_mode_t*>(new std::shared_ptr<PositioningMode>(*reinterpret_cast<const std::shared_ptr<PositioningMode >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_positioning_mode_t *data_collection_model_positioning_mode_create_copy(const data_collection_model_positioning_mode_t *other)
 {
     if (!other) return NULL;

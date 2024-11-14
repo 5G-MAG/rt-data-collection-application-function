@@ -206,23 +206,55 @@ DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_event_subscription_
 */
 DATA_COLLECTION_SVC_PRODUCER_API ogs_time_t data_collection_event_subscription_get_last_modified(const data_collection_event_subscription_t *event_subscription);
 
-/** Get the Event Exposure Subscription last used date-time (for session expiry)
+/** Get the Event Exposure Subscription last used date-time (for idle session expiry).
  * @param event_subscription event Subscription for which the last used time needs to be obtained.
  * @return last used time.
 */
 DATA_COLLECTION_SVC_PRODUCER_API ogs_time_t data_collection_event_subscription_get_last_used(const data_collection_event_subscription_t *event_subscription);
 
-/** Get the Event Exposure Subscription entity instance tag 
+/** Get the Event Exposure Subscription entity instance tag.
  * @param event_subscription event Subscription for which etag needs to be obtained.
  * @return returns etag (for HTTP).
 */
 DATA_COLLECTION_SVC_PRODUCER_API const char *data_collection_event_subscription_get_etag(const data_collection_event_subscription_t *event_subscription);
 
-/** Get the immediate reports flag 
+/** Get the immediate reports flag.
  * @param event_subscription event subscription.
  * @return returns "true" if immediate reply flag is set in the reporting information of the AfEventExposureSubsc JSON Object, "false" otherwise.
 */
 DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_event_subscription_get_imm_rep_flag(const data_collection_event_subscription_t *event_subscription);
+
+/** Get the creation time of this subscription.
+ *
+ * @param event_subscription The event subscription to get the creation time for in \a create_time.
+ * @param[out] create_time The timespec to fill in with the wallclock creation time.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API void data_collection_event_subscription_get_create_time(const data_collection_event_subscription_t *event_subscription, struct timespec *create_time);
+
+/** Increment the number of notifications generated for this event subscription.
+ *
+ * Increments the counter for generated notifications. This may be taken into account when calling
+ * data_collection_event_subscription_check_expired(). This will return a boolean to indicate if the allowed maximum number of
+ * notifications for this subscription has been reached.
+ *
+ * @param event_subscription The event subscription to increment the counter for.
+ *
+ * @return `true` if the counter has reached the subscribed limit, otherwise `false`.
+ *
+ * @see data_collection_event_subscription_check_expired()
+ */
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_event_subscription_increment_notification_count(data_collection_event_subscription_t *event_subscription);
+
+/** Check if this event subscription has reached its reporting limits.
+ *
+ * This will check the notifications count against the maximum number of notifications allowed and will check the maximum period of
+ * time for the subscription against the subscription age.
+ *
+ * @param event_subscription The event subscription to check for expiry.
+ *
+ * @return `true` if the event subscription has reached its notifications or time limits.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API bool data_collection_event_subscription_check_expired(const data_collection_event_subscription_t *event_subscription);
 
 /** Generate AfEventExposureSubsc response for the event subscription
  * @param data_collection_event_subscription Event subscription for which the AfEventExposureSubsc response needs to be generated.

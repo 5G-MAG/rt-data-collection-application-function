@@ -37,6 +37,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_resu
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_result_t *data_collection_model_integrity_result_create_ref(const data_collection_model_integrity_result_t *other)
+{
+    return reinterpret_cast<data_collection_model_integrity_result_t*>(new std::shared_ptr<IntegrityResult>(*reinterpret_cast<const std::shared_ptr<IntegrityResult >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_integrity_result_t *data_collection_model_integrity_result_create_copy(const data_collection_model_integrity_result_t *other)
 {
     if (!other) return NULL;

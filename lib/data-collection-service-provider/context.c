@@ -656,6 +656,7 @@ static void data_collection_context_data_reporting_provisioning_sessions_remove(
 
 static void data_collection_context_data_reporting_sessions_cache_remove(void) {
     data_reporting_session_cache_free(self->data_reporting_sessions_cache);
+    self->data_reporting_sessions_cache = NULL;
     if(self->reporting_sessions_cache_timer)
         ogs_timer_delete(self->reporting_sessions_cache_timer);
 }
@@ -664,7 +665,7 @@ static void data_collection_context_data_reporting_sessions_cache_remove(void) {
 static void data_collection_context_data_reporting_sessions_remove(void) {
     ogs_info("Removing all Data Reporting Sessions");
 
-    data_collection_hash_free(self->data_reporting_sessions, (void(*)(void*))data_collection_reporting_session_destroy);
+    data_collection_hash_free(self->data_reporting_sessions, (void(*)(void*))data_collection_reporting_session_destroy_active_session);
     self->data_reporting_sessions = NULL;
 }
 

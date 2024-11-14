@@ -38,13 +38,21 @@ data_collection_model_relative_cartesian_location_t;
 
 
 
-/** Create a new RelativeCartesianLocation
+/** Create a new RelativeCartesianLocation.
  * \public \memberof data_collection_model_relative_cartesian_location_t
  * @return a new RelativeCartesianLocation object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_create();
 
-/** Create a new copy of a RelativeCartesianLocation object
+/** Create a new RelativeCartesianLocation reference.
+ * \public \memberof data_collection_model_relative_cartesian_location_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The RelativeCartesianLocation to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_cartesian_location_t *data_collection_model_relative_cartesian_location_create_ref(const data_collection_model_relative_cartesian_location_t *other);
+
+/** Create a new copy of a RelativeCartesianLocation object.
  * \public \memberof data_collection_model_relative_cartesian_location_t
  * Creates a new copy of the given @a other object
  * @param other The RelativeCartesianLocation to copy.

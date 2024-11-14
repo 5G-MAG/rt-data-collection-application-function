@@ -39,13 +39,21 @@ data_collection_model_per_ue_attribute_t;
 
 
 
-/** Create a new PerUeAttribute
+/** Create a new PerUeAttribute.
  * \public \memberof data_collection_model_per_ue_attribute_t
  * @return a new PerUeAttribute object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_create();
 
-/** Create a new copy of a PerUeAttribute object
+/** Create a new PerUeAttribute reference.
+ * \public \memberof data_collection_model_per_ue_attribute_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The PerUeAttribute to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_per_ue_attribute_t *data_collection_model_per_ue_attribute_create_ref(const data_collection_model_per_ue_attribute_t *other);
+
+/** Create a new copy of a PerUeAttribute object.
  * \public \memberof data_collection_model_per_ue_attribute_t
  * Creates a new copy of the given @a other object
  * @param other The PerUeAttribute to copy.

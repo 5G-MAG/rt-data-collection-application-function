@@ -49,13 +49,21 @@ typedef enum {
 } data_collection_model_flow_direction_e;
 
 
-/** Create a new FlowDirection
+/** Create a new FlowDirection.
  * \public \memberof data_collection_model_flow_direction_t
  * @return a new FlowDirection object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_direction_t *data_collection_model_flow_direction_create();
 
-/** Create a new copy of a FlowDirection object
+/** Create a new FlowDirection reference.
+ * \public \memberof data_collection_model_flow_direction_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The FlowDirection to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_direction_t *data_collection_model_flow_direction_create_ref(const data_collection_model_flow_direction_t *other);
+
+/** Create a new copy of a FlowDirection object.
  * \public \memberof data_collection_model_flow_direction_t
  * Creates a new copy of the given @a other object
  * @param other The FlowDirection to copy.

@@ -42,13 +42,21 @@ data_collection_model_problem_details_t;
 
 
 
-/** Create a new ProblemDetails
+/** Create a new ProblemDetails.
  * \public \memberof data_collection_model_problem_details_t
  * @return a new ProblemDetails object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_create();
 
-/** Create a new copy of a ProblemDetails object
+/** Create a new ProblemDetails reference.
+ * \public \memberof data_collection_model_problem_details_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The ProblemDetails to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_problem_details_t *data_collection_model_problem_details_create_ref(const data_collection_model_problem_details_t *other);
+
+/** Create a new copy of a ProblemDetails object.
  * \public \memberof data_collection_model_problem_details_t
  * Creates a new copy of the given @a other object
  * @param other The ProblemDetails to copy.

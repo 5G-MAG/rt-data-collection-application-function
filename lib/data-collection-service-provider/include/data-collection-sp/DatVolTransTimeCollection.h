@@ -40,13 +40,21 @@ data_collection_model_dat_vol_trans_time_collection_t;
 
 
 
-/** Create a new DatVolTransTimeCollection
+/** Create a new DatVolTransTimeCollection.
  * \public \memberof data_collection_model_dat_vol_trans_time_collection_t
  * @return a new DatVolTransTimeCollection object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dat_vol_trans_time_collection_t *data_collection_model_dat_vol_trans_time_collection_create();
 
-/** Create a new copy of a DatVolTransTimeCollection object
+/** Create a new DatVolTransTimeCollection reference.
+ * \public \memberof data_collection_model_dat_vol_trans_time_collection_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The DatVolTransTimeCollection to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_dat_vol_trans_time_collection_t *data_collection_model_dat_vol_trans_time_collection_create_ref(const data_collection_model_dat_vol_trans_time_collection_t *other);
+
+/** Create a new copy of a DatVolTransTimeCollection object.
  * \public \memberof data_collection_model_dat_vol_trans_time_collection_t
  * Creates a new copy of the given @a other object
  * @param other The DatVolTransTimeCollection to copy.

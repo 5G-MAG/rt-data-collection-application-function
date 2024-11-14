@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assist
     return reinterpret_cast<data_collection_model_network_assistance_type_t*>(new std::shared_ptr<NetworkAssistanceType>(new NetworkAssistanceType()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_type_t *data_collection_model_network_assistance_type_create_ref(const data_collection_model_network_assistance_type_t *other)
+{
+    return reinterpret_cast<data_collection_model_network_assistance_type_t*>(new std::shared_ptr<NetworkAssistanceType>(*reinterpret_cast<const std::shared_ptr<NetworkAssistanceType >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_network_assistance_type_t *data_collection_model_network_assistance_type_create_copy(const data_collection_model_network_assistance_type_t *other)
 {
     if (!other) return NULL;

@@ -506,27 +506,23 @@ static int __data_collection_report_destroy_expired(ogs_list_t *data_reports)
 
 static data_collection_data_report_property_e __get_report_properties(data_collection_model_data_report_t *report, ogs_list_t *data_reports)
 {
-    ogs_list_t *ret = NULL;
-    
     static const struct {
-        ogs_list_t *(*property_fn)(const data_collection_model_data_report_t *report);
+        bool (*property_fn)(const data_collection_model_data_report_t *report);
         data_collection_data_report_property_e property_enum;
     } properties[] = {
-        {data_collection_model_data_report_get_application_specific_records, DATA_COLLECTION_DATA_REPORT_PROPERTY_APP_SPECIFIC},
-        {data_collection_model_data_report_get_communication_records, DATA_COLLECTION_DATA_REPORT_PROPERTY_COMMUNICATION},
-        {data_collection_model_data_report_get_location_records, DATA_COLLECTION_DATA_REPORT_PROPERTY_LOCATION},
-        {data_collection_model_data_report_get_media_streaming_access_records, DATA_COLLECTION_DATA_REPORT_PROPERTY_MEDIA_STREAMING_ACCESS},
-        {data_collection_model_data_report_get_performance_data_records, DATA_COLLECTION_DATA_REPORT_PROPERTY_PERFORMANCE},
-        {data_collection_model_data_report_get_service_experience_records, DATA_COLLECTION_DATA_REPORT_PROPERTY_SERVICE_EXPERIENCE},
-        {data_collection_model_data_report_get_trip_plan_records, DATA_COLLECTION_DATA_REPORT_PROPERTY_TRIP_PLAN}
+        {data_collection_model_data_report_has_application_specific_records, DATA_COLLECTION_DATA_REPORT_PROPERTY_APP_SPECIFIC},
+        {data_collection_model_data_report_has_communication_records, DATA_COLLECTION_DATA_REPORT_PROPERTY_COMMUNICATION},
+        {data_collection_model_data_report_has_location_records, DATA_COLLECTION_DATA_REPORT_PROPERTY_LOCATION},
+        {data_collection_model_data_report_has_media_streaming_access_records, DATA_COLLECTION_DATA_REPORT_PROPERTY_MEDIA_STREAMING_ACCESS},
+        {data_collection_model_data_report_has_performance_data_records, DATA_COLLECTION_DATA_REPORT_PROPERTY_PERFORMANCE},
+        {data_collection_model_data_report_has_service_experience_records, DATA_COLLECTION_DATA_REPORT_PROPERTY_SERVICE_EXPERIENCE},
+        {data_collection_model_data_report_has_trip_plan_records, DATA_COLLECTION_DATA_REPORT_PROPERTY_TRIP_PLAN}
     };
     size_t i;
 
     for (i = 0; i < sizeof(properties)/sizeof(properties[0]); i++) {
-        ret = properties[i].property_fn(report);
-        if (ret) {
+        if (properties[i].property_fn(report)) {
 	    if(properties[i].property_enum == DATA_COLLECTION_DATA_REPORT_PROPERTY_COMMUNICATION) __populate_communication_records(report, data_reports);	
-	    data_collection_list_free(ret);
 	    return properties[i].property_enum;
 	}
     }

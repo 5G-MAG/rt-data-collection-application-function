@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_direc
     return reinterpret_cast<data_collection_model_relative_direction_t*>(new std::shared_ptr<RelativeDirection>(new RelativeDirection()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_direction_t *data_collection_model_relative_direction_create_ref(const data_collection_model_relative_direction_t *other)
+{
+    return reinterpret_cast<data_collection_model_relative_direction_t*>(new std::shared_ptr<RelativeDirection>(*reinterpret_cast<const std::shared_ptr<RelativeDirection >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_relative_direction_t *data_collection_model_relative_direction_create_copy(const data_collection_model_relative_direction_t *other)
 {
     if (!other) return NULL;

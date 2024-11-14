@@ -61,6 +61,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streamin
 )));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_event_t *data_collection_model_media_streaming_access_event_create_ref(const data_collection_model_media_streaming_access_event_t *other)
+{
+    return reinterpret_cast<data_collection_model_media_streaming_access_event_t*>(new std::shared_ptr<MediaStreamingAccessEvent>(*reinterpret_cast<const std::shared_ptr<MediaStreamingAccessEvent >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_media_streaming_access_event_t *data_collection_model_media_streaming_access_event_create_copy(const data_collection_model_media_streaming_access_event_t *other)
 {
     if (!other) return NULL;

@@ -47,13 +47,21 @@ typedef enum {
 } data_collection_model_fix_type_e;
 
 
-/** Create a new FixType
+/** Create a new FixType.
  * \public \memberof data_collection_model_fix_type_t
  * @return a new FixType object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_fix_type_t *data_collection_model_fix_type_create();
 
-/** Create a new copy of a FixType object
+/** Create a new FixType reference.
+ * \public \memberof data_collection_model_fix_type_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The FixType to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_fix_type_t *data_collection_model_fix_type_create_ref(const data_collection_model_fix_type_t *other);
+
+/** Create a new copy of a FixType object.
  * \public \memberof data_collection_model_fix_type_t
  * Creates a new copy of the given @a other object
  * @param other The FixType to copy.

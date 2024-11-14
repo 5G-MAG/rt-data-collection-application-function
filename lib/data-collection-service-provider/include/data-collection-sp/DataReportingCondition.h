@@ -41,13 +41,21 @@ data_collection_model_data_reporting_condition_t;
 
 
 
-/** Create a new DataReportingCondition
+/** Create a new DataReportingCondition.
  * \public \memberof data_collection_model_data_reporting_condition_t
  * @return a new DataReportingCondition object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_condition_t *data_collection_model_data_reporting_condition_create();
 
-/** Create a new copy of a DataReportingCondition object
+/** Create a new DataReportingCondition reference.
+ * \public \memberof data_collection_model_data_reporting_condition_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The DataReportingCondition to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_reporting_condition_t *data_collection_model_data_reporting_condition_create_ref(const data_collection_model_data_reporting_condition_t *other);
+
+/** Create a new copy of a DataReportingCondition object.
  * \public \memberof data_collection_model_data_reporting_condition_t
  * Creates a new copy of the given @a other object
  * @param other The DataReportingCondition to copy.

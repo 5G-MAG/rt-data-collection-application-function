@@ -38,13 +38,21 @@ data_collection_model_ue_area_indication_t;
 
 
 
-/** Create a new UeAreaIndication
+/** Create a new UeAreaIndication.
  * \public \memberof data_collection_model_ue_area_indication_t
  * @return a new UeAreaIndication object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_area_indication_t *data_collection_model_ue_area_indication_create();
 
-/** Create a new copy of a UeAreaIndication object
+/** Create a new UeAreaIndication reference.
+ * \public \memberof data_collection_model_ue_area_indication_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The UeAreaIndication to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ue_area_indication_t *data_collection_model_ue_area_indication_create_ref(const data_collection_model_ue_area_indication_t *other);
+
+/** Create a new copy of a UeAreaIndication object.
  * \public \memberof data_collection_model_ue_area_indication_t
  * Creates a new copy of the given @a other object
  * @param other The UeAreaIndication to copy.

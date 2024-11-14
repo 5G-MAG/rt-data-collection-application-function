@@ -39,13 +39,21 @@ data_collection_model_query_param_combination_t;
 
 
 
-/** Create a new QueryParamCombination
+/** Create a new QueryParamCombination.
  * \public \memberof data_collection_model_query_param_combination_t
  * @return a new QueryParamCombination object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_create();
 
-/** Create a new copy of a QueryParamCombination object
+/** Create a new QueryParamCombination reference.
+ * \public \memberof data_collection_model_query_param_combination_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The QueryParamCombination to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_query_param_combination_t *data_collection_model_query_param_combination_create_ref(const data_collection_model_query_param_combination_t *other);
+
+/** Create a new copy of a QueryParamCombination object.
  * \public \memberof data_collection_model_query_param_combination_t
  * Creates a new copy of the given @a other object
  * @param other The QueryParamCombination to copy.

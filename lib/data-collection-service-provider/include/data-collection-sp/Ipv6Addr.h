@@ -38,13 +38,21 @@ data_collection_model_ipv6_addr_t;
 
 
 
-/** Create a new Ipv6Addr
+/** Create a new Ipv6Addr.
  * \public \memberof data_collection_model_ipv6_addr_t
  * @return a new Ipv6Addr object pointer.
  */
 DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ipv6_addr_t *data_collection_model_ipv6_addr_create();
 
-/** Create a new copy of a Ipv6Addr object
+/** Create a new Ipv6Addr reference.
+ * \public \memberof data_collection_model_ipv6_addr_t
+ * Creates a new reference to the same underlying object as \a other.
+ * @param other The Ipv6Addr to create a new reference to.
+ * @return a new reference to the underlying object of \a other.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_ipv6_addr_t *data_collection_model_ipv6_addr_create_ref(const data_collection_model_ipv6_addr_t *other);
+
+/** Create a new copy of a Ipv6Addr object.
  * \public \memberof data_collection_model_ipv6_addr_t
  * Creates a new copy of the given @a other object
  * @param other The Ipv6Addr to copy.

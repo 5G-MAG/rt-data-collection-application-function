@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_processin
     return reinterpret_cast<data_collection_model_data_processing_type_t*>(new std::shared_ptr<DataProcessingType>(new DataProcessingType()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_processing_type_t *data_collection_model_data_processing_type_create_ref(const data_collection_model_data_processing_type_t *other)
+{
+    return reinterpret_cast<data_collection_model_data_processing_type_t*>(new std::shared_ptr<DataProcessingType>(*reinterpret_cast<const std::shared_ptr<DataProcessingType >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_data_processing_type_t *data_collection_model_data_processing_type_create_copy(const data_collection_model_data_processing_type_t *other)
 {
     if (!other) return NULL;

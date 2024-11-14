@@ -29,6 +29,11 @@ extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_direction
     return reinterpret_cast<data_collection_model_flow_direction_t*>(new std::shared_ptr<FlowDirection>(new FlowDirection()));
 }
 
+extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_direction_t *data_collection_model_flow_direction_create_ref(const data_collection_model_flow_direction_t *other)
+{
+    return reinterpret_cast<data_collection_model_flow_direction_t*>(new std::shared_ptr<FlowDirection>(*reinterpret_cast<const std::shared_ptr<FlowDirection >*>(other)));
+}
+
 extern "C" DATA_COLLECTION_SVC_PRODUCER_API data_collection_model_flow_direction_t *data_collection_model_flow_direction_create_copy(const data_collection_model_flow_direction_t *other)
 {
     if (!other) return NULL;
