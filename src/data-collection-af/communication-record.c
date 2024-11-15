@@ -533,7 +533,7 @@ static data_collection_data_report_record_t *generate_aggregate_communication_re
     data_collection_model_time_window_set_stop_time(time_window, stop_time);
 
     communication_record = data_collection_model_communication_record_create();
-    data_collection_model_communication_record_set_timestamp(communication_record, timestamp);
+    data_collection_model_communication_record_set_timestamp_move(communication_record, timestamp);
     if(downlink_volume)
          data_collection_model_communication_record_set_downlink_volume(communication_record, downlink_volume);
     if(uplink_volume)
