@@ -60,6 +60,7 @@ typedef struct aggregation_data_set_s {
 typedef struct bucketed_data_worksheet_s {
     data_collection_bucketed_data_t bucket;
     ogs_hash_t *aggregation_data; /* map of function_name,data_collection_data_report_handler_t* => *aggregation_data_set_t */
+    ogs_list_t aggregation_fn_order;
 } bucketed_data_worksheet_t;
 
 typedef struct report_find_result_s {
@@ -656,7 +657,19 @@ static void __bucketed_data_worksheet_free(bucketed_data_worksheet_t *worksheet)
         worksheet->aggregation_data = NULL;
     }
 
+    data_collection_list_clear(&worksheet->aggregation_fn_order);
+
     ogs_free(worksheet);
+}
+
+static bool __string_cmp(const void *a, const void *b)
+{
+    return !strcmp((const char*)a, (const char*)b);
+}
+
+static void __ogs_free(void *ptr)
+{
+    ogs_free(ptr);
 }
 
 static bool __bucketed_data_worksheet_add_data_set(bucketed_data_worksheet_t *worksheet, aggregation_data_set_t *data_set)
@@ -664,6 +677,7 @@ static bool __bucketed_data_worksheet_add_data_set(bucketed_data_worksheet_t *wo
     if (ogs_unlikely(!worksheet)) return false;
 
     ogs_hash_set(worksheet->aggregation_data, &data_set->key, __aggregation_data_set_key_size(data_set->key.function_name), data_set);
+    __set_add_lnode(&worksheet->aggregation_fn_order, data_collection_lnode_create(data_collection_strdup(data_set->key.function_name), __ogs_free), __string_cmp);
 
     return true;
 }
@@ -1263,23 +1277,30 @@ static bool __bucket_time_info_overlaps(const data_collection_bucket_time_info_t
 
 static void __aggregate_worksheet_buckets(report_find_result_t *result)
 {
-    /* loop through buckets applying aggregation functions to their data samples and posting the results into the main result list */
+    /* Loop through buckets applying aggregation functions, in order, to their data samples and posting the results into the main
+     * result list. */
     bucketed_data_worksheet_t *worksheet;
     ogs_list_for_each(&result->buckets, worksheet) {
-        ogs_hash_index_t *agg_data_index = ogs_hash_index_make(worksheet->aggregation_data);
-        ogs_hash_index_t *it;
-        for (it = ogs_hash_next(agg_data_index); it; it = ogs_hash_next(it)) {
-            data_collection_data_report_record_t *report_record, *safe_record;
-            aggregation_data_set_t *agg_data = (aggregation_data_set_t*)ogs_hash_this_val(it);
-            ogs_list_t *agg_reports = agg_data->key.handler->apply_aggregation(agg_data->key.function_name, &agg_data->data_samples);
-            ogs_list_for_each_safe(agg_reports, safe_record, report_record) {
-                ogs_list_remove(agg_reports, report_record);
-                if (!worksheet->bucket.data_samples) worksheet->bucket.data_samples = ogs_calloc(1, sizeof(*worksheet->bucket.data_samples));
-                ogs_list_add(worksheet->bucket.data_samples, report_record);
+        data_collection_lnode_t *node;
+        ogs_list_for_each(&worksheet->aggregation_fn_order, node) {
+            const char *aggregation_fn = (const char*)node->object;
+            ogs_hash_index_t *agg_data_index = ogs_hash_index_make(worksheet->aggregation_data);
+            ogs_hash_index_t *it;
+            for (it = ogs_hash_next(agg_data_index); it; it = ogs_hash_next(it)) {
+                data_collection_data_report_record_t *report_record, *safe_record;
+                aggregation_data_set_t *agg_data = (aggregation_data_set_t*)ogs_hash_this_val(it);
+                if (!strcmp(agg_data->key.function_name, aggregation_fn)) {
+                    ogs_list_t *agg_reports = agg_data->key.handler->apply_aggregation(aggregation_fn, &agg_data->data_samples);
+                    ogs_list_for_each_safe(agg_reports, safe_record, report_record) {
+                        ogs_list_remove(agg_reports, report_record);
+                        if (!worksheet->bucket.data_samples) worksheet->bucket.data_samples = ogs_calloc(1, sizeof(*worksheet->bucket.data_samples));
+                        ogs_list_add(worksheet->bucket.data_samples, report_record);
+                    }
+                    ogs_free(agg_reports);
+                }
             }
-            ogs_free(agg_reports);
+            ogs_free(agg_data_index);
         }
-        ogs_free(agg_data_index);
     }
 }
 
