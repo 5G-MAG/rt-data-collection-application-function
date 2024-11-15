@@ -31,7 +31,7 @@ static void __data_bucket_mark_used(data_collection_bucketed_data_t *data_bucket
 static void __af_event_notification_add_ue_communication_collections_for_data_bucket(
                                                             data_collection_model_af_event_notification_t *af_event_notification,
                                                             data_collection_bucketed_data_t *data_bucket);
-static bool __data_bucket_any_report_expedited(data_collection_bucketed_data_t *data_bucket);
+/*static bool __data_bucket_any_report_expedited(data_collection_bucketed_data_t *data_bucket);*/
 static bool __event_subscription_get_notification_window_for_timespec(
                                                         const data_collection_event_subscription_t *event_subscription /* [not-null] */,
                                                         const struct timespec *time /* [not-null] */,
@@ -81,9 +81,11 @@ ogs_list_t *generate_af_event_notifications(ogs_list_t *data_buckets,
                     ogs_free(notif_end_str);
                 }
                 if (timespec_cmp(&notification_end, &now) > 0) {
-                    /* notification window ends after the current time so this is for the current notification time window.
-                     * we won't report this window unless any report in it is expedited */
-                    if (!__data_bucket_any_report_expedited(data_bucket)) continue;
+                    /* Notification window ends after the current time so this is for the current notification time window.
+                     * We will ignore this bucket for now even if a record in it is expedited as we need to wait for the rest of
+                     * the window data. */
+                    /* if (!__data_bucket_any_report_expedited(data_bucket)) continue; */
+                    continue;
                 }
                 data_collection_model_af_event_notification_t *af_event_notification;
                 if (!notifications_by_start_time) {
@@ -112,15 +114,13 @@ ogs_list_t *generate_af_event_notifications(ogs_list_t *data_buckets,
                     }
                 }
                 __af_event_notification_add_ue_communication_collections_for_data_bucket(af_event_notification, data_bucket);
-                if (timespec_cmp(&notification_end, &now) <= 0) {
-                    /* mark as used (if not in the current notification window) */
-                    __data_bucket_mark_used(data_bucket, data_collection_event_subscription);
-                }
+                /* mark all records in the bucket as used */
+                __data_bucket_mark_used(data_bucket, data_collection_event_subscription);
                 continue;
             }
         }
         if (!no_time_af_event_notification) {
-            if (no_more_notifications) continue;
+            if (no_more_notifications) continue; /* not allowed any more notifications for this subscription so skip this */
             no_time_af_event_notification = __af_event_notification_new("UE_COMM");
             ogs_list_add(af_event_notifications, data_collection_model_af_event_notification_make_lnode(no_time_af_event_notification));
             if (data_collection_event_subscription_increment_notification_count(data_collection_event_subscription)) {
@@ -129,6 +129,7 @@ ogs_list_t *generate_af_event_notifications(ogs_list_t *data_buckets,
             }
         }
         __af_event_notification_add_ue_communication_collections_for_data_bucket(no_time_af_event_notification, data_bucket);
+        /* mark all records in the bucket as used */
         __data_bucket_mark_used(data_bucket, data_collection_event_subscription);
     }
 
@@ -171,6 +172,7 @@ static void __af_event_notification_add_ue_communication_collections_for_data_bu
     data_collection_hash_free(ue_collection_by_app_id, (void(*)(void*))data_collection_model_ue_communication_collection_free);
 }
 
+#if 0
 static bool __data_bucket_any_report_expedited(data_collection_bucketed_data_t *data_bucket)
 {
     data_collection_data_report_record_t *data_report;
@@ -179,6 +181,7 @@ static bool __data_bucket_any_report_expedited(data_collection_bucketed_data_t *
     }
     return false;
 }
+#endif
 
 static bool __event_subscription_get_notification_window_for_timespec(
                                                     const data_collection_event_subscription_t *event_subscription /* [not-null] */,
