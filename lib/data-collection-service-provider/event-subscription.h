@@ -20,7 +20,7 @@ extern "C" {
 extern bool _event_subscription_set_send_notif(data_collection_event_subscription_t *event_subscription);
 
 extern void _event_subscription_free(data_collection_event_subscription_t *event_subscription);
-extern bool _event_exposure_notification_send_local_event(void *data);
+extern bool _event_exposure_notification_send_local_event(bool expedite);
 extern bool _event_subscriptions_process(void *data);
 extern void _event_subscription_notification_timer_activate(data_collection_event_subscription_t *event_subscription);
 extern void _event_subscription_destroy(data_collection_event_subscription_t *event_subscription);

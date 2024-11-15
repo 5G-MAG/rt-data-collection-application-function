@@ -345,7 +345,9 @@ bool _event_subscriptions_process(void *data) {
 
         ogs_hash_this(it, (const void **)&key, &key_len, (void**)(&data_collection_event_subscription));
         ogs_debug("Event Subscription: Key: [%p: %s][%i]: %p", key, key, key_len, data_collection_event_subscription);
-	if (data_collection_event_subscription->event_notification_timer && !data_collection_event_subscription->send_notif)
+        /* if !expedited and periodic notification and the event timer has not elapsed, then skip this subscription */
+	if (!data && data_collection_event_subscription->event_notification_timer &&
+            !data_collection_event_subscription->send_notif)
             continue;
 
         response = _event_subscription_generate_af_event_notification(data_collection_event_subscription);
@@ -389,11 +391,11 @@ cJSON *_event_subscription_generate_af_event_notification(data_collection_event_
     return response;
 }
 
-bool _event_exposure_notification_send_local_event(void *data){
+bool _event_exposure_notification_send_local_event(bool expedite){
     ogs_event_t *event;
     int rv;
 
-    event = _local_event_create(DC_LOCAL_EVENT_EXPOSURE_NOTIFICATION, data);
+    event = _local_event_create(DC_LOCAL_EVENT_EXPOSURE_NOTIFICATION, expedite?(void*)1:NULL);
 
     rv = ogs_queue_push(ogs_app()->queue, event);
     if (rv !=OGS_OK) {

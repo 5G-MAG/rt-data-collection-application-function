@@ -295,6 +295,7 @@ DATA_COLLECTION_SVC_PRODUCER_API int data_collection_reporting_report(data_colle
     //cJSON_Delete(external_application_id_node);
     __free_local_data_report_records(&data_reports);
 
+    if (expedite) _event_exposure_notification_send_local_event(true);
     
     return OGS_OK;
 }

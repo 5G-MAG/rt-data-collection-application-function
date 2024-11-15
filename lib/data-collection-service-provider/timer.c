@@ -134,7 +134,7 @@ void dc_timer_event_exposure_notif(void *data)
     ogs_assert(data);
     event_subscription = (data_collection_event_subscription_t *)data;
     _event_subscription_set_send_notif(event_subscription);
-    timer_send_event(DC_TIMER_EVENT_EXPOSURE_NOTIF, data);
+    timer_send_event(DC_TIMER_EVENT_EXPOSURE_NOTIF, NULL);
     _event_subscription_notification_timer_activate(event_subscription);
 }
 
