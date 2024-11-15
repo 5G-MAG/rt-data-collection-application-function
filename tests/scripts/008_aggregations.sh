@@ -37,7 +37,7 @@ create_provisioning_session_aggregation() {
     else
       log_bad_response
       inc fail_count
-    fi  
+    fi
   else
     inc skip_count
   fi
@@ -123,22 +123,28 @@ destroy_reporting_session_aggregation() {
     fi
   else
     inc skip_count
-  fi 
+  fi
 }
 
 submit_data_records_aggregation() {
   local timestart="$1"
   local uplink_vol="$2"
-  local downlink_vol="$3"	
+  local downlink_vol="$3"
+  local expedite="$4"
   inc total_count
+  if [ "$expedite" = "true" ]; then
+    expedite=', "expedite": true'
+  else
+    expedite=
+  fi
   if [ -n "$rsid_aggregation" ]; then
-    
+
     local now="$(TZ=UTC date $iso_datetime_format)"
     local timeend="$((timestart + 10))"
     local ts_start="$(TZ=UTC date --date="@$timestart" $iso_datetime_format)"
     local ts_end="$(TZ=UTC date --date="@$timeend" $iso_datetime_format)"
-	  
-    http_post_json "$dcaf_directDataReporting_address" "/3gpp-ndcaf_data-reporting/v1/sessions/$rsid_aggregation/report" '{"externalApplicationId": "'"$app_id_aggregation"'", "communicationRecords": [{"timestamp": "'"$now"'", "contextIds": ["'"$config_id_aggregation"'"], "timeInterval": {"startTime": "'"$ts_start"'", "stopTime": "'"$ts_end"'"}, "uplinkVolume": '"$uplink_vol"', "downlinkVolume": '"$downlink_vol"'}]}'
+
+    http_post_json "$dcaf_directDataReporting_address" "/3gpp-ndcaf_data-reporting/v1/sessions/$rsid_aggregation/report" '{"externalApplicationId": "'"$app_id_aggregation"'"'"$expedite"', "communicationRecords": [{"timestamp": "'"$now"'", "contextIds": ["'"$config_id_aggregation"'"], "timeInterval": {"startTime": "'"$ts_start"'", "stopTime": "'"$ts_end"'"}, "uplinkVolume": '"$uplink_vol"', "downlinkVolume": '"$downlink_vol"'}]}'
     if [ "$resp_statuscode" = "200" ]; then
       inc ok_count
     elif [ "$resp_statuscode" = "204" ]; then
@@ -307,7 +313,7 @@ check_logged_last_event_notification_mean() {
 }
 
 check_logged_last_event_notification_none() {
-  inc total_count	
+  inc total_count
   response=$(jq -s '.[-1].body' "$notification_logfile")
   if cmp_field_array_size 'eventNotifs' 1 && \
     cmp_field_str 'eventNotifs[0].event' "UE_COMM" && \
@@ -348,93 +354,148 @@ check_logged_last_event_notification_sum_mean() {
   fi
 }
 
+timestamp_during_last_event_reporting_window() {
+  echo "$(( ((($(date +'%s')/event_rep_period - 1)*event_rep_period)/bucketing_period - 1) * bucketing_period ))"
+  return 0
+}
 
+# For Debug
+#reset_x_option="$(set +o | grep xtrace)"
+#set -o xtrace
+
+# Test SUM & MEAN together
 create_provisioning_session_aggregation 008_aggregation_sum_mean.json
 create_reporting_session_aggregation
 create_event_exposure_subsc_aggregation
-submit_data_records_aggregation "$(echo "10*($(date +'%s')/10)-10" | bc)" 60 30
-submit_data_records_aggregation "$(echo "10*($(date +'%s')/10)-10" | bc)" 140 70
-sleep 20
-check_logged_last_event_notification_sum_mean
+notif_ts=$(notification_logfile_modified_timestamp)
+sleep 1
+ts=$(timestamp_during_last_event_reporting_window)
+submit_data_records_aggregation "$ts" 60 30 false
+submit_data_records_aggregation "$ts" 140 70 true
+if wait_for_notification_since $notif_ts 5; then
+  check_logged_last_event_notification_sum_mean
+else
+  inc total_count
+  inc fail_count
+fi
 destroy_event_exposure_subscription_aggregation
 destroy_reporting_session_aggregation
 destroy_provisioning_session_aggregation
-#sleep 150
 config_id_aggregation=
 psid_aggregation=
 rsid_aggregation=
 event_exposure_subsc_id_aggregation=
 
+# Test NONE aggregation function
 create_provisioning_session_aggregation 008_aggregation_none.json
 create_reporting_session_aggregation
 create_event_exposure_subsc_aggregation
-submit_data_records_aggregation "$(echo "10*($(date +'%s')/10)-10" | bc)" 60 30
-submit_data_records_aggregation "$(echo "10*($(date +'%s')/10)-10" | bc)" 140 70
-sleep 20
-check_logged_last_event_notification_none
+notif_ts=$(notification_logfile_modified_timestamp)
+sleep 1
+ts=$(timestamp_during_last_event_reporting_window)
+submit_data_records_aggregation "$ts" 60 30 false
+submit_data_records_aggregation "$ts" 140 70 true
+if wait_for_notification_since $notif_ts 5; then
+  check_logged_last_event_notification_none
+else
+  inc total_count
+  inc fail_count
+fi
 destroy_event_exposure_subscription_aggregation
 destroy_reporting_session_aggregation
 destroy_provisioning_session_aggregation
-#sleep 150
 config_id_aggregation=
 psid_aggregation=
 rsid_aggregation=
 event_exposure_subsc_id_aggregation=
 
-
+# Test SUM aggregation function
 create_provisioning_session_aggregation 008_aggregation_sum.json
-create_reporting_session_aggregation 
+create_reporting_session_aggregation
 create_event_exposure_subsc_aggregation
-submit_data_records_aggregation "$(echo "10*($(date +'%s')/10)-10" | bc)" 600 5000
-submit_data_records_aggregation "$(echo "10*($(date +'%s')/10)-10" | bc)" 300 4000
-sleep 20
-check_logged_last_event_notification_sum
+notif_ts=$(notification_logfile_modified_timestamp)
+sleep 1
+ts=$(timestamp_during_last_event_reporting_window)
+submit_data_records_aggregation "$ts" 600 5000 false
+submit_data_records_aggregation "$ts" 300 4000 true
+if wait_for_notification_since $notif_ts 5; then
+  check_logged_last_event_notification_sum
+else
+  inc total_count
+  inc fail_count
+fi
 destroy_event_exposure_subscription_aggregation
 destroy_reporting_session_aggregation
 destroy_provisioning_session_aggregation
-#sleep 150
 config_id_aggregation=
 psid_aggregation=
 rsid_aggregation=
 event_exposure_subsc_id_aggregation=
+
+# Test MEAN aggregation function
 create_provisioning_session_aggregation 008_aggregation_mean.json
 create_reporting_session_aggregation
 create_event_exposure_subsc_aggregation
-submit_data_records_aggregation "$(echo "10*($(date +'%s')/10)-10" | bc)" 600 5000
-submit_data_records_aggregation "$(echo "10*($(date +'%s')/10)-10" | bc)" 300 4000
-sleep 20
-check_logged_last_event_notification_mean
+notif_ts=$(notification_logfile_modified_timestamp)
+sleep 1
+ts=$(timestamp_during_last_event_reporting_window)
+submit_data_records_aggregation "$ts" 600 5000 false
+submit_data_records_aggregation "$ts" 300 4000 true
+if wait_for_notification_since $notif_ts 5; then
+  check_logged_last_event_notification_mean
+else
+  inc total_count
+  inc fail_count
+fi
 destroy_event_exposure_subscription_aggregation
 destroy_reporting_session_aggregation
 destroy_provisioning_session_aggregation
-#sleep 150
 config_id_aggregation=
 psid_aggregation=
 rsid_aggregation=
 event_exposure_subsc_id_aggregation=
+
+# Test MAX aggregation function
 create_provisioning_session_aggregation 008_aggregation_max.json
 create_reporting_session_aggregation
 create_event_exposure_subsc_aggregation
-submit_data_records_aggregation "$(echo "10*($(date +'%s')/10)-10" | bc)" 600 4000
-submit_data_records_aggregation "$(echo "10*($(date +'%s')/10)-10" | bc)" 300 5000
-sleep 20
-check_logged_last_event_notification
+notif_ts=$(notification_logfile_modified_timestamp)
+sleep 1
+ts=$(timestamp_during_last_event_reporting_window)
+submit_data_records_aggregation "$ts" 600 4000 false
+submit_data_records_aggregation "$ts" 300 5000 true
+if wait_for_notification_since $notif_ts 5; then
+  check_logged_last_event_notification
+else
+  inc total_count
+  inc fail_count
+fi
 destroy_event_exposure_subscription_aggregation
 destroy_reporting_session_aggregation
 destroy_provisioning_session_aggregation
-sleep 10
 config_id_aggregation=
 psid_aggregation=
 rsid_aggregation=
 event_exposure_subsc_id_aggregation=
+
+# Test MIN aggregation function
 create_provisioning_session_aggregation 008_aggregation_min.json
 create_reporting_session_aggregation
 create_event_exposure_subsc_aggregation
-submit_data_records_aggregation "$(echo "10*($(date +'%s')/10)-10" | bc)" 600 4000
-submit_data_records_aggregation "$(echo "10*($(date +'%s')/10)-10" | bc)" 300 5000
-sleep 20
-check_logged_last_event_notification_min
+notif_ts=$(notification_logfile_modified_timestamp)
+sleep 1
+ts=$(timestamp_during_last_event_reporting_window)
+submit_data_records_aggregation "$ts" 600 4000 false
+submit_data_records_aggregation "$ts" 300 5000 true
+if wait_for_notification_since $notif_ts 5; then
+  check_logged_last_event_notification_min
+else
+  inc total_count
+  inc fail_count
+fi
 destroy_event_exposure_subscription_aggregation
 destroy_reporting_session_aggregation
 destroy_provisioning_session_aggregation
 
+# For Debug
+#eval "$reset_x_option"

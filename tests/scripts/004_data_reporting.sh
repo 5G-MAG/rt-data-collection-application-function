@@ -61,11 +61,13 @@ submit_communications_report() {
 }
 
 submit_first_communications_report() {
-    submit_communications_report "$(echo "10*($(date +'%s')/10)-10" | bc)" 600 65536
+    local current_event_window="$(( ($(date +'%s')/event_rep_period)*event_rep_period ))"
+    submit_communications_report "$(( bucketing_period * (current_event_window/bucketing_period - 1) ))" 600 65536
 }
 
 submit_alt_communications_report() {
-    submit_communications_report "$(echo "10*($(date +'%s')/10)-10" | bc)" 1200 32768
+    local current_event_window="$(( ($(date +'%s')/event_rep_period)*event_rep_period ))"
+    submit_communications_report "$(( bucketing_period * (current_event_window/bucketing_period - 1) ))" 1200 32768
 }
 
 submit_first_communications_report

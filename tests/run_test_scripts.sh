@@ -32,7 +32,7 @@ dcaf_indirectDataReporting_address="127.0.0.36:7777"
 dcaf_eventConsumerApplicationFunctionEventExposure_address="127.0.0.37:7777"
 dcaf_networkDataAnalyticsFunctionEventExposure_address="127.0.0.38:7777"
 
-external_app_id="MyAppID"
+iso_datetime_format='+%Y-%m-%dT%H:%M:%SZ'
 
 # Global variables
 script_dir=`dirname "$0"`
@@ -40,6 +40,10 @@ script_dir=`realpath "$script_dir"`
 
 data_dir="$script_dir/data"
 tests_dir="$script_dir/scripts"
+
+if [ -r "$data_dir/presets.sh" ]; then
+    . "$data_dir/presets.sh"
+fi
 
 total_ok=0
 total_total=0
@@ -71,7 +75,7 @@ inc() {
 log_error() {
     local err_path=
     if [ "${FUNCNAME[1]}" != "main" ]; then
-        err_path=":$testname:${FUNCNAME[1]}"
+        err_path=": $testname:${FUNCNAME[1]}"
     fi
     echo -e "(${colour_red}E${colour_reset})$err_path: $@" >&2
 }

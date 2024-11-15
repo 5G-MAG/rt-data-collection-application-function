@@ -17,8 +17,6 @@
 #
 
 bucketing_app_id="MyAppId-buckets"
-# bucketing_period matches the value in the data file "007_bucketing-10s_buckets.json"
-bucketing_period=10
 
 create_time_bucket_provisioning_session() {
   inc total_count

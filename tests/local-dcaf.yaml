@@ -209,6 +209,8 @@ dataCollection:
         dataCollectionReports: 60
         eventExposure: 60
     dataCollectionDir: /var/local/log/open5gs/reports
+    timeouts:
+        reportingSession: 40
 
 # nrf:
 #

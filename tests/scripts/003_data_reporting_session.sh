@@ -27,8 +27,6 @@
 # variables above will remain unset.
 #
 
-data_reporting_session_timeout=130
-
 create_data_reporting_session() {
   inc total_count
   http_post_json "$dcaf_directDataReporting_address" "/3gpp-ndcaf_data-reporting/v1/sessions" '{"externalApplicationId": "'"$external_app_id"'", "supportedDomains": ["COMMUNICATION", "BOGUS_DATA_DOMAIN"]}'
@@ -108,7 +106,9 @@ fetch_bad_data_reporting_session() {
 fetch_expired_data_reporting_session() {
   inc total_count
   if [ -n "$data_reporting_session_id" ]; then
-    sleep $((data_reporting_session_timeout + 5))
+    # expiry only happens every 60 seconds and the session must not have been touched in $data_reporting_session_timeout seconds at
+    # that point so we need to leave it at least 60+$data_reporting_session_timeout to guarentee a timeout expiry.
+    sleep $((data_reporting_session_timeout + 61))
     http_get "$dcaf_directDataReporting_address" "/3gpp-ndcaf_data-reporting/v1/sessions/$data_reporting_session_id"
     if [ "$resp_statuscode" = "404" ]; then
       inc ok_count
@@ -130,6 +130,10 @@ delete_data_reporting_session() {
     if [ "$resp_statuscode" = "204" ]; then
       inc ok_count
       data_reporting_session_id=
+    elif [ "$resp_statuscode" = "404" ]; then
+      log_warn "DataReportingSession $data_reporting_session_id has already expired"
+      inc ok_count
+      data_reporting_session_id=
     else
       inc fail_count
       log_error "Unexpected response $resp_statuscode"
@@ -141,6 +145,9 @@ delete_data_reporting_session() {
   fi
 }
 
+# For Debug
+#set -x
+
 create_data_reporting_session
 fetch_data_reporting_session
 fetch_bad_data_reporting_session
@@ -148,3 +155,6 @@ delete_data_reporting_session
 create_data_reporting_session
 fetch_expired_data_reporting_session
 create_data_reporting_session
+
+# For Debug
+#set +x

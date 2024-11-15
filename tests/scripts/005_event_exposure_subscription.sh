@@ -25,7 +25,6 @@
 #
 
 notification_path="/path/to/my/notification/handler"
-event_rep_period=30
 
 start_notification_server() {
   inc total_count
