@@ -43,7 +43,7 @@ start_notification_server() {
 stop_notification_server() {
   inc total_count
   if [ -n "$af_event_exposure_notif_pid" ]; then
-    sleep $((event_rep_period + 5))
+    #sleep $((event_rep_period + 5))
     kill "$af_event_exposure_notif_pid"
     #wait -f "$af_event_exposure_notif_pid"
     rm -f "$notification_logfile"
