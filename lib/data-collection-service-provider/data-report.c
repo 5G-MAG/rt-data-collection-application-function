@@ -31,21 +31,10 @@ typedef struct data_report_s {
     cJSON *data_report;
 } data_report_t;
 
-typedef struct ue_user_id_s {
-    ogs_lnode_t node;
-    char *user_id;
-} ue_user_id_t;
-
 typedef struct data_report_hash_record_s{
     const data_collection_data_report_handler_t *handler;
     ogs_list_t list;
 } data_report_hash_record_t;
-
-typedef struct data_report_handler_aggregation_functions_s {
-    const data_collection_data_report_handler_t *handler;	
-    data_collection_data_report_record_t *data_record;
-    ogs_list_t *aggregation_functions;
-} data_report_handler_aggregation_functions_t;
 
 typedef struct aggregation_data_set_key_s {
     const data_collection_data_report_handler_t *handler;
