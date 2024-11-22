@@ -26,3 +26,5 @@ systemd_path_cmd = find_program('systemd-path', required: false)
 if systemd_path_cmd.found()
   subdir('systemd')
 endif
+
+subdir('tests')

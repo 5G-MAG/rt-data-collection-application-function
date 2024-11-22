@@ -83,17 +83,17 @@ create_event_notification_report() {
 wait_for_notification_since() {
   local timestamp="$1"
   local wait_timeout="${2:-5}"
-  (tail -fn0 "$notification_logfile" | head -n1 > /dev/null) &
-  local fileupdate_pid=$!
+  tail -fn0 "$notification_logfile" </dev/null 2>/dev/null | head -n1 >/dev/null 2>&1 &
+  local sincefileupdate_pid=$!
   local current_timestamp=$(notification_logfile_modified_timestamp)
   if [ "$timestamp" -lt "$current_timestamp" ]; then
-    kill -INT "$fileupdate_pid"
+    kill "$sincefileupdate_pid"
     return 0
   fi
-  waitpid -e -t "$wait_timeout" "$fileupdate_pid"
+  waitpid -e -t "$wait_timeout" "$sincefileupdate_pid"
   if [ "$?" -eq 3 ]; then
     log_error "Timeout waiting for notification event"
-    kill -INT "$fileupdate_pid"
+    kill "$sincefileupdate_pid"
     return 1
   fi
   sleep 1
@@ -102,12 +102,12 @@ wait_for_notification_since() {
 
 wait_for_notification_event() {
   local timeout="${1:-5}"
-  (tail -fn0 "$notification_logfile" | head -n1 > /dev/null) &
+  tail -fn0 "$notification_logfile" </dev/null 2>/dev/null | head -n1 >/dev/null 2>&1 &
   local fileupdate_pid=$!
   waitpid -e -t "$timeout" "$fileupdate_pid"
   if [ "$?" -eq 3 ]; then
     log_error "Timeout waiting for notification event"
-    kill -INT "$fileupdate_pid"
+    kill "$fileupdate_pid"
     return 1
   fi
   # wait for write to finish

@@ -57,6 +57,18 @@ ninja -C build
 
 **Note:** Errors during the `meson build` command are often caused by missing dependencies or a network issue while trying to retrieve the API files and `openapi-generator` JAR file. See the `~/rt-data-collection-application-function/build/meson-logs/meson-log.txt` log file for the errors in greater detail. Search for `generator-libspdc` to find the start of the API fetch sequence.
 
+## Regression tests (optional)
+
+There are some regression tests that can be run using:
+
+```bash
+cd ~/rt-data-collection-application-function
+meson test -C build regression
+```
+
+This will build the Data Collection AF (if not already built) and then will start an Open5GS NRF and the Data Collection AF, run the regression tests and shutdown the Open5GS NRF and
+Data Collection AF. The results of the testing are displayed.
+
 ## Installing
 
 To install the built Application Function as a system process:
