@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 #
 # 5G-MAG Reference Tools: Data Collection AF regresssion tests
 # ============================================================
