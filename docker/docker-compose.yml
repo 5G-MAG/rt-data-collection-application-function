@@ -1,0 +1,7 @@
+services:
+    data-collection-application-function:
+        build:
+            context: ./
+            dockerfile: Dockerfile
+        volumes:
+            - ./entrypoint.sh:/rt-data-collection-application-function/entrypoint.sh
