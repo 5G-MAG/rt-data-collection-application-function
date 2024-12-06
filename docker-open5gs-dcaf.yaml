@@ -1,0 +1,218 @@
+# License: 5G-MAG Public License (v1.0)
+# Author: Dev Audsin
+# Copyright: (C) 2022-2023 British Broadcasting Corporation
+#
+# For full license terms please see the LICENSE file distributed with this
+# program. If this file is missing then the license can be retrieved from
+# https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
+#
+#===========================================================================
+#
+logger:
+  level: warn
+#
+#  o Set OGS_LOG_INFO to all domain level
+#   - If `level` is omitted, the default level is OGS_LOG_INFO)
+#   - If `domain` is omitted, the all domain level is set from 'level'
+#    (Nothing is needed)
+#
+#  o Set OGS_LOG_ERROR to all domain level
+#   - `level` can be set with none, fatal, error, warn, info, debug, trace
+#    level: error
+#
+#  o Set OGS_LOG_DEBUG to mme/emm domain level
+#    level: debug
+#    domain: mme,emm
+#
+#  o Set OGS_LOG_TRACE to all domain level
+#    level: trace
+#    domain: core,sbi,udm,event,tlv,mem,sock
+#
+#logger:
+#    file: /home/ubuntu/af/open5gs/build/log/data-collection.log
+#
+
+# sbi:
+#   Global SBI parameters
+#
+# o No Server TLS - Client connection can use TLS without certificates
+#   server:
+#     no_tls: true
+#   client:
+#     no_tls: true
+#
+# o Server TLS used - Client connection can use TLS without certificates
+#   server:
+#     no_tls: false
+#     cacert: /path/to/tls/trusted/ca.crt
+#     key: /path/to/tls/private/testserver.key
+#     cert: /path/to/tls/public/testserver.crt
+#   client:
+#     no_tls: true
+#
+# o Server TLS used - Client TLS certificates used
+#   server:
+#     no_tls: false
+#     cacert: /path/to/tls/trusted/ca.crt
+#     key: /path/to/tls/private/testserver.key
+#     cert: /path/to/tls/public/testserver.crt
+#   client:
+#     no_tls: false
+#     cacert: /path/to/tls/trusted/ca.crt
+#     key: /path/to/tls/private/testclient.key
+#     cert: /path/to/tls/public/testclient.crt
+#
+sbi:
+  server:
+    no_tls: true
+  client:
+    no_tls: true
+
+# udm:
+#
+#  <SBI Server>
+#
+#  o SBI Server(http://<all address available>:80)
+#    sbi:
+#
+#  o SBI Server(http://<any address>:80)
+#    sbi:
+#      - addr:
+#          - 0.0.0.0
+#          - ::0
+#        port: 7777
+#
+#  o SBI Server(https://<all address available>:443)
+#    sbi:
+#      - tls:
+#          key: udm.key
+#          pem: udm.pem
+#
+#  o SBI Server(https://127.0.0.12:443, http://[::1]:80)
+#    sbi:
+#      - addr: 127.0.0.12
+#        tls:
+#          key: udm.key
+#          pem: udm.pem
+#      - addr: ::1
+#
+#  o SBI Server(http://udm.open5gs.org:80)
+#    sbi:
+#      - name: udm.open5gs.org
+#
+#  o SBI Server(http://127.0.0.12:7777)
+#    sbi:
+#      - addr: 127.0.0.12
+#        port: 7777
+#
+#  o SBI Server(http://<eth0 IP address>:80)
+#    sbi:
+#      - dev: eth0
+#
+#  o Provide custom SBI address to be advertised to NRF
+#    sbi:
+#      - dev: eth0
+#        advertise: open5gs-udm.svc.local
+#
+#    sbi:
+#      - addr: localhost
+#        advertise:
+#          - 127.0.0.99
+#          - ::1
+#
+#  o SBI Option (Default)
+#    - tcp_nodelay : true
+#    - so_linger.l_onoff : false
+#
+#    sbi:
+#      addr: 127.0.0.12
+#      option:
+#        tcp_nodelay: false
+#        so_linger:
+#          l_onoff: true
+#          l_linger: 10
+#
+#  <NF Service>
+#
+#  o NF Service Name(Default : all NF services available)
+#    service_name:
+#
+#  o NF Service Name(Only some NF services are available)
+#    service_name:
+#      - nudm-sdm
+#      - nudm-uecm
+#      - nudm-ueau
+#
+#  <NF Discovery Query Parameter>
+#
+#  o (Default) If you do not set Query Parameter as shown below,
+#
+#    sbi:
+#      - addr: 127.0.0.12
+#        port: 7777
+#
+#    - 'service-names' is included.
+#
+#    sbi:
+#      - addr: 127.0.0.12
+#        port: 7777
+#    discovery:
+#      option:
+#        no_service_names: false
+#
+#  o To remove 'service-names' from URI query parameters in NS Discovery
+#         no_service_names: true
+#
+#    * For Indirect Communication with Delegated Discovery,
+#      'service-names' is always included in the URI query parameter.
+#    * That is, 'no_service_names' has no effect.
+#
+dcaf:
+    sbi:
+      - addr: 127.0.0.1
+        port: 7777
+
+dataCollection:
+    provisioning:
+      - addr: 0.0.0.0
+        port: 5000
+        advertise: dcaf
+    applicationServerDataReporting:
+      - addr: 0.0.0.0
+        port: 5102
+        advertise: dcaf
+    directDataReporting:
+      - addr: 0.0.0.0
+        port: 5100
+        advertise: dcaf
+    indirectDataReporting:
+      - addr: 0.0.0.0
+        port: 5101
+        advertise: dcaf
+    eventConsumerApplicationFunctionEventExposure:
+      - addr: 0.0.0.0
+        port: 5201
+        advertise: dcaf
+    networkDataAnalyticsFunctionEventExposure:
+      - addr: 0.0.0.0
+        port: 5200
+        advertise: dcaf
+    serverResponseCacheControl:
+      - maxAge: 60
+        provisioning: 60
+        dataCollectionReports: 60
+        eventExposure: 60
+    dataCollectionDir: /var/log/open5gs/reports
+    timeouts:
+        reportingSession: 40
+
+nrf:
+    sbi:
+      - addr: nrf
+        port: 7777
+
+parameter:
+
+max:
+
+time:
