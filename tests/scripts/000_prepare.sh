@@ -20,7 +20,24 @@
 # A function is provided to kill off the started NRF and DCAF processes.
 #
 
+CURL_MIN_VERSION="8.3.0"
+
+check_run_environment() {
+    inc total_count
+
+    # get the earliest version between the installed curl version and $CURL_MIN_VERSION
+    local curl_ver="$( (curl -V | sed -n 's/^curl \([0-9][.0-9]*\).*/\1/p'; echo "$CURL_MIN_VERSION")|sort -V|head -1)"
+    # If installed curl is earlier than $CURL_MIN_VERSION...
+    if [ "$curl_ver" != "$CURL_MIN_VERSION" ]; then
+	log_crit "The installed version of curl must be version $CURL_MIN_VERSION or above to run these regression tests (found version $curl_ver)"
+	inc fail_count
+    else
+        inc ok_count
+    fi
+}
+
 start_network_functions() {
+    if [ -z "$CURL" ]; then return; fi
     export DB_URI="mongodb://localhost/open5gs"
     export http_proxy=
     export https_proxy=
@@ -61,6 +78,12 @@ start_network_functions() {
 
 stop_network_functions() {
     inc total_count
+
+    if [ -z "$CURL" ]; then
+        inc pass_count
+        return
+    fi
+
     if [ -n "$dcaf_pid" ]; then
         kill "$dcaf_pid"
 	rm -f "dcaf.log"
@@ -72,4 +95,5 @@ stop_network_functions() {
     inc ok_count
 }
 
+check_run_environment
 start_network_functions

@@ -8,9 +8,8 @@
 #   License: 5G-MAG Public License v1.0
 #
 # Prerequisites:
-#   - curl
+#   - curl >= 8.3.0
 #   - jq
-#   - ncat
 #
 # For full license terms please see the LICENSE file distributed with this
 # program. If this file is missing then the license can be retrieved from
@@ -45,6 +44,8 @@ if [ -r "$data_dir/presets.sh" ]; then
     . "$data_dir/presets.sh"
 fi
 
+have_critical=0
+
 total_ok=0
 total_total=0
 total_fail=0
@@ -70,6 +71,15 @@ inc() {
    declare -n vname="$1"
    local incre="${2:-1}"
    vname=$((vname + incre))
+}
+
+log_crit() {
+    local err_path=
+    if [ "${FUNCNAME[1]}" != "main" ]; then
+        err_path=": $testname:${FUNCNAME[1]}"
+    fi
+    echo -e "(${colour_red}CRITICAL${colour_reset})$err_path: $@" >&2
+    inc have_critical
 }
 
 log_error() {
@@ -330,18 +340,25 @@ for t in "${tests_dir}"/*.sh; do
         log_error "${testname}: $fail_count/$total_count failed"
     fi
     if [ "$skip_count" -gt 0 ]; then
-        log_info "${testname}: $skip_count skipped, $ok_count/$total_count passed"
-    else
-        log_info "${testname}: $ok_count/$total_count passed"
+        log_warn "${testname}: $skip_count/$total_count skipped"
     fi
+    log_info "${testname}: $ok_count/$total_count passed"
     inc total_ok $ok_count
     inc total_fail $fail_count
     inc total_total $total_count
     inc total_skip $skip_count
+    if [ "$have_critical" -gt 0 ]; then
+        log_info "Critical error, further tests aborted"
+        break
+    fi
 done
 
 if [ "$total_fail" -gt 0 ]; then
-    log_error "Overall ${colour_green}$total_ok passed${colour_reset}, ${colour_red}$total_fail failed${colour_reset}, $total_skip skipped out of $total_total tests"
+    crit_err=
+    if [ "$have_critical" -gt 0 ]; then
+        crit_err=" - Critical error found, tests aborted!"
+    fi
+    log_error "Overall ${colour_green}$total_ok passed${colour_reset}, ${colour_red}$total_fail failed${colour_reset}, $total_skip skipped out of $total_total tests$crit_err"
     exit 1
 else
     log_info "Overall ${colour_green}$total_ok passed${colour_reset} with no failures ($total_skip tests skipped)"
