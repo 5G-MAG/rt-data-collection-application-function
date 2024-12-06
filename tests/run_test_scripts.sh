@@ -10,6 +10,7 @@
 # Prerequisites:
 #   - curl >= 8.3.0
 #   - jq
+#   - waitpid (util-linux or util-linux-extra package)
 #
 # For full license terms please see the LICENSE file distributed with this
 # program. If this file is missing then the license can be retrieved from
