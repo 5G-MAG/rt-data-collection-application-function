@@ -30,6 +30,10 @@ sudo apt install git ninja-build build-essential flex bison libsctp-dev libgnutl
 sudo python3 -m pip install --upgrade meson
 ```
 
+The curl version needs to be version 8.3.0 or above for the regression tests (see below) to work. Therefore if you are using a
+version of Ubuntu before 24.04 (Noble Numbat) please follow these instructions to
+[upgrade your system version of curl to 8.3.0](https://www.alphagnu.com/topic/7-install-latest-curl-version-830-on-ubuntu-22042004debian-12hestiacp/).
+
 ## Downloading
 
 Release tar files can be downloaded from <https://github.com/5G-MAG/rt-data-collection-application-function/releases>.
