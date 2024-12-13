@@ -25,14 +25,23 @@ A list of currently supported features is available [here (actual page TDB)](htt
 
 ## Install dependencies
 
+### Building with the regression tests
+
+If you wish to run the optional regression tests then you will need to use Ubuntu 24.04 (Noble Numbat) or later as the regression tests rely on command line tools from curl v8.3.0 or later and util-linux v2.39 or later. To install the dependencies, including those for the regression tests, then you can use the following commands on Ubuntu 24.04 or later.
+
 ```bash
-sudo apt install git ninja-build build-essential flex bison libsctp-dev libgnutls28-dev libgcrypt-dev libssl-dev libidn11-dev libmongoc-dev libbson-dev libyaml-dev libnghttp2-dev libmicrohttpd-dev libcurl4-gnutls-dev libtins-dev libtalloc-dev libpcre2-dev curl wget default-jdk cmake jq util-linux-extra
+sudo apt install git ninja-build build-essential flex bison libsctp-dev libgnutls28-dev libgcrypt-dev libssl-dev libidn11-dev libmongoc-dev libbson-dev libyaml-dev libnghttp2-dev libmicrohttpd-dev libcurl4-gnutls-dev libtins-dev libtalloc-dev libpcre2-dev curl wget default-jdk cmake jq util-linux-extra python3-h2
 sudo python3 -m pip install --upgrade meson
 ```
 
-The curl version needs to be version 8.3.0 or above for the regression tests (see below) to work. Therefore if you are using a
-version of Ubuntu before 24.04 (Noble Numbat) please follow these instructions to
-[upgrade your system version of curl to 8.3.0](https://www.alphagnu.com/topic/7-install-latest-curl-version-830-on-ubuntu-22042004debian-12hestiacp/).
+### Building without the regression tests
+
+If you are not planning on running the regression tests then you can use these commands on Ubuntu to install the build dependencies.
+
+```bash
+sudo apt install git ninja-build build-essential flex bison libsctp-dev libgnutls28-dev libgcrypt-dev libssl-dev libidn11-dev libmongoc-dev libbson-dev libyaml-dev libnghttp2-dev libmicrohttpd-dev libcurl4-gnutls-dev libtins-dev libtalloc-dev libpcre2-dev curl wget default-jdk cmake
+sudo python3 -m pip install --upgrade meson
+```
 
 ## Downloading
 
@@ -59,19 +68,24 @@ meson build
 ninja -C build
 ```
 
-**Note:** Errors during the `meson build` command are often caused by missing dependencies or a network issue while trying to retrieve the API files and `openapi-generator` JAR file. See the `~/rt-data-collection-application-function/build/meson-logs/meson-log.txt` log file for the errors in greater detail. Search for `generator-libspdc` to find the start of the API fetch sequence.
+**Note:** Errors during the `meson build` command are often caused by missing dependencies or a network issue while trying to
+retrieve the API files and `openapi-generator` JAR file. See the
+`~/rt-data-collection-application-function/build/meson-logs/meson-log.txt` log file for the errors in greater detail. Search for
+`generator-libspdc` to find the start of the API fetch sequence.
 
 ## Regression tests (optional)
 
-There are some regression tests that can be run using:
+There are some regression tests that can be run to check that the data collection library and application function are behaving as
+expected. Please note the dependencies in the "Install dependencies" section above for running the regression tests. The regression
+tests can be executed using:
 
 ```bash
 cd ~/rt-data-collection-application-function
 meson test -C build regression
 ```
 
-This will build the Data Collection AF (if not already built) and then will start an Open5GS NRF and the Data Collection AF, run the regression tests and shutdown the Open5GS NRF and
-Data Collection AF. The results of the testing are displayed.
+This will build the Data Collection AF (if not already built) and then will start an Open5GS NRF and the Data Collection AF, run
+the regression tests and shutdown the Open5GS NRF and Data Collection AF. The results of the testing are displayed.
 
 ## Installing
 
