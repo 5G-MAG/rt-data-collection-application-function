@@ -105,8 +105,23 @@ DATA_COLLECTION_SVC_PRODUCER_API void data_collection_lnode_free(data_collection
  * @param hash The hash map that needs to be freed.
  * @param value_free Routine to free the values in the hash.
  */
-
 DATA_COLLECTION_SVC_PRODUCER_API void data_collection_hash_free(ogs_hash_t *hash, void (*value_free)(void*));
+
+/**
+ * Add an lnode to a set.
+ *
+ * This will use the @a cmp_fn to check if @a new_val is a new unique value in @a set. If a value already exists with compares as
+ * the same as @a new_val then the existing value is returned and @a new_val is freed. If no existing match is found then
+ * @a new_val is added to the set @a set and also returned.
+ *
+ * @param set The set to add the element to.
+ * @param new_val The value to add if not already in the set.
+ * @param cmp_fn A function that can compare the objects held in the lnodes of the set.
+ * @return @a new_val if the value was not already present in @a set, or the existing value that matches.
+ */
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_set_add_lnode(ogs_list_t *set /* [not-null] */,
+                                                                    data_collection_lnode_t *new_val /* [not-null, transfer] */,
+                                                                    bool(*cmp_fn)(const void *a, const void *b));
 
 /** @} */
 

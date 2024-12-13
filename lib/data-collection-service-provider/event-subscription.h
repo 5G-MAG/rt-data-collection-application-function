@@ -32,6 +32,10 @@ extern bool _event_subscription_is_notif_method_periodic(const data_collection_e
 extern cJSON *_event_subscription_generate_af_event_notification(data_collection_event_subscription_t *event_subscription);
 extern int _event_subscription_send_af_event_exposure_notif(data_collection_event_subscription_t *event_subscription,
                                                             cJSON *af_event_notification);
+extern void _event_subscription_add_data_report_used(data_collection_event_subscription_t *event_subscription,
+                                                     data_collection_data_report_record_t *report_record);
+extern void _event_subscription_remove_data_report_used(data_collection_event_subscription_t *event_subscription,
+                                                        data_collection_data_report_record_t *report_record);
 
 #ifdef __cplusplus
 }

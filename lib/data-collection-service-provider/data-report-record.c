@@ -14,7 +14,7 @@
 
 #include "context.h"
 //#include "hash.h"
-//#include "event-subscription.h"
+#include "event-subscription.h"
 #include "timer.h"
 #include "utilities.h"
 //#include "data-reporting.h"
@@ -49,6 +49,7 @@ typedef struct data_report_hash_record_s{
 
 static data_collection_data_report_record_t *__data_collection_report_create(data_collection_reporting_session_t *session, const data_collection_data_report_handler_t *handler, void *data_report, const char *external_application_id);
 static void __data_reports_timer_activate(void);
+static bool __cmp_ptrs(const void *a, const void *b);
 
 /******** Public API ********/
 
@@ -212,6 +213,11 @@ DATA_COLLECTION_SVC_PRODUCER_API void data_collection_data_report_record_destroy
     if (report->original_records) ogs_free(report->original_records);
 
     if (report->usage) {
+        data_collection_lnode_t *node;
+        ogs_list_for_each(report->usage, node) {
+            data_collection_event_subscription_t *evt_subsc = node->object;
+            _event_subscription_remove_data_report_used(evt_subsc, report);
+        }
 	data_collection_list_free(report->usage);
 	report->usage = NULL;
     }
@@ -268,7 +274,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const data_collection_data_report_handler_t *da
 }
 
 /* data_collection_data_report_record_mark_used */
-DATA_COLLECTION_SVC_PRODUCER_API int data_collection_data_report_record_mark_used(data_collection_data_report_record_t *report_record, const data_collection_event_subscription_t *event_subscription) {
+DATA_COLLECTION_SVC_PRODUCER_API int data_collection_data_report_record_mark_used(data_collection_data_report_record_t *report_record, data_collection_event_subscription_t *event_subscription) {
 
     int ret = 0;
 
@@ -281,7 +287,9 @@ DATA_COLLECTION_SVC_PRODUCER_API int data_collection_data_report_record_mark_use
         } else {
             data_collection_lnode_t *event_subscription_node = data_collection_lnode_create_ref(event_subscription);
             if (!report_record->usage) report_record->usage = ogs_calloc(1, sizeof(*report_record->usage));
-            ogs_list_add(report_record->usage, event_subscription_node);
+            if (event_subscription_node == data_collection_set_add_lnode(report_record->usage, event_subscription_node, __cmp_ptrs)) {
+                _event_subscription_add_data_report_used(event_subscription, report_record);
+            }
             ret = 1;
         }
     }
@@ -319,11 +327,26 @@ bool _data_report_record_is_event_subscription_used(const data_collection_data_r
          data_collection_lnode_t *event_subsc_node;
          ogs_list_for_each(data_report->usage, event_subsc_node) {
              data_collection_event_subscription_t *event_subsc = event_subsc_node->object;
-             if(event_subsc == event_subscription)
+             if (event_subsc == event_subscription)
                  return 1;
          }
     }
     return 0;
+}
+
+void _data_report_record_unmark_used(data_collection_data_report_record_t *data_report, data_collection_event_subscription_t *event_subscription)
+{
+    if (data_report->usage) {
+        data_collection_lnode_t *next, *node;
+        ogs_list_for_each_safe(data_report->usage, next, node) {
+            data_collection_event_subscription_t *event_subsc = node->object;
+            if (event_subsc == event_subscription) {
+                ogs_list_remove(data_report->usage, node);
+                data_collection_lnode_free(node);
+                break;
+            }
+        }
+    }
 }
 
 /******** Private functions ***********/
@@ -359,6 +382,11 @@ static void __data_reports_timer_activate(void) {
     if (data_collection_self()->data_reports_clear_timer) {
          ogs_timer_start(data_collection_self()->data_reports_clear_timer, ogs_time_from_sec(data_collection_self()->config.server_response_cache_control->data_collection_reporting_report_response_max_age));
     }
+}
+
+static bool __cmp_ptrs(const void *a, const void *b)
+{
+    return a == b;
 }
 
 #ifdef __cplusplus

@@ -122,6 +122,9 @@ ogs_list_t *generate_af_event_notifications(ogs_list_t *data_buckets,
         if (!no_time_af_event_notification) {
             if (no_more_notifications) continue; /* not allowed any more notifications for this subscription so skip this */
             no_time_af_event_notification = __af_event_notification_new("UE_COMM");
+            if (!af_event_notifications) {
+                af_event_notifications = (ogs_list_t*)ogs_calloc(1, sizeof(*af_event_notifications));
+            }
             ogs_list_add(af_event_notifications, data_collection_model_af_event_notification_make_lnode(no_time_af_event_notification));
             if (data_collection_event_subscription_increment_notification_count(data_collection_event_subscription)) {
                 /* maximum notifications reached */

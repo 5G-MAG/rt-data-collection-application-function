@@ -216,7 +216,7 @@ DATA_COLLECTION_SVC_PRODUCER_API const data_collection_data_report_handler_t *da
  *
  * @see data_collection_reporting_report_find
  */
-DATA_COLLECTION_SVC_PRODUCER_API int data_collection_data_report_record_mark_used(data_collection_data_report_record_t *data_report, const data_collection_event_subscription_t *event_subscription);
+DATA_COLLECTION_SVC_PRODUCER_API int data_collection_data_report_record_mark_used(data_collection_data_report_record_t *data_report, data_collection_event_subscription_t *event_subscription);
 
 /** Expire a data report.
  * \public \memberof data_collection_data_report_record_t

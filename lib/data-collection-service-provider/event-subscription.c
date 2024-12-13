@@ -18,6 +18,8 @@
 #include "event.h"
 #include "timer.h"
 #include "utilities.h"
+#include "data-report-record.h"
+
 #include "event-subscription.h"
 
 #ifdef __cplusplus
@@ -39,6 +41,7 @@ typedef struct data_collection_event_subscription_s {
     data_collection_model_af_event_exposure_subsc_t *af_event_exposure_subscription; /**< The actual subscription */
     const struct data_collection_event_subscription_s *original_event_subscription; /**< The original subscription this is a copy of */
     ogs_timer_t *event_notification_timer; /**< Timer for periodic notifications */
+    ogs_list_t  used_reports; /**< list containing data_collection_lnode_t's for reports that have been marked used by this subscription */
     bool send_notif;               /**< Indicator whether this subscription is due for a notifications send */
 } data_collection_event_subscription_t;
 
@@ -96,6 +99,7 @@ DATA_COLLECTION_SVC_PRODUCER_API data_collection_event_subscription_t *data_coll
 
     data_collection_event_subscription->send_notif = false;
     data_collection_event_subscription->original_event_subscription = NULL;
+    ogs_list_init(&data_collection_event_subscription->used_reports);
 
     __event_subscription_process_notif_method(data_collection_event_subscription);
 
@@ -324,6 +328,14 @@ void _event_subscription_free(data_collection_event_subscription_t *event_subscr
     if (event_subscription->event_notification_timer)
         ogs_timer_delete(event_subscription->event_notification_timer);
 
+    data_collection_lnode_t *next, *node;
+    ogs_list_for_each_safe(&event_subscription->used_reports, next, node) {
+        data_collection_data_report_record_t *report_record = (data_collection_data_report_record_t*)node->object;
+        ogs_list_remove(&event_subscription->used_reports, node);
+        data_collection_lnode_free(node);
+        _data_report_record_unmark_used(report_record, event_subscription);
+    }
+
     ogs_free(event_subscription);
 }
 
@@ -462,6 +474,24 @@ void _event_subscription_notification_timer_activate(data_collection_event_subsc
                 rep_period?rep_period
                           :data_collection_self()->config.server_response_cache_control->event_exposure_response_max_age
         ));
+    }
+}
+
+void _event_subscription_add_data_report_used(data_collection_event_subscription_t *event_subscription,
+                                              data_collection_data_report_record_t *report_record)
+{
+    ogs_list_add(&event_subscription->used_reports, data_collection_lnode_create_ref(report_record));
+}
+
+void _event_subscription_remove_data_report_used(data_collection_event_subscription_t *event_subscription,
+                                                 data_collection_data_report_record_t *report_record)
+{
+    data_collection_lnode_t *node, *next;
+    ogs_list_for_each_safe(&event_subscription->used_reports, next, node) {
+        if (node->object == report_record) {
+            ogs_list_remove(&event_subscription->used_reports, node);
+            break;
+        }
     }
 }
 

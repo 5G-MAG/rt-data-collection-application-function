@@ -72,6 +72,16 @@ typedef struct data_collection_data_report_record_s {
  */
 extern bool _data_report_record_is_event_subscription_used(const data_collection_data_report_record_t *data_report, const data_collection_event_subscription_t *event_subscription);
 
+/** Remove the used marker for an event subscription.
+ *
+ * Normally called by when the event subscription is being deleted so that the data report record is not pointing to a freed
+ * resource.
+ *
+ * @param data_report The report to remove the marker for.
+ * @param event_subscription The event subscription to remove.
+ */
+extern void _data_report_record_unmark_used(data_collection_data_report_record_t *data_report, data_collection_event_subscription_t *event_subscription);
+
 #ifdef __cplusplus
 }
 #endif

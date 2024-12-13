@@ -88,6 +88,29 @@ DATA_COLLECTION_SVC_PRODUCER_API void data_collection_hash_free(ogs_hash_t *hash
     ogs_hash_destroy(hash);
 }
 
+DATA_COLLECTION_SVC_PRODUCER_API data_collection_lnode_t *data_collection_set_add_lnode(ogs_list_t *set /* [not-null] */,
+                                                                    data_collection_lnode_t *new_val /* [not-null, transfer] */,
+                                                                    bool(*cmp_fn)(const void *a, const void *b))
+{
+    bool found = false;
+    data_collection_lnode_t *node;
+    ogs_list_for_each(set, node) {
+        if (cmp_fn(node->object, new_val->object)) {
+            found = true;
+            break;
+        }
+    }
+    if (!found) {
+        ogs_list_add(set, new_val);
+        node = new_val;
+    } else {
+        data_collection_lnode_free(new_val);
+    }
+    return node;
+}
+
+/********* private functions ********/
+
 static int __free_hash_callback(void *rec, const void *key, int klen, const void *value)
 {
     _hash_free_context_t *ctx = (_hash_free_context_t*)rec;

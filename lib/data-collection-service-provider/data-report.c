@@ -92,23 +92,9 @@ static void __aggregation_data_set_key_free(aggregation_data_set_key_t *);
 //static void __bucket_identity_info_free(data_collection_bucket_identity_info_t *id_info);
 //static void __bucket_location_info_free(data_collection_bucket_location_info_t *locn_info);
 
-/** Add an lnode to a unique list (set).
- *
- * This will check the list for an equivalent object to the one referred to in \a new_node. If a match is found the existing
- * lnode from the set is returned and \a new_node is freed. If no match is found then \a new_node is added to the set and
- * returned.
- *
- * @param set The set (unique list) to add the lnode to.
- * @param new_node The lnode reference for the object to add to the set.
- * @param compare A function that can compare two objects of the type pointed to by lnode.
- *
- * @return The existing lnode in \a set that matches the object in \a new_node or \a new node if its object is unique.
- */
-static data_collection_lnode_t *__set_add_lnode(ogs_list_t *set, data_collection_lnode_t *new_node, bool(*compare)(const void*, const void*));
-
 /** Compare data_collection_bucket_time_info_t objects.
  *
- * This is suitable for use with __set_add_lnode(). Will handle NULL objects too.
+ * This is suitable for use with data_collection_set_add_lnode(). Will handle NULL objects too.
  *
  * @param a The first bucket time info object to check.
  * @param b The second bucket time info object to check.
@@ -119,7 +105,7 @@ static bool __cmp_time_info(const data_collection_bucket_time_info_t *a, const d
 
 /** Compare data_collection_bucket_identity_info_t objects.
  *
- * This is suitable for use with __set_add_lnode(). Will handle NULL objects too.
+ * This is suitable for use with data_collection_set_add_lnode(). Will handle NULL objects too.
  *
  * @param a The first bucket identity info object to check.
  * @param b The second bucket identity info object to check.
@@ -130,7 +116,7 @@ static bool __cmp_id_info(const data_collection_bucket_identity_info_t *a, const
 
 /** Compare data_collection_bucket_location_info_t objects.
  *
- * This is suitable for use with __set_add_lnode(). Will handle NULL objects too.
+ * This is suitable for use with data_collection_set_add_lnode(). Will handle NULL objects too.
  *
  * @param a The first bucket location info object to check.
  * @param b The second bucket location info object to check.
@@ -667,7 +653,7 @@ static bool __bucketed_data_worksheet_add_data_set(bucketed_data_worksheet_t *wo
     if (ogs_unlikely(!worksheet)) return false;
 
     ogs_hash_set(worksheet->aggregation_data, &data_set->key, __aggregation_data_set_key_size(data_set->key.function_name), data_set);
-    __set_add_lnode(&worksheet->aggregation_fn_order, data_collection_lnode_create(data_collection_strdup(data_set->key.function_name), __ogs_free), __string_cmp);
+    data_collection_set_add_lnode(&worksheet->aggregation_fn_order, data_collection_lnode_create(data_collection_strdup(data_set->key.function_name), __ogs_free), __string_cmp);
 
     return true;
 }
@@ -1038,8 +1024,8 @@ static int __add_buckets_for_record_using_data_access_profile(report_find_result
                 ti->start = bucket_time;
                 bucket_time.tv_sec += period_secs;
                 ti->end = bucket_time;
-                data_collection_lnode_t *ti_node = __set_add_lnode(&result->time_infos, data_collection_lnode_create(ti, (void(*)(void*))__bucket_time_info_free), (bool(*)(const void*, const void*))__cmp_time_info);
-                __set_add_lnode(&record_time_axis, data_collection_lnode_copy(ti_node), (bool(*)(const void*, const void*))__cmp_time_info);
+                data_collection_lnode_t *ti_node = data_collection_set_add_lnode(&result->time_infos, data_collection_lnode_create(ti, (void(*)(void*))__bucket_time_info_free), (bool(*)(const void*, const void*))__cmp_time_info);
+                data_collection_set_add_lnode(&record_time_axis, data_collection_lnode_copy(ti_node), (bool(*)(const void*, const void*))__cmp_time_info);
             }
         }
     } else {
@@ -1051,21 +1037,21 @@ static int __add_buckets_for_record_using_data_access_profile(report_find_result
             memcpy(&ti->start, record_start, sizeof(*record_start));
             memcpy(&ti->end, (record_end)?record_end:record_start, sizeof(*record_start));
         } /* else note we have no time axis by using a NULL entry */
-        data_collection_lnode_t *ti_node = __set_add_lnode(&result->time_infos, data_collection_lnode_create(ti, (void(*)(void*))__bucket_time_info_free), (bool(*)(const void*, const void*))__cmp_time_info);
-        __set_add_lnode(&record_time_axis, data_collection_lnode_copy(ti_node), (bool(*)(const void*, const void*))__cmp_time_info);
+        data_collection_lnode_t *ti_node = data_collection_set_add_lnode(&result->time_infos, data_collection_lnode_create(ti, (void(*)(void*))__bucket_time_info_free), (bool(*)(const void*, const void*))__cmp_time_info);
+        data_collection_set_add_lnode(&record_time_axis, data_collection_lnode_copy(ti_node), (bool(*)(const void*, const void*))__cmp_time_info);
     }
     
     if (data_collection_model_data_access_profile_has_user_access_restrictions(dap)) {
         /* buckets for user/group ids for the DataAccessProfile will allow that will not be filtered by the event_subscription */
         uar = data_collection_model_data_access_profile_get_user_access_restrictions(dap);
         /* TODO: fill this out when we have user/group id lookup for UE, for now just use NULL */
-        data_collection_lnode_t *ii_node = __set_add_lnode(&result->identity_infos, data_collection_lnode_create_ref(NULL), (bool(*)(const void*, const void*))__cmp_id_info);
-        __set_add_lnode(&record_id_axis, data_collection_lnode_copy(ii_node), (bool(*)(const void*, const void*))__cmp_id_info);
+        data_collection_lnode_t *ii_node = data_collection_set_add_lnode(&result->identity_infos, data_collection_lnode_create_ref(NULL), (bool(*)(const void*, const void*))__cmp_id_info);
+        data_collection_set_add_lnode(&record_id_axis, data_collection_lnode_copy(ii_node), (bool(*)(const void*, const void*))__cmp_id_info);
     } else {
         /* no restrictions on user/group from the DataAccessProfile, so no user/group bucketing, just add a NULL entry */
         /* TODO: when we have user/group id lookup for UE, throw this result away if it would be filtered out by the event_subscription */
-        data_collection_lnode_t *ii_node = __set_add_lnode(&result->identity_infos, data_collection_lnode_create_ref(NULL), (bool(*)(const void*, const void*))__cmp_id_info);
-        __set_add_lnode(&record_id_axis, data_collection_lnode_copy(ii_node), (bool(*)(const void*, const void*))__cmp_id_info);
+        data_collection_lnode_t *ii_node = data_collection_set_add_lnode(&result->identity_infos, data_collection_lnode_create_ref(NULL), (bool(*)(const void*, const void*))__cmp_id_info);
+        data_collection_set_add_lnode(&record_id_axis, data_collection_lnode_copy(ii_node), (bool(*)(const void*, const void*))__cmp_id_info);
     }
 
     if (data_collection_model_data_access_profile_has_location_access_restrictions(dap)) {
@@ -1073,13 +1059,13 @@ static int __add_buckets_for_record_using_data_access_profile(report_find_result
          * event_subscription */
         lar = data_collection_model_data_access_profile_get_location_access_restrictions(dap);
         /* TODO: fill this out when we have location comparing, for now just use NULL */
-        data_collection_lnode_t *li_node = __set_add_lnode(&result->location_infos, data_collection_lnode_create_ref(NULL), (bool(*)(const void*, const void*))__cmp_locn_info);
-        __set_add_lnode(&record_locn_axis, data_collection_lnode_copy(li_node), (bool(*)(const void*, const void*))__cmp_locn_info);
+        data_collection_lnode_t *li_node = data_collection_set_add_lnode(&result->location_infos, data_collection_lnode_create_ref(NULL), (bool(*)(const void*, const void*))__cmp_locn_info);
+        data_collection_set_add_lnode(&record_locn_axis, data_collection_lnode_copy(li_node), (bool(*)(const void*, const void*))__cmp_locn_info);
     } else {
         /* no restrictions on location from this DataAccessProfile so no location bucketing */
         /* TODO: when we have location comparing, throw this result away if it would be filtered out by the event_subscription */
-        data_collection_lnode_t *li_node = __set_add_lnode(&result->location_infos, data_collection_lnode_create_ref(NULL), (bool(*)(const void*, const void*))__cmp_locn_info);
-        __set_add_lnode(&record_locn_axis, data_collection_lnode_copy(li_node), (bool(*)(const void*, const void*))__cmp_locn_info);
+        data_collection_lnode_t *li_node = data_collection_set_add_lnode(&result->location_infos, data_collection_lnode_create_ref(NULL), (bool(*)(const void*, const void*))__cmp_locn_info);
+        data_collection_set_add_lnode(&record_locn_axis, data_collection_lnode_copy(li_node), (bool(*)(const void*, const void*))__cmp_locn_info);
     }
 
     /* this is just here to suppress a warning about unused variables that will become useful when this is expanded */
@@ -1158,25 +1144,6 @@ static int __add_buckets_for_record_using_data_access_profile(report_find_result
     }
 
     return buckets_updated;
-}
-
-static data_collection_lnode_t *__set_add_lnode(ogs_list_t *list, data_collection_lnode_t *new_val, bool(*cmp_fn)(const void *a, const void *b))
-{
-    bool found = false;
-    data_collection_lnode_t *node;
-    ogs_list_for_each(list, node) {
-        if (cmp_fn(node->object, new_val->object)) {
-            found = true;
-            break;
-        }
-    }
-    if (!found) {
-        ogs_list_add(list, new_val);
-        node = new_val;
-    } else {
-        data_collection_lnode_free(new_val);
-    }
-    return node;
 }
 
 static bool __cmp_time_info(const data_collection_bucket_time_info_t *a, const data_collection_bucket_time_info_t *b)
