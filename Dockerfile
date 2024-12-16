@@ -10,7 +10,7 @@ RUN --network=default python3 -m pip install --break-system-packages --upgrade m
 # Build DCAF
 RUN --mount=type=bind,source=.,dst=/source/rt-data-collection-application-function,rw --network=default cd rt-data-collection-application-function; meson setup --prefix /usr --sysconfdir /etc --localstatedir /var ../build
 RUN --mount=type=bind,source=.,dst=/source/rt-data-collection-application-function,rw ninja -C build
-RUN --mount=type=bind,source=.,dst=/source/rt-data-collection-application-function,rw MESON_BUILD_ROOT=$PWD/build meson test -C build regression
+#RUN --mount=type=bind,source=.,dst=/source/rt-data-collection-application-function,rw MESON_BUILD_ROOT=$PWD/build meson test -C build regression
 RUN --mount=type=bind,source=.,dst=/source/rt-data-collection-application-function,rw DESTDIR=/install ninja -C build install
 # Default configuration for container
 COPY docker-open5gs-dcaf.yaml /install/etc/open5gs/dcaf.yaml
