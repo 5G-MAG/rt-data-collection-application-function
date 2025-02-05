@@ -9,7 +9,8 @@
 #===========================================================================
 #
 logger:
-  level: warn
+  level: debug
+  file: /home/ubuntu/af/open5gs/build/log/data-collection.log
 #
 #  o Set OGS_LOG_INFO to all domain level
 #   - If `level` is omitted, the default level is OGS_LOG_INFO)

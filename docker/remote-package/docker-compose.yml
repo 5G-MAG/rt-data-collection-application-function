@@ -4,29 +4,31 @@ services:
     nrf:
         image: "ghcr.io/5g-mag/nrf:latest"
         env_file:
-            - path: ./common.env
-              required: false
-            - path: ./nrf.env
-              required: false
+            -   path: ./common.env
+                required: false
+            -   path: ./nrf.env
+                required: false
         volumes:
             - ./nrf.yaml:/etc/open5gs/default/nrf.yaml:z
-            - logs:/open5gs/install/var/log/open5gs
+            - ./logs/nrf:/open5gs/install/var/log/open5gs
     dcaf:
         image: "ghcr.io/5g-mag/data-collection-af:latest"
         depends_on:
             - nrf
         ports:
-            - "5000:5000"
+            - "5001:5000"
             - "5100:5100"
             - "5101:5101"
             - "5102:5102"
             - "5200:5200"
             - "5201:5201"
         env_file:
-            - path: ./common.env
-              required: false
-            - path: ./dcaf.env
-              required: false
+            -   path: ./common.env
+                required: false
+            -   path: ./dcaf.env
+                required: false
+        volumes:
+            - ./logs/dcaf:/home/ubuntu/af/open5gs/build/log
 
 volumes:
-    logs: 
+    logs:

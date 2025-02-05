@@ -1,0 +1,31 @@
+name: reftools_5g-mag_data-collection-af-local
+
+services:
+    nrf:
+        image: "ghcr.io/5g-mag/nrf:latest"
+        env_file:
+            -   path: ./common.env
+                required: false
+            -   path: ./nrf.env
+                required: false
+        volumes:
+            - ./nrf.yaml:/etc/open5gs/default/nrf.yaml:z
+            - ./logs/nrf:/open5gs/install/var/log/open5gs
+    dcaf:
+        depends_on:
+            - nrf
+        build:
+            context: ../../
+            dockerfile: docker/local/Dockerfile
+        ports:
+            - "5001:5000"
+            - "5100:5100"
+            - "5101:5101"
+            - "5102:5102"
+            - "5200:5200"
+            - "5201:5201"
+        volumes:
+            - ./docker-open5gs-dcaf.yaml:/etc/open5gs/dcaf.yaml
+            - ./logs/dcaf:/home/ubuntu/af/open5gs/build/log
+        environment:
+            - DEBIAN_FRONTEND=noninteractive
