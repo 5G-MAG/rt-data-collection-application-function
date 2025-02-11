@@ -29,3 +29,11 @@ services:
             - ./logs/dcaf:/home/ubuntu/af/open5gs/build/log
         environment:
             - DEBIAN_FRONTEND=noninteractive
+    h2-server:
+        build:
+            context: ../../
+            dockerfile: docker/local/Dockerfile-h2-server
+        network_mode: "host"
+        volumes:
+            - ./logs/notifications:/logs
+

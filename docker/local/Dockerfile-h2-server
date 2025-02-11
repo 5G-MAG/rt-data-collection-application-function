@@ -1,0 +1,19 @@
+FROM python:3.9-slim
+
+# Install necessary packages
+RUN pip install h2
+
+# Copy the server script into the container
+COPY tests/h2_svr.py /app/h2_svr.py
+
+# Copy entrypoint script
+COPY docker/local/entrypoint-h2-server.sh /app/entrypoint.sh
+
+# Set the working directory
+WORKDIR /app
+
+# Make the entrypoint script executable
+RUN chmod +x /app/entrypoint.sh
+
+# Set the entrypoint
+ENTRYPOINT ["/app/entrypoint.sh"]
