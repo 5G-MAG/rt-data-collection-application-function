@@ -1,50 +1,50 @@
 name: Build Data Collection Application Function Docker Image
 
 on:
-  push:
-    branches: [ main ]
+    push:
+        branches: [ main ]
 env:
-  REGISTRY: ghcr.io
-  IMAGE_NAME: 5G-MAG/data-collection-af
+    REGISTRY: ghcr.io
+    IMAGE_NAME: 5G-MAG/data-collection-af
 jobs:
-  docker-build:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      packages: write
-      attestations: write
-      id-token: write
-    steps:
-      - name: Checkout project
-        uses: actions/checkout@v4
-        with:
-          submodules: recursive
+    docker-build:
+        runs-on: ubuntu-latest
+        permissions:
+            contents: read
+            packages: write
+            attestations: write
+            id-token: write
+        steps:
+            -   name: Checkout project
+                uses: actions/checkout@v4
+                with:
+                    submodules: recursive
 
-      - name: Log in to the Container registry
-        uses: docker/login-action@v3
-        with:
-          registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
-          password: ${{ secrets.GITHUB_TOKEN }}
+            -   name: Log in to the Container registry
+                uses: docker/login-action@v3
+                with:
+                    registry: ${{ env.REGISTRY }}
+                    username: ${{ github.actor }}
+                    password: ${{ secrets.GITHUB_TOKEN }}
 
-     - name: Extract metadata (tags, labels) for Docker
-        id: meta
-        run: |
-          apt update && apt -y install git ninja-build build-essential flex bison git libsctp-dev libgnutls28-dev libgcrypt-dev libssl-dev libidn11-dev libmongoc-dev libbson-dev libyaml-dev libnghttp2-dev libmicrohttpd-dev libcurl4-gnutls-dev libtins-dev libtalloc-dev libpcre2-dev curl wget default-jdk cmake jq gcc g++ python3-pip python3-h2 util-linux-extra && python3 -m pip install --break-system-packages --upgrade pip meson
-          meson setup build
-          meson introspect --projectinfo build | jq '.version' | sed 's/^"/version=/;s/"$//' >> "$GITHUB_OUTPUT"
+            -   name: Extract metadata tags labels for Docker
+                id: meta
+                run: |
+                    apt update && apt -y install git ninja-build build-essential flex bison git libsctp-dev libgnutls28-dev libgcrypt-dev libssl-dev libidn11-dev libmongoc-dev libbson-dev libyaml-dev libnghttp2-dev libmicrohttpd-dev libcurl4-gnutls-dev libtins-dev libtalloc-dev libpcre2-dev curl wget default-jdk cmake jq gcc g++ python3-pip python3-h2 util-linux-extra && python3 -m pip install --break-system-packages --upgrade pip meson
+                    meson setup build
+                    meson introspect --projectinfo build | jq '.version' | sed 's/^"/version=/;s/"$//' >> "$GITHUB_OUTPUT"
 
-      - name: Build and push Docker image
-        id: push
-        uses: docker/build-push-action@v6
-        with:
-          context: .
-          push: true
-          tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ steps.meta.outputs.version }} ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
+            -   name: Build and push Docker image
+                id: push
+                uses: docker/build-push-action@v6
+                with:
+                    context: .
+                    push: true
+                    tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ steps.meta.outputs.version }} ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
-      - name: Generate artifact attestation
-        uses: actions/attest-build-provenance@v2
-        with:
-          subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
-          subject-digest: ${{ steps.push.outputs.digest }}
-          push-to-registry: true
+            -   name: Generate artifact attestation
+                uses: actions/attest-build-provenance@v2
+                with:
+                    subject-name: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}
+                    subject-digest: ${{ steps.push.outputs.digest }}
+                    push-to-registry: true
