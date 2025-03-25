@@ -123,7 +123,7 @@ class H2Protocol(asyncio.Protocol):
             {"headers": headers, "body": body}, indent=4
         ))
         sys.stdout.flush()
-    
+
         response_headers = (
             (':status', '204'),
             ('content-type', 'application/octet-stream'),
