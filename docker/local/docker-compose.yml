@@ -33,7 +33,6 @@ services:
         build:
             context: ../../
             dockerfile: docker/local/Dockerfile-h2-server
-        network_mode: "host"
         volumes:
             - ./logs/notifications:/logs
 
