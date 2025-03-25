@@ -1,0 +1,422 @@
+type: collection.insomnia.rest/5.0
+name: 5GMAG-DCAF
+meta:
+  id: wrk_0965c1d90a004767afc4a4d380e8b10f
+  created: 1738757670585
+  modified: 1738757670585
+collection:
+  - name: R1 - Data Reporting Provisioning Session
+    meta:
+      id: fld_732e7b3632d4401c9c35c0128d2f600d
+      created: 1738757821821
+      modified: 1742892371427
+      sortKey: -1738763482016
+    children:
+      - url: "{{ _.dcaf_provisioning_address
+          }}/3gpp-ndcaf_data-reporting-provisioning/v1/sessions"
+        name: Create a new Data Reporting Provisioning Session
+        meta:
+          id: req_47ef6d48b5134ff090eda50568d7df02
+          created: 1738757710447
+          modified: 1742888945345
+          isPrivate: false
+          sortKey: -1738757847445
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+                "aspId": "{{asp_id}}", 
+                "externalApplicationId": "{{ _.external_application_id }}",
+                "eventId": "{{ _.ue_comm }}"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_1bcd7cb657194076a0a03365ab6ec81f
+          - name: User-Agent
+            value: insomnia/10.3.0
+            id: pair_db7a38cc1f474dcf99720e492bc83fe0
+        scripts:
+          afterResponse: >-
+            const response = insomnia.response.json();
+
+            const provisioningSessionId = response.provisioningSessionId;
+
+            insomnia.environment.set("provisioning_session_id", provisioningSessionId);
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.dcaf_provisioning_address
+          }}/3gpp-ndcaf_data-reporting-provisioning/v1/sessions/{{
+          _.provisioning_session_id }}"
+        name: Retrieve an existing Data Reporting Provisioning Session
+        meta:
+          id: req_0120d868afdb410fa1ff4a69466e0c84
+          created: 1738758524173
+          modified: 1738759940083
+          isPrivate: false
+          sortKey: -1738757847395
+        method: GET
+        body:
+          mimeType: application/json
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_1bcd7cb657194076a0a03365ab6ec81f
+          - name: User-Agent
+            value: insomnia/10.3.0
+            id: pair_db7a38cc1f474dcf99720e492bc83fe0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: R2 - Data Reporting Session
+    meta:
+      id: fld_739e7f1f74d54315ab1491fd06bbf00d
+      created: 1738758794411
+      modified: 1742892409150
+      sortKey: -1738760394771
+    children:
+      - url: "{{ _.dcaf_directDataReporting_address
+          }}/3gpp-ndcaf_data-reporting/v1/sessions"
+        name: Create a new Data Reporting Session
+        meta:
+          id: req_d13278e0d689465c87acb17cd0473f8b
+          created: 1738758814671
+          modified: 1739290581527
+          isPrivate: false
+          sortKey: -1738758814671
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+              "externalApplicationId": "{{ _.external_application_id }}",
+            	"supportedDomains": ["COMMUNICATION", "BOGUS_DATA_DOMAIN"]
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/10.3.0
+        scripts:
+          afterResponse: >-
+            const response = insomnia.response.json();
+
+            const dataReportingSessionId = response.sessionId;
+
+            insomnia.environment.set("data_reporting_session_id", dataReportingSessionId);
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.dcaf_directDataReporting_address
+          }}/3gpp-ndcaf_data-reporting/v1/sessions/{{
+          _.data_reporting_session_id }}"
+        name: Retrieve an existing Data Reporting Session
+        meta:
+          id: req_206a746332aa48e490ad92db69236256
+          created: 1738759835503
+          modified: 1739279419168
+          isPrivate: false
+          sortKey: -1738758331058
+        method: GET
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"externalApplicationId": "MyAppID",
+            	"supportedDomains": ["COMMUNICATION", "BOGUS_DATA_DOMAIN"]
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/10.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: R2 - Data Reporting
+    meta:
+      id: fld_7f8be7bb31e7482781dd110c40be1492
+      created: 1738760394671
+      modified: 1739279442254
+      sortKey: -1738760394746
+    children:
+      - url: "{{ _.dcaf_directDataReporting_address
+          }}/3gpp-ndcaf_data-reporting/v1/sessions/{{
+          _.data_reporting_session_id }}/report"
+        name: Submit Communications Report
+        meta:
+          id: req_63d71f9fdce6424a92ab9ad6db231db2
+          created: 1738760741587
+          modified: 1739290588163
+          isPrivate: false
+          sortKey: -1738760755212
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+                "externalApplicationId": "{{ _.external_application_id }}",
+            		"communicationRecords": [
+            			{
+            				"timestamp": "2025-02-05T14:30:00Z",
+            				"contextIds": [
+            					"{{ _.data_reporting_configuration_id }}"
+            				],
+            				"timeInterval": {
+            					"startTime": "2025-02-05T14:28:00Z",
+            					"stopTime": "2025-02-05T14:29:00Z"
+            				},
+            				"uplinkVolume": 1000,
+            				"downlinkVolume": 2000
+            			}
+            		]
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_1bcd7cb657194076a0a03365ab6ec81f
+          - name: User-Agent
+            value: insomnia/10.3.0
+            id: pair_db7a38cc1f474dcf99720e492bc83fe0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: R1 - Data Reporting Configuration
+    meta:
+      id: fld_cbfaa95d78e24692b0ac589fc812e900
+      created: 1738763481916
+      modified: 1742892374453
+      sortKey: -1738763481916
+    children:
+      - url: "{{ _.dcaf_provisioning_address
+          }}/3gpp-ndcaf_data-reporting-provisioning/v1/sessions/{{provisioning_\
+          session_id}}/configurations"
+        name: Create a new Data Reporting Configuration
+        meta:
+          id: req_86f7b578f70146f3b72ba8db04015514
+          created: 1738763614773
+          modified: 1738764154142
+          isPrivate: false
+          sortKey: -1738763620023
+        method: POST
+        body:
+          mimeType: application/json
+          text: |
+            {
+              "dataCollectionClientType": "DIRECT",
+              "dataSamplingRules": [
+                {
+                  "samplingPeriod": 10.0
+                }
+              ],
+              "dataReportingRules": [
+                {}
+              ],
+              "dataReportingConditions": [
+                {
+                  "type": "INTERVAL",
+                  "period": 60
+                }
+              ],
+              "dataAccessProfiles": [
+                {
+                  "dataAccessProfileId": "per_min_totals",
+                  "targetEventConsumerTypes": [
+                    "NWDAF",
+                    "EVENT_CONSUMER_AF"
+                  ],
+                  "parameters": [],
+                  "timeAccessRestrictions": {
+                    "duration": 60,
+                    "aggregationFunctions": [
+                      "SUM"
+                    ]
+                  }
+                }
+              ]
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+            id: pair_1bcd7cb657194076a0a03365ab6ec81f
+          - name: User-Agent
+            value: insomnia/10.3.0
+            id: pair_db7a38cc1f474dcf99720e492bc83fe0
+        scripts:
+          afterResponse: >-2
+             const response = insomnia.response.json();
+            const dataReportingConfigurationId = response.dataReportingConfigurationId;
+
+            insomnia.environment.set("data_reporting_configuration_id", dataReportingConfigurationId);
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.dcaf_provisioning_address
+          }}/3gpp-ndcaf_data-reporting-provisioning/v1/sessions/{{provisioning_\
+          session_id}}/configurations/{{ _.data_reporting_configuration_id}}"
+        name: Retrieve an existing Data Reporting Configuration
+        meta:
+          id: req_0fd27f988c6b447882955e5782aadb60
+          created: 1738764241057
+          modified: 1738764281161
+          isPrivate: false
+          sortKey: -1738762187617.5
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/10.3.0
+            id: pair_db7a38cc1f474dcf99720e492bc83fe0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+  - name: "R6 - Event Subscription "
+    meta:
+      id: fld_3a616e2cbb09452c8f6afee428cfbd38
+      created: 1738766759600
+      modified: 1742892403604
+      sortKey: -1738760394721
+    children:
+      - url: "{{ _.event_consumer_application_function_event_exposure_address
+          }}/naf-eventexposure/v1/subscriptions"
+        name: Creates a new Individual Application Event Exposure Subscription resource
+        meta:
+          id: req_8a6f2ba88182401e85508bd588eb9fbe
+          created: 1738766812837
+          modified: 1742892432520
+          isPrivate: false
+          sortKey: -1738766815822
+        method: POST
+        body:
+          mimeType: application/json
+          text: |-
+            {
+            	"eventsSubs": [
+            		{
+            			"event": "{{ _.ue_comm }}",
+            			"eventFilter": {
+            				"anyUeInd": true
+            			}
+            		}
+            	],
+            	"eventsRepInfo": {
+            		"immRep": true,
+            		"notifMethod": "PERIODIC",
+            		"repPeriod": 10
+            	},
+            	"notifUri": "http://h2-server:40189/dcaf/notification/handler",
+            	"notifId": "5g-mag-notification-id",
+            	"suppFeat": "04"
+            }
+        headers:
+          - name: Content-Type
+            value: application/json
+          - name: User-Agent
+            value: insomnia/10.3.0
+        scripts:
+          afterResponse: >
+            const locationHeader = insomnia.response.headers.find(header =>
+            header.key === 'location');
+
+
+            insomnia.test('Check if status is 200', () => {
+              insomnia.expect(locationHeader).to.not.be.empty;
+            });
+
+
+            if (locationHeader) {
+              const uuid = locationHeader.value.split('/').pop();
+              if (uuid) {
+                insomnia.environment.set('event_exposure_subscription_id', uuid);
+              }
+            } 
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+      - url: "{{ _.event_consumer_application_function_event_exposure_address
+          }}/naf-eventexposure/v1/subscriptions/{{
+          _.event_exposure_subscription_id }}"
+        name: Reads an existing Individual Application Event Subscription
+        meta:
+          id: req_413aa0e5acc54a07a1c7c8fd24cca927
+          created: 1738767655283
+          modified: 1738767884588
+          isPrivate: false
+          sortKey: -1738766815722
+        method: GET
+        headers:
+          - name: User-Agent
+            value: insomnia/10.3.0
+        settings:
+          renderRequestBody: true
+          encodeUrl: true
+          followRedirects: global
+          cookies:
+            send: true
+            store: true
+          rebuildPath: true
+cookieJar:
+  name: Default Jar
+  meta:
+    id: jar_2a24017e741874f1da6eafd5e17d061bd85d4aab
+    created: 1738757670589
+    modified: 1742892409149
+environments:
+  name: 5G-MAG DCAF
+  meta:
+    id: env_2a24017e741874f1da6eafd5e17d061bd85d4aab
+    created: 1738757670588
+    modified: 1742892409150
+    isPrivate: false
+  data:
+    provisioning_session_id: 9a1737f8-0955-41f0-ab56-6d13c71ae2c2
+    dcaf_provisioning_address: http://127.0.0.1:5000
+    dcaf_directDataReporting_address: http://127.0.0.1:5100
+    data_reporting_session_id: b0c90d8c-0955-41f0-ab56-6d13c71ae2c2
+    external_application_id: 5G-MAGAppID
+    asp_id: 5G-MAGAspId
+    data_reporting_configuration_id: 9c1b165a-0955-41f0-ab56-6d13c71ae2c2
+    event_consumer_application_function_event_exposure_address: http://127.0.0.1:5201
+    event_exposure_subscription_id: ad7b1454-0955-41f0-ab56-6d13c71ae2c2
+    ue_comm: UE_COMM
