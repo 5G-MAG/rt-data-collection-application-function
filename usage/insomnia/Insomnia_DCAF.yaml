@@ -9,7 +9,7 @@ collection:
     meta:
       id: fld_732e7b3632d4401c9c35c0128d2f600d
       created: 1738757821821
-      modified: 1744096868871
+      modified: 1745930982641
       sortKey: -1738763482016
     children:
       - url: "{{ _.dcaf_provisioning_address
@@ -107,7 +107,7 @@ collection:
     meta:
       id: fld_739e7f1f74d54315ab1491fd06bbf00d
       created: 1738758794411
-      modified: 1744096936462
+      modified: 1745930992637
       sortKey: -1738760394771
     children:
       - url: "{{ _.dcaf_directDataReporting_address
@@ -116,7 +116,7 @@ collection:
         meta:
           id: req_d13278e0d689465c87acb17cd0473f8b
           created: 1738758814671
-          modified: 1742906789569
+          modified: 1745581052629
           isPrivate: false
           sortKey: -1738758814671
         method: POST
@@ -125,7 +125,7 @@ collection:
           text: |-
             {
               "externalApplicationId": "{{ _.external_application_id }}",
-            	"supportedDomains": ["COMMUNICATION", "BOGUS_DATA_DOMAIN"]
+            	"supportedDomains": ["COMMUNICATION"]
             }
         headers:
           - name: Content-Type
@@ -214,7 +214,7 @@ collection:
         meta:
           id: req_63d71f9fdce6424a92ab9ad6db231db2
           created: 1738760741587
-          modified: 1742907739433
+          modified: 1745560479913
           isPrivate: false
           sortKey: -1738760755212
         method: POST
@@ -257,7 +257,7 @@ collection:
     meta:
       id: fld_cbfaa95d78e24692b0ac589fc812e900
       created: 1738763481916
-      modified: 1744096898607
+      modified: 1745930986148
       sortKey: -1738763481916
     children:
       - url: "{{ _.dcaf_provisioning_address
@@ -378,7 +378,7 @@ collection:
     meta:
       id: fld_3a616e2cbb09452c8f6afee428cfbd38
       created: 1738766759600
-      modified: 1744096924017
+      modified: 1745930989016
       sortKey: -1738760394721
     children:
       - url: "{{ _.event_consumer_application_function_event_exposure_address
@@ -387,7 +387,7 @@ collection:
         meta:
           id: req_8a6f2ba88182401e85508bd588eb9fbe
           created: 1738766812837
-          modified: 1743147899673
+          modified: 1745929456700
           isPrivate: false
           sortKey: -1738766815822
         method: POST
@@ -408,7 +408,7 @@ collection:
             		"notifMethod": "PERIODIC",
             		"repPeriod": 10
             	},
-            	"notifUri": "http://h2-server:37731/dcaf/notification/handler",
+            	"notifUri": "http://h2-server:8888/dcaf/notification/handler",
             	"notifId": "5g-mag-notification-id",
             	"suppFeat": "04"
             }
@@ -491,22 +491,22 @@ cookieJar:
   meta:
     id: jar_2a24017e741874f1da6eafd5e17d061bd85d4aab
     created: 1738757670589
-    modified: 1744096936462
+    modified: 1745930992634
 environments:
   name: 5G-MAG DCAF
   meta:
     id: env_2a24017e741874f1da6eafd5e17d061bd85d4aab
     created: 1738757670588
-    modified: 1744096936462
+    modified: 1745930992634
     isPrivate: false
   data:
-    provisioning_session_id: 0ab8e98a-144a-41f0-8aa8-91ff55fc5086
+    provisioning_session_id: 6b7e5e30-24f8-41f0-90b4-2bb794187a1f
     dcaf_provisioning_address: http://127.0.0.1:5000
     dcaf_directDataReporting_address: http://127.0.0.1:5100
-    data_reporting_session_id: 33036316-144a-41f0-8aa8-91ff55fc5086
+    data_reporting_session_id: 71ae448c-24f8-41f0-90b4-2bb794187a1f
     external_application_id: 5G-MAGAppID
     asp_id: 5G-MAGAspId
-    data_reporting_configuration_id: 1c72dcda-144a-41f0-8aa8-91ff55fc5086
+    data_reporting_configuration_id: 6dd05076-24f8-41f0-90b4-2bb794187a1f
     event_consumer_application_function_event_exposure_address: http://127.0.0.1:5201
-    event_exposure_subscription_id: 2b98c864-144a-41f0-8aa8-91ff55fc5086
+    event_exposure_subscription_id: 6f8571d0-24f8-41f0-90b4-2bb794187a1f
     ue_comm: UE_COMM
