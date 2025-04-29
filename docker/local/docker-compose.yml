@@ -18,12 +18,9 @@ services:
             context: ../../
             dockerfile: docker/local/Dockerfile
         ports:
-            - "5000:5000"
-            - "5100:5100"
-            - "5101:5101"
-            - "5102:5102"
-            - "5200:5200"
-            - "5201:5201"
+            - "5000:5000" # Provisioning API (R1)
+            - "5100:5100" # Direct Data Reporting API (R2)
+            - "5201:5201" # Event Consumer Application Function Event Exposure API (R6)
         volumes:
             - ./docker-open5gs-dcaf.yaml:/etc/open5gs/dcaf.yaml
             - ./logs/dcaf:/home/ubuntu/af/open5gs/build/log
