@@ -215,7 +215,7 @@ class H2Protocol(asyncio.Protocol):
 async def main():
     loop = asyncio.get_running_loop()
     # Each client connection will create a new protocol instance
-    server = await loop.create_server(H2Protocol, '0.0.0.0')
+    server = await loop.create_server(H2Protocol, '0.0.0.0', 8888)
 
     # Serve requests until Ctrl+C is pressed
     authority = server.sockets[0].getsockname()
