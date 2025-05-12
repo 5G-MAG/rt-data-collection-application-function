@@ -1010,7 +1010,7 @@ static void __send_data_reporting_configuration(ogs_sbi_stream_t *stream, ogs_sb
                                                           data_collection_self()->config.server_response_cache_control->data_collection_reporting_provisioning_session_response_max_age,
                                                           NULL /* Allow */, api, app_meta);
     ogs_assert(response);
-    nf_server_populate_response(response, strlen(body), body, OGS_SBI_HTTP_STATUS_OK);
+    nf_server_populate_response(response, strlen(body), body, OGS_SBI_HTTP_STATUS_CREATED);
     ogs_assert(true == ogs_sbi_server_send_response(stream, response));
     if(location) ogs_free(location);
     //cJSON_free(body);
@@ -1043,7 +1043,7 @@ static void __send_data_reporting_provisioning_session(ogs_sbi_stream_t *stream,
                                                           data_collection_self()->config.server_response_cache_control->data_collection_reporting_provisioning_session_response_max_age,
                                                           NULL /* Allow */, api, app_meta);
     ogs_assert(response);
-    nf_server_populate_response(response, strlen(body), body /*[transfer]*/, OGS_SBI_HTTP_STATUS_OK);
+    nf_server_populate_response(response, strlen(body), body /*[transfer]*/, OGS_SBI_HTTP_STATUS_CREATED);
     ogs_assert(true == ogs_sbi_server_send_response(stream, response));
     if(location) ogs_free(location);
 }
