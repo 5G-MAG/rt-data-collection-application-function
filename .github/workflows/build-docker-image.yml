@@ -35,6 +35,7 @@ jobs:
                     (echo ${{ secrets.USERPWD }} | sudo -S python3 -m pip install --break-system-packages --upgrade meson) && \
                     meson setup build
                     meson introspect --projectinfo build | jq '.version' | sed 's/^"/version=/;s/"$//' >> "$GITHUB_OUTPUT"
+                    rm -rf build
 
             -   name: Build and push Docker image
                 id: push
