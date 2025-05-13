@@ -41,6 +41,7 @@ jobs:
                 uses: docker/build-push-action@v6
                 with:
                     context: .
+                    file: docker/local/Dockerfile
                     push: true
                     tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:v${{ steps.meta.outputs.version }},${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest
 
