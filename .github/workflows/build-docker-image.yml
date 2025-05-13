@@ -30,7 +30,9 @@ jobs:
             -   name: Extract metadata tags labels for Docker
                 id: meta
                 run: |
-                    apt update && apt -y install git ninja-build build-essential flex bison git libsctp-dev libgnutls28-dev libgcrypt-dev libssl-dev libidn11-dev libmongoc-dev libbson-dev libyaml-dev libnghttp2-dev libmicrohttpd-dev libcurl4-gnutls-dev libtins-dev libtalloc-dev libpcre2-dev curl wget default-jdk cmake jq gcc g++ python3-pip python3-h2 util-linux-extra && python3 -m pip install --break-system-packages --upgrade pip meson
+                    (echo ${{ secrets.USERPWD }} | sudo -S apt update) && \
+                    (echo ${{ secrets.USERPWD }} | sudo -S apt -y install git ninja-build build-essential flex bison git libsctp-dev libgnutls28-dev libgcrypt-dev libssl-dev libidn11-dev libmongoc-dev libbson-dev libyaml-dev libnghttp2-dev libmicrohttpd-dev libcurl4-gnutls-dev libtins-dev libtalloc-dev libpcre2-dev curl wget default-jdk cmake jq gcc g++ python3-pip python3-h2 util-linux-extra) && \
+                    (echo ${{ secrets.USERPWD }} | sudo -S python3 -m pip install --break-system-packages --upgrade pip meson) && \
                     meson setup build
                     meson introspect --projectinfo build | jq '.version' | sed 's/^"/version=/;s/"$//' >> "$GITHUB_OUTPUT"
 
