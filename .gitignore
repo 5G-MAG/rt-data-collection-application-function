@@ -1,0 +1,5 @@
+docker/local/logs/dcaf/
+docker/local/logs/notifications/
+docker/local/logs/nrf/
+__pycache__/
+
