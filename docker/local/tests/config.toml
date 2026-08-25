@@ -1,0 +1,18 @@
+[DEFAULT]
+log_level = "DEBUG"
+
+[dcaf-R1]
+address = "127.0.0.1"
+protocol = "http"
+port = 5000
+
+
+[dcaf-R2]
+address = "127.0.0.1"
+protocol = "http"
+port = 5100
+
+[dcaf-R6]
+address = "127.0.0.1"
+protocol = "http"
+port = 5201
