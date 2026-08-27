@@ -29,7 +29,7 @@ def create_provisioning_session(payload: CreateDataReportingProvisioningSessionR
         body=DataReportingProvisioningSessionResponse.model_validate(body),
     )
 
-def get_provisioning_session(provisioning_session_id: str) -> DataReportingProvisioningSessionResponse:
+def get_provisioning_session(provisioning_session_id: str) -> DataReportingProvisioningSessionResult:
     SESSIONS_URL_ID = SESSIONS_URL + "/" + provisioning_session_id
     status, headers, body = request("GET", SESSIONS_URL_ID , None)
     return DataReportingProvisioningSessionResult(
