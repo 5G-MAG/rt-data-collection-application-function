@@ -57,6 +57,18 @@ from tests.models.r2_data_reporting import (
     TimeWindow,
 )
 
+from tests.models.r6_event_subscrition import (
+    EventSubscription,
+    EventFilter,
+    EventsRepInfo,
+    EventsSubs
+)
+
+from tests.clients.r6_event_subscrition import (
+    create_event_subscription,
+    get_event_subscription,
+    delete_event_subscription
+)
 provisioning_session_request = CreateDataReportingProvisioningSessionRequest(
     asp_id="5G-MAGAspId",
     external_application_id="5G-MAGAppID",
@@ -99,11 +111,29 @@ data_reporting_session_request = DataReportingSession(
 )
 
 
+subscription = EventSubscription(
+    events_subs=[
+        EventsSubs(
+            event="UE_COMM",
+            event_filter=EventFilter(any_ue_ind=True),
+        ),
+    ],
+    events_rep_info=EventsRepInfo(
+        immediate_report=True,
+        notification_method="PERIODIC",
+        reporting_period=10,
+    ),
+    notification_uri="http://h2-server:8888/dcaf/notification/handler",
+    notification_id="5g-mag-notification-id",
+    supported_features="04",
+)
+
 def test_crud_data_reporting_AF() -> None:
 
     provisioning_session_id_from_location: str | None = None
     data_reporting_configuration_id: str | None = None
     data_reporting_session_id: str | None = None
+    event_subscription_id: str | None = None
 
     try:
         # ========================================================= #
@@ -250,6 +280,19 @@ def test_crud_data_reporting_AF() -> None:
         )
         assert create_data_reporting(data_report, data_reporting_session_id) == 204
 
+        # ========================================================= #
+        #        R6 - Event Subscription 
+        # ========================================================= #
+        created_event_subscription = create_event_subscription(subscription)
+        assert created_event_subscription.status == 201
+        location = created_event_subscription.headers.get("location")
+        assert location, "Response does not contain a Location header"
+        event_subscription_id = location.rstrip("/").split("/")[-1]
+        assert created_event_subscription.body.model_dump() == subscription.model_dump()
+
+        retrieved_event_subscription = get_event_subscription(event_subscription_id)
+        assert retrieved_event_subscription.status == 200
+        assert retrieved_event_subscription.body.model_dump() == subscription.model_dump()
 
     # ==============================================================================
     # Clean Up
@@ -257,6 +300,9 @@ def test_crud_data_reporting_AF() -> None:
     # R1 - Data Reporting Provisioning Session
     # DELETE
     finally:
+        if event_subscription_id is not None:
+            assert delete_event_subscription(event_subscription_id) == 204
+
         if data_reporting_session_id is not None:
             assert delete_data_reporting_session(data_reporting_session_id) == 204
 
