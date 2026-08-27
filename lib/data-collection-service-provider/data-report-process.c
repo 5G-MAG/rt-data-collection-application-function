@@ -55,11 +55,11 @@ static bool __does_stream_server_match_server(ogs_sbi_server_t *server, data_col
 static void __send_data_reporting_configuration(ogs_sbi_stream_t *stream, ogs_sbi_message_t *message,
                                                 data_collection_reporting_configuration_t *configuration, int path_length,
                                                 const nf_server_interface_metadata_t *api,
-                                                const nf_server_app_metadata_t *app_meta);
+                                                const nf_server_app_metadata_t *app_meta, int status);
 static void __send_data_reporting_provisioning_session(ogs_sbi_stream_t *stream, ogs_sbi_message_t *message,
                                                 data_collection_reporting_provisioning_session_t *session, int path_length,
                                                 const nf_server_interface_metadata_t *api,
-                                                const nf_server_app_metadata_t *app_meta);
+                                                const nf_server_app_metadata_t *app_meta, int status);
 static bool __resource_updated(ogs_sbi_request_t *request, const char *etag, ogs_time_t last_modified);
 
 bool _data_report_process_event(ogs_event_t *e)
@@ -642,7 +642,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                                             {
                                                                 __send_data_reporting_configuration(stream, &message,
                                                                                                     configuration, 4, api,
-                                                                                                    app_meta);
+                                                                                                    app_meta, OGS_SBI_HTTP_STATUS_OK);
                                                             }
                                                             break;
                                                         CASE(OGS_SBI_HTTP_METHOD_PUT)
@@ -670,7 +670,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                                                     data_collection_reporting_configuration_update(configuration, new_config);
                                                                     __send_data_reporting_configuration(stream, &message,
                                                                                                         new_config, 4, api,
-                                                                                                        app_meta);
+                                                                                                        app_meta, OGS_SBI_HTTP_STATUS_OK);
                                                                 }
                                                                 cJSON_Delete(json);
                                                             }
@@ -791,7 +791,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                                         //data_collection_reporting_configuration_set_session(new_config, session);
 
                                                         __send_data_reporting_configuration(stream, &message, new_config, 3, api,
-                                                                                            app_meta);
+                                                                                            app_meta, OGS_SBI_HTTP_STATUS_CREATED);
                                                     }
                                                     break;
                                                 CASE(OGS_SBI_HTTP_METHOD_OPTIONS)
@@ -835,7 +835,7 @@ bool _data_report_process_event(ogs_event_t *e)
                                             /* RetrieveSession */
                                             {
                                                 __send_data_reporting_provisioning_session(stream, &message, session, 2, api,
-                                                                                           app_meta);
+                                                                                           app_meta, OGS_SBI_HTTP_STATUS_OK);
                                             }
                                             break;
                                         CASE(OGS_SBI_HTTP_METHOD_DELETE)
@@ -904,7 +904,8 @@ bool _data_report_process_event(ogs_event_t *e)
                                             ogs_free(err);
                                             break;
                                         }
-                                        __send_data_reporting_provisioning_session(stream, &message, new_session, 1, api, app_meta);
+                                        __send_data_reporting_provisioning_session(stream, &message, new_session, 1, api,
+                                                                                   app_meta, OGS_SBI_HTTP_STATUS_CREATED);
                                     }
                                     break;
                                 CASE(OGS_SBI_HTTP_METHOD_OPTIONS)
@@ -987,7 +988,8 @@ static bool __does_stream_server_match_server(ogs_sbi_server_t *server, data_col
 
 static void __send_data_reporting_configuration(ogs_sbi_stream_t *stream, ogs_sbi_message_t *message,
                                                 data_collection_reporting_configuration_t *configuration, int path_length,
-                                                const nf_server_interface_metadata_t *api, const nf_server_app_metadata_t *app_meta)
+                                                const nf_server_interface_metadata_t *api, const nf_server_app_metadata_t *app_meta,
+                                                int status)
 {
     char *location;
     cJSON *json = data_collection_reporting_configuration_json(configuration);
@@ -1010,7 +1012,7 @@ static void __send_data_reporting_configuration(ogs_sbi_stream_t *stream, ogs_sb
                                                           data_collection_self()->config.server_response_cache_control->data_collection_reporting_provisioning_session_response_max_age,
                                                           NULL /* Allow */, api, app_meta);
     ogs_assert(response);
-    nf_server_populate_response(response, strlen(body), body, OGS_SBI_HTTP_STATUS_CREATED);
+    nf_server_populate_response(response, strlen(body), body, status);
     ogs_assert(true == ogs_sbi_server_send_response(stream, response));
     if(location) ogs_free(location);
     //cJSON_free(body);
@@ -1018,7 +1020,8 @@ static void __send_data_reporting_configuration(ogs_sbi_stream_t *stream, ogs_sb
 
 static void __send_data_reporting_provisioning_session(ogs_sbi_stream_t *stream, ogs_sbi_message_t *message,
                                                 data_collection_reporting_provisioning_session_t *session, int path_length,
-                                                const nf_server_interface_metadata_t *api, const nf_server_app_metadata_t *app_meta)
+                                                const nf_server_interface_metadata_t *api, const nf_server_app_metadata_t *app_meta,
+                                                int status)
 {
     cJSON *json = data_collection_reporting_provisioning_session_json(session);
     char *location;
@@ -1043,7 +1046,7 @@ static void __send_data_reporting_provisioning_session(ogs_sbi_stream_t *stream,
                                                           data_collection_self()->config.server_response_cache_control->data_collection_reporting_provisioning_session_response_max_age,
                                                           NULL /* Allow */, api, app_meta);
     ogs_assert(response);
-    nf_server_populate_response(response, strlen(body), body /*[transfer]*/, OGS_SBI_HTTP_STATUS_CREATED);
+    nf_server_populate_response(response, strlen(body), body /*[transfer]*/, status);
     ogs_assert(true == ogs_sbi_server_send_response(stream, response));
     if(location) ogs_free(location);
 }
