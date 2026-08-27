@@ -163,7 +163,7 @@ def test_crud_data_reporting_AF() -> None:
         created_data_reporting_ps = get_provisioning_session(
             provisioning_session_id_from_location
         )
-        assert created_data_reporting_ps.status == 201
+        assert created_data_reporting_ps.status == 200
         assert (
             created_data_reporting_ps.body.provisioning_session_id
             == provisioning_session_id_from_location
