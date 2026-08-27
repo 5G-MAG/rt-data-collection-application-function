@@ -209,7 +209,7 @@ def test_crud_data_reporting_AF() -> None:
             provisioning_session_id_from_location,
             data_reporting_configuration_id,
         )
-        assert get_configuration.status == 201 # 200
+        assert get_configuration.status == 200
         configuration = get_configuration.body
         assert (
             configuration.data_collection_client_type
