@@ -8,7 +8,7 @@ https://drive.google.com/file/d/1cinCiA778IErENZ3JN52VFW-1ffHpx7Z/view
 """
 
 from .http_client import request
-from ..models.r1_confguration import (
+from ..models.r1_configuration import (
     DataReportingConfigurationRequest, DataReportingConfigurationResult, DataReportingConfigurationResponse
 )
 from ..settings import settings
