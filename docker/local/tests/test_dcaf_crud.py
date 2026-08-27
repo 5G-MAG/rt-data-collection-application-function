@@ -45,11 +45,16 @@ from tests.clients.r2_data_reporting_session import (
     get_data_reporting_session,
     delete_data_reporting_session
 )
+from tests.clients.r2_data_reporting import create_data_reporting
 
 from tests.models.r2_data_reporting_session import (
-    DataReportingSession,
-    DataReportingSessionResponse,
-    DataReportingSessionResult
+    DataReportingSession
+)
+
+from tests.models.r2_data_reporting import (
+    CommunicationRecord,
+    DataReporting,
+    TimeWindow,
 )
 
 provisioning_session_request = CreateDataReportingProvisioningSessionRequest(
@@ -89,7 +94,7 @@ data_reporting_configuration_request = DataReportingConfigurationRequest(
 )
 
 data_reporting_session_request = DataReportingSession(
-    externalApplicationId = "MyAppID",
+    externalApplicationId = "5G-MAGAppID",
     supportedDomains= ["COMMUNICATION"]
 )
 
@@ -211,12 +216,14 @@ def test_crud_data_reporting_AF() -> None:
         )
         assert session.supported_domains == data_reporting_session_request.supported_domains
         data_reporting_session_id = session.session_id
-        expected_empty_rules = {
-            domain: [] for domain in data_reporting_session_request.supported_domains
+        assert session.sampling_rules == {
+            "COMMUNICATION": [
+                {
+                    "contextIds": [data_reporting_configuration_id],
+                    "samplingPeriod": 10,
+                },
+            ],
         }
-        assert session.sampling_rules == expected_empty_rules
-        assert session.reporting_conditions == expected_empty_rules
-        assert session.reporting_rules == expected_empty_rules
 
         # Read the created Data Reporting Session.
         retrieved_data_reporting_session = get_data_reporting_session(
@@ -224,6 +231,25 @@ def test_crud_data_reporting_AF() -> None:
         )
         assert retrieved_data_reporting_session.status == 200
         assert retrieved_data_reporting_session.body == session
+
+        # Submit a communication report for the created configuration.
+        data_report = DataReporting(
+            external_application_id=data_reporting_session_request.external_application_id,
+            communication_records=[
+                CommunicationRecord(
+                    timestamp="2025-02-05T14:30:00Z",
+                    context_ids=[data_reporting_configuration_id],
+                    time_interval=TimeWindow(
+                        start_time="2025-02-05T14:28:00Z",
+                        stop_time="2025-02-05T14:29:00Z",
+                    ),
+                    uplink_volume=1000,
+                    downlink_volume=2000,
+                ),
+            ],
+        )
+        assert create_data_reporting(data_report, data_reporting_session_id) == 204
+
 
     # ==============================================================================
     # Clean Up
