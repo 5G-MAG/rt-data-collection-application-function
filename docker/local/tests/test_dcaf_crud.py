@@ -25,14 +25,14 @@ from tests.clients.r1_provisioning import (
     delete_provisioning_session,
     get_provisioning_session,
 )
-from docker.local.tests.clients.r1_configuration import (
+from tests.clients.r1_configuration import (
     create_data_reporting_configuration,
     delete_data_reporting_configuration,
     get_data_reporting_configuration,
 )
 from tests.models.r1_provisioning import CreateDataReportingProvisioningSessionRequest
 
-from docker.local.tests.models.r1_configuration import (
+from tests.models.r1_configuration import (
     DataReportingConfigurationRequest,
     DataAccessProfile,
     DataReportingCondition,
