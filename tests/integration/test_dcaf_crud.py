@@ -17,22 +17,22 @@ Requirements:
 
 
 Run:
-    pytest -v -s ~/rt-data-collection-application-function/docker/local/tests/test_dcaf_crud.py
+    pytest -v -s ~/rt-data-collection-application-function/tests/python/test_dcaf_crud.py
 """
 
-from tests.integration.clients.r1_provisioning import (
+from integration.clients.r1_provisioning import (
     create_provisioning_session,
     delete_provisioning_session,
     get_provisioning_session,
 )
-from tests.integration.clients.r1_configuration import (
+from integration.clients.r1_configuration import (
     create_data_reporting_configuration,
     delete_data_reporting_configuration,
     get_data_reporting_configuration,
 )
-from tests.integration.models.r1_provisioning import CreateDataReportingProvisioningSessionRequest
+from integration.models.r1_provisioning import CreateDataReportingProvisioningSessionRequest
 
-from tests.integration.models.r1_configuration import (
+from integration.models.r1_configuration import (
     DataReportingConfigurationRequest,
     DataAccessProfile,
     DataReportingCondition,
@@ -40,31 +40,31 @@ from tests.integration.models.r1_configuration import (
     TimeAccessRestrictions,
 )
 
-from tests.integration.clients.r2_data_reporting_session import (
+from integration.clients.r2_data_reporting_session import (
     create_data_reporting_session,
     get_data_reporting_session,
     delete_data_reporting_session
 )
-from tests.integration.clients.r2_data_reporting import create_data_reporting
+from integration.clients.r2_data_reporting import create_data_reporting
 
-from tests.integration.models.r2_data_reporting_session import (
+from integration.models.r2_data_reporting_session import (
     DataReportingSession
 )
 
-from tests.integration.models.r2_data_reporting import (
+from integration.models.r2_data_reporting import (
     CommunicationRecord,
     DataReporting,
     TimeWindow,
 )
 
-from tests.integration.models.r6_event_subscrition import (
+from integration.models.r6_event_subscrition import (
     EventSubscription,
     EventFilter,
     EventsRepInfo,
     EventsSubs
 )
 
-from tests.integration.clients.r6_event_subscrition import (
+from integration.clients.r6_event_subscrition import (
     create_event_subscription,
     get_event_subscription,
     delete_event_subscription

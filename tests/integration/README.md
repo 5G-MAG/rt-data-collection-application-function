@@ -31,9 +31,6 @@ These are the default ports from the local Docker setup. If your port mappings d
 
 ## Run Tests
 
-Run tests from `docker/local` so the local `tests` package is available:
-
 ```bash
-cd ~/rt-data-collection-application-function/docker/local
-pytest -v -s tests/test_dcaf_crud.py
+pytest -v -s ~/rt-data-collection-application-function/tests/integration/test_dcaf_crud.py
 ```
