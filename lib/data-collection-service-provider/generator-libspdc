@@ -130,15 +130,19 @@ fi
 
 # Get the absolute path to the destination directory
 destdir=`realpath -m "$scriptdir/openapi"`
+dcaf_dir=`realpath "$scriptdir/../.."`
+
 if [ -n "$MESON_SOURCE_ROOT" ]; then
-  # Use source root directory if available
+  # Open5GS is provided by the embedding host project.
   open5gs_dir=`realpath "$MESON_SOURCE_ROOT/subprojects/open5gs"`
-  rt_common_shared_dir=`realpath "$MESON_SOURCE_ROOT/subprojects/rt-common-shared"`
 else
-  # try relative to the script directory
-  open5gs_dir=`realpath "$scriptdir/../../subprojects/open5gs"`
-  rt_common_shared_dir=`realpath "$scriptdir/../../subprojects/rt-common-shared"`
+  # Stand-alone DCAF build.
+  open5gs_dir="$dcaf_dir/subprojects/open5gs"
 fi
+
+# Always use the rt-common-shared revision pinned by DCAF.
+rt_common_shared_dir="$dcaf_dir/subprojects/rt-common-shared"
+
 openapi_gen_dir="$open5gs_dir/lib/sbi/support/r17-20230301-openapitools-6.4.0/openapi-generator"
 
 if [ -n "$CACHE_DIR" ]; then
@@ -190,7 +194,7 @@ mkdir -p "$templates_dir"
 
 cp -v "${rt_common_shared_dir}/open5gs-tools/openapi-generator-templates/cpp-restbed-server/"* "${templates_dir}/"
 cp -v "${scriptdir}/openapi-generator-templates/"* "${templates_dir}/"
-sed -i "s@^templateDir:.*@templateDir: .@;/^files:/ a \\
+sed -i "s@^templateDir:.*@templateDir: \"${templates_dir}\"@;/^files:/ a \\
   api.mustache: \\
     templateType: API \\
     destinationFilename: .model \\
