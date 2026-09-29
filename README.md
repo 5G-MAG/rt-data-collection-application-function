@@ -142,7 +142,7 @@ sudo /usr/local/bin/open5gs-nrfd &
 ```
 
 Make sure the IP address and port of your NRF are configured in the `nrf` section of
-`/usr/local/etc/open5gs/dcaf.conf`, then run the Data Collection Application Function, for
+`/usr/local/etc/open5gs/dcaf.yaml`, then run the Data Collection Application Function, for
 example:
 
 ```bash
