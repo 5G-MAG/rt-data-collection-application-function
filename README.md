@@ -170,6 +170,13 @@ meson test -C build regression
 This builds the Data Collection AF if needed, starts an Open5GS NRF and the Data Collection AF,
 runs the regression tests, shuts down the NRF and the AF, and displays the results.
 
+### Integration tests (optional)
+
+End-to-end tests, run with pytest against a running local Data Collection AF started from
+`docker/local`, create, read and delete resources on the R1 (provisioning sessions and data
+reporting configurations), R2 (data reporting sessions and reports) and R6 (event subscriptions)
+APIs. Requirements and commands are in [tests/integration/README.md](tests/integration/README.md).
+
 ## Contributing
 
 Contributions are welcome. How to raise an issue, fork the repository and open a pull request, and
