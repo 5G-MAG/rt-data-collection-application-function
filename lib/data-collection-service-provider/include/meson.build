@@ -14,6 +14,9 @@ libspdc_version = '@0@.@1@.@2@'.format(libspdc_version_major,libspdc_version_min
 
 libspdc_inst_includes = files('''
     data-collection-sp/data-collection.h
+    
+    data-collection-sp/aggregation-function.h
+    data-collection-sp/data-report-record.h
 
     data-collection-sp/data-reporting.h
     data-collection-sp/data-reporting-provisioning.h

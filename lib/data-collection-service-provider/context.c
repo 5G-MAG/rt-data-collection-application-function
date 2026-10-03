@@ -148,24 +148,22 @@ int data_collection_parse_config(const data_collection_configuration_t* const co
         if (!strcmp(root_key, configuration->configuration_section)) {
             ogs_yaml_iter_t dc_iter;
 
-            bool data_reporting_provisioning_disable_r1;
-            bool data_reporting_disable_r2;
-            bool data_reporting_disable_r3;
-            bool data_reporting_disable_r4;
-	    bool event_exposure_disable_r5;
-	    bool event_exposure_disable_r6;
-	    
-	    int i = 0;
+        bool data_reporting_provisioning_disable_r1;
+        bool data_reporting_disable_r2;
+        bool data_reporting_disable_r3;
+        bool data_reporting_disable_r4;
+        bool event_exposure_disable_r5;
+        bool event_exposure_disable_r6;
 
-            data_reporting_provisioning_disable_r1 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_PROVISIONING_R1);
-            data_reporting_disable_r2 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_R2);
-            data_reporting_disable_r3 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_R3);
-            data_reporting_disable_r4 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_R4);
-	    event_exposure_disable_r5 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_EVENT_EXPOSURE_R5);
-	    event_exposure_disable_r6 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_EVENT_EXPOSURE_R6);
+        data_reporting_provisioning_disable_r1 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_PROVISIONING_R1);
+        data_reporting_disable_r2 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_R2);
+        data_reporting_disable_r3 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_R3);
+        data_reporting_disable_r4 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_DATA_REPORTING_R4);
+        event_exposure_disable_r5 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_EVENT_EXPOSURE_R5);
+        event_exposure_disable_r6 = (configuration->disable_features & DATA_COLLECTION_FEATURE_SERVER_EVENT_EXPOSURE_R6);
 
             const data_collection_data_report_handler_t * const *handlers = configuration->data_report_handlers;
-            if(!handlers[i]) {
+            if (!handlers || !handlers[0]) {
                 ogs_error("Configuration from the AF has no data report handlers");
                 return OGS_ERROR;
             }
