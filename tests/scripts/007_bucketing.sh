@@ -22,10 +22,10 @@ create_time_bucket_provisioning_session() {
   inc total_count
   if [ -n "$af_event_exposure_notif_url" ]; then
     http_post_json "$dcaf_provisioning_address" "/3gpp-ndcaf_data-reporting-provisioning/v1/sessions" '{"aspId": "MyASPId", "externalApplicationId": "'"$bucketing_app_id"'", "eventId": "UE_COMM"}'
-    if [ "$resp_statuscode" = "200" ]; then
+    if [ "$resp_statuscode" = "201" ]; then
       bucketing_psid="${resp_location##*/}"
       http_post_file "$dcaf_provisioning_address" "/3gpp-ndcaf_data-reporting-provisioning/v1/sessions/$bucketing_psid/configurations" 007_bucketing-10s_buckets.json
-      if [ "$resp_statuscode" = "200" ]; then
+      if [ "$resp_statuscode" = "201" ]; then
         inc ok_count
         bucketing_config_id="${resp_location##*/}"
       else
