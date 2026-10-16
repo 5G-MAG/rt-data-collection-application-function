@@ -134,7 +134,7 @@ dcaf_dir=`realpath "$scriptdir/../.."`
 
 if [ -n "$MESON_SOURCE_ROOT" ]; then
 # Open5GS is provided by the embedding host project
-    open5gs_dir=$(realpath "$MESON_SOURCE_ROOT/subprojects/open5gs")
+    open5gs_dir=`realpath "$MESON_SOURCE_ROOT/subprojects/open5gs"`
 else
 # Stand-alone DCAF build
     open5gs_dir="$dcaf_dir/subprojects/open5gs"
