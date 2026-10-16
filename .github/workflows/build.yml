@@ -1,9 +1,10 @@
 name: Build Data Collection Application Function
 
 on:
-  push: {}
-  schedule:
-    - cron: '0 0 * * 0' # Executes every Sunday at midnight UT
+  pull_request:
+    branches:
+      - development
+      - main
 jobs:
   ubuntu-build:
     runs-on: ubuntu-latest
