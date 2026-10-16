@@ -129,8 +129,8 @@ if [ $# -gt 0 ]; then
 fi
 
 # Get the absolute path to the destination directory
-destdir=$(realpath -m "$scriptdir/openapi")
-dcaf_dir=$(realpath "$scriptdir/../..")
+destdir=`realpath -m "$scriptdir/openapi"`
+dcaf_dir=`realpath "$scriptdir/../.."`
 
 if [ -n "$MESON_SOURCE_ROOT" ]; then
 # Open5GS is provided by the embedding host project
