@@ -24,10 +24,10 @@ create_provisioning_session_aggregation() {
 
   if [ -n "$af_event_exposure_notif_url" ]; then
     http_post_json "$dcaf_provisioning_address" "/3gpp-ndcaf_data-reporting-provisioning/v1/sessions" '{"aspId": "MyASPId", "externalApplicationId": "'"$app_id_aggregation"'", "eventId": "UE_COMM"}'
-    if [ "$resp_statuscode" = "200" ]; then
+    if [ "$resp_statuscode" = "201" ]; then
       psid_aggregation="${resp_location##*/}"
       http_post_file "$dcaf_provisioning_address" "/3gpp-ndcaf_data-reporting-provisioning/v1/sessions/$psid_aggregation/configurations" $config_json
-      if [ "$resp_statuscode" = "200" ]; then
+      if [ "$resp_statuscode" = "201" ]; then
         inc ok_count
         config_id_aggregation="${resp_location##*/}"
       else
