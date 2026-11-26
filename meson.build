@@ -20,11 +20,13 @@ project('rt-data-collection-application-function', 'c', 'cpp',
 open5gs_project=subproject('open5gs', required: true)
 
 subdir('lib')
-subdir('src')
+if not meson.is_subproject()
+  subdir('src')
 
-systemd_path_cmd = find_program('systemd-path', required: false)
-if systemd_path_cmd.found()
-  subdir('systemd')
+  systemd_path_cmd = find_program('systemd-path', required: false)
+  if systemd_path_cmd.found()
+    subdir('systemd')
+  endif
+
+  subdir('tests')
 endif
-
-subdir('tests')
