@@ -27,7 +27,7 @@ create_provisioning_session_configuration() {
   if [ -n "$provisioning_session_id" ]; then
     http_post_file "$dcaf_provisioning_address" "/3gpp-ndcaf_data-reporting-provisioning/v1/sessions/$provisioning_session_id/configurations" 002_configure-good-configuration.json
 
-    if [ "$resp_statuscode" = "200" ]; then
+    if [ "$resp_statuscode" = "201" ]; then
       inc ok_count
       configuration_id="${resp_location##*/}"
     else
@@ -90,6 +90,7 @@ create_provisioning_session_configuration_expect_error_field() {
 fetch_provisioning_session_configuration() {
   inc total_count
   if [ -n "$provisioning_session_id" -a -n "$configuration_id" ]; then
+    http_get "$dcaf_provisioning_address" "/3gpp-ndcaf_data-reporting-provisioning/v1/sessions/$provisioning_session_id/configurations/$configuration_id"
     if [ "$resp_statuscode" = "200" ]; then
       if cmp_field_str 'dataReportingConfigurationId' "$configuration_id" && \
          cmp_field_str 'dataCollectionClientType' 'DIRECT' && \
