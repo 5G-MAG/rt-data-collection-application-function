@@ -1,6 +1,8 @@
 name: Build Data Collection Application Function
 
 on:
+  schedule:
+    - cron: '0 0 * * 0' # Executes every Sunday at midnight UT
   pull_request:
     branches:
       - development
